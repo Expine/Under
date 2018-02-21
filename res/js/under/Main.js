@@ -44,7 +44,7 @@ class UnderEngine {
         div.appendChild(this.canvas);
         document.body.appendChild(div);
         // set input
-        this.input = new Input(this.canvas);
+        this.input = new DefaultInput(this.canvas);
         this.ctx = this.canvas.getContext("2d");
 
         this.render = _ => {

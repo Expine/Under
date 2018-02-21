@@ -1,0 +1,11 @@
+@startuml UnderEngine
+
+UnderEngine -> Input
+UnderEngine -> Scene
+
+Scene -> Stage
+
+Stage -> Map
+Stage -> Entity
+
+@enduml
