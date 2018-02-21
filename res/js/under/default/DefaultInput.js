@@ -26,12 +26,6 @@ class DefaultInput extends Input {
             CENTER: 1,
             RIGHT: 2
         };
-        // key code
-        this.K = {
-            YES: 90,
-            NO: 88,
-            SUB: 67
-        };
     }
 
     /**
