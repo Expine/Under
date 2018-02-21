@@ -12,7 +12,6 @@ class UnderEngine {
      * @param {number} [height = 600] - screen height
      */
     constructor(root, width = 800, height = 600) {
-        this.source = new SourceManager(root);
         this.gameSize = 1;
         this.width = width;
         this.height = height;
@@ -26,8 +25,6 @@ class UnderEngine {
         this.canvas.width = width;
         this.canvas.height = height;
         this.canvas.setAttribute("style", "canvas");
-
-        this.source.addSources();
     }
 
     /**
@@ -63,35 +60,6 @@ class UnderEngine {
             this.canvas.height = this.gameSize * this.height;
             this.canvas.style.height = this.canvas.height + "px";
         })();
-    }
-}
-
-class SourceManager {
-    constructor(root) {
-        this.root = root;
-    }
-
-    /**
-     * Add under engine source file
-     * @param {string} path - relative source file path
-     */
-    addUnderSource(path) {
-        this.addSource('under/' + path);
-    }
-
-    /**
-     * Add source file
-     * @param {string} path - relative source file path
-     */
-    addSource(path) {
-        document.write('<script src="' + this.root + "/" + path + '"></script>')
-    }
-
-    /**
-     * Add all under engine source file
-     */
-    addSources() {
-        this.addUnderSource("Scene.js");
     }
 }
 class Scene {
