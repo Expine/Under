@@ -1,3 +1,7 @@
+/**
+ * Title Scene
+ * @classdesc Title scene class
+ */
 class TitleScene extends Scene {
     render(ctx) {
         ctx.fillStyle = "white"

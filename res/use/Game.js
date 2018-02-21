@@ -1,11 +1,1 @@
-class TitleScene extends Scene {
-    render(ctx) {
-        ctx.fillStyle = "white"
-        ctx.font = "50px Arial"
-        ctx.fillText("Press to Start", 400, 300)
-    }
-}
-// create engine
-let engine = new UnderEngine("res/js");
-// execute
-engine.execute(new TitleScene());
+{let script = document.createElement('script');script.src='res/js/under/Main.js';document.head.appendChild(script);script.onload = function() {let script = document.createElement('script');script.src='res/js/under/Scene.js';document.head.appendChild(script);script.onload = function() {let script = document.createElement('script');script.src='res/js/under/Input.js';document.head.appendChild(script);script.onload = function() {let script = document.createElement('script');script.src='res/js/scene/TitleScene.js';document.head.appendChild(script);script.onload = function() {let script = document.createElement('script');script.src='res/js/Main.js';document.head.appendChild(script);script.onload = function() {};};};};};};

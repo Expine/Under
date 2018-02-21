@@ -10,6 +10,14 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "Doc",
+            "type": "shell",
+            "command": "call ./util/DocumentBuild.bat",
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }
