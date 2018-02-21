@@ -3,4 +3,6 @@ let engine = new UnderEngine("res/js");
 engine.source.addSource("scene/TitleScene.js")
 
 // execute
-// engine.execute(new TitleScene());
+window.setTimeout(() => {
+    engine.execute(new TitleScene());
+}, 100);
