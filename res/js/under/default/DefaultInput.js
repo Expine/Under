@@ -1,11 +1,14 @@
+/**
+ * Default input example
+ * @classdesc Input sample class
+ */
 class DefaultInput extends Input {
     /**
      * Constructor for default input
      * @constructor
-     * @param {Element} target - input target
      */
-    constructor(target) {
-        super(target);
+    constructor() {
+        super();
         this.inputMouse = new Array(5);
         this.inputKey = new Array(255);
 
@@ -35,7 +38,7 @@ class DefaultInput extends Input {
      * Get mouse x position
      * @return mouse x position
      */
-    mouseX() {
+    getMouseX() {
         return this.mouseX;
     }
 
@@ -43,7 +46,7 @@ class DefaultInput extends Input {
      * Get mouse x position
      * @return mouse x position
      */
-    mouseY() {
+    getMouseY() {
         return this.mouseY;
     }
 
@@ -123,6 +126,24 @@ class DefaultInput extends Input {
             else if (this.inputKey[i] == this.STATE.PRESSED)
                 this.inputKey[i] = this.STATE.ON;
         }
+    }
+
+    /**
+     * Judge whether mouse pressed now
+     * @param {number} code - target mouse code
+     * @return whether mouse pressed now
+     */
+    isMousePress(code) {
+        return this.inputMouse[code] !== undefined && this.inputMouse[code] == this.STATE.PRESSED
+    }
+
+    /**
+     * Judge whether mouse pressed
+     * @param {number} code - target mouse code
+     * @return whether mouse pressed
+     */
+    isMousePressed(code) {
+        return this.inputMouse[code] !== undefined && (this.inputMouse[code] == this.STATE.PRESSED || this.inputMouse[code] == this.STATE.ON)
     }
 
     /**

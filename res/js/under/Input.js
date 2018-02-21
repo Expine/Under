@@ -4,11 +4,10 @@
  */
 class Input {
     /**
-     * Constructor for input
-     * @constructor
+     * Set input target
      * @param {Element} target - input target
      */
-    constructor(target) {
+    setTarget(target) {
         this.target = target;
 
         // mouse

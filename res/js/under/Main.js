@@ -1,6 +1,10 @@
 /**
  * Under engine
  * @classdesc Under engine main class
+ * @sample
+ * let engine = new UnderEngine("relative/path");
+ * engine.setInput(new DefaultInput());
+ * engine.execute(new DefaultScene());
  */
 class UnderEngine {
     /**
@@ -27,15 +31,6 @@ class UnderEngine {
         this.canvas.width = width;
         this.canvas.height = height;
         this.canvas.setAttribute("style", "canvas");
-    }
-
-    /**
-     * Execute engine
-     * @param {Scene} scene - Init scene
-     */
-    execute(scene) {
-        this.scene = scene;
-        this.oldTime = +new Date();
 
         // set canvas
         let div = document.createElement("div");
@@ -43,9 +38,17 @@ class UnderEngine {
         div.setAttribute("id", "UnderCanvasDiv");
         div.appendChild(this.canvas);
         document.body.appendChild(div);
-        // set input
-        this.input = new DefaultInput(this.canvas);
         this.ctx = this.canvas.getContext("2d");
+
+    }
+
+    /**
+     * Execute engine
+     * @param {Scene} scene - Init scene
+     */
+    execute(scene) {
+        this.transition(scene);
+        this.oldTime = +new Date();
 
         this.render = _ => {
             requestAnimationFrame(this.render);
@@ -65,11 +68,13 @@ class UnderEngine {
         requestAnimationFrame(this.render);
 
         (window.onresize = () => {
+            /*
             this.gameSize = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
             this.canvas.width = this.gameSize * this.width;
             this.canvas.style.width = this.canvas.width + "px";
             this.canvas.height = this.gameSize * this.height;
             this.canvas.style.height = this.canvas.height + "px";
+            */
         })();
     }
 
@@ -79,5 +84,15 @@ class UnderEngine {
      */
     transition(scene) {
         this.scene = scene;
+        scene.setInput(this.input);
+    }
+
+    /**
+     * Set input system
+     * @param {Input} input - input system
+     */
+    setInput(input) {
+        this.input = input;
+        input.setTarget(this.canvas);
     }
 }
