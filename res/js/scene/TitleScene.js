@@ -7,7 +7,7 @@ class TitleScene extends Scene {
         let text = "Press to Start";
         ctx.fillStyle = "white";
         ctx.font = "50px Arial";
-        ctx.fillText(text, 400 - ctx.measureText(text), 300);
+        ctx.fillText(text, 400 - ctx.measureText(text).width / 2, 300);
         if (this.input.isYesPress()) {
             engine.transition(new GameScene());
         }

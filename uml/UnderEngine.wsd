@@ -1,11 +1,28 @@
 @startuml UnderEngine
 
-UnderEngine -> Input
-UnderEngine -> Scene
+Under.UnderEngine --> Under.Input
+Under.UnderEngine --> Under.Scene
 
-Scene -> Stage
+Under.Input <|.. Under.DefaultInput
+Under.DefaultInput <|- ExtendInput
 
-Stage -> Map
-Stage -> Entity
+Under.Scene <|.. Under.DefaultScene
+Under.Scene o-- Under.Stage
+
+Under.Scene <|. TitleScene
+Under.Scene <|. GameScene
+
+Under.Stage *-- Under.Entity
+
+Under.Entity <|.. Under.ImmutableMapObject
+Under.Entity <|.. Under.MutableMapObject
+Under.MutableMapObject <|.. Under.Character
+
+Under.Character <|-- Under.DefaultPlayer
+Under.Character <|-- Under.DefaultEnemy
+
+Under.ImmutableMapObject o-- Under.RigidBody
+Under.MutableMapObject o-- Under.RigidBody
+Under.Character o-- Under.RigidBody
 
 @enduml

@@ -39,7 +39,6 @@ class UnderEngine {
         div.appendChild(this.canvas);
         document.body.appendChild(div);
         this.ctx = this.canvas.getContext("2d");
-
     }
 
     /**
