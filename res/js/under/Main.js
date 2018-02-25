@@ -45,24 +45,29 @@ class UnderEngine {
         style.append("canvas {display:block;width: " + width + "px;height: " + height + "px;margin: 0px auto;}");
         document.head.appendChild(style);
 
-        // generate canvas
         /**
          * Game canvas
          * @private
          * @type {Canvas}
          */
-        this.canvas_ = document.createElement("canvas");
+        this.canvas_;
+        if (document.querySelector("canvas") == null) {
+            // generate canvas
+            this.canvas_ = document.createElement("canvas");
+            // set canvas
+            let div = document.createElement("div");
+            div.setAttribute("tabindex", "1");
+            div.setAttribute("id", "UnderCanvasDiv");
+            div.appendChild(this.canvas_);
+            document.body.appendChild(div);
+        } else {
+            this.canvas_ = document.querySelector("canvas");
+        }
         this.canvas_.id = "UnderCanvas";
         this.canvas_.width = width;
         this.canvas_.height = height;
         this.canvas_.setAttribute("style", "canvas");
 
-        // set canvas
-        let div = document.createElement("div");
-        div.setAttribute("tabindex", "1");
-        div.setAttribute("id", "UnderCanvasDiv");
-        div.appendChild(this.canvas_);
-        document.body.appendChild(div);
 
         /**
          * Canvas context

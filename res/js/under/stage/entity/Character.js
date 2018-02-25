@@ -1,4 +1,4 @@
-class Character extends MmutableObject {
+class Character extends MutableObject {
     /**
      * Render entity
      * @param {CanvasRenderingContext2D} ctx - canvas context

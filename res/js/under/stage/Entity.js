@@ -30,6 +30,6 @@ class Entity {
      */
     render(ctx) {
         if (this.image !== undefined)
-            ctx.drawImage(this.image, this.x, this.y);
+            ctx.drawImage(this.image, 0, 0, 32, 32, this.x, this.y, 32, 32);
     }
 }
