@@ -1,13 +1,21 @@
 /**
- * Input class
- * @classdesc Manage input event
+ * Input system
+ * Manage input event including mouse and key
+ * @classdesc Input system for managing input event
  */
 class Input {
     /**
      * Set input target
+     * Set mouse and key event
      * @param {Element} target - input target
      */
     setTarget(target) {
+        /**
+         * Input target
+         * For example, div, document
+         * @protected
+         * @type {Element}
+         */
         this.target = target;
 
         // mouse
@@ -36,59 +44,82 @@ class Input {
     }
 
     /**
+     * Set engine instance for getting screen ratio
+     * @param {UnderEngine} engine
+     */
+    setEngine(engine) {
+        /**
+         * Under game engine instance for getting screen ratio
+         * @protected
+         * @type {UnderEngine}
+         */
+        this.engine = engine;
+    }
+
+    /**
      * Update input state
+     * @interface
      */
     update() {}
 
     /**
      * Mouse move function
+     * @interface
      * @param {MouseEvent} e - mouse event
      */
     onMouseMove(e) {}
 
     /**
      * Mouse down function
+     * @interface
      * @param {MouseEvent} e - mouse event
      */
     onMouseDown(e) {}
 
     /**
      * Mouse up function
+     * @interface
      * @param {MouseEvent} e - mouse event
      */
     onMouseUp(e) {}
 
     /**
      * Key down function
+     * @interface
      * @param {KeyEvent} e - key event
      */
     onKeyDown(e) {}
 
     /**
      * Key up function
+     * @interface
      * @param {KeyEvent} e - key event
      */
     onKeyUp(e) {}
 
     /**
      * Clear key and mouse state
+     * @interface
      */
     clear() {}
 
     /**
      * Get mouse x position
+     * @interface
      * @return mouse x position
      */
-    mouseX() {}
+    getMouseX() {}
 
     /**
      * Get mouse x position
+     * @interface
      * @return mouse x position
      */
-    mouseY() {}
+    getMouseY() {}
 
     /**
      * Judge whether mouse pressed now
+     * @interface
      * @param {number} code - target mouse code
      * @return whether mouse pressed now
      */
@@ -96,6 +127,7 @@ class Input {
 
     /**
      * Judge whether mouse pressed
+     * @interface
      * @param {number} code - target mouse code
      * @return whether mouse pressed
      */
@@ -103,6 +135,7 @@ class Input {
 
     /**
      * Judge whether key pressed now
+     * @interface
      * @param {number} code - target key code
      * @return whether key pressed now
      */
@@ -110,6 +143,7 @@ class Input {
 
     /**
      * Judge whether key pressed
+     * @interface
      * @param {number} code - target key code
      * @return whether key pressed
      */

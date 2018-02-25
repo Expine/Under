@@ -1,0 +1,3 @@
+class DefaultStageParser extends StageParser {
+
+}

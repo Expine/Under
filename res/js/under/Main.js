@@ -1,7 +1,7 @@
 /**
  * Under engine
  * @classdesc Under engine main class
- * @sample
+ * @example
  * let engine = new UnderEngine("relative/path");
  * engine.setInput(new DefaultInput());
  * engine.execute(new DefaultScene());
@@ -10,15 +10,35 @@ class UnderEngine {
     /**
      * Under engine constructor
      * @constructor
-     * @param {string} root - under engine root path
-     * @param {number} [width = 800] - screen width
-     * @param {number} [height = 600] - screen height
+     * @param {string} root  under engine root path
+     * @param {number} [width = 800]  screen width
+     * @param {number} [height = 600]  screen height
      */
     constructor(root, width = 800, height = 600) {
-        // set base data
-        this.gameSize = 1;
-        this.width = width;
-        this.height = height;
+        /**
+         * Game screen ratio
+         * @private
+         * @type {number}
+         */
+        this.gameSize_ = 1;
+        /**
+         * Game screen width size
+         * @private
+         * @type {number}
+         */
+        this.width_ = width;
+        /**
+         * Game screen height size
+         * @private
+         * @type {number}
+         */
+        this.height_ = height;
+        /**
+         * Previous measurement time
+         * @private
+         * @type {number}
+         */
+        this.oldTime_;
 
         // generate style
         let style = document.createElement("style");
@@ -26,72 +46,104 @@ class UnderEngine {
         document.head.appendChild(style);
 
         // generate canvas
-        this.canvas = document.createElement("canvas");
-        this.canvas.id = "UnderCanvas";
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.canvas.setAttribute("style", "canvas");
+        /**
+         * Game canvas
+         * @private
+         * @type {Canvas}
+         */
+        this.canvas_ = document.createElement("canvas");
+        this.canvas_.id = "UnderCanvas";
+        this.canvas_.width = width;
+        this.canvas_.height = height;
+        this.canvas_.setAttribute("style", "canvas");
 
         // set canvas
         let div = document.createElement("div");
         div.setAttribute("tabindex", "1");
         div.setAttribute("id", "UnderCanvasDiv");
-        div.appendChild(this.canvas);
+        div.appendChild(this.canvas_);
         document.body.appendChild(div);
-        this.ctx = this.canvas.getContext("2d");
+
+        /**
+         * Canvas context
+         * @private
+         * @type {CanvasRenderingContext2D}
+         */
+        this.ctx_ = this.canvas_.getContext("2d");
     }
 
     /**
      * Execute engine
-     * @param {Scene} scene - Init scene
+     * @param {Scene} scene Init scene
      */
     execute(scene) {
         this.transition(scene);
-        this.oldTime = +new Date();
+        this.oldTime_ = +new Date();
 
         this.render = _ => {
             requestAnimationFrame(this.render);
             // update
             let newTime = +new Date();
-            this.input.update();
-            this.scene.update(newTime - this.oldTime);
-            this.oldTime = newTime;
+            this.input_.update();
+            this.scene_.update(newTime - this.oldTime_);
+            this.oldTime_ = newTime;
+
             // draw
-            this.ctx.save();
-            this.ctx.scale(this.gameSize, this.gameSize);
-            this.ctx.fillStyle = "black";
-            this.ctx.fillRect(0, 0, this.width, this.height);
-            this.scene.render(this.ctx);
-            this.ctx.restore();
+            this.ctx_.save();
+            this.ctx_.scale(this.gameSize_, this.gameSize_);
+            this.ctx_.fillStyle = "black";
+            this.ctx_.fillRect(0, 0, this.width_, this.height_);
+            this.scene_.render(this.ctx_);
+            this.ctx_.restore();
         };
         requestAnimationFrame(this.render);
 
         (window.onresize = () => {
             /*
-            this.gameSize = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
-            this.canvas.width = this.gameSize * this.width;
-            this.canvas.style.width = this.canvas.width + "px";
-            this.canvas.height = this.gameSize * this.height;
-            this.canvas.style.height = this.canvas.height + "px";
+            this.gameSize_ = Math.min((innerWidth - 16) / this.width_, (innerHeight - 16) / this.height_);
+            this.canvas_.width = this.gameSize_ * this.width_;
+            this.canvas_.style.width = this.canvas_.width + "px";
+            this.canvas_.height = this.gameSize_ * this.height_;
+            this.canvas_.style.height = this.canvas_.height + "px";
             */
         })();
     }
 
     /**
      * Transition scene
-     * @param {Scene} scene - scene for transition
+     * @param {Scene} scene scene for transition
      */
     transition(scene) {
-        this.scene = scene;
-        scene.setInput(this.input);
+        /**
+         * Game scene instance
+         * @private
+         * @type {Scene}
+         */
+        this.scene_ = scene;
+        scene.setInput(this.input_);
     }
 
     /**
      * Set input system
-     * @param {Input} input - input system
+     * @private
+     * @param {Input} input input system
      */
     setInput(input) {
-        this.input = input;
-        input.setTarget(this.canvas);
+        /**
+         * Input system instance
+         * @private
+         * @type {Input}
+         */
+        this.input_ = input;
+        input.setTarget(this.canvas_);
+        input.setEngine(this);
+    }
+
+    /**
+     * Get game screen ratio
+     * @return {number} game screen ratio
+     */
+    getGameSize() {
+        return gameSize_;
     }
 }

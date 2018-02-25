@@ -1,12 +1,17 @@
 /**
- * Extend input system
- * @classdesc Extended input system for yes and no and sub key
+ * Extended input system
+ * Extend yes, no, sub key system
+ * @classdesc Extended input system including yes and no and sub key
+ * @prop
  */
 class ExtendInput extends DefaultInput {
     constructor() {
         super();
 
-        // key code
+        /**
+         * Keycode of extended key
+         * @enum {number}
+         */
         this.K = {
             YES: 90,
             NO: 88,

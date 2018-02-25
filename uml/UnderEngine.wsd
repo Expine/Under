@@ -1,28 +1,74 @@
 @startuml UnderEngine
 
-Under.UnderEngine --> Under.Input
-Under.UnderEngine --> Under.Scene
+package Under {
+    class UnderEngine
+    abstract Scene
+    abstract Input
 
-Under.Input <|.. Under.DefaultInput
-Under.DefaultInput <|- ExtendInput
+    package default_main {
+        class DefaultScene
+        class DefaultInput
+    }
 
-Under.Scene <|.. Under.DefaultScene
-Under.Scene o-- Under.Stage
+    package stage {
+        abstract Stage
+        abstract Entity
+        abstract StageParser
 
-Under.Scene <|. TitleScene
-Under.Scene <|. GameScene
+        package entity {
+            abstract ImmutableObject
+            abstract MutableObject
+            abstract Character
 
-Under.Stage *-- Under.Entity
+            package physics {
+                abstract RigidBody
+            }
+        }
 
-Under.Entity <|.. Under.ImmutableMapObject
-Under.Entity <|.. Under.MutableMapObject
-Under.MutableMapObject <|.. Under.Character
+        package default_stage {
+            class DefaultStage
+            class DefaultStageParser
+            class DefaultPlayer
+            class DefaultEnemy
+        }
+    }
+}
 
-Under.Character <|-- Under.DefaultPlayer
-Under.Character <|-- Under.DefaultEnemy
+package scene {
+    class TitleScene
+    class GameScene
+}
 
-Under.ImmutableMapObject o-- Under.RigidBody
-Under.MutableMapObject o-- Under.RigidBody
-Under.Character o-- Under.RigidBody
+Main --> UnderEngine
+
+UnderEngine --> Input
+UnderEngine --> Scene
+
+Input <|.. DefaultInput
+DefaultInput <|- ExtendInput
+
+Scene <|.. DefaultScene
+Scene o-- Stage
+
+Scene <|.. TitleScene
+Scene <|.. GameScene
+
+Stage o-- Entity
+
+Stage *-- StageParser
+
+Entity <|.. ImmutableObject
+Entity <|.. MutableObject
+MutableObject <|.. Character
+
+Character <|-- DefaultPlayer
+Character <|-- DefaultEnemy
+
+ImmutableObject o-- RigidBody
+MutableObject o-- RigidBody
+Character o-- RigidBody
+
+Stage <|.. DefaultStage
+StageParser <|.. DefaultStageParser
 
 @enduml

@@ -1,26 +1,34 @@
 /**
- * Stage base class
+ * Stage
+ * Manage stage element such as entity
+ * @implements
  * @classdesc Stage base class
  */
 class Stage {
+    /**
+     * Constructor for stage
+     * Set iteratable
+     * @constructor
+     */
     constructor() {
-        this.immutables = new Array();
-        this.mutables = new Array();
-        this.characters = new Array();
+        this[Symbol.iterator] = function () {
+            return this;
+        };
     }
 
     /**
      * Add entity to stage
+     * @interface
      * @param {Entity} entity - entity object
      */
-    addEntity(entity) {
-        if (entity instanceof ImmutableObject)
-            this.immutables.push(entity);
-        else if (entity instanceof MutableObject)
-            this.mutables.push(entity);
-        else if (entity instanceof Character)
-            this.characters.push(entity);
-    }
+    addEntity(entity) {}
+
+    /**
+     * Get entity iterator
+     * @interface
+     * @return {Iterator} entity iterator
+     */
+    next() {}
 
     /**
      * Render stage
@@ -28,8 +36,7 @@ class Stage {
      */
     render(ctx) {
         // render entity
-        for (let array of [this.immutables, this.mutables, this.characters])
-            for (let it of array)
-                it.render(ctx);
+        for (let it of this)
+            it.render(ctx);
     }
 }

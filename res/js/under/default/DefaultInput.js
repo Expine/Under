@@ -1,5 +1,7 @@
 /**
  * Default input example
+ * Implement input method
+ * @implements {Input}
  * @classdesc Input sample class
  */
 class DefaultInput extends Input {
@@ -9,18 +11,50 @@ class DefaultInput extends Input {
      */
     constructor() {
         super();
-        this.inputMouse = new Array(5);
-        this.inputKey = new Array(255);
+        /**
+         * Array for registering mouse input state
+         * @private
+         * @type {Array}
+         */
+        this.inputMouse_ = new Array(5);
+        /**
+         * Array for registering key input state
+         * @private
+         * @type {Array}
+         */
+        this.inputKey_ = new Array(255);
+
+        /**
+         * Mouse x position
+         * @private
+         * @type {number}
+         */
+        this.mouseX_ = 0;
+        /**
+         * Mouse y position
+         * @private
+         * @type {number}
+         */
+        this.mouseY_ = 0;
 
         // set enum
-        // input state
-        this.STATE = {
+        /**
+         * Input state
+         * @private
+         * @const
+         * @enum {number}
+         */
+        this.STATE_ = {
             NONE: 0,
             PRESS: 1,
             PRESSED: 2,
             ON: 3
         };
-        // mouse button
+        /**
+         * Mouse button enumeration
+         * @const
+         * @enum {number}
+         */
         this.M = {
             LEFT: 0,
             CENTER: 1,
@@ -30,131 +64,144 @@ class DefaultInput extends Input {
 
     /**
      * Get mouse x position
+     * @override
      * @return mouse x position
      */
     getMouseX() {
-        return this.mouseX;
+        return this.mouseX_;
     }
 
     /**
      * Get mouse x position
+     * @override
      * @return mouse x position
      */
     getMouseY() {
-        return this.mouseY;
+        return this.mouseY_;
     }
 
     /**
      * Mouse move function
+     * @override
      * @param {MouseEvent} e - mouse event
      */
     onMouseMove(e) {
         const rect = this.target.getBoundingClientRect();
-        this.mouseX = e.clientX - rect.left;
-        this.mouseY = e.clientY - rect.top;
+        this.mouseX_ = e.clientX - rect.left;
+        this.mouseY_ = e.clientY - rect.top;
     }
 
     /**
      * Mouse down function
+     * @override
      * @param {MouseEvent} e - mouse event
      */
     onMouseDown(e) {
         let button = e.button;
-        if (this.inputMouse[button] === undefined || this.inputMouse[button] == this.STATE.NONE)
-            this.inputMouse[button] = this.STATE.PRESS;
+        if (this.inputMouse_[button] === undefined || this.inputMouse_[button] == this.STATE_.NONE)
+            this.inputMouse_[button] = this.STATE_.PRESS;
     }
 
     /**
      * Mouse up function
+     * @override
      * @param {MouseEvent} e - mouse event
      */
     onMouseUp(e) {
         let button = e.button;
-        this.inputMouse[button] = this.STATE.NONE;
+        this.inputMouse_[button] = this.STATE_.NONE;
     }
 
     /**
      * Key down function
+     * @override
      * @param {KeyEvent} e - key event
      */
     onKeyDown(e) {
         let code = e.keyCode;
-        if (this.inputKey[code] === undefined || this.inputKey[code] == this.STATE.NONE)
-            this.inputKey[code] = this.STATE.PRESS;
+        if (this.inputKey_[code] === undefined || this.inputKey_[code] == this.STATE_.NONE)
+            this.inputKey_[code] = this.STATE_.PRESS;
     }
 
     /**
      * Key up function
+     * @override
      * @param {KeyEvent} e - key event
      */
     onKeyUp(e) {
         let code = e.keyCode;
-        this.inputKey[code] = this.STATE.NONE;
+        this.inputKey_[code] = this.STATE_.NONE;
     }
 
     /**
      * Clear key and mouse state
+     * @override
      */
     clear() {
-        for (let i = 0; i < this.inputMouse.length; ++i)
-            this.inputMouse[i] = this.STATE.NONE;
-        for (let i = 0; i < this.inputKey.length; ++i)
-            this.inputKey[i] = this.STATE.NONE;
+        for (let i = 0; i < this.inputMouse_.length; ++i)
+            this.inputMouse_[i] = this.STATE_.NONE;
+        for (let i = 0; i < this.inputKey_.length; ++i)
+            this.inputKey_[i] = this.STATE_.NONE;
     }
 
     /**
      * Update input state
+     * @override
      */
     update() {
         // update mouse state
-        for (let i = 0; i < this.inputMouse.length; ++i) {
-            if (this.inputMouse[i] == this.STATE.PRESS)
-                this.inputMouse[i] = this.STATE.PRESSED;
-            else if (this.inputMouse[i] == this.STATE.PRESSED)
-                this.inputMouse[i] = this.STATE.ON;
+        for (let i = 0; i < this.inputMouse_.length; ++i) {
+            if (this.inputMouse_[i] == this.STATE_.PRESS)
+                this.inputMouse_[i] = this.STATE_.PRESSED;
+            else if (this.inputMouse_[i] == this.STATE_.PRESSED)
+                this.inputMouse_[i] = this.STATE_.ON;
         }
         // update key state
-        for (let i = 0; i < this.inputKey.length; ++i) {
-            if (this.inputKey[i] == this.STATE.PRESS)
-                this.inputKey[i] = this.STATE.PRESSED;
-            else if (this.inputKey[i] == this.STATE.PRESSED)
-                this.inputKey[i] = this.STATE.ON;
+        for (let i = 0; i < this.inputKey_.length; ++i) {
+            if (this.inputKey_[i] == this.STATE_.PRESS)
+                this.inputKey_[i] = this.STATE_.PRESSED;
+            else if (this.inputKey_[i] == this.STATE_.PRESSED)
+                this.inputKey_[i] = this.STATE_.ON;
         }
     }
 
     /**
      * Judge whether mouse pressed now
+     * @override
      * @param {number} code - target mouse code
      * @return whether mouse pressed now
      */
     isMousePress(code) {
-        return this.inputMouse[code] !== undefined && this.inputMouse[code] == this.STATE.PRESSED
+        return this.inputMouse_[code] !== undefined && this.inputMouse_[code] == this.STATE_.PRESSED
     }
 
     /**
      * Judge whether mouse pressed
+     * @override
      * @param {number} code - target mouse code
      * @return whether mouse pressed
      */
     isMousePressed(code) {
-        return this.inputMouse[code] !== undefined && (this.inputMouse[code] == this.STATE.PRESSED || this.inputMouse[code] == this.STATE.ON)
+        return this.inputMouse_[code] !== undefined && (this.inputMouse_[code] == this.STATE_.PRESSED || this.inputMouse_[code] == this.STATE_.ON)
     }
 
     /**
      * Judge whether key pressed now
+     * @override
      * @param {number} code - target key code
      * @return whether key pressed now
      */
     isKeyPress(code) {
-        return this.inputKey[code] !== undefined && this.inputKey[code] == this.STATE.PRESSED
+        return this.inputKey_[code] !== undefined && this.inputKey_[code] == this.STATE_.PRESSED
     }
 
     /**
      * Judge whether key pressed
+     * @override
      * @param {number} code - target key code
      * @return whether key pressed
      */
     isKeyPressed(code) {
-        return this.inputKey[code] !== undefined && (this.inputKey[code] == this.STATE.PRESSED || this.inputKey[code] == this.STATE.ON)
+        return this.inputKey_[code] !== undefined && (this.inputKey_[code] == this.STATE_.PRESSED || this.inputKey_[code] == this.STATE_.ON)
     }
 }

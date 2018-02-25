@@ -5,14 +5,14 @@
 class GameScene extends Scene {
     constructor() {
         super();
-        this.stage = new Stage();
+        this.stage = new DefaultStage();
         let image = new Image();
         image.src = "res/image/tile/tile.png";
         let chara = new Image();
         chara.src = "res/image/chara/player.png"
         for (let i = 0; i < 25; i++)
             this.stage.addEntity(new ImmutableObject(i * 32, 500, image));
-        this.stage.addEntity(new ImmutableObject(64, 468, chara));
+        this.stage.addEntity(new MutableObject(64, 468, chara));
     }
     render(ctx) {
         let text = "Game Scene";

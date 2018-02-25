@@ -1,5 +1,6 @@
 /**
  * Entity
+ * @classdesc Stage entity base class
  */
 class Entity {
     /**

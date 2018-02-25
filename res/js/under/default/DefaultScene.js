@@ -1,28 +1,53 @@
 /**
  * Default scene example
+ * Implement scene method
  * @classdesc Scene sample class
  */
 class DefaultScene extends Scene {
+    /**
+     * Constructor for default scene
+     * @constructor
+     */
     constructor() {
         super();
-        this.r = 10;
-        this.angle = 0;
+        /**
+         * Circle radius
+         * @private
+         * @type {number}
+         */
+        this.r_ = 10;
+        /**
+         * Circle angle
+         * @private
+         * @type {number}
+         */
+        this.angle_ = 0;
     }
 
+    /**
+     * Update scene
+     * @override
+     * @param {number} dt - delta time
+     */
     update(dt) {
         // update circle angle and radius
         if (this.input.isMousePressed(this.input.M.LEFT)) {
-            this.r += dt / 20;
-            this.angle = this.angle + Math.PI / 10 * dt / 20;
+            this.r_ += dt / 20;
+            this.angle_ = this.angle_ + Math.PI / 10 * dt / 20;
         } else {
-            this.r -= dt / 20;
-            this.angle = this.angle + Math.PI / 30 * dt / 20;
+            this.r_ -= dt / 20;
+            this.angle_ = this.angle_ + Math.PI / 30 * dt / 20;
         }
-        this.r = this.r > 20 ? 20 : this.r < 10 ? 10 : this.r;
-        if (this.angle > Math.PI * 2.5)
-            this.angle -= Math.PI * 2.5;
+        this.r_ = this.r_ > 20 ? 20 : this.r_ < 10 ? 10 : this.r_;
+        if (this.angle_ > Math.PI * 2.5)
+            this.angle_ -= Math.PI * 2.5;
     }
 
+    /**
+     * Render scene
+     * @override
+     * @param {CanvasRenderingContext2D} ctx
+     */
     render(ctx) {
         // render sample text
         let sample = "Sample";
@@ -36,10 +61,10 @@ class DefaultScene extends Scene {
             ctx.fillText("Enter pressed", 400 - ctx.measureText("Enter pressed").width / 2, 400);
 
         // render circle on mouse
-        let angle = this.angle > Math.PI * 2 ? Math.PI * 2 : this.angle;
+        let angle = this.angle_ > Math.PI * 2 ? Math.PI * 2 : this.angle_;
         ctx.beginPath();
         ctx.strokeStyle = "white";
-        ctx.arc(this.input.getMouseX(), this.input.getMouseY(), this.r, 0, angle, false);
+        ctx.arc(this.input.getMouseX(), this.input.getMouseY(), this.r_, 0, angle, false);
         ctx.stroke();
     }
 }
