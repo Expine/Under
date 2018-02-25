@@ -28,18 +28,6 @@ class DefaultStage extends Stage {
          * @type {Array}
          */
         this.characters_ = new Array();
-        /**
-         * Processing list for next method
-         * @private
-         * @type {Array}
-         */
-        this.proccessingList_ = null;
-        /**
-         * Iterator for loop
-         * @private
-         * @type {Iterator}
-         */
-        this.iterator_ = null;
     }
 
     /**
@@ -57,32 +45,30 @@ class DefaultStage extends Stage {
     }
 
     /**
-     * Get entity iterator
-     * @override
-     * @return {Iterator} entity iterator
+     * Update stage
+     * @param {number} dt delta time
      */
-    next() {
-        if (this.proccessingList_ == null) {
-            this.proccessingList_ = this.immutables_;
-            this.iterator_ = this.proccessingList_[Symbol.iterator]();
-        }
-        let it;
-        while (true) {
-            it = this.iterator_.next();
-            if (it.done) {
-                if (this.proccessingList_ == this.immutables_)
-                    this.proccessingList_ = this.mutables_;
-                else if (this.proccessingList_ == this.mutables_)
-                    this.proccessingList_ = this.characters_;
-                else {
-                    this.proccessingList_ = null;
-                    break;
-                }
-                this.iterator_ = this.proccessingList_[Symbol.iterator]();
-                continue;
-            }
-            break;
-        }
-        return it;
+    update(dt) {
+        // update entity
+        for (let it of this.immutables_)
+            it.update(dt);
+        for (let it of this.mutables_)
+            it.update(dt);
+        for (let it of this.characters_)
+            it.update(dt);
+    }
+
+    /**
+     * Render stage
+     * @param {CanvasRenderingContext2D} ctx - canvas context
+     */
+    render(ctx) {
+        // render entity
+        for (let it of this.immutables_)
+            it.render(ctx);
+        for (let it of this.mutables_)
+            it.render(ctx);
+        for (let it of this.characters_)
+            it.render(ctx);
     }
 }

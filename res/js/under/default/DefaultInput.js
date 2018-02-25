@@ -87,8 +87,8 @@ class DefaultInput extends Input {
      */
     onMouseMove(e) {
         const rect = this.target.getBoundingClientRect();
-        this.mouseX_ = e.clientX - rect.left;
-        this.mouseY_ = e.clientY - rect.top;
+        this.mouseX_ = (e.clientX - rect.left) / this.screen.gameSize;
+        this.mouseY_ = (e.clientY - rect.top) / this.screen.gameSize;
     }
 
     /**

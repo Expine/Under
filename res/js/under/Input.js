@@ -47,16 +47,16 @@ class Input {
     }
 
     /**
-     * Set engine instance for getting screen ratio
-     * @param {UnderEngine} engine
+     * Set screen instance for getting screen ratio
+     * @param {Screen} screen
      */
-    setEngine(engine) {
+    setScreen(screen) {
         /**
-         * Under game engine instance for getting screen ratio
+         * Screen instance for getting screen ratio
          * @protected
-         * @type {UnderEngine}
+         * @type {Screen}
          */
-        this.engine = engine;
+        this.screen = screen;
     }
 
     /**

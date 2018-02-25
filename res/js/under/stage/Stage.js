@@ -5,18 +5,6 @@
  */
 class Stage {
     /**
-     * Constructor for stage
-     * Set iteratable
-     * @constructor
-     */
-    constructor() {
-        // set iterator
-        this[Symbol.iterator] = function () {
-            return this;
-        };
-    }
-
-    /**
      * Set map manager
      * @param {Map} map map manager
      */
@@ -30,6 +18,19 @@ class Stage {
     }
 
     /**
+     * Set camera
+     * @param {Camera} map camera
+     */
+    setCamera(camara) {
+        /**
+         * Stage camara element
+         * @protected
+         * @type {Camara}
+         */
+        this.camara = camara;
+    }
+
+    /**
      * Add entity to stage
      * @interface
      * @param {Entity} entity - entity object
@@ -37,29 +38,16 @@ class Stage {
     addEntity(entity) {}
 
     /**
-     * Get entity iterator
-     * @interface
-     * @return {Iterator} entity iterator
-     */
-    next() {}
-
-    /**
      * Update stage
+     * @interface
      * @param {number} dt delta time
      */
-    update(dt) {
-        // update entity
-        for (let it of this)
-            it.update(dt);
-    }
+    update(dt) {}
 
     /**
      * Render stage
+     * @interface
      * @param {CanvasRenderingContext2D} ctx - canvas context
      */
-    render(ctx) {
-        // render entity
-        for (let it of this)
-            it.render(ctx);
-    }
+    render(ctx) {}
 }
