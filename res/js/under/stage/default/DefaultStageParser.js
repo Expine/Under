@@ -16,19 +16,32 @@ class DefaultStageParser extends StageParser {
     /**
      * Make base map for parsing stage
      * @protected
+     * @param {number} width map width
+     * @param {height} height map height
      * @return {Map} map instance for base of parsing
      */
-    makeBaseMap() {
-        return new DefaultMap();
+    makeBaseMap(width, height) {
+        return new DefaultMap(width, height);
+    }
+
+    /**
+     * Make base camera for parsing stage
+     * @protected
+     * @return {Camera} camera instance for base of parsing
+     */
+    makeBaseCamera(width, height) {
+        return new DefaultCamera(width, height);
     }
 
     /**
      * Parset file to stage
      * @override
      * @param {string} filePath stage file path
+     * @param {number} width stage width for rendering area
+     * @param {number} height stage height for rendering area
      * @return {Stage} stage instance
      */
-    parse(filePath) {
+    parse(filePath, width, height) {
         // Load stage file
         let req = new XMLHttpRequest();
         req.open("GET", filePath, false);
@@ -49,7 +62,8 @@ class DefaultStageParser extends StageParser {
 
         //set base
         let stage = this.makeBaseStage();
-        stage.setMap(this.makeBaseMap(stageWidth, stageHeight));
+        stage.setMap(this.makeBaseMap(stageWidth * tileWidth, stageHeight * tileHeight));
+        stage.setCamera(this.makeBaseCamera(width, height));
         for (let y = 0; y < stageHeight; ++y) {
             for (let x = 0; x < stageWidth; ++x) {
                 let id = parseInt(stageData[x + y * stageWidth]);

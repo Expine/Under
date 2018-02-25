@@ -23,6 +23,18 @@ class ExtendInput extends DefaultInput {
             ENTER: 13,
             ESC: 27
         };
+
+        /**
+         * Key code of arrow key
+         * @const
+         * @enum {number}
+         */
+        this.ARROW = {
+            LEFT: 37,
+            UP: 38,
+            RIGHT: 39,
+            DOWN: 40
+        };
     }
 
 
@@ -72,5 +84,69 @@ class ExtendInput extends DefaultInput {
      */
     isSubPressed() {
         return this.isKeyPressed(this.K.SUB);
+    }
+
+    /**
+     * Judge whether up key pressed now
+     * @return whether up key pressed now
+     */
+    isUpPress() {
+        return this.isKeyPress(this.ARROW.UP);
+    }
+
+    /**
+     * Judge whether up key pressed
+     * @return whether up key pressed
+     */
+    isUpPressed() {
+        return this.isKeyPressed(this.ARROW.UP);
+    }
+
+    /**
+     * Judge whether down key pressed now
+     * @return whether down key pressed now
+     */
+    isDownPress() {
+        return this.isKeyPress(this.ARROW.DOWN);
+    }
+
+    /**
+     * Judge whether down key pressed
+     * @return whether down key pressed
+     */
+    isDownPressed() {
+        return this.isKeyPressed(this.ARROW.DOWN);
+    }
+
+    /**
+     * Judge whether left key pressed now
+     * @return whether left key pressed now
+     */
+    isLeftPress() {
+        return this.isKeyPress(this.ARROW.LEFT);
+    }
+
+    /**
+     * Judge whether left key pressed
+     * @return whether left key pressed
+     */
+    isLeftPressed() {
+        return this.isKeyPressed(this.ARROW.LEFT);
+    }
+
+    /**
+     * Judge whether right key pressed now
+     * @return whether right key pressed now
+     */
+    isRightPress() {
+        return this.isKeyPress(this.ARROW.RIGHT);
+    }
+
+    /**
+     * Judge whether right key pressed
+     * @return whether right key pressed
+     */
+    isRightPressed() {
+        return this.isKeyPressed(this.ARROW.RIGHT);
     }
 }

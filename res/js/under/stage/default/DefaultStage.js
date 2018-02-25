@@ -56,19 +56,24 @@ class DefaultStage extends Stage {
             it.update(dt);
         for (let it of this.characters_)
             it.update(dt);
+        this.camera.setCameraPosition(this.mutables_[0].x + this.mutables_[0].width / 2, this.mutables_[0].y + this.mutables_[0].height / 2, this.map.width, this.map.height);
     }
 
     /**
      * Render stage
      * @param {CanvasRenderingContext2D} ctx - canvas context
+     * @param {number} [shiftX = 0] shift x position
+     * @param {number} [shiftY = 0] shift y position
      */
-    render(ctx) {
+    render(ctx, shiftX = 0, shiftY = 0) {
+        let start_x = -this.camera.cameraX;
+        let start_y = -this.camera.cameraY;
+        let end_x = start_x + this.camera.screenWidth;
+        let end_y = start_y + this.camera.screenHeight;
         // render entity
-        for (let it of this.immutables_)
-            it.render(ctx);
-        for (let it of this.mutables_)
-            it.render(ctx);
-        for (let it of this.characters_)
-            it.render(ctx);
+        for (let arr of [this.immutables_, this.mutables_, this.characters_])
+            for (let it of arr)
+                if (it.x + it.width >= start_x && it.x <= end_x && it.y + it.height >= start_y && it.y <= end_y)
+                    it.render(ctx, -start_x, -start_y);
     }
 }

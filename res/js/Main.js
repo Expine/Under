@@ -7,4 +7,4 @@ engine.setInput(new ExtendInput());
 engine.setScreen(new DefaultScreen());
 // Set initial scene and execute
 // Play title scene
-engine.execute(new DefaultScene());
+engine.execute(new TitleScene());

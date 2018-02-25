@@ -39,11 +39,13 @@ class DefaultScreen extends Screen {
 
         // resize
         (window.onresize = () => {
+            /*
             this.gameSize = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
             this.canvas.width = this.gameSize * this.width;
             this.canvas.style.width = this.canvas.width + "px";
             this.canvas.height = this.gameSize * this.height;
             this.canvas.style.height = this.canvas.height + "px";
+            */
         })();
     }
 }

@@ -62,8 +62,10 @@ class DefaultImmutableObject extends ImmutableObject {
      * Render entity
      * @override
      * @param {CanvasRenderingContext2D} ctx - canvas context
+     * @param {number} [shiftX = 0] shift x position
+     * @param {number} [shiftY = 0] shift y position
      */
-    render(ctx) {
-        ctx.drawImage(this.image, this.verticalId * this.tileWidth, this.horizontalId * this.tileHeight, this.tileWidth, this.tileHeight, this.x, this.y, this.width, this.height);
+    render(ctx, shiftX = 0, shiftY = 0) {
+        ctx.drawImage(this.image, this.verticalId * this.tileWidth, this.horizontalId * this.tileHeight, this.tileWidth, this.tileHeight, this.x + shiftX, this.y + shiftY, this.width, this.height);
     }
 }

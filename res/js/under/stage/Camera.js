@@ -6,6 +6,8 @@ class Camera {
     /**
      * Constructor for camera
      * @constructor
+     * @param {number} screenWidth camera screen width
+     * @param {number} screenHeight camera screen height
      */
     constructor(screenWidth, screenHeight) {
         /**
@@ -15,7 +17,7 @@ class Camera {
         this.cameraX = 0;
         /**
          * Camera y position
-         * @type {number}
+         * @typpe {number}
          */
         this.cameraY = 0;
         /**
@@ -32,21 +34,11 @@ class Camera {
 
     /**
      * Set camera position
+     * @interface
      * @param {number} x base x position
      * @param {number} y base y position
      * @param {number} width camera max width
      * @param {number} height camera max height
      */
-    setCameraPosition(x, y, width, height) {
-        this.cameraX = this.screenWidth / 2 - x;
-        this.cameraY = this.screenHeight / 2 - y;
-        if (this.cameraX > 0)
-            this.cameraX = 0;
-        else if (this.cameraX < this.screenWidth - width)
-            this.cameraX = this.screenWidth - width;
-        if (this.cameraY < 0)
-            this.cameraY = 0;
-        else if (this.cameraY > height - this.screenHeight)
-            this.cameraY = height - this.screenHeight;
-    }
+    setCameraPosition(x, y, width, height) {}
 }

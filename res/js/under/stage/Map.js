@@ -7,21 +7,19 @@ class Map {
     /**
      * Constructor for map
      * @constructor
-     * @param {number} width Map width
-     * @param {number} height Map height
+     * @param {number} width Map width per pixel
+     * @param {number} height Map height per pixel
      */
     constructor(width, height) {
         /**
          * Map width
-         * @private
          * @type {number}
          */
-        this.width_ = width;
+        this.width = width;
         /**
          * Map height
-         * @private
          * @type {number}
          */
-        this.height_ = height;
+        this.height = height;
     }
 }

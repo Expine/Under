@@ -21,13 +21,13 @@ class Stage {
      * Set camera
      * @param {Camera} map camera
      */
-    setCamera(camara) {
+    setCamera(camera) {
         /**
-         * Stage camara element
+         * Stage camera element
          * @protected
-         * @type {Camara}
+         * @type {Camera}
          */
-        this.camara = camara;
+        this.camera = camera;
     }
 
     /**
@@ -48,6 +48,8 @@ class Stage {
      * Render stage
      * @interface
      * @param {CanvasRenderingContext2D} ctx - canvas context
+     * @param {number} [shiftX = 0] shift x position
+     * @param {number} [shiftY = 0] shift y position
      */
-    render(ctx) {}
+    render(ctx, shiftX = 0, shiftY = 0) {}
 }
