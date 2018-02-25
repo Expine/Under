@@ -13,11 +13,13 @@ class Map {
     constructor(width, height) {
         /**
          * Map width
+         * @private
          * @type {number}
          */
         this.width_ = width;
         /**
          * Map height
+         * @private
          * @type {number}
          */
         this.height_ = height;

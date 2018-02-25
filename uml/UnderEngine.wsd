@@ -30,6 +30,7 @@ package Under {
             class DefaultStage
             class DefaultMap
             class DefaultStageParser
+            class DefaultImmutableObject
             class DefaultPlayer
             class DefaultEnemy
         }
@@ -63,8 +64,8 @@ Entity <|.. ImmutableObject
 Entity <|.. MutableObject
 MutableObject <|.. Character
 
-Character <|-- DefaultPlayer
-Character <|-- DefaultEnemy
+Character <|.. DefaultPlayer
+Character <|.. DefaultEnemy
 
 ImmutableObject o-- RigidBody
 MutableObject o-- RigidBody
@@ -73,5 +74,6 @@ Character o-- RigidBody
 Stage <|.. DefaultStage
 Map <|.. DefaultMap
 StageParser <|.. DefaultStageParser
+ImmutableObject <|.. DefaultImmutableObject
 
 @enduml

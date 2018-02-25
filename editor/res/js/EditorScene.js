@@ -1,8 +1,18 @@
+/**
+ * Scene of editor
+ * To make stage
+ * @implements {Scene}
+ * @classdesc scene of making stage
+ */
 class EditorScene extends Scene {
+    /**
+     * Render stage editor
+     * @param {CanvasRenderingContext2D} ctx
+     */
     render(ctx) {
-        let text = "Press to Start";
-        ctx.fillStyle = "white";
-        ctx.font = "50px Arial";
-        ctx.fillText(text, 400 - ctx.measureText(text).width / 2, 300);
+        let x = Math.floor(this.input.getMouseX() / 32) * 32;
+        let y = Math.floor(this.input.getMouseY() / 32) * 32;
+        ctx.strokeStyle = "white";
+        ctx.strokeRect(x, y, 32, 32);
     }
 }

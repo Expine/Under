@@ -21,6 +21,11 @@ class Stage {
      * @param {Map} map map manager
      */
     setMap(map) {
+        /**
+         * Stage map element
+         * @protected
+         * @type {Map}
+         */
         this.map = map;
     }
 

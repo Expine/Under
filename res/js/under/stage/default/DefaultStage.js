@@ -12,26 +12,32 @@ class DefaultStage extends Stage {
         super();
         /**
          * Immutable entity list
+         * @private
          * @type {Array}
          */
         this.immutables_ = new Array();
         /**
          * Mutable entity list
+         * @private
          * @type {Array}
          */
         this.mutables_ = new Array();
         /**
          * Charactr list
+         * @private
          * @type {Array}
          */
         this.characters_ = new Array();
         /**
          * Processing list for next method
+         * @private
          * @type {Array}
          */
         this.proccessingList_ = null;
         /**
          * Iterator for loop
+         * @private
+         * @type {Iterator}
          */
         this.iterator_ = null;
     }
