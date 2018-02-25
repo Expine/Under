@@ -1,7 +1,6 @@
 /**
  * Stage
  * Manage stage element such as entity
- * @implements
  * @classdesc Stage base class
  */
 class Stage {
@@ -11,9 +10,18 @@ class Stage {
      * @constructor
      */
     constructor() {
+        // set iterator
         this[Symbol.iterator] = function () {
             return this;
         };
+    }
+
+    /**
+     * Set map manager
+     * @param {Map} map map manager
+     */
+    setMap(map) {
+        this.map = map;
     }
 
     /**
@@ -29,6 +37,16 @@ class Stage {
      * @return {Iterator} entity iterator
      */
     next() {}
+
+    /**
+     * Update stage
+     * @param {number} dt delta time
+     */
+    update(dt) {
+        // update entity
+        for (let it of this)
+            it.update(dt);
+    }
 
     /**
      * Render stage

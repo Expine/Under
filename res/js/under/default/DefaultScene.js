@@ -2,6 +2,7 @@
  * Default scene example
  * Implement scene method
  * @classdesc Scene sample class
+ * @implements {Scene}
  */
 class DefaultScene extends Scene {
     /**

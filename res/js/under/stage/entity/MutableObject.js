@@ -1,9 +1,6 @@
-class MutableObject extends Entity {
-    /**
-     * Render entity
-     * @param {CanvasRenderingContext2D} ctx - canvas context
-     */
-    render(ctx) {
-        super.render(ctx);
-    }
-}
+/**
+ * Mmutable object
+ * It is not fixed and can be moved
+ * @classdesc Mmutable map object
+ */
+class MutableObject extends Entity {}

@@ -1,0 +1,3 @@
+class EditorMap extends Map {
+
+}

@@ -2,6 +2,10 @@
  * Scene
  * Game scene base class for extension
  * @classdesc Scene base class
+ * @example
+ * let engine = new UnderEngine("relative/path");
+ * engine.execute(new DefaultScene()); // run
+ * engine.transition(new DefaultScene()); // transition
  */
 class Scene {
     /**

@@ -2,9 +2,13 @@
  * Extended input system
  * Extend yes, no, sub key system
  * @classdesc Extended input system including yes and no and sub key
- * @prop
+ * @extends DefaultInput
  */
 class ExtendInput extends DefaultInput {
+    /**
+     * Constructor for extended input
+     * @constructor
+     */
     constructor() {
         super();
 

@@ -2,6 +2,9 @@
  * Input system
  * Manage input event including mouse and key
  * @classdesc Input system for managing input event
+ * @example
+ * let engine = new UnderEngine("relative/path");
+ * engine.setInput(new DefaultInput());
  */
 class Input {
     /**

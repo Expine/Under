@@ -1,9 +1,7 @@
-class Character extends MutableObject {
-    /**
-     * Render entity
-     * @param {CanvasRenderingContext2D} ctx - canvas context
-     */
-    render(ctx) {
-        super.render(ctx);
-    }
-}
+/**
+ * Character object
+ * It is not fixed and can be moved
+ * It can move by AI
+ * @classdesc Character map object
+ */
+class Character extends MutableObject {}

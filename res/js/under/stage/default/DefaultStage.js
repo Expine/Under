@@ -1,9 +1,13 @@
 /**
  * Default stage sample
- * @implements Stage
+ * @implements {Stage}
  * @classdesc Stage sample
  */
 class DefaultStage extends Stage {
+    /**
+     * Cnstructor for default stage
+     * @constructor
+     */
     constructor() {
         super();
         /**

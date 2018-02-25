@@ -1,4 +1,5 @@
 @echo off
 cd /d %~dp0
-java Builder Document ../res/js/use/UnderEngine.js
-java Builder Document ../res/js/use/Game.js res/js/under/Main.js res/js/under/Scene.js res/js/under/Input.js res/js/under/stage/Stage.js res/js/under/stage/StageParser.js res/js/under/stage/Entity.js res/js/under/stage/entity/ImmutableObject.js res/js/under/stage/entity/MutableObject.js res/js/under/stage/entity/Character.js res/js/under/stage/entity/physics/RigidBody.js res/js/under/default/DefaultInput.js res/js/under/default/DefaultScene.js res/js/under/stage/default/DefaultStage.js res/js/under/stage/default/DefaultStageParser.js res/js/scene/TitleScene.js res/js/scene/GameScene.js res/js/ExtendInput.js res/js/Main.js
+java Builder Document ../res/js/use/UnderEngine.js ..res/js/under
+java Builder Document ../res/js/use/Game.js ../res/js -ex use
+java Builder Document ../editor/res/js/use/Main.js ../editor/res/js ../res/js/under -ex use

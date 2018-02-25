@@ -20,6 +20,7 @@ class Entity {
 
     /**
      * Update entty
+     * @interface
      * @param {number} dt - delta time
      */
     update(dt) {}
