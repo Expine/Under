@@ -28,9 +28,20 @@ class Screen {
     }
 
     /**
-     * Set canvas
-     * @interface
-     * @param {Canvas} canvas target canvas
+     * Get input target element
+     * @return {Element} input target element
      */
-    setCanvas() {}
+    getTarget() {}
+
+    /**
+     * Get canvas element
+     * @return {Canvas} canvas element
+     */
+    getCanvas() {}
+
+    /**
+     * Canvas context for rendering
+     * @return {CanvasRenderingContext2D} canvas context for rendering
+     */
+    getContext() {}
 }

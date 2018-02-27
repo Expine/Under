@@ -8,45 +8,6 @@
  */
 class Input {
     /**
-     * Set input target
-     * Set mouse and key event
-     * @param {Element} target - input target
-     */
-    setTarget(target) {
-        /**
-         * Input target
-         * For example, div, document
-         * @protected
-         * @type {Element}
-         */
-        this.target = target;
-
-        // mouse
-        target.onmousemove = e => {
-            this.onMouseMove(e);
-        };
-        target.onmousedown = e => {
-            this.onMouseDown(e);
-        }
-        target.onmouseup = e => {
-            this.onMouseUp(e);
-        }
-
-        // key
-        target.parentElement.onkeydown = e => {
-            this.onKeyDown(e);
-        }
-        target.parentElement.onkeyup = e => {
-            this.onKeyUp(e);
-        }
-
-        // clear
-        target.parentElement.onblur = () => {
-            this.clear();
-        }
-    }
-
-    /**
      * Set screen instance for getting screen ratio
      * @param {Screen} screen
      */
@@ -57,6 +18,38 @@ class Input {
          * @type {Screen}
          */
         this.screen = screen;
+
+        /**
+         * Input target
+         * For example, div, document
+         * @protected
+         * @type {Element}
+         */
+        this.target = this.screen.getTarget();
+
+        // mouse
+        this.target.onmousemove = e => {
+            this.onMouseMove(e);
+        };
+        this.target.onmousedown = e => {
+            this.onMouseDown(e);
+        }
+        this.target.onmouseup = e => {
+            this.onMouseUp(e);
+        }
+
+        // key
+        this.target.parentElement.onkeydown = e => {
+            this.onKeyDown(e);
+        }
+        this.target.parentElement.onkeyup = e => {
+            this.onKeyUp(e);
+        }
+
+        // clear
+        this.target.parentElement.onblur = () => {
+            this.clear();
+        }
     }
 
     /**

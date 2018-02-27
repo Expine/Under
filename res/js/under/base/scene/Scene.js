@@ -34,4 +34,17 @@ class Scene {
          */
         this.input = input;
     }
+
+    /**
+     * Set scene manager
+     * @param {SceneManager} manager Scene manager
+     */
+    setSceneManager(manager) {
+        /**
+         * Scene manager
+         * @protected
+         * @type {SceneManager}
+         */
+        this.manager = manager;
+    }
 }

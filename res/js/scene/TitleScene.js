@@ -9,7 +9,7 @@ class TitleScene extends Scene {
         ctx.font = "50px Arial";
         ctx.fillText(text, 400 - ctx.measureText(text).width / 2, 300);
         if (this.input.isYesPress()) {
-            engine.transition(new GameScene());
+            this.manager.replaceScene(new GameScene());
         }
     }
 }
