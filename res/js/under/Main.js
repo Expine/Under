@@ -39,7 +39,6 @@ class UnderEngine {
         } else {
             this.canvas_ = document.querySelector("canvas");
         }
-        this.canvas_.id = "UnderCanvas";
 
         /**
          * Canvas context
@@ -57,6 +56,7 @@ class UnderEngine {
         this.transition(scene);
         this.oldTime_ = +new Date();
 
+        // start main loop
         this.render = _ => {
             requestAnimationFrame(this.render);
             // update

@@ -68,7 +68,8 @@ class DefaultStageParser extends StageParser {
             for (let x = 0; x < stageWidth; ++x) {
                 let id = parseInt(stageData[x + y * stageWidth]);
                 if (id > -1) {
-                    let entity = new DefaultImmutableObject(id % tileHorizontalNumber, Math.floor(id / tileHorizontalNumber), tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tile);
+                    let entity = new DefaultImmutableObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tile);
+                    entity.setCollider(new CircleCollider(entity, Math.max(tileWidth, tileHeight) / 2));
                     stage.addEntity(entity);
                 }
             }

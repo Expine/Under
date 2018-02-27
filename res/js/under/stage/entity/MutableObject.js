@@ -3,4 +3,59 @@
  * It is not fixed and can be moved
  * @classdesc Mmutable map object
  */
-class MutableObject extends Entity {}
+class MutableObject extends Entity {
+    /**
+     * Set rigid body
+     * @param {RigidBody} body rigid body
+     */
+    setRigidBody(body) {
+        /**
+         * Entity body
+         * @type {RigidBody}
+         */
+        this.body = body;
+    }
+
+    /**
+     * Set stage
+     * @param {Stage} stage
+     */
+    setStage(stage) {
+        this.stage = stage;
+    }
+
+    /**
+     * Move position relatively
+     * @param {number} x
+     * @param {number} y
+     */
+    deltaMove(x, y) {
+        this.x += x;
+        this.y += y;
+        if (this.collider !== undefined) {
+            this.collider
+            let judge = (entity) => {
+                return entity.collider !== undefined && this.collider.isCollisionRoughly(entity.collider) && entity !== this;
+            };
+            let col = false;
+            for (let it of this.stage.getEntities(judge)) {
+                if (this.collider.isCollision(it.collider)) {
+                    this.collider.collisionResponse(it.collider, x, y);
+                    col = true;
+                }
+            }
+            if (col)
+                this.body.repulsion();
+        }
+    }
+
+    /**
+     * Update entty
+     * @interface
+     * @param {number} dt - delta time
+     */
+    update(dt) {
+        if (this.body !== undefined)
+            this.body.update(dt);
+    }
+}

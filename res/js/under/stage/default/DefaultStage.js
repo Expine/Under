@@ -28,6 +28,17 @@ class DefaultStage extends Stage {
          * @type {Array}
          */
         this.characters_ = new Array();
+
+        /**
+         * Processing list for next method
+         * @type {Array}
+         */
+        this.proccessingList_ = null;
+        /**
+         * Iterator for loop
+         * @type {Iterator}
+         */
+        this.iterator_ = null;
     }
 
     /**
@@ -42,6 +53,50 @@ class DefaultStage extends Stage {
             this.mutables_.push(entity);
         else if (entity instanceof Character)
             this.characters_.push(entity);
+    }
+
+    /**
+     * Get all objects in the threshold
+     * @param {function(Entity) => boolean} judge judge function
+     * @return {Array<Entity>} all objects that satisfy the function
+     */
+    getEntities(judge) {
+        let result = new Array();
+        for (let arr of [this.immutables_, this.mutables_, this.characters_])
+            for (let it of arr)
+                if (judge(it))
+                    result.push(it);
+        return result;
+    }
+
+    /**
+     * Get entity iterator
+     * @override
+     * @return {Iterator} entity iterator
+     */
+    next() {
+        if (this.proccessingList_ == null) {
+            this.proccessingList_ = this.immutables_;
+            this.iterator_ = this.proccessingList_[Symbol.iterator]();
+        }
+        let it;
+        while (true) {
+            it = this.iterator_.next();
+            if (it.done) {
+                if (this.proccessingList_ == this.immutables_)
+                    this.proccessingList_ = this.mutables_;
+                else if (this.proccessingList_ == this.mutables_)
+                    this.proccessingList_ = this.characters_;
+                else {
+                    this.proccessingList_ = null;
+                    break;
+                }
+                this.iterator_ = this.proccessingList_[Symbol.iterator]();
+                continue;
+            }
+            break;
+        }
+        return it;
     }
 
     /**

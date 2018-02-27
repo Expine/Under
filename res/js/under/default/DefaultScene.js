@@ -67,5 +67,6 @@ class DefaultScene extends Scene {
         ctx.strokeStyle = "white";
         ctx.arc(this.input.getMouseX(), this.input.getMouseY(), this.r_, 0, angle, false);
         ctx.stroke();
+        ctx.closePath();
     }
 }

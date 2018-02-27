@@ -8,10 +8,11 @@ class Entity {
      * @constructor
      * @param {number} x x position
      * @param {number} y y position
+     * @param {number} width object width
+     * @param {number} height object height
      * @param {Image} image image (if has not, undefined)
-     * @param {RigidBody} body rigid body (if has not, undefined)
      */
-    constructor(x, y, image, body) {
+    constructor(x, y, width, height, image) {
         /**
          * Entity x position
          * @protected
@@ -25,17 +26,36 @@ class Entity {
          */
         this.y = y;
         /**
+         * Entity width
+         * @protected
+         * @type {number}
+         */
+        this.width = width;
+        /**
+         * Entity height
+         * @protected
+         * @type {number}
+         */
+        this.height = height;
+        /**
          * Entity image
          * @protected
          * @type {Image}
          */
         this.image = image;
+    }
+
+    /**
+     * Set collider
+     * @param {Collider} collider collider
+     */
+    setCollider(collider) {
         /**
-         * Entity rigid body
+         * Entity collider
          * @protected
-         * @type {RigidBody}
+         * @type {Collider}
          */
-        this.body = body;
+        this.collider = collider;
     }
 
     /**
