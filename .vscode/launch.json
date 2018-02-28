@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "file:///${workspaceRoot}/index.html",
+            "url": "file:///${workspaceRoot}/src/index.html",
             "webRoot": "${workspaceFolder}",
             "runtimeArgs": [
                 "--allow-file-access-from-files"
