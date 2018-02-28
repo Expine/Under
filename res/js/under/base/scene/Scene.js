@@ -7,7 +7,7 @@ class Scene {
     /**
      * Render scene
      * @interface
-     * @param {CanvasRenderingContext2D} ctx
+     * @param {Context} ctx
      */
     render(ctx) {}
 

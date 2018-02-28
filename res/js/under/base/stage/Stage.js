@@ -68,7 +68,7 @@ class Stage {
     /**
      * Render stage
      * @interface
-     * @param {CanvasRenderingContext2D} ctx - canvas context
+     * @param {Context} ctx - canvas context
      * @param {number} [shiftX = 0] shift x position
      * @param {number} [shiftY = 0] shift y position
      */

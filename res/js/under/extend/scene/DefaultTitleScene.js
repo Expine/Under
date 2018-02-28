@@ -49,26 +49,19 @@ class DefaultTitleScene extends Scene {
     /**
      * Render scene
      * @override
-     * @param {CanvasRenderingContext2D} ctx
+     * @param {Context} ctx
      */
     render(ctx) {
         // render sample text
         let sample = "Sample";
-        ctx.fillStyle = "white";
-        ctx.font = "50px Arial";
-        ctx.fillText(sample, 400 - ctx.measureText(sample).width / 2, 300);
+        ctx.fillText(sample, 400, 300, 0.5);
 
         // render when enter pressed
-        ctx.font = "30px Arial";
         if (this.input.isKeyPressed(13))
-            ctx.fillText("Enter pressed", 400 - ctx.measureText("Enter pressed").width / 2, 400);
+            ctx.fillText("Enter pressed", 400, 400, 0.5);
 
         // render circle on mouse
         let angle = this.angle_ > Math.PI * 2 ? Math.PI * 2 : this.angle_;
-        ctx.beginPath();
-        ctx.strokeStyle = "white";
-        ctx.arc(this.input.getMouseX(), this.input.getMouseY(), this.r_, 0, angle, false);
-        ctx.stroke();
-        ctx.closePath();
+        ctx.strokeCircle(this.input.getMouseX(), this.input.getMouseY(), this.r_, 0, angle, false);
     }
 }

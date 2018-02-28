@@ -170,15 +170,11 @@ class CircleCollider extends Collider {
     /**
      * Render collider for debug
      * @interface
-     * @param {CanvasRenderingContext2D} ctx - canvas context
+     * @param {Context} ctx - canvas context
      * @param {number} [shiftX = 0] shift x position
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX, shiftY) {
-        ctx.beginPath();
-        ctx.strokeStyle = "red";
-        ctx.arc(this.getCenterX() + shiftX, this.getCenterY() + shiftY, this.radius, 0, 2 * Math.PI, false);
-        ctx.stroke();
-        ctx.closePath();
+        ctx.strokeCircle(this.getCenterX() + shiftX, this.getCenterY() + shiftY, this.radius, 0, 2 * Math.PI, false);
     }
 }

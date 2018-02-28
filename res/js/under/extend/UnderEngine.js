@@ -50,12 +50,9 @@ class UnderEngine extends Engine {
             this.oldTime_ = newTime;
 
             // draw
-            ctx.save();
-            ctx.scale(this.screen.gameSize, this.screen.gameSize);
-            ctx.fillStyle = "black";
-            ctx.fillRect(0, 0, this.screen.width, this.screen.height);
+            ctx.preRendering();
             scene.render(ctx);
-            ctx.restore();
+            ctx.postRendering();
         };
         requestAnimationFrame(this.render);
     }
