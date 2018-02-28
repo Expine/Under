@@ -6,6 +6,7 @@
  * let engine = new UnderEngine("relative/path");
  * engine.setInput(new AllInput());
  * engine.setScreen(new GeneratableScreen());
+ * engine.setContext(new JSContext());
  * engine.setSceneManager(new StackSceneManager());
  * engine.execute(new DefaultTitleScene());
  */
@@ -31,28 +32,24 @@ class UnderEngine extends Engine {
      */
     execute(scene) {
         // set access
-        this.manager.setInput(this.input);
-        this.input.setScreen(this.screen);
+        super.execute(scene);
         // transition
         this.manager.replaceScene(scene);
 
         // start main loop
-        let ctx = this.screen.getContext();
         this.oldTime_ = +new Date();
         this.render = _ => {
             requestAnimationFrame(this.render);
-            // get scene
-            let scene = this.manager.getScene();
             // update
             let newTime = +new Date();
             this.input.update();
-            scene.update(newTime - this.oldTime_);
+            this.manager.update(newTime - this.oldTime_);
             this.oldTime_ = newTime;
 
             // draw
-            ctx.preRendering();
-            scene.render(ctx);
-            ctx.postRendering();
+            this.context.preRendering();
+            this.manager.render(this.context);
+            this.context.postRendering();
         };
         requestAnimationFrame(this.render);
     }

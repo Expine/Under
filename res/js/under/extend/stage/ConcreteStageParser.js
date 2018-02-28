@@ -19,14 +19,13 @@ class ConcreteStageParser extends StageParser {
     /**
      * Make base map for parsing stage
      * @protected
+     * @param {number} imageID background image id
      * @param {number} width map width
      * @param {height} height map height
      * @return {Map} map instance for base of parsing
      */
-    makeBaseMap(width, height) {
-        let image = new Image();
-        image.src = "res/image/back/back.png"
-        return new InvariantBackMap(image, width, height);
+    makeBaseMap(imageID, width, height) {
+        return new InvariantBackMap(imageID, width, height);
     }
 
     /**
@@ -57,10 +56,10 @@ class ConcreteStageParser extends StageParser {
         let tileBaseData = lines[1].split(",");
         let stageData = lines[2].split(",");
         // set base data
-        let stageWidth = parseInt(stageBaseData[0]);
-        let stageHeight = parseInt(stageBaseData[1]);
-        let tile = new Image();
-        tile.src = "res/image/tile/" + tileBaseData[0];
+        let backID = Context.image.loadImage("res/image/back/" + stageBaseData[0]);
+        let stageWidth = parseInt(stageBaseData[1]);
+        let stageHeight = parseInt(stageBaseData[2]);
+        let tileID = Context.image.loadImage("res/image/tile/" + tileBaseData[0]);
         let tileWidth = parseInt(tileBaseData[1]);
         let tileHeight = parseInt(tileBaseData[2]);
         let tileHorizontalNumber = parseInt(tileBaseData[3]);
@@ -68,14 +67,14 @@ class ConcreteStageParser extends StageParser {
 
         //set base
         let stage = this.makeBaseStage();
-        stage.setMap(this.makeBaseMap(stageWidth * tileWidth, stageHeight * tileHeight));
+        stage.setMap(this.makeBaseMap(backID, stageWidth * tileWidth, stageHeight * tileHeight));
         stage.setCamera(this.makeBaseCamera(width, height));
         // set tile
         for (let y = 0; y < stageHeight; ++y) {
             for (let x = 0; x < stageWidth; ++x) {
                 let id = parseInt(stageData[x + y * stageWidth]);
                 if (id > -1) {
-                    let entity = new TileObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tile);
+                    let entity = new TileObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tileID);
                     entity.setCollider(new CircleCollider(entity, Math.max(tileWidth, tileHeight) / 2));
                     stage.addEntity(entity);
                 }

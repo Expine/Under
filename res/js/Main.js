@@ -3,10 +3,13 @@ let engine = new UnderEngine();
 
 // Set input system
 // Include yes, no, sub key
-engine.setInput(new ExtendInput());
+engine.setInput(new ExtendedInput());
 
 // Set screen
 engine.setScreen(new GeneratableScreen());
+
+// Set context
+engine.setContext(new JSContext());
 
 // set scene manager
 engine.setSceneManager(new StackSceneManager());

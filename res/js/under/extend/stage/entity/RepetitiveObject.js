@@ -3,7 +3,7 @@
  * @implements {MmutableObject}
  * @classdesc Mutable object sample
  */
-class DefaultMutableObject extends MutableObject {
+class RepetitiveObject extends MutableObject {
     /**
      * Render entity
      * @override
@@ -12,7 +12,7 @@ class DefaultMutableObject extends MutableObject {
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.image, this.x + shiftX, this.y + shiftY, this.width, this.height);
+        ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height);
 
         // for debug
         if (this.collider !== undefined)

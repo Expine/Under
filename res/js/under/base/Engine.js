@@ -24,11 +24,24 @@ class Engine {
      */
     setScreen(screen) {
         /**
-         * Screen information
+         * Screen system
          * @protected
          * @type {Screen}
          */
         this.screen = screen;
+    }
+
+    /**
+     * Set context to render
+     * @param {Context} context Context to render
+     */
+    setContext(context) {
+        /**
+         * Context tp render
+         * @protected
+         * @type {Context}
+         */
+        this.context = context;
     }
 
     /**
@@ -49,5 +62,10 @@ class Engine {
      * @interface
      * @param {Scene} scene First scene
      */
-    execute(scene) {}
+    execute(scene) {
+        // set access
+        this.manager.setInput(this.input);
+        this.input.setScreen(this.screen);
+        this.context.setScreen(this.screen);
+    }
 }

@@ -3,7 +3,7 @@
  * @implements {RigidBody}
  * @classdesc rigid body sample
  */
-class DefaultRigidBody extends RigidBody {
+class GravityElasticBody extends RigidBody {
     /**
      * Default rigid body constructor
      * @param {Entity} entity target entity

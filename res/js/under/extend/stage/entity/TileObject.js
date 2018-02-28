@@ -17,11 +17,11 @@ class TileObject extends ImmutableObject {
      * @param {number} y y position
      * @param {number} width object width
      * @param {number} height object height
-     * @param {Image} image tile image
+     * @param {number} imageID tile image id
      * @param {Collider} collider collider (if has not, undefined)
      */
-    constructor(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, image, collider) {
-        super(x, y, width, height, image, collider);
+    constructor(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID, collider) {
+        super(x, y, width, height, imageID, collider);
         /**
          * Object vertical id for rendering tile
          * @protected
@@ -56,7 +56,7 @@ class TileObject extends ImmutableObject {
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.image, this.horizontalId * this.tileHeight, this.verticalId * this.tileWidth, this.tileWidth, this.tileHeight, this.x + shiftX, this.y + shiftY, this.width, this.height);
+        ctx.drawImage(this.imageID, this.horizontalId * this.tileHeight, this.verticalId * this.tileWidth, this.tileWidth, this.tileHeight, this.x + shiftX, this.y + shiftY, this.width, this.height);
 
         // for debug
         if (this.collider !== undefined)

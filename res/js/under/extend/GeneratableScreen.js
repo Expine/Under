@@ -54,15 +54,6 @@ class GeneratableScreen extends Screen {
             this.canvas_.height = this.gameSize * this.height;
             this.canvas_.style.height = this.canvas_.height + "px";
         })();
-
-        /**
-         * Canvas context
-         * @private
-         * @type {Context}
-         */
-        this.ctx_ = new JSContext(this.canvas_.getContext("2d"));
-        this.ctx_.setScreen(this);
-        //        this.ctx_ = this.canvas_.getContext("2d");
     }
 
     /**
@@ -74,18 +65,10 @@ class GeneratableScreen extends Screen {
     }
 
     /**
-     * Get canvas element
-     * @return {Canvas} canvas element
+     * Get canvas for rendering
+     * @return {Canvas} Canvas
      */
     getCanvas() {
         return this.canvas_;
-    }
-
-    /**
-     * Canvas context for rendering
-     * @return {Context} canvas context for rendering
-     */
-    getContext() {
-        return this.ctx_;
     }
 }

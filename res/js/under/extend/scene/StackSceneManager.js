@@ -58,4 +58,22 @@ class StackSceneManager extends SceneManager {
         this.scenes_.length = 0;
         this.pushScene(scene);
     }
+
+    /**
+     * Update scene
+     * @interface
+     * @param {number} dt delta time
+     */
+    update(dt) {
+        this.getScene().update(dt);
+    }
+
+    /**
+     * Render scene
+     * @interface
+     * @param {Context} ctx - canvas context
+     */
+    render(ctx) {
+        this.getScene().render(ctx);
+    }
 }

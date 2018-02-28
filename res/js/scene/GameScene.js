@@ -6,14 +6,14 @@ class GameScene extends Scene {
     constructor() {
         super();
         this.stage = (new ConcreteStageParser()).parse("res/stage/test.map", 800, 600);
-        let chara = new Image();
-        chara.src = "res/image/chara/player.png";
-        this.player = new DefaultMutableObject(64, 200, 64, 64, chara);
+        let chara = Context.image.loadImage("res/image/chara/player.png");
+        this.player = new RepetitiveObject(64, 200, 64, 64, chara);
         this.player.setStage(this.stage);
-        this.player.setRigidBody(new DefaultRigidBody(this.player));
+        this.player.setRigidBody(new GravityElasticBody(this.player));
         this.player.setCollider(new CircleCollider(this.player, 32));
         this.stage.addEntity(this.player);
     }
+
     update(dt) {
         this.stage.update(dt);
         let it = 10;

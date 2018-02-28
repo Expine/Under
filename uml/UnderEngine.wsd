@@ -1,79 +1,105 @@
 @startuml UnderEngine
 
-package Under {
-    class UnderEngine
-    abstract Scene
-    abstract Input
+package under {
+    package base {
+        abstract Engine
+        abstract Input
+        abstract Screen
 
-    package default_main {
-        class DefaultTitleScene
-        class AllInput
-    }
-
-    package stage {
-        abstract Stage
-        abstract Map
-        abstract Entity
-        abstract StageParser
-
-        package entity {
-            abstract ImmutableObject
-            abstract MutableObject
-            abstract Character
-
-            package physics {
-                abstract RigidBody
-            }
+        package context {
+            abstract ContextImage
+            abstract Context
         }
 
-        package default_stage {
+        package scene {
+            abstract SceneManager
+            abstract Scene
+        }
+
+        package stage {
+            abstract StageParser
+            abstract Stage
+            abstract Map
+            abstract Entity
+            abstract Camera
+            abstract PhysicalWorld
+            package entity {
+                abstract ImmutableObject
+                abstract MutableObject
+                abstract Character
+                package physics {
+                    abstract Collider
+                    abstract RigidBody
+                }
+            }
+        }
+    }
+
+    package extend {
+        class UnderEngine
+        class AllInput
+        class GeneratableScreen
+
+        package ex_context {
+            class JSContext
+            class JSCachedImage
+        }
+
+        package ex_scene {
+            class StackSceneManager
+            class DefaultTitleScene
+        }
+
+        package ex_stage {
+            class ConcreteStageParser
             class SplitManagementStage
             class InvariantBackMap
-            class ConcreteStageParser
-            class TileObject
-            class DefaultPlayer
-            class DefaultEnemy
+            class CenterCamera
+            package ex_entity {
+                class TileObject
+                class RepetitiveObject
+                package ex_physics {
+                    class CircleCollider
+                    class GravityElasticBody
+                }
+            }
         }
     }
 }
 
-package scene {
+package main_scene {
     class TitleScene
     class GameScene
 }
 
-Main --> UnderEngine
+class ExtendedInput
+class Main
 
-UnderEngine --> Input
-UnderEngine --> Scene
+Engine --> Screen
+Engine --> Input
+Engine --> Context
+Engine --> SceneManager
 
-Input <|.. AllInput
-AllInput <|- ExtendInput
+SceneManager -> Input
+Input -> Screen
+Context -> Screen
 
-Scene <|.. DefaultTitleScene
-Scene o-- Stage
+SceneManager --> Scene
+Scene --> SceneManager
+Input <-- Scene
+Context --> ContextImage
 
-Scene <|.. TitleScene
-Scene <|.. GameScene
+StageParser --> Stage
+Stage --> Map
+Stage --> Camera
+Stage --> Entity
+Stage --> PhysicalWorld
 
-Stage o-- Entity
-Stage *-- Map
-Stage *-- StageParser
-
+Entity --> Collider
 Entity <|.. ImmutableObject
 Entity <|.. MutableObject
 MutableObject <|.. Character
 
-Character <|.. DefaultPlayer
-Character <|.. DefaultEnemy
-
-ImmutableObject o-- RigidBody
-MutableObject o-- RigidBody
-Character o-- RigidBody
-
-Stage <|.. SplitManagementStage
-Map <|.. InvariantBackMap
-StageParser <|.. ConcreteStageParser
-ImmutableObject <|.. TileObject
+MutableObject --> RigidBody
 
 @enduml

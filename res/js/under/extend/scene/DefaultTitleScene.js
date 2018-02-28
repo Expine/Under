@@ -58,7 +58,7 @@ class DefaultTitleScene extends Scene {
 
         // render when enter pressed
         if (this.input.isKeyPressed(13))
-            ctx.fillText("Enter pressed", 400, 400, 0.5);
+            ctx.fillText("Enter pressed", 400, 400, 0.5, 0, 30, "red");
 
         // render circle on mouse
         let angle = this.angle_ > Math.PI * 2 ? Math.PI * 2 : this.angle_;

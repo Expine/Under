@@ -6,15 +6,81 @@
 class JSContext extends Context {
     /**
      * JavaScript context constructor
-     * @param {CanvasRenderingContext2D} ctx Canvas context
      */
-    constructor(ctx) {
+    constructor() {
         super();
+        /**
+         * Color of the text
+         * @private
+         * @type {string}
+         */
+        this.fontColor_ = "black";
+        /**
+         * Size of the text
+         * @private
+         * @type {number}
+         */
+        this.fontSize = 50;
+        /**
+         * Font name of the text
+         * @private
+         * @type {string}
+         */
+        this.fontName = "Arial";
+
+        // set default image manager
+        this.setContextImage(new JSCachedImage());
+    }
+
+    /**
+     * Set screen
+     * @param {Screen} screen Screen system
+     */
+    setScreen(screen) {
+        super.setScreen(screen);
         /**
          * Canvas context for rendering
          * @type {CanvasRenderingContext2D}
          */
-        this.ctx_ = ctx;
+        this.ctx_ = this.screen.getCanvas().getContext("2d");
+    }
+
+    /**
+     * Set the color of text
+     * @interface
+     * @param {string} colorName Color name
+     */
+    setFontColorByName(colorName) {
+        this.fontColor_ = colorName;
+    }
+
+    /**
+     * Set the color of text
+     * @interface
+     * @param {number} r Red component   (0 <= r <= 255)
+     * @param {number} g Green component (0 <= g <= 255)
+     * @param {number} b Blue component  (0 <= b <= 255)
+     */
+    setFontColorByRGB(r, g, b) {
+        this.fontColor_ = "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    /**
+     * Set the size of text
+     * @interface
+     * @param {number} size Size of text
+     */
+    setFontSize(size) {
+        this.fontSize = size;
+    }
+
+    /**
+     * Set the name of font
+     * @interface
+     * @param {string} name Name of font
+     */
+    setFontName(name) {
+        this.fontName = name;
     }
 
     /**
@@ -24,7 +90,7 @@ class JSContext extends Context {
     preRendering() {
         this.ctx_.save();
         this.ctx_.scale(this.screen.gameSize, this.screen.gameSize);
-        this.ctx_.fillStyle = "black";
+        this.ctx_.fillStyle = "white";
         this.ctx_.fillRect(0, 0, this.screen.width, this.screen.height);
     }
 
@@ -42,17 +108,16 @@ class JSContext extends Context {
      * @param {string} text Rendering text
      * @param {number} x X position
      * @param {number} y Y position
-     * @param {number} anchorX Anchor x point in percent (0.0 <= anchorX <= 1.0)
-     * @param {number} anchorY Anchor y point in percent (0.0 <= anchorX <= 1.0)
-     * @param {number} size Font size
-     * @param {string} color Font color
-     * @param {string} font Font name
+     * @param {number} [anchorX=0] Anchor x point in percent (0.0 <= anchorX <= 1.0)
+     * @param {number} [anchorY=0] Anchor y point in percent (0.0 <= anchorX <= 1.0)
+     * @param {number} [size=fontSize] Font size
+     * @param {string} [color=fontColor] Font color
+     * @param {string} [font=fontName] Font name
      */
-    fillText(text, x, y, anchorX, anchorY, size, color, font) {
-        this.ctx_.fillStyle = "white";
-        this.ctx_.font = "50px Arial";
-        let metrix = this.ctx_.measureText(text);
-        this.ctx_.fillText(text, x - anchorX * metrix.width, y);
+    fillText(text, x, y, anchorX = 0, anchorY = 0, size = this.fontSize, color = this.fontColor_, font = this.fontName) {
+        this.ctx_.font = size + "px " + font;
+        this.ctx_.fillStyle = color;
+        this.ctx_.fillText(text, x - anchorX * this.ctx_.measureText(text).width, y + anchorY * size);
     }
 
     /**
@@ -90,7 +155,8 @@ class JSContext extends Context {
         this.ctx_.drawImage(image, x, y, width, height);
     }
 
-    drawImage(image, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {
+    drawImage(imageID, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {
+        let image = this.image.getImage(imageID);
         if (srcW === undefined)
             this.ctx_.drawImage(image, srcX, srcX);
         else if (dstX === undefined)

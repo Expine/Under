@@ -5,20 +5,60 @@
  */
 class Context {
     /**
-     * Set context information for getting default value
-     * @param {ContextInformation} info Context information
-     */
-    setContextInfo(info) {
-        this.info = info;
-    }
-
-    /**
      * Set screen
      * @param {Screen} screen Screen system
      */
     setScreen(screen) {
+        /**
+         * Screen for rendering
+         * @protected
+         * @type {Screen}
+         */
         this.screen = screen;
     }
+
+    /**
+     * Set context image manager
+     * @param {ContextImage} contextImage Context image manager
+     */
+    setContextImage(contextImage) {
+        /**
+         * Context image manager
+         * @protected
+         * @type {ContextImage}
+         */
+        this.image = contextImage;
+    }
+
+    /**
+     * Set the color of text
+     * @interface
+     * @param {string} colorName Color name
+     */
+    setFontColorByName(colorName) {}
+
+    /**
+     * Set the color of text
+     * @interface
+     * @param {number} r Red component   (0 <= r <= 255)
+     * @param {number} g Green component (0 <= g <= 255)
+     * @param {number} b Blue component  (0 <= b <= 255)
+     */
+    setFontColorByRGB(r, g, b) {}
+
+    /**
+     * Set the size of text
+     * @interface
+     * @param {number} size Size of text
+     */
+    setFontSize(size) {}
+
+    /**
+     * Set the name of font
+     * @interface
+     * @param {string} name Name of font
+     */
+    setFontName(name) {}
 
     /**
      * Function to be executed before drawing
@@ -68,5 +108,5 @@ class Context {
      */
     strokeRect(x, y, width, height) {}
 
-    drawImage(image, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {}
+    drawImage(imageID, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {}
 }

@@ -3,11 +3,12 @@
  * @classdesc Title scene class
  */
 class TitleScene extends Scene {
+    update(dt) {
+        if (this.input.isYesPress())
+            this.scene.replaceScene(new GameScene());
+    }
+
     render(ctx) {
-        let text = "Press to Start";
-        ctx.fillText(text, 400, 300, 0.5);
-        if (this.input.isYesPress()) {
-            this.manager.replaceScene(new GameScene());
-        }
+        ctx.fillText("Press to Start", 400, 300, 0.5);
     }
 }

@@ -13,9 +13,9 @@ class Entity {
      * @param {number} y y position
      * @param {number} width object width
      * @param {number} height object height
-     * @param {Image} image image (if has not, undefined)
+     * @param {number} imageID image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, image) {
+    constructor(x, y, width, height, imageID = -1) {
         /**
          * Entity x position
          * @protected
@@ -41,11 +41,11 @@ class Entity {
          */
         this.height = height;
         /**
-         * Entity image
+         * Entity image id
          * @protected
-         * @type {Image}
+         * @type {number}
          */
-        this.image = image;
+        this.imageID = imageID;
     }
 
     /**

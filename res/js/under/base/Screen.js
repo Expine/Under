@@ -30,19 +30,13 @@ class Screen {
 
     /**
      * Get input target element
-     * @return {Element} input target element
+     * @return {Element} Element of input target
      */
     getTarget() {}
 
     /**
-     * Get canvas element
-     * @return {Canvas} canvas element
+     * Get canvas for rendering
+     * @return {Canvas} Canvas
      */
     getCanvas() {}
-
-    /**
-     * Canvas context for rendering
-     * @return {Context} canvas context for rendering
-     */
-    getContext() {}
 }

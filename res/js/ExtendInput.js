@@ -4,7 +4,7 @@
  * @classdesc Extended input system including yes and no and sub key
  * @extends AllInput
  */
-class ExtendInput extends AllInput {
+class ExtendedInput extends AllInput {
     /**
      * Extended input constructor
      * @constructor

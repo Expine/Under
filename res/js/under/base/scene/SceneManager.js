@@ -6,6 +6,19 @@
  */
 class SceneManager {
     /**
+     * Set input system
+     * @param {Input} input Input system
+     */
+    setInput(input) {
+        /**
+         * Input system
+         * @protected
+         * @type {Input}
+         */
+        this.input = input;
+    }
+
+    /**
      * Get currently running scene
      * @interface
      * @return {Scene} currently running scene
@@ -33,15 +46,16 @@ class SceneManager {
     replaceScene(scene) {}
 
     /**
-     * Set input system
-     * @param {Input} input Input system
+     * Update scene
+     * @interface
+     * @param {number} dt delta time
      */
-    setInput(input) {
-        /**
-         * Input system
-         * @protected
-         * @type {Input}
-         */
-        this.input = input;
-    }
+    update(dt) {}
+
+    /**
+     * Render scene
+     * @interface
+     * @param {Context} ctx - canvas context
+     */
+    render(ctx) {}
 }

@@ -33,14 +33,14 @@ class Scene {
 
     /**
      * Set scene manager
-     * @param {SceneManager} manager Scene manager
+     * @param {SceneManager} scene Scene manager
      */
-    setSceneManager(manager) {
+    setSceneManager(scene) {
         /**
          * Scene manager
          * @protected
          * @type {SceneManager}
          */
-        this.manager = manager;
+        this.scene = scene;
     }
 }
