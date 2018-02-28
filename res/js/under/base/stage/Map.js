@@ -5,7 +5,7 @@
  */
 class Map {
     /**
-     * Constructor for map
+     * Map constructor
      * @constructor
      * @param {number} width Map width per pixel
      * @param {number} height Map height per pixel
@@ -22,4 +22,20 @@ class Map {
          */
         this.height = height;
     }
+
+    /**
+     * Update map
+     * @interface
+     * @param {number} dt delta time
+     */
+    update(dt) {}
+
+    /**
+     * Render map
+     * @interface
+     * @param {CanvasRenderingContext2D} ctx - canvas context
+     * @param {number} [shiftX = 0] shift x position
+     * @param {number} [shiftY = 0] shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {}
 }

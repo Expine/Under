@@ -1,13 +1,13 @@
 /**
  * Under engine
  * @classdesc Under engine main class
- * @extends Engine
+ * @implements {Engine}
  * @example
  * let engine = new UnderEngine("relative/path");
- * engine.setInput(new DefaultInput());
- * engine.setScreen(new DefaultScreen());
+ * engine.setInput(new AllInput());
+ * engine.setScreen(new GeneratableScreen());
  * engine.setSceneManager(new StackSceneManager());
- * engine.execute(new DefaultScene());
+ * engine.execute(new DefaultTitleScene());
  */
 class UnderEngine extends Engine {
     /**
@@ -25,73 +25,35 @@ class UnderEngine extends Engine {
     }
 
     /**
-     * Set input system
-     * @param {Input} input Input system
-     */
-    setInput(input) {
-        /**
-         * Input system instance
-         * @private
-         * @type {Input}
-         */
-        this.input_ = input;
-    }
-
-    /**
-     * Set screen system
-     * @param {Screen} screen Screen system
-     */
-    setScreen(screen) {
-        /**
-         * Screen information
-         * @private
-         * @type {Screen}
-         */
-        this.screen_ = screen;
-    }
-
-    /**
-     * Set scene manager
-     * @param {SceneManager} manager Scene manager
-     */
-    setSceneManager(manager) {
-        /**
-         * Scene manager
-         * @private
-         * @type {SceneManager}
-         */
-        this.manager_ = manager;
-    }
-
-    /**
      * Execute engine
+     * @override
      * @param {Scene} scene First scene
      */
     execute(scene) {
         // set access
-        this.manager_.setInput(this.input_);
-        this.input_.setScreen(this.screen_);
+        this.manager.setInput(this.input);
+        this.input.setScreen(this.screen);
         // transition
-        this.manager_.replaceScene(scene);
-
-        this.oldTime_ = +new Date();
+        this.manager.replaceScene(scene);
 
         // start main loop
-        let ctx = this.screen_.getContext();
+        let ctx = this.screen.getContext();
+        this.oldTime_ = +new Date();
         this.render = _ => {
             requestAnimationFrame(this.render);
-            let scene = this.manager_.getScene();
+            // get scene
+            let scene = this.manager.getScene();
             // update
             let newTime = +new Date();
-            this.input_.update();
+            this.input.update();
             scene.update(newTime - this.oldTime_);
             this.oldTime_ = newTime;
 
             // draw
             ctx.save();
-            ctx.scale(this.screen_.gameSize, this.screen_.gameSize);
+            ctx.scale(this.screen.gameSize, this.screen.gameSize);
             ctx.fillStyle = "black";
-            ctx.fillRect(0, 0, this.screen_.width, this.screen_.height);
+            ctx.fillRect(0, 0, this.screen.width, this.screen.height);
             scene.render(ctx);
             ctx.restore();
         };

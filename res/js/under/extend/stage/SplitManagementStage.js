@@ -1,9 +1,11 @@
 /**
  * Default stage sample
+ * Dividingly manages entities according to type
+ * Do not update immutable objects
  * @implements {Stage}
  * @classdesc Stage sample
  */
-class DefaultStage extends Stage {
+class SplitManagementStage extends Stage {
     /**
      * Cnstructor for default stage
      * @constructor
@@ -56,20 +58,6 @@ class DefaultStage extends Stage {
     }
 
     /**
-     * Get all objects in the threshold
-     * @param {function(Entity) => boolean} judge judge function
-     * @return {Array<Entity>} all objects that satisfy the function
-     */
-    getEntities(judge) {
-        let result = new Array();
-        for (let arr of [this.immutables_, this.mutables_, this.characters_])
-            for (let it of arr)
-                if (judge(it))
-                    result.push(it);
-        return result;
-    }
-
-    /**
      * Get entity iterator
      * @override
      * @return {Iterator} entity iterator
@@ -104,9 +92,7 @@ class DefaultStage extends Stage {
      * @param {number} dt delta time
      */
     update(dt) {
-        // update entity
-        for (let it of this.immutables_)
-            it.update(dt);
+        // update mutables and characters
         for (let it of this.mutables_)
             it.update(dt);
         for (let it of this.characters_)
@@ -121,11 +107,13 @@ class DefaultStage extends Stage {
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
+        // render map
+        this.map.render(ctx, shiftX, shiftY);
+        // render entity
         let start_x = -this.camera.cameraX;
         let start_y = -this.camera.cameraY;
         let end_x = start_x + this.camera.screenWidth;
         let end_y = start_y + this.camera.screenHeight;
-        // render entity
         for (let arr of [this.immutables_, this.mutables_, this.characters_])
             for (let it of arr)
                 if (it.x + it.width >= start_x && it.x <= end_x && it.y + it.height >= start_y && it.y <= end_y)

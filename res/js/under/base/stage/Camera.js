@@ -1,10 +1,11 @@
 /**
  * Camera view class
+ * Calculate the area to render
  * @classdesc Camera view abstract class
  */
 class Camera {
     /**
-     * Constructor for camera
+     * Camera Constructor
      * @constructor
      * @param {number} screenWidth camera screen width
      * @param {number} screenHeight camera screen height
@@ -21,12 +22,12 @@ class Camera {
          */
         this.cameraY = 0;
         /**
-         * Screen width
+         * Camera screen width
          * @type {number}
          */
         this.screenWidth = screenWidth;
         /**
-         * Screen height
+         * Camera screen height
          * @type {number}
          */
         this.screenHeight = screenHeight;

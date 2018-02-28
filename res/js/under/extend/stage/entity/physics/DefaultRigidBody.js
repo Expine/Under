@@ -5,7 +5,7 @@
  */
 class DefaultRigidBody extends RigidBody {
     /**
-     * Constructor for rigid body
+     * Default rigid body constructor
      * @param {Entity} entity target entity
      */
     constructor(entity) {

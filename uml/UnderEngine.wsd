@@ -6,8 +6,8 @@ package Under {
     abstract Input
 
     package default_main {
-        class DefaultScene
-        class DefaultInput
+        class DefaultTitleScene
+        class AllInput
     }
 
     package stage {
@@ -27,10 +27,10 @@ package Under {
         }
 
         package default_stage {
-            class DefaultStage
-            class DefaultMap
-            class DefaultStageParser
-            class DefaultImmutableObject
+            class SplitManagementStage
+            class InvariantBackMap
+            class ConcreteStageParser
+            class TileObject
             class DefaultPlayer
             class DefaultEnemy
         }
@@ -47,10 +47,10 @@ Main --> UnderEngine
 UnderEngine --> Input
 UnderEngine --> Scene
 
-Input <|.. DefaultInput
-DefaultInput <|- ExtendInput
+Input <|.. AllInput
+AllInput <|- ExtendInput
 
-Scene <|.. DefaultScene
+Scene <|.. DefaultTitleScene
 Scene o-- Stage
 
 Scene <|.. TitleScene
@@ -71,9 +71,9 @@ ImmutableObject o-- RigidBody
 MutableObject o-- RigidBody
 Character o-- RigidBody
 
-Stage <|.. DefaultStage
-Map <|.. DefaultMap
-StageParser <|.. DefaultStageParser
-ImmutableObject <|.. DefaultImmutableObject
+Stage <|.. SplitManagementStage
+Map <|.. InvariantBackMap
+StageParser <|.. ConcreteStageParser
+ImmutableObject <|.. TileObject
 
 @enduml

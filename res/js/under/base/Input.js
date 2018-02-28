@@ -1,14 +1,12 @@
 /**
  * Input system
- * Manage input event including mouse and key
+ * Manages input event including mouse and key
+ * Manages input state and provide input state
  * @classdesc Input system for managing input event
- * @example
- * let engine = new UnderEngine("relative/path");
- * engine.setInput(new DefaultInput());
  */
 class Input {
     /**
-     * Set screen instance for getting screen ratio
+     * Set screen instance for getting screen ratio and setting inut target
      * @param {Screen} screen
      */
     setScreen(screen) {

@@ -1,11 +1,13 @@
 /**
- * Default immutable object sample
+ * Stage tile object
+ * Indicates the tile of not moving on stage
+ * Decides the tile to be displayed by the ID, using the sprite indicating the stage tiles
  * @implements {ImmutableObject}
- * @classdesc Immutable object sample
+ * @classdesc Stage tile object
  */
-class DefaultImmutableObject extends ImmutableObject {
+class TileObject extends ImmutableObject {
     /**
-     * Entity constructor
+     * Tile object constructor
      * @constructor
      * @param {number} verticalId tile vertical id
      * @param {number} horizontalId tile horizontal id

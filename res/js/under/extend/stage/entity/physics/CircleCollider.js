@@ -4,7 +4,7 @@
  */
 class CircleCollider extends Collider {
     /**
-     * Constructor for circle collider
+     * Circle collider constructor
      * @constructor
      * @param {Entity} entity Entity attaching this
      * @param {number} radius Circle radius

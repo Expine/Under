@@ -1,6 +1,8 @@
 /**
  * Immutable object
  * It is fixed
- * @classdesc Immutable map object
+ * No change will occur
+ * @implements {Entity}
+ * @classdesc Fixed immutable object
  */
 class ImmutableObject extends Entity {}

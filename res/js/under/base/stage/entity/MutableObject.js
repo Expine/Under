@@ -33,16 +33,13 @@ class MutableObject extends Entity {
         this.x += x;
         this.y += y;
         if (this.collider !== undefined) {
-            this.collider
-            let judge = (entity) => {
-                return entity.collider !== undefined && this.collider.isCollisionRoughly(entity.collider) && entity !== this;
-            };
             let col = false;
-            for (let it of this.stage.getEntities(judge)) {
-                if (this.collider.isCollision(it.collider)) {
-                    this.collider.collisionResponse(it.collider, x, y);
-                    col = true;
-                }
+            for (let it of this.stage) {
+                if (it.collider !== undefined && this.collider.isCollisionRoughly(it.collider) && it !== this)
+                    if (this.collider.isCollision(it.collider)) {
+                        this.collider.collisionResponse(it.collider, x, y);
+                        col = true;
+                    }
             }
             if (col)
                 this.body.repulsion();

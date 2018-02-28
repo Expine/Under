@@ -1,12 +1,14 @@
 /**
- * Default scene example
- * Implement scene method
- * @classdesc Scene sample class
+ * Default title scene example
+ * Sample of mouse processing, input processing and drawing processing
  * @implements {Scene}
+ * @classdesc Scene sample class
+ * @example
+ * this.manager.replaceScene(new DefaultTitleScene()); // transition in scene
  */
-class DefaultScene extends Scene {
+class DefaultTitleScene extends Scene {
     /**
-     * Constructor for default scene
+     * Default title scene constructor
      * @constructor
      */
     constructor() {

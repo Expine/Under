@@ -1,12 +1,15 @@
 /**
- * Default screen example
- * Implement screen method
+ * Screen manager that can generate a canvas automatically
+ * If the canvas does not exist, it is generated
  * @implements {Screen}
- * @classdesc Screen sample class
+ * @classdesc Screen manager to generate  a canvas automatically
+ * @example
+ * let engine = new UnderEngine("relative/path");
+ * engine.setScreen(new GeneratableScreen());
  */
-class DefaultScreen extends Screen {
+class GeneratableScreen extends Screen {
     /**
-     * Screen constructor
+     * Generatable screen constructor
      * @constructor
      * @param {number} [width = 800]  screen width
      * @param {number} [height = 600]  screen height

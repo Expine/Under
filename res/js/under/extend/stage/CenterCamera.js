@@ -1,9 +1,11 @@
 /**
- * Default camera sample
+ * Camera for centering at the indicated coordinates
+ * Does not draw the portion beyond the given maximum area
+ * Priority is given from left and bottom
  * @implements {Camera}
- * @classdesc Camera sample
+ * @classdesc Camera for centering at the indicated coordinates
  */
-class DefaultCamera extends Camera {
+class CenterCamera extends Camera {
     /**
      * Set camera position
      * @param {number} x base x position

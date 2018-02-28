@@ -5,7 +5,7 @@
 class GameScene extends Scene {
     constructor() {
         super();
-        this.stage = (new DefaultStageParser()).parse("res/stage/test.map", 800, 600);
+        this.stage = (new ConcreteStageParser()).parse("res/stage/test.map", 800, 600);
         let chara = new Image();
         chara.src = "res/image/chara/player.png";
         this.player = new DefaultMutableObject(64, 200, 64, 64, chara);

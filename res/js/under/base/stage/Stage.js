@@ -1,11 +1,13 @@
 /**
  * Stage
- * Manage stage element such as entity
- * @classdesc Stage base class
+ * Performs updating and rendering stage
+ * Manages stage element such as entity
+ * Should allow entities to be retrieved with iterators
+ * @classdesc Stage to control stage element
  */
 class Stage {
     /**
-     * Constructor for stage
+     * Stage Constructor
      * Set iteratable
      * @constructor
      */
@@ -43,33 +45,11 @@ class Stage {
     }
 
     /**
-     * Get X position of camera
-     * @interface
-     * @return {number} X position of camera
-     */
-    getCameraX() {}
-
-    /**
-     * Get Y position of camera
-     * @interface
-     * @return {number} Y position of camera
-     */
-    getCameraY() {}
-
-    /**
      * Add entity to stage
      * @interface
      * @param {Entity} entity - entity object
      */
     addEntity(entity) {}
-
-    /**
-     * Get all objects that satisfy the function
-     * @interface
-     * @param {function(Entity) => boolean} judge judge function
-     * @return {Array<Entity>} all objects that satisfy the function
-     */
-    getEntities(judge) {}
 
     /**
      * Get entity iterator
@@ -83,10 +63,7 @@ class Stage {
      * @interface
      * @param {number} dt delta time
      */
-    update(dt) {
-        for (let it of this)
-            it.update(dt);
-    }
+    update(dt) {}
 
     /**
      * Render stage

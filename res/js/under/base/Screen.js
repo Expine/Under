@@ -1,5 +1,6 @@
 /**
  * Screen manager
+ * Indicates the rendering target
  * @classdesc Screen class for managing screen information
  */
 class Screen {

@@ -1,12 +1,15 @@
 /**
  * Manage scene by stack
  * Use the stack to manage scenes
+ * @implements {SceneManager}
  * @classdesc Manager for scene by using stack
- * @extends SceneManager
+ * @example
+ * let engine = new UnderEngine("relative/path");
+ * engine.setSceneManager(new StackSceneManager());
  */
 class StackSceneManager extends SceneManager {
     /**
-     * Constructor for stack scene manager
+     * Stack scene manager constructor
      * @constructor
      */
     constructor() {
@@ -20,7 +23,7 @@ class StackSceneManager extends SceneManager {
 
     /**
      * Get currently running scene
-     * @interface
+     * @override
      * @return {Scene} currently running scene
      */
     getScene() {
@@ -29,7 +32,7 @@ class StackSceneManager extends SceneManager {
 
     /**
      * Push scene instance for running it
-     * @interface
+     * @override
      * @param {Scene} scene scene instance for running it
      */
     pushScene(scene) {
@@ -40,7 +43,7 @@ class StackSceneManager extends SceneManager {
 
     /**
      * Pop currently scene for returning to the previous scene
-     * @interface
+     * @override
      */
     popScene() {
         this.scenes_.pop();
@@ -48,7 +51,7 @@ class StackSceneManager extends SceneManager {
 
     /**
      * Replace currently scene by new scene
-     * @interface
+     * @override
      * @param {Scene} scene scene instance for replacing currently scene
      */
     replaceScene(scene) {

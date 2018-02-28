@@ -1,16 +1,19 @@
 /**
- * Default stage parser sample
+ * Default parser to generate stage
+ * It can also be used as a builder pattern
  * @implements {StageParser}
- * @classdesc Stage parser sample
+ * @classdesc Default parser to generate stage
+ * @example
+ * let stage = (new ConcreteStageParser()).parse("relative/path", 800, 600)
  */
-class DefaultStageParser extends StageParser {
+class ConcreteStageParser extends StageParser {
     /**
      * Make base stage for parsing stage
      * @protected
      * @return {Stage} stage instance for base of parsing
      */
     makeBaseStage() {
-        return new DefaultStage();
+        return new SplitManagementStage();
     }
 
     /**
@@ -21,7 +24,9 @@ class DefaultStageParser extends StageParser {
      * @return {Map} map instance for base of parsing
      */
     makeBaseMap(width, height) {
-        return new DefaultMap(width, height);
+        let image = new Image();
+        image.src = "res/image/back/back.png"
+        return new InvariantBackMap(image, width, height);
     }
 
     /**
@@ -30,7 +35,7 @@ class DefaultStageParser extends StageParser {
      * @return {Camera} camera instance for base of parsing
      */
     makeBaseCamera(width, height) {
-        return new DefaultCamera(width, height);
+        return new CenterCamera(width, height);
     }
 
     /**
@@ -46,6 +51,7 @@ class DefaultStageParser extends StageParser {
         let req = new XMLHttpRequest();
         req.open("GET", filePath, false);
         req.send(null);
+        // get stage file data
         let lines = req.responseText.split("\n");
         let stageBaseData = lines[0].split(",");
         let tileBaseData = lines[1].split(",");
@@ -64,11 +70,12 @@ class DefaultStageParser extends StageParser {
         let stage = this.makeBaseStage();
         stage.setMap(this.makeBaseMap(stageWidth * tileWidth, stageHeight * tileHeight));
         stage.setCamera(this.makeBaseCamera(width, height));
+        // set tile
         for (let y = 0; y < stageHeight; ++y) {
             for (let x = 0; x < stageWidth; ++x) {
                 let id = parseInt(stageData[x + y * stageWidth]);
                 if (id > -1) {
-                    let entity = new DefaultImmutableObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tile);
+                    let entity = new TileObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tile);
                     entity.setCollider(new CircleCollider(entity, Math.max(tileWidth, tileHeight) / 2));
                     stage.addEntity(entity);
                 }

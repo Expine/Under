@@ -1,12 +1,16 @@
 /**
- * Default input example
- * Implement input method
+ * Input system that implements input
+ * Keeps all mouse and key states
+ * There is much waste, but you can respond to any key input
  * @implements {Input}
- * @classdesc Input sample class
+ * @classdesc Input system to keep all states
+ * @example
+ * let engine = new UnderEngine("relative/path");
+ * engine.setInput(new AllInput());
  */
-class DefaultInput extends Input {
+class AllInput extends Input {
     /**
-     * Constructor for default input
+     * All input constructor
      * @constructor
      */
     constructor() {
@@ -37,7 +41,6 @@ class DefaultInput extends Input {
          */
         this.mouseY_ = 0;
 
-        // set enum
         /**
          * Input state
          * @private

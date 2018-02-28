@@ -1,7 +1,7 @@
 /**
  * Manage scene
- * Manage transitions of scenes, ie additions and deletions
- * Have access to the input system to give it to the scene
+ * Manages transitions of scenes, ie additions and deletions
+ * Has access to the input system to give it to the scene
  * @classdesc Manager for scene
  */
 class SceneManager {

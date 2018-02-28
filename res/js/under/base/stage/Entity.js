@@ -1,6 +1,9 @@
 /**
  * Entity
- * @classdesc Stage entity base class
+ * Object present on the stage
+ * Has coordinates and sizes
+ * May have collider and images
+ * @classdesc Stage entity
  */
 class Entity {
     /**
