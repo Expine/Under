@@ -3,7 +3,7 @@
  * Renders by using HTML5 API
  * @classdesc Context for rendering by JavaScript
  */
-class JSContext extends Context {
+class GLContext extends Context {
     /**
      * JavaScript context constructor
      */
@@ -39,11 +39,49 @@ class JSContext extends Context {
     setScreen(screen) {
         super.setScreen(screen);
         /**
-         * Canvas context for rendering
+         * GL context for rendering
          * @private
          * @type {CanvasRenderingContext2D}
          */
+        this.gl_ = this.screen.getCanvas().getContext("webgl");
         this.ctx_ = this.screen.getCanvas().getContext("2d");
+    }
+
+    stroke() {
+        const gl = this.gl_;
+        const vertexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.GL_ARRAY_BUFFER, vertexBuffer);
+        gl.bufferData(gl.GL_ARRAY_BUFFER, new Float32Array([
+            0.0, 0.5,
+            0.5, 0.0, -0.5, 0.0
+        ]), gl.STATIC_COPY);
+
+        const vs = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(vs, GLVert.unvariant);
+        gl.compileShader(vs);
+        if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS))
+            console.log(gl.getShaderInfoLog(vs));
+        const fs = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(fs, GLFlag.fillWhite);
+        gl.compileShader(fs);
+        if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS))
+            console.log(gl.getShaderInfoLog(fs));
+
+        const program = gl.createProgram();
+        gl.attachShader(program, vs);
+        gl.attachShader(program, fs);
+        gl.linkProgram(program);
+
+        const attributeLocation = gl.getAttribLocation(program, "position");
+        gl.enableVertexAttribArray(attributeLocation);
+        gl.bindBuffer(gl.GL_ARRAY_BUFFER, vertexBuffer);
+        gl.vertexAttribPointer(attributeLocation, 2, gl.GL_FLOAT, false, 0, 0);
+
+        gl.clearColor(0, 0, 0, 1);
+        gl.clear(gl.GL_COLOR_BUFFER_BIT);
+        gl.useProgram(program);
+        gl.drawArrays(gl.GL_TRIANGLES, 0, 3);
+        gl.flush();
     }
 
     /**
@@ -88,20 +126,13 @@ class JSContext extends Context {
      * Function to be executed before drawing
      * @override
      */
-    preRendering() {
-        this.ctx_.save();
-        this.ctx_.scale(this.screen.gameSize, this.screen.gameSize);
-        this.ctx_.fillStyle = "white";
-        this.ctx_.fillRect(0, 0, this.screen.width, this.screen.height);
-    }
+    preRendering() {}
 
     /**
      * Function to be executed after drawing
      * @override
      */
-    postRendering() {
-        this.ctx_.restore();
-    }
+    postRendering() {}
 
     /**
      * Render text
@@ -120,6 +151,7 @@ class JSContext extends Context {
         this.ctx_.fillStyle = color;
         this.ctx_.fillText(text, x - anchorX * this.ctx_.measureText(text).width, y + anchorY * size);
     }
+
 
     /**
      * Rendering circle

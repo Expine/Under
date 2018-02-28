@@ -9,7 +9,8 @@ engine.setInput(new ExtendedInput());
 engine.setScreen(new GeneratableScreen());
 
 // Set context
-engine.setContext(new JSContext());
+//engine.setContext(new JSContext());
+engine.setContext(new GLContext());
 
 // set scene manager
 engine.setSceneManager(new StackSceneManager());
