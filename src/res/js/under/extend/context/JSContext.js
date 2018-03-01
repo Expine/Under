@@ -44,6 +44,11 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
          * @type {CanvasRenderingContext2D}
          */
         this.ctx_ = this.screen.getCanvas().getContext(`2d`);
+
+        this.ctx_.mozImageSmoothingEnabled = false;
+        this.ctx_.webkitImageSmoothingEnabled = false;
+        this.ctx_.msImageSmoothingEnabled = false;
+        this.ctx_.imageSmoothingEnabled = false;
     }
 
     /**
@@ -147,13 +152,6 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      */
     strokeRect(x, y, width, height) {
         this.ctx_.strokeRect(x, y, width, height);
-    }
-
-    drawImage(image, x, y) {
-        this.ctx_.drawImage(image, x, y);
-    }
-    drawImage(image, x, y, width, height) {
-        this.ctx_.drawImage(image, x, y, width, height);
     }
 
     drawImage(imageID, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {

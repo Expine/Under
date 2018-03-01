@@ -48,11 +48,13 @@ class GeneratableScreen extends Screen { // eslint-disable-line  no-unused-vars
 
         // resize
         (window.onresize = () => {
+            /*
             this.gameSize = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
             this.canvas_.width = this.gameSize * this.width;
             this.canvas_.style.width = this.canvas_.width + `px`;
             this.canvas_.height = this.gameSize * this.height;
             this.canvas_.style.height = this.canvas_.height + `px`;
+            */
         })();
     }
 

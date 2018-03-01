@@ -6,7 +6,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "call ./util/MainBuild.bat",
+            "command": "call ./src/util/MainBuild.bat",
             "problemMatcher": [
                 "$gcc"
             ]
@@ -14,7 +14,7 @@
         {
             "label": "Doc",
             "type": "shell",
-            "command": "call ./util/DocumentBuild.bat",
+            "command": "call ./src/util/DocumentBuild.bat",
             "problemMatcher": [
                 "$gcc"
             ]

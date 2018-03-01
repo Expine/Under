@@ -1,11 +1,11 @@
 /**
- * Context for rendering by JavaScript
- * Renders by using HTML5 API
- * @classdesc Context for rendering by JavaScript
+ * Context for rendering by WebGL
+ * Renders by using WebGL
+ * @classdesc Context for rendering by WebGL
  */
-class GLContext extends Context {
+class GLContext extends Context { // eslint-disable-line  no-unused-vars
     /**
-     * JavaScript context constructor
+     * WebGL context constructor
      */
     constructor() {
         super();
@@ -14,7 +14,7 @@ class GLContext extends Context {
          * @private
          * @type {string}
          */
-        this.fontColor_ = "black";
+        this.fontColor_ = `black`;
         /**
          * Size of the text
          * @private
@@ -26,7 +26,7 @@ class GLContext extends Context {
          * @private
          * @type {string}
          */
-        this.fontName = "Arial";
+        this.fontName = `Arial`;
 
         // set default image manager
         this.setContextImage(new JSCachedImage());
@@ -41,48 +41,12 @@ class GLContext extends Context {
         /**
          * GL context for rendering
          * @private
-         * @type {CanvasRenderingContext2D}
+         * @type {WebGLRenderingContext}
          */
-        this.gl_ = this.screen.getCanvas().getContext("webgl");
-        this.ctx_ = this.screen.getCanvas().getContext("2d");
+        this.gl_ = this.screen.getCanvas().getContext(`webgl`);
     }
 
-    stroke() {
-        const gl = this.gl_;
-        const vertexBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.GL_ARRAY_BUFFER, vertexBuffer);
-        gl.bufferData(gl.GL_ARRAY_BUFFER, new Float32Array([
-            0.0, 0.5,
-            0.5, 0.0, -0.5, 0.0
-        ]), gl.STATIC_COPY);
-
-        const vs = gl.createShader(gl.VERTEX_SHADER);
-        gl.shaderSource(vs, GLVert.unvariant);
-        gl.compileShader(vs);
-        if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS))
-            console.log(gl.getShaderInfoLog(vs));
-        const fs = gl.createShader(gl.FRAGMENT_SHADER);
-        gl.shaderSource(fs, GLFlag.fillWhite);
-        gl.compileShader(fs);
-        if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS))
-            console.log(gl.getShaderInfoLog(fs));
-
-        const program = gl.createProgram();
-        gl.attachShader(program, vs);
-        gl.attachShader(program, fs);
-        gl.linkProgram(program);
-
-        const attributeLocation = gl.getAttribLocation(program, "position");
-        gl.enableVertexAttribArray(attributeLocation);
-        gl.bindBuffer(gl.GL_ARRAY_BUFFER, vertexBuffer);
-        gl.vertexAttribPointer(attributeLocation, 2, gl.GL_FLOAT, false, 0, 0);
-
-        gl.clearColor(0, 0, 0, 1);
-        gl.clear(gl.GL_COLOR_BUFFER_BIT);
-        gl.useProgram(program);
-        gl.drawArrays(gl.GL_TRIANGLES, 0, 3);
-        gl.flush();
-    }
+    stroke() {}
 
     /**
      * Set the color of text
@@ -101,7 +65,7 @@ class GLContext extends Context {
      * @param {number} b Blue component  (0 <= b <= 255)
      */
     setFontColorByRGB(r, g, b) {
-        this.fontColor_ = "rgb(" + r + "," + g + "," + b + ")";
+        this.fontColor_ = `rgb(` + r + `,` + g + `,` + b + `)`;
     }
 
     /**
@@ -126,7 +90,10 @@ class GLContext extends Context {
      * Function to be executed before drawing
      * @override
      */
-    preRendering() {}
+    preRendering() {
+        this.gl_.clearColor(1.0, 1.0, 1.0, 1.0);
+        this.gl_.clear(this.gl_.COLOR_BUFFER_BIT);
+    }
 
     /**
      * Function to be executed after drawing
@@ -147,9 +114,54 @@ class GLContext extends Context {
      * @param {string} [font=fontName] Font name
      */
     fillText(text, x, y, anchorX = 0, anchorY = 0, size = this.fontSize, color = this.fontColor_, font = this.fontName) {
-        this.ctx_.font = size + "px " + font;
-        this.ctx_.fillStyle = color;
-        this.ctx_.fillText(text, x - anchorX * this.ctx_.measureText(text).width, y + anchorY * size);
+        const gl = this.gl_;
+        var buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+
+        var vSource = [
+            `precision mediump float;`,
+            `attribute vec2 vertex;`,
+            `void main(void) {`,
+            `gl_Position = vec4(vertex * vec2(2.0, 1.0), 0.0, 1.0);`,
+            `}`,
+        ].join(`\n`);
+        var vShader = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(vShader, vSource);
+        gl.compileShader(vShader);
+        gl.getShaderParameter(vShader, gl.COMPILE_STATUS);
+        if (!gl.getShaderParameter(vShader, gl.COMPILE_STATUS)) {
+            console.log(gl.getShaderInfoLog(vShader));
+        }
+        var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
+        var fSource = [
+            `precision mediump float;`,
+            `void main(void) {`,
+            `gl_FragColor = vec4(` + rgba.join(`,`) + `);`,
+            `}`,
+        ].join(`\n`);
+        var fShader = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(fShader, fSource);
+        gl.compileShader(fShader);
+        gl.getShaderParameter(fShader, gl.COMPILE_STATUS);
+
+        var program = gl.createProgram();
+        gl.attachShader(program, vShader);
+        gl.attachShader(program, fShader);
+        gl.linkProgram(program);
+        gl.getProgramParameter(program, gl.LINK_STATUS);
+        gl.useProgram(program);
+
+        var vertex = gl.getAttribLocation(program, `vertex`);
+        gl.enableVertexAttribArray(vertex);
+        gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
+
+        var vertices = [
+            0.0, 0.5,
+            0.5, 0.0, -0.5, 0.0,
+        ];
+
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
 
 
@@ -162,13 +174,7 @@ class GLContext extends Context {
      * @param {number} endAngle End of arc
      * @param {boolean} anticlockwise Whether it is clockwise or not
      */
-    strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise) {
-        this.ctx_.beginPath();
-        this.ctx_.strokeStyle = "red";
-        this.ctx_.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-        this.ctx_.stroke();
-        this.ctx_.closePath();
-    }
+    strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise) {}
 
     /**
      * Rendering square outline
@@ -177,24 +183,7 @@ class GLContext extends Context {
      * @param {number} width
      * @param {number} height
      */
-    strokeRect(x, y, width, height) {
-        this.ctx_.strokeRect(x, y, width, height);
-    }
+    strokeRect(x, y, width, height) {}
 
-    drawImage(image, x, y) {
-        this.ctx_.drawImage(image, x, y);
-    }
-    drawImage(image, x, y, width, height) {
-        this.ctx_.drawImage(image, x, y, width, height);
-    }
-
-    drawImage(imageID, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {
-        let image = this.image.getImage(imageID);
-        if (srcW === undefined)
-            this.ctx_.drawImage(image, srcX, srcX);
-        else if (dstX === undefined)
-            this.ctx_.drawImage(image, srcX, srcY, srcW, srcH);
-        else
-            this.ctx_.drawImage(image, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH)
-    }
+    drawImage(imageID, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {}
 }

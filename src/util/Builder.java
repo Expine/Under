@@ -134,6 +134,8 @@ public class Builder {
     }
 
     private static void searchFile(File root) {
+        if(!root.exists())
+            System.out.println("Error: " + root);
         if(excludeDirectories.contains(root.getName()))
             return;
         for(File file : root.listFiles()) {
