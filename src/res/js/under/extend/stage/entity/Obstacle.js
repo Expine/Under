@@ -3,7 +3,7 @@
  * @implements {MmutableObject}
  * @classdesc Mutable object sample
  */
-class RepetitiveObject extends MutableObject { // eslint-disable-line  no-unused-vars
+class Obstacle extends MutableObject { // eslint-disable-line  no-unused-vars
     /**
      * Render entity
      * @override

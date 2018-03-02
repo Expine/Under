@@ -25,7 +25,9 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
      * @return {Map} map instance for base of parsing
      */
     makeBaseMap(imageID, width, height) {
-        return new InvariantBackMap(imageID, width, height);
+        let map = new InvariantBackMap(width, height);
+        map.setBackground(imageID);
+        return map;
     }
 
     /**

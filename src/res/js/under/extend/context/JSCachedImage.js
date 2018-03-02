@@ -35,7 +35,7 @@ class JSCachedImage extends ContextImage { // eslint-disable-line  no-unused-var
         let image = new Image();
         image.src = filePath;
         this.images_.push(image);
-        return this.images_.length - 1;
+        return this.caches_[filePath] = this.images_.length - 1;
     }
 
 

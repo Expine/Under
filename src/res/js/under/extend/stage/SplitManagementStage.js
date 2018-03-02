@@ -25,11 +25,11 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
          */
         this.mutables_ = [];
         /**
-         * Charactr list
+         * Autonnomy entity list
          * @private
          * @type {Array}
          */
-        this.characters_ = [];
+        this.autonomies_ = [];
 
         /**
          * Processing list for next method
@@ -53,8 +53,8 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             this.immutables_.push(entity);
         } else if (entity instanceof MutableObject) {
             this.mutables_.push(entity);
-        } else if (entity instanceof Character) {
-            this.characters_.push(entity);
+        } else if (entity instanceof AutonomyObject) {
+            this.autonomies_.push(entity);
         }
     }
 
@@ -75,7 +75,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
                 if (this.proccessingList_ == this.immutables_) {
                     this.proccessingList_ = this.mutables_;
                 } else if (this.proccessingList_ == this.mutables_) {
-                    this.proccessingList_ = this.characters_;
+                    this.proccessingList_ = this.autonomies_;
                 } else {
                     this.proccessingList_ = null;
                     break;
@@ -93,11 +93,11 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt delta time
      */
     update(dt) {
-        // update mutables and characters
+        // update mutables and autonomies
         for (let it of this.mutables_) {
             it.update(dt);
         }
-        for (let it of this.characters_) {
+        for (let it of this.autonomies_) {
             it.update(dt);
         }
         this.camera.setCameraPosition(this.mutables_[0].x + this.mutables_[0].width / 2, this.mutables_[0].y + this.mutables_[0].height / 2, this.map.width, this.map.height);
@@ -117,7 +117,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         let startY = -this.camera.cameraY;
         let endX = startX + this.camera.screenWidth;
         let endY = startY + this.camera.screenHeight;
-        for (let arr of [this.immutables_, this.mutables_, this.characters_]) {
+        for (let arr of [this.immutables_, this.mutables_, this.autonomies_]) {
             for (let it of arr) {
                 if (it.x + it.width >= startX && it.x <= endX && it.y + it.height >= startY && it.y <= endY) {
                     it.render(ctx, -startX, -startY);

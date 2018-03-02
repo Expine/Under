@@ -19,6 +19,12 @@ class Scene { // eslint-disable-line  no-unused-vars
     update(dt) {}
 
     /**
+     * Start scene
+     * @interface
+     */
+    start() {}
+
+    /**
      * Set input system
      * @param {Input} input - input system
      */

@@ -17,6 +17,18 @@ class MutableObject extends Entity { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Update mutable object
+     * @override
+     * @param {number} dt - delta time
+     */
+    update(dt) {
+        if (this.body !== undefined) {
+            this.body.update(dt);
+        }
+    }
+
+
+    /**
      * Set stage
      * @param {Stage} stage
      */
@@ -45,17 +57,6 @@ class MutableObject extends Entity { // eslint-disable-line  no-unused-vars
             if (col) {
                 this.body.repulsion();
             }
-        }
-    }
-
-    /**
-     * Update entty
-     * @interface
-     * @param {number} dt - delta time
-     */
-    update(dt) {
-        if (this.body !== undefined) {
-            this.body.update(dt);
         }
     }
 }

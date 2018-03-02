@@ -5,14 +5,10 @@
  */
 class InvariantBackMap extends Map { // eslint-disable-line  no-unused-vars
     /**
-     * Invariant back map constructor
-     * @constructor
+     * Set background image
      * @param {number} backID background image id
-     * @param {number} width Map width per pixel
-     * @param {number} height Map height per pixel
      */
-    constructor(backID, width, height) {
-        super(width, height);
+    setBackground(backID) {
         /**
          * Background image id
          * @private

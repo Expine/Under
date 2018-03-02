@@ -26,10 +26,13 @@ package under {
             package entity {
                 abstract ImmutableObject
                 abstract MutableObject
-                abstract Character
+                abstract AutonomyObject
                 package physics {
                     abstract Collider
                     abstract RigidBody
+                }
+                package ai {
+                    abstract AI
                 }
             }
         }
@@ -57,7 +60,7 @@ package under {
             class CenterCamera
             package ex_entity {
                 class TileObject
-                class RepetitiveObject
+                class Obstacle
                 package ex_physics {
                     class CircleCollider
                     class GravityElasticBody
@@ -75,31 +78,32 @@ package main_scene {
 class ExtendedInput
 class Main
 
-Engine --> Screen
-Engine --> Input
-Engine --> Context
-Engine --> SceneManager
+Engine "1" *-- "1" Screen
+Engine "1" *-- "1" Input
+Engine "1" *-- "1" Context
+Engine "1" *-- "1" SceneManager
 
 SceneManager -> Input
 Input -> Screen
 Context -> Screen
 
-SceneManager --> Scene
-Scene --> SceneManager
+SceneManager "1" *-- "*" Scene
+SceneManager <-- Scene
 Input <-- Scene
-Context --> ContextImage
+Context "1" *-- "1" ContextImage
 
 StageParser --> Stage
-Stage --> Map
-Stage --> Camera
-Stage --> Entity
-Stage --> PhysicalWorld
+Stage "1" *-- "1" Map
+Stage "1" *-- "1" Camera
+Stage "1" *-- "*" Entity
+Stage "1" *-- "1" PhysicalWorld
 
-Entity --> Collider
-Entity <|.. ImmutableObject
-Entity <|.. MutableObject
-MutableObject <|.. Character
+Entity <|-- ImmutableObject
+Entity <|-- MutableObject
+MutableObject <|-- AutonomyObject
 
-MutableObject --> RigidBody
+Entity "1" o-- "1" Collider
+MutableObject "1" *-- "1" RigidBody
+AutonomyObject "1" *-- "*" AI
 
 @enduml
