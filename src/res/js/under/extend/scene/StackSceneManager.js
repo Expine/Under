@@ -36,7 +36,6 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
      * @param {Scene} scene scene instance for running it
      */
     pushScene(scene) {
-        scene.setInput(this.input);
         scene.setSceneManager(this);
         this.scenes_.push(scene);
         scene.start();

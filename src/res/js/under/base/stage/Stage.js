@@ -45,6 +45,19 @@ class Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set physical world
+     * @param {PhysicalWorld} physic Physical world
+     */
+    setPhysicalWorld(physic) {
+        /**
+         * Physical world
+         * @protected
+         * @type {PhysicalWorld}
+         */
+        this.physic = physic;
+    }
+
+    /**
      * Add entity to stage
      * @interface
      * @param {Entity} entity - entity object

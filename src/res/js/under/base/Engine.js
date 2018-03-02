@@ -64,7 +64,6 @@ class Engine { // eslint-disable-line  no-unused-vars
      */
     execute(scene) {
         // set access
-        this.manager.setInput(this.input);
         this.input.setScreen(this.screen);
         this.context.setScreen(this.screen);
     }

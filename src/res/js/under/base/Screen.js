@@ -26,6 +26,9 @@ class Screen { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.height = height;
+
+        // set singleton instance
+        Screen.it = this;
     }
 
     /**

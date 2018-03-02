@@ -34,7 +34,7 @@ class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         // update circle angle and radius
-        if (this.input.isMousePressed(this.input.M.LEFT)) {
+        if (Input.it.isMousePressed(Input.it.M.LEFT)) {
             this.r_ += dt / 20;
             this.angle_ = this.angle_ + Math.PI / 10 * dt / 20;
         } else {
@@ -58,12 +58,12 @@ class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
         ctx.fillText(sample, 400, 300, 0.5);
 
         // render when enter pressed
-        if (this.input.isKeyPressed(13)) {
+        if (Input.it.isKeyPressed(13)) {
             ctx.fillText(`Enter pressed`, 400, 400, 0.5, 0, 30, `red`);
         }
 
         // render circle on mouse
         let angle = this.angle_ > Math.PI * 2 ? Math.PI * 2 : this.angle_;
-        ctx.strokeCircle(this.input.getMouseX(), this.input.getMouseY(), this.r_, 0, angle, false);
+        ctx.strokeCircle(Input.it.getMouseX(), Input.it.getMouseY(), this.r_, 0, angle, false);
     }
 }

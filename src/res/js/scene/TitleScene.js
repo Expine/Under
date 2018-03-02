@@ -4,7 +4,7 @@
  */
 class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
     update(dt) {
-        if (this.input.isYesPress()) {
+        if (Input.it.isYesPress()) {
             this.scene.replaceScene(new GameScene());
         }
     }

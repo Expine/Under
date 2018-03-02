@@ -6,6 +6,15 @@
  */
 class Input { // eslint-disable-line  no-unused-vars
     /**
+     * Input constructor
+     * @constructor
+     */
+    constructor() {
+        // set singleton instance
+        Input.it = this;
+    }
+
+    /**
      * Set screen instance for getting screen ratio and setting inut target
      * @param {Screen} screen
      */

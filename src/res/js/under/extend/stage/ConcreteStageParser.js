@@ -3,8 +3,6 @@
  * It can also be used as a builder pattern
  * @implements {StageParser}
  * @classdesc Default parser to generate stage
- * @example
- * let stage = (new ConcreteStageParser()).parse(`relative/path`, 800, 600)
  */
 class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unused-vars
     /**
@@ -40,6 +38,15 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
     }
 
     /**
+     * Make base phisical world for parsing stage
+     * @protected
+     * @return {PhysicalWorld} Physical world instance for base of parsing
+     */
+    makeBaseWorld(stage) {
+        return new DefaultPhysic(stage);
+    }
+
+    /**
      * Parset file to stage
      * @override
      * @param {string} filePath stage file path
@@ -71,6 +78,7 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
         let stage = this.makeBaseStage();
         stage.setMap(this.makeBaseMap(backID, stageWidth * tileWidth, stageHeight * tileHeight));
         stage.setCamera(this.makeBaseCamera(width, height));
+        stage.setPhysicalWorld(this.makeBaseWorld(stage));
         // set tile
         for (let y = 0; y < stageHeight; ++y) {
             for (let x = 0; x < stageWidth; ++x) {

@@ -6,19 +6,6 @@
  */
 class SceneManager { // eslint-disable-line  no-unused-vars
     /**
-     * Set input system
-     * @param {Input} input Input system
-     */
-    setInput(input) {
-        /**
-         * Input system
-         * @protected
-         * @type {Input}
-         */
-        this.input = input;
-    }
-
-    /**
      * Get currently running scene
      * @interface
      * @return {Scene} currently running scene

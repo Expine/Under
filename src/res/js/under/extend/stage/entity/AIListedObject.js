@@ -50,7 +50,6 @@ class AIListedObject extends AutonomyObject { // eslint-disable-line  no-unused-
      * @param {number} dt - delta time
      */
     update(dt) {
-        super.update(dt);
         for (let it of this.ai_) {
             if (it.apply(dt)) {
                 break;

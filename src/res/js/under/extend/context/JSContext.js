@@ -123,7 +123,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
     fillText(text, x, y, anchorX = 0, anchorY = 0, size = this.fontSize, color = this.fontColor_, font = this.fontName) {
         this.ctx_.font = size + `px ` + font;
         this.ctx_.fillStyle = color;
-        this.ctx_.fillText(text, x - anchorX * this.ctx_.measureText(text).width, y + anchorY * size);
+        this.ctx_.fillText(text, x - anchorX * this.ctx_.measureText(text).width, y + (1 - anchorY) * size);
     }
 
     /**
