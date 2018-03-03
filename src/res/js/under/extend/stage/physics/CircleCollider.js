@@ -77,15 +77,27 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * Judge whether collision
      * @interface
      * @param {Colllder} collider
+     * @param {CollisionData} data Pointer to save conflict information
      * @return {boolean} whether collision
      */
-    isCollision(collider) {
+    isCollision(collider, data) {
         if (collider instanceof CircleCollider) {
-            let sx = this.getCenterX() - collider.getCenterX();
-            let sy = this.getCenterY() - collider.getCenterY();
+            let nx = collider.getCenterX() - this.getCenterX();
+            let ny = collider.getCenterY() - this.getCenterY();
             let r = this.radius + collider.radius;
-            return sx * sx + sy * sy <= r * r;
+            if (nx * nx + ny * ny < r * r) {
+                if (data !== undefined) {
+                    let nlen = Math.sqrt(nx * nx + ny * ny);
+                    data.e1 = this.entity;
+                    data.e2 = collider.entity;
+                    data.nx = nx / nlen;
+                    data.ny = ny / nlen;
+                    data.depth = collider.radius + this.radius - nlen;
+                }
+                return true;
+            }
         }
+        return false;
     }
     /**
      * Perform collision response
@@ -94,6 +106,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * @param {number} shiftY Vertical displacement
      */
     collisionResponse(collider, shiftX, shiftY, dt) {
+        /*
         if (this.isCollision(collider)) {
             if (collider instanceof CircleCollider) {
                 let nx = collider.getCenterX() - this.getCenterX();
@@ -136,16 +149,25 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
                 }
             }
         }
-        /*
+        */
         while (this.isCollision(collider)) {
             if (collider instanceof CircleCollider) {
+                /*
+                let nx = collider.getCenterX() - this.getCenterX();
+                let ny = collider.getCenterY() - this.getCenterY();
+                let nlen = Math.sqrt(nx * nx + ny * ny);
+                nx = nx / nlen;
+                ny = ny / nlen;
+                let d = collider.radius + this.radius - nlen;
+                this.entity.x -= d * nx;
+                this.entity.y -= d * ny;
+                */
                 let x = collider.getCenterX() - this.getCenterX();
                 let y = collider.getCenterY() - this.getCenterY();
                 this.entity.x -= x / 1000;
                 this.entity.y -= y / 1000;
             }
         }
-        */
     }
 
     /**

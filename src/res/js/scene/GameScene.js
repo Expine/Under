@@ -10,22 +10,24 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
     start() {
         this.stage = (new ConcreteStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
         let chara = Context.image.loadImage(`res/image/chara/player.png`);
-        this.player = new Player(64, 200, 64, 64, chara);
+        this.player = new Player(74, 200, 64, 64, chara);
         this.player.setRigidBody(new GravityElasticBody(this.player));
         this.player.setCollider(new CircleCollider(this.player, 32));
         this.stage.addEntity(this.player);
 
         let en = Context.image.loadImage(`res/image/chara/enemy.png`);
-        let enemy = new Enemy(164, 200, 64, 64, en);
+        let enemy = new Enemy(154, 180, 64, 64, en);
         enemy.setRigidBody(new GravityElasticBody(enemy));
         enemy.setCollider(new CircleCollider(enemy, 32));
-        this.stage.addEntity(enemy);
+        //        this.stage.addEntity(enemy);
 
-        let bo = Context.image.loadImage(`res/image/chara/box.png`);
-        let box = new Obstacle(464, 200, 64, 64, bo);
-        box.setRigidBody(new GravityElasticBody(box));
-        box.setCollider(new CircleCollider(box, 32));
-        this.stage.addEntity(box);
+        for (var i = 0; i < 100; ++i) {
+            let bo = Context.image.loadImage(`res/image/chara/box.png`);
+            let box = new Obstacle(100 + 80 * (i % 20), 180 - 80 * Math.floor(i / 20), 64, 64, bo);
+            box.setRigidBody(new GravityElasticBody(box));
+            box.setCollider(new CircleCollider(box, 32));
+            this.stage.addEntity(box);
+        }
 
         this.debug = new DebugLayer(this.stage);
     }

@@ -41,21 +41,13 @@ class Collider { // eslint-disable-line  no-unused-vars
     isInCollider(x, y) {}
 
     /**
-     * Perform collision response
-     * @param {Collider} collider
-     * @param {number} shiftX Horizontal displacement
-     * @param {number} shiftY Vertical displacement
-     */
-    collisionResponse(collider, shiftX, shiftY) {}
-
-
-    /**
      * Judge whether collision
      * @interface
      * @param {Colllder} collider
+     * @param {CollisionData} data Pointer to save conflict information
      * @return {boolean} whether collision
      */
-    isCollision(collider) {}
+    isCollision(collider, data) {}
 
     /**
      * Judge whether collision roughly
@@ -68,13 +60,6 @@ class Collider { // eslint-disable-line  no-unused-vars
         let you = collider.getAABB();
         return me.endX >= you.startX && you.endX >= me.startX && me.endY >= you.startY & you.endY >= me.startY;
     }
-
-    /**
-     * Perform collision response
-     * @param {Collider} collider
-     */
-    collisionResponse(collider) {}
-
 
     /**
      * Update collide information

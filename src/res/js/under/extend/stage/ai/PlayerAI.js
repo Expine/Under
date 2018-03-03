@@ -16,44 +16,44 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
         let it = 50;
         let w = 6;
         let h = 5;
-        let d = 10;
-        //        this.entity.body.velocityX = 0;
+        let vx = 0;
+        let vy = 0;
         if (Input.it.isUpPressed()) {
-            if (this.entity.body.velocityY > -h * it) {
-                this.entity.body.enforce(0, -h * it);
-            } else {
-                this.entity.body.velocityY = -h * it;
-            }
-            //            this.entity.body.velocityY = -h * it;
+            vy += -h * it;
             ret = true;
         }
         if (Input.it.isDownPressed()) {
-            if (this.entity.body.velocityY < -h * it) {
-                this.entity.body.enforce(0, h * it);
-            } else {
-                this.entity.body.velocityY = h * it;
-            }
-            //            this.entity.body.velocityY = h * it;
+            vy += h * it;
             ret = true;
         }
         if (Input.it.isLeftPressed()) {
-            if (this.entity.body.velocityX > -w * it) {
-                this.entity.body.enforce(-w * it / d, 0);
-            } else {
-                this.entity.body.velocityX = -w * it;
-            }
-            //            this.entity.body.velocityX = -w * it;
+            vx += -w * it;
             ret = true;
         }
         if (Input.it.isRightPressed()) {
-            if (this.entity.body.velocityX < w * it) {
-                this.entity.body.enforce(w * it / d, 0);
-            } else {
-                this.entity.body.velocityX = w * it;
-            }
-            //            this.entity.body.velocityX = w * it;
+            vx += w * it;
             ret = true;
         }
+        if (Math.abs(vy) > 0) {
+            /*
+            if (Math.abs(this.entity.body.velocityY) < Math.abs(vy)) {
+                this.entity.body.enforce(0, vy);
+            } else {
+                this.entity.body.velocityY = vy;
+            }
+            */
+            this.entity.body.velocityY = vy;
+        }
+        if (Math.abs(vx) > 0) {
+            /*
+            if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
+                this.entity.body.enforce(vx, 0);
+            } else {
+                this.entity.body.velocityX = vx;
+            }
+            */
+        }
+        this.entity.body.velocityX = vx;
         return ret;
     }
 }

@@ -16,6 +16,12 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
          */
         this.deltaTime = 0;
         this.stage = stage;
+
+        this.count = 0;
+        this.record = [];
+        for (var i = 0; i < 10; ++i) {
+            this.record.push({});
+        }
     }
     /**
      * Update layer
@@ -23,7 +29,19 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {number} dt - delta time
      */
     update(dt) {
-        this.deltaTime = dt;
+        let it = this.record[this.count];
+        it.deltaTime = dt;
+        it.collisions = this.stage.physic.collisionSize;
+        this.count += 1;
+        if (this.count > 9) {
+            this.deltaTime = 0;
+            this.collisions = 0;
+            for (let v of this.record) {
+                this.deltaTime = Math.max(this.deltaTime, v.deltaTime);
+                this.collisions = Math.max(this.collisions, v.collisions);
+            }
+            this.count = 0;
+        }
     }
 
     /**
@@ -33,5 +51,6 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         ctx.fillText(this.deltaTime + ` msec`, Screen.it.width, 0, 1.0, 0.0, 20, `white`);
+        ctx.fillText(this.collisions + ` loop`, Screen.it.width, 30, 1.0, 0.0, 20, `white`);
     }
 }

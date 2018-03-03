@@ -49,9 +49,6 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
          * @type {number}
          */
         this.e = 0.0;
-
-        this.shiftX_ = 0;
-        this.shiftY_ = 0;
     }
 
     /**
@@ -62,30 +59,10 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
     update(dt) {
         this.velocityX += this.accelerationX * dt / 1000;
         this.velocityY += this.accelerationY * dt / 1000;
-        this.shiftX_ = this.velocityX;
-        this.shiftY_ = this.velocityY;
         this.entity.x += this.velocityX * dt / 1000;
         this.entity.y += this.velocityY * dt / 1000;
         this.accelerationX = 0;
         this.accelerationY = this.gravity / this.mass;
-    }
-
-    /**
-     * Get x difference of movement
-     * @interface
-     * @return {number} X difference of movement
-     */
-    getMoveDifferentialX() {
-        return this.shiftX_;
-    }
-
-    /**
-     * Get y difference of movement
-     * @interface
-     * @return {number} Y difference of movement
-     */
-    getMoveDifferentialY() {
-        return this.shiftY_;
     }
 
     /**
@@ -94,32 +71,7 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
      * @param {number} forceY Force in y direction
      */
     enforce(forceX, forceY) {
-        this.accelerationX += forceX * 300 / this.mass;
-        this.accelerationY += forceY * 300 / this.mass;
-    }
-
-    /**
-     * Repulsion for reversing velocity
-     * Should not zero vector
-     * @override
-     * @param {number} rx X component of the reference vector
-     * @param {number} ry Y component of the reference vector
-     */
-    repulsion(rx, ry, dt) {
-        let dot = rx * this.velocityX + ry * this.velocityY;
-        // If there is a velocity vector on the opposite side of the reference vector, do not process
-        if (dot < 0) {
-            return;
-        }
-        /*
-        let cos2 = dot * dot / ((rx * rx + ry * ry) * (this.velocityX * this.velocityX + this.velocityY * this.velocityY));
-        let cos = Math.sqrt(cos2);
-        let sin = Math.sqrt(1 - cos2);
-        let velocity = Math.sqrt(this.velocityX * this.velocityX + this.velocityY * this.velocityY);
-        */
-        //        this.accelerationX = -this.velocityX * (1 + this.e) * 1000 / dt;
-        //        this.accelerationY = -this.velocityY * (1 + this.e) * 1000 / dt;
-        // this.velocityX = -this.velocityX * this.e;
-        // this.velocityY = -this.velocityY * this.e;
+        this.accelerationX += forceX * this.mass;
+        this.accelerationY += forceY * this.mass;
     }
 }
