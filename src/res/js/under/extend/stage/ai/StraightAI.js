@@ -27,7 +27,10 @@ class StraightAI extends AI { // eslint-disable-line  no-unused-vars
         if (this.switcher > 10 * 1000) {
             this.switcher = 0;
         }
-        this.entity.body.velocityX = this.switcher > 5000 ? -1 : 1;
+        if (this.entity.body) {
+            this.entity.body.velocityX = 0;
+        }
+        //        this.entity.body.velocityX = this.switcher > 5000 ? -100 : 100;
         return true;
     }
 }

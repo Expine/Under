@@ -13,22 +13,45 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         let ret = false;
-        let it = 8;
-        this.entity.body.velocityX = 0;
+        let it = 50;
+        let w = 6;
+        let h = 5;
+        let d = 10;
+        //        this.entity.body.velocityX = 0;
         if (Input.it.isUpPressed()) {
-            this.entity.body.velocityY = -it;
+            if (this.entity.body.velocityY > -h * it) {
+                this.entity.body.enforce(0, -h * it);
+            } else {
+                this.entity.body.velocityY = -h * it;
+            }
+            //            this.entity.body.velocityY = -h * it;
             ret = true;
         }
         if (Input.it.isDownPressed()) {
-            this.entity.body.velocityY = it;
+            if (this.entity.body.velocityY < -h * it) {
+                this.entity.body.enforce(0, h * it);
+            } else {
+                this.entity.body.velocityY = h * it;
+            }
+            //            this.entity.body.velocityY = h * it;
             ret = true;
         }
         if (Input.it.isLeftPressed()) {
-            this.entity.body.velocityX = -it;
+            if (this.entity.body.velocityX > -w * it) {
+                this.entity.body.enforce(-w * it / d, 0);
+            } else {
+                this.entity.body.velocityX = -w * it;
+            }
+            //            this.entity.body.velocityX = -w * it;
             ret = true;
         }
         if (Input.it.isRightPressed()) {
-            this.entity.body.velocityX = it;
+            if (this.entity.body.velocityX < w * it) {
+                this.entity.body.enforce(w * it / d, 0);
+            } else {
+                this.entity.body.velocityX = w * it;
+            }
+            //            this.entity.body.velocityX = w * it;
             ret = true;
         }
         return ret;

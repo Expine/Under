@@ -12,12 +12,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Vertical distance to shift from center
      */
     constructor(entity, radius, shiftX = 0, shiftY = 0) {
-        super();
-        /**
-         * Entity attaching this
-         * @type {Entity}
-         */
-        this.entity = entity;
+        super(entity);
         /**
          * Circle radius
          * @type {number}
@@ -34,70 +29,35 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.shiftY = shiftY;
-
-        this.startX = 0;
-        this.startY = 0;
-        this.endX = 0;
-        this.endY = 0;
     }
 
     /**
-     * Get collider upper left x position
-     * @interface
-     * @return {number} upper left x position
+     * Get collider AABB
+     * @override
+     * @return {AABB} Axis Aligned Bounding Box
      */
-    getAABBStartX() {
-        return this.startX;
+    getAABB() {
+        this.aabb.startX = this.entity.x + this.shiftX;
+        this.aabb.startY = this.entity.y + this.shiftY;
+        this.aabb.endX = this.entity.x + this.radius * 2 + this.shiftX;
+        this.aabb.endY = this.entity.y + this.radius * 2 + this.shiftY;
+        return this.aabb;
     }
 
     /**
-     * Get collider bottom right x position
-     * @interface
-     * @return {number} bottom right x position
-     */
-    getAABBEndX() {
-        return this.startY;
-    }
-
-    /**
-     * Get collider upper left y position
-     * @interface
-     * @return {number} upper left y position
-     */
-    getAABBStartY() {}
-
-    /**
-     * Get collider bottom right y position
-     * @interface
-     * @return {number} bottom right y position
-     */
-    getAABBEndY() {}
-
-    /**
-     * Get collider center x position
-     * @interface
-     * @return {number} center x position
+     * Get center x position of cicle
+     * @return {number} Center x position
      */
     getCenterX() {
-        return this.entity.x + this.entity.width / 2 + this.shiftX;
+        return this.entity.x + this.radius + this.shiftX;
     }
 
     /**
-     * Get collider center y position
-     * @interface
-     * @return {number} center y position
+     * Get center x position of cicle
+     * @return {number} Center x position
      */
     getCenterY() {
-        return this.entity.y + this.entity.height / 2 + this.shiftY;
-    }
-
-    /**
-     * Get collider roughly radius
-     * @interface
-     * @return {number} roughly radius
-     */
-    getColliderRadius() {
-        return this.radius;
+        return this.entity.y + this.radius + this.shiftY;
     }
 
     /**
@@ -114,28 +74,6 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Judge whether collision roughly
-     * @interface
-     * @param {Colllder} collider
-     * @return {boolean} whether collision roughly
-     */
-    isCollisionRoughly(collider) {
-        /*
-        let cx = this.getCenterX();
-        let cy = this.getCenterY();
-        let sx = cx - this.radius;
-        let sy = cy - this.radius;
-        let ex = cx + this.radius;
-        let ey = cy + this.radius;
-        return (cx - this.radius)
-        */
-        let sx = this.getCenterX() - collider.getCenterX();
-        let sy = this.getCenterY() - collider.getCenterY();
-        let r = this.radius + collider.getColliderRadius();
-        return sx * sx + sy * sy <= r * r;
-    }
-
-    /**
      * Judge whether collision
      * @interface
      * @param {Colllder} collider
@@ -145,7 +83,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
         if (collider instanceof CircleCollider) {
             let sx = this.getCenterX() - collider.getCenterX();
             let sy = this.getCenterY() - collider.getCenterY();
-            let r = this.radius + collider.getColliderRadius();
+            let r = this.radius + collider.radius;
             return sx * sx + sy * sy <= r * r;
         }
     }
@@ -155,7 +93,50 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * @param {number} shiftX Horizontal displacement
      * @param {number} shiftY Vertical displacement
      */
-    collisionResponse(collider, shiftX, shiftY) {
+    collisionResponse(collider, shiftX, shiftY, dt) {
+        if (this.isCollision(collider)) {
+            if (collider instanceof CircleCollider) {
+                let nx = collider.getCenterX() - this.getCenterX();
+                let ny = collider.getCenterY() - this.getCenterY();
+                let nlen = Math.sqrt(nx * nx + ny * ny);
+                nx = nx / nlen;
+                ny = ny / nlen;
+                let b1 = this.entity.body;
+                let b2 = collider.entity.body;
+                if (b2 !== undefined) {
+                    let dot1 = b1 === undefined ? 0 : (b1.shiftX_ * nx + b1.shiftY_ * ny);
+                    let dot2 = b2 === undefined ? 0 : (b2.shiftX_ * nx + b2.shiftY_ * ny);
+                    let v1x = dot1 * nx;
+                    let v1y = dot1 * ny;
+                    let v2x = dot2 * nx;
+                    let v2y = dot2 * ny;
+                    let vdx = v2x - v1x;
+                    let vdy = v2y - v1y;
+                    let m1 = b1 === undefined ? (b2 === undefined ? 1 : b2.mass) : b1.mass;
+                    let m2 = b2 === undefined ? (b1 === undefined ? 1 : b1.mass) : b2.mass;
+                    let e = b1 === undefined ? (b2 === undefined ? 0 : b1.e) : (b2 === undefined ? b1.e : Math.max(b1.e, b2.e));
+                    let j = (1 + e) * m1 * m2 / (m1 + m2) / dt;
+                    let d = (collider.radius + this.radius - nlen) * 10;
+                    if (b1 !== undefined) {
+                        let dd = d * ((b2 !== undefined) ? 1 : 0.1);
+                        b1.enforce(j * vdx - dd * nx, j * vdy - dd * ny);
+                    }
+                    if (b2 !== undefined) {
+                        //                    b2.enforce(-j * vdx, -j * vdy);
+                    }
+                } else {
+                    let dot1 = b1 === undefined ? 0 : (b1.shiftX_ * nx + b1.shiftY_ * ny);
+                    let v1x = dot1 * nx;
+                    let v1y = dot1 * ny;
+                    let m1 = b1 === undefined ? (b2 === undefined ? 1 : b2.mass) : b1.mass;
+                    let e = b1 === undefined ? (b2 === undefined ? 0 : b1.e) : (b2 === undefined ? b1.e : Math.max(b1.e, b2.e));
+                    let j = (1 + e) * m1 / -dt;
+                    let d = (collider.radius + this.radius - nlen) * 10;
+                    b1.enforce(j * v1x - d * nx, j * v1y - d * ny);
+                }
+            }
+        }
+        /*
         while (this.isCollision(collider)) {
             if (collider instanceof CircleCollider) {
                 let x = collider.getCenterX() - this.getCenterX();
@@ -164,6 +145,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
                 this.entity.y -= y / 1000;
             }
         }
+        */
     }
 
     /**

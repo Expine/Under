@@ -4,53 +4,32 @@
  */
 class Collider { // eslint-disable-line  no-unused-vars
     /**
-     * Get collider upper left x position
-     * @interface
-     * @return {number} upper left x position
+     * Collider constructor
+     * @constructor
+     * @param {Entity} entity Entity attaching this
      */
-    getAABBStartX() {}
+    constructor(entity) {
+        /**
+         * Entity attaching this
+         * @type {Entity}
+         */
+        this.entity = entity;
+
+        /**
+         * AABB for collision detection
+         * @protected
+         * @type {AABB}
+         */
+        this.aabb = new AABB();
+    }
 
     /**
-     * Get collider bottom right x position
-     * @interface
-     * @return {number} bottom right x position
+     * Get collider AABB
+     * @return {AABB} Axis Aligned Bounding Box
      */
-    getAABBEndX() {}
-
-    /**
-     * Get collider upper left y position
-     * @interface
-     * @return {number} upper left y position
-     */
-    getAABBStartY() {}
-
-    /**
-     * Get collider bottom right y position
-     * @interface
-     * @return {number} bottom right y position
-     */
-    getAABBEndY() {}
-
-    /**
-     * Get collider center x position
-     * @interface
-     * @return {number} center x position
-     */
-    getCenterX() {}
-
-    /**
-     * Get collider center y position
-     * @interface
-     * @return {number} center y position
-     */
-    getCenterY() {}
-
-    /**
-     * Get collider roughly radius
-     * @interface
-     * @return {number} roughly radius
-     */
-    getColliderRadius() {}
+    getAABB() {
+        return this.aabb;
+    }
 
     /**
      * Judge whether position is in collider
@@ -77,6 +56,18 @@ class Collider { // eslint-disable-line  no-unused-vars
      * @return {boolean} whether collision
      */
     isCollision(collider) {}
+
+    /**
+     * Judge whether collision roughly
+     * @interface
+     * @param {Colllder} collider
+     * @return {boolean} whether collision roughly
+     */
+    isCollisionRoughly(collider) {
+        let me = this.getAABB();
+        let you = collider.getAABB();
+        return me.endX >= you.startX && you.endX >= me.startX && me.endY >= you.startY & you.endY >= me.startY;
+    }
 
     /**
      * Perform collision response

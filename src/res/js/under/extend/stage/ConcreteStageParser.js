@@ -43,7 +43,7 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
     makeBaseWorld(stage) {
-        return new DefaultPhysic(stage);
+        return new SequentialWorld(stage);
     }
 
     /**

@@ -10,6 +10,6 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
     }
 
     render(ctx) {
-        ctx.fillText(`Press to Start`, 400, 300, 0.5);
+        ctx.fillText(`Press to Start`, 400, 300, 0.5, 0.5);
     }
 }

@@ -21,6 +21,12 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         enemy.setCollider(new CircleCollider(enemy, 32));
         this.stage.addEntity(enemy);
 
+        let bo = Context.image.loadImage(`res/image/chara/box.png`);
+        let box = new Obstacle(464, 200, 64, 64, bo);
+        box.setRigidBody(new GravityElasticBody(box));
+        box.setCollider(new CircleCollider(box, 32));
+        this.stage.addEntity(box);
+
         this.debug = new DebugLayer(this.stage);
     }
 

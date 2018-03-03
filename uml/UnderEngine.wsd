@@ -96,7 +96,7 @@ StageParser --> Stage
 Stage "1" *-- "1" Map
 Stage "1" *-- "1" Camera
 Stage "1" *-- "*" Entity
-Stage "1" *-- "1" PhysicalWorld
+Stage "1" *-- "1" SequentialWorld
 
 Entity <|-- ImmutableObject
 Entity <|-- MutableObject
