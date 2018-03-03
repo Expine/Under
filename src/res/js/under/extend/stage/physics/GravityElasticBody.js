@@ -59,8 +59,12 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
     update(dt) {
         this.velocityX += this.accelerationX * dt / 1000;
         this.velocityY += this.accelerationY * dt / 1000;
-        this.entity.x += this.velocityX * dt / 1000;
-        this.entity.y += this.velocityY * dt / 1000;
+        if (Math.abs(this.velocityX) > 10) {
+            this.entity.x += this.velocityX * dt / 1000;
+        }
+        if (Math.abs(this.velocityY) > 10) {
+            this.entity.y += this.velocityY * dt / 1000;
+        }
         this.accelerationX = 0;
         this.accelerationY = this.gravity / this.mass;
     }

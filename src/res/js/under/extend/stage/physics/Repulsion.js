@@ -11,11 +11,11 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
      * @param {number} dt delta time
      */
     collisionResponse(data, dt) {
-        let nx = data.nx;
-        let ny = data.ny;
-        let d = data.depth * 10;
         let b1 = data.e1.body;
         let b2 = data.e2.body;
+        let nx = data.nx;
+        let ny = data.ny;
+        let d = data.depth;
         if (b2 !== undefined) {
             let dot1 = b1.velocityX * nx + b1.velocityY * ny;
             let dot2 = b2.velocityX * nx + b2.velocityY * ny;
@@ -24,7 +24,7 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             let v2x = dot2 * nx;
             let v2y = dot2 * ny;
             if (d > 1.0e-6) {
-                while (b1.entity.collider.isCollision(data.e2.collider)) {
+                while (b1.entity.collider.isCollision(data.e2.collider, data)) {
                     b1.entity.x -= nx * d / 10;
                     b1.entity.y -= ny * d / 10;
                     b2.entity.x += nx * d / 10;
@@ -40,7 +40,7 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             let v1x = dot1 * nx;
             let v1y = dot1 * ny;
             if (d > 1.0e-6) {
-                while (b1.entity.collider.isCollision(data.e2.collider)) {
+                while (b1.entity.collider.isCollision(data.e2.collider, data)) {
                     b1.entity.x -= nx * d / 10;
                     b1.entity.y -= ny * d / 10;
                 }

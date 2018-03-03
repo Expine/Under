@@ -151,6 +151,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {number} height
      */
     strokeRect(x, y, width, height) {
+        this.ctx_.strokeStyle = `red`;
         this.ctx_.strokeRect(x, y, width, height);
     }
 

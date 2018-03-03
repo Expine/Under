@@ -35,25 +35,21 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
             ret = true;
         }
         if (Math.abs(vy) > 0) {
-            /*
             if (Math.abs(this.entity.body.velocityY) < Math.abs(vy)) {
                 this.entity.body.enforce(0, vy);
             } else {
                 this.entity.body.velocityY = vy;
             }
-            */
-            this.entity.body.velocityY = vy;
+            //            this.entity.body.velocityY = vy;
         }
         if (Math.abs(vx) > 0) {
-            /*
             if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx, 0);
             } else {
                 this.entity.body.velocityX = vx;
             }
-            */
         }
-        this.entity.body.velocityX = vx;
+        //        this.entity.body.velocityX = vx;
         return ret;
     }
 }
