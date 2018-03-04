@@ -99,8 +99,8 @@ class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
                     data.nx = nx;
                     data.ny = ny;
                     data.depth = nlen;
-                    if (!this.collisions.includes(collider.entity)) {
-                        this.collisions.push(collider.entity);
+                    if (!this.collisions.includes(data)) {
+                        this.collisions.push(data);
                     }
                 }
                 return true;
@@ -131,5 +131,6 @@ class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
      */
     render(ctx, shiftX, shiftY) {
         ctx.strokeRect(this.aabb.startX + shiftX, this.aabb.startY + shiftY, this.endX - this.startX, this.endY - this.startY);
+        // ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 40, `red`);
     }
 }

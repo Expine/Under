@@ -32,7 +32,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         let it = this.record[this.count];
-        it.deltaTime = dt;
+        it.deltaTime = window.deltaTime;
         it.collisions = this.stage.physic.collisionSize;
         it.player = this.stage.player_.collider.collisions.length;
         this.count += 1;

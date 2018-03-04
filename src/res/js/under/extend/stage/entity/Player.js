@@ -19,4 +19,18 @@ class Player extends AIListedObject { // eslint-disable-line  no-unused-vars
 
         this.addAI(new PlayerAI(this));
     }
+
+    /**
+     * Determine whether player are on the ground
+     * @return {boolean} Whether player are on the ground
+     */
+    onGround() {
+        let list = this.collider.collisions;
+        for (let it of list) {
+            if (it.ny > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

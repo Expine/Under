@@ -45,7 +45,7 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * Coefficient of restitution
          * @type {number}
          */
-        this.e = 0.0;
+        this.e = 0.1;
     }
 
     /**

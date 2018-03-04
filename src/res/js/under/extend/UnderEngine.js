@@ -42,8 +42,9 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
             requestAnimationFrame(this.render);
             // update
             let newTime = +new Date();
+            window.deltaTime = newTime - this.oldTime_;
             this.input.update();
-            this.manager.update(newTime - this.oldTime_);
+            this.manager.update(window.deltaTime > 30 ? 30 : window.deltaTime);
             this.oldTime_ = newTime;
 
             // draw

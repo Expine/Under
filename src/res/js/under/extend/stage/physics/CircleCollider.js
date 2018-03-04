@@ -93,8 +93,8 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
                     data.nx = nx / nlen;
                     data.ny = ny / nlen;
                     data.depth = collider.radius + this.radius - nlen;
-                    if (!this.collisions.includes(collider.entity)) {
-                        this.collisions.push(collider.entity);
+                    if (!this.collisions.includes(data)) {
+                        this.collisions.push(data);
                     }
                 }
                 return true;
@@ -128,5 +128,6 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      */
     render(ctx, shiftX, shiftY) {
         ctx.strokeCircle(this.centerX + shiftX, this.centerY + shiftY, this.radius, 0, 2 * Math.PI, false);
+        // ctx.fillText(this.collisions.length + ``, this.centerX + shiftX, this.centerY + shiftY, 0.5, 0.5, this.radius * 2, `red`);
     }
 }

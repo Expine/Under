@@ -24,7 +24,7 @@ class Collider { // eslint-disable-line  no-unused-vars
 
         /**
          * List of collided objects
-         * @type {Array<Entity>}
+         * @type {Array<CollisionData>}
          */
         this.collisions = [];
     }

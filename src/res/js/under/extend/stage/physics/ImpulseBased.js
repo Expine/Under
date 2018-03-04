@@ -45,7 +45,7 @@ class ImpulseBased extends CollisionResponse { // eslint-disable-line  no-unused
             let e = b1.e;
             let n1 = data.e1.collider.collisions.length;
             let j = (1 + e) * m1 * 1000 / -dt / n1;
-            let dd = d / n1;
+            let dd = d / n1 * 2;
             b1.enforce(j * v1x - dd * nx, j * v1y - dd * ny);
         }
     }
