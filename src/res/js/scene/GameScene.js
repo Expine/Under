@@ -23,7 +23,7 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         // enemy.setCollider(new CircleCollider(enemy, 32));
         //        this.stage.addEntity(enemy);
 
-        for (var i = 0; i < 0; ++i) {
+        for (var i = 0; i < 500; ++i) {
             let bo = Context.image.loadImage(`res/image/chara/box.png`);
             let box = new Obstacle(100 + 80 * (i % 20), 180 - 80 * Math.floor(i / 20), 64 / 2, 64 / 2, bo);
             box.setRigidBody(new GravityElasticBody(box));
@@ -36,6 +36,18 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
     }
 
     update(dt) {
+        if (Input.it.isKeyPressed(16)) {
+            let ret = [];
+            for (let it of this.stage.entities_) {
+                if (it instanceof Obstacle) {
+                    it.setCollider(undefined);
+                    continue;
+                }
+                ret.push(it);
+            }
+            this.stage.entities_ = ret;
+        }
+
         this.stage.update(dt);
         this.debug.update(dt);
     }

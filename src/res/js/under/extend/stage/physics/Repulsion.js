@@ -23,22 +23,27 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             let v1y = dot1 * ny;
             let v2x = dot2 * nx;
             let v2y = dot2 * ny;
+            let d2 = dot2 > 0 ? 0 : d;
             if (d > 1.0e-4) {
-                while (b1.entity.collider.isCollision(data.e2.collider)) {
+                let i = 0;
+                while (i++ < 10 && b1.entity.collider.isCollision(data.e2.collider)) {
                     b1.entity.deltaMove(-nx * d / 10, -ny * d / 10);
-                    b2.entity.deltaMove(nx * d / 10, ny * d / 10);
+                    b2.entity.deltaMove(nx * d2 / 10, ny * d2 / 10);
                 }
             }
             b1.velocityX -= v1x * (1 + b2.e);
             b1.velocityY -= v1y * (1 + b2.e);
-            b2.velocityX -= v2x * (1 + b1.e);
-            b2.velocityY -= v2y * (1 + b1.e);
+            if (dot2 <= 0) {
+                b2.velocityX -= v2x * (1 + b1.e);
+                b2.velocityY -= v2y * (1 + b1.e);
+            }
         } else {
             let dot1 = b1.velocityX * nx + b1.velocityY * ny;
             let v1x = dot1 * nx;
             let v1y = dot1 * ny;
             if (d > 1.0e-4) {
-                while (b1.entity.collider.isCollision(data.e2.collider)) {
+                let i = 0;
+                while (i++ < 10 && b1.entity.collider.isCollision(data.e2.collider)) {
                     b1.entity.deltaMove(-nx * d / 10, -ny * d / 10);
                 }
             }

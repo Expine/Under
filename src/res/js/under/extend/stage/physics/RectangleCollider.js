@@ -94,6 +94,13 @@ class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
                         nx = 0;
                         ny = Math.sign(ny);
                     }
+                    if (this.entity.body === undefined || (this.entity.body.velocityX * nx + this.entity.body.velocityY * ny < 0)) {
+                        return false;
+                    }
+                    if (ny > 0 && !(collider.entity instanceof TileObject)) {
+                        ny;
+                        //                        console.log(ny);
+                    }
                     data.e1 = this.entity;
                     data.e2 = collider.entity;
                     data.nx = nx;

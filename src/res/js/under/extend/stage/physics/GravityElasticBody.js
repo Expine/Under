@@ -5,6 +5,18 @@
  */
 class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-vars
     /**
+     * Rigid body constructor
+     * @param {Entity} entity Target entity
+     * @param {number} [mass=1] Entity mass
+     * @param {number} [elasticity=0.0] Coefficient of restitution
+     * @param {number} [mu=0.6] Coefficient of friction
+     */
+    constructor(entity, mass = 1, elasticity = 0.0, mu = 0.6) {
+        super(entity, mass, elasticity, mu);
+    }
+
+
+    /**
      * Update by rigid body
      * @override
      * @param {number} dt delta time

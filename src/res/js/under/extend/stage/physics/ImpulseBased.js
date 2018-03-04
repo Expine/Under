@@ -13,7 +13,7 @@ class ImpulseBased extends CollisionResponse { // eslint-disable-line  no-unused
     collisionResponse(data, dt) {
         let nx = data.nx;
         let ny = data.ny;
-        let d = data.depth * 700;
+        let d = data.depth * 800;
         let b1 = data.e1.body;
         let b2 = data.e2.body;
         if (b2 !== undefined) {

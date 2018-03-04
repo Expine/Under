@@ -7,8 +7,8 @@ class CollisionData { // eslint-disable-line  no-unused-vars
     /**
      * Collision data constructor
      * @constructor
-     * @param {Entity} e1 Collision entity
-     * @param {Entity} e2 Collision entity
+     * @param {Entity} e1 Collision entity (Colliding)
+     * @param {Entity} e2 Collision entity (Collided, maybe colliding)
      * @param {number} nx X component of normal vector
      * @param {number} ny Y component of normal vector
      * @param {number} depth Depth of collision

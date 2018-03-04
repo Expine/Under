@@ -6,9 +6,11 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     /**
      * Rigid body constructor
      * @param {Entity} entity Target entity
-     * @param {number} [mass=1] Entity mass
+     * @param {number} mass Entity mass
+     * @param {number} elasticity Coefficient of restitution
+     * @param {number} mu Coefficient of friction
      */
-    constructor(entity, mass = 1) {
+    constructor(entity, mass, elasticity, mu) {
         /**
          * Entity attaching rigid body
          * @type {Entity}
@@ -45,7 +47,13 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * Coefficient of restitution
          * @type {number}
          */
-        this.e = 0.1;
+        this.e = elasticity;
+
+        /**
+         * Coefficient of friction
+         * @type {number}
+         */
+        this.mu = mu;
     }
 
     /**
