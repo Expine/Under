@@ -7,18 +7,6 @@
  */
 class Stage { // eslint-disable-line  no-unused-vars
     /**
-     * Stage Constructor
-     * Set iteratable
-     * @constructor
-     */
-    constructor() {
-        // set iterator
-        this[Symbol.iterator] = function() {
-            return this;
-        };
-    }
-
-    /**
      * Set map manager
      * @param {Map} map map manager
      */
@@ -63,13 +51,6 @@ class Stage { // eslint-disable-line  no-unused-vars
      * @param {Entity} entity - entity object
      */
     addEntity(entity) {}
-
-    /**
-     * Get entity iterator
-     * @interface
-     * @return {Iterator} entity iterator
-     */
-    next() {}
 
     /**
      * Update stage

@@ -13,14 +13,15 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         this.player = new Player(74, 200, 64, 64, chara);
         this.player.setRigidBody(new GravityElasticBody(this.player));
         // this.player.setCollider(new CircleCollider(this.player, 32));
-        this.player.setCollider(new RectangleCollder(this.player, 10, 0, 44, 64));
+        this.player.setCollider(new RectangleCollder(this.player, 12, 10, 38, 54));
         this.stage.addEntity(this.player);
 
         let en = Context.image.loadImage(`res/image/chara/enemy.png`);
         let enemy = new Enemy(154, 180, 64, 64, en);
         enemy.setRigidBody(new GravityElasticBody(enemy));
-        enemy.setCollider(new CircleCollider(enemy, 32));
-        //        this.stage.addEntity(enemy);
+        enemy.setCollider(new RectangleCollder(enemy, 0, 0, 64, 64));
+        // enemy.setCollider(new CircleCollider(enemy, 32));
+        this.stage.addEntity(enemy);
 
         for (var i = 0; i < 0; ++i) {
             let bo = Context.image.loadImage(`res/image/chara/box.png`);

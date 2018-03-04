@@ -6,10 +6,10 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     /**
      * Sequential world constructor
      * @constructor
-     * @param {IteratableObject<Entity>} entities Iteratable object indicating list of entity
+     * @param {number} [gravity=9.8] gravity of the world
      */
-    constructor(entities) {
-        super(entities);
+    constructor(gravity = 9.8) {
+        super(gravity);
 
         /**
          * Collision data list
@@ -26,7 +26,11 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
          */
         this.collisionSize = 0;
 
-
+        /**
+         * Collision response instance
+         * @protected
+         * @type {CollisionResponse}
+         */
         this.response = new ImpulseBased();
     }
 
@@ -34,9 +38,10 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * Update physical world
      * @param {number} dt Delta time
      * @param {Array<Entity>} targets List of targets to which physical operation is applied
+     * @param {IteratableObject<Entity>} entities List of all entity
      */
-    update(dt, targets) {
-        let delta = 1;
+    update(dt, targets, entities) {
+        // switch collision response
         if (Input.it.isNoPress()) {
             if (this.response instanceof ImpulseBased) {
                 this.response = new Repulsion();
@@ -44,11 +49,18 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                 this.response = new ImpulseBased();
             }
         }
-        for (var i = 0; i < (Input.it.isSubPressed() ? 10 : delta); ++i) {
+
+        // loop delta time
+        let delta = 1;
+        for (var i = 0; i < delta; ++i) {
             // body update
             for (let target of targets) {
                 if (target.body !== undefined) {
+                    target.body.enforce(0, this.gravity * target.body.mass);
                     target.body.update(dt / delta);
+                    if (target.collider !== undefined) {
+                        target.collider.init();
+                    }
                 }
             }
 
@@ -56,7 +68,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
             this.collisionSize = 0;
             for (let target of targets) {
                 if (target.collider !== undefined) {
-                    for (let it of this.entities) {
+                    for (let it of entities) {
                         if (it.collider !== undefined && target.collider.isCollisionRoughly(it.collider) && it !== target) {
                             if (target.collider.isCollision(it.collider, this.collisions[this.collisionSize])) {
                                 let same = false;

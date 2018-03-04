@@ -7,20 +7,21 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     /**
      * Physical world constructor
      * @constructor
-     * @param {IteratableObject<Entity>} entities Iteratable object indicating list of entity
+     * @param {number} gravity gravity of the world
      */
-    constructor(entities) {
+    constructor(gravity) {
         /**
-         * Iteratable object indicating list of entity
-         * @type {IteratableObject<Entity>}
+         * Gravity power
+         * @type {number}
          */
-        this.entities = entities;
+        this.gravity = gravity * 30;
     }
 
     /**
      * Update physical world
      * @param {number} dt Delta time
-     * @param {Array<Entity>} targets List of targets to which physical operation is applied
+     * @param {IteratableObject<Entity>} targets List of targets to which physical operation is applied
+     * @param {IteratableObject<Entity>} entities List of all entity
      */
-    update(dt, targets) {}
+    update(dt, targets, entities) {}
 }

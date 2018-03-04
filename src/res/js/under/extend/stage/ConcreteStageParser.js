@@ -42,8 +42,8 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
      * @protected
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
-    makeBaseWorld(stage) {
-        return new SequentialWorld(stage);
+    makeBaseWorld() {
+        return new SequentialWorld();
     }
 
     /**
@@ -78,7 +78,7 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
         let stage = this.makeBaseStage();
         stage.setMap(this.makeBaseMap(backID, stageWidth * tileWidth, stageHeight * tileHeight));
         stage.setCamera(this.makeBaseCamera(width, height));
-        stage.setPhysicalWorld(this.makeBaseWorld(stage));
+        stage.setPhysicalWorld(this.makeBaseWorld());
         // set tile
         for (let y = 0; y < stageHeight; ++y) {
             for (let x = 0; x < stageWidth; ++x) {

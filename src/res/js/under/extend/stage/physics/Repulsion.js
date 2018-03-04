@@ -24,11 +24,9 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             let v2x = dot2 * nx;
             let v2y = dot2 * ny;
             if (d > 1.0e-6) {
-                while (b1.entity.collider.isCollision(data.e2.collider, data)) {
-                    b1.entity.x -= nx * d / 10;
-                    b1.entity.y -= ny * d / 10;
-                    b2.entity.x += nx * d / 10;
-                    b2.entity.y += ny * d / 10;
+                while (b1.entity.collider.isCollision(data.e2.collider)) {
+                    b1.entity.deltaMove(-nx * d / 10, -ny * d / 10);
+                    b2.entity.deltaMove(nx * d / 10, ny * d / 10);
                 }
             }
             b1.velocityX -= v1x * (1 + b1.e);
@@ -40,9 +38,8 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             let v1x = dot1 * nx;
             let v1y = dot1 * ny;
             if (d > 1.0e-6) {
-                while (b1.entity.collider.isCollision(data.e2.collider, data)) {
-                    b1.entity.x -= nx * d / 10;
-                    b1.entity.y -= ny * d / 10;
+                while (b1.entity.collider.isCollision(data.e2.collider)) {
+                    b1.entity.deltaMove(-nx * d / 10, -ny * d / 10);
                 }
             }
             b1.velocityX -= v1x * (1 + b1.e);

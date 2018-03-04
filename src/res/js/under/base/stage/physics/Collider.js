@@ -21,6 +21,12 @@ class Collider { // eslint-disable-line  no-unused-vars
          * @type {AABB}
          */
         this.aabb = new AABB();
+
+        /**
+         * List of collided objects
+         * @type {Array<Entity>}
+         */
+        this.collisions = [];
     }
 
     /**
@@ -62,11 +68,19 @@ class Collider { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Update collide information
-     * @interface
-     * @param {number} dt delta time
+     * Initialize state
      */
-    update(dt) {}
+    init() {
+        this.collisions.length = 0;
+        this.update();
+    }
+
+    /**
+     * Update collide information
+     * Called whenever coordinate information is updated
+     * @interface
+     */
+    update() {}
 
     /**
      * Render collider for debug

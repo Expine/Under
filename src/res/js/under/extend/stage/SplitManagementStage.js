@@ -13,34 +13,17 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     constructor() {
         super();
         /**
-         * Immutable entity list
+         * Mutable entity list for updating and phisical operation
          * @private
-         * @type {Array}
-         */
-        this.immutables_ = [];
-        /**
-         * Mutable entity list
-         * @private
-         * @type {Array}
+         * @type {Array<MutableObject>}
          */
         this.mutables_ = [];
         /**
-         * Autonnomy entity list
+         * All entity list
          * @private
-         * @type {Array}
+         * @type {Array<Entity>}
          */
-        this.autonomies_ = [];
-
-        /**
-         * Processing list for next method
-         * @type {Array}
-         */
-        this.proccessingList_ = null;
-        /**
-         * Iterator for loop
-         * @type {Iterator}
-         */
-        this.iterator_ = null;
+        this.entities_ = [];
 
         /**
          * Player instance for camera
@@ -55,46 +38,13 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {Entity} entity - entity object
      */
     addEntity(entity) {
-        if (entity instanceof ImmutableObject) {
-            this.immutables_.push(entity);
-        } else if (entity instanceof Player) {
+        if (entity instanceof Player) {
             this.player_ = entity;
-            this.autonomies_.push(entity);
-        } else if (entity instanceof AutonomyObject) {
-            this.autonomies_.push(entity);
-        } else if (entity instanceof MutableObject) {
+        }
+        if (entity instanceof MutableObject) {
             this.mutables_.push(entity);
         }
-    }
-
-    /**
-     * Get entity iterator
-     * @override
-     * @return {Iterator} entity iterator
-     */
-    next() {
-        if (this.proccessingList_ == null) {
-            this.proccessingList_ = this.immutables_;
-            this.iterator_ = this.proccessingList_[Symbol.iterator]();
-        }
-        let it;
-        while (true) {
-            it = this.iterator_.next();
-            if (it.done) {
-                if (this.proccessingList_ == this.immutables_) {
-                    this.proccessingList_ = this.mutables_;
-                } else if (this.proccessingList_ == this.mutables_) {
-                    this.proccessingList_ = this.autonomies_;
-                } else {
-                    this.proccessingList_ = null;
-                    break;
-                }
-                this.iterator_ = this.proccessingList_[Symbol.iterator]();
-                continue;
-            }
-            break;
-        }
-        return it;
+        this.entities_.push(entity);
     }
 
     /**
@@ -102,14 +52,21 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt delta time
      */
     update(dt) {
+        if (Input.it.isSubPress()) {
+            for (let it of this.entities_) {
+                if (it.collider instanceof RectangleCollder) {
+                    it.setCollider(new CircleCollider(it, it.collider.endY / 2));
+                } else {
+                    it.setCollider(new RectangleCollder(it, 0, 0, it.collider.radius * 2, it.collider.radius * 2));
+                }
+            }
+        }
+
         // update mutables and autonomies
         for (let it of this.mutables_) {
             it.update(dt);
         }
-        for (let it of this.autonomies_) {
-            it.update(dt);
-        }
-        this.physic.update(dt, this.mutables_.concat(this.autonomies_));
+        this.physic.update(dt, this.mutables_, this.entities_);
         this.camera.setCameraPosition(this.player_.x + this.player_.width / 2, this.player_.y + this.player_.height / 2, this.map.width, this.map.height);
     }
 
@@ -127,11 +84,9 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         let startY = -this.camera.cameraY;
         let endX = startX + this.camera.screenWidth;
         let endY = startY + this.camera.screenHeight;
-        for (let arr of [this.immutables_, this.mutables_, this.autonomies_]) {
-            for (let it of arr) {
-                if (it.x + it.width >= startX && it.x <= endX && it.y + it.height >= startY && it.y <= endY) {
-                    it.render(ctx, -startX, -startY);
-                }
+        for (let it of this.entities_) {
+            if (it.x + it.width >= startX && it.x <= endX && it.y + it.height >= startY && it.y <= endY) {
+                it.render(ctx, -startX, -startY);
             }
         }
     }

@@ -13,9 +13,9 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         let ret = false;
-        let it = 50;
-        let w = 6;
-        let h = 5;
+        let it = 25;
+        let w = 12;
+        let h = 10;
         let vx = 0;
         let vy = 0;
         if (Input.it.isUpPressed()) {
@@ -36,14 +36,16 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
         }
         if (Math.abs(vy) > 0) {
             if (Math.abs(this.entity.body.velocityY) < Math.abs(vy)) {
-                this.entity.body.enforce(0, vy);
+                this.entity.body.enforce(0, vy * 100);
             } else {
                 this.entity.body.velocityY = vy;
             }
             //            this.entity.body.velocityY = vy;
         }
         if (Math.abs(vx) > 0) {
-            if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
+            if (this.entity.body.velocityX * vx < 0) {
+                this.entity.body.enforce(vx * 3, 0);
+            } else if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx, 0);
             } else {
                 this.entity.body.velocityX = vx;
