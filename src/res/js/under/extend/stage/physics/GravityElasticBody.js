@@ -13,6 +13,7 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
      */
     constructor(entity, mass = 1, elasticity = 0.0, mu = 0.6) {
         super(entity, mass, elasticity, mu);
+        entity.setMaterial(new DefaultMaterial(mass, elasticity, mu));
     }
 
 
@@ -37,7 +38,7 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
      * @param {number} forceY Force in y direction
      */
     enforce(forceX, forceY) {
-        this.accelerationX += forceX / this.mass;
-        this.accelerationY += forceY / this.mass;
+        this.accelerationX += forceX / this.entity.material.mass;
+        this.accelerationY += forceY / this.entity.material.mass;
     }
 }

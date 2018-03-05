@@ -13,7 +13,7 @@ class ImpulseBased extends CollisionResponse { // eslint-disable-line  no-unused
     collisionResponse(data, dt) {
         let nx = data.nx;
         let ny = data.ny;
-        let d = data.depth * 800;
+        let d = data.depth * 600;
         let b1 = data.e1.body;
         let b2 = data.e2.body;
         if (b2 !== undefined) {
@@ -25,9 +25,9 @@ class ImpulseBased extends CollisionResponse { // eslint-disable-line  no-unused
             let v2y = dot2 * ny;
             let vdx = v2x - v1x;
             let vdy = v2y - v1y;
-            let m1 = b1.mass;
-            let m2 = b2.mass;
-            let e = Math.max(b1.e, b2.e);
+            let m1 = data.e1.material.mass;
+            let m2 = data.e2.material.mass;
+            let e = Math.max(data.e1.material.e, data.e2.material.e);
             let n1 = data.e1.collider.collisions.length;
             let n2 = data.e1.collider.collisions.length;
             let j = (1 + e) * m1 * m2 / (m1 + m2) * 1000 / dt;
@@ -41,11 +41,11 @@ class ImpulseBased extends CollisionResponse { // eslint-disable-line  no-unused
             let dot1 = b1.velocityX * nx + b1.velocityY * ny;
             let v1x = dot1 * nx;
             let v1y = dot1 * ny;
-            let m1 = b1.mass;
-            let e = b1.e;
+            let m1 = data.e1.material.mass;
+            let e = data.e1.material.e;
             let n1 = data.e1.collider.collisions.length;
             let j = (1 + e) * m1 * 1000 / -dt / n1;
-            let dd = d / n1 * 2;
+            let dd = d / n1 * 4;
             b1.enforce(j * v1x - dd * nx, j * v1y - dd * ny);
         }
     }

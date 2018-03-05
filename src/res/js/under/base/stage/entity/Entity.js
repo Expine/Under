@@ -62,6 +62,18 @@ class Entity { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set material
+     * @param {Material} material Material information
+     */
+    setMaterial(material) {
+        /**
+         * Material inofrmation
+         * @type {Material}
+         */
+        this.material = material;
+    }
+
+    /**
      * Update entty
      * @interface
      * @param {number} dt - delta time

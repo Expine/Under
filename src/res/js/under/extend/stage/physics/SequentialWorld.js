@@ -52,11 +52,11 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
 
         // loop delta time
         let delta = 1;
-        for (var i = 0; i < delta; ++i) {
+        for (var i = 0; i < (Input.it.isKeyPressed(32) ? 5 : delta); ++i) {
             // body update
             for (let target of targets) {
                 if (target.body !== undefined) {
-                    target.body.enforce(0, this.gravity * target.body.mass);
+                    target.body.enforce(0, this.gravity * target.material.mass);
                     target.body.update(dt / delta);
                     if (target.collider !== undefined) {
                         target.collider.init();

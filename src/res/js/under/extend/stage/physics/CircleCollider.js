@@ -87,6 +87,9 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
             let r = this.radius + collider.radius;
             if (nx * nx + ny * ny < r * r) {
                 if (data !== undefined) {
+                    if (this.entity.body === undefined || (this.entity.body.velocityX * nx + this.entity.body.velocityY * ny < 0)) {
+                        return false;
+                    }
                     let nlen = Math.sqrt(nx * nx + ny * ny);
                     data.e1 = this.entity;
                     data.e2 = collider.entity;
