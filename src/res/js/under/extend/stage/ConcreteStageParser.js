@@ -86,6 +86,7 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
                 if (id > -1) {
                     let entity = new TileObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tileID);
                     entity.setCollider(new RectangleCollder(entity, 0, 0, tileWidth, tileHeight));
+                    entity.setMaterial(new DefaultMaterial());
                     // entity.setCollider(new CircleCollider(entity, tileWidth / 2));
                     stage.addEntity(entity);
                 }

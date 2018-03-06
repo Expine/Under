@@ -11,8 +11,10 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
      * @param {number} dt delta time
      */
     collisionResponse(data, dt) {
-        let b1 = data.e1.body;
-        let b2 = data.e2.body;
+        let e1 = data.e1;
+        let e2 = data.e2;
+        let b1 = e1.body;
+        let b2 = e2.body;
         let nx = data.nx;
         let ny = data.ny;
         let d = data.depth;
@@ -27,9 +29,9 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                while (i++ < 10 && b1.entity.collider.isCollision(data.e2.collider)) {
-                    b1.entity.deltaMove(-nx * d / 10, -ny * d / 10);
-                    b2.entity.deltaMove(nx * d2 / 10, ny * d2 / 10);
+                while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                    e1.deltaMove(-nx * d / 10, -ny * d / 10);
+                    e2.deltaMove(nx * d2 / 10, ny * d2 / 10);
                 }
             }
             // repulsion
@@ -42,17 +44,20 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             b2.velocityY -= vdy * (1 + b1.e) / 2;
             */
             if (dot1 >= 0) {
-                b1.velocityX -= v1x * (1 + data.e2.material.e);
-                b1.velocityY -= v1y * (1 + data.e2.material.e);
+                let e = e2.material.e;
+                b1.velocityX -= v1x * (1 + e);
+                b1.velocityY -= v1y * (1 + e);
             }
             if (dot2 <= 0) {
-                b2.velocityX -= v2x * (1 + data.e1.material.e);
-                b2.velocityY -= v2y * (1 + data.e1.material.e);
+                let e = e1.material.e;
+                b2.velocityX -= v2x * (1 + e);
+                b2.velocityY -= v2y * (1 + e);
             }
             // friction
+            let mu = e2.material.mu;
             let dot = Math.sign(b1.velocityX * -ny + b1.velocityY * nx);
-            let dvx = -dot * ny * 9.8 * 20 * data.e1.material.mu * dt / 1000;
-            let dvy = dot * nx * 9.8 * 20 * data.e1.material.mu * dt / 1000;
+            let dvx = -dot * ny * 9.8 * 20 * mu * dt / 1000;
+            let dvy = dot * nx * 9.8 * 20 * mu * dt / 1000;
             if (Math.abs(dvx) <= Math.abs(b1.velocityX)) {
                 b1.velocityX -= dvx;
             } else {
@@ -63,9 +68,10 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             } else {
                 b1.velocityY = 0;
             }
+            mu = e1.material.mu;
             dot = Math.sign(b2.velocityX * -ny + b2.velocityY * nx);
-            dvx = -dot * ny * 9.8 * 20 * data.e2.material.mu * dt / 1000;
-            dvy = dot * nx * 9.8 * 20 * data.e2.material.mu * dt / 1000;
+            dvx = -dot * ny * 9.8 * 20 * mu * dt / 1000;
+            dvy = dot * nx * 9.8 * 20 * mu * dt / 1000;
             if (Math.abs(dvx) <= Math.abs(b2.velocityX)) {
                 b2.velocityX -= dvx;
             } else {
@@ -77,25 +83,28 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
                 b2.velocityY = 0;
             }
         } else {
-            let dot1 = b1.velocityX * nx + b1.velocityY * ny;
+            let n1 = e1.collider.collisions.length;
+            let dot1 = b1.preVelocityX * nx + b1.preVelocityY * ny;
             let v1x = dot1 * nx;
             let v1y = dot1 * ny;
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                while (i++ < 10 && b1.entity.collider.isCollision(data.e2.collider)) {
-                    b1.entity.deltaMove(-nx * d / 10, -ny * d / 10);
+                while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                    e1.deltaMove(-nx * d / 10, -ny * d / 10);
                 }
             }
             // repulsion
             if (dot1 >= 0) {
-                b1.velocityX -= v1x * (1 + b1.e);
-                b1.velocityY -= v1y * (1 + b1.e);
+                let e = e2.material.e;
+                b1.velocityX -= v1x * (1 + e) / n1;
+                b1.velocityY -= v1y * (1 + e) / n1;
             }
             // friction
+            let mu = e2.material.mu;
             let dot = Math.sign(b1.velocityX * -ny + b1.velocityY * nx);
-            let dvx = -dot * ny * 9.8 * 20 * data.e1.material.mu * dt / 1000;
-            let dvy = dot * nx * 9.8 * 20 * data.e1.material.mu * dt / 1000;
+            let dvx = -dot * ny * 9.8 * 20 * mu * dt / 1000 / n1;
+            let dvy = dot * nx * 9.8 * 20 * mu * dt / 1000 / n1;
             if (Math.abs(dvx) <= Math.abs(b1.velocityX)) {
                 b1.velocityX -= dvx;
             } else {

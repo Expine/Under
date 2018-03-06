@@ -11,7 +11,7 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
      * @param {number} [elasticity=0.0] Coefficient of restitution
      * @param {number} [mu=0.6] Coefficient of friction
      */
-    constructor(entity, mass = 1, elasticity = 0.0, mu = 0.6) {
+    constructor(entity, mass = 1, elasticity = 0.0, mu = 0.95) {
         super(entity, mass, elasticity, mu);
         entity.setMaterial(new DefaultMaterial(mass, elasticity, mu));
     }
@@ -30,6 +30,8 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
         this.entity.deltaMove(dx, dy);
         this.accelerationX = 0;
         this.accelerationY = 0;
+        this.preVelocityX = this.velocityX;
+        this.preVelocityY = this.velocityY;
     }
 
     /**

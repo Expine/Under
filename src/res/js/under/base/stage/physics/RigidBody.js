@@ -33,6 +33,17 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.accelerationY = 0;
+
+        /**
+         * X velocity of the previous frame
+         * @type {number}
+         */
+        this.preVelocityX = 0;
+        /**
+         * Y velocity of the previous frame
+         * @type {number}
+         */
+        this.preVelocityY = 0;
     }
 
     /**

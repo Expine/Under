@@ -28,6 +28,5 @@ class Material { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.mu = mu;
-
     }
 }
