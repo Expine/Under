@@ -27,7 +27,7 @@ class Player extends AIListedObject { // eslint-disable-line  no-unused-vars
     onGround() {
         let list = this.collider.collisions;
         for (let it of list) {
-            if (it.ny > 0) {
+            if ((it.e1 === this && it.ny > 0) || (it.e2 === this && it.ny < 0)) {
                 return true;
             }
         }
