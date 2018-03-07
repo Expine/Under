@@ -44,7 +44,21 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.preVelocityY = 0;
+        /**
+         * Horizontal acceleration of entity of the previous frame
+         * @type {number}
+         */
+        this.preAccelerationX = 0;
+        /**
+         * Vertical acceleration of entity of the previous frame
+         * @type {number}
+         */
+        this.preAccelerationY = 0;
 
+        /**
+         * Coefficient of air resistance
+         * @type {number}
+         */
         this.k = 0.5;
     }
 
