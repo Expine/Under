@@ -31,7 +31,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
          * @protected
          * @type {CollisionResponse}
          */
-        this.response = new ImpulseBased();
+        this.response = new Repulsion();
     }
 
     /**
@@ -50,6 +50,10 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
             }
         }
 
+        if (!Input.it.isKeyPress(65)) {
+            //            return;
+        }
+
         // loop delta time
         let delta = 1;
         for (var i = 0; i < (Input.it.isKeyPressed(32) ? 5 : delta); ++i) {
@@ -58,14 +62,16 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                 if (target.body !== undefined) {
                     target.body.enforce(0, this.gravity * target.material.mass);
                     target.body.update(dt / delta);
-                    if (target.collider !== undefined) {
-                        target.collider.init();
-                    }
                 }
             }
 
             // collision detection
             this.collisionSize = 0;
+            for (let it of entities) {
+                if (it.collider !== undefined) {
+                    it.collider.init();
+                }
+            }
             for (let target of targets) {
                 if (target.collider !== undefined) {
                     for (let it of entities) {
@@ -82,6 +88,8 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                                 if (same) {
                                     continue;
                                 }
+                                target.collider.addCollision(this.collisions[this.collisionSize]);
+                                it.collider.addCollision(this.collisions[this.collisionSize]);
                                 if (++this.collisionSize >= this.collisions.length) {
                                     this.collisions.push(new CollisionData(null, null, 0, 0, 0));
                                 }

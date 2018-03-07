@@ -38,6 +38,14 @@ class Collider { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Add collision information
+     * @param {CollisionData} collision Collision information to be added
+     */
+    addCollision(collision) {
+        this.collisions.push(collision);
+    }
+
+    /**
      * Judge whether position is in collider
      * @interface
      * @param {number} x x position
