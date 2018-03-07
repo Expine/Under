@@ -50,18 +50,19 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
             }
         }
 
+        // step by step
         if (!Input.it.isKeyPress(65)) {
             //            return;
         }
 
         // loop delta time
-        let delta = 1;
-        for (var i = 0; i < (Input.it.isKeyPressed(32) ? 5 : delta); ++i) {
+        let 1 = 1;
+        for (var i = 0; i < (Input.it.isKeyPressed(32) ? 5 : 1); ++i) {
             // body update
             for (let target of targets) {
                 if (target.body !== undefined) {
                     target.body.enforce(0, this.gravity * target.material.mass);
-                    target.body.update(dt / delta);
+                    target.body.update(dt / 1);
                 }
             }
 
@@ -101,7 +102,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
 
             // collision response
             for (var j = 0; j < this.collisionSize; ++j) {
-                this.response.collisionResponse(this.collisions[j], dt / delta);
+                this.response.collisionResponse(this.collisions[j], dt / 1);
             }
         }
     }

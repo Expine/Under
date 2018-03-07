@@ -20,16 +20,8 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
         let vy = 0;
         if (Input.it.isUpPressed() && this.entity.onGround()) {
             vy += -h * it;
-            this.entity.body.velocityY = 0;
-            this.entity.body.accelerationY = 0;
             ret = true;
         }
-        /*
-        if (Input.it.isDownPressed()) {
-            vy += h * it;
-            ret = true;
-        }
-        */
         if (Input.it.isLeftPressed()) {
             vx += -w * it;
             ret = true;
@@ -47,9 +39,7 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
             // this.entity.body.velocityY = vy;
         }
         if (Math.abs(vx) > 0) {
-            if (this.entity.body.velocityX * vx < 0) {
-                this.entity.body.enforce(vx * 180 / dt, 0);
-            } else if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
+            if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx * 60 / dt, 0);
             } else {
                 this.entity.body.velocityX = vx;

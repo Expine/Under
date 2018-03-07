@@ -52,6 +52,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt delta time
      */
     update(dt) {
+        // For debug to change collider
         if (Input.it.isSubPress()) {
             for (let it of this.entities_) {
                 if (it.collider instanceof RectangleCollder) {
@@ -90,7 +91,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             }
         }
 
-        // for debug
+        // For debug to render entity information
         let mx = Input.it.getMouseX() + startX;
         let my = Input.it.getMouseY() + startY;
         for (let it of this.entities_) {

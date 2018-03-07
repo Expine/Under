@@ -27,20 +27,18 @@ class StraightAI extends AI { // eslint-disable-line  no-unused-vars
         if (this.switcher > 10 * 1000) {
             this.switcher = 0;
         }
-        if (this.entity.body) {
-            this.entity.body.velocityX = 0;
-            if (this.switcher > 5000) {
-                if (this.entity.body.velocityX > -100) {
-                    this.entity.body.enforce(-100 * 10, 0);
-                } else {
-                    this.entity.body.velocityX = -100;
-                }
+        this.entity.body.velocityX = 0;
+        if (this.switcher > 5000) {
+            if (this.entity.body.velocityX > -100) {
+                this.entity.body.enforce(-100 * 10, 0);
             } else {
-                if (this.entity.body.velocityX < 100) {
-                    this.entity.body.enforce(100 * 10, 0);
-                } else {
-                    this.entity.body.velocityX = 100;
-                }
+                this.entity.body.velocityX = -100;
+            }
+        } else {
+            if (this.entity.body.velocityX < 100) {
+                this.entity.body.enforce(100 * 10, 0);
+            } else {
+                this.entity.body.velocityX = 100;
             }
         }
         return true;

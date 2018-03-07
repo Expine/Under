@@ -67,7 +67,7 @@ class AIListedObject extends AutonomyObject { // eslint-disable-line  no-unused-
     render(ctx, shiftX = 0, shiftY = 0) {
         ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height);
 
-        // for debug
+        // For debug to render collider
         if (this.collider !== undefined) {
             this.collider.render(ctx, shiftX, shiftY);
         }

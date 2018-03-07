@@ -1,0 +1,179 @@
+@startuml UnderEngine
+
+package under {
+    package base {
+        abstract Engine
+        abstract Input
+        abstract Screen
+
+        package context {
+            abstract ContextImage
+            abstract Context
+        }
+
+        package scene {
+            abstract SceneManager
+            abstract Scene
+        }
+
+        package layer {
+            abstract Layer
+        }
+
+        package stage {
+            abstract StageParser
+            abstract Stage
+            abstract Map
+            abstract Camera
+            package entity {
+                abstract Entity
+                abstract ImmutableObject
+                abstract MutableObject
+                abstract AutonomyObject
+            }
+            package physics {
+                abstract PhysicalWorld
+                abstract CollisionResponse
+                abstract Collider
+                abstract Material
+                abstract RigidBody
+                class CollisionData
+                class AABB
+            }
+            package ai {
+                abstract AI
+            }
+        }
+    }
+}
+
+Engine "1" *-- "1" Screen
+Engine "1" *-- "1" Input
+Engine "1" *-- "1" Context
+Engine "1" *-- "1" SceneManager
+
+SceneManager -> Input
+Input -> Screen
+Context -> Screen
+
+SceneManager "1" *-- "*" Scene
+SceneManager <-- Scene
+Scene "1" o-- "*" Layer
+Input <-- Scene
+Context "1" *-- "1" ContextImage
+
+StageParser --> Stage
+Stage "1" *-- "1" Map
+Stage "1" *-- "1" Camera
+Stage "1" *-- "*" Entity
+Stage "1" *-- "1" PhysicalWorld
+
+Entity <|-- ImmutableObject
+Entity <|-- MutableObject
+MutableObject <|-- AutonomyObject
+
+Entity "1" o-- "1" Collider
+Entity "1" o-- "1" Material
+RigidBody "1" --* "1" MutableObject
+AutonomyObject "1" *-- "*" AI
+
+PhysicalWorld "1" *-- "1" CollisionResponse
+Collider "1" o-- "*" CollisionData
+Collider "1" *-- "1" AABB
+
+package extend {
+    class UnderEngine
+    class AllInput
+    class GeneratableScreen
+
+    package ex_context {
+        class JSContext
+        class GLContext
+        class JSCachedImage
+    }
+
+    package ex_scene {
+        class StackSceneManager
+        class DefaultTitleScene
+    }
+
+    package ex_stage {
+        class ConcreteStageParser
+        class SplitManagementStage
+        class InvariantBackMap
+        class CenterCamera
+        package ex_entity {
+            class AIListedObject
+            class TileObject
+            class Obstacle
+            class Enemy
+            class Player
+        }
+        package ex_physics {
+            class CircleCollider
+            class RectangleCollider
+            class GravityElasticBody
+            class DefaultMaterial
+            class ImpulseBased
+            class Repulsion
+            class SequentialWorld
+        }
+        package ex_ai {
+            class PlayerAI
+            class StraightAI
+        }
+    }
+}
+
+package main_scene {
+    class TitleScene
+    class GameScene
+}
+
+class ExtendedInput
+class Main
+
+Main --> UnderEngine
+ExtendedInput ..|> AllInput
+
+UnderEngine ..|> Engine
+AllInput ..|> Input
+GeneratableScreen ..|> Screen
+
+JSContext ..|> Context
+GLContext ..|> Context
+' Should be fixed(include new)
+JSContext --> JSCachedImage
+GLContext --> JSCachedImage
+JSCachedImage ..|> ContextImage
+
+' Debug information is not stable
+DebugLayer ..|> Layer
+DefaultTitleScene ..|> Scene
+StackSceneManager ..|> SceneManager
+
+ConcreteStageParser ..|> StageParser
+ConcreteStageParser --> SplitManagementStage
+ConcreteStageParser --> CenterCamera
+ConcreteStageParser --> InvariantBackMap
+ConcreteStageParser --> SequentialWorld
+ConcreteStageParser --> Repulsion
+ConcreteStageParser --> RectangleCollider
+ConcreteStageParser --> CircleCollider
+ConcreteStageParser --> DefaultMaterial
+SplitManagementStage ..|> Stage
+InvariantBackMap ..|> Map
+SplitManagementStage "1" o-- MutableObject
+SplitManagementStage "1" *-- "1" Player
+
+TileObject ..|> ImmutableObject
+Obstacle ..|> MutableObject
+AIListedObject ..|> AutonomyObject
+AIListedObject <|.. Player
+AIListedObject <|.. Enemy
+Player --> PlayerAI
+Enemy --> StraightAI
+Player ..|> AI
+StraightAI ..|> AI
+
+@enduml

@@ -18,6 +18,19 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set response instance for collision response
+     * @param {CollisionResponse} response Collision response instance
+     */
+    setResponse(response) {
+        /**
+         * Collision response instance
+         * @protected
+         * @type {CollisionResponse}
+         */
+        this.response = response;
+    }
+
+    /**
      * Update physical world
      * @param {number} dt Delta time
      * @param {IteratableObject<Entity>} targets List of targets to which physical operation is applied
