@@ -39,6 +39,10 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
             ret = true;
         }
         if (Math.abs(vy) > 0) {
+            // reset
+            this.entity.body.velocityY = 0;
+            this.entity.body.vmy = 0;
+            this.entity.body.accelerationY = 0;
             this.entity.body.enforce(0, vy * 1000 / dt);
             // this.entity.body.velocityY = vy;
         }

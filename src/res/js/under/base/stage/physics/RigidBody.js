@@ -44,7 +44,17 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.preVelocityY = 0;
+
+        this.k = 0.5;
     }
+
+    /**
+     * Set the value added to the next speed vector
+     * @interface
+     * @param {number} vx X component of the velocity vector to be added
+     * @param {number} vy Y component of the velocity vector to be added
+     */
+    setNextAddVelocity(vx, vy) {}
 
     /**
      * Update by rigid body

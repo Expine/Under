@@ -10,7 +10,7 @@ class DefaultMaterial extends Material { // eslint-disable-line  no-unused-vars
      * @param {number} elasticity Coefficient of restitution
      * @param {number} mu Coefficient of friction
      */
-    constructor(mass = 10, elasticity = 0.0, mu = 0.6) {
+    constructor(mass = 10, elasticity = 0.1, mu = 0.6) {
         super(mass, elasticity, mu);
     }
 }

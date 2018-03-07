@@ -77,11 +77,11 @@ class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
                 this.aabb.startX < collider.aabb.endX &&
                 collider.aabb.startY < this.aabb.endY &&
                 this.aabb.startY < collider.aabb.endY) {
-                let sx = this.aabb.endX - collider.aabb.startX;
-                let ex = this.aabb.startX - collider.aabb.endX;
-                let sy = this.aabb.endY - collider.aabb.startY;
-                let ey = this.aabb.startY - collider.aabb.endY;
                 if (data !== undefined) {
+                    let sx = this.aabb.endX - collider.aabb.startX;
+                    let ex = this.aabb.startX - collider.aabb.endX;
+                    let sy = this.aabb.endY - collider.aabb.startY;
+                    let ey = this.aabb.startY - collider.aabb.endY;
                     let nx = Math.abs(sx) < Math.abs(ex) ? sx : ex;
                     let ny = Math.abs(sy) < Math.abs(ey) ? sy : ey;
                     let nlen = 0;
@@ -102,9 +102,6 @@ class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
                     data.nx = nx;
                     data.ny = ny;
                     data.depth = nlen;
-                    if (!this.collisions.includes(data)) {
-                        this.collisions.push(data);
-                    }
                 }
                 return true;
             }
@@ -134,6 +131,17 @@ class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
      */
     render(ctx, shiftX, shiftY) {
         ctx.strokeRect(this.aabb.startX + shiftX, this.aabb.startY + shiftY, this.endX - this.startX, this.endY - this.startY);
-        // ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 40, `red`);
+        /*
+        ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 30, `red`);
+        for (let it of this.collisions) {
+            var hueVal = it.e1.imageID + (it.e2.imageID << 5);
+            ctx.strokeLine(
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
+                hueVal);
+        }
+        */
     }
 }
