@@ -87,6 +87,15 @@ class Context { // eslint-disable-line  no-unused-vars
     fillText(text, x, y, anchorX, anchorY, size, color, font) {}
 
     /**
+     * Rendering line
+     * @param {number} sx Start x position
+     * @param {number} sy Start y position
+     * @param {number} ex Terminal x position
+     * @param {number} ey Terminal y position
+     */
+    strokeLine(sx, sy, ex, ey) {}
+
+    /**
      * Rendering circle outline
      * @interface
      * @param {number} x X position
