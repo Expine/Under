@@ -13,15 +13,16 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         this.player = new Player(74, 200, 64, 64, chara);
         this.player.setRigidBody(new GravityElasticBody(this.player));
         // this.player.setCollider(new CircleCollider(this.player, 32));
-        this.player.setCollider(new RectangleCollder(this.player, 12, 10, 38, 54));
-        // this.player.setCollider(new RectangleCollder(this.player, -12, 10, 200, 54));
+        this.player.setCollider(new RoundRectangleCollider(this.player, 12, 10, 38, 54, 10));
+        // this.player.setCollider(new RectangleCollider(this.player, 12, 10, 38, 54));
+        // this.player.setCollider(new RectangleCollider(this.player, -12, 10, 200, 54));
         this.stage.addEntity(this.player);
 
         let en = Context.image.loadImage(`res/image/chara/enemy.png`);
-        for (var i = 0; i < 1; ++i) {
+        for (var i = 0; i < 0; ++i) {
             let enemy = new Enemy(154 + 80 * (i % 20), 180 - 80 * Math.floor(i / 20), 64, 64, en);
             enemy.setRigidBody(new GravityElasticBody(enemy));
-            enemy.setCollider(new RectangleCollder(enemy, 0, 0, 64, 64));
+            enemy.setCollider(new RectangleCollider(enemy, 0, 0, 64, 64));
             // enemy.setCollider(new CircleCollider(enemy, 32));
             this.stage.addEntity(enemy);
         }
@@ -30,7 +31,8 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
             let bo = Context.image.loadImage(`res/image/chara/box.png`);
             let box = new Obstacle(100 + 80 * (i % 20), 180 - 80 * Math.floor(i / 20), 64 / 2, 64 / 2, bo);
             box.setRigidBody(new GravityElasticBody(box));
-            box.setCollider(new RectangleCollder(box, 0, 0, 64 / 2, 64 / 2));
+            // box.setCollider(new RoundRectangleCollider(box, 0, 0, 64 / 2, 64 / 2, 3));
+            box.setCollider(new RectangleCollider(box, 0, 0, 64 / 2, 64 / 2));
             // box.setCollider(new CircleCollider(box, 32));
             this.stage.addEntity(box);
         }

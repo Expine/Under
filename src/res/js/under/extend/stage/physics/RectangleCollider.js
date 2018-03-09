@@ -2,7 +2,7 @@
  * Rectangle collider
  * @classdesc Collider for rectangle
  */
-class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
+class RectangleCollider extends Collider { // eslint-disable-line  no-unused-vars
     /**
      * Rectangle collider constructor
      * @constructor
@@ -72,18 +72,28 @@ class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
      * @return {boolean} whether collision
      */
     isCollision(collider, data) {
-        if (collider instanceof RectangleCollder) {
-            if (collider.aabb.startX < this.aabb.endX &&
-                this.aabb.startX < collider.aabb.endX &&
-                collider.aabb.startY < this.aabb.endY &&
-                this.aabb.startY < collider.aabb.endY) {
+        if (collider instanceof RoundRectangleCollider) {
+            return collider.isCollision(this, data);
+        } else if (collider instanceof RectangleCollider) {
+            let sx = this.aabb.endX - collider.aabb.startX;
+            let ex = this.aabb.startX - collider.aabb.endX;
+            let sy = this.aabb.endY - collider.aabb.startY;
+            let ey = this.aabb.startY - collider.aabb.endY;
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0) {
                 if (data !== undefined) {
-                    let sx = this.aabb.endX - collider.aabb.startX;
-                    let ex = this.aabb.startX - collider.aabb.endX;
-                    let sy = this.aabb.endY - collider.aabb.startY;
-                    let ey = this.aabb.startY - collider.aabb.endY;
                     let nx = Math.abs(sx) < Math.abs(ex) ? sx : ex;
                     let ny = Math.abs(sy) < Math.abs(ey) ? sy : ey;
+                    if (Math.abs(Math.abs(nx) - Math.abs(ny)) < 1) {
+                        if (nx * this.entity.body.preVelocityX <= 0) {
+                            nx = this.endX - this.startX + 1;
+                        }
+                        if (ny * this.entity.body.preVelocityY <= 0) {
+                            ny = this.endY - this.startY + 1;
+                        }
+                        if (Math.abs(nx) > this.endX - this.startX && Math.abs(ny) > this.endY - this.startY) {
+                            return false;
+                        }
+                    }
                     let nlen = 0;
                     if (Math.abs(nx) < Math.abs(ny)) {
                         nlen = Math.abs(nx);
@@ -93,9 +103,6 @@ class RectangleCollder extends Collider { // eslint-disable-line  no-unused-vars
                         nlen = Math.abs(ny);
                         nx = 0;
                         ny = Math.sign(ny);
-                    }
-                    if (this.entity.body === undefined || (this.entity.body.velocityX * nx + this.entity.body.velocityY * ny < 0)) {
-                        return false;
                     }
                     data.e1 = this.entity;
                     data.e2 = collider.entity;

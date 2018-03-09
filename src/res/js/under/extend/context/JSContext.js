@@ -135,13 +135,11 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      */
     strokeLine(sx, sy, ex, ey, color) {
         this.ctx_.strokeStyle = `hsl( ` + color + `, 100%, 50% )`;
-        this.ctx_.lineWidth = 5;
         this.ctx_.beginPath();
         this.ctx_.moveTo(sx, sy);
         this.ctx_.lineTo(ex, ey);
         this.ctx_.stroke();
         this.ctx_.closePath();
-        this.ctx_.lineWidth = 1;
     }
 
     /**

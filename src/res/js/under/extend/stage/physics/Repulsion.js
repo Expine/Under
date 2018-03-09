@@ -18,6 +18,35 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
         let nx = data.nx;
         let ny = data.ny;
         let d = data.depth;
+        // e1 is the colliding side
+        if (b1 === undefined || (b1.preVelocityX * nx + b1.preVelocityY * ny < 0)) {
+            nx = -nx;
+            ny = -ny;
+            if (b2 === undefined || (b2.preVelocityX * nx + b2.preVelocityY * ny < 0)) {
+                nx = -nx;
+                ny = -ny;
+                // push back
+                if (d > 1.0e-4) {
+                    let i = 0;
+                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                        if (b1 !== undefined) {
+                            e1.deltaMove(-nx * d / 10, -ny * d / 10);
+                        }
+                        if (b2 !== undefined) {
+                            e2.deltaMove(nx * d / 10, ny * d / 10);
+                        }
+                    }
+                }
+                return;
+            } else {
+                let swt = e1;
+                e1 = e2;
+                e2 = swt;
+                swt = b1;
+                b1 = b2;
+                b2 = swt;
+            }
+        }
         if (b2 !== undefined && (ny < 1 || b1.preVelocityX * b2.preVelocityX + b1.preVelocityY * b2.preVelocityY < 0)) {
             let n1 = e1.collider.collisions.length;
             let n2 = e2.collider.collisions.length;

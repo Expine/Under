@@ -55,12 +55,17 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         // For debug to change collider
         if (Input.it.isSubPress()) {
             for (let it of this.entities_) {
-                if (it.collider instanceof RectangleCollder) {
+                if (it.collider instanceof RectangleCollider) {
                     it.setCollider(new CircleCollider(it, it.collider.endY / 2));
-                } else {
-                    it.setCollider(new RectangleCollder(it, 0, 0, it.collider.radius * 2, it.collider.radius * 2));
+                } else if (it.collider instanceof CircleCollider) {
+                    it.setCollider(new RectangleCollider(it, 0, 0, it.collider.radius * 2, it.collider.radius * 2));
                 }
             }
+        }
+
+        // step by step
+        if (!Input.it.isKeyPress(65)) {
+            // return;
         }
 
         // update mutables and autonomies
