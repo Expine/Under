@@ -27,10 +27,11 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
      * Judge whether collision
      * @interface
      * @param {Colllder} collider
+     * @param {number} dt delta time
      * @param {CollisionData} data Pointer to save conflict information
      * @return {boolean} whether collision
      */
-    isCollision(collider, data) {
+    isCollision(collider, dt, data) {
         if (collider instanceof RoundRectangleCollider) {
             let sx = this.aabb.endX - this.cut - collider.aabb.startX - collider.cut;
             let ex = this.aabb.startX + this.cut - collider.aabb.endX + collider.cut;
@@ -38,8 +39,8 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             let ey = this.aabb.endY - collider.aabb.endY;
             let nx = 0;
             let ny = 0;
-            let d = 0;
-            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && sy > d) {
+            let d = Math.max(this.endX - this.startX, this.endY - this.startY) + 1;
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && sy < d) {
                 nx = 0;
                 ny = 1;
                 d = sy;
@@ -49,7 +50,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             ex = this.aabb.startX - collider.aabb.endX;
             sy = this.aabb.endY - this.cut - collider.aabb.startY - collider.cut;
             ey = this.aabb.startY + this.cut - collider.aabb.endY + collider.cut;
-            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && -ex > d) {
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && -ex < d) {
                 nx = -1;
                 ny = 0;
                 d = -ex;
@@ -59,7 +60,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             ex = this.aabb.endX - collider.aabb.endX;
             sy = this.aabb.endY - this.cut - collider.aabb.startY - collider.cut;
             ey = this.aabb.startY + this.cut - collider.aabb.endY + collider.cut;
-            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && sx > d) {
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && sx < d) {
                 nx = 1;
                 ny = 0;
                 d = sx;
@@ -69,12 +70,12 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             ex = this.aabb.startX + this.cut - collider.aabb.endX + collider.cut;
             sy = this.aabb.startY - collider.aabb.startY;
             ey = this.aabb.startY - collider.aabb.endY;
-            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && -ey > d) {
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && -ey < d) {
                 nx = 0;
                 ny = -1;
                 d = -ey;
             }
-            if (d > 0) {
+            if (d < Math.max(this.endX - this.startX, this.endY - this.startY)) {
                 if (data !== undefined) {
                     data.e1 = this.entity;
                     data.e2 = collider.entity;
@@ -85,14 +86,16 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 return true;
             }
         } else if (collider instanceof RectangleCollider) {
-            let sx = this.aabb.endX - this.cut - collider.aabb.startX;
-            let ex = this.aabb.startX + this.cut - collider.aabb.endX;
+            let cutX = this.cut;
+            let cutY = this.cut;
+            let sx = this.aabb.endX - cutX - collider.aabb.startX;
+            let ex = this.aabb.startX + cutX - collider.aabb.endX;
             let sy = this.aabb.endY - collider.aabb.startY;
             let ey = this.aabb.endY - collider.aabb.endY;
             let nx = 0;
             let ny = 0;
-            let d = 0;
-            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && sy > d) {
+            let d = Math.max(this.endX - this.startX, this.endY - this.startY) + 1;
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && sy < d) {
                 nx = 0;
                 ny = 1;
                 d = sy;
@@ -100,9 +103,9 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
 
             sx = this.aabb.startX - collider.aabb.startX;
             ex = this.aabb.startX - collider.aabb.endX;
-            sy = this.aabb.endY - this.cut - collider.aabb.startY;
-            ey = this.aabb.startY + this.cut - collider.aabb.endY;
-            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && -ex > d) {
+            sy = this.aabb.endY - cutY - collider.aabb.startY;
+            ey = this.aabb.startY + cutY - collider.aabb.endY;
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && -ex < d) {
                 nx = -1;
                 ny = 0;
                 d = -ex;
@@ -110,24 +113,24 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
 
             sx = this.aabb.endX - collider.aabb.startX;
             ex = this.aabb.endX - collider.aabb.endX;
-            sy = this.aabb.endY - this.cut - collider.aabb.startY;
-            ey = this.aabb.startY + this.cut - collider.aabb.endY;
-            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && sx > d) {
+            sy = this.aabb.endY - cutY - collider.aabb.startY;
+            ey = this.aabb.startY + cutY - collider.aabb.endY;
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && sx < d) {
                 nx = 1;
                 ny = 0;
                 d = sx;
             }
 
-            sx = this.aabb.endX - this.cut - collider.aabb.startX;
-            ex = this.aabb.startX + this.cut - collider.aabb.endX;
+            sx = this.aabb.endX - cutX - collider.aabb.startX;
+            ex = this.aabb.startX + cutX - collider.aabb.endX;
             sy = this.aabb.startY - collider.aabb.startY;
             ey = this.aabb.startY - collider.aabb.endY;
-            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && -ey > d) {
+            if (0 < sx && ex < 0 && 0 < sy && ey < 0 && -ey < d) {
                 nx = 0;
                 ny = -1;
                 d = -ey;
             }
-            if (d > 0) {
+            if (d < Math.max(this.endX - this.startX, this.endY - this.startY)) {
                 if (data !== undefined) {
                     data.e1 = this.entity;
                     data.e2 = collider.entity;

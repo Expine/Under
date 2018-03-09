@@ -58,10 +58,12 @@ class Collider { // eslint-disable-line  no-unused-vars
      * Judge whether collision
      * @interface
      * @param {Colllder} collider
+     * @param {number} dt delta time
      * @param {CollisionData} data Pointer to save conflict information
      * @return {boolean} whether collision
+
      */
-    isCollision(collider, data) {}
+    isCollision(collider, dt, data) {}
 
     /**
      * Judge whether collision roughly

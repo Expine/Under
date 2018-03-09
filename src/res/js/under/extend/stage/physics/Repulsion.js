@@ -19,16 +19,16 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
         let ny = data.ny;
         let d = data.depth;
         // e1 is the colliding side
-        if (b1 === undefined || (b1.preVelocityX * nx + b1.preVelocityY * ny < 0)) {
+        if (b1 === undefined || (b1.preVelocityX * nx + b1.preVelocityY * ny <= 0)) {
             nx = -nx;
             ny = -ny;
-            if (b2 === undefined || (b2.preVelocityX * nx + b2.preVelocityY * ny < 0)) {
+            if (b2 === undefined || (b2.preVelocityX * nx + b2.preVelocityY * ny <= 0)) {
                 nx = -nx;
                 ny = -ny;
                 // push back
                 if (d > 1.0e-4) {
                     let i = 0;
-                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                    while (i++ < 10 && e1.collider.isCollision(e2.collider, dt)) {
                         if (b1 !== undefined) {
                             e1.deltaMove(-nx * d / 10, -ny * d / 10);
                         }
@@ -59,7 +59,7 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                while (i++ < 10 && e1.collider.isCollision(e2.collider, dt)) {
                     e1.deltaMove(-nx * d / 10, -ny * d / 10);
                     e2.deltaMove(nx * d / 10, ny * d / 10);
                 }
@@ -116,7 +116,7 @@ class Repulsion extends CollisionResponse { // eslint-disable-line  no-unused-va
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                while (i++ < 10 && e1.collider.isCollision(e2.collider, dt)) {
                     e1.deltaMove(-nx * d / 10, -ny * d / 10);
                 }
             }

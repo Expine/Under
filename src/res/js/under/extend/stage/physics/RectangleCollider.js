@@ -68,12 +68,13 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
      * Judge whether collision
      * @interface
      * @param {Colllder} collider
+     * @param {number} dt delta time
      * @param {CollisionData} data Pointer to save conflict information
      * @return {boolean} whether collision
      */
-    isCollision(collider, data) {
+    isCollision(collider, dt, data) {
         if (collider instanceof RoundRectangleCollider) {
-            return collider.isCollision(this, data);
+            return collider.isCollision(this, dt, data);
         } else if (collider instanceof RectangleCollider) {
             let sx = this.aabb.endX - collider.aabb.startX;
             let ex = this.aabb.startX - collider.aabb.endX;

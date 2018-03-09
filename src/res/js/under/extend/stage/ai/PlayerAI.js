@@ -15,7 +15,7 @@ class PlayerAI extends AI { // eslint-disable-line  no-unused-vars
         let ret = false;
         let it = 25;
         let w = 12;
-        let h = 10;
+        let h = 12;
         let vx = 0;
         let vy = 0;
         if (Input.it.isUpPressed() && this.entity.onGround()) {

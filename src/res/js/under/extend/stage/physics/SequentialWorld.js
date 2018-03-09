@@ -71,7 +71,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                 if (target.collider !== undefined) {
                     for (let it of entities) {
                         if (it.collider !== undefined && target.collider.isCollisionRoughly(it.collider) && it !== target) {
-                            if (target.collider.isCollision(it.collider, this.collisions[this.collisionSize])) {
+                            if (target.collider.isCollision(it.collider, dt, this.collisions[this.collisionSize])) {
                                 let same = false;
                                 for (var j = 0; j < this.collisionSize; ++j) {
                                     let data = this.collisions[j];
