@@ -7,8 +7,9 @@ class Collider { // eslint-disable-line  no-unused-vars
      * Collider constructor
      * @constructor
      * @param {Entity} entity Entity attaching this
+     * @param {bool} isResponse Whether to perform collision response or not
      */
-    constructor(entity) {
+    constructor(entity, isResponse) {
         /**
          * Entity attaching this
          * @type {Entity}
@@ -27,6 +28,12 @@ class Collider { // eslint-disable-line  no-unused-vars
          * @type {Array<CollisionData>}
          */
         this.collisions = [];
+
+        /**
+         * Whether to perform collision response or not
+         * @type {bool}
+         */
+        this.isResponse = isResponse;
     }
 
     /**

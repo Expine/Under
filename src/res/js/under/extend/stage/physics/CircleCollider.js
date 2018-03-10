@@ -10,9 +10,10 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * @param {number} radius Circle radius
      * @param {number} [shiftX = 0] Horizontal distance to shift from center
      * @param {number} [shiftY = 0] Vertical distance to shift from center
+     * @param {bool} [isResponse=true] Whether to perform collision response or not
      */
-    constructor(entity, radius, shiftX = 0, shiftY = 0) {
-        super(entity);
+    constructor(entity, radius, shiftX = 0, shiftY = 0, isResponse = true) {
+        super(entity, isResponse);
         /**
          * Circle radius
          * @protected
@@ -88,7 +89,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
             let r = this.radius + collider.radius;
             if (nx * nx + ny * ny < r * r) {
                 if (data !== undefined) {
-                    if (this.entity.body === undefined || (this.entity.body.velocityX * nx + this.entity.body.velocityY * ny < 0)) {
+                    if (this.entity.body !== undefined && (this.entity.body.velocityX * nx + this.entity.body.velocityY * ny < 0)) {
                         return false;
                     }
                     let nlen = Math.sqrt(nx * nx + ny * ny);

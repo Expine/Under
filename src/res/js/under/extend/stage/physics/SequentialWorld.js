@@ -96,7 +96,10 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
 
             // collision response
             for (var j = 0; j < this.collisionSize; ++j) {
-                this.response.collisionResponse(this.collisions[j], dt);
+                let it = this.collisions[j];
+                if (it.e1.collider.isResponse && it.e2.collider.isResponse) {
+                    this.response.collisionResponse(it, dt);
+                }
             }
         }
     }

@@ -11,9 +11,10 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
      * @param {number} startY Y coordinate of upper left corner of rectangle
      * @param {number} width Width of rectangle
      * @param {number} height Height of rectangle
+     * @param {bool} [isResponse=true] Whether to perform collision response or not
      */
-    constructor(entity, startX, startY, width, height) {
-        super(entity);
+    constructor(entity, startX, startY, width, height, isResponse = true) {
+        super(entity, isResponse);
 
         /**
          * X coordinate of upper left corner of rectangle
@@ -84,7 +85,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
                 if (data !== undefined) {
                     let nx = Math.abs(sx) < Math.abs(ex) ? sx : ex;
                     let ny = Math.abs(sy) < Math.abs(ey) ? sy : ey;
-                    if (Math.abs(Math.abs(nx) - Math.abs(ny)) < 1) {
+                    if (this.entity.body !== undefined && Math.abs(Math.abs(nx) - Math.abs(ny)) < 1) {
                         if (nx * this.entity.body.preVelocityX <= 0) {
                             nx = this.endX - this.startX + 1;
                         }

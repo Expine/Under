@@ -12,9 +12,10 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
      * @param {number} width Width of rectangle
      * @param {number} height Height of rectangle
      * @param {number} cut Amount of taken horn
+     * @param {bool} [isResponse=true] Whether to perform collision response or not
      */
-    constructor(entity, startX, startY, width, height, cut) {
-        super(entity, startX, startY, width, height);
+    constructor(entity, startX, startY, width, height, cut, isResponse = true) {
+        super(entity, startX, startY, width, height, isResponse);
         /**
          * Amount of taken horn
          * @protected
