@@ -19,7 +19,7 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         this.stage.addEntity(this.player);
 
         let en = Context.image.loadImage(`res/image/chara/enemy.png`);
-        for (var i = 0; i < 10; ++i) {
+        for (var i = 0; i < 1; ++i) {
             let enemy = new Enemy(154 + 80 * (i % 20), 180 - 80 * Math.floor(i / 20), 64, 64, en);
             enemy.setRigidBody(new GravityElasticBody(enemy));
             enemy.setCollider(new RoundRectangleCollider(enemy, 0, 32, 64, 32, 5));

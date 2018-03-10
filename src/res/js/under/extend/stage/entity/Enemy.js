@@ -12,9 +12,9 @@ class Enemy extends SingleAIObject { // eslint-disable-line  no-unused-vars
      * @param {number} y y position
      * @param {number} width object width
      * @param {number} height object height
-     * @param {number} imageID image ID for rendering (if has not, -1)
+     * @param {number} imageID image ID for rendering
      */
-    constructor(x, y, width, height, imageID = -1) {
+    constructor(x, y, width, height, imageID) {
         super(x, y, width, height, imageID);
 
         this.addAI(new StraightAI(this));

@@ -51,6 +51,10 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
             this.ai.changeState(new PJumpState(300));
             input = true;
         }
+        if (Input.it.isYesPress()) {
+            this.ai.changeState(new PPunchState());
+            input = true;
+        }
         if (!input && Math.abs(this.entity.body.velocityX) < 10) {
             this.ai.changeState(new PStationaryState());
         }
@@ -65,7 +69,6 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        //        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
         ctx.drawImage(this.entity.imageID, (Math.floor(this.walkCount_) % 4) * 32, 16 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

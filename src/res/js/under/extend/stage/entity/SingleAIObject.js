@@ -12,7 +12,7 @@ class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused
      * @param {number} y y position
      * @param {number} width object width
      * @param {number} height object height
-     * @param {number} imageID image ID for rendering (if has not, -1)
+     * @param {number} [imageID=-1] image ID for rendering (if has not, -1)
      */
     constructor(x, y, width, height, imageID = -1) {
         super(x, y, width, height, imageID);
@@ -102,7 +102,9 @@ class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height);
+        if (this.imageID != -1) {
+            ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height);
+        }
 
         // For debug to render collider
         if (this.collider !== undefined) {

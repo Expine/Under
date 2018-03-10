@@ -26,17 +26,14 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // input
-        let input = false;
         let vx = 0;
         if (Input.it.isLeftPressed()) {
             vx += -300;
-            input = true;
         }
         if (Input.it.isRightPressed()) {
             vx += 300;
-            input = true;
         }
-        if (input) {
+        if (Math.abs(vx) > 0) {
             this.entity.direction = Math.sign(vx);
             if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx * 30 / dt, 0);
