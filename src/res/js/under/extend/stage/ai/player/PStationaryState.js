@@ -1,5 +1,6 @@
 /**
  * State of player's stationary
+ * @implements {State}
  * @classdesc State of player's stationary
  */
 class PStationaryState extends State { // eslint-disable-line  no-unused-vars
@@ -31,6 +32,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             this.entity.body.vmy = 0;
             this.entity.body.accelerationY = 0;
             this.entity.body.enforce(0, -200 * 1000 / dt);
+            this.ai.changeState(new PJumpState());
         }
         return true;
     }
