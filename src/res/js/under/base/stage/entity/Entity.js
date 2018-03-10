@@ -55,7 +55,6 @@ class Entity { // eslint-disable-line  no-unused-vars
     setCollider(collider) {
         /**
          * Entity collider
-         * @protected
          * @type {Collider}
          */
         this.collider = collider;
@@ -71,6 +70,19 @@ class Entity { // eslint-disable-line  no-unused-vars
          * @type {Material}
          */
         this.material = material;
+    }
+
+    /**
+     * Set stage
+     * @param {Stage} stage  Stage information
+     */
+    setStage(stage) {
+        /**
+         * Stage information
+         * @protected
+         * @type {Stage}
+         */
+        this.stage = stage;
     }
 
     /**

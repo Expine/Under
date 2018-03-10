@@ -45,6 +45,19 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             this.mutables_.push(entity);
         }
         this.entities_.push(entity);
+        entity.setStage(this);
+    }
+
+    /**
+     * Remove entity from stage
+     * @override
+     * @param {Entity} entity - entity object
+     */
+    removeEntity(entity) {
+        if (entity instanceof MutableObject) {
+            this.mutables_.splice(this.mutables_.indexOf(entity), 1);
+        }
+        this.entities_.splice(this.entities_.indexOf(entity), 1);
     }
 
     /**

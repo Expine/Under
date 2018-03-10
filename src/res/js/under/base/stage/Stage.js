@@ -53,6 +53,13 @@ class Stage { // eslint-disable-line  no-unused-vars
     addEntity(entity) {}
 
     /**
+     * Remove entity from stage
+     * @interface
+     * @param {Entity} entity - entity object
+     */
+    removeEntity(entity) {}
+
+    /**
      * Update stage
      * @interface
      * @param {number} dt delta time

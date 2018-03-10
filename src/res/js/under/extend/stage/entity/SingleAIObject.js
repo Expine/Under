@@ -1,10 +1,10 @@
 /**
  * Single AI Object
  * Manages AI by list
- * @implements {AutonomyObject}
+ * @implements {BreakableObject}
  * @classdesc AI Listed object to manager AI by list
  */
-class SingleAIObject extends AutonomyObject { // eslint-disable-line  no-unused-vars
+class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused-vars
     /**
      * Single AI object constructor
      * @constructor
@@ -23,6 +23,12 @@ class SingleAIObject extends AutonomyObject { // eslint-disable-line  no-unused-
          * @type {Array<AI>}
          */
         this.ai = [];
+
+        /**
+         * Hit point
+         * @type {number}
+         */
+        this.hp = 0;
     }
 
     /**
@@ -44,6 +50,36 @@ class SingleAIObject extends AutonomyObject { // eslint-disable-line  no-unused-
         }
         this.ai = newer;
     }
+
+    /**
+     * Get hit point
+     * @override
+     * @return {number} Hit point
+     */
+    getHP() {
+        return this.hp;
+    }
+
+    /**
+     * Dameg object
+     * @override
+     * @param {number} damage Amount of damage
+     */
+    damage(damage) {
+        this.hp -= damage;
+        if (this.hp <= 0) {
+            this.destroy();
+        }
+    }
+
+    /**
+     * Destroy object
+     * @override
+     */
+    destroy() {
+        this.stage.removeEntity(this);
+    }
+
 
     /**
      * Update object
