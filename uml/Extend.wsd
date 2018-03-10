@@ -103,7 +103,7 @@ package extend {
         class InvariantBackMap
         class CenterCamera
         package ex_entity {
-            class AIListedObject
+            class StateCharacter
             class TileObject
             class Obstacle
             class Enemy
@@ -168,9 +168,9 @@ SplitManagementStage "1" *-- "1" Player
 
 TileObject ..|> ImmutableObject
 Obstacle ..|> MutableObject
-AIListedObject ..|> AutonomyObject
-AIListedObject <|.. Player
-AIListedObject <|.. Enemy
+StateCharacter ..|> AutonomyObject
+StateCharacter <|.. Player
+StateCharacter <|.. Enemy
 Player --> PlayerAI
 Enemy --> StraightAI
 Player ..|> AI

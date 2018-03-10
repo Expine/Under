@@ -1,10 +1,10 @@
 /**
  * Player object
  * Entities operated by the player
- * @implements {AIListedObject}
+ * @implements {StateCharacter}
  * @classdesc Player object to operate by input
  */
-class Player extends AIListedObject { // eslint-disable-line  no-unused-vars
+class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
     /**
      * Player constructor
      * @constructor
@@ -17,20 +17,6 @@ class Player extends AIListedObject { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, imageID = -1) {
         super(x, y, width, height, imageID);
 
-        this.addAI(new PlayerAI(this));
-    }
-
-    /**
-     * Determine whether player are on the ground
-     * @return {boolean} Whether player are on the ground
-     */
-    onGround() {
-        let list = this.collider.collisions;
-        for (let it of list) {
-            if ((it.e1 === this && it.ny > 0) || (it.e2 === this && it.ny < 0)) {
-                return true;
-            }
-        }
-        return false;
+        this.addAI(new BaseStateAI(this, new PWalkState()));
     }
 }

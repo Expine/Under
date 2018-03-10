@@ -1,10 +1,10 @@
 /**
  * Enemy object
  * Entities operated by the enemy
- * @implements {AIListedObject}
+ * @implements {SingleAIObject}
  * @classdesc Enemy object to operate by input
  */
-class Enemy extends AIListedObject { // eslint-disable-line  no-unused-vars
+class Enemy extends SingleAIObject { // eslint-disable-line  no-unused-vars
     /**
      * Enemy constructor
      * @constructor

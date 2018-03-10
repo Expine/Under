@@ -156,6 +156,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
         ctx.strokeLine(this.aabb.startX + shiftX, this.aabb.startY + this.cut + shiftY, this.aabb.startX + shiftX, this.aabb.endY - this.cut + shiftY);
         ctx.strokeLine(this.aabb.endX + shiftX, this.aabb.startY + this.cut + shiftY, this.aabb.endX + shiftX, this.aabb.endY - this.cut + shiftY);
         ctx.strokeLine(this.aabb.startX + this.cut + shiftX, this.aabb.endY + shiftY, this.aabb.endX - this.cut + shiftX, this.aabb.endY + shiftY);
+        /*
         ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 30, `red`);
         for (let it of this.collisions) {
             var hueVal = it.e1.imageID + (it.e2.imageID << 5);
@@ -166,5 +167,6 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
                 hueVal);
         }
+        */
     }
 }
