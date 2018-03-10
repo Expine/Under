@@ -34,7 +34,7 @@ class GravityElasticBody extends RigidBody { // eslint-disable-line  no-unused-v
             this.vmx = Math.min(this.vmx, vx);
         }
         if (vy > 0) {
-            this.vpy = Math.min(this.vpy, vy);
+            this.vpy = Math.max(this.vpy, vy);
         } else {
             this.vmy = Math.min(this.vmy, vy);
         }

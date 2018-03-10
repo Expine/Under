@@ -17,6 +17,6 @@ class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, imageID = -1) {
         super(x, y, width, height, imageID);
 
-        this.addAI(new BaseStateAI(this, new PWalkState()));
+        this.addAI(new BaseStateAI(this, new PStationaryState()));
     }
 }

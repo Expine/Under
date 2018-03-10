@@ -23,6 +23,9 @@ class StraightAI extends AI { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
+        if (!Util.onGround(this.entity)) {
+            return true;
+        }
         this.switcher += dt;
         if (this.switcher > 10 * 1000) {
             this.switcher = 0;

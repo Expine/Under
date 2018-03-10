@@ -1,8 +1,8 @@
 /**
- * State of walking player
- * @classdesc State of walking player
+ * State of player's stationary
+ * @classdesc State of player's stationary
  */
-class PWalkState extends State { // eslint-disable-line  no-unused-vars
+class PStationaryState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Apply AI and decide action
      * @override
@@ -10,35 +10,29 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        let ret = false;
         let vx = 0;
         if (Input.it.isLeftPressed()) {
             vx += -300;
-            ret = true;
         }
         if (Input.it.isRightPressed()) {
             vx += 300;
-            ret = true;
         }
         if (Math.abs(vx) > 0) {
             if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
-                this.entity.body.enforce(vx * 60 / dt, 0);
+                this.entity.body.enforce(vx * 120 / dt, 0);
             } else {
                 this.entity.body.velocityX = vx;
             }
+            this.ai.changeState(new PWalkState());
         }
         if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
             // reset
             this.entity.body.velocityY = 0;
             this.entity.body.vmy = 0;
             this.entity.body.accelerationY = 0;
-            this.entity.body.enforce(0, -300 * 1000 / dt);
-            ret = true;
+            this.entity.body.enforce(0, -200 * 1000 / dt);
         }
-        if (!ret && Math.abs(this.entity.body.velocityX) < 10) {
-            this.ai.changeState(new PStationaryState());
-        }
-        return ret;
+        return true;
     }
 
     /**

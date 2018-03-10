@@ -60,5 +60,8 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         ctx.fillText(this.player + ` P collision`, Screen.it.width, 60, 1.0, 0.0, 20, `white`);
         ctx.fillText(this.stage.physic.response instanceof ImpulseBased ? 'Impluse' : `Repulsion`, Screen.it.width, 90, 1.0, 0.0, 20, `white`);
         ctx.fillText(`(` + Math.floor(this.stage.player_.x) + `,` + Math.floor(this.stage.player_.y) + `)(` + Math.floor(this.stage.player_.body.velocityX) + `, ` + Math.floor(this.stage.player_.body.velocityY) + `)`, Screen.it.width, 120, 1.0, 0.0, 20, `white`);
+        if (this.stage.player_.state != null) {
+            ctx.fillText(this.stage.player_.state.constructor.toString().split(`\n`)[0].split(` `)[1], Screen.it.width, 150, 1.0, 0.0, 20, `white`);
+        }
     }
 }

@@ -47,5 +47,6 @@ class BaseStateAI extends AI { // eslint-disable-line  no-unused-vars
          */
         this.state_ = state;
         state.setEntity(this.entity);
+        state.setAI(this);
     }
 }

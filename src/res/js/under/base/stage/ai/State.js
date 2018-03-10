@@ -6,10 +6,26 @@
 class State { // eslint-disable-line  no-unused-vars
     /**
      * Set entity for targeting
-     * @param {Entity} entity
+     * @param {Entity} entity Entity for tageting
      */
     setEntity(entity) {
+        /**
+         * Entity for targeting
+         * @type {Entity}
+         */
         this.entity = entity;
+    }
+
+    /**
+     * Set AI for operating
+     * @param {StateAI} ai AI for operating
+     */
+    setAI(ai) {
+        /**
+         * AI for operating
+         * @type {StateAI}
+         */
+        this.ai = ai;
     }
 
     /**
