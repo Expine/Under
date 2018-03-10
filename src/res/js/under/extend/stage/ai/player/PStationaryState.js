@@ -19,7 +19,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             vx += 300;
         }
         if (Math.abs(vx) > 0) {
-            if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
+            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx * 120 / dt, 0);
             } else {
                 this.entity.body.velocityX = vx;
@@ -27,12 +27,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             this.ai.changeState(new PWalkState());
         }
         if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
-            // reset
-            this.entity.body.velocityY = 0;
-            this.entity.body.vmy = 0;
-            this.entity.body.accelerationY = 0;
-            this.entity.body.enforce(0, -200 * 1000 / dt);
-            this.ai.changeState(new PJumpState());
+            this.ai.changeState(new PJumpState(230));
         }
         return true;
     }

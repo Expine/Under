@@ -7,8 +7,9 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Player jump state constructor
      * @constructor
+     * @param {number} jumpPower Jumping force
      */
-    constructor() {
+    constructor(jumpPower) {
         super();
 
         /**
@@ -22,6 +23,12 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.jumpDirection_ = 0;
+
+        /**
+         * Jumping force
+         * @type {number}
+         */
+        this.jumpPower_ = jumpPower;
     }
     /**
      * Apply AI and decide action
@@ -31,35 +38,25 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // animation
+        this.jumpDirection_ = this.velocityX < 0 ? 3 : 2;
+        if (this.jumpCount_ == 0) {
+            /**
+             * Reserved velocity of X
+             * @type {number}
+             */
+            this.velocityX = this.entity.body.velocityX;
+        }
         if (this.jumpCount_ < 3) {
-            this.jumpCount_ += dt / 50;
-        }
-        this.jumpDirection_ = this.entity.body.velocityX < 0 ? 3 : 2;
-
-        // input
-        let input = false;
-        let vx = 0;
-        if (Input.it.isLeftPressed()) {
-            vx += -300;
-            input = true;
-        }
-        if (Input.it.isRightPressed()) {
-            vx += 300;
-            input = true;
-        }
-        if (input) {
-            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
-                this.entity.body.enforce(vx * 30 / dt, 0);
-            } else {
-                this.entity.body.velocityX = vx;
-            }
-        }
-        if (Util.onGround(this.entity)) {
-            if (Math.abs(this.entity.body.velocityX) < 10) {
-                this.ai.changeState(new PStationaryState());
-            } else {
-                this.ai.changeState(new PWalkState());
-            }
+            this.entity.body.velocityX /= 1.1;
+            this.jumpCount_ += dt / 100;
+        } else {
+            // reset
+            this.entity.body.velocityX = this.velocityX;
+            this.entity.body.velocityY = 0;
+            this.entity.body.vmy = 0;
+            this.entity.body.accelerationY = 0;
+            this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
+            this.ai.changeState(new PJumpingState(this.jumpPower_));
         }
         return true;
     }
@@ -72,7 +69,6 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        //        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
         ctx.drawImage(this.entity.imageID, (Math.floor(this.jumpCount_)) * 32, this.jumpDirection_ * 32, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

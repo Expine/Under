@@ -47,19 +47,14 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
             input = true;
         }
         if (Math.abs(vx) > 0) {
-            if (Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
+            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx * 60 / dt, 0);
             } else {
                 this.entity.body.velocityX = vx;
             }
         }
         if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
-            // reset
-            this.entity.body.velocityY = 0;
-            this.entity.body.vmy = 0;
-            this.entity.body.accelerationY = 0;
-            this.entity.body.enforce(0, -300 * 1000 / dt);
-            this.ai.changeState(new PJumpState());
+            this.ai.changeState(new PJumpState(300));
             input = true;
         }
         if (!input && Math.abs(this.entity.body.velocityX) < 10) {
