@@ -14,7 +14,7 @@ class BreakableObject extends AutonomyObject { // eslint-disable-line  no-unused
     getHP() {}
 
     /**
-     * Dameg object
+     * Damage object
      * @interface
      * @param {number} damage Amount of damage
      */

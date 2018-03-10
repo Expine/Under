@@ -16,12 +16,6 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.walkCount_ = 0;
-
-        /**
-         * Direction for animation
-         * @type {number}
-         */
-        this.walkDirection_ = 0;
     }
 
     /**
@@ -33,7 +27,6 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
     apply(dt) {
         // for animation
         this.walkCount_ += dt / 200;
-        this.walkDirection_ = this.entity.body.velocityX < 0 ? 1 : 0;
 
         // input
         let input = false;
@@ -47,6 +40,7 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
             input = true;
         }
         if (Math.abs(vx) > 0) {
+            this.entity.direction = Math.sign(vx);
             if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx * 60 / dt, 0);
             } else {
@@ -72,6 +66,6 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         //        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
-        ctx.drawImage(this.entity.imageID, (Math.floor(this.walkCount_) % 4) * 32, this.walkDirection_ * 32, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+        ctx.drawImage(this.entity.imageID, (Math.floor(this.walkCount_) % 4) * 32, 16 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

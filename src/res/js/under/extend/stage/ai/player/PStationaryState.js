@@ -19,6 +19,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             vx += 300;
         }
         if (Math.abs(vx) > 0) {
+            this.entity.direction = Math.sign(vx);
             if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx * 120 / dt, 0);
             } else {
@@ -52,6 +53,6 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, 0, 0, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+        ctx.drawImage(this.entity.imageID, 0, 16 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

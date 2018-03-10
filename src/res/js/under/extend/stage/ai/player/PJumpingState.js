@@ -13,12 +13,6 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
         super();
 
         /**
-         * Direction for animation
-         * @type {number}
-         */
-        this.jumpDirection_ = 0;
-
-        /**
          * Jumping force
          * @type {number}
          */
@@ -31,9 +25,6 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        // animation
-        this.jumpDirection_ = this.entity.body.velocityX < 0 ? 3 : 2;
-
         // input
         let input = false;
         let vx = 0;
@@ -46,6 +37,7 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
             input = true;
         }
         if (input) {
+            this.entity.direction = Math.sign(vx);
             if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx * 30 / dt, 0);
             } else {
@@ -70,6 +62,6 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, 96, this.jumpDirection_ * 32, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+        ctx.drawImage(this.entity.imageID, 96, 80 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

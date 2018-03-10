@@ -61,7 +61,7 @@ class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused
     }
 
     /**
-     * Dameg object
+     * Damage object
      * @override
      * @param {number} damage Amount of damage
      */

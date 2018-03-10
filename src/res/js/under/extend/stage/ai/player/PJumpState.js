@@ -19,10 +19,9 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
         this.jumpCount_ = 0;
 
         /**
-         * Direction for animation
-         * @type {number}
+         * Count for judging on air
          */
-        this.jumpDirection_ = 0;
+        this.inAirCount_ = 0;
 
         /**
          * Jumping force
@@ -38,7 +37,6 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // animation
-        this.jumpDirection_ = this.velocityX < 0 ? 3 : 2;
         if (this.jumpCount_ == 0) {
             /**
              * Reserved velocity of X
@@ -46,11 +44,20 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
              */
             this.velocityX = this.entity.body.velocityX;
         }
-        if (this.jumpCount_ < 3) {
-            this.entity.body.velocityX /= 1.1;
-            this.jumpCount_ += dt / 100;
+        this.entity.body.velocityX /= 1.1;
+        this.jumpCount_ += dt / 100;
+
+        // judge
+        if (!Util.onGround(this.entity)) {
+            if (++this.inAirCount_ > 5) {
+                this.ai.changeState(new PStationaryState());
+            }
         } else {
-            // reset
+            this.inAirCount_ = 0;
+        }
+
+        if (this.jumpCount_ >= 3 && this.inAirCount_ == 0) {
+            // reset and jump
             this.entity.body.velocityX = this.velocityX;
             this.entity.body.velocityY = 0;
             this.entity.body.vmy = 0;
@@ -58,6 +65,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
             this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
             this.ai.changeState(new PJumpingState(this.jumpPower_));
         }
+
         return true;
     }
 
@@ -69,6 +77,6 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, (Math.floor(this.jumpCount_)) * 32, this.jumpDirection_ * 32, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+        ctx.drawImage(this.entity.imageID, (Math.floor(this.jumpCount_)) * 32, 80 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }
