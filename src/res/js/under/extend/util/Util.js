@@ -17,4 +17,13 @@ class Util { // eslint-disable-line  no-unused-vars
         }
         return false;
     }
+
+    /**
+     * Get entity from collision data
+     * @param {Entity} self Entity itself
+     * @param {CollisionData} data Collision data
+     */
+    static getCollidedEntity(self, data) {
+        return data.e1 === self ? data.e2 : data.e1;
+    }
 }

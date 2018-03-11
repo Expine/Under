@@ -17,7 +17,7 @@ class Enemy extends SingleAIObject { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, imageID) {
         super(x, y, width, height, imageID);
 
-        this.addAI(new StraightAI(this));
+        this.addAI(new EnemyAI(this));
 
         this.hp = 1;
     }
