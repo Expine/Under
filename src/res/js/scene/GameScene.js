@@ -38,6 +38,7 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         }
 
         this.debug = new DebugLayer(this.stage);
+        this.ui = new UILayer(this.player);
     }
 
     update(dt) {
@@ -55,10 +56,12 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
 
         this.stage.update(dt);
         this.debug.update(dt);
+        this.ui.update(dt);
     }
 
     render(ctx) {
         this.stage.render(ctx);
         this.debug.render(ctx);
+        this.ui.render(ctx);
     }
 }
