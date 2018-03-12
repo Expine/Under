@@ -39,11 +39,10 @@ class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
      * @param {number} damage Amount of damage
      */
     damage(damage) {
-        if (this.invincible_ == 0) {
+        if (this.invincible_ == 0 && this.hp > 0) {
             this.hp -= damage;
             this.invincible_ = 1000;
         }
-        if (this.hp <= 0) {}
     }
 
     /**
@@ -67,7 +66,7 @@ class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.invincible_ % 2 == 0) {
+        if (this.invincible_ % 2 == 0 || this.hp <= 0) {
             super.render(ctx, shiftX, shiftY);
         }
     }

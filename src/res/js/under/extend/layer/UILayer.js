@@ -35,14 +35,14 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
          * Animation state
          * @type {number}
          */
-        this.animationState = 0;
+        this.animationState = (3 - this.playerHP) * 2;
 
         // Load UI image
         /**
          * UI Image
          * @type {number}
          */
-        this.uiImage = Context.image.loadImage(`res/image/chara/hp.png`);
+        this.uiImage = Context.image.loadImage(`res/image/ui/hp.png`);
     }
     /**
      * Update layer

@@ -34,6 +34,12 @@ class Collider { // eslint-disable-line  no-unused-vars
          * @type {bool}
          */
         this.isResponse = isResponse;
+
+        /**
+         * Whether collision judgment is to be done or not
+         * @type {bool}
+         */
+        this.enable = true;
     }
 
     /**

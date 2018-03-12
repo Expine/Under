@@ -42,16 +42,10 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
     }
 
     update(dt) {
-        if (Input.it.isKeyPressed(16)) {
-            let ret = [];
-            for (let it of this.stage.entities_) {
-                if (it instanceof Obstacle) {
-                    it.setCollider(undefined);
-                    continue;
-                }
-                ret.push(it);
-            }
-            this.stage.entities_ = ret;
+        // gameover
+        if (this.player.getHP() <= 0) {
+            this.player.addAI(new BaseStateAI(this.player, new PGameoverState()), 0);
+            this.player.setCollider(new RoundRectangleCollider(this.player, 0, 32, 64, 32, 5));
         }
 
         this.stage.update(dt);

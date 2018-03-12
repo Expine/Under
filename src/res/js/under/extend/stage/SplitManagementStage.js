@@ -30,6 +30,8 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
          * @type {Player}
          */
         this.player_ = null;
+
+        this.setEnable(true);
     }
 
     /**
@@ -61,26 +63,25 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     }
 
     /**
+     * Control stage update
+     * @param {bool} enable Whether to update the stage or not
+     */
+    setEnable(enable) {
+        /**
+         * Whether to update the stage or not
+         * @type {bool}
+         */
+        this.enable_ = enable;
+    }
+
+    /**
      * Update stage
      * @param {number} dt delta time
      */
     update(dt) {
-        // For debug to change collider
-        if (Input.it.isSubPress()) {
-            for (let it of this.entities_) {
-                if (it.collider instanceof RectangleCollider) {
-                    it.setCollider(new CircleCollider(it, it.collider.endY / 2));
-                } else if (it.collider instanceof CircleCollider) {
-                    it.setCollider(new RectangleCollider(it, 0, 0, it.collider.radius * 2, it.collider.radius * 2));
-                }
-            }
+        if (!this.enable_) {
+            return;
         }
-
-        // step by step
-        if (!Input.it.isKeyPress(65)) {
-            // return;
-        }
-
         // update mutables and autonomies
         for (let it of this.mutables_) {
             it.update(dt);
