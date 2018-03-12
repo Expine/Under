@@ -59,6 +59,8 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
             // retry
             if (Input.it.isYesPress()) {
                 this.start();
+            } else if (Input.it.isNoPress()) {
+                this.scene.replaceScene(new TitleScene());
             }
         }
     }

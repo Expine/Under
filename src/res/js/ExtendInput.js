@@ -37,6 +37,32 @@ class ExtendedInput extends AllInput { // eslint-disable-line  no-unused-vars
         };
     }
 
+    /**
+     * Judge whether any key pressed now
+     * @return whether any key pressed now
+     */
+    isAnyKeyPress() {
+        for (let i = 0; i < this.inputKey.length; i++) {
+            if (this.isKeyPress(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Judge whether any key pressed
+     * @return whether any key pressed
+     */
+    isAnyKeyPressed() {
+        for (let i = 0; i < this.inputKey.length; i++) {
+            if (this.isKeyPressed(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Judge whether Yes key pressed now

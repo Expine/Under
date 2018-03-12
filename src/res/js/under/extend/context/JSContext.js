@@ -96,7 +96,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
     preRendering() {
         this.ctx_.save();
         this.ctx_.scale(this.screen.gameSize, this.screen.gameSize);
-        this.ctx_.fillStyle = `white`;
+        this.ctx_.fillStyle = `black`;
         this.ctx_.fillRect(0, 0, this.screen.width, this.screen.height);
     }
 
