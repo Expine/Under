@@ -39,23 +39,36 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
 
         this.debug = new DebugLayer(this.stage);
         this.ui = new UILayer(this.player);
+        this.gameover = null;
     }
 
     update(dt) {
         // gameover
-        if (this.player.getHP() <= 0) {
+        if (this.player.getHP() <= 0 && this.gameover == null) {
             this.player.addAI(new BaseStateAI(this.player, new PGameoverState()), 0);
             this.player.setCollider(new RoundRectangleCollider(this.player, 0, 32, 64, 32, 5));
+            this.gameover = new GameoverLayer();
         }
 
         this.stage.update(dt);
         this.debug.update(dt);
         this.ui.update(dt);
+        if (this.gameover != null) {
+            this.gameover.update(dt);
+
+            // retry
+            if (Input.it.isYesPress()) {
+                this.start();
+            }
+        }
     }
 
     render(ctx) {
         this.stage.render(ctx);
         this.debug.render(ctx);
         this.ui.render(ctx);
+        if (this.gameover != null) {
+            this.gameover.render(ctx);
+        }
     }
 }

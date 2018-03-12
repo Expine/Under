@@ -19,7 +19,7 @@ class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
 
         this.addAI(new BaseStateAI(this, new PStationaryState()));
 
-        this.hp = 3;
+        this.hp = 1;
 
         /**
          * Direction of player

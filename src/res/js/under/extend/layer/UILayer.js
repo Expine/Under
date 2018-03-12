@@ -5,7 +5,7 @@
  */
 class UILayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
-     * Debug layer constructor
+     * UI layer constructor
      * @param {Player} player Player instance
      */
     constructor(player) {
