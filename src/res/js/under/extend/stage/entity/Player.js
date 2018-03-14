@@ -17,12 +17,12 @@ class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, imageID) {
         super(x, y, width, height, imageID);
 
-        this.addAI(new BaseStateAI(this, new PStationaryState()));
-
-        this.hp = 1;
+        this.hp = 3;
+        this.addAI(new PlayerBaseStateAI(this));
 
         /**
          * Direction of player
+         * @type {number}
          */
         this.direction = 1;
 

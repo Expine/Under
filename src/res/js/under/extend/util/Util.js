@@ -19,6 +19,19 @@ class Util { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get ground entity
+     * @param {Entity} entity Target entity
+     */
+    static getGround(entity) {
+        let list = entity.collider.collisions;
+        for (let it of list) {
+            if ((it.e1 === entity && it.ny > 0) || (it.e2 === entity && it.ny < 0)) {
+                return this.getCollidedEntity(entity, it);
+            }
+        }
+    }
+
+    /**
      * Get entity from collision data
      * @param {Entity} self Entity itself
      * @param {CollisionData} data Collision data

@@ -49,6 +49,25 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
     }
 
     /**
+     * Make tile object
+     * @param {number} verticalId tile vertical id
+     * @param {number} horizontalId tile horizontal id
+     * @param {number} tileWidth tile width
+     * @param {number} tileHeight tile height
+     * @param {number} x x position
+     * @param {number} y y position
+     * @param {number} width object width
+     * @param {number} height object height
+     * @param {number} imageID tile image id
+     */
+    makeTileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID) {
+        let tile = new TileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID);
+        tile.setCollider(new RectangleCollider(tile, 0, 0, width, height));
+        tile.setMaterial(new DefaultMaterial());
+        return tile;
+    }
+
+    /**
      * Parset file to stage
      * @override
      * @param {string} filePath stage file path
@@ -86,11 +105,7 @@ class ConcreteStageParser extends StageParser { // eslint-disable-line  no-unuse
             for (let x = 0; x < stageWidth; ++x) {
                 let id = parseInt(stageData[x + y * stageWidth]);
                 if (id > -1) {
-                    let entity = new TileObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tileID);
-                    entity.setCollider(new RectangleCollider(entity, 0, 0, tileWidth, tileHeight));
-                    entity.setMaterial(new DefaultMaterial());
-                    // entity.setCollider(new CircleCollider(entity, tileWidth / 2));
-                    stage.addEntity(entity);
+                    stage.addEntity(this.makeTileObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tileID));
                 }
             }
         }

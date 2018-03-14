@@ -13,4 +13,11 @@ class AutonomyObject extends MutableObject { // eslint-disable-line  no-unused-v
      * @param {number} priority priority of AI
      */
     addAI(ai, priority) {}
+
+    /**
+     * Remove AI system
+     * @interface
+     * @param {AI} ai AI to control this
+     */
+    removeAI(ai) {}
 }

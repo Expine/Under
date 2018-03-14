@@ -16,6 +16,41 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.walkCount_ = 0;
+
+        /**
+         * Maximum speed vector
+         * @type {number}
+         */
+        this.maxVelocityX = 300;
+        /**
+         * Force applied when moving
+         * @type {number}
+         */
+        this.walkPower = 18000;
+    }
+
+    /**
+     * Make stationary state
+     * @return {State} stationary state
+     */
+    makeStationaryState() {
+        return new PStationaryState();
+    }
+
+    /**
+     * Make jump state
+     * @return {State} jump state
+     */
+    makeJumpState() {
+        return new PJumpState(300);
+    }
+
+    /**
+     * Make attack state
+     * @return {State} attack state
+     */
+    makeAttackState() {
+        return new PPunchState();
     }
 
     /**
@@ -31,32 +66,34 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
         // input
         let input = false;
         let vx = 0;
+        // walk
         if (Input.it.isLeftPressed()) {
-            vx += -300;
+            vx += -1;
             input = true;
         }
         if (Input.it.isRightPressed()) {
-            vx += 300;
+            vx += 1;
             input = true;
         }
-        if (Math.abs(vx) > 0) {
-            this.entity.direction = Math.sign(vx);
-            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
-                this.entity.body.enforce(vx * 60 / dt, 0);
-            } else {
-                this.entity.body.velocityX = vx;
+        if (vx != 0) {
+            this.entity.direction = vx;
+            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
+                this.entity.body.enforce(vx * this.walkPower / dt, 0);
             }
         }
-        if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
-            this.ai.changeState(new PJumpState(300));
-            input = true;
-        }
-        if (Input.it.isYesPress()) {
-            this.ai.changeState(new PPunchState());
-            input = true;
-        }
+        // stationary
         if (!input && Math.abs(this.entity.body.velocityX) < 10) {
-            this.ai.changeState(new PStationaryState());
+            this.ai.changeState(this.makeStationaryState());
+        }
+        // jump
+        if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
+            this.ai.changeState(this.makeJumpState());
+            input = true;
+        }
+        // punch
+        if (Input.it.isYesPress()) {
+            this.ai.changeState(this.makeAttackState());
+            input = true;
         }
         return true;
     }

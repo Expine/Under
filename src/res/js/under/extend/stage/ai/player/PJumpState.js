@@ -29,6 +29,23 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
          */
         this.jumpPower_ = jumpPower;
     }
+
+    /**
+     * Make stationary state
+     * @return {State} stationary state
+     */
+    makeStationaryState() {
+        return new PStationaryState();
+    }
+
+    /**
+     * Make jumping state
+     * @return {State} jumping state
+     */
+    makeJumpingState() {
+        return new PJumpingState();
+    }
+
     /**
      * Apply AI and decide action
      * @override
@@ -50,7 +67,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
         // judge
         if (!Util.onGround(this.entity)) {
             if (++this.inAirCount_ > 5) {
-                this.ai.changeState(new PStationaryState());
+                this.ai.changeState(this.makeStationaryState());
             }
         } else {
             this.inAirCount_ = 0;
@@ -63,7 +80,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
             this.entity.body.vmy = 0;
             this.entity.body.accelerationY = 0;
             this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
-            this.ai.changeState(new PJumpingState(this.jumpPower_));
+            this.ai.changeState(this.makeJumpingState());
         }
 
         return true;

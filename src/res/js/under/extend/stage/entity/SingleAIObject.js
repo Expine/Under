@@ -52,6 +52,18 @@ class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused
     }
 
     /**
+     * Remove AI system
+     * @override
+     * @param {AI} ai AI to control this
+     */
+    removeAI(ai) {
+        let index = this.ai.indexOf(ai);
+        if (index != -1) {
+            this.ai.splice(index, 1);
+        }
+    }
+
+    /**
      * Get hit point
      * @override
      * @return {number} Hit point

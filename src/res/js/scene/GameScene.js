@@ -8,7 +8,7 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
      * @override
      */
     start() {
-        this.stage = (new ConcreteStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
+        this.stage = (new UnderStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
         let chara = Context.image.loadImage(`res/image/chara/player.png`);
         this.player = new UnderPlayer(74, 200, 64, 64, chara);
         this.player.setRigidBody(new GravityElasticBody(this.player));

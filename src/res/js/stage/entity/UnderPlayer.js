@@ -17,6 +17,39 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, imageID) {
         super(x, y, width, height, imageID);
 
-        this.addAI(new BaseStateAI(this, new PUnderState()), 0);
+        this.addAI(new UnderStateAI(this), 0);
+
+        /**
+         * Currently used AI
+         * @type {AI}
+         */
+        this.aiType = this.ai[1];
+    }
+
+    /**
+     * Change working AI
+     * @param {UnderTileObject} ground Ground object
+     */
+    changeType(ground) {
+        // set type
+        let ai = null;
+        let id = ground.getGlobalID();
+        console.log(`Tile ID is ${id}`);
+        switch (id) {
+            case 0:
+                ai = new WildBaseStateAI(this);
+                break;
+            case 1:
+                ai = new PlayerBaseStateAI(this);
+                break;
+        }
+        // inspect whether it changes
+        if (this.aiType == ai || ai == null) {
+            return;
+        }
+        // remove currently AI
+        this.removeAI(this.aiType);
+        this.addAI(ai);
+        this.aiType = ai;
     }
 }

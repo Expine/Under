@@ -1,15 +1,15 @@
 /**
- * State of player punching
- * @implements {State}
- * @classdesc State of player punching
+ * State of wild clawing
+ * @implements {PPunchState}
+ * @classdesc State of wild clawing
  */
-class PPunchState extends State { // eslint-disable-line  no-unused-vars
+class WildClawState extends PPunchState { // eslint-disable-line  no-unused-vars
     /**
      * Make stationary state
      * @return {State} stationary state
      */
     makeStationaryState() {
-        return new PStationaryState();
+        return new WildStationaryState();
     }
 
     /**
@@ -17,7 +17,7 @@ class PPunchState extends State { // eslint-disable-line  no-unused-vars
      * @return {State} walk state
      */
     makeWalkState() {
-        return new PWalkState();
+        return new WildWalkState();
     }
 
     /**
