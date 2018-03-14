@@ -10,7 +10,7 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
     start() {
         this.stage = (new ConcreteStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
         let chara = Context.image.loadImage(`res/image/chara/player.png`);
-        this.player = new Player(74, 200, 64, 64, chara);
+        this.player = new UnderPlayer(74, 200, 64, 64, chara);
         this.player.setRigidBody(new GravityElasticBody(this.player));
         // this.player.setCollider(new CircleCollider(this.player, 32));
         this.player.setCollider(new RoundRectangleCollider(this.player, 12, 10, 38, 54, 10));

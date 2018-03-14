@@ -37,7 +37,7 @@ class State { // eslint-disable-line  no-unused-vars
     apply(dt) {}
 
     /**
-     * Render entity by this tate
+     * Render entity by this state
      * @interface
      * @param {Context} ctx - canvas context
      * @param {number} [shiftX = 0] shift x position

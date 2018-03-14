@@ -52,7 +52,7 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Render entity by this tate
+     * Render entity by this state
      * @override
      * @param {Context} ctx - canvas context
      * @param {number} [shiftX = 0] shift x position
