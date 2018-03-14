@@ -1,3 +1,4 @@
 /memo/
 /node_modules/
 *.class
+src/res/sound/test.mp3

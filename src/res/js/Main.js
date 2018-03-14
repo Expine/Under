@@ -12,6 +12,9 @@ engine.setScreen(new GeneratableScreen());
 engine.setContext(new JSContext());
 // engine.setContext(new GLContext());
 
+// Set music
+engine.setMusic(new XHTMLMusic());
+
 // set scene manager
 engine.setSceneManager(new StackSceneManager());
 

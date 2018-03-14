@@ -28,7 +28,7 @@ class WildJumpState extends PJumpState { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // animation
-        this.jumpCount_ += dt / 50;
+        this.jumpCount_ += dt / 25;
         return super.apply(dt);
     }
 }

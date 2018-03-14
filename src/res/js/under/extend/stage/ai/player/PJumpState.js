@@ -62,7 +62,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
             this.velocityX = this.entity.body.velocityX;
         }
         this.entity.body.velocityX /= 1.1;
-        this.jumpCount_ += dt / 100;
+        this.jumpCount_ += dt / 200;
 
         // judge
         if (!Util.onGround(this.entity)) {

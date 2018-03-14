@@ -58,6 +58,19 @@ class Engine { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set music systm
+     * @param {Music} music Music system
+     */
+    setMusic(music) {
+        /**
+         * Music system
+         * @protected
+         * @type {Music}
+         */
+        this.music = music;
+    }
+
+    /**
      * Execute engine
      * @interface
      * @param {Scene} scene First scene

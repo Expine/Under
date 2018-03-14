@@ -34,7 +34,7 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
         // set type
         let ai = null;
         let id = ground.getGlobalID();
-        console.log(`Tile ID is ${id}`);
+        //        console.log(`Tile ID is ${id}`);
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI(this);
