@@ -6,7 +6,7 @@ let engine = new UnderEngine();
 engine.setInput(new ExtendedInput());
 
 // Set screen
-engine.setScreen(new GeneratableScreen());
+engine.setScreen(new ScalableScreen());
 
 // Set context
 engine.setContext(new JSContext());

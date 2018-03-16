@@ -1,9 +1,9 @@
 /**
  * Under stage parser to generate stage
- * @implements {ConcreteStageParser}
+ * @implements {CSVStageParser}
  * @classdesc Under parser to generate stage
  */
-class UnderStageParser extends ConcreteStageParser { // eslint-disable-line  no-unused-vars
+class UnderStageParser extends CSVStageParser { // eslint-disable-line  no-unused-vars
     /**
      * Make tile object
      * @param {number} verticalId tile vertical id

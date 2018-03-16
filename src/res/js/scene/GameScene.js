@@ -8,7 +8,7 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
      * @override
      */
     start() {
-        Music.it.playBGM(Music.it.loadMusic(`res/sound/test.mp3`));
+        // Music.it.playBGM(Music.it.loadMusic(`res/sound/test.mp3`));
 
         this.stage = (new UnderStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
         let chara = Context.image.loadImage(`res/image/chara/player.png`);

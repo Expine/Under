@@ -87,7 +87,9 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             it.update(dt);
         }
         this.physic.update(dt, this.mutables_, this.entities_);
-        this.camera.setCameraPosition(this.player_.x + this.player_.width / 2, this.player_.y + this.player_.height / 2, this.map.width, this.map.height);
+        if (this.player_ != null) {
+            this.camera.setCameraPosition(this.player_.x + this.player_.width / 2, this.player_.y + this.player_.height / 2, this.map.width, this.map.height);
+        }
     }
 
     /**
