@@ -112,7 +112,7 @@ package extend {
         package ex_physics {
             class CircleCollider
             class RectangleCollider
-            class GravityElasticBody
+            class NextSetterBody
             class DefaultMaterial
             class ImpulseBased
             class Repulsion

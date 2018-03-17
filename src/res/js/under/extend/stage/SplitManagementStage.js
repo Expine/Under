@@ -37,7 +37,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     /**
      * Add entity to stage
      * @override
-     * @param {Entity} entity - entity object
+     * @param {Entity} Pentity - entity object
      */
     addEntity(entity) {
         if (entity instanceof Player) {

@@ -1,8 +1,8 @@
 /**
- * Default parser to generate stage
+ * CSV parser to generate stage
  * It can also be used as a builder pattern
  * @implements {StageParser}
- * @classdesc Default parser to generate stage
+ * @classdesc CSV parser to generate stage
  */
 class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-vars
     /**
@@ -61,7 +61,7 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
      * @param {number} imageID tile image id
      */
     makeTileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID) {
-        let tile = new TileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID);
+        let tile = new TileObject(horizontalId * tileWidth, verticalId * tileHeight, tileWidth, tileHeight, x, y, width, height, imageID);
         tile.setCollider(new RectangleCollider(tile, 0, 0, width, height));
         tile.setMaterial(new DefaultMaterial());
         return tile;

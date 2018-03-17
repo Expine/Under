@@ -1,7 +1,7 @@
 /**
- * Default map sample
+ * Map where the background does not move
  * @implements {Map}
- * @classdesc Map sample
+ * @classdesc Map where the background does not move
  */
 class InvariantBackMap extends Map { // eslint-disable-line  no-unused-vars
     /**
