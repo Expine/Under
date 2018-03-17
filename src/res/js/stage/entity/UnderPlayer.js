@@ -31,6 +31,10 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
      * @param {UnderTileObject} ground Ground object
      */
     changeType(ground) {
+        // check ground
+        if (ground.getGlobalID === undefined) {
+            return;
+        }
         // set type
         let ai = null;
         let id = ground.getGlobalID();
@@ -44,7 +48,7 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
                 break;
         }
         // inspect whether it changes
-        if (this.aiType == ai || ai == null) {
+        if (this.aiType.constructor == ai.constructor || ai == null) {
             return;
         }
         // remove currently AI

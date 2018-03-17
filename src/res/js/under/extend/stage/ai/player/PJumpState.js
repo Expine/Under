@@ -31,6 +31,18 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Initialize
+     * @override
+     */
+    init() {
+        /**
+         * Reserved velocity of X
+         * @type {number}
+         */
+        this.velocityX = this.entity.body.velocityX;
+    }
+
+    /**
      * Make stationary state
      * @return {State} stationary state
      */
@@ -54,13 +66,6 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // animation
-        if (this.jumpCount_ == 0) {
-            /**
-             * Reserved velocity of X
-             * @type {number}
-             */
-            this.velocityX = this.entity.body.velocityX;
-        }
         this.entity.body.velocityX /= 1.1;
         this.jumpCount_ += dt / 200;
 

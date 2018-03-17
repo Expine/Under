@@ -5,6 +5,12 @@
  */
 class State { // eslint-disable-line  no-unused-vars
     /**
+     * Initialize
+     * @interface
+     */
+    init() {}
+
+    /**
      * Set entity for targeting
      * @param {Entity} entity Entity for tageting
      */
