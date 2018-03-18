@@ -19,12 +19,31 @@ class StateCharacter extends SingleAIObject { // eslint-disable-line  no-unused-
         super(x, y, width, height, imageID);
 
         /**
+         * X direction of character
+         * @type {number}
+         */
+        this.directionX = 1;
+        /**
+         * Y direction of character
+         * @type {number}
+         */
+        this.directionY = 0;
+
+        /**
          * State of character
          * @protected
          * @type {State}
          */
         this.state = null;
     }
+
+    /**
+     * Get state animation by name
+     * @interface
+     * @param {string} name State name
+     * @return {StateAnimationList} State animation
+     */
+    getStateAnimation(name) {}
 
     /**
      * Update object

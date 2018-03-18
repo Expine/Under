@@ -21,16 +21,36 @@ class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
         this.addAI(new PlayerBaseStateAI(this));
 
         /**
-         * Direction of player
-         * @type {number}
-         */
-        this.direction = 1;
-
-        /**
          * Remaining time of invincible state
          * @type {number}
          */
         this.invincible_ = 0;
+
+        /**
+         * State animation dictionary
+         * @type {Dictionary<string, StateAnimationList>}
+         */
+        this.stateAnimations = {};
+    }
+
+    /**
+     * Add state animation by name
+     * @param {string} name State name
+     * @param {number} dirX X direction
+     * @param {number} dirY Y direction
+     * @param {StateAnimationList} animation State animation
+     */
+    addStateAnimation(name, dirX, dirY, animation) {
+        this.stateAnimations[`${name}(${dirX},${dirY})`] = animation;
+    }
+
+    /**
+     * Get state animation by name
+     * @override
+     * @return {StateAnimationList} State animation
+     */
+    getStateAnimation(name) {
+        return this.stateAnimations[`${name}(${this.directionX},${this.directionY})`];
     }
 
     /**

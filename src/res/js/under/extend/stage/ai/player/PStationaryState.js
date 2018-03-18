@@ -9,7 +9,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        super();
+        super(`stationary`);
 
         /**
          * Maximum speed vector
@@ -62,7 +62,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             vx += 1;
         }
         if (vx != 0) {
-            this.entity.direction = vx;
+            this.entity.directionX = vx;
             if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
                 this.entity.body.enforce(vx * this.walkPower / dt, 0);
             }
@@ -75,16 +75,5 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             this.ai.changeState(this.makeAttackState());
         }
         return true;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, 0, 16 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

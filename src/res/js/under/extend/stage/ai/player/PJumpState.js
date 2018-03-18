@@ -10,13 +10,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} jumpPower Jumping force
      */
     constructor(jumpPower) {
-        super();
-
-        /**
-         * Count for animation
-         * @type {number}
-         */
-        this.jumpCount_ = 0;
+        super(`jump`);
 
         /**
          * Count for judging on air
@@ -67,7 +61,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
     apply(dt) {
         // animation
         this.entity.body.velocityX /= 1.1;
-        this.jumpCount_ += dt / 200;
+        this.stateCount += dt / 200;
 
         // judge
         if (!Util.onGround(this.entity)) {
@@ -78,7 +72,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
             this.inAirCount_ = 0;
         }
 
-        if (this.jumpCount_ >= 3 && this.inAirCount_ == 0) {
+        if (this.stateCount >= 3 && this.inAirCount_ == 0) {
             // reset and jump
             this.entity.body.velocityX = this.velocityX;
             this.entity.body.velocityY = 0;
@@ -89,16 +83,5 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
         }
 
         return true;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, (Math.floor(this.jumpCount_)) * 32, 80 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

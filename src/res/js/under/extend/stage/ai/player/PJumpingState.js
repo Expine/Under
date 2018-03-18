@@ -5,6 +5,13 @@
  */
 class PJumpingState extends State { // eslint-disable-line  no-unused-vars
     /**
+     * Player jumping state constructor
+     * @constructor
+     */
+    constructor() {
+        super(`jumping`);
+    }
+    /**
      * Make stationary state
      * @return {State} stationary state
      */
@@ -36,7 +43,7 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
             vx += 300;
         }
         if (Math.abs(vx) > 0) {
-            this.entity.direction = Math.sign(vx);
+            this.entity.directionX = Math.sign(vx);
             if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(vx)) {
                 this.entity.body.enforce(vx * 30 / dt, 0);
             } else {
@@ -51,16 +58,5 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
             }
         }
         return true;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, 96, 80 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

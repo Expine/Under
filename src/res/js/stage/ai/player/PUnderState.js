@@ -9,13 +9,13 @@ class PUnderState extends State { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        super();
+        super(`under`);
 
         /**
          * Count for action
          * @type {number}
          */
-        this.underCount_ = 0;
+        this.stateCount = 0;
     }
 
     /**
@@ -41,16 +41,5 @@ class PUnderState extends State { // eslint-disable-line  no-unused-vars
             this.underCount_ = 0;
         }
         return false;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, 96, 208 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

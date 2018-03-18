@@ -21,7 +21,6 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Map} map instance for base of parsing
      */
     makeBaseMap(map) {
-        console.log(map);
         let ret = new SequentialMap(map.width, map.height);
         for (let back of map.backs) {
             if (back.type == `Invariant`) {
@@ -81,6 +80,12 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     }
 
     /**
+     * Make entity
+     * @param {json} entity Entity json data
+     */
+    makeEntity(entity) {}
+
+    /**
      * Parset file to stage
      * @override
      * @param {string} filePath stage file path
@@ -95,10 +100,12 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         req.send(null);
         // get stage file data
         let json = JSON.parse(req.responseText);
+        // make stage base data
         let stage = this.makeBaseStage();
         stage.setMap(this.makeBaseMap(json.map));
         stage.setCamera(this.makeBaseCamera(json.camera, width, height));
         stage.setPhysicalWorld(this.makeBaseWorld());
+        // make tile data
         let tiles = {};
         for (let tile of json.tiles) {
             let fileID = Context.image.loadImage(`res/image/tile/${tile.file}`);
@@ -107,11 +114,19 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
                 tiles[chip.id].file = fileID;
             }
         }
+        // make chips
         for (let layer of json.layers) {
             for (let chip of layer) {
                 stage.addEntity(this.makeTileObject(tiles[chip.id], chip));
             }
         }
+        // make entities
+        /*
+        for (let entity of json.entities) {
+            stage.addEntity(this.makeEntity(entity));
+        }
+        */
+
         return stage;
     }
 }

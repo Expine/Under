@@ -1365,51 +1365,234 @@
             }
         ]
     ],
-    "entities": [{
-            "type": "Player",
-            "x": 74,
-            "y": 200,
-            "width": 64,
-            "height": 64,
-            "collider": {
-                "type": "RoundRectangle",
-                "startX": 12,
-                "startY": 10,
-                "width": 38,
-                "height": 54,
-                "cut": 10
-            },
-            "body": {
-                "type": "NextSetter"
-            },
-            "material": {
-                "mass": 1,
-                "elasticity": 0.1,
-                "mu": 0.95
-            }
-        },
-        {
-            "type": "Enemy",
-            "x": 154,
-            "y": 180,
-            "width": 64,
-            "height": 64,
-            "collider": {
-                "type": "RoundRectangle",
-                "startX": 0,
-                "startY": 32,
+    "entities": {
+        "entities": [{
+                "id": 0,
+                "type": "Player",
+                "file": {
+                    "stationary": {
+                        "name": "player.png",
+                        "direction": {
+                            "number": 2,
+                            "arrangement": "vertical",
+                            "directions": [{
+                                    "x": 1,
+                                    "y": 0
+                                },
+                                {
+                                    "x": -1,
+                                    "y": 0
+                                }
+                            ]
+                        },
+                        "animations": [{
+                            "srcX": 0,
+                            "srcY": 0,
+                            "srcW": 32,
+                            "srcH": 32
+                        }]
+                    },
+                    "walk": {
+                        "name": "player.png",
+                        "direction": {
+                            "number": 2,
+                            "arrangement": "vertical",
+                            "directions": [{
+                                    "x": 1,
+                                    "y": 0
+                                },
+                                {
+                                    "x": -1,
+                                    "y": 0
+                                }
+                            ]
+                        },
+                        "animations": [{
+                                "srcX": 0,
+                                "srcY": 0,
+                                "srcW": 32,
+                                "srcH": 32
+                            },
+                            {
+                                "srcX": 32,
+                                "srcY": 0,
+                                "srcW": 32,
+                                "srcH": 32
+                            },
+                            {
+                                "srcX": 64,
+                                "srcY": 0,
+                                "srcW": 32,
+                                "srcH": 32
+                            },
+                            {
+                                "srcX": 96,
+                                "srcY": 0,
+                                "srcW": 32,
+                                "srcH": 32
+                            }
+                        ]
+                    },
+                    "jump": {
+                        "name": "player.png",
+                        "direction": {
+                            "number": 2,
+                            "arrangement": "vertical",
+                            "directions": [{
+                                    "x": 1,
+                                    "y": 0
+                                },
+                                {
+                                    "x": -1,
+                                    "y": 0
+                                }
+                            ]
+                        },
+                        "animations": [{
+                                "srcX": 0,
+                                "srcY": 64,
+                                "srcW": 32,
+                                "srcH": 32
+                            },
+                            {
+                                "srcX": 32,
+                                "srcY": 64,
+                                "srcW": 32,
+                                "srcH": 32
+                            },
+                            {
+                                "srcX": 64,
+                                "srcY": 64,
+                                "srcW": 32,
+                                "srcH": 32
+                            },
+                            {
+                                "srcX": 96,
+                                "srcY": 64,
+                                "srcW": 32,
+                                "srcH": 32
+                            }
+                        ]
+                    },
+                    "jumping": {
+                        "name": "player.png",
+                        "direction": {
+                            "number": 2,
+                            "arrangement": "vertical",
+                            "directions": [{
+                                    "x": 1,
+                                    "y": 0
+                                },
+                                {
+                                    "x": -1,
+                                    "y": 0
+                                }
+                            ]
+                        },
+                        "animations": [{
+                            "srcX": 96,
+                            "srcY": 64,
+                            "srcW": 32,
+                            "srcH": 32
+                        }]
+                    },
+                    "gamover": {
+                        "name": "player.png",
+                        "direction": {
+                            "number": 2,
+                            "arrangement": "vertical",
+                            "directions": [{
+                                    "x": 1,
+                                    "y": 0
+                                },
+                                {
+                                    "x": -1,
+                                    "y": 0
+                                }
+                            ]
+                        },
+                        "animations": [{
+                            "srcX": 96,
+                            "srcY": 128,
+                            "srcW": 32,
+                            "srcH": 32
+                        }]
+                    },
+                    "under": {
+                        "name": "player.png",
+                        "direction": {
+                            "number": 2,
+                            "arrangement": "vertical",
+                            "directions": [{
+                                    "x": 1,
+                                    "y": 0
+                                },
+                                {
+                                    "x": -1,
+                                    "y": 0
+                                }
+                            ]
+                        },
+                        "animations": [{
+                            "srcX": 96,
+                            "srcY": 192,
+                            "srcW": 32,
+                            "srcH": 32
+                        }]
+                    }
+                },
                 "width": 64,
-                "height": 32,
-                "cut": 5
+                "height": 64,
+                "collider": {
+                    "type": "RoundRectangle",
+                    "startX": 12,
+                    "startY": 10,
+                    "width": 38,
+                    "height": 54,
+                    "cut": 10
+                },
+                "body": {
+                    "type": "NextSetter"
+                },
+                "material": {
+                    "mass": 1,
+                    "elasticity": 0.1,
+                    "mu": 0.95
+                }
             },
-            "body": {
-                "type": "NextSetter"
-            },
-            "material": {
-                "mass": 1,
-                "elasticity": 0.1,
-                "mu": 0.95
+            {
+                "id": 1,
+                "type": "Enemy",
+                "width": 64,
+                "height": 64,
+                "collider": {
+                    "type": "RoundRectangle",
+                    "startX": 0,
+                    "startY": 32,
+                    "width": 64,
+                    "height": 32,
+                    "cut": 5
+                },
+                "body": {
+                    "type": "NextSetter"
+                },
+                "material": {
+                    "mass": 1,
+                    "elasticity": 0.1,
+                    "mu": 0.95
+                }
             }
-        }
-    ]
+        ],
+        "deploy": [{
+                "id": 0,
+                "x": 74,
+                "y": 200
+            },
+            {
+                "id": 1,
+                "x": 154,
+                "y": 180
+            }
+        ]
+    }
 }

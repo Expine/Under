@@ -10,7 +10,7 @@ class PGameoverState extends State { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        super();
+        super(`gameover`);
     }
 
     /**
@@ -21,16 +21,5 @@ class PGameoverState extends State { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         return true;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, 96, 144 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
     }
 }

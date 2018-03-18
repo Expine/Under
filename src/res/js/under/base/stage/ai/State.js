@@ -5,6 +5,25 @@
  */
 class State { // eslint-disable-line  no-unused-vars
     /**
+     * State constructor
+     * @constructor
+     * @param {string} name State name
+     */
+    constructor(name) {
+        /**
+         * State name for getting state animation
+         * @type {string}
+         */
+        this.name = name;
+
+        /**
+         * State coounter for animation
+         * @type {number}
+         */
+        this.stateCount = 0;
+    }
+
+    /**
      * Initialize
      * @interface
      */
@@ -49,5 +68,8 @@ class State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftX = 0] shift x position
      * @param {number} [shiftY = 0] shift y position
      */
-    render(ctx, shiftX = 0, shiftY = 0) {}
+    render(ctx, shiftX = 0, shiftY = 0) {
+        let data = this.entity.getStateAnimation(this.name).animations;
+        ctx.drawImage(data.imageID, data.srcX, data.srcY, data.srcW, data.srcH, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+    }
 }

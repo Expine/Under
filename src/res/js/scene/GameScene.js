@@ -15,11 +15,20 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         let chara = Context.image.loadImage(`res/image/chara/player.png`);
         this.player = new UnderPlayer(74, 200, 64, 64, chara);
         this.player.setRigidBody(new NextSetterBody(this.player));
-        // this.player.setCollider(new CircleCollider(this.player, 32));
         this.player.setCollider(new RoundRectangleCollider(this.player, 12, 10, 38, 54, 10));
-        // this.player.setCollider(new RectangleCollider(this.player, 12, 10, 38, 54));
-        // this.player.setCollider(new RectangleCollider(this.player, -12, 10, 200, 54));
+        this.player.addStateAnimation(`stationary`, 1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 0, 0, 32, 32)));
+        this.player.addStateAnimation(`stationary`, -1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 0, 32, 32, 32)));
+        this.player.addStateAnimation(`walk`, 1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 0, 0, 32, 32)).addAnimation(new StateAnimationData(chara, 32, 0, 32, 32)).addAnimation(new StateAnimationData(chara, 64, 0, 32, 32)).addAnimation(new StateAnimationData(chara, 96, 0, 32, 32)));
+        this.player.addStateAnimation(`walk`, -1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 0, 32, 32, 32)).addAnimation(new StateAnimationData(chara, 32, 32, 32, 32)).addAnimation(new StateAnimationData(chara, 64, 32, 32, 32)).addAnimation(new StateAnimationData(chara, 96, 32, 32, 32)));
         this.stage.addEntity(this.player);
+        this.player.addStateAnimation(`jump`, 1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 0, 64, 32, 32)).addAnimation(new StateAnimationData(chara, 32, 64, 32, 32)).addAnimation(new StateAnimationData(chara, 64, 64, 32, 32)).addAnimation(new StateAnimationData(chara, 96, 64, 32, 32)));
+        this.player.addStateAnimation(`jump`, -1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 0, 96, 32, 32)).addAnimation(new StateAnimationData(chara, 32, 96, 32, 32)).addAnimation(new StateAnimationData(chara, 64, 96, 32, 32)).addAnimation(new StateAnimationData(chara, 96, 96, 32, 32)));
+        this.player.addStateAnimation(`jumping`, 1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 96, 64, 32, 32)));
+        this.player.addStateAnimation(`jumping`, -1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 96, 96, 32, 32)));
+        this.player.addStateAnimation(`gameover`, 1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 96, 128, 32, 32)));
+        this.player.addStateAnimation(`gameover`, -1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 96, 160, 32, 32)));
+        this.player.addStateAnimation(`under`, 1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 96, 192, 32, 32)));
+        this.player.addStateAnimation(`under`, -1, 0, new StateAnimationList().addAnimation(new StateAnimationData(chara, 96, 224, 32, 32)));
 
         let en = Context.image.loadImage(`res/image/chara/enemy.png`);
         for (var i = 0; i < 0; ++i) {
