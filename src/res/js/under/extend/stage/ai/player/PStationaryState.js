@@ -13,11 +13,13 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
 
         /**
          * Maximum speed vector
+         * @protected
          * @type {number}
          */
         this.maxVelocityX = 300;
         /**
          * Force applied when moving
+         * @protected
          * @type {number}
          */
         this.walkPower = 36000;
@@ -25,6 +27,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make walk state
+     * @protected
      * @return {State} walk state
      */
     makeWalkState() {
@@ -33,6 +36,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make jump state
+     * @protected
      * @return {State} jump state
      */
     makeJumpState() {
@@ -41,6 +45,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make attack state
+     * @protected
      * @return {State} attack state
      */
     makeAttackState() {
@@ -50,7 +55,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
-     * @return {boolean} Whether decided on action
+     * @return {bool} Whether decided on action
      */
     apply(dt) {
         let vx = 0;
@@ -62,8 +67,8 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             vx += 1;
         }
         if (vx != 0) {
-            this.entity.direction = vx;
-            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
+            this.entity.directionX = vx;
+            if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
                 this.entity.body.enforce(vx * this.walkPower / dt, 0);
             }
             this.ai.changeState(this.makeWalkState());
@@ -85,6 +90,6 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, 0, 16 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, 0, 16 - this.entity.directionX * 16, 32, 32);
     }
 }

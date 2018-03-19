@@ -2,7 +2,6 @@
  * Stage
  * Performs updating and rendering stage
  * Manages stage element such as entity
- * Should allow entities to be retrieved with iterators
  * @classdesc Stage to control stage element
  */
 class Stage { // eslint-disable-line  no-unused-vars
@@ -58,6 +57,13 @@ class Stage { // eslint-disable-line  no-unused-vars
      * @param {Entity} entity - entity object
      */
     removeEntity(entity) {}
+
+    /**
+     * Control stage update
+     * @interface
+     * @param {bool} enable Whether to update the stage or not
+     */
+    setEnable(enable) {}
 
     /**
      * Update stage

@@ -6,6 +6,7 @@
 class PPunchState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Make stationary state
+     * @protected
      * @return {State} stationary state
      */
     makeStationaryState() {
@@ -14,6 +15,7 @@ class PPunchState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make walk state
+     * @protected
      * @return {State} walk state
      */
     makeWalkState() {
@@ -22,23 +24,24 @@ class PPunchState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make attack object
-     * @return {AttackObject}
+     * @protected
+     * @return {AttackObject} Attack object
      */
     makeAttackObject() {
-        return new PunchObject(this.entity.x + this.entity.direction * (this.entity.width + 10), this.entity.y);
+        return new PunchObject(this.entity.x + this.entity.directionX * (this.entity.width + 10), this.entity.y);
     }
 
     /**
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
-     * @return {boolean} Whether decided on action
+     * @return {bool} Whether decided on action
      */
     apply(dt) {
         // punch
         this.entity.stage.addEntity(this.makeAttackObject());
         // change state
-        if (Math.abs(this.entity.body.velocityX) < 10) {
+        if (Math.abs(this.entity.body.preVelocityX) < 10) {
             this.ai.changeState(this.makeStationaryState());
         } else {
             this.ai.changeState(this.makeWalkState());
@@ -54,6 +57,6 @@ class PPunchState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, 96, 16 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, 96, 16 - this.entity.directionX * 16, 32, 32);
     }
 }

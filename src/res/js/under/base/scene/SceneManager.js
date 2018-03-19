@@ -1,10 +1,18 @@
 /**
  * Manage scene
  * Manages transitions of scenes, ie additions and deletions
- * Has access to the input system to give it to the scene
  * @classdesc Manager for scene
  */
 class SceneManager { // eslint-disable-line  no-unused-vars
+    /**
+     * Scene manager constructor
+     * @constructor
+     */
+    constructor() {
+        // set singleton instance
+        SceneManager.it = this;
+    }
+
     /**
      * Get currently running scene
      * @interface

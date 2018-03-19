@@ -72,12 +72,22 @@ class Engine { // eslint-disable-line  no-unused-vars
 
     /**
      * Execute engine
-     * @interface
      * @param {Scene} scene First scene
      */
     execute(scene) {
         // set access
         this.input.setScreen(this.screen);
         this.context.setScreen(this.screen);
+        // transition
+        this.manager.replaceScene(scene);
+        // execute process
+        this.main();
     }
+
+    /**
+     * Game main process
+     * @interface
+     * @protected
+     */
+    main() {}
 }

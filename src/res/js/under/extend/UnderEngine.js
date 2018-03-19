@@ -1,14 +1,7 @@
 /**
  * Under engine
- * @classdesc Under engine main class
  * @implements {Engine}
- * @example
- * let engine = new UnderEngine("relative/path");
- * engine.setInput(new AllInput());
- * engine.setScreen(new GeneratableScreen());
- * engine.setContext(new JSContext());
- * engine.setSceneManager(new StackSceneManager());
- * engine.execute(new DefaultTitleScene());
+ * @classdesc Under engine main class
  */
 class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
     /**
@@ -26,20 +19,15 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Execute engine
+     * Game main process
      * @override
-     * @param {Scene} scene First scene
+     * @protected
      */
-    execute(scene) {
-        // set access
-        super.execute(scene);
-        // transition
-        this.manager.replaceScene(scene);
-
+    main() {
         // start main loop
         this.oldTime_ = +new Date();
-        this.render = (_) => {
-            requestAnimationFrame(this.render);
+        this.render_ = (_) => {
+            requestAnimationFrame(this.render_);
             // update
             let newTime = +new Date();
             window.deltaTime = newTime - this.oldTime_;
@@ -52,6 +40,6 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
             this.manager.render(this.context);
             this.context.postRendering();
         };
-        requestAnimationFrame(this.render);
+        requestAnimationFrame(this.render_);
     }
 }

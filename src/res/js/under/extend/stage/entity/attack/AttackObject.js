@@ -20,14 +20,27 @@ class AttackObject extends SingleAIObject { // eslint-disable-line  no-unused-va
 
         /**
          * Lifespan of attack object
+         * @protected
          * @type {number}
          */
         this.lifespan = lifespan;
     }
 
     /**
+     * Set collider
+     * @override
+     * @param {Collider} collider collider
+     */
+    setCollider(collider) {
+        super.setCollider(collider);
+        collider.isResponse = false;
+    }
+
+    /**
      * Check collisions and process if the object collides
+     * @protected
      * @interface
+     * @return {bool} Collision or not
      */
     judgeCollision() {}
 
@@ -42,7 +55,8 @@ class AttackObject extends SingleAIObject { // eslint-disable-line  no-unused-va
             this.destroy();
             return;
         }
-        this.judgeCollision();
-        super.update(dt);
+        if (!this.judgeCollision()) {
+            super.update(dt);
+        }
     }
 }

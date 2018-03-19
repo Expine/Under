@@ -3,7 +3,7 @@
  * Indicates the tile of not moving on stage
  * Decides the tile to be displayed by the ID, using the sprite indicating the stage tiles
  * @implements {ImmutableObject}
- * @classdesc Stage tile object
+ * @classdesc Stage tile object to indicate the tile of not moving on stage
  */
 class TileObject extends ImmutableObject { // eslint-disable-line  no-unused-vars
     /**
@@ -55,7 +55,7 @@ class TileObject extends ImmutableObject { // eslint-disable-line  no-unused-var
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.imageID, this.srcX, this.srcY, this.srcW, this.srcH, this.x + shiftX, this.y + shiftY, this.width, this.height);
+        ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height, this.srcX, this.srcY, this.srcW, this.srcH);
 
         // for debug
         if (this.collider !== undefined) {

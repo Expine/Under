@@ -21,13 +21,11 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Map} map instance for base of parsing
      */
     makeBaseMap(map) {
-        console.log(map);
         let ret = new SequentialMap(map.width, map.height);
         for (let back of map.backs) {
             if (back.type == `Invariant`) {
-                let element = new InvariantBackMap(map.width, map.height);
-                element.setBackground(Context.image.loadImage(`res/image/back/${back.file}`));
-                ret.addMap(element);
+                let id = ContextImage.it.loadImage(`res/image/back/${back.file}`);
+                ret.addMap(new InvariantBackMap(id, map.width, map.height));
             } else {
                 console.log(`Not Map: ${map}`);
             }
@@ -54,25 +52,27 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      */
     makeBaseWorld() {
         let world = new SequentialWorld();
-        world.setResponse(new Repulsion());
+        world.setResponse(new RepulsionResponse());
         return world;
     }
 
     /**
      * Make tile object
+     * @protected
      * @param {json} tile Tile information json data
      * @param {json} chip Chip actually placed json data
+     * @return {TileObject} tile object
      */
     makeTileObject(tile, chip) {
         let ret = new TileObject(tile.x, tile.y, tile.width, tile.height, chip.x, chip.y, chip.width, chip.height, tile.file);
         // set collider
         let collider = tile.collider;
         if (collider.type == `Rectangle`) {
-            ret.setCollider(new RectangleCollider(ret, collider.startX, collider.startY, collider.width, collider.height));
+            ret.setCollider(new RectangleCollider(collider.startX, collider.startY, collider.width, collider.height));
         } else if (collider.type == `Circle`) {
-            ret.setCollider(new CircleCollider(ret, ret.radius, ret.shiftX, ret.shiftY));
+            ret.setCollider(new CircleCollider(ret.radius, ret.shiftX, ret.shiftY));
         } else if (collider.type == `RoundRectangle`) {
-            ret.setCollider(new RoundRectangleCollider(ret, collider.startX, collider.startY, collider.width, collider.height, ret.cut));
+            ret.setCollider(new RoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, ret.cut));
         }
         // set material
         let material = tile.material;
@@ -101,7 +101,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         stage.setPhysicalWorld(this.makeBaseWorld());
         let tiles = {};
         for (let tile of json.tiles) {
-            let fileID = Context.image.loadImage(`res/image/tile/${tile.file}`);
+            let fileID = ContextImage.it.loadImage(`res/image/tile/${tile.file}`);
             for (let chip of tile.chips) {
                 tiles[chip.id] = chip;
                 tiles[chip.id].file = fileID;

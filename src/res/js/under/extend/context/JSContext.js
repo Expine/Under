@@ -1,11 +1,13 @@
 /**
  * Context for rendering by JavaScript
  * Renders by using HTML5 API
+ * @implements {Context}
  * @classdesc Context for rendering by JavaScript
  */
 class JSContext extends Context { // eslint-disable-line  no-unused-vars
     /**
      * JavaScript context constructor
+     * @constructor
      */
     constructor() {
         super();
@@ -20,16 +22,26 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
          * @private
          * @type {number}
          */
-        this.fontSize = 50;
+        this.fontSize_ = 50;
         /**
          * Font name of the text
          * @private
          * @type {string}
          */
-        this.fontName = `Arial`;
+        this.fontName_ = `Arial`;
 
-        // set default image manager
-        this.setContextImage(new JSCachedImage());
+        /**
+         * Color of the line
+         * @private
+         * @type {string}
+         */
+        this.lineColor_ = `red`;
+        /**
+         * Size of the line
+         * @private
+         * @type {number}
+         */
+        this.lineWidth_ = 1;
     }
 
     /**
@@ -53,7 +65,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set the color of text
-     * @interface
+     * @override
      * @param {string} colorName Color name
      */
     setFontColorByName(colorName) {
@@ -62,7 +74,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set the color of text
-     * @interface
+     * @override
      * @param {number} r Red component   (0 <= r <= 255)
      * @param {number} g Green component (0 <= g <= 255)
      * @param {number} b Blue component  (0 <= b <= 255)
@@ -73,20 +85,49 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set the size of text
-     * @interface
+     * @override
      * @param {number} size Size of text
      */
     setFontSize(size) {
-        this.fontSize = size;
+        this.fontSize_ = size;
     }
 
     /**
      * Set the name of font
-     * @interface
+     * @override
      * @param {string} name Name of font
      */
     setFontName(name) {
-        this.fontName = name;
+        this.fontName_ = name;
+    }
+
+    /**
+     * Set the color of line
+     * @override
+     * @param {string} colorName Color name
+     */
+    setLineColorByName(colorName) {
+        this.lineColor_ = colorName;
+    }
+
+    /**
+     * Set the color of line
+     * @override
+     * @param {number} r Red component   (0 <= r <= 255)
+     * @param {number} g Green component (0 <= g <= 255)
+     * @param {number} b Blue component  (0 <= b <= 255)
+     */
+    setLineColorByRGB(r, g, b) {
+        this.lineColor_ = `rgb(` + r + `,` + g + `,` + b + `)`;
+    }
+
+    /**
+     * Set width of line
+     * @override
+     * @param {number} width Line width
+     */
+    setLineWidth(width) {
+        this.lineWidth_ = width;
     }
 
     /**
@@ -120,7 +161,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {string} [color=fontColor] Font color
      * @param {string} [font=fontName] Font name
      */
-    fillText(text, x, y, anchorX = 0, anchorY = 0, size = this.fontSize, color = this.fontColor_, font = this.fontName) {
+    fillText(text, x, y, anchorX = 0, anchorY = 0, size = this.fontSize_, color = this.fontColor_, font = this.fontName_) {
         this.ctx_.font = size + `px ` + font;
         this.ctx_.fillStyle = color;
         this.ctx_.fillText(text, x - anchorX * this.ctx_.measureText(text).width, y + (1 - anchorY) * size);
@@ -132,9 +173,12 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {number} sy Start y position
      * @param {number} ex Terminal x position
      * @param {number} ey Terminal y position
+     * @param {string} color Color name of line
+     * @param {number} lineWidth Line width
      */
-    strokeLine(sx, sy, ex, ey, color) {
-        this.ctx_.strokeStyle = `hsl( ` + color + `, 100%, 50% )`;
+    strokeLine(sx, sy, ex, ey, color = this.lineColor_, lineWidth = this.lineWidth_) {
+        this.ctx_.strokeStyle = color;
+        this.ctx_.lineWidth = lineWidth;
         this.ctx_.beginPath();
         this.ctx_.moveTo(sx, sy);
         this.ctx_.lineTo(ex, ey);
@@ -149,11 +193,14 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {number} radius Raius of circle
      * @param {number} startAngle Beginning of arc
      * @param {number} endAngle End of arc
-     * @param {boolean} anticlockwise Whether it is clockwise or not
+     * @param {bool} anticlockwise Whether it is clockwise or not
+     * @param {string} color Color name of circle
+     * @param {number} lineWidth Line of circle width
      */
-    strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise) {
+    strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise, color = this.lineColor_, lineWidth = this.lineWidth_) {
+        this.ctx_.strokeStyle = color;
+        this.ctx_.lineWidth = lineWidth;
         this.ctx_.beginPath();
-        this.ctx_.strokeStyle = `red`;
         this.ctx_.arc(x, y, radius, startAngle, endAngle, anticlockwise);
         this.ctx_.stroke();
         this.ctx_.closePath();
@@ -165,20 +212,35 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {number} y
      * @param {number} width
      * @param {number} height
+     * @param {string} color Color name of rectangle
+     * @param {number} lineWidth Line of rectangle width
      */
-    strokeRect(x, y, width, height) {
-        this.ctx_.strokeStyle = `red`;
+    strokeRect(x, y, width, height, color = this.lineColor_, lineWidth = this.lineWidth_) {
+        this.ctx_.strokeStyle = color;
+        this.ctx_.lineWidth = lineWidth;
         this.ctx_.strokeRect(x, y, width, height);
     }
 
-    drawImage(imageID, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {
+    /**
+     * Rendering image
+     * @param {number} imageID Image ID
+     * @param {number} x Image x position
+     * @param {number} y Image y position
+     * @param {number} width Image width
+     * @param {number} height Image height
+     * @param {number} srcX Upper left x position of source
+     * @param {number} srcY Upper left y position of source
+     * @param {number} srcW Source width
+     * @param {number} srcH Source height
+     */
+    drawImage(imageID, x, y, width, height, srcX, srcY, srcW, srcH) {
         let image = this.image.getImage(imageID);
-        if (srcW === undefined) {
-            this.ctx_.drawImage(image, srcX, srcX);
-        } else if (dstX === undefined) {
-            this.ctx_.drawImage(image, srcX, srcY, srcW, srcH);
+        if (width === undefined) {
+            this.ctx_.drawImage(image, x, y);
+        } else if (srcX === undefined) {
+            this.ctx_.drawImage(image, x, y, width, height);
         } else {
-            this.ctx_.drawImage(image, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH);
+            this.ctx_.drawImage(image, srcX, srcY, srcW, srcH, x, y, width, height);
         }
     }
 }

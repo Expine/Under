@@ -1,25 +1,33 @@
 /**
  * Base State AI
  * AI with state
+ * @implements {StateAI}
  * @classdesc AI with state for determining action
  */
-class BaseStateAI extends AI { // eslint-disable-line  no-unused-vars
+class BaseStateAI extends StateAI { // eslint-disable-line  no-unused-vars
     /**
      * Base State AI Constructor
-     * @param {Entity} entity Entity to which AI is attached
      * @param {State} state Initial state
      */
-    constructor(entity, state) {
-        super(entity);
+    constructor(state) {
+        super();
 
         this.changeState(state);
+    }
+
+    /**
+     * Initialize AI
+     * @override
+     */
+    init() {
+        this.state_.setEntity(this.entity);
     }
 
     /**
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
-     * @return {boolean} Whether decided on action
+     * @return {bool} Whether decided on action
      */
     apply(dt) {
         return this.state_.apply(dt);

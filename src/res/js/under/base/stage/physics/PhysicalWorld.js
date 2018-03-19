@@ -12,6 +12,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     constructor(gravity) {
         /**
          * Gravity power
+         * @protected
          * @type {number}
          */
         this.gravity = gravity * 30;
@@ -31,10 +32,30 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Update physical world
-     * @param {number} dt Delta time
-     * @param {IteratableObject<Entity>} targets List of targets to which physical operation is applied
-     * @param {IteratableObject<Entity>} entities List of all entity
+     * Add entity as actior
+     * @interface
+     * @param {Entity} actor Entity as actor
      */
-    update(dt, targets, entities) {}
+    addActor(actor) {}
+
+    /**
+     * Add entity in physical world
+     * @interface
+     * @param {Entity} entity Entity in physical world
+     */
+    addEntity(entity) {}
+
+    /**
+     * Remove entity from physical world
+     * @interface
+     * @param {Entity} entity Entity to remove from physical world
+     */
+    removeEntity(entity) {}
+
+    /**
+     * Update physical world
+     * @interface
+     * @param {number} dt Delta time
+     */
+    update(dt) {}
 }

@@ -1,15 +1,10 @@
 /**
  * Gameover layer
  * Display gameover
+ * @implements {Layer}
  * @classdesc Gameover layer to display gamover
  */
 class GameoverLayer extends Layer { // eslint-disable-line  no-unused-vars
-    /**
-     * Gamover layer constructor
-     */
-    constructor() {
-        super();
-    }
     /**
      * Update layer
      * @interface

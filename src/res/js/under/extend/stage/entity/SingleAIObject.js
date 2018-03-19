@@ -26,6 +26,7 @@ class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused
 
         /**
          * Hit point
+         * @protected
          * @type {number}
          */
         this.hp = 0;
@@ -49,6 +50,9 @@ class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused
             }
         }
         this.ai = newer;
+        // init
+        ai.setEntity(this);
+        ai.init();
     }
 
     /**

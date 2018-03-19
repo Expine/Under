@@ -3,9 +3,6 @@
  * Use the stack to manage scenes
  * @implements {SceneManager}
  * @classdesc Manager for scene by using stack
- * @example
- * let engine = new UnderEngine("relative/path");
- * engine.setSceneManager(new StackSceneManager());
  */
 class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused-vars
     /**
@@ -36,9 +33,8 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
      * @param {Scene} scene scene instance for running it
      */
     pushScene(scene) {
-        scene.setSceneManager(this);
         this.scenes_.push(scene);
-        scene.start();
+        scene.init();
     }
 
     /**

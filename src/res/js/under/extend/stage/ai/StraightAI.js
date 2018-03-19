@@ -1,6 +1,7 @@
 /**
  * Straight AI
  * AI to go straight ahead
+ * Reverses direction if it hit something
  * @implements {AI}
  * @classdesc Straight AI to go straight ahead
  */
@@ -8,41 +9,40 @@ class StraightAI extends AI { // eslint-disable-line  no-unused-vars
     /**
      * Straight AI Constructor
      * @constructor
-     * @param {Entity} entity Entity to which AI is attached
      */
-    constructor(entity) {
-        super(entity);
+    constructor() {
+        super();
 
-        this.switcher = 0;
+        /**
+         * Maximum speed vector
+         * @protected
+         * @type {number}
+         */
+        this.maxVelocityX = 100;
+        /**
+         * Force applied when moving
+         * @protected
+         * @type {number}
+         */
+        this.walkPower = 1000;
     }
 
     /**
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
-     * @return {boolean} Whether decided on action
+     * @return {bool} Whether decided on action
      */
     apply(dt) {
+        // check on ground
         if (!Util.onGround(this.entity)) {
             return true;
         }
-        this.switcher += dt;
-        if (this.switcher > 10 * 1000) {
-            this.switcher = 0;
+        if (Util.getSideEntity(this.entity)) {
+            this.entity.directionX *= -1;
         }
-        let it = 100;
-        if (this.switcher > 5000) {
-            if (this.entity.body.velocityX > -it) {
-                this.entity.body.enforce(-it * 10, 0);
-            } else {
-                this.entity.body.velocityX = -it;
-            }
-        } else {
-            if (this.entity.body.velocityX < it) {
-                this.entity.body.enforce(it * 10, 0);
-            } else {
-                this.entity.body.velocityX = it;
-            }
+        if (Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
+            this.entity.body.enforce(this.entity.directionX * this.walkPower, 0);
         }
         return true;
     }

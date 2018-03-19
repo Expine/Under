@@ -17,14 +17,9 @@ class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, imageID) {
         super(x, y, width, height, imageID);
 
+        // initialize
         this.hp = 3;
-        this.addAI(new PlayerBaseStateAI(this));
-
-        /**
-         * Direction of player
-         * @type {number}
-         */
-        this.direction = 1;
+        this.directionX = 1;
 
         /**
          * Remaining time of invincible state

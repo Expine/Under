@@ -10,7 +10,7 @@ class ContextImage { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        Context.image = this;
+        ContextImage.it = this;
     }
 
     /**
@@ -20,6 +20,13 @@ class ContextImage { // eslint-disable-line  no-unused-vars
      * @return {number} image ID
      */
     loadImage(filePath) {}
+
+    /**
+     * Unload image
+     * @interface
+     * @param {number} imageID Image ID
+     */
+    unloadImage(imageID) {}
 
     /**
      * Get image by ID

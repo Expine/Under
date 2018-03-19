@@ -2,7 +2,7 @@
  * Entity
  * Object present on the stage
  * Has coordinates and sizes
- * May have collider and images
+ * May have images
  * @classdesc Stage entity
  */
 class Entity { // eslint-disable-line  no-unused-vars
@@ -18,25 +18,21 @@ class Entity { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, imageID = -1) {
         /**
          * Entity x position
-         * @protected
          * @type {number}
          */
         this.x = x;
         /**
          * Entity y position
-         * @protected
          * @type {number}
          */
         this.y = y;
         /**
          * Entity width
-         * @protected
          * @type {number}
          */
         this.width = width;
         /**
          * Entity height
-         * @protected
          * @type {number}
          */
         this.height = height;
@@ -46,6 +42,29 @@ class Entity { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.imageID = imageID;
+
+        /**
+         * X direction of entity
+         * @type {number}
+         */
+        this.directionX = 0;
+        /**
+         * Y direction of entity
+         * @type {number}
+         */
+        this.directionY = 0;
+    }
+
+    /**
+     * Set stage
+     * @param {Stage} stage  Stage information
+     */
+    setStage(stage) {
+        /**
+         * Stage information
+         * @type {Stage}
+         */
+        this.stage = stage;
     }
 
     /**
@@ -58,6 +77,9 @@ class Entity { // eslint-disable-line  no-unused-vars
          * @type {Collider}
          */
         this.collider = collider;
+        // initialize
+        collider.setEntity(this);
+        collider.init();
     }
 
     /**
@@ -70,19 +92,6 @@ class Entity { // eslint-disable-line  no-unused-vars
          * @type {Material}
          */
         this.material = material;
-    }
-
-    /**
-     * Set stage
-     * @param {Stage} stage  Stage information
-     */
-    setStage(stage) {
-        /**
-         * Stage information
-         * @protected
-         * @type {Stage}
-         */
-        this.stage = stage;
     }
 
     /**

@@ -1,35 +1,17 @@
+// TODO: Should implements
 /**
  * Context for rendering by WebGL
  * Renders by using WebGL
+ * @implements {Context}
  * @classdesc Context for rendering by WebGL
  */
 class GLContext extends Context { // eslint-disable-line  no-unused-vars
     /**
      * WebGL context constructor
+     * @constructor
      */
     constructor() {
         super();
-        /**
-         * Color of the text
-         * @private
-         * @type {string}
-         */
-        this.fontColor_ = `black`;
-        /**
-         * Size of the text
-         * @private
-         * @type {number}
-         */
-        this.fontSize = 50;
-        /**
-         * Font name of the text
-         * @private
-         * @type {string}
-         */
-        this.fontName = `Arial`;
-
-        // set default image manager
-        this.setContextImage(new JSCachedImage());
     }
 
     /**
@@ -46,16 +28,12 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
         this.gl_ = this.screen.getCanvas().getContext(`webgl`);
     }
 
-    stroke() {}
-
     /**
      * Set the color of text
      * @interface
      * @param {string} colorName Color name
      */
-    setFontColorByName(colorName) {
-        this.fontColor_ = colorName;
-    }
+    setFontColorByName(colorName) {}
 
     /**
      * Set the color of text
@@ -64,126 +42,121 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {number} g Green component (0 <= g <= 255)
      * @param {number} b Blue component  (0 <= b <= 255)
      */
-    setFontColorByRGB(r, g, b) {
-        this.fontColor_ = `rgb(` + r + `,` + g + `,` + b + `)`;
-    }
+    setFontColorByRGB(r, g, b) {}
 
     /**
      * Set the size of text
      * @interface
      * @param {number} size Size of text
      */
-    setFontSize(size) {
-        this.fontSize = size;
-    }
+    setFontSize(size) {}
 
     /**
      * Set the name of font
      * @interface
      * @param {string} name Name of font
      */
-    setFontName(name) {
-        this.fontName = name;
-    }
+    setFontName(name) {}
+
+    /**
+     * Set the color of line
+     * @interface
+     * @param {string} colorName Color name
+     */
+    setLineColorByName(colorName) {}
+
+    /**
+     * Set the color of line
+     * @interface
+     * @param {number} r Red component   (0 <= r <= 255)
+     * @param {number} g Green component (0 <= g <= 255)
+     * @param {number} b Blue component  (0 <= b <= 255)
+     */
+    setLineColorByRGB(r, g, b) {}
+
+    /**
+     * Set width of line
+     * @interface
+     * @param {number} width Line width
+     */
+    setLineWidth(width) {}
 
     /**
      * Function to be executed before drawing
-     * @override
+     * @interface
      */
-    preRendering() {
-        this.gl_.clearColor(1.0, 1.0, 1.0, 1.0);
-        this.gl_.clear(this.gl_.COLOR_BUFFER_BIT);
-    }
+    preRendering() {}
 
     /**
      * Function to be executed after drawing
-     * @override
+     * @interface
      */
     postRendering() {}
 
     /**
      * Render text
-     * @override
+     * @interface
      * @param {string} text Rendering text
      * @param {number} x X position
      * @param {number} y Y position
-     * @param {number} [anchorX=0] Anchor x point in percent (0.0 <= anchorX <= 1.0)
-     * @param {number} [anchorY=0] Anchor y point in percent (0.0 <= anchorX <= 1.0)
-     * @param {number} [size=fontSize] Font size
-     * @param {string} [color=fontColor] Font color
-     * @param {string} [font=fontName] Font name
+     * @param {number} anchorX Anchor x point in percent (0.0 <= anchorX <= 1.0)
+     * @param {number} anchorY Anchor y point in percent (0.0 <= anchorX <= 1.0)
+     * @param {number} size Font size
+     * @param {string} color Font color
+     * @param {string} font Font name
      */
-    fillText(text, x, y, anchorX = 0, anchorY = 0, size = this.fontSize, color = this.fontColor_, font = this.fontName) {
-        const gl = this.gl_;
-        var buffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-
-        var vSource = [
-            `precision mediump float;`,
-            `attribute vec2 vertex;`,
-            `void main(void) {`,
-            `gl_Position = vec4(vertex * vec2(2.0, 1.0), 0.0, 1.0);`,
-            `}`,
-        ].join(`\n`);
-        var vShader = gl.createShader(gl.VERTEX_SHADER);
-        gl.shaderSource(vShader, vSource);
-        gl.compileShader(vShader);
-        gl.getShaderParameter(vShader, gl.COMPILE_STATUS);
-        if (!gl.getShaderParameter(vShader, gl.COMPILE_STATUS)) {
-            console.log(gl.getShaderInfoLog(vShader));
-        }
-        var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
-        var fSource = [
-            `precision mediump float;`,
-            `void main(void) {`,
-            `gl_FragColor = vec4(` + rgba.join(`,`) + `);`,
-            `}`,
-        ].join(`\n`);
-        var fShader = gl.createShader(gl.FRAGMENT_SHADER);
-        gl.shaderSource(fShader, fSource);
-        gl.compileShader(fShader);
-        gl.getShaderParameter(fShader, gl.COMPILE_STATUS);
-
-        var program = gl.createProgram();
-        gl.attachShader(program, vShader);
-        gl.attachShader(program, fShader);
-        gl.linkProgram(program);
-        gl.getProgramParameter(program, gl.LINK_STATUS);
-        gl.useProgram(program);
-
-        var vertex = gl.getAttribLocation(program, `vertex`);
-        gl.enableVertexAttribArray(vertex);
-        gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
-
-        var vertices = [
-            0.0, 0.5,
-            0.5, 0.0, -0.5, 0.0,
-        ];
-
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
-    }
-
+    fillText(text, x, y, anchorX, anchorY, size, color, font) {}
 
     /**
-     * Rendering circle
+     * Rendering line
+     * @interface
+     * @param {number} sx Start x position
+     * @param {number} sy Start y position
+     * @param {number} ex Terminal x position
+     * @param {number} ey Terminal y position
+     * @param {string} color Color name of line
+     * @param {number} lineWidth Line width
+     */
+    strokeLine(sx, sy, ex, ey, color, lineWidth) {}
+
+    /**
+     * Rendering circle outline
+     * @interface
      * @param {number} x X position
      * @param {number} y Y position
      * @param {number} radius Raius of circle
      * @param {number} startAngle Beginning of arc
      * @param {number} endAngle End of arc
-     * @param {boolean} anticlockwise Whether it is clockwise or not
+     * @param {bool} anticlockwise Whether it is clockwise or not
+     * @param {string} color Color name of circle
+     * @param {number} lineWidth Line of circle width
      */
-    strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise) {}
+    strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise, color, lineWidth) {}
 
     /**
      * Rendering square outline
-     * @param {number} x
-     * @param {number} y
-     * @param {number} width
-     * @param {number} height
+     * @interface
+     * @param {number} x Upper left x position
+     * @param {number} y Upper left y position
+     * @param {number} width Width of the rectangle
+     * @param {number} height Height of the rectangle
+     * @param {string} color Color name of rectangle
+     * @param {number} lineWidth Line of rectangle width
      */
-    strokeRect(x, y, width, height) {}
+    strokeRect(x, y, width, height, color, lineWidth) {}
 
-    drawImage(imageID, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH) {}
+    /**
+     * Rendering image
+     * @interface
+     * @param {number} imageID Image ID
+     * @param {number} x Image x position
+     * @param {number} y Image y position
+     * @param {number} width Image width
+     * @param {number} height Image height
+     * @param {number} srcX Upper left x position of source
+     * @param {number} srcY Upper left y position of source
+     * @param {number} srcW Source width
+     * @param {number} srcH Source height
+     */
+    drawImage(imageID, x, y, width, height, srcX, srcY, srcW, srcH) {}
 }

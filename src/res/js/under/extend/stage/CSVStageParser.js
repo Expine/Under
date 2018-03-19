@@ -23,9 +23,7 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
      * @return {Map} map instance for base of parsing
      */
     makeBaseMap(imageID, width, height) {
-        let map = new InvariantBackMap(width, height);
-        map.setBackground(imageID);
-        return map;
+        return new InvariantBackMap(imageID, width, height);
     }
 
     /**
@@ -44,12 +42,13 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
      */
     makeBaseWorld() {
         let world = new SequentialWorld();
-        world.setResponse(new Repulsion());
+        world.setResponse(new RepulsionResponse());
         return world;
     }
 
     /**
      * Make tile object
+     * @protected
      * @param {number} verticalId tile vertical id
      * @param {number} horizontalId tile horizontal id
      * @param {number} tileWidth tile width
@@ -59,10 +58,11 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
      * @param {number} width object width
      * @param {number} height object height
      * @param {number} imageID tile image id
+     * @return {TileObject} tile object
      */
     makeTileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID) {
         let tile = new TileObject(horizontalId * tileWidth, verticalId * tileHeight, tileWidth, tileHeight, x, y, width, height, imageID);
-        tile.setCollider(new RectangleCollider(tile, 0, 0, width, height));
+        tile.setCollider(new RectangleCollider(0, 0, width, height));
         tile.setMaterial(new DefaultMaterial());
         return tile;
     }
@@ -86,10 +86,10 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
         let tileBaseData = lines[1].split(`,`);
         let stageData = lines[2].split(`,`);
         // set base data
-        let backID = Context.image.loadImage(`res/image/back/` + stageBaseData[0]);
+        let backID = ContextImage.it.loadImage(`res/image/back/` + stageBaseData[0]);
         let stageWidth = parseInt(stageBaseData[1]);
         let stageHeight = parseInt(stageBaseData[2]);
-        let tileID = Context.image.loadImage(`res/image/tile/` + tileBaseData[0]);
+        let tileID = ContextImage.it.loadImage(`res/image/tile/` + tileBaseData[0]);
         let tileWidth = parseInt(tileBaseData[1]);
         let tileHeight = parseInt(tileBaseData[2]);
         let tileHorizontalNumber = parseInt(tileBaseData[3]);

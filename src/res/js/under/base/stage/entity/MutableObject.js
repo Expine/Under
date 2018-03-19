@@ -1,6 +1,7 @@
 /**
  * Mmutable object
  * It is not fixed and can be moved
+ * @implements {Entity}
  * @classdesc Mmutable map object
  */
 class MutableObject extends Entity { // eslint-disable-line  no-unused-vars
@@ -14,6 +15,7 @@ class MutableObject extends Entity { // eslint-disable-line  no-unused-vars
          * @type {RigidBody}
          */
         this.body = body;
+        body.setEntity(this);
     }
 
     /**

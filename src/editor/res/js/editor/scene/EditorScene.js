@@ -6,10 +6,10 @@
  */
 class EditorScene extends Scene { // eslint-disable-line  no-unused-vars
     /**
-     * Start scene
+     * Initialize scene
      * @override
      */
-    start() {
+    init() {
         this.stage = (new CSVStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
         //        this.stage = new EditorStage(600, 600);
     }

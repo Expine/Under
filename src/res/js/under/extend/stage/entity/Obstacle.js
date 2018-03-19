@@ -1,7 +1,8 @@
 /**
- * Default mutable object sample
+ * Obstacle
+ * Obstacle on the stage
  * @implements {MmutableObject}
- * @classdesc Mutable object sample
+ * @classdesc Obstacle on the stage
  */
 class Obstacle extends MutableObject { // eslint-disable-line  no-unused-vars
     /**

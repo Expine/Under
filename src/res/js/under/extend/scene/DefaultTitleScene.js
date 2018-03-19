@@ -3,8 +3,6 @@
  * Sample of mouse processing, input processing and drawing processing
  * @implements {Scene}
  * @classdesc Scene sample class
- * @example
- * this.manager.replaceScene(new DefaultTitleScene()); // transition in scene
  */
 class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
     /**

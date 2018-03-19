@@ -14,24 +14,26 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
     constructor(x, y) {
         super(x, y, 64, 64, -1, 300);
 
-        this.setCollider(new RectangleCollider(this, 0, 0, 64, 64, false));
+        // TODO: Put this process out
+        this.setCollider(new RectangleCollider(0, 0, 64, 64));
     }
 
     /**
      * Check collisions and process if the object collides
+     * @protected
      * @override
+     * @return {bool} Collision or not
      */
     judgeCollision() {
         // If enemy is collided, damage and destroy
         for (let it of this.collider.collisions) {
-            if (it.e1 instanceof Enemy) {
-                it.e1.damage(1);
+            let entity = Util.getCollidedEntity(this, it);
+            if (entity instanceof Enemy) {
+                entity.damage(1);
                 this.destroy();
-            }
-            if (it.e2 instanceof Enemy) {
-                it.e2.damage(1);
-                this.destroy();
+                return true;
             }
         }
+        return false;
     }
 }

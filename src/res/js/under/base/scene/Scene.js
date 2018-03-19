@@ -5,11 +5,10 @@
  */
 class Scene { // eslint-disable-line  no-unused-vars
     /**
-     * Render scene
+     * Initialize scene
      * @interface
-     * @param {Context} ctx
      */
-    render(ctx) {}
+    init() {}
 
     /**
      * Update scene
@@ -19,21 +18,9 @@ class Scene { // eslint-disable-line  no-unused-vars
     update(dt) {}
 
     /**
-     * Start scene
+     * Render scene
      * @interface
+     * @param {Context} ctx
      */
-    start() {}
-
-    /**
-     * Set scene manager
-     * @param {SceneManager} scene Scene manager
-     */
-    setSceneManager(scene) {
-        /**
-         * Scene manager
-         * @protected
-         * @type {SceneManager}
-         */
-        this.scene = scene;
-    }
+    render(ctx) {}
 }

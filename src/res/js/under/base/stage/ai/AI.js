@@ -4,22 +4,28 @@
  */
 class AI { // eslint-disable-line  no-unused-vars
     /**
-     * AI Constructor
-     * @param {Entity} entity Entity to which AI is attached
+     * Set autonomy object
+     * @param {AutonomyObject} entity
      */
-    constructor(entity) {
+    setEntity(entity) {
         /**
          * Entity to which AI is attached
-         * @type {Entity}
+         * @type {AutonomyObject}
          */
         this.entity = entity;
     }
 
     /**
+     * Initialize AI
+     * @interface
+     */
+    init() {}
+
+    /**
      * Apply AI and decide action
      * @interface
      * @param {number} dt - delta time
-     * @return {boolean} Whether decided on action
+     * @return {bool} Whether decided on action
      */
     apply(dt) {}
 }

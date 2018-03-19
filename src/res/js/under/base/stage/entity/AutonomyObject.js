@@ -1,5 +1,5 @@
 /**
- * AutonomyObject object
+ * Autonomy object
  * It is not fixed and can be moved
  * It can move by AI
  * @implements {MutableObject}

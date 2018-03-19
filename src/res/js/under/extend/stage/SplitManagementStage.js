@@ -1,13 +1,13 @@
 /**
- * Default stage sample
+ * Split management stage
  * Dividingly manages entities according to type
  * Do not update immutable objects
  * @implements {Stage}
- * @classdesc Stage sample
+ * @classdesc Split management stage to manage entities according to type dividingly
  */
 class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-vars
     /**
-     * Cnstructor for default stage
+     * Split management stage
      * @constructor
      */
     constructor() {
@@ -27,11 +27,16 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
 
         /**
          * Player instance for camera
+         * @orivate
          * @type {Player}
          */
         this.player_ = null;
 
-        this.setEnable(true);
+        /**
+         * Whether to update the stage or not
+         * @type {bool}
+         */
+        this.enable_ = true;
     }
 
     /**
@@ -45,8 +50,10 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         }
         if (entity instanceof MutableObject) {
             this.mutables_.push(entity);
+            this.physic.addActor(entity);
         }
         this.entities_.push(entity);
+        this.physic.addEntity(entity);
         entity.setStage(this);
     }
 
@@ -60,22 +67,21 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             this.mutables_.splice(this.mutables_.indexOf(entity), 1);
         }
         this.entities_.splice(this.entities_.indexOf(entity), 1);
+        this.physic.removeEntity(entity);
     }
 
     /**
      * Control stage update
+     * @override
      * @param {bool} enable Whether to update the stage or not
      */
     setEnable(enable) {
-        /**
-         * Whether to update the stage or not
-         * @type {bool}
-         */
         this.enable_ = enable;
     }
 
     /**
      * Update stage
+     * @override
      * @param {number} dt delta time
      */
     update(dt) {

@@ -14,17 +14,20 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
 
         /**
          * Count for animation
+         * @private
          * @type {number}
          */
         this.jumpCount_ = 0;
 
         /**
          * Count for judging on air
+         * @private
          */
         this.inAirCount_ = 0;
 
         /**
          * Jumping force
+         * @private
          * @type {number}
          */
         this.jumpPower_ = jumpPower;
@@ -39,11 +42,12 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
          * Reserved velocity of X
          * @type {number}
          */
-        this.velocityX = this.entity.body.velocityX;
+        this.velocityX = this.entity.body.preVelocityX;
     }
 
     /**
      * Make stationary state
+     * @protected
      * @return {State} stationary state
      */
     makeStationaryState() {
@@ -52,6 +56,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make jumping state
+     * @protected
      * @return {State} jumping state
      */
     makeJumpingState() {
@@ -62,11 +67,11 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
-     * @return {boolean} Whether decided on action
+     * @return {bool} Whether decided on action
      */
     apply(dt) {
         // animation
-        this.entity.body.velocityX /= 1.1;
+        this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.1 - this.entity.body.preVelocityX, 0);
         this.jumpCount_ += dt / 200;
 
         // judge
@@ -80,10 +85,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
 
         if (this.jumpCount_ >= 3 && this.inAirCount_ == 0) {
             // reset and jump
-            this.entity.body.velocityX = this.velocityX;
-            this.entity.body.velocityY = 0;
-            this.entity.body.vmy = 0;
-            this.entity.body.accelerationY = 0;
+            this.entity.body.setNextAddVelocity(this.velocityX, -this.entity.body.preVelocityY);
             this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
             this.ai.changeState(this.makeJumpingState());
         }
@@ -99,6 +101,6 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, (Math.floor(this.jumpCount_)) * 32, 80 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, (Math.floor(this.jumpCount_)) * 32, 80 - this.entity.directionX * 16, 32, 32);
     }
 }

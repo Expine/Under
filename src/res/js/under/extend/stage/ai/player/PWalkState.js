@@ -13,17 +13,20 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
 
         /**
          * Count for animation
+         * @private
          * @type {number}
          */
         this.walkCount_ = 0;
 
         /**
          * Maximum speed vector
+         * @protected
          * @type {number}
          */
         this.maxVelocityX = 300;
         /**
          * Force applied when moving
+         * @protected
          * @type {number}
          */
         this.walkPower = 18000;
@@ -31,6 +34,7 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make stationary state
+     * @protected
      * @return {State} stationary state
      */
     makeStationaryState() {
@@ -39,6 +43,7 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make jump state
+     * @protected
      * @return {State} jump state
      */
     makeJumpState() {
@@ -47,6 +52,7 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Make attack state
+     * @protected
      * @return {State} attack state
      */
     makeAttackState() {
@@ -57,7 +63,7 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
-     * @return {boolean} Whether decided on action
+     * @return {bool} Whether decided on action
      */
     apply(dt) {
         // for animation
@@ -76,13 +82,13 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
             input = true;
         }
         if (vx != 0) {
-            this.entity.direction = vx;
-            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
+            this.entity.directionX = vx;
+            if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
                 this.entity.body.enforce(vx * this.walkPower / dt, 0);
             }
         }
         // stationary
-        if (!input && Math.abs(this.entity.body.velocityX) < 10) {
+        if (!input && Math.abs(this.entity.body.preVelocityX) < 10) {
             this.ai.changeState(this.makeStationaryState());
         }
         // jump
@@ -106,6 +112,6 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, (Math.floor(this.walkCount_) % 4) * 32, 16 - this.entity.direction * 16, 32, 32, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, (Math.floor(this.walkCount_) % 4) * 32, 16 - this.entity.directionX * 16, 32, 32);
     }
 }
