@@ -12,17 +12,6 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         this.stage = (new JSONStageParser().parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height));
         this.player = this.stage.getEntities().filter((it) => it instanceof Player)[0];
 
-        // this.stage = (new UnderStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
-        /*
-        let chara = ContextImage.it.loadImage(`res/image/chara/player.png`);
-        this.player = new UnderPlayer(74, 200, 64, 64, chara);
-        this.player.setRigidBody(new MaxAdoptBody());
-        this.player.setCollider(new RoundRectangleCollider(12, 10, 38, 54, 10));
-        this.player.setMaterial(new DefaultMaterial(1, 0.1, 0.95));
-        this.player.addAI(new PlayerBaseStateAI());
-        this.stage.addEntity(this.player);
-        */
-
         let en = ContextImage.it.loadImage(`res/image/chara/enemy.png`);
         for (var i = 0; i < 0; ++i) {
             let enemy = new Enemy(154 + 80 * (i % 20), 180 - 80 * Math.floor(i / 20), 64, 64, en);
@@ -55,7 +44,7 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
     update(dt) {
         // gameover
         if (this.player.getHP() <= 0 && this.gameover == null) {
-            this.player.addAI(new BaseStateAI(new PGameoverState()), 0);
+            this.player.addAI(new PlayerGameoverStateAI(`gameover`), 0);
             this.player.setCollider(new RoundRectangleCollider(0, 32, 64, 32, 5));
             this.gameover = new GameoverLayer();
         }

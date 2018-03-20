@@ -38,29 +38,14 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
+        this.jumpCount_ = 0;
+        this.inAirCount_ = 0;
+
         /**
          * Reserved velocity of X
          * @type {number}
          */
         this.velocityX = this.entity.body.preVelocityX;
-    }
-
-    /**
-     * Make stationary state
-     * @protected
-     * @return {State} stationary state
-     */
-    makeStationaryState() {
-        return new PStationaryState();
-    }
-
-    /**
-     * Make jumping state
-     * @protected
-     * @return {State} jumping state
-     */
-    makeJumpingState() {
-        return new PJumpingState();
     }
 
     /**
@@ -77,7 +62,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
         // judge
         if (!Util.onGround(this.entity)) {
             if (++this.inAirCount_ > 5) {
-                this.ai.changeState(this.makeStationaryState());
+                this.ai.changeState(`stationary`);
             }
         } else {
             this.inAirCount_ = 0;
@@ -87,7 +72,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
             // reset and jump
             this.entity.body.setNextAddVelocity(this.velocityX, -this.entity.body.preVelocityY);
             this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
-            this.ai.changeState(this.makeJumpingState());
+            this.ai.changeState(`jumping`);
         }
 
         return true;

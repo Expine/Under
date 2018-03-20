@@ -7,8 +7,10 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Player stationary state constructor
      * @constructor
+     * @param {number} maxVelocityX Maximum speed
+     * @param {number} walkPower The power to walk
      */
-    constructor() {
+    constructor(maxVelocityX, walkPower) {
         super();
 
         /**
@@ -16,41 +18,15 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.maxVelocityX = 300;
+        this.maxVelocityX = maxVelocityX;
         /**
          * Force applied when moving
          * @protected
          * @type {number}
          */
-        this.walkPower = 36000;
+        this.walkPower = walkPower;
     }
 
-    /**
-     * Make walk state
-     * @protected
-     * @return {State} walk state
-     */
-    makeWalkState() {
-        return new PWalkState();
-    }
-
-    /**
-     * Make jump state
-     * @protected
-     * @return {State} jump state
-     */
-    makeJumpState() {
-        return new PJumpState(230);
-    }
-
-    /**
-     * Make attack state
-     * @protected
-     * @return {State} attack state
-     */
-    makeAttackState() {
-        return new PPunchState();
-    }
     /**
      * Apply AI and decide action
      * @override
@@ -71,13 +47,13 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
                 this.entity.body.enforce(vx * this.walkPower / dt, 0);
             }
-            this.ai.changeState(this.makeWalkState());
+            this.ai.changeState(`walk`);
         }
         if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
-            this.ai.changeState(this.makeJumpState());
+            this.ai.changeState(`jump`);
         }
         if (Input.it.isYesPress()) {
-            this.ai.changeState(this.makeAttackState());
+            this.ai.changeState(`attack`);
         }
         return true;
     }

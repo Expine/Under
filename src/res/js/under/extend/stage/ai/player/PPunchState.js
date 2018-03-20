@@ -5,24 +5,6 @@
  */
 class PPunchState extends State { // eslint-disable-line  no-unused-vars
     /**
-     * Make stationary state
-     * @protected
-     * @return {State} stationary state
-     */
-    makeStationaryState() {
-        return new PStationaryState();
-    }
-
-    /**
-     * Make walk state
-     * @protected
-     * @return {State} walk state
-     */
-    makeWalkState() {
-        return new PWalkState();
-    }
-
-    /**
      * Make attack object
      * @protected
      * @return {AttackObject} Attack object
@@ -42,9 +24,9 @@ class PPunchState extends State { // eslint-disable-line  no-unused-vars
         this.entity.stage.addEntity(this.makeAttackObject());
         // change state
         if (Math.abs(this.entity.body.preVelocityX) < 10) {
-            this.ai.changeState(this.makeStationaryState());
+            this.ai.changeState(`stationary`);
         } else {
-            this.ai.changeState(this.makeWalkState());
+            this.ai.changeState(`walk`);
         }
         return true;
     }

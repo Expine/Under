@@ -5,22 +5,6 @@
  */
 class PJumpingState extends State { // eslint-disable-line  no-unused-vars
     /**
-     * Make stationary state
-     * @return {State} stationary state
-     */
-    makeStationaryState() {
-        return new PStationaryState();
-    }
-
-    /**
-     * Make walk state
-     * @return {State} walk state
-     */
-    makeWalkState() {
-        return new PWalkState();
-    }
-
-    /**
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
@@ -43,9 +27,9 @@ class PJumpingState extends State { // eslint-disable-line  no-unused-vars
         }
         if (Util.onGround(this.entity)) {
             if (Math.abs(this.entity.body.preVelocityX) < 10) {
-                this.ai.changeState(this.makeStationaryState());
+                this.ai.changeState(`stationary`);
             } else {
-                this.ai.changeState(this.makeWalkState());
+                this.ai.changeState(`walk`);
             }
         }
         return true;

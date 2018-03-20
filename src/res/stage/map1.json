@@ -1389,8 +1389,12 @@
                     "mu": 0.95
                 },
                 "ai": [{
-                    "name": "PlayerBaseStateAI"
-                }]
+                        "name": "UnderStateAI"
+                    },
+                    {
+                        "name": "PlayerBaseStateAI"
+                    }
+                ]
             },
             {
                 "type": "Enemy",

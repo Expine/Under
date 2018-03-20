@@ -6,14 +6,6 @@
  */
 class PGameoverState extends State { // eslint-disable-line  no-unused-vars
     /**
-     * Player gameover state Constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-    }
-
-    /**
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time

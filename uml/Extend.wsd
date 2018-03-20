@@ -511,7 +511,7 @@ package extend {
             }
         }
         package ex_ai {
-            class BaseStateAI {
+            class NamedStateAI {
 
             }
             class StraightAI {
@@ -626,7 +626,7 @@ AttackObject ..> Collider
 ' Should be fixed
 PunchObject ..> RectangleCollider
 
-BaseStateAI ..> State
+NamedStateAI ..> State
 PlayerBaseStateAI ..> PStationaryState
 
 UnderEngineBuilder ..|> EngineBuilder
@@ -662,7 +662,7 @@ SequentialWorld "1"o--"*"CollisionData
 
 RoundRectangleCollider --|> RectangleCollider
 
-BaseStateAI ..|> StateAI
+NamedStateAI ..|> StateAI
 EnemyAI --|> StraightAI
 
 PStationaryState ..|> State
