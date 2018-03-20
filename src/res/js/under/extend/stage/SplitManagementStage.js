@@ -80,6 +80,15 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     }
 
     /**
+     * Get all entities
+     * @override
+     * @return {Array<Entity>} All entities
+     */
+    getEntities() {
+        return this.entities_;
+    }
+
+    /**
      * Update stage
      * @override
      * @param {number} dt delta time

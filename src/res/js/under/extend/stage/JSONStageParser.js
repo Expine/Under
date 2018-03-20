@@ -57,27 +57,107 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     }
 
     /**
+     * Make collider
+     * @param {json} collider Collider information json data
+     * @return {Collider} Collider
+     */
+    makeCollider(collider) {
+        if (collider.type == `Rectangle`) {
+            return new RectangleCollider(collider.startX, collider.startY, collider.width, collider.height);
+        } else if (collider.type == `Circle`) {
+            return new CircleCollider(ret.radius, ret.shiftX, ret.shiftY);
+        } else if (collider.type == `RoundRectangle`) {
+            return new RoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut);
+        }
+    }
+
+    /**
+     * Make material
+     * @param {json} material Material information json data
+     * @return {Material} Material
+     */
+    makeMaterial(material) {
+        return new DefaultMaterial(material.mass, material.elasticity, material.mu);
+    }
+
+    /**
+     * Make underlying tile object
+     * @protected
+     * @param {json} tile Tile information json data
+     * @param {json} chip Chip actually placed json data
+     * @return {TileObject} Underlying tile object
+     */
+    makeTileBase(tile, chip) {
+        return new TileObject(tile.x, tile.y, tile.width, tile.height, chip.x, chip.y, chip.width, chip.height, tile.file);
+    }
+
+    /**
      * Make tile object
      * @protected
      * @param {json} tile Tile information json data
      * @param {json} chip Chip actually placed json data
-     * @return {TileObject} tile object
+     * @return {TileObject} Tile object
      */
     makeTileObject(tile, chip) {
-        let ret = new TileObject(tile.x, tile.y, tile.width, tile.height, chip.x, chip.y, chip.width, chip.height, tile.file);
+        let base = this.makeTileBase(tile, chip);
         // set collider
-        let collider = tile.collider;
-        if (collider.type == `Rectangle`) {
-            ret.setCollider(new RectangleCollider(collider.startX, collider.startY, collider.width, collider.height));
-        } else if (collider.type == `Circle`) {
-            ret.setCollider(new CircleCollider(ret.radius, ret.shiftX, ret.shiftY));
-        } else if (collider.type == `RoundRectangle`) {
-            ret.setCollider(new RoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, ret.cut));
-        }
+        base.setCollider(this.makeCollider(tile.collider));
         // set material
-        let material = tile.material;
-        ret.setMaterial(new DefaultMaterial(material.mass, material.elasticity, material.mu));
-        return ret;
+        base.setMaterial(this.makeMaterial(tile.material));
+        return base;
+    }
+
+    /**
+     * Make rigid body
+     * @param {json} body Rigid body information json data
+     * @return {RigidBody} RigidBody
+     */
+    makeBody(body) {
+        if (body.type == `MaxAdopt`) {
+            return new MaxAdoptBody();
+        }
+    }
+
+    /**
+     * Make AI
+     * @param {json} ai AI information json data
+     * @return {AI} AI
+     */
+    makeAI(ai) {
+        return eval(`new ${ai.name}()`);
+    }
+
+    /**
+     * Make underlying entity
+     * @protected
+     * @param {json} info Entity information json data
+     * @param {json} entity Entity actually placed json data
+     * @return {Entity} Underlying entity
+     */
+    makeEntityBase(info, entity) {
+        if (info.type == `Player`) {
+            return new Player(entity.x, entity.y, info.width, info.height, info.fileID);
+        } else if (info.type == 'Enemy') {
+            return new Enemy(entity.x, entity.y, info.width, info.height, info.fileID);
+        }
+    }
+
+    /**
+     * Make entity
+     * @protected
+     * @param {json} info Entity information json data
+     * @param {json} entity Entity actually placed json data
+     * @return {Entity} Entity
+     */
+    makeEntity(info, entity) {
+        let base = this.makeEntityBase(info, entity);
+        base.setCollider(this.makeCollider(info.collider));
+        base.setMaterial(this.makeMaterial(info.material));
+        base.setRigidBody(this.makeBody(info.body));
+        for (let ai of info.ai) {
+            base.addAI(this.makeAI(ai));
+        }
+        return base;
     }
 
     /**
@@ -95,10 +175,12 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         req.send(null);
         // get stage file data
         let json = JSON.parse(req.responseText);
+        // make stage
         let stage = this.makeBaseStage();
         stage.setMap(this.makeBaseMap(json.map));
         stage.setCamera(this.makeBaseCamera(json.camera, width, height));
         stage.setPhysicalWorld(this.makeBaseWorld());
+        // make tile
         let tiles = {};
         for (let tile of json.tiles) {
             let fileID = ContextImage.it.loadImage(`res/image/tile/${tile.file}`);
@@ -111,6 +193,15 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
             for (let chip of layer) {
                 stage.addEntity(this.makeTileObject(tiles[chip.id], chip));
             }
+        }
+        // make entity
+        let info = {};
+        for (let entity of json.entities.info) {
+            info[entity.id] = entity;
+            info[entity.id].fileID = ContextImage.it.loadImage(`res/image/chara/${entity.file}`);
+        }
+        for (let entity of json.entities.deploy) {
+            stage.addEntity(this.makeEntity(info[entity.id], entity));
         }
         return stage;
     }

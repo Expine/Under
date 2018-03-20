@@ -10,8 +10,10 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
     init() {
         // Music.it.playBGM(Music.it.loadMusic(`res/sound/test.mp3`));
         this.stage = (new JSONStageParser().parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height));
+        this.player = this.stage.getEntities().filter((it) => it instanceof Player)[0];
 
         // this.stage = (new UnderStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
+        /*
         let chara = ContextImage.it.loadImage(`res/image/chara/player.png`);
         this.player = new UnderPlayer(74, 200, 64, 64, chara);
         this.player.setRigidBody(new MaxAdoptBody());
@@ -19,9 +21,10 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
         this.player.setMaterial(new DefaultMaterial(1, 0.1, 0.95));
         this.player.addAI(new PlayerBaseStateAI());
         this.stage.addEntity(this.player);
+        */
 
         let en = ContextImage.it.loadImage(`res/image/chara/enemy.png`);
-        for (var i = 0; i < 10; ++i) {
+        for (var i = 0; i < 0; ++i) {
             let enemy = new Enemy(154 + 80 * (i % 20), 180 - 80 * Math.floor(i / 20), 64, 64, en);
             enemy.setRigidBody(new MaxAdoptBody());
             enemy.setCollider(new RoundRectangleCollider(0, 32, 64, 32, 5));

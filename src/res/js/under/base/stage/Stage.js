@@ -66,6 +66,13 @@ class Stage { // eslint-disable-line  no-unused-vars
     setEnable(enable) {}
 
     /**
+     * Get all entities
+     * @interface
+     * @return {Array<Entity>} All entities
+     */
+    getEntities() {}
+
+    /**
      * Update stage
      * @interface
      * @param {number} dt delta time
