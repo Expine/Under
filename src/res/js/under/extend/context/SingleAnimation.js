@@ -1,46 +1,51 @@
 /**
- * Single loop Animation
- * Manages an animation and run single, loop animation
+ * Single Animation
+ * Manages an animation and run single animation
  * @classdesc Animation to manage an animation
  */
 class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     /**
      * Single animation constructor
      * @constructor
-     * @param {bool} [isLoop=true] Whether to loop or not
+     * @param {bool} [loop=true] Whether to loop or not
      */
-    constructor(isLoop = true) {
+    constructor(loop = true) {
         super();
 
         /**
-         * List of animation
+         * List of animation element
+         * @protected
          * @type {Array<AnimationElement>}
          */
         this.animation = [];
 
         /**
          * Animation counter
+         * @protected
          * @type {number}
          */
         this.animationCount = 0;
 
         /**
          * Running animation number
+         * @protected
          * @type {number}
          */
         this.runningAnimation = 0;
 
         /**
          * Whether to loop or not
+         * @protected
          * @type {bool}
          */
-        this.isLoop = isLoop;
+        this.loop = loop;
 
         /**
          * Whether the animation has ended or not
+         * @protected
          * @type {bool}
          */
-        this.isEnded = false;
+        this.ended = false;
     }
 
     /**
@@ -54,18 +59,29 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
 
     /**
      * Set whether to loop or not
-     * @param {bool} isLoop Whether to loop or not
+     * @override
+     * @param {bool} loop Whether to loop or not
      */
-    setLoop(isLoop) {
-        this.isLoop = isLoop;
+    setLoop(loop) {
+        this.loop = loop;
+    }
+
+    /**
+     * Whether to loop or not
+     * @override
+     * @return {bool} Whether to loop or not
+     */
+    isLoop() {
+        return this.loop;
     }
 
     /**
      * Whether the animation has ended or not
+     * @override
      * @return {bool} Whether the animation has ended or not
      */
     isEnded() {
-        return this.isEnded;
+        return this.ended;
     }
 
     /**
@@ -88,8 +104,8 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
         while (this.animationCount >= element.delta) {
             this.animationCount -= element.delta;
             if (++this.runningAnimation >= this.animation.length) {
-                this.isEnded = true;
-                if (this.isLoop) {
+                this.ended = true;
+                if (this.loop) {
                     this.runningAnimation = 0;
                 } else {
                     this.runningAnimation = this.animation.length - 1;

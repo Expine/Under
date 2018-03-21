@@ -12,12 +12,21 @@ class Animation { // eslint-disable-line  no-unused-vars
 
     /**
      * Set whether to loop or not
-     * @param {bool} isLoop Whether to loop or not
+     * @interface
+     * @param {bool} loop Whether to loop or not
      */
-    setLoop(isLoop) {}
+    setLoop(loop) {}
+
+    /**
+     * Whether to loop or not
+     * @interface
+     * @return {bool} Whether to loop or not
+     */
+    isLoop() {}
 
     /**
      * Whether the animation has ended or not
+     * @interface
      * @return {bool} Whether the animation has ended or not
      */
     isEnded() {}

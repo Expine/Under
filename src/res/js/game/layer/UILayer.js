@@ -25,36 +25,28 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
          */
         this.playerHP = player.getHP();
 
-        /**
-         * Animation count
-         * @protected
-         * @type {number}
-         */
-        this.animationCount = 0;
-        /**
-         * Threshold to next transition
-         * @protected
-         * @type {number}
-         */
-        this.animationFrame = 200;
-        /**
-         * Animation state
-         * @protected
-         * @type {number}
-         */
-        this.animationState = (3 - this.playerHP) * 2;
-
         // Load UI image
         /**
          * UI Image
          * @protected
-         * @type {SingleAnimation}
+         * @type {MultiNamedAnimation}
          */
         this.uiImage = ContextImage.it.loadImage(`res/image/ui/hp.png`);
-        this.uiAnimation = new SingleAnimation();
-        for (let i = 0; i < 4; ++i) {
-            this.uiAnimation.addAnimatiion(new AnimationElement(this.uiImage, 32 * i, 0, 32, 32, 200));
+        this.uiAnimation = new MultiNamedAnimation(`${this.player.getHP()}-${this.player.getHP()}`);
+        for (let i = 0; i < 6; ++i) {
+            this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`);
+            this.uiAnimation.setLoop(i % 2 == 0);
+            if (i != 5) {
+                for (let j = 0; j < 4; ++j) {
+                    this.uiAnimation.addAnimatiion(new AnimationElement(this.uiImage, 32 * j, 32 * i, 32, 32, i % 2 == 0 ? 300 : 200));
+                }
+            } else {
+                for (let j = 0; j < 8; ++j) {
+                    this.uiAnimation.addAnimatiion(new AnimationElement(this.uiImage, 32 * (j % 4), 32 * (i + Math.floor(j / 4)), 32, 32, 200));
+                }
+            }
         }
+        this.uiAnimation.setName(`${this.player.getHP()}-${this.player.getHP()}`);
     }
     /**
      * Update layer
@@ -62,25 +54,19 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {number} dt - delta time
      */
     update(dt) {
+        // Check hp change
+        let diff = this.playerHP - this.player.getHP();
+        if (diff != 0 && (this.uiAnimation.isEnded() || this.uiAnimation.isLoop())) {
+            this.uiAnimation.setName(`${this.playerHP}-${this.playerHP - Math.sign(diff)}`);
+            this.uiAnimation.init();
+            this.playerHP = this.playerHP - Math.sign(diff);
+        } else if (this.playerHP > 0 && diff == 0 && (this.uiAnimation.isEnded() && !this.uiAnimation.isLoop())) {
+            this.uiAnimation.setName(`${this.playerHP}-${this.playerHP}`);
+            this.uiAnimation.init();
+        }
         // animation
         this.animationCount += dt;
         this.uiAnimation.update(dt);
-        // Check hp change
-        let diff = this.playerHP - this.player.getHP();
-        if (diff != 0) {
-            this.animationCount = 0;
-            this.animationFrame = 200;
-            this.playerHP = this.player.getHP();
-            this.animationState += this.animationState % 2 == 0 ? 1 : 2;
-        }
-        if (this.animationState % 2 != 0 && this.animationCount / this.animationFrame >= 4) {
-            this.animationCount = 0;
-            this.animationFrame = 300;
-            this.animationState += 1;
-        }
-        if (this.animationState == 6 && this.animationCount / this.animationFrame >= 4) {
-            this.animationCount = this.animationFrame * 4 - 1;
-        }
     }
 
     /**
