@@ -48,9 +48,13 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
         /**
          * UI Image
          * @protected
-         * @type {number}
+         * @type {SingleAnimation}
          */
         this.uiImage = ContextImage.it.loadImage(`res/image/ui/hp.png`);
+        this.uiAnimation = new SingleAnimation();
+        for (let i = 0; i < 4; ++i) {
+            this.uiAnimation.addAnimatiion(new AnimationElement(this.uiImage, 32 * i, 0, 32, 32, 200));
+        }
     }
     /**
      * Update layer
@@ -60,6 +64,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
     update(dt) {
         // animation
         this.animationCount += dt;
+        this.uiAnimation.update(dt);
         // Check hp change
         let diff = this.playerHP - this.player.getHP();
         if (diff != 0) {
@@ -84,6 +89,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx
      */
     render(ctx) {
-        ctx.drawImage(this.uiImage, 10, 530, 64, 64, (Math.floor(this.animationCount / this.animationFrame) % 4) * 32, this.animationState * 32, 32, 32);
+        //        ctx.drawImage(this.uiImage, 10, 530, 64, 64, (Math.floor(this.animationCount / this.animationFrame) % 4) * 32, this.animationState * 32, 32, 32);
+        this.uiAnimation.render(ctx, 10, 530, 64, 64);
     }
 }
