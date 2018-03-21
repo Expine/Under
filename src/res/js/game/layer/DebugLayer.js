@@ -30,7 +30,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.player = 0;
+        this.playerCollisions = 0;
 
         /**
          * Stage instance
@@ -38,6 +38,12 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
          * @type {Stage}
          */
         this.stage = stage;
+        /**
+         * Game player
+         * @protected
+         * @type {Player}
+         */
+        this.player = this.stage.getEntities().filter((it) => it instanceof Player)[0];
 
         /**
          * Count for determinig information
@@ -63,17 +69,17 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
     update(dt) {
         let it = this.record[this.count];
         it.deltaTime = window.deltaTime;
+        // TODO: May be implement getter method
         it.collisions = this.stage.physic.collisionSize;
-        it.player = this.stage.player_.collider.collisions.length;
-        this.count += 1;
-        if (this.count > 9) {
+        it.playerCollisions = this.player.collider.collisions.length;
+        if (++this.count >= this.record.length) {
             this.deltaTime = 0;
             this.collisions = 0;
-            this.player = 0;
+            this.playerCollisions = 0;
             for (let v of this.record) {
                 this.deltaTime = Math.max(this.deltaTime, v.deltaTime);
                 this.collisions = Math.max(this.collisions, v.collisions);
-                this.player = Math.max(this.player, v.player);
+                this.playerCollisions = Math.max(this.playerCollisions, v.playerCollisions);
             }
             this.count = 0;
         }
@@ -87,11 +93,12 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
     render(ctx) {
         ctx.fillText(`${this.deltaTime} msec`, Screen.it.width, 0, 1.0, 0.0, 20, `white`);
         ctx.fillText(`${this.collisions} collision`, Screen.it.width, 30, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`${this.player} P collision`, Screen.it.width, 60, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`${this.playerCollisions} P collision`, Screen.it.width, 60, 1.0, 0.0, 20, `white`);
+        // TODO: May be implement getter method
         ctx.fillText(`${this.stage.physic.response instanceof ImpulseBasedResponse ? 'Impluse' : `Repulsion`}`, Screen.it.width, 90, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`(${Math.floor(this.stage.player_.x)}, ${Math.floor(this.stage.player_.y)})(${Math.floor(this.stage.player_.body.velocityX)}, ${Math.floor(this.stage.player_.body.velocityY)})(${Math.floor(this.stage.player_.body.preVelocityX)},${Math.floor(this.stage.player_.body.preVelocityY)})`, Screen.it.width, 120, 1.0, 0.0, 20, `white`);
-        if (this.stage.player_.state != null) {
-            ctx.fillText(this.stage.player_.state.constructor.toString().split(`\n`)[0].split(` `)[1], Screen.it.width, 150, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`(${Math.floor(this.player.x)}, ${Math.floor(this.player.y)})(${Math.floor(this.player.body.velocityX)}, ${Math.floor(this.player.body.velocityY)})(${Math.floor(this.player.body.preVelocityX)},${Math.floor(this.player.body.preVelocityY)})`, Screen.it.width, 120, 1.0, 0.0, 20, `white`);
+        if (this.player.state != null) {
+            ctx.fillText(this.player.state.constructor.toString().split(`\n`)[0].split(` `)[1], Screen.it.width, 150, 1.0, 0.0, 20, `white`);
         }
     }
 }
