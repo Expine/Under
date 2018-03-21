@@ -1,25 +1,31 @@
 /**
  * Under stage parser to generate stage
- * @extends {CSVStageParser}
+ * @extends {JSONStageParser}
  * @classdesc Under parser to generate stage
  */
-class UnderStageParser extends CSVStageParser { // eslint-disable-line  no-unused-vars
+class UnderStageParser extends JSONStageParser { // eslint-disable-line  no-unused-vars
     /**
-     * Make tile object
-     * @param {number} verticalId tile vertical id
-     * @param {number} horizontalId tile horizontal id
-     * @param {number} tileWidth tile width
-     * @param {number} tileHeight tile height
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
-     * @param {number} imageID tile image id
+     * Make underlying tile object
+     * @protected
+     * @param {json} tile Tile information json data
+     * @param {json} chip Chip actually placed json data
+     * @return {TileObject} Underlying tile object
      */
-    makeTileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID) {
-        let tile = new UnderTileObject(horizontalId * tileWidth, verticalId * tileHeight, tileWidth, tileHeight, x, y, width, height, imageID);
-        tile.setCollider(new RectangleCollider(0, 0, width, height));
-        tile.setMaterial(new DefaultMaterial());
-        return tile;
+    makeTileBase(tile, chip) {
+        return new UnderTileObject(tile.terrain, tile.x, tile.y, tile.width, tile.height, chip.x, chip.y, chip.width, chip.height, tile.file);
+    }
+
+    /**
+     * Make underlying entity
+     * @protected
+     * @param {json} info Entity information json data
+     * @param {json} entity Entity actually placed json data
+     * @return {Entity} Underlying entity
+     */
+    makeEntityBase(info, entity) {
+        if (info.type == `Player`) {
+            return new UnderPlayer(entity.x, entity.y, info.width, info.height, info.fileID);
+        }
+        return super.makeEntityBase(info, entity);
     }
 }

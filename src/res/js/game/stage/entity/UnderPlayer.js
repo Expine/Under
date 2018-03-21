@@ -17,14 +17,12 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, imageID) {
         super(x, y, width, height, imageID);
 
-        this.addAI(new UnderStateAI(), 0);
-
         /**
          * Currently used AI
          * @protected
          * @type {AI}
          */
-        this.aiType = this.ai[1];
+        this.aiType = null;
     }
 
     /**
@@ -33,12 +31,21 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
      */
     changeType(ground) {
         // check ground
-        if (ground.getGlobalID === undefined) {
+        if (ground.terrainID === undefined) {
             return;
+        }
+        // initialize
+        if (this.aiType == null) {
+            for (let it of this.ai) {
+                if (it instanceof PlayerBaseStateAI) {
+                    this.aiType = it;
+                    break;
+                }
+            }
         }
         // set type
         let ai = null;
-        let id = ground.getGlobalID();
+        let id = ground.terrainID;
         //        console.log(`Tile ID is ${id}`);
         switch (id) {
             case 0:

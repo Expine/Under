@@ -38,7 +38,7 @@ class PUnderState extends State { // eslint-disable-line  no-unused-vars
             this.underCount_ += dt;
             this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.01 - this.entity.body.preVelocityX, 0);
             if (this.underCount_ > 200) {
-                // this.entity.changeType(Util.getUnderEntity(this.entity));
+                this.entity.changeType(Util.getUnderEntity(this.entity));
                 this.underCount_ = 0;
             }
             return true;

@@ -9,7 +9,7 @@ class GameScene extends Scene { // eslint-disable-line  no-unused-vars
      */
     init() {
         // Music.it.playBGM(Music.it.loadMusic(`res/sound/test.mp3`));
-        this.stage = (new JSONStageParser().parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height));
+        this.stage = (new UnderStageParser().parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height));
         this.player = this.stage.getEntities().filter((it) => it instanceof Player)[0];
 
         let en = ContextImage.it.loadImage(`res/image/chara/enemy.png`);

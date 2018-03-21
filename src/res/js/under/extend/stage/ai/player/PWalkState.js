@@ -76,7 +76,7 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
         }
         // jump
         if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
-            this.ai.changeState(`jump`);
+            this.ai.changeState(`walkjump`);
             input = true;
         }
         // punch
