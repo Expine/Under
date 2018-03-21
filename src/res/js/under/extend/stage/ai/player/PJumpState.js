@@ -70,7 +70,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
 
         if (this.jumpCount_ >= 3 && this.inAirCount_ == 0) {
             // reset and jump
-            this.entity.body.setNextAddVelocity(this.velocityX, -this.entity.body.preVelocityY);
+            this.entity.body.setNextAddVelocity(this.velocityX - this.entity.body.preVelocityX, -this.entity.body.preVelocityY);
             this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
             this.ai.changeState(`jumping`);
         }

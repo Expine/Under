@@ -1,0 +1,61 @@
+@startuml EntityGame
+package game {
+    package ga_stage {
+        package ga_entity {
+            class UnderPlayer {
+                #aiType : AI
+                +changeType(ground)
+            }
+            class UnderTileObject {
+                +terrainID : number
+            }
+        }
+
+        package ga_ai {
+            package ga_player {
+                class PUnderState {
+                    -underCount_ : number
+                }
+                class UnderStateAI {
+
+                }
+                package ga_wild {
+                    class WildBaseStateAI
+                    class WildJumpState
+                    class WildClawState
+                }
+            }
+        }
+    }
+}
+
+package base {
+    abstract State
+}
+
+package extend {
+    class Player
+    class TileObject
+    class NamedStateAI
+    class PStationaryState
+    class PWalkState
+    class PJumpingState
+}
+
+UnderStateAI ..> PUnderState : Generate
+WildBaseStateAI ..> PStationaryState : Generate
+WildBaseStateAI ..> PWalkState : Generate
+WildBaseStateAI ..> WildJumpState : Generate
+WildBaseStateAI ..> PJumpingState : Generate
+WildBaseStateAI ..> WildClawState : Generate
+
+PUnderState .> UnderPlayer
+
+Player <|--- UnderPlayer
+TileObject <|--- UnderTileObject
+
+State <|... PUnderState
+NamedStateAI <|--- UnderStateAI
+NamedStateAI <|--- WildBaseStateAI
+
+@enduml

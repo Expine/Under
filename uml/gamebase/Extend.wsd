@@ -1,0 +1,129 @@
+@startuml GameBaseExtend
+
+package under {
+    package extend {
+        class UnderEngineBuilder
+        class UnderEngine {
+            -oldTime : number
+            -render_ : lambda
+        }
+
+        package ex_input {
+            class AllInput {
+                -mouseX_
+                -mouseY_
+                -STATE : Enum<number>
+                #inputMouse : Array<number>
+                #inputKey : Array<number>
+                +M : Enum<number>
+            }
+        }
+        package ex_screen {
+            class GeneratableScreen {
+                +GeneratableScreen(width,height) : GeneratableScreen
+                #canvas : Canvas
+            }
+            class ScalableScreen {
+                +ScalableScreen(width,height) : ScalableScreen
+            }
+        }
+
+        package ex_context {
+            class JSContext {
+                -fontColor_ : string
+                -fontSize_ : number
+                -fontName_ : string
+                -lineColor_ : string
+                -lineWidth_ : number
+                -ctx_ : CanvasRenderingContext2D
+            }
+            class GLContext {
+                -gl_ : WebGLRenderingContext
+            }
+            class CachedImage {
+                -images : Array<Image>
+                -caches : Dictionary<string, number>
+            }
+            class SingleAnimation {
+                #animation : Array<AnimationElement>
+                #animationCount : number
+                #runningAnimarion : number
+                #loop : bool
+                #ended : bool
+            }
+            class MultiNamedAnimation {
+                #animation : Dictionary<string, Animation>
+            }
+        }
+
+        package ex_music {
+            class XHTMLMusic {
+                -music_ : Array<BufferSource>
+                -bgmList_ : Array<number>
+                -context_ : AudioContext
+            }
+        }
+
+        package ex_scene {
+            class StackSceneManager {
+                -scenes_ : Array<Scene>
+            }
+            class LayerBaseScene {
+                #layers : Array<Layer>
+            }
+            class DefaultTitleScene {
+                -r_ : number
+                -angle_ : number
+            }
+        }
+
+        package ex_layer {
+            class GameoverLayer
+        }
+    }
+}
+
+package base {
+    abstract EngineBuilder
+    abstract Engine
+    abstract Input
+    abstract Screen
+    abstract Context
+    abstract SceneManager
+    abstract Music
+    abstract ContextImage
+    abstract Scene
+    abstract Layer
+    abstract Animation
+    abstract NamedAnimation
+}
+
+UnderEngineBuilder ..> UnderEngine : Generate
+UnderEngineBuilder ..> AllInput : Generate
+UnderEngineBuilder ..> ScalableScreen : Generate
+UnderEngineBuilder ..> JSContext : Generate
+UnderEngineBuilder ..> CachedImage : Generate
+UnderEngineBuilder ..> XHTMLMusic : Generate
+UnderEngineBuilder ..> StackSceneManager : Generate
+
+MultiNamedAnimation "1"*--"*" Animation : Should own
+
+ScalableScreen --|> GeneratableScreen
+
+UnderEngineBuilder ..|> EngineBuilder
+UnderEngine ..|> Engine
+AllInput ..|> Input
+GeneratableScreen ..|> Screen
+JSContext ..|> Context
+GLContext ..|> Context
+StackSceneManager ..|> SceneManager
+XHTMLMusic ..|> Music
+CachedImage ..|> ContextImage
+LayerBaseScene ..|> Scene
+DefaultTitleScene ...|> Scene
+GameoverLayer ...|> Layer
+
+SingleAnimation ..|> Animation
+MultiNamedAnimation ..|> NamedAnimation
+
+@enduml

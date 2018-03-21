@@ -31,7 +31,7 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
          * List of named states
          * Associates a name with a state
          * @protected
-         * @type {Array<Constructor>}
+         * @type {Dictionary<string, State>}
          */
         this.namedStates = {};
     }
@@ -76,7 +76,7 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
             return;
         }
         this.stateName_ = state;
-        this.state_ = new this.namedStates[state]();
+        this.state_ = this.namedStates[state];
         this.state_.setEntity(this.entity);
         this.state_.setAI(this);
         this.state_.init();

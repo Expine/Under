@@ -1,0 +1,93 @@
+@startuml StageBase
+
+package unde {
+    package base {
+        package stage {
+            abstract Stage {
+                #map : Map
+                #camera : Camera
+                #physic : PhysicalWorld
+                +setMap(map)
+                +setCamera(camera)
+                +setPhysicalWorld(physic)
+                {abstract} +addEntity(entity)
+                {abstract} +removeEntity(entity)
+                {abstract} +setEnable(enable)
+                {abstract} +update(dt)
+                {abstract} +render(ctx,shiftX,shiftY)
+            }
+            package parser {
+                abstract StageParser {
+                    {abstract} +parse(filePath,width,height) : Stage
+                }
+            }
+            package map {
+                abstract Map {
+                    +Map(width,height) : Map
+                    +width : number
+                    +height : number
+                    {abstract} +update(dt)
+                    {abstract} +render(ctx,shiftX,shiftY)
+                }
+            }
+            package camera {
+                abstract Camera {
+                    +Camera(screenWidth,screenHeight) : Camera
+                    +cameraX : number
+                    +cameraY : number
+                    +screenWidth : number
+                    +screenHeight : number
+                    +setCameraPosition(x,y,width,height)
+                }
+            }
+            package entity {
+                abstract Entity {
+                    +Entity(x,y,width,height,imageID)
+                    +x : number
+                    +y : number
+                    +width : number
+                    +height : number
+                    #imageID : number
+                    +directionX : number
+                    +directionY : number
+                    +stage : Stage
+                    +collider : Collider
+                    +material : Material
+                    +setStage(stage)
+                    +setCollider(collider)
+                    +setMaterial(material)
+                    {abstract} +update(dt)
+                    {abstract} +render(ctx,shiftX,shiftY)
+                }
+                abstract ImmutableObject
+            }
+            package physics {
+                abstract PhysicalWorld {
+                    +PhysicalWorld(gravity) : PhysicalWorld
+                    #gravity : number
+                    #response : CollisionResponse
+                    +setResponse(response)
+                    {abstract} +addActor(actor)
+                    {abstract} +addEntity(entity)
+                    {abstract} +removeEntity(entity)
+                    {abstract} +update(dt)
+                }
+                abstract CollisionResponse {
+                    +collisionResponse(data,dt)
+                }
+            }
+        }
+    }
+}
+
+StageParser --> Stage : Should generate
+Stage "1" *-- "1" Map : Own
+Stage "1" *-- "1" Camera : Own
+Stage "1" *-- "1" PhysicalWorld : Own
+Stage "1" *-- "*" Entity : Should own
+PhysicalWorld "1"*--"*" Entity : Should own
+PhysicalWorld "1"*--"1" CollisionResponse : Own
+
+Entity <|.. ImmutableObject
+
+@enduml

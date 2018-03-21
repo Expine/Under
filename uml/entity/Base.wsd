@@ -1,0 +1,148 @@
+@startuml EntityBase
+package under {
+    package base {
+        package stage {
+            package entity {
+                abstract Entity {
+                    +Entity(x,y,width,height,imageID)
+                    +x : number
+                    +y : number
+                    +width : number
+                    +height : number
+                    #imageID : number
+                    +directionX : number
+                    +directionY : number
+                    +stage : Stage
+                    +collider : Collider
+                    +material : Material
+                    +setStage(stage)
+                    +setCollider(collider)
+                    +setMaterial(material)
+                    {abstract} +update(dt)
+                    {abstract} +render(ctx,shiftX,shiftY)
+                }
+                abstract ImmutableObject {
+
+                }
+                abstract MutableObject {
+                    +body : RigidBody
+                    +setRigidBody(body)
+                    +deltaMove(dx,dy)
+                }
+                abstract AutonomyObject {
+                    {abstract} +addAI(ai,priotiy)
+                    {abstract} +removeAI(ai)
+                }
+
+                abstract BreakableObject {
+                    {abstract} +getHP() : number
+                    {abstract} +damage(damage)
+                    {abstract} +destroy()
+                }
+            }
+            package physics {
+                package collider {
+                    abstract Collider {
+                        #aabb : AABB
+                        +collisions : Array<CollisionData>
+                        +isResponse : bool
+                        +enable : bool
+                        #entity : Entity
+                        +init()
+                        +setEntity(entity)
+                        +addCollision(collision)
+                        +getAABB() : AABB
+                        {abstract} +isInCollider(x,y) : bool
+                        {abstract} +isCollision(collider,data)
+                        +isCollisionRoughly(collider)
+                        {abstract} +update()
+                        {abstract} +render(ctx,shiftX,shiftY)
+                    }
+                    class AABB {
+                        +startX : number
+                        +startY : number
+                        +endX : number
+                        +endY : number
+                    }
+                    class CollisionData {
+                        +CollisionData(e1,e2,nx,ny,depth) : CollisionData
+                        +e1 : Entity
+                        +e2 : Entity
+                        +nx : number
+                        +ny : number
+                        +depth : number
+                    }
+                }
+                package material {
+                    abstract Material {
+                        +Material(mass,elasticity,mu) : Material
+                        +mass : number
+                        +e : number
+                        +mu : number
+                    }
+                }
+                package body {
+                    abstract RigidBody {
+                        #velocityX : number
+                        #velocityY : number
+                        #accelerationX : number
+                        #accelerationY : number
+                        +preVelocityX : number
+                        +preVelocityY : number
+                        +preAccelerationX : number
+                        +preAccelerationY : number
+                        +k : number
+                        #entity : Entity
+                        +setEntity(entity)
+                        {abstract} +setNextAddVelocity(vx,vy)
+                        {abstract} +update(dt)
+                    }
+                }
+            }
+            package ai {
+                abstract AI {
+                    #entity : AutonomyObject
+                    +setEntity(entity)
+                    {abstract} +init()
+                    {abstract} +apply(dt) : bool
+                }
+                abstract StateAI {
+                    {abstract} +getState() : State
+                    {abstract} +changeState(state)
+                }
+                abstract State {
+                    #entity : AutonomyObject
+                    #ai : StateAI
+                    +setEntity(entity)
+                    +setAI(ai)
+                    {abstract} +init()
+                    {abstract} +apply(dt) : bool
+                    {abstract} +render(ctx.shiftX,shiftY)
+                }
+            }
+        }
+    }
+}
+
+Entity <|-- ImmutableObject
+Entity <|-- MutableObject
+MutableObject <|-- AutonomyObject
+AutonomyObject <|-- BreakableObject
+
+Entity "1" o--"1" Collider : Initialize and own
+Entity "1" o--"1" Material ::Own
+Collider ..> Entity : Own
+MutableObject "1"*--"1" RigidBody : Initialize and own
+RigidBody .> MutableObject : Own
+
+AutonomyObject "1"*--"*" AI : Should own
+AI <|-- StateAI
+AI ..> AutonomyObject : Own
+StateAI "1"*--"*" State : Should own
+State ..> StateAI : Own
+State ..> AutonomyObject : Own
+
+Collider "1" o-- "*" CollisionData : Keep collision data
+Collider "1" *-- "1" AABB : Set up AABB
+
+@enduml

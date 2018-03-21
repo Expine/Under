@@ -1,0 +1,126 @@
+@startuml StageExtend
+package under {
+    package extend {
+        package ex_stage {
+            class CSVStageParser {
+                #makeBaseStage() : Stage
+                #makeBaseMap(imageID,width,height) : Map
+                #makeBaseCamera(width,height) : Camera
+                #makeBaseWorld() : PhysicalWorld
+                #makeTileobject(verticalId,horizontalId,tileWidth,tileHeight,x,y,width,height,imageID) : TileObject
+            }
+            class JSONStageParser {
+                #makeBaseStage() : Stage
+                #makeBaseMap(map) : Map
+                #makeBaseCamera(camera,width,height) : Camera
+                #makeBaseWorld() : PhysicalWorld
+                #makeTileobject(tile,chip) : TileObject
+            }
+            class SplitManagementStage {
+                -mutables_ : Array<MutableObject>
+                -entities_ : Array<Entity>
+                -player_ : Player
+                -enable_ : bool
+            }
+            package ex_map {
+                class SequentialMap {
+                    -maps_ : Array<Map>
+                }
+                class InvariantBackMap {
+                    +InvariantBackMap(imageID,width,height)
+                    -backID_ : number
+                }
+            }
+            package ex_camera {
+                class CenterCamera
+            }
+
+            package ex_entity {
+                class TileObject {
+                    #srcX : number
+                    #srcY : number
+                    #srcW : number
+                    #srcH : number
+                }
+            }
+
+            package ex_physics {
+                class SequentialWorld {
+                    #collisions : Array<CollisionData>
+                    #collisionSize : number
+                    #actors : Array<Entity>
+                    #entities : Array<Entity>
+                }
+                class ImpulseBasedResponse
+                class RepulsionResponse
+            }
+        }
+    }
+}
+
+package _ {
+    package entity {
+        class Player
+        class Enemy
+    }
+    package physics {
+        class CircleCollider
+        class RectangleCollider
+        class RoundRectangleCollider
+        class MaxAdoptBody
+        class DefaultMaterial
+        class CollisionData
+    }
+}
+
+package base {
+    abstract ImmutableObject
+    abstract StageParser
+    abstract Stage
+    abstract Map
+    abstract Camera
+    abstract CollisionResponse
+    abstract PhysicalWorld
+}
+
+CSVStageParser ...> SplitManagementStage : Generate
+CSVStageParser ...> CenterCamera : Generate
+CSVStageParser ...> InvariantBackMap : Generate
+CSVStageParser ...> SequentialWorld : Generate
+CSVStageParser ...> RepulsionResponse : Generate
+CSVStageParser ...> TileObject : Generate
+CSVStageParser ...> RectangleCollider : Generate
+CSVStageParser ...> DefaultMaterial : Generate
+JSONStageParser ...> SplitManagementStage : Generate
+JSONStageParser ...> CenterCamera : Generate
+JSONStageParser ...> SequentialMap : Generate
+JSONStageParser ...> InvariantBackMap : Generate
+JSONStageParser ...> SequentialWorld : Generate
+JSONStageParser ...> RepulsionResponse : Generate
+JSONStageParser ...> TileObject : Generate
+JSONStageParser ...> RectangleCollider : Generate
+JSONStageParser ...> CircleCollider : Generate
+JSONStageParser ...> RoundRectangleCollider : Generate
+JSONStageParser ...> DefaultMaterial : Generate
+JSONStageParser ...> MaxAdoptBody : Generate
+JSONStageParser ...> Player : Generate
+JSONStageParser ...> Enemy : Generate
+
+SplitManagementStage "1" *-- "1" Player : Own for camera
+
+ImpulseBasedResponse ..> CollisionData : Collision response
+RepulsionResponse ..> CollisionData : Collision response
+
+CSVStageParser ..|> StageParser
+JSONStageParser ..|> StageParser
+SplitManagementStage ..|> Stage
+CenterCamera ..|> Camera
+SequentialMap ..|> Map
+InvariantBackMap ..|> Map
+SequentialWorld ..|> PhysicalWorld
+SequentialWorld "1" o--"*"CollisionData : Pool
+TileObject ..|> ImmutableObject
+ImpulseBasedResponse ..|> CollisionResponse
+RepulsionResponse ..|> CollisionResponse
+
+@enduml

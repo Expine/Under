@@ -1,6 +1,7 @@
 /**
  * Single Animation
  * Manages an animation and run single animation
+ * @implements {Animation}
  * @classdesc Animation to manage an animation
  */
 class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
@@ -125,7 +126,9 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
      * @param {number} height Image height
      */
     render(ctx, x, y, width, height) {
-        let it = this.animation[this.runningAnimation];
-        ctx.drawImage(it.imageID, x, y, width, height, it.srcX, it.srcY, it.srcW, it.srcH);
+        if (this.animation.length > 0) {
+            let it = this.animation[this.runningAnimation];
+            ctx.drawImage(it.imageID, x, y, width, height, it.srcX, it.srcY, it.srcW, it.srcH);
+        }
     }
 }

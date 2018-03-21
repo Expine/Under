@@ -12,6 +12,6 @@ class PlayerGameoverStateAI extends NamedStateAI { // eslint-disable-line  no-un
     constructor() {
         super(`gameover`);
 
-        this.namedStates[`gameover`] = PGameoverState;
+        this.namedStates[`gameover`] = new PGameoverState();
     }
 }

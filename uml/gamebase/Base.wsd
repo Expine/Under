@@ -1,0 +1,165 @@
+@startuml GameBaseBase
+
+package under {
+    package base {
+        abstract EngineBuilder {
+            {abstract} #makeEngine() : Engine
+            {abstract} #makeInput() : Input
+            {abstract} #makeContext() : Context
+            {abstract} #makeMusic() : Music
+            {abstract} #makeSceneManager() : SceneManager
+            +build() : Engine
+        }
+        abstract Engine {
+            #input : Input
+            #screen : Screen
+            #manager : SceneManager
+            #context : Context
+            #music : Music
+            +setInput(input)
+            +setScreen(screen)
+            +setContext(context)
+            +setSceneManager(manager)
+            +setMusic(music)
+            +execute(scene)
+            {abstract} #main()
+        }
+
+        package input {
+            abstract Input {
+                {static} +it : Input /' Singleton '/
+                #screen : Screen
+                #target : Element
+                +setScreen(screen)
+                {abstract} #onMouseMove(mouseEvent)
+                {abstract} #onMouseDown(mouseEvent)
+                {abstract} #onMouseUp(mouseEvent)
+                {abstract} #onKeyDown(keyEvent)
+                {abstract} #onKeyUp(keyEvent)
+                {abstract} #clear()
+                {abstract} +update()
+                {abstract} +getMouseX() : number
+                {abstract} +getMouseY() : number
+                {abstract} +isMousePress(code) : bool
+                {abstract} +isMousePressed(code) : bool
+                {abstract} +isKeyPress(code) : bool
+                {abstract} +isKeyPressed(code) : bool
+            }
+        }
+
+        package screen {
+            abstract Screen {
+                +Screen(width, height) : Screen
+                {static} +it : Screen /' Singleton '/
+                +gameSize : number
+                +width : number
+                +height : number
+                {abstract} +getTarget() : Element
+                {abstract} +getCanvas() : Canvas
+            }
+        }
+
+        package music {
+            abstract Music {
+                {static} +it : Music /' Singleton '/
+                {abstract} +loadMusic(filePath) : number
+                {abstract} +unloadMusic(musicID)
+                {abstract} +playSE(musicID)
+                {abstract} +playBGM(musicID)
+                {abstract} +pauseBGM()
+                {abstract} +resumeBGM()
+                {abstract} +stopBGM()
+            }
+        }
+
+        package context {
+            abstract Context {
+                #screen : Screen
+                #image : ContextImage
+                +setScreen(screen)
+                {abstract} +setContextImage(contextImage)
+                {abstract} +setFontColorByame(colorName)
+                {abstract} +setFontColorByRGB(r,g,b)
+                {abstract} +setFontSize(size)
+                {abstract} +setFontName(fontName)
+                {abstract} +preRendering()
+                {abstract} +postRendering()
+                {abstract} +fillText(text,x,y,anchorX,anchorY,size,color,font)
+                {abstract} +strokeLine(sx,sy,ex,ey,color,lineWidth)
+                {abstract} +strokeCircle(x,y,radius,startAngle,endAngle,anticlockwise,color,lineWidth)
+                {abstract} +strokeRect(x,y,width,height,color,lineWidth)
+                {abstract} +drawImage(imageID,x,y,width,height,srcX,srcY,srcW,srcH)
+            }
+            abstract ContextImage {
+                {static} +it : ContextImage /' Singleton '/
+                {abstract} +loadImage(filePath) : number
+                {abstract} +getImage(id) : Image
+            }
+
+            abstract Animation {
+                {abstract} +init()
+                {abstract} +setLoop(loop)
+                {abstract} +isLoop() : bool
+                {abstract} +isEnded() : bool
+                {abstract} +addAnimation(element)
+                {abstract} +update(dt)
+                {abstract} +render(ctx,x,y,width,height)
+            }
+            abstract NamedAnimation {
+                {abstract} +setName(name)
+            }
+            class AnimationElement {
+                +imageID : number
+                +srcX : number
+                +srcY : number
+                +srcW : number
+                +srcH : number
+                +delta : number
+            }
+        }
+
+        package scene {
+            abstract SceneManager {
+                {static} +it : SceneManager /' Singleton '/
+                {abstract} +getScene() : Scene
+                {abstract} +pushScene(scene)
+                {abstract} +popScene()
+                {abstract} +replaceScene(scene)
+                {abstract} +update(dt)
+                {abstract} +render(ctx)
+            }
+            abstract Scene {
+                {abstract} +init()
+                {abstract} +update(dt)
+                {abstract} +render(ctx)
+            }
+        }
+
+        package layer {
+            abstract Layer {
+                {abstract} +update(dt)
+                {abstract} +render(ctx)
+            }
+        }
+    }
+}
+
+EngineBuilder --> Engine : Should generate
+Engine "1"*-- "1" Screen : Own
+Engine "1"*-- "1" Input : Own
+Engine "1"*-- "1" SceneManager : Own
+Engine "1"*-- "1" Context : Own
+Engine "1"*-- "1" Music : Own
+
+Input .> Screen : Input target
+Context .> Screen : Rendering target
+
+SceneManager "1"*--"*" Scene : Should own
+Scene "1" o--"*" Layer : May own
+Context "1"*--"1" ContextImage : Own
+
+Animation "1"*--"*"AnimationElement : Should own
+
+Animation <|-- NamedAnimation
+
+@enduml

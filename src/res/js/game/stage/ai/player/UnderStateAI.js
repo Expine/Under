@@ -12,6 +12,6 @@ class UnderStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
     constructor() {
         super(`under`);
 
-        this.namedStates[`under`] = PUnderState;
+        this.namedStates[`under`] = new PUnderState();
     }
 }
