@@ -2,3 +2,5 @@
 /node_modules/
 *.class
 src/res/sound/test.mp3
+src/editor/res/js/use/Editor.js
+src/res/js/use/Game.js
