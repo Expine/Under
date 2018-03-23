@@ -49,7 +49,7 @@ class NormalStationaryState extends UnderPlayerState { // eslint-disable-line  n
             }
             this.ai.changeState(`walk`);
         }
-        if (Input.it.isDownPress()) {
+        if (Input.it.isDownPressed() && Util.onGround(this.entity)) {
             this.ai.changeState(`grab`);
         }
         if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
