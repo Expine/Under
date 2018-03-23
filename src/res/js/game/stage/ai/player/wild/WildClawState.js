@@ -1,9 +1,9 @@
 /**
  * State of wild clawing
- * @extends {PPunchState}
+ * @extends {NormalPunchState}
  * @classdesc State of wild clawing
  */
-class WildClawState extends PPunchState { // eslint-disable-line  no-unused-vars
+class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused-vars
     /**
      * Make attack object
      * @return {AttackObject}

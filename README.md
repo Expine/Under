@@ -28,7 +28,7 @@ Under game project
 - GameScene is provisional implementation
 - DebugLayer sometimes ignores the access level
 
-### StgeParser
+### StageParser
 - Since StageParser has a lot of dependence on generation, I write it separately
 #### CSV
 ![ParserCSV](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/parser/CSV/ParserCSV.png)
@@ -61,7 +61,6 @@ Under game project
     - MutableObject is an object which does not move on its own
     - AutonomyObject is a self-moving object
 - I want to interface whether it is destructible or not
--
 
 #### Extend
 ![EntityExtend](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/Extend/EntityExtend.png)

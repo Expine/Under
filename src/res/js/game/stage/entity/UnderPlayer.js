@@ -20,9 +20,22 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
         /**
          * Currently used AI
          * @protected
-         * @type {AI}
+         * @type {TransferableStateAI}
          */
         this.aiType = null;
+    }
+
+    /**
+     * Add AI system
+     * @override
+     * @param {AI} ai AI to control this
+     * @param {number} priority priority of AI. If it is a positive number count from the front, if it is a negative number count from the back
+     */
+    addAI(ai, priority = -1) {
+        if (ai instanceof TransferableStateAI) {
+            this.aiType = ai;
+        }
+        super.addAI(ai, priority);
     }
 
     /**
@@ -46,13 +59,12 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
         // set type
         let ai = null;
         let id = ground.terrainID;
-        //        console.log(`Tile ID is ${id}`);
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
                 break;
             case 1:
-                ai = new PlayerBaseStateAI();
+                ai = new NormalBaseStateAI();
                 break;
         }
         // inspect whether it changes
@@ -60,8 +72,8 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
             return;
         }
         // remove currently AI
+        this.aiType.transfer(ai);
         this.removeAI(this.aiType);
         this.addAI(ai);
-        this.aiType = ai;
     }
 }

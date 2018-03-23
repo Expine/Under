@@ -1,11 +1,11 @@
 /**
- * State of player's jump
- * @implements {BaseState}
- * @classdesc State of player's jump
+ * State of normal jump
+ * @implements {TransferableState}
+ * @classdesc State of normal jump
  */
-class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
+class NormalJumpState extends TransferableState { // eslint-disable-line  no-unused-vars
     /**
-     * Player jump state constructor
+     * Normal jump state constructor
      * @constructor
      * @param {number} jumpPower Jumping force
      */

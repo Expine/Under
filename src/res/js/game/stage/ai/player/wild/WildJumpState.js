@@ -1,9 +1,9 @@
 /**
  * State of wild's jump
- * @implements {PJumpState}
+ * @implements {NormalJumpState}
  * @classdesc State of wild's jump
  */
-class WildJumpState extends PJumpState { // eslint-disable-line  no-unused-vars
+class WildJumpState extends NormalJumpState { // eslint-disable-line  no-unused-vars
     /**
      * Apply AI and decide action
      * @override

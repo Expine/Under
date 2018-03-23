@@ -48,6 +48,9 @@ package under {
             package physics {
                 abstract PhysicalWorld
                 abstract CollisionResponse
+                package collider {
+                    class CollisionData
+                }
             }
         }
     }
@@ -57,26 +60,23 @@ package under {
             package ex_entity {
                 class Player
             }
-            package ex_physics {
-                class CollisionData
-            }
         }
     }
 }
 
 
-Player "1"--*"1" SplitManagementStage : Own for camera
+SplitManagementStage "1"*--"1" Player : Own for camera
 
 CollisionData <.. ImpulseBasedResponse : Collision response
 CollisionData <.. RepulsionResponse : Collision response
 CollisionData "1"--o "*"SequentialWorld : Pool
 
-SplitManagementStage ..|> Stage
-CenterCamera ..|> Camera
-SequentialMap ..|> Map
-InvariantBackMap ..|> Map
-SequentialWorld ..|> PhysicalWorld
-ImpulseBasedResponse ..|> CollisionResponse
-RepulsionResponse ..|> CollisionResponse
+Stage <|.. SplitManagementStage
+Camera <|.. CenterCamera
+Map <|.. SequentialMap
+Map <|.. InvariantBackMap
+PhysicalWorld <|.. SequentialWorld
+CollisionResponse <|.. ImpulseBasedResponse
+CollisionResponse <|.. RepulsionResponse
 
 @enduml

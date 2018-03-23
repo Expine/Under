@@ -1555,7 +1555,7 @@
                 "ai": [{
                     "name": "UnderStateAI"
                 }, {
-                    "name": "PlayerBaseStateAI"
+                    "name": "NormalBaseStateAI"
                 }]
             },
             {
