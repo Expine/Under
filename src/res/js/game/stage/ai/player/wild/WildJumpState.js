@@ -12,7 +12,7 @@ class WildJumpState extends NormalJumpState { // eslint-disable-line  no-unused-
      */
     apply(dt) {
         // animation
-        this.jumpCount_ += dt / 25;
+        this.stateAnimation.update(dt * 4);
         return super.apply(dt);
     }
 }

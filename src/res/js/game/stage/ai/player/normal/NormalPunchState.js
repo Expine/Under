@@ -1,9 +1,9 @@
 /**
  * State of normal punching
- * @implements {TransferableState}
+ * @implements {UnderPlayerState}
  * @classdesc State of normal punching
  */
-class NormalPunchState extends TransferableState { // eslint-disable-line  no-unused-vars
+class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Make attack object
      * @protected

@@ -1502,7 +1502,7 @@
                             }
                         ]
                     },
-                    "under": {
+                    "grab": {
                         "file": "player.png",
                         "animation": [{
                                 "direction": {
@@ -1553,8 +1553,6 @@
                     "mu": 0.95
                 },
                 "ai": [{
-                    "name": "UnderStateAI"
-                }, {
                     "name": "NormalBaseStateAI"
                 }]
             },

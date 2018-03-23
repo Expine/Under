@@ -1,9 +1,9 @@
 /**
  * State of walking normally
- * @implements {TransferableState}
+ * @implements {UnderPlayerState}
  * @classdesc State of walking normally
  */
-class NormalWalkState extends TransferableState { // eslint-disable-line  no-unused-vars
+class NormalWalkState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Normal walk state constructor
      * @constructor
@@ -55,6 +55,10 @@ class NormalWalkState extends TransferableState { // eslint-disable-line  no-unu
         // stationary
         if (!input && Math.abs(this.entity.body.preVelocityX) < 10) {
             this.ai.changeState(`stationary`);
+        }
+        // grab
+        if (Input.it.isDownPress()) {
+            this.ai.changeState(`grab`);
         }
         // jump
         if (Input.it.isUpPressed() && Util.onGround(this.entity)) {

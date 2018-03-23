@@ -18,5 +18,6 @@ class NormalBaseStateAI extends TransferableStateAI { // eslint-disable-line  no
         this.namedStates[`walkjump`] = new NormalJumpState(300);
         this.namedStates[`jumping`] = new NormalJumpingState(200, 12000);
         this.namedStates[`attack`] = new NormalPunchState();
+        this.namedStates[`grab`] = new NormalGrabState();
     }
 }

@@ -1,9 +1,9 @@
 /**
  * State of normal jump
- * @implements {TransferableState}
+ * @implements {UnderPlayerState}
  * @classdesc State of normal jump
  */
-class NormalJumpState extends TransferableState { // eslint-disable-line  no-unused-vars
+class NormalJumpState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Normal jump state constructor
      * @constructor
@@ -50,7 +50,6 @@ class NormalJumpState extends TransferableState { // eslint-disable-line  no-unu
     apply(dt) {
         // animation
         this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.1 - this.entity.body.preVelocityX, 0);
-        this.jumpCount_ += dt / 200;
 
         // judge
         if (!Util.onGround(this.entity)) {

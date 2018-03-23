@@ -62,9 +62,11 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
+                this.imageID = ContextImage.it.loadImage(`res/image/chara/wild.png`);
                 break;
             case 1:
                 ai = new NormalBaseStateAI();
+                this.imageID = ContextImage.it.loadImage(`res/image/chara/player.png`);
                 break;
         }
         // inspect whether it changes

@@ -17,5 +17,6 @@ class WildBaseStateAI extends TransferableStateAI { // eslint-disable-line  no-u
         this.namedStates[`walkjump`] = new WildJumpState(440);
         this.namedStates[`jumping`] = new NormalJumpingState(300, 18000);
         this.namedStates[`attack`] = new WildClawState();
+        this.namedStates[`grab`] = new NormalGrabState();
     }
 }

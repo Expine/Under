@@ -1,9 +1,9 @@
 /**
  * State of normal jumping
- * @implements {TransferableState}
+ * @implements {UnderPlayerState}
  * @classdesc State of normal jumping
  */
-class NormalJumpingState extends TransferableState { // eslint-disable-line  no-unused-vars
+class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Normal jump state constructor
      * @constructor

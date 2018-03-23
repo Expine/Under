@@ -1,9 +1,9 @@
 /**
  * State of noraml stationary
- * @implements {TransferableState}
+ * @implements {UnderPlayerState}
  * @classdesc State of normal stationary
  */
-class NormalStationaryState extends TransferableState { // eslint-disable-line  no-unused-vars
+class NormalStationaryState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Normal stationary state constructor
      * @constructor
@@ -48,6 +48,9 @@ class NormalStationaryState extends TransferableState { // eslint-disable-line  
                 this.entity.body.enforce(vx * this.walkPower / dt, 0);
             }
             this.ai.changeState(`walk`);
+        }
+        if (Input.it.isDownPress()) {
+            this.ai.changeState(`grab`);
         }
         if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
             this.ai.changeState(`jump`);

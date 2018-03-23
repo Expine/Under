@@ -14,10 +14,13 @@ class TransferableStateAI extends NamedStateAI { // eslint-disable-line  no-unus
             if (this.namedStates.hasOwnProperty(name)) {
                 let other = state.namedStates[name];
                 if (other instanceof TransferableState) {
+                    // transfer state
                     this.namedStates[name].transfer(other);
                 }
             }
         }
+        // set same state
+        state.changeState(this.stateName_);
     }
 
 }

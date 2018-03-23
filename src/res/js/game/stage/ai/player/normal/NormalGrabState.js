@@ -1,11 +1,11 @@
 /**
- * State of player under action
- * @implements {BaseState}
- * @classdesc State that player can do under action
+ * State of normal grab action
+ * @implements {UnderPlayerState}
+ * @classdesc State for normal grab action
  */
-class PUnderState extends BaseState { // eslint-disable-line  no-unused-vars
+class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
-     * Player under state constructor
+     * Normal Grab state constructor
      * @constructor
      */
     constructor() {
@@ -43,12 +43,11 @@ class PUnderState extends BaseState { // eslint-disable-line  no-unused-vars
             }
             return true;
         }
-        // initialize
-        if (this.underCount_ > 0) {
-            this.underCount_ -= dt;
+        if (Math.abs(this.entity.body.preVelocityX) < 10) {
+            this.ai.changeState(`stationary`);
         } else {
-            this.underCount_ = 0;
+            this.ai.changeState(`walk`);
         }
-        return false;
+        return true;
     }
 }
