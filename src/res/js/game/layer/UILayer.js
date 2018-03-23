@@ -31,18 +31,18 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {MultiNamedAnimation}
          */
-        this.uiImage = ContextImage.it.loadImage(`res/image/ui/hp.png`);
-        this.uiAnimation = new MultiNamedAnimation(`${this.player.getHP()}-${this.player.getHP()}`);
+        this.uiAnimation = new MultiNamedAnimation();
+        let uiImage = ContextImage.it.loadImage(`res/image/ui/hp.png`);
         for (let i = 0; i < 6; ++i) {
-            this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`);
+            this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`).setAnimation(new SingleAnimation());
             this.uiAnimation.setLoop(i % 2 == 0);
             if (i != 5) {
                 for (let j = 0; j < 4; ++j) {
-                    this.uiAnimation.addAnimatiion(new AnimationElement(this.uiImage, 32 * j, 32 * i, 32, 32, i % 2 == 0 ? 300 : 200));
+                    this.uiAnimation.addAnimation(new AnimationElement(uiImage, 32 * j, 32 * i, 32, 32, i % 2 == 0 ? 300 : 200));
                 }
             } else {
                 for (let j = 0; j < 8; ++j) {
-                    this.uiAnimation.addAnimatiion(new AnimationElement(this.uiImage, 32 * (j % 4), 32 * (i + Math.floor(j / 4)), 32, 32, 200));
+                    this.uiAnimation.addAnimation(new AnimationElement(uiImage, 32 * (j % 4), 32 * (i + Math.floor(j / 4)), 32, 32, 200));
                 }
             }
         }
@@ -75,7 +75,6 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx
      */
     render(ctx) {
-        //        ctx.drawImage(this.uiImage, 10, 530, 64, 64, (Math.floor(this.animationCount / this.animationFrame) % 4) * 32, this.animationState * 32, 32, 32);
         this.uiAnimation.render(ctx, 10, 530, 64, 64);
     }
 }

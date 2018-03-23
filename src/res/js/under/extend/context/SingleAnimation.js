@@ -90,7 +90,7 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
      * @override
      * @param {AnimationElement} element Animation element
      */
-    addAnimatiion(element) {
+    addAnimation(element) {
         this.animation.push(element);
     }
 

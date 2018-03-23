@@ -36,7 +36,7 @@ class Animation { // eslint-disable-line  no-unused-vars
      * @interface
      * @param {AnimationElement} elment Animation element
      */
-    addAnimatiion(elment) {}
+    addAnimation(elment) {}
 
     /**
      * Update animation

@@ -8,9 +8,8 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     /**
      * Multi named animation constructor
      * @constructor
-     * @param {string} name Initial animation name
      */
-    constructor(name) {
+    constructor() {
         super();
 
         /**
@@ -19,8 +18,6 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
          * @type {Dictionary<string, Animation>}
          */
         this.animation = {};
-
-        this.setName(name);
     }
 
     /**
@@ -35,6 +32,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * Set running animation name
      * @override
      * @param {string} name Running animation name
+     * @return {NamedAnimation} This instance
      */
     setName(name) {
         /**
@@ -43,9 +41,25 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
          * @type {string}
          */
         this.name = name;
-        if (this.animation[this.name] === undefined) {
-            this.animation[this.name] = new SingleAnimation();
-        }
+        return this;
+    }
+
+    /**
+     * Get animation from animations
+     * @override
+     * @return {Animation} animation
+     */
+    getAnimation() {
+        return this.animation[this.name];
+    }
+
+    /**
+     * Set animation into animations
+     * @interface
+     * @param {Animation} animation
+     */
+    setAnimation(animation) {
+        this.animation[this.name] = animation;
     }
 
     /**
@@ -80,8 +94,8 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @override
      * @param {AnimationElement} element Animation element
      */
-    addAnimatiion(element) {
-        this.animation[this.name].addAnimatiion(element);
+    addAnimation(element) {
+        this.animation[this.name].addAnimation(element);
     }
 
     /**

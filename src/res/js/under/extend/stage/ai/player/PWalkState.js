@@ -1,9 +1,9 @@
 /**
  * State of walking player
- * @implements {State}
+ * @implements {BaseState}
  * @classdesc State of walking player
  */
-class PWalkState extends State { // eslint-disable-line  no-unused-vars
+class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars
     /**
      * Player walk state constructor
      * @constructor
@@ -11,7 +11,7 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} walkPower The power to walk
      */
     constructor(maxVelocityX, walkPower) {
-        super();
+        super(`walk`);
 
         /**
          * Count for animation
@@ -85,16 +85,5 @@ class PWalkState extends State { // eslint-disable-line  no-unused-vars
             input = true;
         }
         return true;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, (Math.floor(this.walkCount_) % 4) * 32, 16 - this.entity.directionX * 16, 32, 32);
     }
 }

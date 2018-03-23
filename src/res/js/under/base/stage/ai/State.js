@@ -30,6 +30,18 @@ class State { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set state animation
+     * @param {Animation} stateAnimation State animation
+     */
+    setStateAnimaton(stateAnimation) {
+        /**
+         * State animation
+         * @type {Animation}
+         */
+        this.stateAnimation = stateAnimation;
+    }
+
+    /**
      * Initialize
      * @interface
      */
@@ -42,6 +54,13 @@ class State { // eslint-disable-line  no-unused-vars
      * @return {bool} Whether decided on action
      */
     apply(dt) {}
+
+    /**
+     * Update state
+     * @interface
+     * @param {number} dt Delta time
+     */
+    update(dt) {}
 
     /**
      * Render entity by this state

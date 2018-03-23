@@ -57,6 +57,15 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Update state
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        this.state_.update(dt);
+    }
+
+    /**
      * Get state
      * @override
      * @return {State} state of ai

@@ -105,8 +105,12 @@ package under {
                 {abstract} +update(dt)
                 {abstract} +render(ctx,x,y,width,height)
             }
+            abstract MultiAnimation {
+                {abstract} +getAnimation() : Animation
+                {abstract} +setAnimation(animation)
+            }
             abstract NamedAnimation {
-                {abstract} +setName(name)
+                {abstract} +setName(name) : NamedAnimation
             }
             class AnimationElement {
                 +imageID : number
@@ -160,6 +164,7 @@ Context "1"*--"1" ContextImage : Own
 
 Animation "1"*--"*"AnimationElement : Should own
 
-Animation <|-- NamedAnimation
+Animation <|-- MultiAnimation
+MultiAnimation <|-- NamedAnimation
 
 @enduml

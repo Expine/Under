@@ -104,6 +104,9 @@ class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused
      */
     update(dt) {
         for (let it of this.ai) {
+            it.update(dt);
+        }
+        for (let it of this.ai) {
             if (it.apply(dt)) {
                 break;
             }

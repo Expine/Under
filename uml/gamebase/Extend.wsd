@@ -52,6 +52,7 @@ package under {
                 #ended : bool
             }
             class MultiNamedAnimation {
+                #name : string
                 #animation : Dictionary<string, Animation>
             }
         }

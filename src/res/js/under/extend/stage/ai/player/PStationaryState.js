@@ -1,9 +1,9 @@
 /**
  * State of player's stationary
- * @implements {State}
+ * @implements {BaseState}
  * @classdesc State of player's stationary
  */
-class PStationaryState extends State { // eslint-disable-line  no-unused-vars
+class PStationaryState extends BaseState { // eslint-disable-line  no-unused-vars
     /**
      * Player stationary state constructor
      * @constructor
@@ -11,7 +11,7 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} walkPower The power to walk
      */
     constructor(maxVelocityX, walkPower) {
-        super();
+        super(`stationary`);
 
         /**
          * Maximum speed vector
@@ -56,16 +56,5 @@ class PStationaryState extends State { // eslint-disable-line  no-unused-vars
             this.ai.changeState(`attack`);
         }
         return true;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, 0, 16 - this.entity.directionX * 16, 32, 32);
     }
 }

@@ -88,11 +88,15 @@ GameScene ..> Player : Pass to another class, transtate gameover state
 GameScene ..> PlayerGameoverStateAI : Generate
 GameScene ..> RoundRectangleCollider : Generate
 GameScene ..> TitleScene : Generate
+GameScene ..> MultiNamedAnimation : Set other
+GameScene ..> SingleAnimation : Set other
 
 DebugLayer ..> Player : Get player information
 DebugLayer ..> ImpulseBasedResponse : Get physical state
 DebugLayer ..> SplitManagementStage : Get stage information
 DebugLayer ..> SequentialWorld : Get physical information
+
+UILayer ..> MultiNamedAnimation : Use
 
 MainBuilder --|> UnderEngineBuilder
 ExtendInput --|> AllInput

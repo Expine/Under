@@ -105,6 +105,7 @@ package under {
                     +setEntity(entity)
                     {abstract} +init()
                     {abstract} +apply(dt) : bool
+                    {abstract} +update(dt)
                 }
                 abstract StateAI {
                     {abstract} +getState() : State
@@ -115,8 +116,10 @@ package under {
                     #ai : StateAI
                     +setEntity(entity)
                     +setAI(ai)
+                    +setStateAnimation(stateAnimation)
                     {abstract} +init()
                     {abstract} +apply(dt) : bool
+                    {abstract} +update(dt)
                     {abstract} +render(ctx.shiftX,shiftY)
                 }
             }
@@ -141,6 +144,7 @@ AI ..> AutonomyObject : Own
 StateAI "1"*--"*" State : Should own
 State ..> StateAI : Own
 State ..> AutonomyObject : Own
+State "1" o--"1" Animation : Maybe own
 
 Collider "1" o-- "*" CollisionData : Keep collision data
 Collider "1" *-- "1" AABB : Set up AABB

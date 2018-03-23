@@ -143,6 +143,16 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     }
 
     /**
+     * Make animation
+     * @protected
+     * @param {json} anime Animation information
+     * @return {Animation} Animation
+     */
+    makeAnimation(anime) {
+        let base = new MultiNamedAnimation();
+    }
+
+    /**
      * Make entity
      * @protected
      * @param {json} info Entity information json data

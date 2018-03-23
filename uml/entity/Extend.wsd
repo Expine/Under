@@ -16,6 +16,9 @@ package under {
                 }
                 class StateCharacter {
                     #state : State
+                    #stateAnimation : NamedAnimation
+                    +setAnimationBase(base)
+                    +addAnimation(stateAnimation,dirX,dirY)
                 }
                 class Enemy
                 class Player {
@@ -73,6 +76,11 @@ package under {
                     #walkPower : number
                 }
                 class EnemyAI
+
+                class BaseState {
+                    +BaseState(name) : BaseState
+                    -name_ : string
+                }
 
                 package ex_player {
                     class PlayerBaseStateAI
@@ -144,8 +152,10 @@ StraightAI <|-- EnemyAI
 NamedStateAI <|-- PlayerBaseStateAI
 NamedStateAI <|-- PlayerGameoverStateAI
 
-State <|.. PStationaryState
-State <|.. PWalkState
+State <|.. BaseState
+BaseState <|-- PStationaryState
+BaseState <|-- PWalkState
+
 State <|.. PJumpState
 State <|.. PJumpingState
 State <|.. PPunchState
