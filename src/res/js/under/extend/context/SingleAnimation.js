@@ -56,6 +56,7 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     init() {
         this.animationCount = 0;
         this.runningAnimation = 0;
+        this.ended = false;
     }
 
     /**

@@ -30,18 +30,6 @@ class State { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set state animation
-     * @param {Animation} stateAnimation State animation
-     */
-    setStateAnimaton(stateAnimation) {
-        /**
-         * State animation
-         * @type {Animation}
-         */
-        this.stateAnimation = stateAnimation;
-    }
-
-    /**
      * Initialize
      * @interface
      */

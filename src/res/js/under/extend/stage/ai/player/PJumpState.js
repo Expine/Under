@@ -1,9 +1,9 @@
 /**
  * State of player's jump
- * @implements {State}
+ * @implements {BaseState}
  * @classdesc State of player's jump
  */
-class PJumpState extends State { // eslint-disable-line  no-unused-vars
+class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
     /**
      * Player jump state constructor
      * @constructor
@@ -11,13 +11,6 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      */
     constructor(jumpPower) {
         super();
-
-        /**
-         * Count for animation
-         * @private
-         * @type {number}
-         */
-        this.jumpCount_ = 0;
 
         /**
          * Count for judging on air
@@ -38,7 +31,7 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        this.jumpCount_ = 0;
+        super.init();
         this.inAirCount_ = 0;
 
         /**
@@ -67,8 +60,9 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
         } else {
             this.inAirCount_ = 0;
         }
-
-        if (this.jumpCount_ >= 3 && this.inAirCount_ == 0) {
+        console.log(this);
+        console.log(this.stateAnimation.getAnimation());
+        if (this.stateAnimation.isEnded() && this.inAirCount_ == 0) {
             // reset and jump
             this.entity.body.setNextAddVelocity(this.velocityX - this.entity.body.preVelocityX, -this.entity.body.preVelocityY);
             this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
@@ -76,16 +70,5 @@ class PJumpState extends State { // eslint-disable-line  no-unused-vars
         }
 
         return true;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, (Math.floor(this.jumpCount_)) * 32, 80 - this.entity.directionX * 16, 32, 32);
     }
 }

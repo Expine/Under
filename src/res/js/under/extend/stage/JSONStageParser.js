@@ -119,12 +119,42 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     }
 
     /**
+     * Make animation
+     * @protected
+     * @param {json} anime Animation json data
+     * @return {NamedAnimation} Animation
+     */
+    makeAnimation(anime) {
+        let base = new MultiNamedAnimation();
+        let id = ContextImage.it.loadImage(`res/image/chara/${anime.file}`);
+        for (let it of anime.animation) {
+            base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation());
+            for (let e of it.list) {
+                base.addAnimation(new AnimationElement(id, e.srcX, e.srcY, e.srcW, e.srcH, e.delta));
+            }
+        }
+        return base;
+    }
+
+    /**
      * Make AI
      * @param {json} ai AI information json data
+     * @param {json} animation AI animation json data
      * @return {AI} AI
      */
-    makeAI(ai) {
-        return eval(`new ${ai.name}()`);
+    makeAI(ai, animation) {
+        let ret = eval(`new ${ai.name}()`);
+        if (ret instanceof StateAI) {
+            for (let name in animation) {
+                if (animation.hasOwnProperty(name)) {
+                    let target = ret.getStateByName(name);
+                    if (target instanceof BaseState) {
+                        target.setStateAnimaton(this.makeAnimation(animation[name]));
+                    }
+                }
+            }
+        }
+        return ret;
     }
 
     /**
@@ -143,16 +173,6 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     }
 
     /**
-     * Make animation
-     * @protected
-     * @param {json} anime Animation information
-     * @return {Animation} Animation
-     */
-    makeAnimation(anime) {
-        let base = new MultiNamedAnimation();
-    }
-
-    /**
      * Make entity
      * @protected
      * @param {json} info Entity information json data
@@ -165,7 +185,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         base.setMaterial(this.makeMaterial(info.material));
         base.setRigidBody(this.makeBody(info.body));
         for (let ai of info.ai) {
-            base.addAI(this.makeAI(ai));
+            base.addAI(this.makeAI(ai, info.animation));
         }
         return base;
     }

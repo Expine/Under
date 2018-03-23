@@ -11,7 +11,7 @@ class PStationaryState extends BaseState { // eslint-disable-line  no-unused-var
      * @param {number} walkPower The power to walk
      */
     constructor(maxVelocityX, walkPower) {
-        super(`stationary`);
+        super();
 
         /**
          * Maximum speed vector

@@ -21,23 +21,6 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
          * @type {Player}
          */
         this.player = this.stage.getEntities().filter((it) => it instanceof Player)[0];
-        this.player.setAnimationBase(new MultiNamedAnimation());
-        let anime = new MultiNamedAnimation();
-        anime.setName(`stationary`).setAnimation(new SingleAnimation());
-        anime.addAnimation(new AnimationElement(this.player.imageID, 0, 0, 32, 32, 200));
-        anime.setName(`walk`).setAnimation(new SingleAnimation());
-        for (let i = 0; i < 4; ++i) {
-            anime.addAnimation(new AnimationElement(this.player.imageID, i * 32, 0, 32, 32, 200));
-        }
-        this.player.addAnimation(anime, 1, 0);
-        let anime2 = new MultiNamedAnimation();
-        anime2.setName(`stationary`).setAnimation(new SingleAnimation());
-        anime2.addAnimation(new AnimationElement(this.player.imageID, 0, 32, 32, 32, 200));
-        anime2.setName(`walk`).setAnimation(new SingleAnimation());
-        for (let i = 0; i < 4; ++i) {
-            anime2.addAnimation(new AnimationElement(this.player.imageID, i * 32, 32, 32, 32, 200));
-        }
-        this.player.addAnimation(anime2, -1, 0);
 
         // initialize layer
         this.layers.length = 0;

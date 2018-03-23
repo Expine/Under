@@ -1,9 +1,9 @@
 /**
  * State of player under action
- * @implements {State}
+ * @implements {BaseState}
  * @classdesc State that player can do under action
  */
-class PUnderState extends State { // eslint-disable-line  no-unused-vars
+class PUnderState extends BaseState { // eslint-disable-line  no-unused-vars
     /**
      * Player under state constructor
      * @constructor
@@ -50,16 +50,5 @@ class PUnderState extends State { // eslint-disable-line  no-unused-vars
             this.underCount_ = 0;
         }
         return false;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, 96, 208 - this.entity.directionX * 16, 32, 32);
     }
 }

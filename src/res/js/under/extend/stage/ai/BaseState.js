@@ -1,5 +1,6 @@
 /**
  * Base state for rendering state animation
+ * Renders animation according to direction
  * @implements {State}
  * @classdesc Base state for rendering state animation
  */
@@ -7,26 +8,43 @@ class BaseState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Base state constructor
      * @constructor
-     * @param {string} name State name
      */
-    constructor(name) {
+    constructor() {
         super();
 
         /**
-         * State name
-         * @private
-         * @type {string}
+         * State animation
+         * @protected
+         * @type {NamedAnimation}
          */
-        this.name_ = name;
+        this.stateAnimation = null;
+    }
+
+    /**
+     * Initialize
+     * @override
+     */
+    init() {
+        if (this.stateAnimation !== null) {
+            this.stateAnimation.init();
+        }
+    }
+
+    /**
+     * Set state animation
+     * @param {NamedAnimation} stateAnimation State animation
+     */
+    setStateAnimaton(stateAnimation) {
+        this.stateAnimation = stateAnimation;
     }
 
     /**
      * Update state
-     * @interface
+     * @override
      * @param {number} dt Delta time
      */
     update(dt) {
-        if (this.stateAnimation !== undefined) {
+        if (this.stateAnimation !== null) {
             this.stateAnimation.update(dt);
         }
     }
@@ -39,11 +57,9 @@ class BaseState extends State { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.stateAnimation !== undefined) {
-            // set name
-            if (this.stateAnimation instanceof NamedAnimation) {
-                this.stateAnimation.setName(this.name_);
-            }
+        if (this.stateAnimation !== null) {
+            // set direction
+            this.stateAnimation.setName(`${this.entity.directionX}-${this.entity.directionY}`);
             // render
             this.stateAnimation.render(ctx, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
         }

@@ -11,14 +11,7 @@ class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars
      * @param {number} walkPower The power to walk
      */
     constructor(maxVelocityX, walkPower) {
-        super(`walk`);
-
-        /**
-         * Count for animation
-         * @private
-         * @type {number}
-         */
-        this.walkCount_ = 0;
+        super();
 
         /**
          * Maximum speed vector
@@ -35,23 +28,12 @@ class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Initialize
-     * @override
-     */
-    init() {
-        this.walkCount_ = 0;
-    }
-
-    /**
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        // for animation
-        this.walkCount_ += dt / 200;
-
         // input
         let input = false;
         let vx = 0;

@@ -53,7 +53,7 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        return this.state_.apply(dt);
+        return this.state_ != null && this.state_.apply(dt);
     }
 
     /**
@@ -62,7 +62,9 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        this.state_.update(dt);
+        if (this.state_ != null) {
+            this.state_.update(dt);
+        }
     }
 
     /**
@@ -72,6 +74,16 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      */
     getState() {
         return this.state_;
+    }
+
+    /**
+     * Get state by name
+     * @interface
+     * @param {string} state State name
+     * @return {State} State of AI
+     */
+    getStateByName(state) {
+        return this.namedStates[state];
     }
 
     /**
@@ -86,6 +98,11 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
         }
         this.stateName_ = state;
         this.state_ = this.namedStates[state];
+        // assign null if it does not exist
+        if (this.state_ === undefined) {
+            this.state_ = null;
+            return;
+        }
         this.state_.setEntity(this.entity);
         this.state_.setAI(this);
         this.state_.init();

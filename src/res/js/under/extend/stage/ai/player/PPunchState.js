@@ -1,3 +1,4 @@
+// TODO: Should implement BaseState
 /**
  * State of player punching
  * @implements {State}
