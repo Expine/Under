@@ -103,7 +103,7 @@ package under {
                 {abstract} +isEnded() : bool
                 {abstract} +addAnimation(element)
                 {abstract} +update(dt)
-                {abstract} +render(ctx,x,y,width,height)
+                {abstract} +render(ctx,x,y,width,height,imageID)
             }
             abstract MultiAnimation {
                 {abstract} +getAnimation() : Animation
