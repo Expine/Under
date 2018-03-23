@@ -125,11 +125,12 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
      * @param {number} y Image y position
      * @param {number} width Image width
      * @param {number} height Image height
+     * @param {number} [imageID=-1] ID of the image to be replaced (-1:not replacing)
      */
-    render(ctx, x, y, width, height) {
+    render(ctx, x, y, width, height, imageID = -1) {
         if (this.animation.length > 0) {
             let it = this.animation[this.runningAnimation];
-            ctx.drawImage(it.imageID, x, y, width, height, it.srcX, it.srcY, it.srcW, it.srcH);
+            ctx.drawImage(imageID == -1 ? it.imageID : imageID, x, y, width, height, it.srcX, it.srcY, it.srcW, it.srcH);
         }
     }
 }

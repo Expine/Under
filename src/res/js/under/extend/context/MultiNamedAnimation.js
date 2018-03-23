@@ -115,8 +115,9 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @param {number} y Image y position
      * @param {number} width Image width
      * @param {number} height Image height
+     * @param {number} [imageID=-1] ID of the image to be replaced (-1:not replacing)
      */
-    render(ctx, x, y, width, height) {
-        this.animation[this.name].render(ctx, x, y, width, height);
+    render(ctx, x, y, width, height, imageID = -1) {
+        this.animation[this.name].render(ctx, x, y, width, height, imageID);
     }
 }
