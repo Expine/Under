@@ -1,0 +1,60 @@
+@startuml ParserCSV
+
+package under {
+    package extend {
+        package ex_stage {
+            class CSVStageParser {
+                #makeBaseStage() : Stage
+                #makeBaseMap(imageID,width,height) : Map
+                #makeBaseCamera(width,height) : Camera
+                #makeBaseWorld() : PhysicalWorld
+                #makeTileobject(verticalId,horizontalId,tileWidth,tileHeight,x,y,width,height,imageID) : TileObject
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            abstract StageParser
+        }
+    }
+    package extend {
+        package ex_stage {
+            class SplitManagementStage
+            package ex_camera {
+                class CenterCamera
+            }
+            package ex_map {
+                class InvariantBackMap
+            }
+            package ex_physics {
+                class SequentialWorld
+                class RepulsionResponse
+                package ex_collider {
+                    class RectangleCollider
+                }
+                package ex_material {
+                    class DefaultMaterial
+                }
+            }
+            package ex_entity {
+                class TileObject
+            }
+        }
+    }
+}
+
+CSVStageParser ...> SplitManagementStage : Generate
+CSVStageParser ...> CenterCamera : Generate
+CSVStageParser ...> InvariantBackMap : Generate
+CSVStageParser ...> SequentialWorld : Generate
+CSVStageParser ...> RepulsionResponse : Generate
+CSVStageParser ...> TileObject : Generate
+CSVStageParser ...> RectangleCollider : Generate
+CSVStageParser ...> DefaultMaterial : Generate
+
+CSVStageParser ..|> StageParser
+
+@enduml

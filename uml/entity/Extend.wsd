@@ -1,7 +1,7 @@
 @startuml EntityExtend
 package under {
     package extend {
-        package stage {
+        package ex_stage {
             package ex_entity {
                 class TileObject {
                     #srcX : number
@@ -16,9 +16,6 @@ package under {
                 }
                 class StateCharacter {
                     #state : State
-                    #stateAnimation : NamedAnimation
-                    +setAnimationBase(base)
-                    +addAnimation(stateAnimation,dirX,dirY)
                 }
                 class Enemy
                 class Player {
@@ -77,9 +74,10 @@ package under {
                 }
                 class EnemyAI
 
-                class BaseState {
+                abstract BaseState {
                     +BaseState(name) : BaseState
-                    -name_ : string
+                    #stateAnimation : NamedAnimation
+                    +setStateAnimation(stateAnimation)
                 }
 
                 package ex_player {
@@ -90,12 +88,10 @@ package under {
                         #walkPower : number
                     }
                     class PWalkState {
-                        -walkCount_ : number
                         #maxVelocityX : number
                         #walkPower : number
                     }
                     class PJumpState {
-                        -jumpCount_ : number
                         -inAirCount_ : number
                         -jumpPower_ : number
                     }
@@ -111,16 +107,32 @@ package under {
     }
 }
 
-package base {
-    abstract ImmutableObject
-    abstract MutableObject
-    abstract BreakableObject
-    abstract Collider
-    abstract RigidBody
-    abstract Material
-    abstract AI
-    abstract StateAI
-    abstract State
+package under {
+    package base {
+        package stage {
+            package entity {
+                abstract ImmutableObject
+                abstract MutableObject
+                abstract BreakableObject
+            }
+            package physics {
+                package colloder {
+                    abstract Collider
+                }
+                package body {
+                    abstract RigidBody
+                }
+                package material {
+                    abstract Material
+                }
+            }
+            package ai {
+                abstract AI
+                abstract StateAI
+                abstract State
+            }
+        }
+    }
 }
 
 PlayerBaseStateAI ..> PStationaryState : Generate
@@ -155,10 +167,10 @@ NamedStateAI <|-- PlayerGameoverStateAI
 State <|.. BaseState
 BaseState <|-- PStationaryState
 BaseState <|-- PWalkState
+BaseState <|-- PJumpState
+BaseState <|-- PJumpingState
+BaseState <|-- PGameoverState
 
-State <|.. PJumpState
-State <|.. PJumpingState
 State <|.. PPunchState
-State <|.. PGameoverState
 
 @enduml

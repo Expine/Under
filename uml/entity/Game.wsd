@@ -29,17 +29,26 @@ package game {
     }
 }
 
-package base {
-    abstract State
-}
-
-package extend {
-    class Player
-    class TileObject
-    class NamedStateAI
-    class PStationaryState
-    class PWalkState
-    class PJumpingState
+package under {
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                class TileObject
+                class Player
+            }
+            package ex_ai {
+                class NamedStateAI
+                abstract BaseState
+                package ex_player {
+                    class PStationaryState
+                    class PWalkState
+                    class PJumpState
+                    class PJumpingState
+                    class PPunchState
+                }
+            }
+        }
+    }
 }
 
 UnderStateAI ..> PUnderState : Generate
@@ -49,13 +58,16 @@ WildBaseStateAI ..> WildJumpState : Generate
 WildBaseStateAI ..> PJumpingState : Generate
 WildBaseStateAI ..> WildClawState : Generate
 
-PUnderState .> UnderPlayer
+PUnderState .> UnderPlayer : Use method
 
 Player <|--- UnderPlayer
 TileObject <|--- UnderTileObject
 
-State <|... PUnderState
+BaseState <|... PUnderState
 NamedStateAI <|--- UnderStateAI
 NamedStateAI <|--- WildBaseStateAI
+
+PJumpState <|-- WildJumpState
+PPunchState <|-- WildClawState
 
 @enduml

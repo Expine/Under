@@ -1,0 +1,100 @@
+@startuml ParserJSON
+
+package under {
+    package extend {
+        package ex_stage {
+            class JSONStageParser {
+                #makeBaseStage() : Stage
+                #makeBaseMap(map) : Map
+                #makeBaseCamera(camera,width,height) : Camera
+                #makeBaseWorld() : PhysicalWorld
+                #makeCollider(collider) : Collider
+                #makeMaterial(material) : Material
+                #makeTileBase(tile, chip) : TileObject
+                #makeTileobject(tile,chip) : TileObject
+                #makeBody(body) : RigidBody
+                #makeAnimation(anime) : NamedAnimation
+                #makeAI(ai, animation) : AI
+                #makeEntityBase(info, entity) : Entity
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package context {
+            class AnimationElement
+        }
+        package stage {
+            abstract StageParser
+            package ai {
+                abstract StateAI
+            }
+        }
+    }
+    package extend {
+        package ex_context {
+            class SingleAnimation
+            class MultiNamedAnimation
+        }
+        package ex_stage {
+            class SplitManagementStage
+            package ex_camera {
+                class CenterCamera
+            }
+            package ex_map {
+                class InvariantBackMap
+                class SequentialMap
+            }
+            package ex_physics {
+                class SequentialWorld
+                class RepulsionResponse
+                package ex_collider {
+                    class CircleCollider
+                    class RectangleCollider
+                    class RoundRectangleCollider
+                }
+                package ex_material {
+                    class DefaultMaterial
+                }
+                package ex_body {
+                    class MaxAdoptBody
+                }
+            }
+            package ex_entity {
+                class TileObject
+                class Player
+                class Enemy
+            }
+            package ex_ai {
+                class BaseState
+            }
+        }
+
+    }
+}
+
+JSONStageParser ...> SplitManagementStage : Generate
+JSONStageParser ...> CenterCamera : Generate
+JSONStageParser ...> SequentialMap : Generate
+JSONStageParser ...> InvariantBackMap : Generate
+JSONStageParser ...> SequentialWorld : Generate
+JSONStageParser ...> RepulsionResponse : Generate
+JSONStageParser ...> TileObject : Generate
+JSONStageParser ...> RectangleCollider : Generate
+JSONStageParser ...> CircleCollider : Generate
+JSONStageParser ...> RoundRectangleCollider : Generate
+JSONStageParser ...> DefaultMaterial : Generate
+JSONStageParser ...> MaxAdoptBody : Generate
+JSONStageParser ...> Player : Generate
+JSONStageParser ...> Enemy : Generate
+JSONStageParser ...> MultiNamedAnimation : Generate
+JSONStageParser ...> SingleAnimation : Generate
+JSONStageParser ...> AnimationElement : Generate
+JSONStageParser ...> StateAI : Set animation
+JSONStageParser ...> BaseState : Set animation
+
+JSONStageParser ..|> StageParser
+
+@enduml

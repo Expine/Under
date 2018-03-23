@@ -56,24 +56,57 @@ package game {
     }
 }
 
-package base {
-    abstract Scene
-    abstract Layer
+package under {
+    package base {
+        package scene {
+            abstract Scene
+            package layer {
+                abstract Layer
+            }
+        }
+    }
+
+    package extend {
+        class UnderEngineBuilder
+        package ex_context {
+            class MultiNamedAnimation
+        }
+        package ex_scene {
+            class LayerBaseScene
+            package ex_layer {
+                class GameoverLayer
+            }
+        }
+        package ex_input {
+            class AllInput
+        }
+        package ex_stage {
+            class JSONStageParser
+            class SplitManagementStage
+            package ex_entity {
+                class Player
+                package ex_ai {
+                    class PlayerGameoverStateAI
+
+                }
+                package ex_physics {
+                    class SequentialWorld
+                    class ImpulseBasedResponse
+                    package ex_collider {
+                        class RoundRectangleCollider
+                    }
+                }
+            }
+        }
+    }
 }
 
-package extend {
-    class UnderEngineBuilder
-    class LayerBaseScene
-    class GameoverLayer
-    class AllInput
-    class Player
-    class PlayerGameoverStateAI
-    class RoundRectangleCollider
-    class UnderStageParser
-    class ImpulseBasedResponse
-    class SplitManagementStage
-    class SequentialWorld
+package game {
+    package ga_stage {
+        class UnderStageParser
+    }
 }
+
 
 Main ..> MainBuilder : Generate
 Main ..> TitleScene : Generate
@@ -88,8 +121,6 @@ GameScene ..> Player : Pass to another class, transtate gameover state
 GameScene ..> PlayerGameoverStateAI : Generate
 GameScene ..> RoundRectangleCollider : Generate
 GameScene ..> TitleScene : Generate
-GameScene ..> MultiNamedAnimation : Set other
-GameScene ..> SingleAnimation : Set other
 
 DebugLayer ..> Player : Get player information
 DebugLayer ..> ImpulseBasedResponse : Get physical state

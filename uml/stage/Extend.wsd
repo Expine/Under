@@ -2,20 +2,6 @@
 package under {
     package extend {
         package ex_stage {
-            class CSVStageParser {
-                #makeBaseStage() : Stage
-                #makeBaseMap(imageID,width,height) : Map
-                #makeBaseCamera(width,height) : Camera
-                #makeBaseWorld() : PhysicalWorld
-                #makeTileobject(verticalId,horizontalId,tileWidth,tileHeight,x,y,width,height,imageID) : TileObject
-            }
-            class JSONStageParser {
-                #makeBaseStage() : Stage
-                #makeBaseMap(map) : Map
-                #makeBaseCamera(camera,width,height) : Camera
-                #makeBaseWorld() : PhysicalWorld
-                #makeTileobject(tile,chip) : TileObject
-            }
             class SplitManagementStage {
                 -mutables_ : Array<MutableObject>
                 -entities_ : Array<Entity>
@@ -35,15 +21,6 @@ package under {
                 class CenterCamera
             }
 
-            package ex_entity {
-                class TileObject {
-                    #srcX : number
-                    #srcY : number
-                    #srcW : number
-                    #srcH : number
-                }
-            }
-
             package ex_physics {
                 class SequentialWorld {
                     #collisions : Array<CollisionData>
@@ -58,68 +35,47 @@ package under {
     }
 }
 
-package _ {
-    package entity {
-        class Player
-        class Enemy
+package under {
+    package base {
+        package stage {
+            abstract Stage
+            package map {
+                abstract Map
+            }
+            package camera {
+                abstract Camera
+            }
+            package physics {
+                abstract PhysicalWorld
+                abstract CollisionResponse
+            }
+        }
     }
-    package physics {
-        class CircleCollider
-        class RectangleCollider
-        class RoundRectangleCollider
-        class MaxAdoptBody
-        class DefaultMaterial
-        class CollisionData
+
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                class Player
+            }
+            package ex_physics {
+                class CollisionData
+            }
+        }
     }
 }
 
-package base {
-    abstract ImmutableObject
-    abstract StageParser
-    abstract Stage
-    abstract Map
-    abstract Camera
-    abstract CollisionResponse
-    abstract PhysicalWorld
-}
 
-CSVStageParser ...> SplitManagementStage : Generate
-CSVStageParser ...> CenterCamera : Generate
-CSVStageParser ...> InvariantBackMap : Generate
-CSVStageParser ...> SequentialWorld : Generate
-CSVStageParser ...> RepulsionResponse : Generate
-CSVStageParser ...> TileObject : Generate
-CSVStageParser ...> RectangleCollider : Generate
-CSVStageParser ...> DefaultMaterial : Generate
-JSONStageParser ...> SplitManagementStage : Generate
-JSONStageParser ...> CenterCamera : Generate
-JSONStageParser ...> SequentialMap : Generate
-JSONStageParser ...> InvariantBackMap : Generate
-JSONStageParser ...> SequentialWorld : Generate
-JSONStageParser ...> RepulsionResponse : Generate
-JSONStageParser ...> TileObject : Generate
-JSONStageParser ...> RectangleCollider : Generate
-JSONStageParser ...> CircleCollider : Generate
-JSONStageParser ...> RoundRectangleCollider : Generate
-JSONStageParser ...> DefaultMaterial : Generate
-JSONStageParser ...> MaxAdoptBody : Generate
-JSONStageParser ...> Player : Generate
-JSONStageParser ...> Enemy : Generate
+Player "1"--*"1" SplitManagementStage : Own for camera
 
-SplitManagementStage "1" *-- "1" Player : Own for camera
+CollisionData <.. ImpulseBasedResponse : Collision response
+CollisionData <.. RepulsionResponse : Collision response
+CollisionData "1"--o "*"SequentialWorld : Pool
 
-ImpulseBasedResponse ..> CollisionData : Collision response
-RepulsionResponse ..> CollisionData : Collision response
-
-CSVStageParser ..|> StageParser
-JSONStageParser ..|> StageParser
 SplitManagementStage ..|> Stage
 CenterCamera ..|> Camera
 SequentialMap ..|> Map
 InvariantBackMap ..|> Map
 SequentialWorld ..|> PhysicalWorld
-SequentialWorld "1" o--"*"CollisionData : Pool
-TileObject ..|> ImmutableObject
 ImpulseBasedResponse ..|> CollisionResponse
 RepulsionResponse ..|> CollisionResponse
 

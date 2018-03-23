@@ -76,27 +76,41 @@ package under {
                 -r_ : number
                 -angle_ : number
             }
-        }
 
-        package ex_layer {
-            class GameoverLayer
+            package ex_layer {
+                class GameoverLayer
+            }
         }
     }
 }
 
-package base {
-    abstract EngineBuilder
-    abstract Engine
-    abstract Input
-    abstract Screen
-    abstract Context
-    abstract SceneManager
-    abstract Music
-    abstract ContextImage
-    abstract Scene
-    abstract Layer
-    abstract Animation
-    abstract NamedAnimation
+package under {
+    package base {
+        abstract EngineBuilder
+        abstract Engine
+        package input {
+            abstract Input
+        }
+        package screen {
+            abstract Screen
+        }
+        package context {
+            abstract Context
+            abstract ContextImage
+            abstract Animation
+            abstract NamedAnimation
+        }
+        package scene {
+            abstract Scene
+            abstract SceneManager
+            package layer {
+                abstract Layer
+            }
+        }
+        package music {
+            abstract Music
+        }
+    }
 }
 
 UnderEngineBuilder ..> UnderEngine : Generate

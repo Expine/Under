@@ -4,26 +4,26 @@ package game {
     package ga_stage {
         class UnderStageParser
     }
+}
+
+package game {
     package ga_entity {
-        class UnderTileObject {
-            #terrainID : number
-        }
+        class UnderTileObject
+        class UnderPlayer
     }
 }
 
-package _ {
-    class UnderPlayer
-}
-
-package extend {
-    class JSONStageParser
-    class TileObject
+package under {
+    package extend {
+        package ex_stage {
+            class JSONStageParser
+        }
+    }
 }
 
 UnderStageParser ..> UnderTileObject : Generate
 UnderStageParser ..> UnderPlayer : Generate
 
 UnderStageParser --|> JSONStageParser
-UnderTileObject --|> TileObject
 
 @enduml

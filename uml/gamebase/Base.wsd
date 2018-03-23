@@ -137,12 +137,12 @@ package under {
                 {abstract} +update(dt)
                 {abstract} +render(ctx)
             }
-        }
 
-        package layer {
-            abstract Layer {
-                {abstract} +update(dt)
-                {abstract} +render(ctx)
+            package layer {
+                abstract Layer {
+                    {abstract} +update(dt)
+                    {abstract} +render(ctx)
+                }
             }
         }
     }
