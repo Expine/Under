@@ -1,17 +1,29 @@
 /**
  * Scene of editor
  * To make stage
- * @implements {Scene}
+ * @extends {LayerBaseScene}
  * @classdesc scene of making stage
  */
-class EditorScene extends Scene { // eslint-disable-line  no-unused-vars
+class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     /**
      * Initialize scene
      * @override
      */
     init() {
-        this.stage = (new CSVStageParser()).parse(`res/stage/test.map`, Screen.it.width, Screen.it.height);
-        //        this.stage = new EditorStage(600, 600);
+        /**
+         * Stage instance
+         * @protected
+         * @type {Stage}
+         */
+        this.stage = (new EditorStageParser()).parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height - 250);
+
+        /**
+         * Chip layer
+         * @protected
+         * @type {ChipLayer}
+         */
+        this.chipLayer = new ChipLayer(ContextImage.it.loadImage(`res/image/tile/tile.png`));
+        this.layers.push(this.chipLayer);
     }
 
 
@@ -21,7 +33,10 @@ class EditorScene extends Scene { // eslint-disable-line  no-unused-vars
      * @param {number} dt - delta time
      */
     update(dt) {
+        this.chipLayer.setPosition(20, Screen.it.height - 230);
         this.stage.update(dt);
+        super.update(dt);
+        //        let id = this.chipLayer.getSelectedTile();
     }
 
     /**
@@ -31,8 +46,6 @@ class EditorScene extends Scene { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         this.stage.render(ctx);
-        let x = Math.floor(Input.it.getMouseX() / 32) * 32;
-        let y = Math.floor(Input.it.getMouseY() / 32) * 32;
-        ctx.strokeRect(x, y, 32, 32);
+        super.render(ctx);
     }
 }

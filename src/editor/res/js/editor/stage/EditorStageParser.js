@@ -1,11 +1,12 @@
 /**
  * Editor stage parser to generate stage
- * @implements {CSVStageParser}
+ * @extends {UnderStageParser}
  * @classdesc Editor stage parser to generate stage
  */
-class EditorStageParser extends CSVStageParser { // eslint-disable-line  no-unused-vars
+class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-unused-vars
     /**
      * Make base stage for parsing stage
+     * @override
      * @protected
      * @return {Stage} stage instance for base of parsing
      */
@@ -14,16 +15,14 @@ class EditorStageParser extends CSVStageParser { // eslint-disable-line  no-unus
     }
 
     /**
-     * Make base map for parsing stage
+     * Make base camera for parsing stage
      * @protected
-     * @param {number} imageID background image id
-     * @param {number} width map width
-     * @param {height} height map height
-     * @return {Map} map instance for base of parsing
+     * @param {json} camera Camera json data
+     * @param {number} width Camera width
+     * @param {number} height Camera height
+     * @return {Camera} camera instance for base of parsing
      */
-    makeBaseMap(imageID, width, height) {
-        let map = new InvariantBackMap(width, height);
-        map.setBackground(imageID);
-        return map;
+    makeBaseCamera(camera, width, height) {
+        return new EditorCamera(width, height);
     }
 }

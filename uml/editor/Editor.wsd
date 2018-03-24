@@ -1,0 +1,80 @@
+@startuml Editor
+
+package editor {
+    class EditorMain
+    class EditorBuilder
+
+    package ed_scene {
+        class EditorScene
+        package ed_layer {
+            class ChipLayer
+        }
+    }
+
+    package ed_screen {
+        class EditorScreen
+    }
+
+    package ed_stage {
+        class EditorStageParser
+        class EditorStage
+        package ed_camera {
+            class EditorCamera
+        }
+    }
+}
+
+package under {
+    package base {
+        package scene {
+            package layer {
+                abstract Layer
+            }
+        }
+        package stage {
+            package camera {
+                abstract Camera
+            }
+        }
+    }
+    package extend {
+        abstract UnderEngineBuilder
+        package ex_scene {
+            class LayerBaseScene
+        }
+        package ex_screen {
+            class GeneratableScreen
+        }
+        package ex_stage {
+            class SplitManagemenetStage
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        class UnderStageParser
+    }
+}
+
+EditorBuilder <.. EditorMain : "Execute"
+EditorScene <.. EditorMain : "Generate"
+EditorScreen <.. EditorBuilder : "Generate"
+
+EditorStageParser <.. EditorScene : "Parse"
+ChipLayer <.. EditorScene : "Select chip"
+
+EditorStage <.. EditorStageParser : "Generate"
+EditorCamera <.. EditorStageParser : "Generate"
+
+UnderEngineBuilder <|.. EditorBuilder
+GeneratableScreen <|-- EditorScreen
+
+LayerBaseScene <|-- EditorScene
+Layer <|.. ChipLayer
+
+Camera <|.. EditorCamera
+UnderStageParser <|.. EditorStageParser
+SplitManagemenetStage <|-- EditorStage
+
+@enduml
