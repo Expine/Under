@@ -6,6 +6,32 @@
  */
 class Stage { // eslint-disable-line  no-unused-vars
     /**
+     * Stage constructor
+     * @constructor
+     */
+    constructor() {
+        /**
+         * Stage x position
+         * @protected
+         * @type {number}
+         */
+        this.x = 0;
+        /**
+         * Stage y position
+         * @protected
+         * @type {number}
+         */
+        this.y = 0;
+
+        /**
+         * Whether to update the stage or not
+         * @protected
+         * @type {bool}
+         */
+        this.enable = true;
+    }
+
+    /**
      * Set map manager
      * @param {Map} map map manager
      */
@@ -44,6 +70,25 @@ class Stage { // eslint-disable-line  no-unused-vars
         this.physic = physic;
     }
 
+
+    /**
+     * Set stage position
+     * @param {number} x Stage x posiiton
+     * @param {number} y Stage y position
+     */
+    setPosition(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Control stage update
+     * @param {bool} enable Whether to update the stage or not
+     */
+    setEnable(enable) {
+        this.enable = enable;
+    }
+
     /**
      * Add entity to stage
      * @interface
@@ -59,13 +104,6 @@ class Stage { // eslint-disable-line  no-unused-vars
     removeEntity(entity) {}
 
     /**
-     * Control stage update
-     * @interface
-     * @param {bool} enable Whether to update the stage or not
-     */
-    setEnable(enable) {}
-
-    /**
      * Get all entities
      * @interface
      * @return {Array<Entity>} All entities
@@ -74,7 +112,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Update stage
-     * @interface
+     * @interfane
      * @param {number} dt delta time
      */
     update(dt) {}

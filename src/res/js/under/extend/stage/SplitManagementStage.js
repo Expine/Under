@@ -31,12 +31,6 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
          * @type {Player}
          */
         this.player_ = null;
-
-        /**
-         * Whether to update the stage or not
-         * @type {bool}
-         */
-        this.enable_ = true;
     }
 
     /**
@@ -94,7 +88,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt delta time
      */
     update(dt) {
-        if (!this.enable_) {
+        if (!this.enable) {
             return;
         }
         // update mutables and autonomies
@@ -109,13 +103,14 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
 
     /**
      * Render stage
+     * @override
      * @param {Context} ctx - canvas context
      * @param {number} [shiftX = 0] shift x position
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         // render map
-        this.map.render(ctx, shiftX, shiftY);
+        this.map.render(ctx, this.x + shiftX, this.y + shiftY);
         // render entity
         let startX = -this.camera.cameraX;
         let startY = -this.camera.cameraY;
@@ -123,7 +118,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         let endY = startY + this.camera.screenHeight;
         for (let it of this.entities_) {
             if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
-                it.render(ctx, -startX, -startY);
+                it.render(ctx, this.x - startX, this.y - startY);
             }
         }
 

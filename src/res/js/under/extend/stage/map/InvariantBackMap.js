@@ -29,6 +29,6 @@ class InvariantBackMap extends Map { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.backID_, 0, 0, this.width, this.height);
+        ctx.drawImage(this.backID_, shiftX, shiftY, this.width, this.height);
     }
 }
