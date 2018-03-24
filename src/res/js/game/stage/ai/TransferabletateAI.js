@@ -22,5 +22,4 @@ class TransferableStateAI extends NamedStateAI { // eslint-disable-line  no-unus
         // set same state
         state.changeState(this.stateName_);
     }
-
 }

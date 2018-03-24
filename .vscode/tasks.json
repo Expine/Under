@@ -6,18 +6,12 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "call ./src/util/MainBuild.bat",
-            "problemMatcher": [
-                "$gcc"
-            ]
+            "command": "call ./src/util/MainBuild.bat"
         },
         {
             "label": "Doc",
             "type": "shell",
-            "command": "call ./src/util/DocumentBuild.bat",
-            "problemMatcher": [
-                "$gcc"
-            ]
+            "command": "call ./src/util/DocumentBuild.bat"
         }
     ]
 }
