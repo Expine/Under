@@ -141,8 +141,11 @@ public class Builder {
         for(File file : root.listFiles()) {
             if(file.isDirectory())
                 searchFile(file);
-            else
+            else {
+                if(excludeDirectories.contains(file.getName()))
+                    continue;
                 files.add(file);
+            }
         }
     }
 }
