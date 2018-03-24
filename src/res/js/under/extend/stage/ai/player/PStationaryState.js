@@ -36,10 +36,10 @@ class PStationaryState extends BaseState { // eslint-disable-line  no-unused-var
     apply(dt) {
         let vx = 0;
         // walk
-        if (Input.it.isLeftPressed()) {
+        if (Input.it.isKeyPressed(Input.it.left)) {
             vx += -1;
         }
-        if (Input.it.isRightPressed()) {
+        if (Input.it.isKeyPressed(Input.it.right)) {
             vx += 1;
         }
         if (vx != 0) {
@@ -49,10 +49,10 @@ class PStationaryState extends BaseState { // eslint-disable-line  no-unused-var
             }
             this.ai.changeState(`walk`);
         }
-        if (Input.it.isUpPressed() && Util.onGround(this.entity)) {
+        if (Input.it.isKeyPressed(Input.it.up) && Util.onGround(this.entity)) {
             this.ai.changeState(`jump`);
         }
-        if (Input.it.isYesPress()) {
+        if (Input.it.isKeyPress(Input.it.yes)) {
             this.ai.changeState(`attack`);
         }
         return true;

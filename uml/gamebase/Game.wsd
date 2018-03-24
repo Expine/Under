@@ -4,25 +4,9 @@ package game {
     class Main
     class MainBuilder
     package ga_input {
-        class ExtendInput {
-            +K : Enum<number>
-            +ARROW : Enum<number>
-            +isAnyKeyPress() : bool
-            +isAnyKeyPressed() : bool
-            +isYesPress() : bool
-            +isYesPressed() : bool
-            +isNoPress() : bool
-            +isNoPressed() : bool
-            +isSubPress() : bool
-            +isSubPressed() : bool
-            +isUpPress() : bool
-            +isUpPressed() : bool
-            +isDownPress() : bool
-            +isDownPressed() : bool
-            +isLeftPress() : bool
-            +isLeftPressed() : bool
-            +isRightPress() : bool
-            +isRightPressed() : bool
+        class ExtendedInput {
+            #subYes : number
+            #subNo : number
         }
     }
     package ga_layer {
@@ -110,7 +94,7 @@ package game {
 
 Main ..> MainBuilder : Generate
 Main ..> TitleScene : Generate
-MainBuilder ..> ExtendInput : Generate
+MainBuilder ..> ExtendedInput : Generate
 
 TitleScene ..> GameScene : Generate
 GameScene ..> UnderStageParser : Generate
@@ -130,7 +114,7 @@ DebugLayer ..> SequentialWorld : Get physical information
 UILayer ..> MultiNamedAnimation : Use
 
 MainBuilder --|> UnderEngineBuilder
-ExtendInput --|> AllInput
+ExtendedInput --|> AllInput
 TitleScene ..|> Scene
 GameScene --|> LayerBaseScene
 DebugLayer ..|> Layer

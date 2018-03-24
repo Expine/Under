@@ -24,7 +24,7 @@ Under game project
 #### Game
 ![GameBaseGame](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/gamebase/Game/GameBaseGame.png)
 - Main is the entry point
-- MainBuilder only added changes to generate ExtendInput
+- MainBuilder only added changes to generate ExtendedInput
 - GameScene is provisional implementation
 - DebugLayer sometimes ignores the access level
 

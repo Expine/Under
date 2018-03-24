@@ -36,10 +36,10 @@ class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-u
     apply(dt) {
         // input
         let vx = 0;
-        if (Input.it.isLeftPressed()) {
+        if (Input.it.isKeyPressed(Input.it.left)) {
             vx += -1;
         }
-        if (Input.it.isRightPressed()) {
+        if (Input.it.isKeyPressed(Input.it.right)) {
             vx += 1;
         }
         if (vx != 0) {

@@ -34,7 +34,7 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        if (Util.onGround(this.entity) && Input.it.isDownPressed()) {
+        if (Util.onGround(this.entity) && Input.it.isKeyPressed(Input.it.down)) {
             this.underCount_ += dt;
             this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.01 - this.entity.body.preVelocityX, 0);
             if (this.underCount_ > 200) {

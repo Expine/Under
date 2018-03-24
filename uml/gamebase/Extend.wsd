@@ -16,6 +16,12 @@ package under {
                 #inputMouse : Array<number>
                 #inputKey : Array<number>
                 +M : Enum<number>
+                #left : number
+                #up : number
+                #right : number
+                #down : number
+                #yes : number
+                #no : number
             }
         }
         package ex_screen {

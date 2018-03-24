@@ -60,6 +60,38 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
             CENTER: 1,
             RIGHT: 2,
         };
+
+        /**
+         * Left arrow key code
+         * @type {number}
+         */
+        this.left = 37;
+        /**
+         * Up arrow key code
+         * @type {number}
+         */
+        this.up = 38;
+        /**
+         * Right arrow key code
+         * @type {number}
+         */
+        this.right = 39;
+        /**
+         * Down arrow key code
+         * @type {number}
+         */
+        this.down = 40;
+
+        /**
+         * Z key code
+         * @type {number}
+         */
+        this.yes = 90;
+        /**
+         * X key code
+         * @type {number}
+         */
+        this.no = 88;
     }
 
     /**

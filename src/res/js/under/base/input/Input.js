@@ -11,6 +11,11 @@ class Input { // eslint-disable-line  no-unused-vars
      */
     constructor() {
         // set singleton instance
+        /**
+         * Input singleton instance
+         * @static
+         * @type {Input}
+         */
         Input.it = this;
     }
 
