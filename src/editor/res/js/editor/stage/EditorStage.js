@@ -50,6 +50,20 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
          * @type {number}
          */
         this.placedEntityID = -1;
+
+        /**
+         * Whether the test play is in progress or not
+         * @protected
+         * @type {bool}
+         */
+        this.playMode = false;
+
+        /**
+         * Previous camera instance
+         * @protected
+         * @type {Camera}
+         */
+        this.preCamera = null;
     }
 
     /**
@@ -66,12 +80,28 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
      * @param {number} dt delta time
      */
     update(dt) {
-        // update mutables and autonomies
-        for (let it of this.mutables_) {
-            it.update(dt);
+        // switch test play
+        if (Input.it.isKeyPress(Input.it.A + 15)) {
+            if (this.playMode) {
+                this.camera = this.preCamera;
+            } else {
+                this.preCamera = this.camera;
+                this.camera = new CenterCamera(this.camera.screenWidth, this.camera.screenHeight);
+            }
+            this.playMode = !this.playMode;
         }
-        // update camera
-        this.camera.setCameraPosition(0, 0, this.map.width, this.map.height);
+
+        // test play
+        if (this, this.playMode) {
+            super.update(dt);
+        } else {
+            // update mutables and autonomies
+            for (let it of this.mutables_) {
+                it.update(dt);
+            }
+            // update camera
+            this.camera.setCameraPosition(0, 0, this.map.width, this.map.height);
+        }
 
         // update selected area
         this.selectedX = -1;
