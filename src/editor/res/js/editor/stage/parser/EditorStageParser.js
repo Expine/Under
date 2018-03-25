@@ -8,10 +8,11 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * Make base stage for parsing stage
      * @override
      * @protected
+     * @param {json} stage Stage json data
      * @return {Stage} stage instance for base of parsing
      */
-    makeBaseStage() {
-        return new EditorStage();
+    makeBaseStage(stage) {
+        return new EditorStage(stage.tileInfo, stage.entityInfo);
     }
 
     /**

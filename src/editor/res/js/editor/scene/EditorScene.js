@@ -13,7 +13,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         /**
          * Stage instance
          * @protected
-         * @type {Stage}
+         * @type {EditorStage}
          */
         this.stage = (new EditorStageParser()).parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height - 250);
 
@@ -22,7 +22,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
          * @protected
          * @type {ChipLayer}
          */
-        this.chipLayer = new ChipLayer(ContextImage.it.loadImage(`res/image/tile/tile.png`));
+        this.chipLayer = new ChipLayer(this.stage.getTileInfo());
         this.layers.push(this.chipLayer);
     }
 
@@ -33,10 +33,10 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
      * @param {number} dt - delta time
      */
     update(dt) {
-        this.chipLayer.setPosition(20, Screen.it.height - 230);
+        this.chipLayer.setPosition(20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
         this.stage.update(dt);
         super.update(dt);
-        //        let id = this.chipLayer.getSelectedTile();
+        this.stage.placedTileID = this.chipLayer.getSelectedTile();
     }
 
     /**
@@ -46,6 +46,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
      */
     render(ctx) {
         this.stage.render(ctx);
+        ctx.fillRect(0, Screen.it.height - 250, Screen.it.width, 250, `blue`);
         super.render(ctx);
     }
 }

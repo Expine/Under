@@ -1,0 +1,59 @@
+@startuml EditorStage
+
+package editor {
+    package ed_stage {
+        class EditorStage {
+            +EditorStage(tileInfo,entityInfo) : EditorStage
+            #tileInfo : Dictionary<number, json>
+            #entityInfo : Dictionary<number, json>
+            #selectedX : number
+            #selectedY : number
+            #placedTileID : number
+            #placedEntityID : number
+            +getTileInfor() : Dictionary<number, json>
+        }
+
+        package ed_parser {
+            class EditorStageParser
+        }
+        package ed_camera {
+            class EditorCamera {
+                #moving : bool
+                #moveStartX : number
+                #moveStartY : number
+                #screenDiffX : number
+                #screenDiffY : number
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package camera {
+                abstract Camera
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            class SplitManagemenetStage
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        class UnderStageParser
+    }
+}
+
+EditorStage <.. EditorStageParser : "Generate"
+EditorCamera <.. EditorStageParser : "Generate"
+
+Camera <|.. EditorCamera
+UnderStageParser <|.. EditorStageParser
+SplitManagemenetStage <|-- EditorStage
+
+@enduml

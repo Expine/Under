@@ -36,22 +36,24 @@ Under game project
 #### JSON
 ![ParserJSON](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/parser/JSON/ParserJSON.png)
 
+#### Builder
+![ParserBuilder](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/parser/Builder/ParserBuilder.png)
+
 ### Stage
 #### Base
 ![StageBase](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/stage/Base/StageBase.png)
 - StageParser is supposed to generate everything necessary for the stage
     - But this not force it
+    - Entity and tile generation were separated
 - Entity relations are described later
 
 #### Extend
 ![StageExtend](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/stage/Extend/StageExtend.png)
-- Although it is a mess, CSVStageParser and JSONStageParser are just generating what it need
-- TODO: Should I separate CSVStageParser from JSONStageParser ?
 - Stage currently does not need to handle Player as Player
 
 #### Game
 ![StageGame](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/stage/Game/StageGame.png)
-- UnderStageParser just replaces some objects
+- UnderStageParser just replaces default builder instance
 
 ### Entity
 #### Base
@@ -72,3 +74,12 @@ Under game project
 - PUnderState considers AutonomyObject as UnderPlayer
     - Run as allowed because it is JavaScript
 
+### Editor
+#### Game base
+![EditorGameBase](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/editor/GameBase/EditorGameBase.png)
+- Unfortunately the implementation depends on the implementation badly
+    - TODO: Should I abstract just in case?
+
+#### Stage
+![EditorStage](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/editor/Stage/EditorStage.png)
+- Editor has a special element such as a variable screen

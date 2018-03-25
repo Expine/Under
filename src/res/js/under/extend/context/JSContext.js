@@ -207,7 +207,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Rendering square outline
+     * Rendering rectangle outline
      * @param {number} x
      * @param {number} y
      * @param {number} width
@@ -219,6 +219,22 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
         this.ctx_.strokeStyle = color;
         this.ctx_.lineWidth = lineWidth;
         this.ctx_.strokeRect(x, y, width, height);
+    }
+
+    /**
+     * Rendering rectangle
+     * @override
+     * @param {number} x Upper left x position
+     * @param {number} y Upper left y position
+     * @param {number} width Width of the rectangle
+     * @param {number} height Height of the rectangle
+     * @param {string} color Color name of rectangle
+     * @param {number} lineWidth Line of rectangle width
+     */
+    fillRect(x, y, width, height, color = this.lineColor_, lineWidth = this.lineWidth_) {
+        this.ctx_.fillStyle = color;
+        this.ctx_.lineWidth = lineWidth;
+        this.ctx_.fillRect(x, y, width, height);
     }
 
     /**

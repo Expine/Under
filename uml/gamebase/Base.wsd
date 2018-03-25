@@ -88,6 +88,7 @@ package under {
                 {abstract} +strokeLine(sx,sy,ex,ey,color,lineWidth)
                 {abstract} +strokeCircle(x,y,radius,startAngle,endAngle,anticlockwise,color,lineWidth)
                 {abstract} +strokeRect(x,y,width,height,color,lineWidth)
+                {abstract} +fillRect(x,y,width,height,color,lineWidth)
                 {abstract} +drawImage(imageID,x,y,width,height,srcX,srcY,srcW,srcH)
             }
             abstract ContextImage {

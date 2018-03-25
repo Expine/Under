@@ -8,80 +8,90 @@ class ChipLayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * Chip layer constructor
      * @constructor
-     * @param {number} tileID Chip tile image ID
+     * @param {Dictionary<number, json>} tileInfo Tile inforamtion json data
      */
-    constructor(tileID) {
+    constructor(tileInfo) {
         super();
+        /**
+         * Tile inforamtion json data
+         * @protected
+         * @type {Dictionary<number, json>}
+         */
+        this.tileInfo = tileInfo;
         /**
          * Chip tile image ID
          * @protected
          * @type {number}
          */
-        this.tileID = tileID;
-
-
+        this.tileID = tileInfo[0].file;
         /**
-         * Chip tile x position
+         * Chip layer x position
          * @protected
          * @type {number}
          */
         this.x = 0;
         /**
-         * Chip tile y position
+         * Chip layer y position
          * @protected
          * @type {number}
          */
         this.y = 0;
         /**
-         * Selection rectangle x position
+         * Chip layer width
          * @protected
          * @type {number}
          */
-        this.selectX = -1;
+        this.width = 0;
         /**
-         * Selection rectangle x position
+         * Chip layer height
          * @protected
          * @type {number}
          */
-        this.selectY = -1;
+        this.height = 0;
 
         /**
-         * Selected chip x position
+         * Selection tile
          * @protected
-         * @type {number}
+         * @type {json}
          */
-        this.selectedX = -1;
-        /**
-         * Selected chip y position
-         * @protected
-         * @type {number}
-         */
-        this.selectedY = -1;
+        this.selectTile = null;
 
         /**
          * Selected tile id
          * @protected
          * @type {number}
          */
-        this.selectedTile = -1;
+        this.selectedTile = null;
     }
 
     /**
-     * Set chip tile position
-     * @param {number} x Chip tile x position
-     * @param {number} y Chip tile y position
+     * Set chip layer position
+     * @param {number} x Chip layer x position
+     * @param {number} y Chip layer y position
+     * @param {number} width Chip layer width
+     * @param {number} height Chip layer height
      */
-    setPosition(x, y) {
+    setPosition(x, y, width, height) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
     /**
      * Get selected tile ID
-     * @return {number} Selected tile ID
+     * @return {number} Selected tile ID (return -1 if not selected)
      */
     getSelectedTile() {
-        return this.selectedTile;
+        return this.selectedTile == null ? -1 : this.selectedTile.id;
+    }
+
+    /**
+     * Set selected tile by ID
+     * @param {number} id Tile ID
+     */
+    setSelectedTile(id) {
+        this.selectedTile = this.tileInfo[id];
     }
 
     /**
@@ -90,16 +100,24 @@ class ChipLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {number} dt - delta time
      */
     update(dt) {
-        this.selectX = -1;
-        this.selectY = -1;
-        if (this.x <= Input.it.getMouseX() && this.y <= Input.it.getMouseY()) {
-            this.selectX = Math.floor((Input.it.getMouseX() - this.x) / 32) * 32 + this.x;
-            this.selectY = Math.floor((Input.it.getMouseY() - this.y) / 32) * 32 + this.y;
-            if (Input.it.isMousePress(Input.it.M.LEFT)) {
-                this.selectedX = Math.floor((this.selectX - this.x) / 32);
-                this.selectedY = Math.floor((this.selectY - this.y) / 32);
-                this.selectedTile = this.selectedX + this.selectedY * 6;
+        this.selectTile = null;
+        let x = Input.it.getMouseX() - this.x;
+        let y = Input.it.getMouseY() - this.y;
+        // check layer
+        if (0 > x || x >= this.width || 0 > y || y >= this.height) {
+            return;
+        }
+        for (let id in this.tileInfo) {
+            if (this.tileInfo.hasOwnProperty(id)) {
+                let tile = this.tileInfo[id];
+                if (tile.x <= x && x < tile.x + tile.width && tile.y <= y && y < tile.y + tile.height) {
+                    this.selectTile = tile;
+                    break;
+                }
             }
+        }
+        if (Input.it.isMousePress(Input.it.M.LEFT)) {
+            this.selectedTile = this.selectTile;
         }
     }
 
@@ -109,9 +127,13 @@ class ChipLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx
      */
     render(ctx) {
+        ctx.fillRect(this.x, this.y, this.width, this.height, `green`);
         ctx.drawImage(this.tileID, this.x, this.y);
-        if (this.selectX != -1) {
-            ctx.strokeRect(this.selectX, this.selectY, 32, 32, `red`);
+        if (this.selectTile != null) {
+            ctx.strokeRect(this.selectTile.x + this.x, this.selectTile.y + this.y, 32, 32, `red`);
+        }
+        if (this.selectedTile != null) {
+            ctx.strokeRect(this.selectedTile.x + this.x, this.selectedTile.y + this.y, 32, 32, `white`);
         }
     }
 }

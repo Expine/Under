@@ -1,0 +1,84 @@
+@startuml EditorGameBase
+
+package editor {
+    class EditorMain
+    class EditorBuilder
+
+    package ed_context {
+        class EditorContext
+    }
+    package ed_scene {
+        class EditorScene {
+            #stage : EditorStage
+            #chipLayer : ChipLayer
+        }
+        package ed_layer {
+            class ChipLayer {
+                #tileInfo : Dictionary<number, json>
+                #tileID : number
+                #width : number
+                #height : number
+                #selectTile : json
+                #selectedTile : json
+                +setPosition(x,y,width,height)
+                +getSelectedTile() : number
+                +setSelectedTile(id)
+            }
+        }
+    }
+
+    package ed_screen {
+        class EditorScreen
+    }
+}
+
+package under {
+    package base {
+        package scene {
+            package layer {
+                abstract Layer
+            }
+        }
+    }
+    package extend {
+        abstract UnderEngineBuilder
+        package ex_context {
+            class JSContext
+            class CachedImage
+        }
+        package ex_scene {
+            class LayerBaseScene
+        }
+        package ex_screen {
+            class GeneratableScreen
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        class EditorStage
+        package ed_parser {
+            class EditorStageParser
+        }
+    }
+}
+
+EditorBuilder <.. EditorMain : "Execute"
+EditorScene <.. EditorMain : "Generate"
+EditorScreen <.. EditorBuilder : "Generate"
+EditorContext <.. EditorBuilder : "Generate"
+CachedImage <.. EditorBuilder : "Generate"
+
+EditorStageParser <.. EditorScene : "Parse"
+ChipLayer <.. EditorScene : "Select chip"
+EditorStage <.. EditorScene : "Set chip"
+
+UnderEngineBuilder <|.. EditorBuilder
+GeneratableScreen <|-- EditorScreen
+JSContext <|-- EditorContext
+
+LayerBaseScene <|-- EditorScene
+Layer <|.. ChipLayer
+
+@enduml

@@ -136,7 +136,7 @@ class Context { // eslint-disable-line  no-unused-vars
     strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise, color, lineWidth) {}
 
     /**
-     * Rendering square outline
+     * Rendering rectangle outline
      * @interface
      * @param {number} x Upper left x position
      * @param {number} y Upper left y position
@@ -146,6 +146,18 @@ class Context { // eslint-disable-line  no-unused-vars
      * @param {number} lineWidth Line of rectangle width
      */
     strokeRect(x, y, width, height, color, lineWidth) {}
+
+    /**
+     * Rendering rectangle
+     * @interface
+     * @param {number} x Upper left x position
+     * @param {number} y Upper left y position
+     * @param {number} width Width of the rectangle
+     * @param {number} height Height of the rectangle
+     * @param {string} color Color name of rectangle
+     * @param {number} lineWidth Line of rectangle width
+     */
+    fillRect(x, y, width, height, color, lineWidth) {}
 
     /**
      * Rendering image
