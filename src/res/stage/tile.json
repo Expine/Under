@@ -1,0 +1,82 @@
+{
+    "tiles": [{
+        "file": "tile.png",
+        "chips": [{
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            },
+            "id": 0,
+            "terrain": 0,
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 32
+        }, {
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            },
+            "id": 1,
+            "terrain": 1,
+            "x": 32,
+            "y": 0,
+            "width": 32,
+            "height": 32
+        }, {
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            },
+            "id": 6,
+            "terrain": 0,
+            "x": 0,
+            "y": 32,
+            "width": 32,
+            "height": 32
+        }, {
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            },
+            "id": 7,
+            "terrain": 1,
+            "x": 32,
+            "y": 32,
+            "width": 32,
+            "height": 32
+        }]
+    }]
+}

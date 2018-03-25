@@ -1,0 +1,88 @@
+@startuml ParserBuilder
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_parser {
+                class TileBuilder {
+                    #makeCollider(collider) : Collider
+                    #makeMaterial(material) : Material
+                    #makeTileBase(tile, chip) : TileObject
+                    #makeTileobject(tile,chip) : TileObject
+                }
+
+                class CharacterBuilder {
+                    #makeBody(body) : RigidBody
+                    #makeAnimation(anime) : NamedAnimation
+                    #makeAI(ai, animation) : AI
+                    #makeEntityBase(info, entity) : Entity
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package context {
+            class AnimationElement
+        }
+        package stage {
+            package parser {
+                abstract EntityBuilder
+            }
+            package ai {
+                abstract StateAI
+            }
+        }
+    }
+    package extend {
+        package ex_context {
+            class SingleAnimation
+            class MultiNamedAnimation
+        }
+        package ex_stage {
+            package ex_physics {
+                package ex_collider {
+                    class CircleCollider
+                    class RectangleCollider
+                    class RoundRectangleCollider
+                }
+                package ex_material {
+                    class DefaultMaterial
+                }
+                package ex_body {
+                    class MaxAdoptBody
+                }
+            }
+            package ex_entity {
+                class TileObject
+                class Player
+                class Enemy
+            }
+            package ex_ai {
+                class BaseState
+            }
+        }
+
+    }
+}
+
+TileBuilder ...> TileObject : Generate
+TileBuilder ...> RectangleCollider : Generate
+TileBuilder ...> CircleCollider : Generate
+TileBuilder ...> RoundRectangleCollider : Generate
+TileBuilder ...> DefaultMaterial : Generate
+CharacterBuilder ...> MaxAdoptBody : Generate
+CharacterBuilder ...> Player : Generate
+CharacterBuilder ...> Enemy : Generate
+CharacterBuilder ...> MultiNamedAnimation : Generate
+CharacterBuilder ...> SingleAnimation : Generate
+CharacterBuilder ...> AnimationElement : Generate
+CharacterBuilder ...> StateAI : Set animation
+CharacterBuilder ...> BaseState : Set animation
+
+EntityBuilder <|.. TileBuilder
+TileBuilder <|-- CharacterBuilder
+
+@enduml

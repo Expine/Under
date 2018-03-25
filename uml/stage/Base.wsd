@@ -20,6 +20,9 @@ package unde {
                 abstract StageParser {
                     {abstract} +parse(filePath,width,height) : Stage
                 }
+                abstract EntityBuilder {
+                    {abstract} +build(x,y,json) : Entity
+                }
             }
             package map {
                 abstract Map {

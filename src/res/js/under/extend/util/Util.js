@@ -57,4 +57,15 @@ class Util { // eslint-disable-line  no-unused-vars
     static getCollidedEntity(self, data) {
         return data.e1 === self ? data.e2 : data.e1;
     }
+
+    /**
+     * Load text file
+     * @param {string} filePath File path
+     */
+    static loadFile(filePath) {
+        let req = new XMLHttpRequest();
+        req.open(`GET`, filePath, false);
+        req.send(null);
+        return req.responseText;
+    }
 }

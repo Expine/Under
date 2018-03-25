@@ -2,7 +2,11 @@
 
 package game {
     package ga_stage {
-        class UnderStageParser
+        package ga_parser {
+            class UnderStageParser
+            class UnderTileBuilder
+            class UnderCharacterBuilder
+        }
     }
 }
 
@@ -16,14 +20,22 @@ package game {
 package under {
     package extend {
         package ex_stage {
-            class JSONStageParser
+            package ex_parser {
+                class JSONStageParser
+                class TileBuilder
+                class CharacterBuilder
+            }
         }
     }
 }
 
-UnderStageParser ..> UnderTileObject : Generate
-UnderStageParser ..> UnderPlayer : Generate
+UnderStageParser ..> UnderTileBuilder : "Default"
+UnderStageParser ..> UnderCharacterBuilder : "Default"
+UnderTileBuilder ..> UnderTileObject : Generate
+UnderCharacterBuilder ..> UnderPlayer : Generate
 
-UnderStageParser --|> JSONStageParser
+JSONStageParser <|-- UnderStageParser
+TileBuilder <|-- UnderTileBuilder
+CharacterBuilder <|-- UnderCharacterBuilder
 
 @enduml
