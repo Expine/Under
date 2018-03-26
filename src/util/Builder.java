@@ -76,7 +76,7 @@ public class Builder {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
         String line = "";
         while((line = br.readLine()) != null) {
-            if(line.contains("class ") && line.indexOf("*") == -1) {
+            if(line.contains("class ") && (line.indexOf("*") == -1 || line.indexOf("*") > line.indexOf("class"))) {
                 String[] words = line.split(" ");
                 for(int i = 0; i < words.length; i++) {
                     if(words[i].equals("class")) {
@@ -95,7 +95,7 @@ public class Builder {
         ArrayList<String> checkList = new ArrayList<String>();
         String line = "";
         while((line = br.readLine()) != null) {
-            if(line.contains("class ") && line.indexOf("*") == -1) {
+            if(line.contains("class ") && (line.indexOf("*") == -1 || line.indexOf("*") > line.indexOf("class"))) {
                 br.close();
                 return false;
             }
@@ -109,15 +109,12 @@ public class Builder {
         ArrayList<String> checkList = new ArrayList<String>();
         String line = "";
         while((line = br.readLine()) != null) {
-            if(line.contains("class ") && line.contains("extends ") && line.indexOf("*") == -1) {
+            if(line.contains("class ") && line.contains("extends ") && (line.indexOf("*") == -1 || line.indexOf("*") > line.indexOf("class"))) {
                 String[] words = line.split(" ");
                 for(int i = 0; i < words.length; i++) {
                     if(words[i].equals("extends")) {
-                        for(int j = i + 1; j < words.length; ++j) {
-                            String className = words[j].replaceAll(",", "");
-                            if(className.contains("{"))
-                                break;
-                            checkList.add(className);
+                        if(i + 1 < words.length) {
+                            checkList.add(words[i + 1]);
                         }
                         break;
                     }
