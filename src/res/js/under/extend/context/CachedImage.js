@@ -54,6 +54,23 @@ class CachedImage extends ContextImage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get image path
+     * @override
+     * @param {number} imageID Image ID
+     * @return {string} Image path (return null if not exists)
+     */
+    getImagePath(imageID) {
+        for (let path in this.caches_) {
+            if (this.caches_.hasOwnProperty(path)) {
+                if (this.caches_[path] == imageID) {
+                    return path;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Get image by ID
      * @override
      * @param {number} id id

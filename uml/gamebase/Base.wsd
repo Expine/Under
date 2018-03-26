@@ -94,6 +94,8 @@ package under {
             abstract ContextImage {
                 {static} +it : ContextImage /' Singleton '/
                 {abstract} +loadImage(filePath) : number
+                {abstract} +unloadImage(imageID)
+                {abstract} +getImagePath(imageID) : string
                 {abstract} +getImage(id) : Image
             }
 

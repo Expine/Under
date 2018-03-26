@@ -10,11 +10,12 @@ package under {
             }
             package ex_map {
                 class SequentialMap {
-                    -maps_ : Array<Map>
+                    #maps : Array<Map>
                 }
                 class InvariantBackMap {
                     +InvariantBackMap(imageID,width,height)
                     -backID_ : number
+                    +getBackID() : number
                 }
             }
             package ex_camera {

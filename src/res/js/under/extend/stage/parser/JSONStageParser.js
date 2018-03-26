@@ -45,14 +45,25 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     makeBaseMap(map) {
         let ret = new SequentialMap(map.width, map.height);
         for (let back of map.backs) {
-            if (back.type == `Invariant`) {
-                let id = ContextImage.it.loadImage(`res/image/back/${back.file}`);
-                ret.addMap(new InvariantBackMap(id, map.width, map.height));
-            } else {
-                console.log(`Not Map: ${map}`);
-            }
+            ret.addMap(this.makeMapElement(map, back));
         }
         return ret;
+    }
+
+    /**
+     * Make map for parsing stage
+     * @protected
+     * @param {json} map Map json data
+     * @param {json} back Map element json data
+     * @return {Map} Map element of parsing
+     */
+    makeMapElement(map, back) {
+        if (back.type == `Invariant`) {
+            let id = ContextImage.it.loadImage(`res/image/back/${back.file}`);
+            return new InvariantBackMap(id, map.width, map.height);
+        } else {
+            console.log(`Not Map: ${back}`);
+        }
     }
 
     /**
@@ -78,6 +89,26 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         return world;
     }
 
+    /**
+     * Add tile by chip data
+     * @param {Stage} base Base stage
+     * @param {json} chip Chip json data
+     * @param {json} tileInfo Tile information json data
+     */
+    addTile(base, chip, tileInfo) {
+        base.addEntity(this.tileBuilder.build(chip.x, chip.y, tileInfo[chip.id]));
+    }
+
+    /**
+     * Add entity by layer data
+     * @param {Stage} base Base stage
+     * @param {json} entity Entity json data
+     * @param {json} entityInfo Entity information json data
+     */
+    addEntity(base, entity, entityInfo) {
+        base.addEntity(this.characterBuilder.build(entity.x, entity.y, entityInfo[entity.id]));
+    }
+
 
     /**
      * Parset file to stage
@@ -94,6 +125,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         let entities = JSON.parse(Util.loadFile(`res/stage/${stage.entities}`));
         // make tile information
         stage.tileInfo = {};
+        stage.tileInfo.tiles = stage.tiles;
         for (let tile of tiles.tiles) {
             let fileID = ContextImage.it.loadImage(`res/image/tile/${tile.file}`);
             for (let chip of tile.chips) {
@@ -103,6 +135,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         }
         // make entity information
         stage.entityInfo = {};
+        stage.entityInfo.entities = stage.entities;
         for (let entity of entities.entities) {
             stage.entityInfo[entity.id] = entity;
             stage.entityInfo[entity.id].file = ContextImage.it.loadImage(`res/image/chara/${entity.file}`);
@@ -116,12 +149,12 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         // make tile
         for (let layer of stage.layers) {
             for (let chip of layer) {
-                base.addEntity(this.tileBuilder.build(chip.x, chip.y, stage.tileInfo[chip.id]));
+                this.addTile(base, chip, stage.tileInfo);
             }
         }
         // make entity
         for (let entity of stage.deploy) {
-            base.addEntity(this.characterBuilder.build(entity.x, entity.y, stage.entityInfo[entity.id]));
+            this.addEntity(base, entity, stage.entityInfo);
         }
         return base;
     }

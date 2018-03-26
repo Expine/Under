@@ -16,7 +16,23 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     }
 
     /**
+     * Make base map for parsing stage
+     * @override
+     * @protected
+     * @param {json} map Map json data
+     * @return {Map} map instance for base of parsing
+     */
+    makeBaseMap(map) {
+        let ret = new EditorMap(map.width, map.height);
+        for (let back of map.backs) {
+            ret.addMap(this.makeMapElement(map, back));
+        }
+        return ret;
+    }
+
+    /**
      * Make base camera for parsing stage
+     * @override
      * @protected
      * @param {json} camera Camera json data
      * @param {number} width Camera width
@@ -25,5 +41,28 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      */
     makeBaseCamera(camera, width, height) {
         return new EditorCamera(width, height);
+    }
+
+    /**
+     * Add tile by chip data
+     * @param {EditorStage} base Base stage
+     * @param {json} chip Chip json data
+     * @param {json} tileInfo Tile information json data
+     */
+    addTile(base, chip, tileInfo) {
+        base.addEntity(this.tileBuilder.build(chip.x, chip.y, tileInfo[chip.id]));
+        base.addEntityID(chip.id);
+    }
+
+    /**
+     * Add entity by layer data
+     * @override
+     * @param {Stage} base Base stage
+     * @param {json} entity Entity json data
+     * @param {json} entityInfo Entity information json data
+     */
+    addEntity(base, entity, entityInfo) {
+        base.addEntity(this.characterBuilder.build(entity.x, entity.y, entityInfo[entity.id]));
+        base.addEntityID(entity.id);
     }
 }

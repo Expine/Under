@@ -15,10 +15,10 @@ class SequentialMap extends Map { // eslint-disable-line  no-unused-vars
 
         /**
          * List of maps to process consecutively
-         * @private
+         * @protected
          * @type {Array<Map>}
          */
-        this.maps_ = [];
+        this.maps = [];
     }
 
     /**
@@ -26,7 +26,7 @@ class SequentialMap extends Map { // eslint-disable-line  no-unused-vars
      * @param {Map} map Map
      */
     addMap(map) {
-        this.maps_.push(map);
+        this.maps.push(map);
     }
 
     /**
@@ -37,7 +37,7 @@ class SequentialMap extends Map { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        for (let map of this.maps_) {
+        for (let map of this.maps) {
             map.render(ctx, shiftX, shiftY);
         }
     }

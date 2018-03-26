@@ -10,8 +10,11 @@ package under {
                     #charaBuilder : EntityBuilder
                     #makeBaseStage(stage) : Stage
                     #makeBaseMap(map) : Map
+                    #makeMapElement(map,back) : Map
                     #makeBaseCamera(camera,width,height) : Camera
                     #makeBaseWorld() : PhysicalWorld
+                    #addTile(base,chip,tileInfo)
+                    #addEntity(base,entity,entityInfo)
                 }
             }
         }
