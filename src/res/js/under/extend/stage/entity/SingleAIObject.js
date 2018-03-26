@@ -1,10 +1,11 @@
 /**
  * Single AI Object
  * Manages AI by list
- * @implements {BreakableObject}
+ * @implements {AutonomyObject}
+ * @implements {Breakable}
  * @classdesc AI Listed object to manager AI by list
  */
-class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused-vars
+class SingleAIObject extends AutonomyObject /* , Breakable */ { // eslint-disable-line  no-unused-vars
     /**
      * Single AI object constructor
      * @constructor
@@ -40,16 +41,7 @@ class SingleAIObject extends BreakableObject { // eslint-disable-line  no-unused
      */
     addAI(ai, priority = -1) {
         let index = priority < 0 ? this.ai.length + priority + 1 : priority;
-        let newer = [];
-        for (var i = 0; i < this.ai.length + 1; ++i) {
-            if (i == index) {
-                newer.push(ai);
-            }
-            if (i < this.ai.length) {
-                newer.push(this.ai[i]);
-            }
-        }
-        this.ai = newer;
+        this.ai.splice(index, 0, ai);
         // init
         ai.setEntity(this);
         ai.init();

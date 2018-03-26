@@ -7,17 +7,30 @@ package game {
             class UnderTileBuilder
             class UnderCharacterBuilder
         }
+
+        package ga_physics {
+            class UnderRepulsionResponse
+        }
     }
 }
 
 package game {
-    package ga_entity {
-        class UnderTileObject
-        class UnderPlayer
+    package ga_stage {
+        package ga_entity {
+            class UnderTileObject
+            class UnderPlayer
+        }
     }
 }
 
 package under {
+    package base {
+        package stage {
+            package physics {
+                class CollisionResponse
+            }
+        }
+    }
     package extend {
         package ex_stage {
             package ex_parser {
@@ -31,11 +44,13 @@ package under {
 
 UnderStageParser ..> UnderTileBuilder : "Default"
 UnderStageParser ..> UnderCharacterBuilder : "Default"
+UnderStageParser ..> UnderRepulsionResponse : "Generate"
 UnderTileBuilder ..> UnderTileObject : Generate
 UnderCharacterBuilder ..> UnderPlayer : Generate
 
 JSONStageParser <|-- UnderStageParser
 TileBuilder <|-- UnderTileBuilder
 CharacterBuilder <|-- UnderCharacterBuilder
+CollisionResponse <|.. UnderRepulsionResponse
 
 @enduml

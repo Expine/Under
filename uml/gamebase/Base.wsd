@@ -148,6 +148,22 @@ package under {
                 }
             }
         }
+
+        package util {
+            class BaseUtil {
+                {static} +implementsOf(instance,i) : bool
+            }
+            class Interface {
+                -methods_ : Array<Method>
+                #addMethod(method)
+                +validate(instance) : bool
+            }
+            class Method {
+                +Method(name,number) : Method
+                +name : string
+                +length : number
+            }
+        }
     }
 }
 
@@ -169,5 +185,7 @@ Animation "1"*--"*"AnimationElement : Should own
 
 Animation <|-- MultiAnimation
 MultiAnimation <|-- NamedAnimation
+
+Interface ..> Method : Use
 
 @enduml

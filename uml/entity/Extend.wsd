@@ -113,7 +113,8 @@ package under {
             package entity {
                 abstract ImmutableObject
                 abstract MutableObject
-                abstract BreakableObject
+                abstract AutonomyObject
+                abstract Damagable
             }
             package physics {
                 package colloder {
@@ -145,7 +146,8 @@ PlayerGameoverStateAI ..> PGameoverState : Generate
 
 ImmutableObject <|.. TileObject
 MutableObject <|.. Obstacle
-BreakableObject <|.. SingleAIObject
+AutonomyObject <|.. SingleAIObject
+Damagable <|.. SingleAIObject
 SingleAIObject <|-- StateCharacter
 StateCharacter <|-- Player
 SingleAIObject <|-- Enemy

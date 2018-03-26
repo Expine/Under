@@ -25,15 +25,19 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
      * @return {bool} Collision or not
      */
     judgeCollision() {
-        // If enemy is collided, damage and destroy
+        let ret = false;
+        // If damageable object is collided, damage
         for (let it of this.collider.collisions) {
             let entity = Util.getCollidedEntity(this, it);
-            if (entity instanceof Enemy) {
+            if (BaseUtil.implementsOf(entity, Damagable)) {
                 entity.damage(1);
-                this.destroy();
-                return true;
+                ret = true;
             }
         }
-        return false;
+        // If enemy is collided, destroy
+        if (ret) {
+            this.destroy();
+        }
+        return ret;
     }
 }

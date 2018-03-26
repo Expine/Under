@@ -33,12 +33,6 @@ package under {
                     {abstract} +addAI(ai,priotiy)
                     {abstract} +removeAI(ai)
                 }
-
-                abstract BreakableObject {
-                    {abstract} +getHP() : number
-                    {abstract} +damage(damage)
-                    {abstract} +destroy()
-                }
             }
             package physics {
                 package collider {
@@ -130,7 +124,6 @@ package under {
 Entity <|-- ImmutableObject
 Entity <|-- MutableObject
 MutableObject <|-- AutonomyObject
-AutonomyObject <|-- BreakableObject
 
 Entity "1" o--"1" Collider : Initialize and own
 Entity "1" o--"1" Material ::Own
