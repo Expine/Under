@@ -15,8 +15,22 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
         /**
          * Count for judging on air
          * @private
+         * @type {number}
          */
         this.inAirCount_ = 0;
+
+        /**
+         * Jump button pressed time
+         * @private
+         * @type {number}
+         */
+        this.jumpPressedTime_ = 0;
+        /**
+         * Jump time
+         * @private
+         * @type {number}
+         */
+        this.jumpDeltaTime_ = 0;
 
         /**
          * Jumping force
@@ -33,6 +47,8 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
     init() {
         super.init();
         this.inAirCount_ = 0;
+        this.jumpPressedTime_ = 0;
+        this.jumpDeltaTime_ = 0;
 
         /**
          * Reserved velocity of X
@@ -50,7 +66,10 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
     apply(dt) {
         // animation
         this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.1 - this.entity.body.preVelocityX, 0);
-        this.jumpCount_ += dt / 200;
+        if (Input.it.isKeyPressed(Input.it.up)) {
+            this.jumpPressedTime_ += 1;
+        }
+        this.jumpDeltaTime_ += 1;
 
         // judge
         if (!Util.onGround(this.entity)) {
@@ -63,7 +82,7 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
         if (this.stateAnimation.isEnded() && this.inAirCount_ == 0) {
             // reset and jump
             this.entity.body.setNextAddVelocity(this.velocityX - this.entity.body.preVelocityX, -this.entity.body.preVelocityY);
-            this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
+            this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt * this.jumpPressedTime_ / this.jumpDeltaTime_);
             this.ai.changeState(`jumping`);
         }
 

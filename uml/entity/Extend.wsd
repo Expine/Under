@@ -93,6 +93,8 @@ package under {
                     }
                     class PJumpState {
                         -inAirCount_ : number
+                        -jumpPressedTime_ : number
+                        -jumpDeltaTime_ : number
                         -jumpPower_ : number
                     }
                     class PJumpingState {

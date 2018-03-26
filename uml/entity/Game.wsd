@@ -33,6 +33,8 @@ package game {
                     }
                     class NormalJumpState {
                         -inAirCount_ : number
+                        -jumpPressedTime_ : number
+                        -jumpDeltaTime_ : number
                         -jumpPower_ : number
                     }
                     class NormalJumpingState {
