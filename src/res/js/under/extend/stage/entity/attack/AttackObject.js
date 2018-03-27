@@ -4,7 +4,7 @@
  * @implements {SingleAIObject}
  * @classdesc Attack object indicating attack
  */
-class AttackObject extends SingleAIObject { // eslint-disable-line  no-unused-vars
+class AttackObject extends SingleAIObject /* , Breakable */ { // eslint-disable-line  no-unused-vars
     /**
      * Attack object constructor
      * @constructor
@@ -34,6 +34,14 @@ class AttackObject extends SingleAIObject { // eslint-disable-line  no-unused-va
     setCollider(collider) {
         super.setCollider(collider);
         collider.isResponse = false;
+    }
+
+    /**
+     * Destroy object
+     * @override
+     */
+    destroy() {
+        this.stage.removeEntity(this);
     }
 
     /**
