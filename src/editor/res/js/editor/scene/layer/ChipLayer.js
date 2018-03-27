@@ -1,53 +1,23 @@
 /**
  * Chip layer
  * Selects chip
- * @implements {Layer}
+ * @implements {SelectionLayer}
  * @classdesc Chip layer to select chip
  */
-class ChipLayer extends Layer { // eslint-disable-line  no-unused-vars
+class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
     /**
      * Chip layer constructor
      * @constructor
      * @param {Dictionary<number, json>} tileInfo Tile inforamtion json data
      */
     constructor(tileInfo) {
-        super();
+        super(tileInfo[0].file);
         /**
          * Tile inforamtion json data
          * @protected
          * @type {Dictionary<number, json>}
          */
         this.tileInfo = tileInfo;
-        /**
-         * Chip tile image ID
-         * @protected
-         * @type {number}
-         */
-        this.tileID = tileInfo[0].file;
-        /**
-         * Chip layer x position
-         * @protected
-         * @type {number}
-         */
-        this.x = 0;
-        /**
-         * Chip layer y position
-         * @protected
-         * @type {number}
-         */
-        this.y = 0;
-        /**
-         * Chip layer width
-         * @protected
-         * @type {number}
-         */
-        this.width = 0;
-        /**
-         * Chip layer height
-         * @protected
-         * @type {number}
-         */
-        this.height = 0;
 
         /**
          * Selection tile
@@ -57,40 +27,28 @@ class ChipLayer extends Layer { // eslint-disable-line  no-unused-vars
         this.selectTile = null;
 
         /**
-         * Selected tile id
+         * Selected tile
          * @protected
-         * @type {number}
+         * @type {json}
          */
         this.selectedTile = null;
     }
 
     /**
-     * Set chip layer position
-     * @param {number} x Chip layer x position
-     * @param {number} y Chip layer y position
-     * @param {number} width Chip layer width
-     * @param {number} height Chip layer height
-     */
-    setPosition(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-
-    /**
      * Get selected tile ID
+     * @override
      * @return {number} Selected tile ID (return -1 if not selected)
      */
-    getSelectedTile() {
+    getSelected() {
         return this.selectedTile == null ? -1 : this.selectedTile.id;
     }
 
     /**
      * Set selected tile by ID
+     * @override
      * @param {number} id Tile ID
      */
-    setSelectedTile(id) {
+    setSelected(id) {
         this.selectedTile = this.tileInfo[id];
     }
 
@@ -127,13 +85,12 @@ class ChipLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx
      */
     render(ctx) {
-        ctx.fillRect(this.x, this.y, this.width, this.height, `green`);
-        ctx.drawImage(this.tileID, this.x, this.y);
+        super.render(ctx);
         if (this.selectTile != null) {
-            ctx.strokeRect(this.selectTile.x + this.x, this.selectTile.y + this.y, 32, 32, `red`);
+            ctx.strokeRect(this.selectTile.x + this.x, this.selectTile.y + this.y, this.selectTile.width, this.selectTile.height, `red`);
         }
         if (this.selectedTile != null) {
-            ctx.strokeRect(this.selectedTile.x + this.x, this.selectedTile.y + this.y, 32, 32, `white`);
+            ctx.strokeRect(this.selectedTile.x + this.x, this.selectedTile.y + this.y, this.selectedTile.width, this.selectedTile.height, `white`);
         }
     }
 }

@@ -49,6 +49,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         this.entities_.push(entity);
         this.physic.addEntity(entity);
         entity.setStage(this);
+        entity.init();
     }
 
     /**

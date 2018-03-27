@@ -18,6 +18,7 @@ package under {
                     +setStage(stage)
                     +setCollider(collider)
                     +setMaterial(material)
+                    {abstract} +init()
                     {abstract} +update(dt)
                     {abstract} +render(ctx,shiftX,shiftY)
                 }

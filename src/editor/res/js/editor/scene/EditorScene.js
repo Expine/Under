@@ -20,10 +20,17 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         /**
          * Chip layer
          * @protected
-         * @type {ChipLayer}
+         * @type {SelectionLayer}
          */
         this.chipLayer = new ChipLayer(this.stage.getTileInfo());
+        /**
+         * Entity layer
+         * @protected
+         * @type {SelectionLayer}
+         */
+        this.entityLayer = new EntityLayer(this.stage.getEntityInfo());
         this.layers.push(this.chipLayer);
+        this.layers.push(this.entityLayer);
     }
 
 
@@ -34,9 +41,11 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
      */
     update(dt) {
         this.chipLayer.setPosition(20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
+        this.entityLayer.setPosition(Screen.it.width / 2 + 20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
         this.stage.update(dt);
         super.update(dt);
-        this.stage.placedTileID = this.chipLayer.getSelectedTile();
+        this.stage.placedTileID = this.chipLayer.getSelected();
+        this.stage.placedEntityID = this.entityLayer.getSelected();
     }
 
     /**

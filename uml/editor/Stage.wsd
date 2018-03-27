@@ -13,7 +13,8 @@ package editor {
             #saveData : string
             #playMode : bool
             #entitiesID : Array<number>
-            +getTileInfor() : Dictionary<number, json>
+            +getTileInfo() : Dictionary<number, json>
+            +getEntityInfo() : Dictionary<number, json>
             +addEntityID(id)
             +getSaveData() : json
             +restore()

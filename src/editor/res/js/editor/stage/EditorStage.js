@@ -80,6 +80,18 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
     }
 
     /**
+     * Add entity to stage
+     * @override
+     * @param {Entity} Pentity - entity object
+     */
+    addEntity(entity) {
+        super.addEntity(entity);
+        // onece update
+        entity.update(0);
+    }
+
+
+    /**
      * Registers entity ID
      * @param {number} id Entity ID for registering
      */
@@ -102,6 +114,14 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
      */
     getTileInfo() {
         return this.tileInfo;
+    }
+
+    /**
+     * Get entity information
+     * @return {Dictionary<number, json>} Entity information json data
+     */
+    getEntityInfo() {
+        return this.entityInfo;
     }
 
     /**
@@ -191,10 +211,6 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         if (this, this.playMode) {
             super.update(dt);
         } else {
-            // update mutables and autonomies
-            for (let it of this.mutables_) {
-                it.update(dt);
-            }
             // update camera
             this.camera.setCameraPosition(0, 0, this.map.width, this.map.height);
         }
@@ -215,15 +231,35 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
 
         // place tile
         if (this.selectedX >= 0 && Input.it.isMousePressed(Input.it.M.LEFT)) {
-            // remove
-            for (let entity of this.getEntities()) {
-                if (entity.x == x && entity.y == y) {
-                    this.removeEntity(entity);
+            if (this.placedEntityID >= 0) {
+                // remove
+                for (let entity of this.getEntities()) {
+                    if (x <= entity.x && entity.y == y) {
+                        if (entity instanceof MutableObject) {
+                            this.removeEntity(entity);
+                        }
+                    }
                 }
-            }
-            if (this.placedTileID >= 0) {
+                this.addEntity(new UnderCharacterBuilder().build(x, y, this.entityInfo[this.placedEntityID]));
+                this.addEntityID(this.placedEntityID);
+            } else if (this.placedTileID >= 0) {
+                // remove
+                for (let entity of this.getEntities()) {
+                    if (entity.x == x && entity.y == y) {
+                        if (entity instanceof ImmutableObject) {
+                            this.removeEntity(entity);
+                        }
+                    }
+                }
                 this.addEntity(new UnderTileBuilder().build(x, y, this.tileInfo[this.placedTileID]));
                 this.addEntityID(this.placedTileID);
+            } else {
+                // remove
+                for (let entity of this.getEntities()) {
+                    if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
+                        this.removeEntity(entity);
+                    }
+                }
             }
         }
     }
@@ -238,7 +274,16 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         super.render(ctx, shiftX, shiftY);
 
         if (this.selectedX >= 0) {
-            ctx.strokeRect(this.selectedX, this.selectedY, 32, 32, `white`);
+            let width = 32;
+            let height = 32;
+            if (this.placedEntityID >= 0) {
+                width = this.entityInfo[this.placedEntityID].width;
+                height = this.entityInfo[this.placedEntityID].height;
+            } else if (this.placedTileID >= 0) {
+                width = this.tileInfo[this.placedTileID].width;
+                height = this.tileInfo[this.placedTileID].height;
+            }
+            ctx.strokeRect(this.selectedX, this.selectedY, width, height, `white`);
         }
     }
 }

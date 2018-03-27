@@ -103,7 +103,7 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     update(dt) {
         let element = this.animation[this.runningAnimation];
         this.animationCount += dt;
-        while (this.animationCount >= element.delta) {
+        while (element !== undefined && this.animationCount >= element.delta) {
             this.animationCount -= element.delta;
             if (++this.runningAnimation >= this.animation.length) {
                 this.ended = true;

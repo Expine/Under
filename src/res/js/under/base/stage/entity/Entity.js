@@ -95,6 +95,12 @@ class Entity { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Initialize entity
+     * @interface
+     */
+    init() {}
+
+    /**
      * Update entty
      * @interface
      * @param {number} dt - delta time

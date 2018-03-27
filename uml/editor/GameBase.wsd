@@ -13,16 +13,30 @@ package editor {
             #chipLayer : ChipLayer
         }
         package ed_layer {
-            class ChipLayer {
-                #tileInfo : Dictionary<number, json>
-                #tileID : number
+            abstract SelectionLayer {
+                +SelectionLayer(imageID) : SlectionLayer
+                #imaeID : number
+                #x : number
+                #y : number
                 #width : number
                 #height : number
+                #setPosition(x,y,width,height)
+                #getSelectedTile() : number
+                #setSelectedTile(id)
+            }
+            class ChipLayer {
+                #tileInfo : Dictionary<number, json>
                 #selectTile : json
                 #selectedTile : json
-                +setPosition(x,y,width,height)
-                +getSelectedTile() : number
-                +setSelectedTile(id)
+            }
+            class EntityLayer {
+                #entityLayers : Array<SingleEntityLayer>
+            }
+            class SingleEntityLayer {
+                #entity : json
+                #animation : animation
+                #selectEntity : json
+                #selectedEntity : json
             }
         }
     }
@@ -34,6 +48,9 @@ package editor {
 
 package under {
     package base {
+        package context {
+            class AnimationElement
+        }
         package scene {
             package layer {
                 abstract Layer
@@ -43,6 +60,7 @@ package under {
     package extend {
         abstract UnderEngineBuilder
         package ex_context {
+            class SingleAnimation
             class JSContext
             class CachedImage
         }
@@ -72,13 +90,22 @@ CachedImage <.. EditorBuilder : "Generate"
 
 EditorStageParser <.. EditorScene : "Parse"
 ChipLayer <.. EditorScene : "Select chip"
+EntityLayer <.. EditorScene : "Select entity"
 EditorStage <.. EditorScene : "Set chip"
+
+EntityLayer "1" o-- "*" SingleEntityLayer : "Manage"
+
+SingleAnimation <... SingleEntityLayer : "Generate"
+AnimationElement <... SingleEntityLayer : "Generate"
 
 UnderEngineBuilder <|.. EditorBuilder
 GeneratableScreen <|-- EditorScreen
 JSContext <|-- EditorContext
 
 LayerBaseScene <|-- EditorScene
-Layer <|.. ChipLayer
+Layer <|-- SelectionLayer
+SelectionLayer <|.. ChipLayer
+SelectionLayer <|.. EntityLayer
+SelectionLayer <|.. SingleEntityLayer
 
 @enduml
