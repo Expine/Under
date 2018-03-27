@@ -22,8 +22,12 @@
                 "mu": 0.95
             },
             "ai": [{
-                "name": "NormalBaseStateAI"
-            }],
+                    "name": "CommonBaseStateAI"
+                },
+                {
+                    "name": "NormalBaseStateAI"
+                }
+            ],
             "animation": {
                 "stationary": {
                     "file": "player.png",
@@ -307,7 +311,7 @@
                         }
                     ]
                 },
-                "gamover": {
+                "gameover": {
                     "file": "player.png",
                     "animation": [{
                             "direction": {

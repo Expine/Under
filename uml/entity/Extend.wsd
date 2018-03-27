@@ -12,6 +12,8 @@ package under {
                 class Obstacle
                 class SingleAIObject {
                     #ai : Array<AI>
+                }
+                class Character {
                     #hp : number
                 }
                 class StateCharacter {
@@ -117,6 +119,7 @@ package under {
                 abstract MutableObject
                 abstract AutonomyObject
                 abstract Damagable
+                abstract Breakable
             }
             package physics {
                 package colloder {
@@ -149,11 +152,13 @@ PlayerGameoverStateAI ..> PGameoverState : Generate
 ImmutableObject <|.. TileObject
 MutableObject <|.. Obstacle
 AutonomyObject <|.. SingleAIObject
-Damagable <|.. SingleAIObject
-SingleAIObject <|-- StateCharacter
+SingleAIObject <|-- Character
+Damagable <|.. Character
+Character <|-- StateCharacter
 StateCharacter <|-- Player
-SingleAIObject <|-- Enemy
+Character <|-- Enemy
 SingleAIObject <|-- AttackObject
+Breakable <|.. AttackObject
 AttackObject <|.. PunchObject
 
 Collider <|.. RectangleCollider

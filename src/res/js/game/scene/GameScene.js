@@ -15,6 +15,15 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
          * @type {Stage}
          */
         this.stage = (new UnderStageParser().parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height));
+
+        let id = ContextImage.it.loadImage(`res/image/chara/box.png`);
+        for (let i = 0; i < 0; ++i) {
+            let it = new Obstacle(100 + (i % 20) * 40, Math.floor(i / 20) * 40 - 300, 32, 32, id);
+            it.setCollider(new RectangleCollider(1, 1, 30, 30));
+            it.setMaterial(new DefaultMaterial());
+            it.setRigidBody(new MaxAdoptBody());
+            this.stage.addEntity(it);
+        }
         /**
          * Game player
          * @protected
@@ -42,9 +51,6 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     update(dt) {
         // gameover
         if (this.player.getHP() <= 0 && !this.gameover) {
-            // TODO: Should make it a function
-            this.player.addAI(new PlayerGameoverStateAI(`gameover`), 0);
-            this.player.setCollider(new RoundRectangleCollider(0, 32, 64, 32, 5));
             this.layers.push(new GameoverLayer());
             this.gameover = true;
         }

@@ -21,6 +21,11 @@ package game {
 
             package ga_player {
                 class UnderPlayerState
+                package ga_common {
+                    class CommonBaseStateAI
+                    class CommonNoneState
+                    class CommonGameoverState
+                }
                 package ga_normal {
                     class NormalBaseStateAI
                     class NormalStationaryState {
@@ -63,6 +68,11 @@ package under {
                 class TileObject
                 class Player
             }
+            package ex_physics {
+                package ex_collider {
+                    class RoundRectangleCollider
+                }
+            }
             package ex_ai {
                 class NamedStateAI
                 abstract BaseState
@@ -70,6 +80,9 @@ package under {
         }
     }
 }
+
+CommonBaseStateAI ..> CommonNoneState : "Generate"
+CommonBaseStateAI ..> CommonGameoverState : "Generate"
 
 NormalBaseStateAI ..> NormalStationaryState : Generate
 NormalBaseStateAI ..> NormalWalkState : Generate
@@ -85,27 +98,32 @@ WildBaseStateAI ..> NormalJumpingState : Generate
 WildBaseStateAI ..> WildClawState : Generate
 WildBaseStateAI ..> NormalGrabState : Generate
 
+CommonGameoverState ....> RoundRectangleCollider : "Generate"
 NormalGrabState .> UnderPlayer : Use method
 
-Player <|--- UnderPlayer
-TileObject <|--- UnderTileObject
+Player <|---- UnderPlayer
+TileObject <|---- UnderTileObject
 
 NamedStateAI <|--- TransferableStateAI
 TransferableStateAI <|.. NormalBaseStateAI
-TransferableStateAI <|... WildBaseStateAI
+TransferableStateAI <|.. WildBaseStateAI
+TransferableStateAI <|.. CommonBaseStateAI
 
-BaseState <|-- TransferableState
+BaseState <|----- TransferableState
 TransferableState <|-- UnderPlayerState
 
-UnderPlayerState <|.. NormalStationaryState
-UnderPlayerState <|.. NormalWalkState
-UnderPlayerState <|.. NormalJumpState
-UnderPlayerState <|.. NormalJumpingState
-UnderPlayerState <|.. NormalPunchState
-UnderPlayerState <|.. NormalGrabState
+CommonNoneState ..|> UnderPlayerState
+CommonGameoverState ..|> UnderPlayerState
 
-NormalJumpState <|-- WildJumpState
-NormalPunchState <|-- WildClawState
+NormalStationaryState ..|> UnderPlayerState
+NormalWalkState ..|> UnderPlayerState
+NormalJumpState ..|> UnderPlayerState
+NormalJumpingState ..|> UnderPlayerState
+NormalPunchState ..|> UnderPlayerState
+NormalGrabState ..|> UnderPlayerState
+
+WildJumpState --|> NormalJumpState
+WildClawState --|> NormalPunchState
 
 
 @enduml

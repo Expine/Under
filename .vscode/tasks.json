@@ -11,7 +11,8 @@
         {
             "label": "Doc",
             "type": "shell",
-            "command": "call ./src/util/DocumentBuild.bat"
+            "command": "call ./src/util/DocumentBuild.bat",
+            "problemMatcher": []
         }
     ]
 }
