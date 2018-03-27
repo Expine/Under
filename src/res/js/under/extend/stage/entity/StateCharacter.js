@@ -2,10 +2,10 @@
  * State character
  * Entity that manages AI according to state
  * Also manage drawing with AIState
- * @implements {SingleAIObject}
+ * @implements {Character}
  * @classdesc Entity that manages AI according to state
  */
-class StateCharacter extends SingleAIObject { // eslint-disable-line  no-unused-vars
+class StateCharacter extends Character { // eslint-disable-line  no-unused-vars
     /**
      * State character constructor
      * @constructor

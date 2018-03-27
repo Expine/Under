@@ -344,26 +344,72 @@
                                 "x": 1,
                                 "y": 0
                             },
+                            "loop": false,
                             "list": [{
-                                "srcX": 96,
-                                "srcY": 192,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }]
+                                    "srcX": 0,
+                                    "srcY": 192,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 100
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 192,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 100
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 192,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 100
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 192,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 100
+                                }
+                            ]
                         },
                         {
                             "direction": {
                                 "x": -1,
                                 "y": 0
                             },
+                            "loop": false,
                             "list": [{
-                                "srcX": 96,
-                                "srcY": 224,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }]
+                                    "srcX": 0,
+                                    "srcY": 224,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 100
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 224,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 100
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 224,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 100
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 224,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 100
+                                }
+                            ]
                         }
                     ]
                 }

@@ -34,19 +34,23 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        if (Util.onGround(this.entity) && Input.it.isKeyPressed(Input.it.down)) {
-            this.underCount_ += dt;
-            this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.01 - this.entity.body.preVelocityX, 0);
-            if (this.underCount_ > 200) {
-                this.entity.changeType(Util.getUnderEntity(this.entity));
-                this.underCount_ = 0;
+        // judge
+        if (!Util.onGround(this.entity) || !Input.it.isKeyPressed(Input.it.down)) {
+            if (++this.underCount_ > 5) {
+                if (Math.abs(this.entity.body.preVelocityX) < 10) {
+                    this.ai.changeState(`stationary`);
+                } else {
+                    this.ai.changeState(`walk`);
+                }
+                this.stateAnimation.init();
             }
-            return true;
-        }
-        if (Math.abs(this.entity.body.preVelocityX) < 10) {
-            this.ai.changeState(`stationary`);
         } else {
-            this.ai.changeState(`walk`);
+            this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.01 - this.entity.body.preVelocityX, 0);
+            this.underCount_ = 0;
+        }
+        if (this.stateAnimation.isEnded() && this.underCount_ == 0) {
+            // reset and change
+            this.entity.changeType(Util.getUnderEntity(this.entity));
         }
         return true;
     }

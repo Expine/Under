@@ -15,7 +15,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.gravity = gravity * 30;
+        this.gravity = gravity * 50;
     }
 
     /**

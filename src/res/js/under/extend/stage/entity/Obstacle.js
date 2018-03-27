@@ -17,7 +17,7 @@ class Obstacle extends MutableObject { // eslint-disable-line  no-unused-vars
 
         // for debug
         if (this.collider !== undefined) {
-            this.collider.render(ctx, shiftX, shiftY);
+            //            this.collider.render(ctx, shiftX, shiftY);
         }
     }
 }

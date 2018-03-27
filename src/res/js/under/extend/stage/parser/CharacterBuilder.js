@@ -26,7 +26,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         let base = new MultiNamedAnimation();
         let id = ContextImage.it.loadImage(`res/image/chara/${anime.file}`);
         for (let it of anime.animation) {
-            base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation());
+            base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation(it.loop));
             for (let e of it.list) {
                 base.addAnimation(new AnimationElement(id, e.srcX, e.srcY, e.srcW, e.srcH, e.delta));
             }
