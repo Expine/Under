@@ -68,6 +68,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             return new Player(x, y, entity.width, entity.height, entity.file);
         } else if (entity.type == 'Enemy') {
             return new Enemy(x, y, entity.width, entity.height, entity.file);
+        } else if (entity.type == `Obstacle`) {
+            return new Obstacle(x, y, entity.width, entity.height, entity.file);
         }
     }
 
@@ -84,8 +86,10 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         base.setCollider(this.makeCollider(json.collider));
         base.setMaterial(this.makeMaterial(json.material));
         base.setRigidBody(this.makeBody(json.body));
-        for (let ai of json.ai) {
-            base.addAI(this.makeAI(ai, json.animation));
+        if (json.ai !== undefined) {
+            for (let ai of json.ai) {
+                base.addAI(this.makeAI(ai, json.animation));
+            }
         }
         return base;
     }

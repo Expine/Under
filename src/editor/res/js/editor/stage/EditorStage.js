@@ -229,7 +229,7 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             if (this.placedEntityID >= 0) {
                 // remove
                 for (let entity of this.getEntities()) {
-                    if (x <= entity.x && entity.y == y) {
+                    if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
                         if (entity instanceof MutableObject) {
                             this.removeEntity(entity);
                         }
@@ -240,7 +240,7 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             } else if (this.placedTileID >= 0) {
                 // remove
                 for (let entity of this.getEntities()) {
-                    if (entity.x == x && entity.y == y) {
+                    if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
                         if (entity instanceof ImmutableObject) {
                             this.removeEntity(entity);
                         }

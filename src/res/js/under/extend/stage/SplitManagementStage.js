@@ -92,11 +92,13 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         if (!this.enable) {
             return;
         }
+        // if (Input.it.isKeyPress(Input.it.A) || Input.it.isKeyPressed(Input.it.A + 1)) {
         // update mutables and autonomies
         for (let it of this.mutables_) {
             it.update(dt);
         }
         this.physic.update(dt, this.mutables_, this.entities_);
+        // }
         if (this.player_ != null) {
             this.camera.setCameraPosition(this.player_.x + this.player_.width / 2, this.player_.y + this.player_.height / 2, this.map.width, this.map.height);
         }
@@ -133,6 +135,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
                     if (it.body !== undefined) {
                         ctx.fillText(`(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
                         ctx.fillText(`(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
+                        ctx.fillText(`(${Math.floor(it.body.preAccelerationX)}, ${Math.floor(it.body.preAccelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, `white`);
                     }
                 }
             }

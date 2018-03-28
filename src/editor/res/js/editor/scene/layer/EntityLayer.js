@@ -36,12 +36,15 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
         super.setPosition(x, y, width, height);
         let sx = x;
         let sy = y;
+        let maxHeight = 0;
         for (let it of this.entityLayers) {
             it.setPosition(sx, sy, 0, 0);
             sx += it.width;
+            maxHeight = Math.max(maxHeight, it.height);
             if (sx > x + width) {
                 sx = x;
-                y += it.height;
+                sy += maxHeight;
+                maxHeight = 0;
             }
         }
     }

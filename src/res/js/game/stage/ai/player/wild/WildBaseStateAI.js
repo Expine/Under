@@ -7,6 +7,7 @@
 class WildBaseStateAI extends TransferableStateAI { // eslint-disable-line  no-unused-vars
     /**
      * Wild base State AI Constructor
+     * @constructor
      */
     constructor() {
         super(`stationary`);

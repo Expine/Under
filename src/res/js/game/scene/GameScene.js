@@ -16,14 +16,6 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
          */
         this.stage = (new UnderStageParser().parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height));
 
-        let id = ContextImage.it.loadImage(`res/image/chara/box.png`);
-        for (let i = 0; i < 0; ++i) {
-            let it = new Obstacle(100 + (i % 20) * 40, Math.floor(i / 20) * 40 - 300, 32, 32, id);
-            it.setCollider(new RectangleCollider(1, 1, 30, 30));
-            it.setMaterial(new DefaultMaterial());
-            it.setRigidBody(new MaxAdoptBody());
-            this.stage.addEntity(it);
-        }
         /**
          * Game player
          * @protected
