@@ -201,11 +201,6 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             }
             this.playMode = !this.playMode;
         }
-        // save
-        if (Input.it.isKeyPress(Input.it.A + 18)) {
-            this.getSaveData();
-            console.log(this.saveData);
-        }
 
         // test play
         if (this, this.playMode) {

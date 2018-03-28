@@ -16,8 +16,8 @@ class Obstacle extends MutableObject { // eslint-disable-line  no-unused-vars
         ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height);
 
         // for debug
-        if (this.collider !== undefined) {
-            //            this.collider.render(ctx, shiftX, shiftY);
+        if (Engine.debug && this.collider !== undefined) {
+            this.collider.render(ctx, shiftX, shiftY);
         }
     }
 }

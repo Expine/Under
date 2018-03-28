@@ -58,7 +58,7 @@ class TileObject extends ImmutableObject { // eslint-disable-line  no-unused-var
         ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height, this.srcX, this.srcY, this.srcW, this.srcH);
 
         // for debug
-        if (this.collider !== undefined) {
+        if (Engine.debug && this.collider !== undefined) {
             this.collider.render(ctx, shiftX, shiftY);
         }
     }

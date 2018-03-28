@@ -124,14 +124,16 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         }
 
         // For debug to render entity information
-        let mx = Input.it.getMouseX() + startX;
-        let my = Input.it.getMouseY() + startY;
-        for (let it of this.entities_) {
-            if (it.collider !== undefined && it.collider.isInCollider(mx, my)) {
-                ctx.fillText(`(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
-                if (it.body !== undefined) {
-                    ctx.fillText(`(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
-                    ctx.fillText(`(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
+        if (Engine.debug) {
+            let mx = Input.it.getMouseX() + startX;
+            let my = Input.it.getMouseY() + startY;
+            for (let it of this.entities_) {
+                if (it.collider !== undefined && it.collider.isInCollider(mx, my)) {
+                    ctx.fillText(`(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
+                    if (it.body !== undefined) {
+                        ctx.fillText(`(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
+                        ctx.fillText(`(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
+                    }
                 }
             }
         }

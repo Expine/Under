@@ -80,7 +80,7 @@ class SingleAIObject extends AutonomyObject { // eslint-disable-line  no-unused-
         }
 
         // For debug to render collider
-        if (this.collider !== undefined) {
+        if (Engine.debug && this.collider !== undefined) {
             this.collider.render(ctx, shiftX, shiftY);
         }
     }

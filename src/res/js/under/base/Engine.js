@@ -91,3 +91,5 @@ class Engine { // eslint-disable-line  no-unused-vars
      */
     main() {}
 }
+
+Engine.debug = true;

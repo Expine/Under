@@ -46,6 +46,16 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         super.update(dt);
         this.stage.placedTileID = this.chipLayer.getSelected();
         this.stage.placedEntityID = this.entityLayer.getSelected();
+
+        // save
+        if (Input.it.isKeyPress(Input.it.A + 18)) {
+            this.stage.getSaveData();
+            console.log(this.stage.saveData);
+        }
+        // save
+        if (Input.it.isKeyPress(Input.it.A + 3)) {
+            Engine.debug = !Engine.debug;
+        }
     }
 
     /**

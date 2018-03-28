@@ -57,7 +57,7 @@ class StateCharacter extends Character { // eslint-disable-line  no-unused-vars
             this.state.render(ctx, shiftX, shiftY);
 
             // For debug to render collider
-            if (this.collider !== undefined) {
+            if (Engine.debug && this.collider !== undefined) {
                 this.collider.render(ctx, shiftX, shiftY);
             }
         } else {
