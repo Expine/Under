@@ -116,9 +116,6 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
                 }
             }
             // repulsion
-            if (e2.material === undefined) {
-                e2.material;
-            }
             let e = e2.material.e;
             // friction
             let mass = e1.material.mass;

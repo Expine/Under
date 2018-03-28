@@ -84,13 +84,6 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     enforce(forceX, forceY) {}
 
     /**
-     * Get inertial force
-     * @interface
-     * @return {data(.x, .y)} Inertial force x, y
-     */
-    getInertialForce() {}
-
-    /**
      * Update by rigid body
      * @interface
      * @param {number} dt delta time

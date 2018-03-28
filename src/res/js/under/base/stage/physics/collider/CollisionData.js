@@ -11,9 +11,11 @@ class CollisionData { // eslint-disable-line  no-unused-vars
      * @param {Entity} e2 Collision entity
      * @param {number} nx X component of normal vector
      * @param {number} ny Y component of normal vector
+     * @param {number} px Collision x point
+     * @param {number} py Collision y point
      * @param {number} depth Depth of collision
      */
-    constructor(e1, e2, nx, ny, depth) {
+    constructor(e1, e2, nx, ny, px, py, depth) {
         /**
          * Collision entity
          * @type {Entity}
@@ -41,5 +43,15 @@ class CollisionData { // eslint-disable-line  no-unused-vars
          */
         this.depth = depth;
         // TODO: Is a collision point necessary?
+        /**
+         * Collision x point
+         * @type {number}
+         */
+        this.px = px;
+        /**
+         * Collision y point
+         * @type {number}
+         */
+        this.py = py;
     }
 }

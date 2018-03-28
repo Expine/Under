@@ -65,6 +65,8 @@ package under {
                         +e2 : Entity
                         +nx : number
                         +ny : number
+                        +px : number
+                        +py : number
                         +depth : number
                     }
                 }

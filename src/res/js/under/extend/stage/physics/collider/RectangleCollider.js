@@ -96,6 +96,10 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
                     data.e2 = collider.entity;
                     data.nx = nx;
                     data.ny = ny;
+                    let base = (this.aabb.endX - this.aabb.startX + collider.aabb.endX - collider.aabb.startX);
+                    data.px = (this.aabb.startX + this.aabb.endX) / 2 * (this.aabb.endX - this.aabb.startX) / base + (collider.aabb.startX + collider.aabb.endX) / 2 * (collider.aabb.endX - collider.aabb.startX) / base;
+                    base = (this.aabb.endY - this.aabb.startY + collider.aabb.endY - collider.aabb.startY);
+                    data.py = (this.aabb.startY + this.aabb.endY) / 2 * (this.aabb.endY - this.aabb.startY) / base + (collider.aabb.startY + collider.aabb.endY) / 2 * (collider.aabb.endY - collider.aabb.startY) / base;
                     data.depth = nlen;
                 }
                 return true;

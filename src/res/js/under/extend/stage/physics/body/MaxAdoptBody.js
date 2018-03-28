@@ -68,29 +68,6 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
         this.accelerationY += forceY / this.entity.material.mass;
     }
 
-    /**
-     * Get inertial force
-     * @override
-     * @return {data(.x, .y)} Inertial force x, y
-     */
-    getInertialForce() {
-        let iv = {};
-        iv.x = 0;
-        iv.y = 0;
-        for (let it of this.entity.collider.collisions) {
-            if ((it.e1 === this.entity && it.e2.body !== undefined) || (it.e2 === this.entity && it.e1.body !== undefined)) {
-                let you = it.e1 === this.entity ? it.e2 : it.e1;
-                if (Math.abs(it.ny) > 0.5 && you.collider.getAABB().startY > this.entity.collider.getAABB().startY) {
-                    let youIv = you.body.getInertialForce();
-                    iv.x = Math.abs(iv.x) < Math.abs(youIv.x) ? youIv.x : iv.x;
-                    iv.y = Math.abs(iv.y) < Math.abs(youIv.y) ? youIv.y : iv.y;
-                }
-            }
-        }
-        iv.x += this.preVelocityX;
-        iv.y += this.preVelocityY;
-        return iv;
-    }
 
     /**
      * Update by rigid body
@@ -117,15 +94,9 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
         } else {
             this.velocityY += ky;
         }
-        // Inertial force
-        let iv = this.getInertialForce();
-        iv.x -= this.preVelocityX;
-        iv.y -= this.preVelocityY;
-        iv.x += this.velocityX;
-        iv.y += this.velocityY;
         // move
-        let dx = (iv.x) * dt / 1000;
-        let dy = (iv.y) * dt / 1000;
+        let dx = this.velocityX * dt / 1000;
+        let dy = this.velocityY * dt / 1000;
         this.entity.deltaMove(dx, dy);
         // reserve velocity and acceleration
         this.preVelocityX = this.velocityX;

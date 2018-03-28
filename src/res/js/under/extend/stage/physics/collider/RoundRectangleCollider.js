@@ -80,6 +80,10 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                     data.e2 = collider.entity;
                     data.nx = nx;
                     data.ny = ny;
+                    let base = (this.aabb.endX - this.aabb.startX + collider.aabb.endX - collider.aabb.startX);
+                    data.px = (this.aabb.startX + this.aabb.endX) / 2 * (this.aabb.endX - this.aabb.startX) / base + (collider.aabb.startX + collider.aabb.endX) / 2 * (collider.aabb.endX - collider.aabb.startX) / base;
+                    base = (this.aabb.endY - this.aabb.startY + collider.aabb.endY - collider.aabb.startY);
+                    data.py = (this.aabb.startY + this.aabb.endY) / 2 * (this.aabb.endY - this.aabb.startY) / base + (collider.aabb.startY + collider.aabb.endY) / 2 * (collider.aabb.endY - collider.aabb.startY) / base;
                     data.depth = d;
                 }
                 return true;
@@ -135,6 +139,10 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                     data.e2 = collider.entity;
                     data.nx = nx;
                     data.ny = ny;
+                    let base = (this.aabb.endX - this.aabb.startX + collider.aabb.endX - collider.aabb.startX);
+                    data.px = (this.aabb.startX + this.aabb.endX) / 2 * (this.aabb.endX - this.aabb.startX) / base + (collider.aabb.startX + collider.aabb.endX) / 2 * (collider.aabb.endX - collider.aabb.startX) / base;
+                    base = (this.aabb.endY - this.aabb.startY + collider.aabb.endY - collider.aabb.startY);
+                    data.py = (this.aabb.startY + this.aabb.endY) / 2 * (this.aabb.endY - this.aabb.startY) / base + (collider.aabb.startY + collider.aabb.endY) / 2 * (collider.aabb.endY - collider.aabb.startY) / base;
                     data.depth = d;
                 }
                 return true;
@@ -157,17 +165,18 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
         ctx.strokeLine(this.aabb.startX + shiftX, this.aabb.startY + this.cut + shiftY, this.aabb.startX + shiftX, this.aabb.endY - this.cut + shiftY);
         ctx.strokeLine(this.aabb.endX + shiftX, this.aabb.startY + this.cut + shiftY, this.aabb.endX + shiftX, this.aabb.endY - this.cut + shiftY);
         ctx.strokeLine(this.aabb.startX + this.cut + shiftX, this.aabb.endY + shiftY, this.aabb.endX - this.cut + shiftX, this.aabb.endY + shiftY);
-        /*
-        ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 30, `red`);
-        for (let it of this.collisions) {
-            var hueVal = it.e1.imageID + (it.e2.imageID << 5);
-            ctx.strokeLine(
-                this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
-                this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
-                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
-                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
-                hueVal);
+
+        if (Engine.debug) {
+            ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 30, `red`);
+            for (let it of this.collisions) {
+                var hueVal = it.e1.imageID + (it.e2.imageID << 5);
+                ctx.strokeLine(
+                    this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
+                    this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
+                    this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
+                    this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
+                    hueVal);
+            }
         }
-        */
     }
 }

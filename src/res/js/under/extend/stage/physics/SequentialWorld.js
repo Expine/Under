@@ -19,7 +19,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
          * @type {Array<CollisionData>}
          */
         this.collisions = [];
-        this.collisions.push(new CollisionData(null, null, 0, 0, 0));
+        this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
 
         /**
          * Size of collision data list
@@ -92,6 +92,9 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         }
 
         // collision initialize
+        for (let j = 0; j < this.collisionSize; ++j) {
+            this.collisions[j].py = -1000000000;
+        }
         this.collisionSize = 0;
         for (let it of this.entities) {
             if (it.collider !== undefined) {
@@ -125,23 +128,26 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                     }
                 }
                 if (same) {
+                    this.collisions[this.collisionSize].py = -1000000000;
                     continue;
                 }
                 // add collision data
                 targetCollider.addCollision(this.collisions[this.collisionSize]);
                 itCollider.addCollision(this.collisions[this.collisionSize]);
                 if (++this.collisionSize >= this.collisions.length) {
-                    this.collisions.push(new CollisionData(null, null, 0, 0, 0));
+                    this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
                 }
             }
+        }
 
-            // collision response
-            for (var j = 0; j < this.collisionSize; ++j) {
-                let it = this.collisions[j];
-                if (it.e1.collider.isResponse && it.e2.collider.isResponse) {
-                    this.response.collisionResponse(it, dt);
-                }
+        // collision response
+        let sorted = this.collisions.sort((a, b) => a.py > b.py ? -1 : a.py < b.py ? 1 : 0);
+        for (let j = 0; j < this.collisionSize; ++j) {
+            let it = sorted[j];
+            if (it.e1.collider.isResponse && it.e2.collider.isResponse) {
+                this.response.collisionResponse(it, dt);
             }
+            it.py = -1000000000;
         }
     }
 }
