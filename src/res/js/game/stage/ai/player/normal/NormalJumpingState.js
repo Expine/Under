@@ -45,7 +45,7 @@ class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-u
         if (vx != 0) {
             this.entity.directionX = vx;
             if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < Math.abs(this.maxVelocityX)) {
-                this.entity.body.enforce(this.movePower * vx / dt, 0);
+                this.entity.body.enforce(this.movePower * this.entity.material.mass * vx / dt, 0);
             }
         }
         if (Util.onGround(this.entity)) {

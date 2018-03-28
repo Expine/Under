@@ -17,7 +17,7 @@
                 "type": "MaxAdopt"
             },
             "material": {
-                "mass": 1,
+                "mass": 30,
                 "elasticity": 0.1,
                 "mu": 0.95
             },
@@ -444,6 +444,80 @@
             "ai": [{
                 "name": "EnemyAI"
             }]
+        },
+        {
+            "type": "Enemy",
+            "file": "enemy.png",
+            "id": 2,
+            "width": 64,
+            "height": 64,
+            "collider": {
+                "type": "RoundRectangle",
+                "startX": 0,
+                "startY": 32,
+                "width": 64,
+                "height": 32,
+                "cut": 5
+            },
+            "body": {
+                "type": "MaxAdopt"
+            },
+            "material": {
+                "mass": 1,
+                "elasticity": 0.1,
+                "mu": 0.95
+            },
+            "ai": [{
+                "name": "JumpAI"
+            }]
+        },
+        {
+            "type": "Enemy",
+            "file": "enemy.png",
+            "id": 3,
+            "width": 256,
+            "height": 64,
+            "collider": {
+                "type": "RoundRectangle",
+                "startX": 0,
+                "startY": 32,
+                "width": 256,
+                "height": 32,
+                "cut": 5
+            },
+            "body": {
+                "type": "MaxAdopt"
+            },
+            "material": {
+                "mass": 1,
+                "elasticity": 0.1,
+                "mu": 0.95
+            },
+            "ai": [{
+                "name": "EnemyAI"
+            }]
+        },
+        {
+            "type": "Obstacle",
+            "file": "box.png",
+            "id": 4,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "body": {
+                "type": "MaxAdopt"
+            },
+            "material": {
+                "mass": 1,
+                "elasticity": 0.0,
+                "mu": 0.95
+            }
         }
     ]
 }

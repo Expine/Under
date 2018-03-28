@@ -49,7 +49,7 @@ class NormalWalkState extends UnderPlayerState { // eslint-disable-line  no-unus
         if (vx != 0) {
             this.entity.directionX = vx;
             if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
-                this.entity.body.enforce(vx * this.walkPower / dt, 0);
+                this.entity.body.enforce(vx * this.walkPower * this.entity.material.mass / dt, 0);
             }
         }
         // stationary

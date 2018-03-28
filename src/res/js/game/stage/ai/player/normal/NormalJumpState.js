@@ -81,7 +81,7 @@ class NormalJumpState extends UnderPlayerState { // eslint-disable-line  no-unus
         if (this.stateAnimation.isEnded() && this.inAirCount_ == 0) {
             // reset and jump
             this.entity.body.setNextAddVelocity(this.velocityX - this.entity.body.preVelocityX, -this.entity.body.preVelocityY);
-            this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt * (this.jumpPressedTime_ + this.jumpDeltaTime_) / 2 / this.jumpDeltaTime_);
+            this.entity.body.enforce(0, -this.jumpPower_ * this.entity.material.mass * 1000 / dt * (this.jumpPressedTime_ + this.jumpDeltaTime_) / 2 / this.jumpDeltaTime_);
             this.ai.changeState(`jumping`);
         }
 
