@@ -251,11 +251,19 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      */
     drawImage(imageID, x, y, width, height, srcX, srcY, srcW, srcH) {
         let image = this.image.getImage(imageID);
+        x = Math.round(x);
+        y = Math.round(y);
         if (width === undefined) {
             this.ctx_.drawImage(image, x, y);
         } else if (srcX === undefined) {
+            width = Math.round(width);
+            height = Math.round(height);
             this.ctx_.drawImage(image, x, y, width, height);
         } else {
+            srcX = Math.round(srcX);
+            srcY = Math.round(srcY);
+            srcW = Math.round(srcW);
+            srcH = Math.round(srcH);
             this.ctx_.drawImage(image, srcX, srcY, srcW, srcH, x, y, width, height);
         }
     }
