@@ -2,9 +2,10 @@
  * Selection layer
  * Selects something
  * @implements {Layer}
+ * @implements {Selection}
  * @classdesc Selection layer to select something
  */
-class SelectionLayer extends Layer { // eslint-disable-line  no-unused-vars
+class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  no-unused-vars
     /**
      * Selection layer constructor
      * @constructor

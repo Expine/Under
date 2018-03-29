@@ -41,15 +41,15 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         this.selectedY = -1;
 
         /**
-         * ID of the tile to be placed
-         * @type {number}
+         * Selection of the tile to be placed
+         * @type {Selection}
          */
-        this.placedTileID = -1;
+        this.tileSelection = null;
         /**
-         * ID of the entity to be placed
-         * @type {number}
+         * Selection of the entity to be placed
+         * @type {Selection}
          */
-        this.placedEntityID = -1;
+        this.entitySelection = null;
 
         /**
          * Whether the test play is in progress or not
@@ -184,6 +184,26 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
     }
 
     /**
+     * Set tile selection
+     * @param {Selection} selection Tile selection
+     */
+    setTileSelection(selection) {
+        if (BaseUtil.implementsOf(selection, Selection)) {
+            this.tileSelection = selection;
+        }
+    }
+
+    /**
+     * Set entity selection
+     * @param {Selection} selection Entity selection
+     */
+    setEntitySelection(selection) {
+        if (BaseUtil.implementsOf(selection, Selection)) {
+            this.entitySelection = selection;
+        }
+    }
+
+    /**
      * Update stage
      * @override
      * @param {number} dt delta time
@@ -202,12 +222,31 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             this.playMode = !this.playMode;
         }
 
+        // move camera to end
+        if (Input.it.isKeyPress(Input.it.A + 4)) {
+            this.camera.setCameraPosition(0, -this.map.height, this.map.width, this.map.height);
+        }
+
+        // move camera
+        if (Input.it.isKeyPress(Input.it.right)) {
+            this.camera.setCameraPosition(this.camera.cameraX - this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
+        }
+        if (Input.it.isKeyPress(Input.it.left)) {
+            this.camera.setCameraPosition(this.camera.cameraX + this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
+        }
+        if (Input.it.isKeyPress(Input.it.up)) {
+            this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY + this.camera.screenHeight / 2, this.map.width, this.map.height);
+        }
+        if (Input.it.isKeyPress(Input.it.down)) {
+            this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY - this.camera.screenHeight / 2, this.map.width, this.map.height);
+        }
+
         // test play
         if (this, this.playMode) {
             super.update(dt);
         } else {
             // update camera
-            this.camera.setCameraPosition(0, 0, this.map.width, this.map.height);
+            this.camera.setCameraPosition(1, 1, this.map.width, this.map.height);
         }
 
         // update selected area
@@ -224,9 +263,27 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             }
         }
 
+        // syrunge
+        if (this.selectedX >= 0 && Input.it.isMousePressed(Input.it.M.RIGHT)) {
+            if (this.entitySelection.getSelected() < 0) {
+                let entities = this.getEntities();
+                for (let i = 0; i < entities.length; ++i) {
+                    let entity = entities[i];
+                    if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
+                        if (entity instanceof ImmutableObject) {
+                            this.tileSelection.setSelected(this.entitiesID[i]);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         // place tile
         if (this.selectedX >= 0 && Input.it.isMousePressed(Input.it.M.LEFT)) {
-            if (this.placedEntityID >= 0) {
+            let tileID = this.tileSelection.getSelected();
+            let entityID = this.entitySelection.getSelected();
+            if (entityID >= 0) {
                 // remove
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
@@ -235,9 +292,9 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
                         }
                     }
                 }
-                this.addEntity(new UnderCharacterBuilder().build(x, y, this.entityInfo[this.placedEntityID]));
-                this.addEntityID(this.placedEntityID);
-            } else if (this.placedTileID >= 0) {
+                this.addEntity(new UnderCharacterBuilder().build(x, y, this.entityInfo[entityID]));
+                this.addEntityID(entityID);
+            } else if (tileID >= 0) {
                 // remove
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
@@ -246,8 +303,8 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
                         }
                     }
                 }
-                this.addEntity(new UnderTileBuilder().build(x, y, this.tileInfo[this.placedTileID]));
-                this.addEntityID(this.placedTileID);
+                this.addEntity(new UnderTileBuilder().build(x, y, this.tileInfo[tileID]));
+                this.addEntityID(tileID);
             } else {
                 // remove
                 for (let entity of this.getEntities()) {
@@ -269,14 +326,16 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         super.render(ctx, shiftX, shiftY);
 
         if (this.selectedX >= 0) {
+            let tileID = this.tileSelection.getSelected();
+            let entityID = this.entitySelection.getSelected();
             let width = 32;
             let height = 32;
-            if (this.placedEntityID >= 0) {
-                width = this.entityInfo[this.placedEntityID].width;
-                height = this.entityInfo[this.placedEntityID].height;
-            } else if (this.placedTileID >= 0) {
-                width = this.tileInfo[this.placedTileID].width;
-                height = this.tileInfo[this.placedTileID].height;
+            if (entityID >= 0) {
+                width = this.entityInfo[entityID].width;
+                height = this.entityInfo[entityID].height;
+            } else if (tileID >= 0) {
+                width = this.tileInfo[tileID].width;
+                height = this.tileInfo[tileID].height;
             }
             ctx.strokeRect(this.selectedX, this.selectedY, width, height, `white`);
         }

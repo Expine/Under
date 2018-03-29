@@ -23,5 +23,4 @@ class EditorMap extends SequentialMap { // eslint-disable-line  no-unused-vars
         data.height = this.height;
         return data;
     }
-
 }

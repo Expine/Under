@@ -31,6 +31,8 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         this.entityLayer = new EntityLayer(this.stage.getEntityInfo());
         this.layers.push(this.chipLayer);
         this.layers.push(this.entityLayer);
+        this.stage.setTileSelection(this.chipLayer);
+        this.stage.setEntitySelection(this.entityLayer);
     }
 
 
@@ -40,19 +42,19 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
      * @param {number} dt - delta time
      */
     update(dt) {
+        // set position and size
         this.chipLayer.setPosition(20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
         this.entityLayer.setPosition(Screen.it.width / 2 + 20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
+        // update
         this.stage.update(dt);
         super.update(dt);
-        this.stage.placedTileID = this.chipLayer.getSelected();
-        this.stage.placedEntityID = this.entityLayer.getSelected();
 
         // save
         if (Input.it.isKeyPress(Input.it.A + 18)) {
             this.stage.getSaveData();
             console.log(this.stage.saveData);
         }
-        // save
+        // change debug mode
         if (Input.it.isKeyPress(Input.it.A + 3)) {
             Engine.debug = !Engine.debug;
         }

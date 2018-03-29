@@ -24,6 +24,12 @@ class Map { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get back image ID
+     * @interface
+     * @return {number} Back image ID
+     */
+    getBackID() {}
+    /**
      * Update map
      * @interface
      * @param {number} dt delta time

@@ -62,12 +62,6 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
         };
 
         /**
-         * A key code
-         * @type {number}
-         */
-        this.A = 65;
-
-        /**
          * Left arrow key code
          * @type {number}
          */

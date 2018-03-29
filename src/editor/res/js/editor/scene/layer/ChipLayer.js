@@ -58,6 +58,14 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
      * @param {number} dt - delta time
      */
     update(dt) {
+        // select key
+        for (let i = 0; i < 10; ++i) {
+            if (Input.it.isKeyPress(Input.it.ZERO + i)) {
+                this.selectedTile = i == 0 || this.tileInfo[i - 1] === undefined ? null : this.tileInfo[i - 1];
+            }
+        }
+
+        // tile selection
         this.selectTile = null;
         let x = Input.it.getMouseX() - this.x;
         let y = Input.it.getMouseY() - this.y;

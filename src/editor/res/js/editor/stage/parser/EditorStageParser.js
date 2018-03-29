@@ -31,6 +31,22 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     }
 
     /**
+     * Make map for parsing stage
+     * @protected
+     * @param {json} map Map json data
+     * @param {json} back Map element json data
+     * @return {Map} Map element of parsing
+     */
+    makeMapElement(map, back) {
+        if (back.type == `Invariant`) {
+            let id = ContextImage.it.loadImage(`res/image/back/${back.file}`);
+            return new EditorInvariantBackMap(id, map.width, map.height);
+        } else {
+            return super.makeMapElement(map, back);
+        }
+    }
+
+    /**
      * Make base camera for parsing stage
      * @override
      * @protected

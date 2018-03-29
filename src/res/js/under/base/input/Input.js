@@ -17,6 +17,18 @@ class Input { // eslint-disable-line  no-unused-vars
          * @type {Input}
          */
         Input.it = this;
+
+        /**
+         * A key code
+         * @type {number}
+         */
+        this.A = 65;
+
+        /**
+         * 0 key code
+         * @type {number}
+         */
+        this.ZERO = 48;
     }
 
     /**
