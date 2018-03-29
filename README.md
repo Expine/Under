@@ -25,6 +25,13 @@ Under game project
 ![GameBaseGame](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/gamebase/Game/GameBaseGame.png)
 - Main is the entry point
 - MainBuilder only added changes to generate ExtendedInput
+
+### Scene
+#### Tiele
+![SceneTitle](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/scene/Title/SceneTitle.png)
+
+#### Game
+![SceneGame](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/scene/Game/SceneGame.png)
 - GameScene is provisional implementation
 - DebugLayer sometimes ignores the access level
 
@@ -62,7 +69,6 @@ Under game project
     - ImmutableObject is an immovable object
     - MutableObject is an object which does not move on its own
     - AutonomyObject is a self-moving object
-- I want to interface whether it is destructible or not
 
 #### Extend
 ![EntityExtend](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/Extend/EntityExtend.png)
@@ -71,14 +77,18 @@ Under game project
 
 #### Game
 ![EntityGame](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/Game/EntityGame.png)
-- PUnderState considers AutonomyObject as UnderPlayer
+- NormalGrabState considers AutonomyObject as UnderPlayer
     - Run as allowed because it is JavaScript
 
 ### Editor
 #### Game base
 ![EditorGameBase](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/editor/GameBase/EditorGameBase.png)
 - Unfortunately the implementation depends on the implementation badly
+    - Selection is abstracted
     - TODO: Should I abstract just in case?
+
+#### Scene
+![EditorScene](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/editor/Scene/EditorScene.png)
 
 #### Stage
 ![EditorStage](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/editor/Stage/EditorStage.png)

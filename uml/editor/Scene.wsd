@@ -1,0 +1,93 @@
+@startuml EditorScene
+
+package editor {
+    package ed_scene {
+        class EditorScene {
+            #stage : EditorStage
+            #chipLayer : ChipLayer
+        }
+        package ed_layer {
+            abstract SelectionLayer {
+                +SelectionLayer(imageID) : SlectionLayer
+                #imaeID : number
+                #x : number
+                #y : number
+                #width : number
+                #height : number
+                #setPosition(x,y,width,height)
+                #getSelectedTile() : number
+                #setSelectedTile(id)
+            }
+            class ChipLayer {
+                #tileInfo : Dictionary<number, json>
+                #selectTile : json
+                #selectedTile : json
+            }
+            class EntityLayer {
+                #entityLayers : Array<SingleEntityLayer>
+            }
+            class SingleEntityLayer {
+                #entity : json
+                #animation : animation
+                #selectEntity : json
+                #selectedEntity : json
+            }
+        }
+    }
+
+    package util {
+        abstract Selection {
+            {abstract} +getSelected() : number
+            {abstract} +setSelected(id)
+        }
+    }
+}
+
+package under {
+    package base {
+        package context {
+            class AnimationElement
+        }
+        package scene {
+            package layer {
+                abstract Layer
+            }
+        }
+    }
+    package extend {
+        package ex_context {
+            class SingleAnimation
+        }
+        package ex_scene {
+            class LayerBaseScene
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        class EditorStage
+        package ed_parser {
+            class EditorStageParser
+        }
+    }
+}
+
+EditorStageParser <.. EditorScene : "Parse"
+ChipLayer <.. EditorScene : "Select chip"
+EntityLayer <.. EditorScene : "Select entity"
+EditorStage <.. EditorScene : "Set chip"
+
+EntityLayer "1" o-- "*" SingleEntityLayer : "Manage"
+
+SingleAnimation <...... SingleEntityLayer : "Generate"
+AnimationElement <...... SingleEntityLayer : "Generate"
+
+LayerBaseScene <|-- EditorScene
+Layer <|-- SelectionLayer
+Selection <|.. SelectionLayer
+SelectionLayer <|.. ChipLayer
+SelectionLayer <|.. EntityLayer
+SelectionLayer <|.. SingleEntityLayer
+
+@enduml

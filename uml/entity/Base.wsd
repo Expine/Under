@@ -34,6 +34,15 @@ package under {
                     {abstract} +addAI(ai,priotiy)
                     {abstract} +removeAI(ai)
                 }
+
+                abstract Breakable {
+                    {abstract} +destroy()
+                }
+
+                abstract Damagable {
+                    {abstract} +getHP() : number
+                    {abstract} +damage(damage)
+                }
             }
             package physics {
                 package collider {

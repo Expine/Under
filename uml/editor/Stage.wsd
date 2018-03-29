@@ -8,8 +8,8 @@ package editor {
             #entityInfo : Dictionary<number, json>
             #selectedX : number
             #selectedY : number
-            #placedTileID : number
-            #placedEntityID : number
+            #tileSelection : Selection
+            #entitySelection : Selection
             #saveData : string
             #playMode : bool
             #entitiesID : Array<number>
@@ -24,6 +24,7 @@ package editor {
             class EditorMap {
                 +getSaveData() : json
             }
+            class EditorInvariantMap
         }
 
         package ed_parser {
@@ -54,6 +55,7 @@ package under {
             class SplitManagemenetStage
             package ex_map {
                 class SequentialMap
+                class InvariantMap
             }
         }
     }
@@ -68,10 +70,12 @@ package game {
 EditorStage <.. EditorStageParser : "Generate"
 EditorCamera <.. EditorStageParser : "Generate"
 EditorMap <.. EditorStageParser : "Generate"
+EditorInvariantMap <.. EditorStageParser : "Generate"
 
 Camera <|.. EditorCamera
 UnderStageParser <|.. EditorStageParser
 SplitManagemenetStage <|-- EditorStage
 SequentialMap <|-- EditorMap
+InvariantMap <|-- EditorInvariantMap
 
 @enduml

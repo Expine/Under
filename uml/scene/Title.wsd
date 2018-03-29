@@ -1,0 +1,29 @@
+@startuml SceneTitle
+
+package game {
+    package ga_scene {
+        class TitleScene {
+            -title_ : number
+        }
+    }
+}
+
+package under {
+    package base {
+        package scene {
+            abstract Scene
+        }
+    }
+}
+
+package game {
+    package ga_scene {
+        class GameScene
+    }
+}
+
+TitleScene ..> GameScene : Generate
+
+TitleScene ..|> Scene
+
+@enduml

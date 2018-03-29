@@ -29,6 +29,7 @@ package unde {
                     +Map(width,height) : Map
                     +width : number
                     +height : number
+                    {abstract} +getBackID() : number
                     {abstract} +update(dt)
                     {abstract} +render(ctx,shiftX,shiftY)
                 }

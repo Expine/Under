@@ -29,6 +29,8 @@ package under {
         package input {
             abstract Input {
                 {static} +it : Input /' Singleton '/
+                +A : number
+                +ZERO : number
                 #screen : Screen
                 #target : Element
                 +setScreen(screen)
