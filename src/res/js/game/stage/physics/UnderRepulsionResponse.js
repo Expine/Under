@@ -21,9 +21,13 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
         let d = data.depth;
         // e1 is the colliding side
         if (b1 === undefined || (b1.preVelocityX * nx + b1.preVelocityY * ny <= 0)) {
+            data.nx = -data.nx;
+            data.ny = -data.ny;
             nx = -nx;
             ny = -ny;
             if (b2 === undefined || (b2.preVelocityX * nx + b2.preVelocityY * ny <= 0)) {
+                data.nx = -data.nx;
+                data.ny = -data.ny;
                 nx = -nx;
                 ny = -ny;
                 // push back
@@ -43,6 +47,8 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
                 let swt = e1;
                 e1 = e2;
                 e2 = swt;
+                data.e1 = e1;
+                data.e2 = e2;
                 swt = b1;
                 b1 = b2;
                 b2 = swt;
@@ -66,7 +72,7 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                if (e1 instanceof AutonomyObject || (!(e2 instanceof AutonomyObject) && v1 >= v2)) {
+                if (dot2 > 0 || e1 instanceof AutonomyObject) {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                         e1.deltaMove(-nx * d / 10, -ny * d / 10);
                     }
@@ -74,21 +80,31 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                         e2.deltaMove(nx * d / 10, ny * d / 10);
                     }
-                } else {
-                    let p1 = v1 / (v1 + v2);
-                    let p2 = v2 / (v1 + v2);
+                } else if (v1 > v2) {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e1.deltaMove(-nx * d / 10 * p1, -ny * d / 10 * p1);
-                        e2.deltaMove(nx * d / 10 * p2, ny * d / 10 * p2);
+                        e1.deltaMove(-nx * d / 10, -ny * d / 10);
+                    }
+                } else if (v2 < v1) {
+                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                        e2.deltaMove(nx * d / 10, ny * d / 10);
+                    }
+                } else {
+                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                        e1.deltaMove(-nx * d / 10, -ny * d / 10);
+                        e2.deltaMove(nx * d / 10, ny * d / 10);
                     }
                 }
             }
+            // check impossible collision
+            if (Math.abs(v1) < Math.abs(v2) && dot2 >= 0) {
+                return;
+            }
             // repulsion
             let e = (e1.material.e + e2.material.e) / 2;
-            vdx1 = (v2x - v1x) * (1 + e) / 2;
-            vdy1 = (v2y - v1y) * (1 + e) / 2;
-            vdx2 = -vdx1;
-            vdy2 = -vdy1;
+            vdx1 = (v2x - v1x) * (1 + e) * (e2.material.mass) / (e1.material.mass + e2.material.mass);
+            vdy1 = (v2y - v1y) * (1 + e) * (e2.material.mass) / (e1.material.mass + e2.material.mass);
+            vdx2 = -(v2x - v1x) * (1 + e) * (e1.material.mass) / (e1.material.mass + e2.material.mass);
+            vdy2 = -(v2y - v1y) * (1 + e) * (e1.material.mass) / (e1.material.mass + e2.material.mass);
         } else {
             let dot1 = b1.preVelocityX * nx + b1.preVelocityY * ny;
             let v1x = dot1 * nx;
@@ -102,8 +118,8 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             }
             // repulsion
             let e = e2.material.e;
-            vdx1 = -v1x * (1 + e) / 2;
-            vdy1 = -v1y * (1 + e) / 2;
+            vdx1 = -v1x * (1 + e);
+            vdy1 = -v1y * (1 + e);
         }
 
         // friction
@@ -115,22 +131,31 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             let px = dotp * nx;
             let py = dotp * ny;
             let p = Math.sqrt(px * px + py * py);
-            let dot = Math.sign((b1.diffX - (b2 === undefined ? 0 : b2.diffX)) * -ny + (b1.diffY - (b2 === undefined ? 0 : b2.diffY)) * nx);
-            let dvx = dot * -ny * p * mu * dt / 1000;
-            let dvy = dot * nx * p * mu * dt / 1000;
-            if (b2 === undefined) {
-                if (Math.abs(dvx) > Math.abs(b1.diffX)) {
-                    dvx = b1.diffX;
+            let dvx = 0;
+            let dvy = 0;
+            if (b2 === undefined || b2.isFix) {
+                let dot = Math.sign((b1.preVelocityX) * -ny + (b1.preVelocityY) * nx);
+                dvx = dot * -ny * p * mu * dt / 1000;
+                dvy = dot * nx * p * mu * dt / 1000;
+                if (Math.abs(dvx) > Math.abs(b1.preVelocityX)) {
+                    dvx = b1.preVelocityX;
                 }
-                if (Math.abs(dvy) > Math.abs(b1.diffY)) {
-                    dvy = b1.diffY;
+                if (Math.abs(dvy) > Math.abs(b1.preVelocityY)) {
+                    dvy = b1.preVelocityY;
                 }
-            } else if (b2.isFix) {
-                if (Math.abs(dvx) > Math.abs(b1.diffX)) {
-                    dvx = b1.diffX;
+            } else {
+                let dot = Math.sign((b2.diffX * b2.preVelocityX < 0 ? b1.preVelocityX : b1.diffX - b2.diffX) * -ny + (b2.diffY * b2.preVelocityY < 0 ? b1.preVelocityY : b1.diffY - b2.diffY) * nx);
+                dvx = dot * -ny * p * mu * dt / 1000;
+                dvy = dot * nx * p * mu * dt / 1000;
+                if (b2.diffX * b2.preVelocityX < 0) {
+                    if (Math.abs(dvx) > Math.abs(b1.preVelocityX)) {
+                        dvx = b1.preVelocityX;
+                    }
                 }
-                if (Math.abs(dvy) > Math.abs(b1.diffY)) {
-                    dvy = b1.diffY;
+                if (b2.diffY * b2.preVelocityY < 0) {
+                    if (Math.abs(dvy) > Math.abs(b1.preVelocityY)) {
+                        dvy = b1.preVelocityY;
+                    }
                 }
             }
             vdx1 -= dvx;
@@ -142,15 +167,31 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             let px = dotp * nx;
             let py = dotp * ny;
             let p = Math.sqrt(px * px + py * py);
-            let dot = Math.sign((b2.diffX - b1.diffX) * -ny + (b2.diffY - b1.diffY) * nx);
-            let dvx = -dot * ny * p * mu * dt / 1000;
-            let dvy = dot * nx * p * mu * dt / 1000;
+            let dvx = 0;
+            let dvy = 0;
             if (b1.isFix) {
-                if ((Math.abs(dvx) > Math.abs(b2.diffX))) {
-                    dvx = b2.diffX;
+                let dot = Math.sign((b2.preVelocityX) * -ny + (b2.preVelocityY) * nx);
+                dvx = dot * -ny * p * mu * dt / 1000;
+                dvy = dot * nx * p * mu * dt / 1000;
+                if ((Math.abs(dvx) > Math.abs(b2.preVelocityX))) {
+                    dvx = b2.preVelocityX;
                 }
-                if ((Math.abs(dvy) > Math.abs(b2.diffY))) {
-                    dvy = b2.diffY;
+                if ((Math.abs(dvy) > Math.abs(b2.preVelocityY))) {
+                    dvy = b2.preVelocityY;
+                }
+            } else {
+                let dot = Math.sign((b1.diffX * b1.preVelocityX < 0 ? b2.preVelocityX : b2.diffX - b1.diffX) * -ny + (b1.diffY * b1.preVelocityY < 0 ? b2.preVelocityY : b2.diffY - b1.diffY) * nx);
+                dvx = dot * -ny * p * mu * dt / 1000;
+                dvy = dot * nx * p * mu * dt / 1000;
+                if (b1.diffX * b1.preVelocityX < 0) {
+                    if (Math.abs(dvx) > Math.abs(b2.preVelocityX)) {
+                        dvx = b2.preVelocityX;
+                    }
+                }
+                if (b1.diffY * b1.preVelocityY < 0) {
+                    if (Math.abs(dvy) > Math.abs(b2.preVelocityY)) {
+                        dvy = b2.preVelocityY;
+                    }
                 }
             }
             vdx2 -= dvx;
