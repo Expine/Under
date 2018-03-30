@@ -53,7 +53,7 @@ class NormalWalkState extends UnderPlayerState { // eslint-disable-line  no-unus
             }
         }
         // stationary
-        if (!input && Math.abs(this.entity.body.preVelocityX) < 10) {
+        if (!input && this.entity.body.isFix) {
             this.ai.changeState(`stationary`);
         }
         // grab

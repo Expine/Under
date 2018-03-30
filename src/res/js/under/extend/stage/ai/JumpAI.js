@@ -30,7 +30,7 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
         // judge
         if (Util.onGround(this.entity)) {
             // reset and jump
-            this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt);
+            this.entity.body.enforce(0, -this.jumpPower_ * this.entity.material.mass * 1000 / dt);
         }
         return true;
     }

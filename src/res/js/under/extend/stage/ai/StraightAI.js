@@ -42,7 +42,7 @@ class StraightAI extends AI { // eslint-disable-line  no-unused-vars
             this.entity.directionX *= -1;
         }
         if (Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
-            this.entity.body.enforce(this.entity.directionX * this.walkPower, 0);
+            this.entity.body.enforce(this.entity.directionX * this.walkPower * this.entity.material.mass, 0);
         }
         return true;
     }

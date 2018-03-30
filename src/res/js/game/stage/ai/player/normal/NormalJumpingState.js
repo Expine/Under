@@ -49,7 +49,7 @@ class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-u
             }
         }
         if (Util.onGround(this.entity)) {
-            if (Math.abs(this.entity.body.preVelocityX) < 10) {
+            if (this.entity.body.isFix) {
                 this.ai.changeState(`stationary`);
             } else {
                 this.ai.changeState(`walk`);

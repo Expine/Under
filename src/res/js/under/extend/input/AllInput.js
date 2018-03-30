@@ -92,6 +92,11 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.no = 88;
+        /**
+         * C key code
+         * @type {number}
+         */
+        this.sub = 67;
 
         // ban context menu
         document.oncontextmenu = function() {

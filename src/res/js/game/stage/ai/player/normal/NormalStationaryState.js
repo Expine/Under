@@ -58,6 +58,9 @@ class NormalStationaryState extends UnderPlayerState { // eslint-disable-line  n
         if (Input.it.isKeyPress(Input.it.yes)) {
             this.ai.changeState(`attack`);
         }
+        if (Input.it.isKeyPress(Input.it.sub) && Util.onGround(this.entity)) {
+            this.ai.changeState(`special`);
+        }
         return true;
     }
 }

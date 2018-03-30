@@ -37,7 +37,7 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
         // judge
         if (!Util.onGround(this.entity) || !Input.it.isKeyPressed(Input.it.down)) {
             if (++this.underCount_ > 5) {
-                if (Math.abs(this.entity.body.preVelocityX) < 10) {
+                if (this.entity.body.isFix) {
                     this.ai.changeState(`stationary`);
                 } else {
                     this.ai.changeState(`walk`);
@@ -45,7 +45,7 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
                 this.stateAnimation.init();
             }
         } else {
-            this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.01 - this.entity.body.preVelocityX, 0);
+            this.entity.body.setNextAddVelocity(-this.entity.body.preVelocityX / 101, 0);
             this.underCount_ = 0;
         }
         if (this.stateAnimation.isEnded() && this.underCount_ == 0) {

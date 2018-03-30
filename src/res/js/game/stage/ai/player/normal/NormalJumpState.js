@@ -64,7 +64,7 @@ class NormalJumpState extends UnderPlayerState { // eslint-disable-line  no-unus
      */
     apply(dt) {
         // animation
-        this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.1 - this.entity.body.preVelocityX, 0);
+        this.entity.body.setNextAddVelocity(-this.entity.body.preVelocityX / 11, 0);
         if (Input.it.isKeyPressed(Input.it.up)) {
             this.jumpPressedTime_ += 1;
         }
@@ -80,7 +80,7 @@ class NormalJumpState extends UnderPlayerState { // eslint-disable-line  no-unus
         }
         if (this.stateAnimation.isEnded() && this.inAirCount_ == 0) {
             // reset and jump
-            this.entity.body.setNextAddVelocity(this.velocityX - this.entity.body.preVelocityX, -this.entity.body.preVelocityY);
+            this.entity.body.setNextAddVelocity(this.velocityX * 0.8 - this.entity.body.preVelocityX, -this.entity.body.preVelocityY);
             this.entity.body.enforce(0, -this.jumpPower_ * this.entity.material.mass * 1000 / dt * (this.jumpPressedTime_ + this.jumpDeltaTime_) / 2 / this.jumpDeltaTime_);
             this.ai.changeState(`jumping`);
         }

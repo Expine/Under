@@ -23,7 +23,7 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
         // punch
         this.entity.stage.addEntity(this.makeAttackObject());
         // change state
-        if (Math.abs(this.entity.body.preVelocityX) < 10) {
+        if (this.entity.body.isFix) {
             this.ai.changeState(`stationary`);
         } else {
             this.ai.changeState(`walk`);

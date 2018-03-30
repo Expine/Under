@@ -167,8 +167,22 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
         ctx.strokeLine(this.aabb.startX + this.cut + shiftX, this.aabb.endY + shiftY, this.aabb.endX - this.cut + shiftX, this.aabb.endY + shiftY);
 
         if (Engine.debug) {
-            ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 30, `red`);
+            let me = 0;
+            let you = 0;
             for (let it of this.collisions) {
+                if (it.e1 === this.entity) {
+                    me += 1;
+                } else {
+                    you += 1;
+                }
+            }
+            // ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 15, `red`);
+            ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
+            ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
+            for (let it of this.collisions) {
+                if (it.e2 === this.entity) {
+                    continue;
+                }
                 var hueVal = it.e1.imageID + (it.e2.imageID << 5);
                 ctx.strokeLine(
                     this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
