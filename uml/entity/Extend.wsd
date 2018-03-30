@@ -57,6 +57,10 @@ package under {
                         #vpy : number
                         #vmx : number
                         #vmy : number
+                        #vmx : number
+                        #vmy : number
+                        #preX : number
+                        #preY : number
                     }
                 }
                 package ex_material {

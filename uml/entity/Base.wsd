@@ -97,6 +97,8 @@ package under {
                         +preVelocityY : number
                         +preAccelerationX : number
                         +preAccelerationY : number
+                        +diffX : number
+                        +diffY : number
                         +k : number
                         #entity : Entity
                         +setEntity(entity)

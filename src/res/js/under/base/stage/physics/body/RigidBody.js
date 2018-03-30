@@ -54,6 +54,23 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.k = 0.5;
+
+        /**
+         * Difference of previous x position (actural x velocity)
+         * @type {number}
+         */
+        this.diffX = 0;
+        /**
+         * Difference of previous y position (actural y velocity)
+         * @type {number}
+         */
+        this.diffY = 0;
+
+        /**
+         * Whether it is fixed or not
+         * @type {bool}
+         */
+        this.isFix = false;
     }
 
     /**

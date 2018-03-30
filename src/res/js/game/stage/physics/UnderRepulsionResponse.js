@@ -115,22 +115,22 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             let px = dotp * nx;
             let py = dotp * ny;
             let p = Math.sqrt(px * px + py * py);
-            let dot = Math.sign((b1.preVelocityX - (b2 === undefined ? 0 : b2.preVelocityX)) * -ny + (b1.preVelocityY - (b2 === undefined ? 0 : b2.preVelocityY)) * nx);
+            let dot = Math.sign((b1.diffX - (b2 === undefined ? 0 : b2.diffX)) * -ny + (b1.diffY - (b2 === undefined ? 0 : b2.diffY)) * nx);
             let dvx = dot * -ny * p * mu * dt / 1000;
             let dvy = dot * nx * p * mu * dt / 1000;
             if (b2 === undefined) {
-                if (Math.abs(dvx) > Math.abs(b1.preVelocityX)) {
-                    dvx = b1.preVelocityX;
+                if (Math.abs(dvx) > Math.abs(b1.diffX)) {
+                    dvx = b1.diffX;
                 }
-                if (Math.abs(dvy) > Math.abs(b1.preVelocityY)) {
-                    dvy = b1.preVelocityY;
+                if (Math.abs(dvy) > Math.abs(b1.diffY)) {
+                    dvy = b1.diffY;
                 }
-            } else {
-                if (Math.abs(b2.preVelocityX) < 5) {
-                    dvx = 0;
+            } else if (b2.isFix) {
+                if (Math.abs(dvx) > Math.abs(b1.diffX)) {
+                    dvx = b1.diffX;
                 }
-                if (Math.abs(b2.preVelocityY) < 10) {
-                    dvy = 0;
+                if (Math.abs(dvy) > Math.abs(b1.diffY)) {
+                    dvy = b1.diffY;
                 }
             }
             vdx1 -= dvx;
@@ -142,20 +142,16 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             let px = dotp * nx;
             let py = dotp * ny;
             let p = Math.sqrt(px * px + py * py);
-            let dot = Math.sign((b2.preVelocityX - b1.preVelocityX) * -ny + (b2.preVelocityY - b1.preVelocityY) * nx);
+            let dot = Math.sign((b2.diffX - b1.diffX) * -ny + (b2.diffY - b1.diffY) * nx);
             let dvx = -dot * ny * p * mu * dt / 1000;
             let dvy = dot * nx * p * mu * dt / 1000;
-            if (Math.abs(dvx) > Math.abs(b2.preVelocityX)) {
-                dvx = b2.preVelocityX;
-            }
-            if (Math.abs(dvy) > Math.abs(b2.preVelocityY)) {
-                dvy = b2.preVelocityY;
-            }
-            if (Math.abs(b1.preVelocityX) < 5) {
-                dvx = 0;
-            }
-            if (Math.abs(b1.preVelocityY) < 10) {
-                dvy = 0;
+            if (b1.isFix) {
+                if ((Math.abs(dvx) > Math.abs(b2.diffX))) {
+                    dvx = b2.diffX;
+                }
+                if ((Math.abs(dvy) > Math.abs(b2.diffY))) {
+                    dvy = b2.diffY;
+                }
             }
             vdx2 -= dvx;
             vdy2 -= dvy;

@@ -36,6 +36,17 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.vmy = 0;
+
+        /**
+         * Previous x position
+         * @type {number}
+         */
+        this.preX = 0;
+        /**
+         * Previous y position
+         * @type {number}
+         */
+        this.preY = 0;
     }
 
     /**
@@ -75,6 +86,13 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
      * @param {number} dt delta time
      */
     update(dt) {
+        // set previous posiiton
+        this.diffX = (this.entity.x - this.preX) * 1000 / dt;
+        this.diffY = (this.entity.y - this.preY) * 1000 / dt;
+        this.isFix = Math.abs(this.diffX) < 25 && Math.abs(this.diffY) < 50;
+        this.preX = this.entity.x;
+        this.preY = this.entity.y;
+
         // next add velocity
         this.velocityX += this.vpx + this.vmx;
         this.velocityY += this.vpy + this.vmy;
