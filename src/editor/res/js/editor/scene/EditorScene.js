@@ -15,7 +15,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
          * @protected
          * @type {EditorStage}
          */
-        this.stage = (new EditorStageParser()).parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height - 250);
+        this.stage = (new EditorStageParser()).parse(`res/stage/world1.json`, Screen.it.width, Screen.it.height - 250);
 
         /**
          * Chip layer

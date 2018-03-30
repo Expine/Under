@@ -437,7 +437,7 @@
                 "type": "MaxAdopt"
             },
             "material": {
-                "mass": 1,
+                "mass": 20,
                 "elasticity": 0.1,
                 "mu": 0.95
             },
@@ -463,7 +463,7 @@
                 "type": "MaxAdopt"
             },
             "material": {
-                "mass": 1,
+                "mass": 20,
                 "elasticity": 0.1,
                 "mu": 0.95
             },
@@ -489,7 +489,7 @@
                 "type": "MaxAdopt"
             },
             "material": {
-                "mass": 1,
+                "mass": 1000,
                 "elasticity": 0.1,
                 "mu": 0.95
             },
@@ -504,18 +504,19 @@
             "width": 32,
             "height": 32,
             "collider": {
-                "type": "Rectangle",
-                "startX": 0,
-                "startY": 0,
-                "width": 32,
-                "height": 32
+                "type": "RoundRectangle",
+                "startX": 1,
+                "startY": 1,
+                "width": 30,
+                "height": 30,
+                "cut": 3
             },
             "body": {
                 "type": "MaxAdopt"
             },
             "material": {
                 "mass": 1,
-                "elasticity": 0.0,
+                "elasticity": 0.1,
                 "mu": 0.95
             }
         }

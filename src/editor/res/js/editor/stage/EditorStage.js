@@ -224,7 +224,11 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
 
         // move camera to end
         if (Input.it.isKeyPress(Input.it.A + 4)) {
-            this.camera.setCameraPosition(0, -this.map.height, this.map.width, this.map.height);
+            for (let it of this.getEntities()) {
+                if (it instanceof Player) {
+                    this.camera.setCameraPosition(-it.x + Screen.it.width / 2, -it.y + Screen.it.height / 2, this.map.width, this.map.height);
+                }
+            }
         }
 
         // move camera

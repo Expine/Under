@@ -13,6 +13,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     makeBody(body) {
         if (body.type == `MaxAdopt`) {
             return new MaxAdoptBody();
+        } else if (body.type == `Player`) {
+            return new PlayerBody();
         }
     }
 
