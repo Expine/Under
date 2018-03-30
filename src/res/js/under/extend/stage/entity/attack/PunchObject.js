@@ -28,7 +28,7 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
         let ret = false;
         // If damageable object is collided, damage
         for (let it of this.collider.collisions) {
-            let entity = Util.getCollidedEntity(this, it);
+            let entity = Util.getCollidedEntity(this.entity, it);
             if (BaseUtil.implementsOf(entity, Damagable)) {
                 entity.damage(1);
                 ret = true;

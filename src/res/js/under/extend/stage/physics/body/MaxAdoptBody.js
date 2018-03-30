@@ -39,11 +39,13 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
 
         /**
          * Previous x position
+         * @protected
          * @type {number}
          */
         this.preX = 0;
         /**
          * Previous y position
+         * @protected
          * @type {number}
          */
         this.preY = 0;
