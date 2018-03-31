@@ -26,9 +26,9 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         this.entities_ = [];
 
         /**
-         * Player instance for camera
+         * Playable instance for camera
          * @orivate
-         * @type {Player}
+         * @type {Playable}
          */
         this.player_ = null;
     }
@@ -39,7 +39,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {Entity} Pentity - entity object
      */
     addEntity(entity) {
-        if (entity instanceof Player) {
+        if (this.player_ == null && BaseUtil.implementsOf(entity, Playable)) {
             this.player_ = entity;
         }
         if (entity instanceof MutableObject) {
@@ -58,6 +58,9 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {Entity} entity - entity object
      */
     removeEntity(entity) {
+        if (entity === this.player_) {
+            this.player_ = null;
+        }
         if (entity instanceof MutableObject) {
             this.mutables_.splice(this.mutables_.indexOf(entity), 1);
         }
@@ -100,7 +103,9 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         this.physic.update(dt, this.mutables_, this.entities_);
         // }
         if (this.player_ != null) {
-            this.camera.setCameraPosition(this.player_.x + this.player_.width / 2, this.player_.y + this.player_.height / 2, this.map.width, this.map.height);
+            let x = this.player_.getCameraX();
+            let y = this.player_.getCameraY();
+            this.camera.setCameraPosition(x, y, this.map.width, this.map.height);
         }
     }
 

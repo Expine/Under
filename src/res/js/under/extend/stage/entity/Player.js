@@ -4,7 +4,7 @@
  * @implements {StateCharacter}
  * @classdesc Player object to operate by input
  */
-class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
+class Player extends StateCharacter /* , Playable */ { // eslint-disable-line  no-unused-vars
     /**
      * Player constructor
      * @constructor
@@ -38,6 +38,24 @@ class Player extends StateCharacter { // eslint-disable-line  no-unused-vars
             this.hp -= damage;
             this.invincible_ = 1000;
         }
+    }
+
+    /**
+     * Get x position for camera
+     * @override
+     * @return {number} X position for camera
+     */
+    getCameraX() {
+        return this.x + this.width / 2;
+    }
+
+    /**
+     * Get y position for camera
+     * @override
+     * @return {number} y position for camera
+     */
+    getCameraY() {
+        return this.y + this.height / 2;
     }
 
     /**
