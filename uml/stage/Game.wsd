@@ -51,6 +51,6 @@ UnderCharacterBuilder ..> UnderPlayer : Generate
 JSONStageParser <|-- UnderStageParser
 TileBuilder <|-- UnderTileBuilder
 CharacterBuilder <|-- UnderCharacterBuilder
-CollisionResponse <|.. UnderRepulsionResponse
+CollisionResponse <|.... UnderRepulsionResponse
 
 @enduml

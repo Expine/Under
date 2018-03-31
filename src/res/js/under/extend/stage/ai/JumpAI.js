@@ -14,10 +14,10 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
 
         /**
          * Jumping force
-         * @private
+         * @protected
          * @type {number}
          */
-        this.jumpPower_ = 360;
+        this.jumpPower = 360;
     }
 
     /**
@@ -30,7 +30,7 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
         // judge
         if (Util.onGround(this.entity)) {
             // reset and jump
-            this.entity.body.enforce(0, -this.jumpPower_ * this.entity.material.mass * 1000 / dt);
+            this.entity.body.enforce(0, -this.jumpPower * this.entity.material.mass * 1000 / dt);
         }
         return true;
     }

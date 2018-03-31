@@ -1,9 +1,9 @@
 /**
- * State of normal special action
+ * State of wild rolling action
  * @implements {UnderPlayerState}
- * @classdesc State of normal special action
+ * @classdesc State of wild rolling action
  */
-class NormalSpecialState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class WildRollingState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Apply AI and decide action
      * @override
@@ -11,8 +11,9 @@ class NormalSpecialState extends UnderPlayerState { // eslint-disable-line  no-u
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        if (!Input.it.isKeyPressed(Input.it.sub)) {
-            // change state
+        // change state
+        if (Util.onGround(this.entity)) {
+            this.entity.body.setNextAddVelocity(-this.entity.body.preVelocityX, 0);
             if (this.entity.body.isFix) {
                 this.ai.changeState(`stationary`);
             } else {

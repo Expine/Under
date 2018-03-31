@@ -31,9 +31,6 @@ package under {
             package parser {
                 abstract EntityBuilder
             }
-            package ai {
-                abstract StateAI
-            }
         }
     }
     package extend {
@@ -53,12 +50,14 @@ package under {
                 }
                 package ex_body {
                     class MaxAdoptBody
+                    class PlayerBody
                 }
             }
             package ex_entity {
                 class TileObject
                 class Player
                 class Enemy
+                class Obstacle
             }
             package ex_ai {
                 class BaseState
@@ -74,12 +73,13 @@ TileBuilder ...> CircleCollider : Generate
 TileBuilder ...> RoundRectangleCollider : Generate
 TileBuilder ...> DefaultMaterial : Generate
 CharacterBuilder ...> MaxAdoptBody : Generate
+CharacterBuilder ...> PlayerBody : Generate
 CharacterBuilder ...> Player : Generate
 CharacterBuilder ...> Enemy : Generate
+CharacterBuilder ...> Obstacle : Generate
 CharacterBuilder ...> MultiNamedAnimation : Generate
 CharacterBuilder ...> SingleAnimation : Generate
 CharacterBuilder ...> AnimationElement : Generate
-CharacterBuilder ...> StateAI : Set animation
 CharacterBuilder ...> BaseState : Set animation
 
 EntityBuilder <|.. TileBuilder

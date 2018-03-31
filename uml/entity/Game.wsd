@@ -12,15 +12,27 @@ package game {
         }
 
         package ga_ai {
-            class TransferableState {
+            abstract TransferableState {
                 +transfer(state)
             }
             class TransferableStateAI {
                 +transfer(state)
             }
-
+            abstract MovableState {
+                {abstract} +setMaxVelocity(maxVelocityX, maxVelocityY)
+                {abstract} +setMovePower(movePowerX, movePowerY)
+            }
             package ga_player {
-                class UnderPlayerState
+                abstract UnderPlayerState
+                abstract UnderMovableState {
+                    #maxVelocityX : number
+                    #maxVelocityY : number
+                    #movePowerX : number
+                    #movePowerY : number
+                }
+                class UnderStateAI {
+                    #specialActionName : string
+                }
                 package ga_common {
                     class CommonBaseStateAI
                     class CommonNoneState
@@ -28,33 +40,29 @@ package game {
                 }
                 package ga_normal {
                     class NormalBaseStateAI
-                    class NormalStationaryState {
-                        #maxVelocityX : number
-                        #walkPower : number
-                    }
-                    class NormalWalkState {
-                        #maxVelocityX : number
-                        #walkPower : number
-                    }
+                    class NormalStationaryState
+                    class NormalWalkState
                     class NormalJumpState {
                         -inAirCount_ : number
                         -jumpPressedTime_ : number
                         -jumpDeltaTime_ : number
                         -jumpPower_ : number
                     }
-                    class NormalJumpingState {
-                        #maxVelocityX : number
-                        #walkPower : number
-                    }
+                    class NormalJumpingState
+                    class NormalFallState
                     class NormalPunchState
                     class NormalGrabState {
                         -underCount_ : number
                     }
+                    class NormalSpecialState
+                    class NormalNoneState
                 }
                 package ga_wild {
                     class WildBaseStateAI
                     class WildJumpState
                     class WildClawState
+                    class WildRollingState
+                    class WildRollState
                 }
             }
         }
@@ -88,15 +96,16 @@ NormalBaseStateAI ..> NormalStationaryState : Generate
 NormalBaseStateAI ..> NormalWalkState : Generate
 NormalBaseStateAI ..> NormalJumpState : Generate
 NormalBaseStateAI ..> NormalJumpingState : Generate
+NormalBaseStateAI ..> NormalFallState : Generate
 NormalBaseStateAI ..> NormalPunchState : Generate
 NormalBaseStateAI ..> NormalGrabState : Generate
+NormalBaseStateAI ..> NormalSpecialState : Generate
+NormalBaseStateAI ..> NormalNoneState : Generate
 
-WildBaseStateAI ..> NormalStationaryState : Generate
-WildBaseStateAI ..> NormalWalkState : Generate
 WildBaseStateAI ..> WildJumpState : Generate
-WildBaseStateAI ..> NormalJumpingState : Generate
 WildBaseStateAI ..> WildClawState : Generate
-WildBaseStateAI ..> NormalGrabState : Generate
+WildBaseStateAI ..> WildRollState : Generate
+WildBaseStateAI ..> WildRollingState : Generate
 
 CommonGameoverState ....> RoundRectangleCollider : "Generate"
 NormalGrabState .> UnderPlayer : Use method
@@ -105,25 +114,32 @@ Player <|---- UnderPlayer
 TileObject <|---- UnderTileObject
 
 NamedStateAI <|--- TransferableStateAI
-TransferableStateAI <|.. NormalBaseStateAI
-TransferableStateAI <|.. WildBaseStateAI
-TransferableStateAI <|.. CommonBaseStateAI
+TransferableStateAI <|-- CommonBaseStateAI
+TransferableStateAI <|-- UnderStateAI
+UnderStateAI <|-- NormalBaseStateAI
+NormalBaseStateAI <|-- WildBaseStateAI
 
 BaseState <|----- TransferableState
 TransferableState <|-- UnderPlayerState
+UnderPlayerState <|-- UnderMovableState
+MovableState <|.. UnderMovableState
 
 CommonNoneState ..|> UnderPlayerState
 CommonGameoverState ..|> UnderPlayerState
 
-NormalStationaryState ..|> UnderPlayerState
-NormalWalkState ..|> UnderPlayerState
+NormalStationaryState ..|> UnderMovableState
+NormalWalkState ..|> UnderMovableState
 NormalJumpState ..|> UnderPlayerState
-NormalJumpingState ..|> UnderPlayerState
+NormalJumpingState ..|> UnderMovableState
+NormalFallState ..|> UnderMovableState
 NormalPunchState ..|> UnderPlayerState
 NormalGrabState ..|> UnderPlayerState
+NormalSpecialState ..|> UnderPlayerState
+NormalNoneState ..|> UnderPlayerState
 
 WildJumpState --|> NormalJumpState
 WildClawState --|> NormalPunchState
-
+WildRollingState ..|> UnderPlayerState
+WildRollState ..|> UnderMovableState
 
 @enduml

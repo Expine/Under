@@ -775,7 +775,7 @@
                         }
                     ]
                 },
-                "special": {
+                "pray": {
                     "file": "player.png",
                     "animation": [{
                             "direction": {
@@ -834,6 +834,101 @@
                                     "delta": 200
                                 },
                                 {
+                                    "srcX": 64,
+                                    "srcY": 608,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 608,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "roll": {
+                    "file": "wild.png",
+                    "animation": [{
+                            "direction": {
+                                "x": 1,
+                                "y": 0
+                            },
+                            "loop": false,
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 576,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 576,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        },
+                        {
+                            "direction": {
+                                "x": -1,
+                                "y": 0
+                            },
+                            "loop": false,
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 608,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 608,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "rolling": {
+                    "file": "wild.png",
+                    "animation": [{
+                            "direction": {
+                                "x": 1,
+                                "y": 0
+                            },
+                            "list": [{
+                                    "srcX": 64,
+                                    "srcY": 576,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 576,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        },
+                        {
+                            "direction": {
+                                "x": -1,
+                                "y": 0
+                            },
+                            "loop": false,
+                            "list": [{
                                     "srcX": 64,
                                     "srcY": 608,
                                     "srcW": 32,

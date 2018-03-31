@@ -62,6 +62,7 @@ package under {
                         #preX : number
                         #preY : number
                     }
+                    class PlayerBody
                 }
                 package ex_material {
                     class DefaultMaterial
@@ -77,6 +78,9 @@ package under {
                 class StraightAI {
                     #maxVelocityX : number
                     #walkPower : number
+                }
+                class JumpAI {
+                    #jumpPower : number
                 }
                 class EnemyAI
 
@@ -169,10 +173,12 @@ Collider <|.. RectangleCollider
 Collider <|.. CircleCollider
 RectangleCollider <|-- RoundRectangleCollider
 RigidBody <|.. MaxAdoptBody
+MaxAdoptBody <|-- PlayerBody
 Material <|.. DefaultMaterial
 
 StateAI <|.. NamedStateAI
 AI <|.. StraightAI
+AI <|.. JumpAI
 StraightAI <|-- EnemyAI
 NamedStateAI <|-- PlayerBaseStateAI
 NamedStateAI <|-- PlayerGameoverStateAI

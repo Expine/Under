@@ -1,9 +1,9 @@
 /**
  * State of walking normally
- * @implements {UnderPlayerState}
+ * @implements {UnderMovableState}
  * @classdesc State of walking normally
  */
-class NormalWalkState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class NormalWalkState extends UnderMovableState { // eslint-disable-line  no-unused-vars
     /**
      * Normal walk state constructor
      * @constructor
@@ -13,18 +13,8 @@ class NormalWalkState extends UnderPlayerState { // eslint-disable-line  no-unus
     constructor(maxVelocityX, walkPower) {
         super();
 
-        /**
-         * Maximum speed vector
-         * @protected
-         * @type {number}
-         */
         this.maxVelocityX = maxVelocityX;
-        /**
-         * Force applied when moving
-         * @protected
-         * @type {number}
-         */
-        this.walkPower = walkPower;
+        this.movePowerX = walkPower;
     }
 
     /**
@@ -49,7 +39,7 @@ class NormalWalkState extends UnderPlayerState { // eslint-disable-line  no-unus
         if (vx != 0) {
             this.entity.directionX = vx;
             if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
-                this.entity.body.enforce(vx * this.walkPower * this.entity.material.mass / dt, 0);
+                this.entity.body.enforce(vx * this.movePowerX * this.entity.material.mass / dt, 0);
             }
         }
         // stationary

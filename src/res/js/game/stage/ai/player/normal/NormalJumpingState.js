@@ -1,9 +1,9 @@
 /**
  * State of normal jumping
- * @implements {UnderPlayerState}
+ * @implements {UnderMovableState}
  * @classdesc State of normal jumping
  */
-class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class NormalJumpingState extends UnderMovableState { // eslint-disable-line  no-unused-vars
     /**
      * Normal jump state constructor
      * @constructor
@@ -13,18 +13,8 @@ class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-u
     constructor(maxVelocityX, movePower) {
         super();
 
-        /**
-         * Maximum speed vector
-         * @protected
-         * @type {number}
-         */
         this.maxVelocityX = maxVelocityX;
-        /**
-         * Force applied when moving
-         * @protected
-         * @type {number}
-         */
-        this.movePower = movePower;
+        this.movePowerX = movePower;
     }
 
     /**
@@ -45,7 +35,7 @@ class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-u
         if (vx != 0) {
             this.entity.directionX = vx;
             if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < Math.abs(this.maxVelocityX)) {
-                this.entity.body.enforce(this.movePower * this.entity.material.mass * vx / dt, 0);
+                this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
             }
         }
         if (this.entity.body.preVelocityY > 0) {

@@ -55,6 +55,6 @@ CSVStageParser ...> TileObject : Generate
 CSVStageParser ...> RectangleCollider : Generate
 CSVStageParser ...> DefaultMaterial : Generate
 
-CSVStageParser ..|> StageParser
+StageParser <|.. CSVStageParser
 
 @enduml

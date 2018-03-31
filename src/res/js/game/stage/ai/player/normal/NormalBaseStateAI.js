@@ -1,10 +1,10 @@
 /**
  * Normal base state AI
  * AI with state
- * @extends {TransferableStateAI}
+ * @extends {UnderStateAI}
  * @classdesc AI with state for determining action
  */
-class NormalBaseStateAI extends TransferableStateAI { // eslint-disable-line  no-unused-vars
+class NormalBaseStateAI extends UnderStateAI { // eslint-disable-line  no-unused-vars
     /**
      * Normal base state AI constructor
      * @constructor
@@ -12,6 +12,7 @@ class NormalBaseStateAI extends TransferableStateAI { // eslint-disable-line  no
     constructor() {
         super(`stationary`);
 
+        this.specialActionName = `pray`;
         this.namedStates[`stationary`] = new NormalStationaryState(300, 36000);
         this.namedStates[`walk`] = new NormalWalkState(300, 18000);
         this.namedStates[`jump`] = new NormalJumpState(240);
@@ -21,6 +22,8 @@ class NormalBaseStateAI extends TransferableStateAI { // eslint-disable-line  no
         this.namedStates[`falling`] = new NormalFallState(200, 12000);
         this.namedStates[`attack`] = new NormalPunchState();
         this.namedStates[`grab`] = new NormalGrabState();
-        this.namedStates[`special`] = new NormalSpecialState();
+        this.namedStates[`pray`] = new NormalSpecialState();
+        this.namedStates[`roll`] = new NormalNoneState();
+        this.namedStates[`rolling`] = new NormalNoneState();
     }
 }
