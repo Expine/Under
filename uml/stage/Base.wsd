@@ -10,6 +10,7 @@ package unde {
                 +setMap(map)
                 +setCamera(camera)
                 +setPhysicalWorld(physic)
+                +getPhysicalWorld() : PhysicalWorld
                 {abstract} +addEntity(entity)
                 {abstract} +removeEntity(entity)
                 {abstract} +setEnable(enable)

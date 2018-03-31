@@ -1,0 +1,102 @@
+@startuml AINormal
+package game {
+    package ga_stage {
+        package ga_ai {
+            abstract TransferableState {
+                +transfer(state)
+            }
+            class TransferableStateAI {
+                +transfer(state)
+            }
+            abstract MovableState {
+                {abstract} +setMaxVelocity(maxVelocityX, maxVelocityY)
+                {abstract} +setMovePower(movePowerX, movePowerY)
+            }
+            package ga_player {
+                abstract UnderPlayerState
+                abstract UnderMovableState {
+                    #maxVelocityX : number
+                    #maxVelocityY : number
+                    #movePowerX : number
+                    #movePowerY : number
+                }
+                class UnderStateAI {
+                    #specialActionName : string
+                }
+                package ga_common {
+                    class CommonBaseStateAI
+                    class CommonNoneState
+                    class CommonGameoverState
+                }
+                package ga_normal {
+                    class NormalBaseStateAI
+                    class NormalStationaryState
+                    class NormalWalkState
+                    class NormalJumpState {
+                        -inAirCount_ : number
+                        -jumpPressedTime_ : number
+                        -jumpDeltaTime_ : number
+                        -jumpPower_ : number
+                    }
+                    class NormalJumpingState
+                    class NormalFallState
+                    class NormalPunchState
+                    class NormalGrabState {
+                        -underCount_ : number
+                    }
+                    class NormalSpecialState
+                    class NormalNoneState
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_ai {
+                class NamedStateAI
+                abstract BaseState
+            }
+        }
+    }
+}
+
+CommonBaseStateAI ..> CommonNoneState : "Generate"
+CommonBaseStateAI ..> CommonGameoverState : "Generate"
+
+NormalBaseStateAI ..> NormalStationaryState : Generate
+NormalBaseStateAI ..> NormalWalkState : Generate
+NormalBaseStateAI ..> NormalJumpState : Generate
+NormalBaseStateAI ..> NormalJumpingState : Generate
+NormalBaseStateAI ..> NormalFallState : Generate
+NormalBaseStateAI ..> NormalPunchState : Generate
+NormalBaseStateAI ..> NormalGrabState : Generate
+NormalBaseStateAI ..> NormalSpecialState : Generate
+NormalBaseStateAI ..> NormalNoneState : Generate
+
+NamedStateAI <|--- TransferableStateAI
+TransferableStateAI <|-- CommonBaseStateAI
+TransferableStateAI <|-- UnderStateAI
+UnderStateAI <|-- NormalBaseStateAI
+
+BaseState <|----- TransferableState
+TransferableState <|-- UnderPlayerState
+UnderPlayerState <|-- UnderMovableState
+MovableState <|.. UnderMovableState
+
+CommonNoneState ..|> UnderPlayerState
+CommonGameoverState ..|> UnderPlayerState
+
+NormalStationaryState ..|> UnderMovableState
+NormalWalkState ..|> UnderMovableState
+NormalJumpState ..|> UnderPlayerState
+NormalJumpingState ..|> UnderMovableState
+NormalFallState ..|> UnderMovableState
+NormalPunchState ..|> UnderPlayerState
+NormalGrabState ..|> UnderPlayerState
+NormalSpecialState ..|> UnderPlayerState
+NormalNoneState ..|> UnderPlayerState
+
+@enduml

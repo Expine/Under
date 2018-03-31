@@ -67,11 +67,11 @@ package under {
     }
 }
 
-TileBuilder ...> TileObject : Generate
-TileBuilder ...> RectangleCollider : Generate
-TileBuilder ...> CircleCollider : Generate
-TileBuilder ...> RoundRectangleCollider : Generate
-TileBuilder ...> DefaultMaterial : Generate
+TileBuilder ....> TileObject : Generate
+TileBuilder ....> RectangleCollider : Generate
+TileBuilder ....> CircleCollider : Generate
+TileBuilder ....> RoundRectangleCollider : Generate
+TileBuilder ....> DefaultMaterial : Generate
 CharacterBuilder ...> MaxAdoptBody : Generate
 CharacterBuilder ...> PlayerBody : Generate
 CharacterBuilder ...> Player : Generate

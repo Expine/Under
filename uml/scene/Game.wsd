@@ -49,7 +49,6 @@ package under {
             }
         }
         package ex_stage {
-            class SplitManagementStage
             package ex_entity {
                 class Player
                 package ex_physics {
@@ -79,7 +78,6 @@ GameScene ..> TitleScene : Generate
 
 DebugLayer ..> Player : Get player information
 DebugLayer ..> ImpulseBasedResponse : Get physical state
-DebugLayer ..> SplitManagementStage : Get stage information
 DebugLayer ..> SequentialWorld : Get physical information
 
 UILayer ..> MultiNamedAnimation : Use

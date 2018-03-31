@@ -70,6 +70,14 @@ class Stage { // eslint-disable-line  no-unused-vars
         this.physic = physic;
     }
 
+    /**
+     * Get physical world
+     * @return {PhysicalWorld} Physical world
+     */
+    getPhysicalWorld() {
+        return this.physic;
+    }
+
 
     /**
      * Set stage position

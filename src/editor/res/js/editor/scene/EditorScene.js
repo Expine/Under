@@ -29,6 +29,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
          * @type {SelectionLayer}
          */
         this.entityLayer = new EntityLayer(this.stage.getEntityInfo());
+
         this.layers.push(this.chipLayer);
         this.layers.push(this.entityLayer);
         this.stage.setTileSelection(this.chipLayer);
@@ -45,6 +46,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         // set position and size
         this.chipLayer.setPosition(20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
         this.entityLayer.setPosition(Screen.it.width / 2 + 20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
+
         // update
         this.stage.update(dt);
         super.update(dt);

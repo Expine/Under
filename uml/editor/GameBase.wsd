@@ -38,8 +38,8 @@ EditorScreen <.. EditorBuilder : "Generate"
 EditorContext <.. EditorBuilder : "Generate"
 CachedImage <.. EditorBuilder : "Generate"
 
-UnderEngineBuilder <|.. EditorBuilder
-GeneratableScreen <|-- EditorScreen
+UnderEngineBuilder <|... EditorBuilder
 JSContext <|-- EditorContext
+GeneratableScreen <|--- EditorScreen
 
 @enduml

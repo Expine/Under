@@ -5,7 +5,7 @@ package under {
             class SplitManagementStage {
                 -mutables_ : Array<MutableObject>
                 -entities_ : Array<Entity>
-                -player_ : Player
+                -player_ : Playable
                 -enable_ : bool
             }
             package ex_map {
@@ -54,18 +54,7 @@ package under {
             }
         }
     }
-
-    package extend {
-        package ex_stage {
-            package ex_entity {
-                class Player
-            }
-        }
-    }
 }
-
-
-SplitManagementStage "1"*--"1" Player : Own for camera
 
 CollisionData <.. ImpulseBasedResponse : Collision response
 CollisionData <.. RepulsionResponse : Collision response

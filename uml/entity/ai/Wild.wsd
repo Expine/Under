@@ -1,0 +1,46 @@
+@startuml AIWild
+package game {
+    package ga_stage {
+        package ga_ai {
+            package ga_player {
+                package ga_wild {
+                    class WildBaseStateAI
+                    class WildJumpState
+                    class WildClawState
+                    class WildRollingState
+                    class WildRollState
+                }
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        package ga_ai {
+            package ga_player {
+                abstract UnderPlayerState
+                abstract UnderMovableState
+                package ga_normal {
+                    class NormalBaseStateAI
+                    class NormalJumpState
+                    class NormalPunchState
+                }
+            }
+        }
+    }
+}
+
+WildBaseStateAI ..> WildJumpState : Generate
+WildBaseStateAI ..> WildClawState : Generate
+WildBaseStateAI ..> WildRollState : Generate
+WildBaseStateAI ..> WildRollingState : Generate
+
+NormalBaseStateAI <|-- WildBaseStateAI
+
+WildJumpState --|> NormalJumpState
+WildClawState --|> NormalPunchState
+WildRollingState ..|> UnderPlayerState
+WildRollState ..|> UnderMovableState
+
+@enduml

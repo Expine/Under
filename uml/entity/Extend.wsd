@@ -32,89 +32,6 @@ package under {
                     class PunchObject
                 }
             }
-            package ex_physics {
-                package ex_collider {
-                    class CircleCollider {
-                        #radius : number
-                        #shiftX : number
-                        #shiftY : number
-                        #centerX : number
-                        #centerY : number
-                    }
-                    class RectangleCollider {
-                        #startX : number
-                        #startY : number
-                        #endX : number
-                        #endY : number
-                    }
-                    class RoundRectangleCollider {
-                        #cut : number
-                    }
-                }
-                package ex_body {
-                    class MaxAdoptBody {
-                        #vpx : number
-                        #vpy : number
-                        #vmx : number
-                        #vmy : number
-                        #vmx : number
-                        #vmy : number
-                        #preX : number
-                        #preY : number
-                    }
-                    class PlayerBody
-                }
-                package ex_material {
-                    class DefaultMaterial
-                }
-            }
-            package ex_ai {
-                class NamedStateAI {
-                    -state : State
-                    -stateName : string
-                    #nameStates : Dictionary<string, State>
-                    #stateAnimation : NamedAnimation
-                }
-                class StraightAI {
-                    #maxVelocityX : number
-                    #walkPower : number
-                }
-                class JumpAI {
-                    #jumpPower : number
-                }
-                class EnemyAI
-
-                abstract BaseState {
-                    +BaseState(name) : BaseState
-                    #stateAnimation : NamedAnimation
-                    +setStateAnimation(stateAnimation)
-                }
-
-                package ex_player {
-                    class PlayerBaseStateAI
-                    class PlayerGameoverStateAI
-                    class PStationaryState {
-                        #maxVelocityX : number
-                        #walkPower : number
-                    }
-                    class PWalkState {
-                        #maxVelocityX : number
-                        #walkPower : number
-                    }
-                    class PJumpState {
-                        -inAirCount_ : number
-                        -jumpPressedTime_ : number
-                        -jumpDeltaTime_ : number
-                        -jumpPower_ : number
-                    }
-                    class PJumpingState {
-                        #maxVelocityX : number
-                        #walkPower : number
-                    }
-                    class PPunchState
-                    class PGameoverState
-                }
-            }
         }
     }
 }
@@ -128,68 +45,25 @@ package under {
                 abstract AutonomyObject
                 abstract Damagable
                 abstract Breakable
-            }
-            package physics {
-                package colloder {
-                    abstract Collider
-                }
-                package body {
-                    abstract RigidBody
-                }
-                package material {
-                    abstract Material
-                }
-            }
-            package ai {
-                abstract AI
-                abstract StateAI
-                abstract State
+                abstract Playable
             }
         }
     }
 }
 
-PlayerBaseStateAI ..> PStationaryState : Generate
-PlayerBaseStateAI ..> PWalkState : Generate
-PlayerBaseStateAI ..> PJumpState : Generate
-PlayerBaseStateAI ..> PJumpingState : Generate
-PlayerBaseStateAI ..> PPunchState : Generate
-
-PlayerGameoverStateAI ..> PGameoverState : Generate
-
 ImmutableObject <|.. TileObject
 MutableObject <|.. Obstacle
 AutonomyObject <|.. SingleAIObject
+
 SingleAIObject <|-- Character
 Damagable <|.. Character
 Character <|-- StateCharacter
 StateCharacter <|-- Player
+Playable <|.. Player
 Character <|-- Enemy
 SingleAIObject <|-- AttackObject
 Breakable <|.. AttackObject
 AttackObject <|.. PunchObject
 
-Collider <|.. RectangleCollider
-Collider <|.. CircleCollider
-RectangleCollider <|-- RoundRectangleCollider
-RigidBody <|.. MaxAdoptBody
-MaxAdoptBody <|-- PlayerBody
-Material <|.. DefaultMaterial
-
-StateAI <|.. NamedStateAI
-AI <|.. StraightAI
-AI <|.. JumpAI
-StraightAI <|-- EnemyAI
-NamedStateAI <|-- PlayerBaseStateAI
-NamedStateAI <|-- PlayerGameoverStateAI
-
-State <|.. BaseState
-BaseState <|-- PStationaryState
-BaseState <|-- PWalkState
-BaseState <|-- PJumpState
-BaseState <|-- PJumpingState
-BaseState <|-- PGameoverState
-
-State <|.. PPunchState
 
 @enduml

@@ -56,7 +56,7 @@ Under game project
 
 #### Extend
 ![StageExtend](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/stage/Extend/StageExtend.png)
-- Stage currently does not need to handle Player as Player
+- Collsion data is pooled to reduce instance creation
 
 #### Game
 ![StageGame](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/stage/Game/StageGame.png)
@@ -74,11 +74,30 @@ Under game project
 ![EntityExtend](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/Extend/EntityExtend.png)
 - Derivation of NamedStateAI is supposed to automatically generate what it need
     - For the convenience of StageParser
-
 #### Game
 ![EntityGame](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/Game/EntityGame.png)
 - NormalGrabState considers AutonomyObject as UnderPlayer
     - Run as allowed because it is JavaScript
+
+#### AI
+##### Extend
+![AIExtend](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/ai/Extend/AIExtend.png)
+- Various AI
+- It is temporary implementation for now
+
+##### Normal
+![AINormal](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/ai/Normal/AINormal.png)
+- Replacement of information such as animarion is possible
+- TODO: NormalJumpState may be movable state
+
+##### Wild
+![AIWIld](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/ai/Wild/AIWild.png)
+
+#### Physical
+##### Extend
+![PhysicalExtend](https://raw.githubusercontent.com/Expine/Under/develop/out/uml/entity/physical/Extend/PhysicalExtend.png)
+- Player body is incomplete
+- TODO: Player body may need physical world to obtain collision inormation
 
 ### Editor
 #### Game base

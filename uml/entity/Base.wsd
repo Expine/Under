@@ -59,6 +59,8 @@ package under {
                         {abstract} +isInCollider(x,y) : bool
                         {abstract} +isCollision(collider,data)
                         +isCollisionRoughly(collider)
+                        +fixBoundDirectly(startX,startY,endX,endY)
+                        {abstract} +fixBound(aabb)
                         {abstract} +update()
                         {abstract} +render(ctx,shiftX,shiftY)
                     }
@@ -99,6 +101,7 @@ package under {
                         +preAccelerationY : number
                         +diffX : number
                         +diffY : number
+                        +isFix : bool
                         +k : number
                         #entity : Entity
                         +setEntity(entity)
@@ -153,6 +156,6 @@ State ..> StateAI : Own
 State ..> AutonomyObject : Own
 
 Collider "1" o-- "*" CollisionData : Keep collision data
-Collider "1" *-- "1" AABB : Set up AABB
+Collider "1" *-- "1" AABB : Set up AABB / wrapper
 
 @enduml

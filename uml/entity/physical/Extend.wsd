@@ -1,0 +1,71 @@
+@startuml PhysicalExtend
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_physics {
+                package ex_collider {
+                    class CircleCollider {
+                        #radius : number
+                        #shiftX : number
+                        #shiftY : number
+                        #centerX : number
+                        #centerY : number
+                    }
+                    class RectangleCollider {
+                        #startX : number
+                        #startY : number
+                        #endX : number
+                        #endY : number
+                    }
+                    class RoundRectangleCollider {
+                        #cut : number
+                    }
+                }
+                package ex_body {
+                    class MaxAdoptBody {
+                        #vpx : number
+                        #vpy : number
+                        #vmx : number
+                        #vmy : number
+                        #vmx : number
+                        #vmy : number
+                        #preX : number
+                        #preY : number
+                    }
+                    class PlayerBody
+                }
+                package ex_material {
+                    class DefaultMaterial
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package physics {
+                package colloder {
+                    abstract Collider
+                }
+                package body {
+                    abstract RigidBody
+                }
+                package material {
+                    abstract Material
+                }
+            }
+        }
+    }
+}
+
+Collider <|.. RectangleCollider
+Collider <|.. CircleCollider
+RectangleCollider <|-- RoundRectangleCollider
+RigidBody <|.. MaxAdoptBody
+MaxAdoptBody <|-- PlayerBody
+Material <|.. DefaultMaterial
+
+@enduml

@@ -1,0 +1,93 @@
+@startuml AIExtend
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_ai {
+                class NamedStateAI {
+                    -state : State
+                    -stateName : string
+                    #nameStates : Dictionary<string, State>
+                    #stateAnimation : NamedAnimation
+                }
+                class StraightAI {
+                    #maxVelocityX : number
+                    #walkPower : number
+                }
+                class JumpAI {
+                    #jumpPower : number
+                }
+                class EnemyAI
+
+                abstract BaseState {
+                    +BaseState(name) : BaseState
+                    #stateAnimation : NamedAnimation
+                    +setStateAnimation(stateAnimation)
+                }
+
+                package ex_player {
+                    class PlayerBaseStateAI
+                    class PlayerGameoverStateAI
+                    class PStationaryState {
+                        #maxVelocityX : number
+                        #walkPower : number
+                    }
+                    class PWalkState {
+                        #maxVelocityX : number
+                        #walkPower : number
+                    }
+                    class PJumpState {
+                        -inAirCount_ : number
+                        -jumpPressedTime_ : number
+                        -jumpDeltaTime_ : number
+                        -jumpPower_ : number
+                    }
+                    class PJumpingState {
+                        #maxVelocityX : number
+                        #walkPower : number
+                    }
+                    class PPunchState
+                    class PGameoverState
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package ai {
+                abstract AI
+                abstract StateAI
+                abstract State
+            }
+        }
+    }
+}
+
+PlayerBaseStateAI ..> PStationaryState : Generate
+PlayerBaseStateAI ..> PWalkState : Generate
+PlayerBaseStateAI ..> PJumpState : Generate
+PlayerBaseStateAI ..> PJumpingState : Generate
+PlayerBaseStateAI ..> PPunchState : Generate
+
+PlayerGameoverStateAI ..> PGameoverState : Generate
+
+StateAI <|.. NamedStateAI
+AI <|.. StraightAI
+AI <|.. JumpAI
+StraightAI <|-- EnemyAI
+NamedStateAI <|-- PlayerBaseStateAI
+NamedStateAI <|-- PlayerGameoverStateAI
+
+State <|.. BaseState
+PStationaryState --|> BaseState
+PWalkState --|> BaseState
+PJumpState --|> BaseState
+PJumpingState --|> BaseState
+PGameoverState --|> BaseState
+
+State <|.. PPunchState
+
+@enduml
