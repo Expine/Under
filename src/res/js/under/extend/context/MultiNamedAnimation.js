@@ -90,6 +90,14 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     }
 
     /**
+     * Get animation count indicating animation progress
+     * @return {number} Animation count
+     */
+    getAnimationCount() {
+        return this.animation[this.name].getAnimationCount();
+    }
+
+    /**
      * Add animation
      * @override
      * @param {AnimationElement} element Animation element

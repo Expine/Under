@@ -1,11 +1,11 @@
 /**
- * State of normal jumping
+ * State of normal fall
  * @implements {UnderPlayerState}
- * @classdesc State of normal jumping
+ * @classdesc State of normal fall
  */
-class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class NormalFallState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
-     * Normal jump state constructor
+     * Normal fall state constructor
      * @constructor
      * @param {number} maxVelocityX Maximum speed
      * @param {number} movePower The power to move in the air
@@ -48,15 +48,15 @@ class NormalJumpingState extends UnderPlayerState { // eslint-disable-line  no-u
                 this.entity.body.enforce(this.movePower * this.entity.material.mass * vx / dt, 0);
             }
         }
-        if (this.entity.body.preVelocityY > 0) {
-            this.ai.changeState(`fall`);
-        }
         if (Util.onGround(this.entity)) {
             if (this.entity.body.isFix) {
                 this.ai.changeState(`stationary`);
             } else {
                 this.ai.changeState(`walk`);
             }
+        }
+        if (this.stateAnimation.isEnded() && !this.stateAnimation.isLoop()) {
+            this.ai.changeState(`falling`);
         }
         return true;
     }

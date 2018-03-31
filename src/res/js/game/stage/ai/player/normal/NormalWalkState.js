@@ -53,22 +53,24 @@ class NormalWalkState extends UnderPlayerState { // eslint-disable-line  no-unus
             }
         }
         // stationary
-        if (!input && this.entity.body.isFix) {
+        if (!input) {
             this.ai.changeState(`stationary`);
         }
-        // grab
-        if (Input.it.isKeyPressed(Input.it.down) && Util.onGround(this.entity)) {
-            this.ai.changeState(`grab`);
-        }
-        // jump
-        if (Input.it.isKeyPressed(Input.it.up) && Util.onGround(this.entity)) {
-            this.ai.changeState(`walkjump`);
-            input = true;
-        }
-        // punch
-        if (Input.it.isKeyPress(Input.it.yes)) {
-            this.ai.changeState(`attack`);
-            input = true;
+        if (Util.onGround(this.entity)) {
+            if (Input.it.isKeyPressed(Input.it.down)) {
+                this.ai.changeState(`grab`);
+            }
+            if (Input.it.isKeyPressed(Input.it.up)) {
+                this.ai.changeState(`walkjump`);
+            }
+            if (Input.it.isKeyPress(Input.it.yes)) {
+                this.ai.changeState(`attack`);
+            }
+            if (Input.it.isKeyPress(Input.it.sub)) {
+                this.ai.changeState(`special`);
+            }
+        } else {
+            this.ai.changeState(`fall`);
         }
         return true;
     }

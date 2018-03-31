@@ -20,13 +20,15 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        // punch
-        this.entity.stage.addEntity(this.makeAttackObject());
         // change state
-        if (this.entity.body.isFix) {
-            this.ai.changeState(`stationary`);
-        } else {
-            this.ai.changeState(`walk`);
+        if (this.stateAnimation.isEnded()) {
+            // punch
+            this.entity.stage.addEntity(this.makeAttackObject());
+            if (this.entity.body.isFix) {
+                this.ai.changeState(`stationary`);
+            } else {
+                this.ai.changeState(`walk`);
+            }
         }
         return true;
     }

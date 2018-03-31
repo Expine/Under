@@ -87,6 +87,14 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get animation count indicating animation progress
+     * @return {number} Animation count
+     */
+    getAnimationCount() {
+        return this.runningAnimation / this.animation.length;
+    }
+
+    /**
      * Add animation
      * @override
      * @param {AnimationElement} element Animation element

@@ -37,12 +37,34 @@
                                 "y": 0
                             },
                             "list": [{
-                                "srcX": 0,
-                                "srcY": 0,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }]
+                                    "srcX": 0,
+                                    "srcY": 256,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 300
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 256,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 300
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 256,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 300
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 256,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 300
+                                }
+                            ]
                         },
                         {
                             "direction": {
@@ -50,12 +72,34 @@
                                 "y": 0
                             },
                             "list": [{
-                                "srcX": 0,
-                                "srcY": 32,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }]
+                                    "srcX": 0,
+                                    "srcY": 288,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 300
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 288,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 300
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 288,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 300
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 288,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 300
+                                }
+                            ]
                         }
                     ]
                 },
@@ -289,12 +333,34 @@
                                 "y": 0
                             },
                             "list": [{
-                                "srcX": 96,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }]
+                                    "srcX": 0,
+                                    "srcY": 320,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 320,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 320,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 320,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
                         },
                         {
                             "direction": {
@@ -302,12 +368,34 @@
                                 "y": 0
                             },
                             "list": [{
-                                "srcX": 96,
-                                "srcY": 96,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }]
+                                    "srcX": 0,
+                                    "srcY": 352,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 352,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 352,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 352,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
                         }
                     ]
                 },
@@ -318,26 +406,72 @@
                                 "x": 1,
                                 "y": 0
                             },
+                            "loop": false,
                             "list": [{
-                                "srcX": 96,
-                                "srcY": 128,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }]
+                                    "srcX": 0,
+                                    "srcY": 128,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 128,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 128,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 128,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
                         },
                         {
                             "direction": {
                                 "x": -1,
                                 "y": 0
                             },
+                            "loop": false,
                             "list": [{
-                                "srcX": 96,
-                                "srcY": 160,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }]
+                                    "srcX": 0,
+                                    "srcY": 160,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 160,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 160,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 160,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
                         }
                     ]
                 },
@@ -412,6 +546,306 @@
                                     "srcW": 32,
                                     "srcH": 32,
                                     "delta": 100
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "attack": {
+                    "file": "player.png",
+                    "animation": [{
+                            "direction": {
+                                "x": 1,
+                                "y": 0
+                            },
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 512,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 512,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 512,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 512,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 50
+                                }
+                            ]
+                        },
+                        {
+                            "direction": {
+                                "x": -1,
+                                "y": 0
+                            },
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 544,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 544,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 544,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 544,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 50
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "fall": {
+                    "file": "player.png",
+                    "animation": [{
+                            "direction": {
+                                "x": 1,
+                                "y": 0
+                            },
+                            "loop": false,
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 384,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 384,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 384,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 384,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        },
+                        {
+                            "direction": {
+                                "x": -1,
+                                "y": 0
+                            },
+                            "loop": false,
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 416,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 416,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 416,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 416,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "falling": {
+                    "file": "player.png",
+                    "animation": [{
+                            "direction": {
+                                "x": 1,
+                                "y": 0
+                            },
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 448,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 448,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 448,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 448,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        },
+                        {
+                            "direction": {
+                                "x": -1,
+                                "y": 0
+                            },
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 480,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 480,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 480,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 480,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "special": {
+                    "file": "player.png",
+                    "animation": [{
+                            "direction": {
+                                "x": 1,
+                                "y": 0
+                            },
+                            "loop": false,
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 576,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 576,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 576,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 576,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                }
+                            ]
+                        },
+                        {
+                            "direction": {
+                                "x": -1,
+                                "y": 0
+                            },
+                            "loop": false,
+                            "list": [{
+                                    "srcX": 0,
+                                    "srcY": 608,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 32,
+                                    "srcY": 608,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 64,
+                                    "srcY": 608,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
+                                },
+                                {
+                                    "srcX": 96,
+                                    "srcY": 608,
+                                    "srcW": 32,
+                                    "srcH": 32,
+                                    "delta": 200
                                 }
                             ]
                         }

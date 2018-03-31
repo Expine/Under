@@ -49,8 +49,12 @@ class WildSpecialState extends UnderPlayerState { // eslint-disable-line  no-unu
      * @return {bool} Whether decided on action
      */
     apply(dt) {
+        if (this.stateAnimation.getAnimationCount() < 0.5) {
+            return true;
+        }
         if (!this.jumped) {
             // big jump
+            this.entity.body.setNextAddVelocity(-this.entity.body.preVelocityX, 0);
             this.entity.body.enforce(this.movePowerX * this.entity.material.mass * this.entity.directionX / dt, -this.movePowerY * this.entity.material.mass / dt);
             this.jumped = true;
             return;

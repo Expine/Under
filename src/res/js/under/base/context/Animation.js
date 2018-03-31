@@ -32,6 +32,13 @@ class Animation { // eslint-disable-line  no-unused-vars
     isEnded() {}
 
     /**
+     * Get animation count indicating animation progress
+     * @interface
+     * @return {number} Animation count
+     */
+    getAnimationCount() {}
+
+    /**
      * Add animation
      * @interface
      * @param {AnimationElement} elment Animation element
