@@ -14,7 +14,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {Stage}
          */
-        this.stage = (new UnderStageParser().parse(`res/stage/map1.json`, Screen.it.width, Screen.it.height));
+        this.stage = (new UnderStageParser().parse(`src/res/stage/map1.json`, Screen.it.width, Screen.it.height));
 
         /**
          * Game player

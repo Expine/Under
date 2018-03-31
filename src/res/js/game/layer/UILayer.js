@@ -32,7 +32,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
          * @type {MultiNamedAnimation}
          */
         this.uiAnimation = new MultiNamedAnimation();
-        let uiImage = ContextImage.it.loadImage(`res/image/ui/hp.png`);
+        let uiImage = ContextImage.it.loadImage(`src/res/image/ui/hp.png`);
         for (let i = 0; i < 6; ++i) {
             this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`).setAnimation(new SingleAnimation());
             this.uiAnimation.setLoop(i % 2 == 0);

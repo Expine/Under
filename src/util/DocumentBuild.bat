@@ -1,5 +1,0 @@
-@echo off
-cd /d %~dp0
-@echo java Builder Document ../res/js/use/UnderEngine.js ../res/js/under
-java Builder Document ../res/js/use/Game.js ../res/js -ex use
-java Builder Document ../editor/res/js/use/Editor.js ../editor/res/js ../res/js -ex use Main.js

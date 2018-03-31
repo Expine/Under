@@ -59,7 +59,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      */
     makeMapElement(map, back) {
         if (back.type == `Invariant`) {
-            let id = ContextImage.it.loadImage(`res/image/back/${back.file}`);
+            let id = ContextImage.it.loadImage(`src/res/image/back/${back.file}`);
             return new InvariantBackMap(id, map.width, map.height);
         } else {
             console.log(`Not Map: ${back}`);
@@ -121,13 +121,13 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     parse(filePath, width, height) {
         // get stage file data
         let stage = JSON.parse(Util.loadFile(filePath));
-        let tiles = JSON.parse(Util.loadFile(`res/stage/${stage.tiles}`));
-        let entities = JSON.parse(Util.loadFile(`res/stage/${stage.entities}`));
+        let tiles = JSON.parse(Util.loadFile(`src/res/stage/${stage.tiles}`));
+        let entities = JSON.parse(Util.loadFile(`src/res/stage/${stage.entities}`));
         // make tile information
         stage.tileInfo = {};
         stage.tileInfo.tiles = stage.tiles;
         for (let tile of tiles.tiles) {
-            let fileID = ContextImage.it.loadImage(`res/image/tile/${tile.file}`);
+            let fileID = ContextImage.it.loadImage(`src/res/image/tile/${tile.file}`);
             for (let chip of tile.chips) {
                 stage.tileInfo[chip.id] = chip;
                 stage.tileInfo[chip.id].file = fileID;
@@ -138,7 +138,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         stage.entityInfo.entities = stage.entities;
         for (let entity of entities.entities) {
             stage.entityInfo[entity.id] = entity;
-            stage.entityInfo[entity.id].file = ContextImage.it.loadImage(`res/image/chara/${entity.file}`);
+            stage.entityInfo[entity.id].file = ContextImage.it.loadImage(`src/res/image/chara/${entity.file}`);
         }
 
         // make stage

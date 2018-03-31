@@ -6,12 +6,13 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "call ./src/util/MainBuild.bat"
+            "command": "call ./util/MainBuild.bat",
+            "problemMatcher": []
         },
         {
             "label": "Doc",
             "type": "shell",
-            "command": "call ./src/util/DocumentBuild.bat",
+            "command": "call ./util/DocumentBuild.bat",
             "problemMatcher": []
         }
     ]
