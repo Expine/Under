@@ -10,7 +10,7 @@ class CommonGameoverState extends UnderPlayerState { // eslint-disable-line  no-
      * @override
      */
     init() {
-        this.entity.setCollider(new RoundRectangleCollider(0, 32, 64, 32, 5));
+        this.entity.collider.fixBoundDirectly(0, 32, 64, 64);
     }
 
     /**

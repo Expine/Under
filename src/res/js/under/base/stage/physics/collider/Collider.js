@@ -103,6 +103,21 @@ class Collider { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Fix collider bounds
+     * @param {AABB} aabb AABB covering collider
+     */
+    fixBoundDirectly(startX, startY, endX, endY) {
+        this.fixBound(new AABB(startX, startY, endX, endY));
+    }
+
+    /**
+     * Fix collider bounds
+     * @interface
+     * @param {AABB} aabb AABB covering collider
+     */
+    fixBound(aabb) {}
+
+    /**
      * Update collide information
      * Called whenever coordinate information is updated
      * @interface

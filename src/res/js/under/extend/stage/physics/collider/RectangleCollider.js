@@ -111,6 +111,19 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
     }
 
     /**
+     * Fix collider bounds
+     * @override
+     * @param {AABB} aabb AABB covering collider
+     */
+    fixBound(aabb) {
+        this.startX = aabb.startX;
+        this.startY = aabb.startY;
+        this.endX = aabb.endX;
+        this.endY = aabb.endY;
+        this.update();
+    }
+
+    /**
      * Update collide information
      * Called whenever coordinate information is updated
      * @override

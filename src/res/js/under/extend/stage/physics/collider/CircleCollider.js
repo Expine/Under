@@ -109,6 +109,18 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Fix collider bounds
+     * @override
+     * @param {AABB} aabb AABB covering collider
+     */
+    fixBound(aabb) {
+        this.shiftX = this.aabb.startX;
+        this.shiftY = this.aabb.startY;
+        this.radius = Math.max(this.endX - this.startY, this.endY - this.startY);
+        this.update();
+    }
+
+    /**
      * Update collide information
      * Called whenever coordinate information is updated
      * @override
