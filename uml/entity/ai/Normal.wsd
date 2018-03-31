@@ -53,6 +53,15 @@ package game {
 }
 
 package under {
+    package base {
+        package state {
+            package physical {
+                package collider {
+                    class AABB
+                }
+            }
+        }
+    }
     package extend {
         package ex_stage {
             package ex_ai {
@@ -75,6 +84,8 @@ NormalBaseStateAI ..> NormalPunchState : Generate
 NormalBaseStateAI ..> NormalGrabState : Generate
 NormalBaseStateAI ..> NormalSpecialState : Generate
 NormalBaseStateAI ..> NormalNoneState : Generate
+
+NormalGrabState ..|> AABB : Restore
 
 NamedStateAI <|--- TransferableStateAI
 TransferableStateAI <|-- CommonBaseStateAI

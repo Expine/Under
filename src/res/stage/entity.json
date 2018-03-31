@@ -8,9 +8,9 @@
             "collider": {
                 "type": "RoundRectangle",
                 "startX": 12,
-                "startY": 10,
+                "startY": 12,
                 "width": 38,
-                "height": 54,
+                "height": 52,
                 "cut": 10
             },
             "body": {
