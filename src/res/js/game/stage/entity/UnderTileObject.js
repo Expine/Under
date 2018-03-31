@@ -5,7 +5,7 @@
  * @extends {TileObject}
  * @classdesc Stage tile object
  */
-class UnderTileObject extends TileObject { // eslint-disable-line  no-unused-vars
+class UnderTileObject extends TileObject /* , Terrainable */ { // eslint-disable-line  no-unused-vars
     /**
      * Tile object constructor
      * @constructor
@@ -29,5 +29,14 @@ class UnderTileObject extends TileObject { // eslint-disable-line  no-unused-var
          * @type {number}
          */
         this.terrainID = terrainID;
+    }
+
+    /**
+     * Get terrain ID
+     * @override
+     * @return {number} Terrain ID
+     */
+    getTerrainID() {
+        return this.terrainID;
     }
 }

@@ -25,6 +25,18 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
      */
     init() {
         this.underCount_ = 0;
+        this.entity.collider.fixBoundDirectly(0, 32, 64, 64);
+    }
+
+    /**
+     * Set entity for targeting
+     * @override
+     * @param {AutonomyObject} entity Entity for tageting
+     */
+    setEntity(entity) {
+        if (BaseUtil.implementsOf(entity, UnderPlayable)) {
+            super.setEntity(entity);
+        }
     }
 
     /**
@@ -49,8 +61,11 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
             this.underCount_ = 0;
         }
         if (this.stateAnimation.isEnded() && this.underCount_ == 0) {
-            // reset and change
-            this.entity.changeType(Util.getUnderEntity(this.entity));
+            // change
+            let ground = Util.getUnderEntity(this.entity);
+            if (BaseUtil.implementsOf(ground, Terrainable)) {
+                this.entity.changeType(ground.getTerrainID());
+            }
         }
         return true;
     }

@@ -4,7 +4,7 @@
  * @extends {Player}
  * @classdesc Under player object to operate by input
  */
-class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
+class UnderPlayer extends Player /* , UnderPlayable */ { // eslint-disable-line  no-unused-vars
     /**
      * Under player constructor
      * @constructor
@@ -40,13 +40,11 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
 
     /**
      * Change working AI
-     * @param {UnderTileObject} ground Ground object
+     * @override
+     * @param {number} id Terrain ID for changing player type
+     * @return {bool} Whther player is changed or not
      */
-    changeType(ground) {
-        // check ground
-        if (ground.terrainID === undefined) {
-            return;
-        }
+    changeType(id) {
         // initialize
         if (this.aiType == null) {
             for (let it of this.ai) {
@@ -58,7 +56,6 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
         }
         // set type
         let ai = null;
-        let id = ground.terrainID;
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
@@ -71,11 +68,13 @@ class UnderPlayer extends Player { // eslint-disable-line  no-unused-vars
         }
         // inspect whether it changes
         if (this.aiType.constructor == ai.constructor || ai == null) {
-            return;
+            return false;
         }
         // remove currently AI
         this.aiType.transfer(ai);
         this.removeAI(this.aiType);
         this.addAI(ai);
+
+        return true;
     }
 }
