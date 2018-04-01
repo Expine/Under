@@ -46,6 +46,18 @@ class Animation { // eslint-disable-line  no-unused-vars
     addAnimation(elment) {}
 
     /**
+     * Pause animation
+     * @interface
+     */
+    pause() {}
+
+    /**
+     * Restore animation
+     * @interface
+     */
+    restore() {}
+
+    /**
      * Update animation
      * @interface
      * @param {number} dt

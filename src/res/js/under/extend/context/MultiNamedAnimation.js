@@ -107,6 +107,22 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     }
 
     /**
+     * Pause animation
+     * @override
+     */
+    pause() {
+        this.animation[this.name].pause();
+    }
+
+    /**
+     * Restore animation
+     * @override
+     */
+    restore() {
+        this.animation[this.name].restore();
+    }
+
+    /**
      * Update animation
      * @override
      * @param {number} dt

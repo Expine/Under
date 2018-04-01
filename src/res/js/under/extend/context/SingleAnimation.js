@@ -47,6 +47,13 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
          * @type {bool}
          */
         this.ended = false;
+
+        /**
+         * Whether pause animation or not
+         * @protected
+         * @type {bool}
+         */
+        this.paused = false;
     }
 
     /**
@@ -104,11 +111,30 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Pause animation
+     * @override
+     */
+    pause() {
+        this.paused = true;
+    }
+
+    /**
+     * Restore animation
+     * @override
+     */
+    restore() {
+        this.paused = false;
+    }
+
+    /**
      * Update animation
      * @override
      * @param {number} dt
      */
     update(dt) {
+        if (this.paused) {
+            return;
+        }
         let element = this.animation[this.runningAnimation];
         this.animationCount += dt;
         while (element !== undefined && this.animationCount >= element.delta) {
