@@ -65,6 +65,10 @@ class UnderPlayer extends Player /* , UnderPlayable */ { // eslint-disable-line 
                 ai = new NormalBaseStateAI();
                 this.imageID = ContextImage.it.loadImage(`chara/player.png`);
                 break;
+            case 2:
+                ai = new AdventurerBaseStateAI();
+                this.imageID = ContextImage.it.loadImage(`chara/adventurer.png`);
+                break;
         }
         // inspect whether it changes
         if (ai == null || this.aiType.constructor == ai.constructor) {

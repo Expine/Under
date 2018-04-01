@@ -125,6 +125,8 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/wild/WildJumpState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/wild/WildRollState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/Player.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerBaseStateAI.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerJumpState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalGrabState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalJumpingState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalStationaryState.js';document.head.appendChild(script);script.onload = function() 
@@ -133,6 +135,8 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalFallState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/Main.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
+};
 };
 };
 };
