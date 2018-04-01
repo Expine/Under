@@ -43,7 +43,7 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      */
     makeContext() {
         let context = new JSContext();
-        context.setContextImage(new CachedImage());
+        context.setContextImage(new CachedImage(`src/res/image/`));
         return context;
     }
 

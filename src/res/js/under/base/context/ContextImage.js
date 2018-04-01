@@ -8,9 +8,17 @@ class ContextImage { // eslint-disable-line  no-unused-vars
      * Context image constructor
      * Set singleton instance
      * @constructor
+     * @param {string} root Resource root path
      */
-    constructor() {
+    constructor(root) {
         ContextImage.it = this;
+
+        /**
+         * Resource root path
+         * @protected
+         * @type {string}
+         */
+        this.root = root;
     }
 
     /**

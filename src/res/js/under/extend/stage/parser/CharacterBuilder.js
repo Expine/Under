@@ -26,7 +26,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     makeAnimation(anime) {
         let base = new MultiNamedAnimation();
-        let id = ContextImage.it.loadImage(`src/res/image/chara/${anime.file}`);
+        let id = ContextImage.it.loadImage(`chara/${anime.file}`);
         for (let it of anime.animation) {
             base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation(it.loop));
             for (let e of it.list) {
@@ -87,8 +87,10 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         let base = this.makeEntityBase(x, y, json);
         base.setCollider(this.makeCollider(json.collider));
         base.setMaterial(this.makeMaterial(json.material));
-        base.setRigidBody(this.makeBody(json.body));
-        if (json.ai !== undefined) {
+        if (base instanceof MutableObject) {
+            base.setRigidBody(this.makeBody(json.body));
+        }
+        if (json.ai !== undefined && base instanceof AutonomyObject) {
             for (let ai of json.ai) {
                 base.addAI(this.makeAI(ai, json.animation));
             }

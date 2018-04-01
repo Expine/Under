@@ -59,11 +59,11 @@ class UnderPlayer extends Player /* , UnderPlayable */ { // eslint-disable-line 
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
-                this.imageID = ContextImage.it.loadImage(`src/res/image/chara/wild.png`);
+                this.imageID = ContextImage.it.loadImage(`chara/wild.png`);
                 break;
             case 1:
                 ai = new NormalBaseStateAI();
-                this.imageID = ContextImage.it.loadImage(`src/res/image/chara/player.png`);
+                this.imageID = ContextImage.it.loadImage(`chara/player.png`);
                 break;
         }
         // inspect whether it changes

@@ -7,14 +7,6 @@
  */
 class GLContext extends Context { // eslint-disable-line  no-unused-vars
     /**
-     * WebGL context constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-    }
-
-    /**
      * Set screen
      * @param {Screen} screen Screen system
      */

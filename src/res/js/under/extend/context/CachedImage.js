@@ -9,9 +9,10 @@ class CachedImage extends ContextImage { // eslint-disable-line  no-unused-vars
     /**
      * JavaScript cached image constructor
      * @constructor
+     * @param {string} root Resource root path
      */
-    constructor() {
-        super();
+    constructor(root) {
+        super(root);
         /**
          * Image array
          * @private
@@ -34,6 +35,10 @@ class CachedImage extends ContextImage { // eslint-disable-line  no-unused-vars
      * @return {number} image ID
      */
     loadImage(filePath) {
+        // append root
+        if (!filePath.startsWith(this.root)) {
+            filePath = this.root + filePath;
+        }
         let cache = this.caches_[filePath];
         if (cache !== undefined) {
             return cache;
@@ -63,7 +68,7 @@ class CachedImage extends ContextImage { // eslint-disable-line  no-unused-vars
         for (let path in this.caches_) {
             if (this.caches_.hasOwnProperty(path)) {
                 if (this.caches_[path] == imageID) {
-                    return path;
+                    return path.replace(this.root, ``);
                 }
             }
         }

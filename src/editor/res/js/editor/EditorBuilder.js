@@ -23,7 +23,7 @@ class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unus
      */
     makeContext() {
         let context = new EditorContext();
-        context.setContextImage(new CachedImage());
+        context.setContextImage(new CachedImage(`src/res/image/`));
         return context;
     }
 }
