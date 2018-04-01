@@ -4,7 +4,7 @@
  * @implements {SingleAIObject}
  * @classdesc Attack object indicating attack
  */
-class AttackObject extends SingleAIObject /* , Breakable */ { // eslint-disable-line  no-unused-vars
+class AttackObject extends SingleAIObject /* , Breakable, Animationable */ { // eslint-disable-line  no-unused-vars
     /**
      * Attack object constructor
      * @constructor
@@ -12,11 +12,19 @@ class AttackObject extends SingleAIObject /* , Breakable */ { // eslint-disable-
      * @param {number} y y position
      * @param {number} width object width
      * @param {number} height object height
+     * @param {Entity} entity Attacker entity
      * @param {number} [imageID=-1] image ID for rendering (if has not, -1)
      * @param {number} [lifespan=0] Lifespan of attack object
      */
-    constructor(x, y, width, height, imageID = -1, lifespan = 0) {
+    constructor(x, y, width, height, entity, imageID = -1, lifespan = 0) {
         super(x, y, width, height, imageID);
+
+        /**
+         * Entity of attacker
+         * @protected
+         * @type {Entity}
+         */
+        this.entity = entity;
 
         /**
          * Lifespan of attack object
@@ -24,6 +32,13 @@ class AttackObject extends SingleAIObject /* , Breakable */ { // eslint-disable-
          * @type {number}
          */
         this.lifespan = lifespan;
+
+        /**
+         * Animation for rendering
+         * @protected
+         * @type {Animation}
+         */
+        this.animation = null;
     }
 
     /**
@@ -45,6 +60,15 @@ class AttackObject extends SingleAIObject /* , Breakable */ { // eslint-disable-
     }
 
     /**
+     * Set animation
+     * @override
+     * @param {Animation} animation Animation
+     */
+    setAnimation(animation) {
+        this.animation = animation;
+    }
+
+    /**
      * Check collisions and process if the object collides
      * @protected
      * @interface
@@ -63,8 +87,31 @@ class AttackObject extends SingleAIObject /* , Breakable */ { // eslint-disable-
             this.destroy();
             return;
         }
+        if (this.animation != null) {
+            this.animation.update(dt);
+        }
         if (!this.judgeCollision()) {
             super.update(dt);
+        }
+    }
+
+    /**
+     * Render entity
+     * @override
+     * @param {Context} ctx - canvas context
+     * @param {number} [shiftX = 0] shift x position
+     * @param {number} [shiftY = 0] shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {
+        if (this.animation == null) {
+            super.render(ctx, shiftX, shiftY);
+        } else {
+            this.animation.render(ctx, this.x + shiftX, this.y + shiftY, this.width, this.height);
+
+            // For debug to render collider
+            if (Engine.debug && this.collider !== undefined) {
+                this.collider.render(ctx, shiftX, shiftY);
+            }
         }
     }
 }
