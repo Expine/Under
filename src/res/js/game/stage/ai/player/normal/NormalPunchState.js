@@ -6,6 +6,7 @@
 class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Normal punch state
+     * @constructor
      */
     constructor() {
         super();

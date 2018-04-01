@@ -114,12 +114,13 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
         while (element !== undefined && this.animationCount >= element.delta) {
             this.animationCount -= element.delta;
             if (++this.runningAnimation >= this.animation.length) {
-                this.ended = true;
                 if (this.loop) {
                     this.runningAnimation = 0;
                 } else {
                     this.runningAnimation = this.animation.length - 1;
                 }
+            } else if (this.runningAnimation == this.animation.length - 1) {
+                this.ended = true;
             }
             element = this.animation[this.runningAnimation];
         }

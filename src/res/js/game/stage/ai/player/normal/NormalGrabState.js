@@ -1,15 +1,20 @@
 /**
  * State of normal grab action
- * @implements {UnderPlayerState}
+ * @implements {UnderMovableState}
  * @classdesc State for normal grab action
  */
-class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unused-vars
     /**
      * Normal Grab state constructor
      * @constructor
+     * @param {number} maxVelocityX Maximum speed
+     * @param {number} walkPower The power to walk
      */
-    constructor() {
+    constructor(maxVelocityX, walkPower) {
         super();
+
+        this.maxVelocityX = maxVelocityX;
+        this.movePowerX = walkPower;
 
         /**
          * Count for action
@@ -19,10 +24,11 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
         this.underCount_ = 0;
 
         /**
-         * AABB information to restore
-         * @type {AABB}
+         * Amount of indicating difference of height
+         * @protected
+         * @type {number}
          */
-        this.restoreAABB = null;
+        this.underDiffY = 12;
     }
 
     /**
@@ -32,8 +38,7 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
     init() {
         this.underCount_ = 0;
         let aabb = this.entity.collider.getAABB();
-        this.restoreAABB = new AABB(aabb.startX - this.entity.x, aabb.startY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
-        this.entity.collider.fixBoundDirectly(this.restoreAABB.startX, this.restoreAABB.startY + 13, this.restoreAABB.endX, this.restoreAABB.endY);
+        this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
     }
 
     /**
@@ -58,29 +63,52 @@ class NormalGrabState extends UnderPlayerState { // eslint-disable-line  no-unus
         if (!Util.onGround(this.entity) || !Input.it.isKeyPressed(Input.it.down)) {
             if (++this.underCount_ > 5) {
                 // restore
-                this.entity.collider.fixBound(this.restoreAABB);
+                let aabb = this.entity.collider.getAABB();
+                this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
                 if (this.entity.body.isFix) {
                     this.ai.changeState(`stationary`);
                 } else {
                     this.ai.changeState(`walk`);
                 }
                 this.stateAnimation.init();
+                return;
             }
         } else {
-            this.entity.body.setNextAddVelocity(-this.entity.body.preVelocityX / 101, 0);
             this.underCount_ = 0;
         }
-        if (this.stateAnimation.isEnded() && this.underCount_ == 0) {
+        if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity) && Input.it.isKeyPressed(Input.it.down)) {
+            // input
+            let vx = 0;
+            // walk
+            if (Input.it.isKeyPressed(Input.it.left)) {
+                vx += -1;
+            }
+            if (Input.it.isKeyPressed(Input.it.right)) {
+                vx += 1;
+            }
+            if (vx != 0) {
+                this.entity.directionX = vx;
+                if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
+                    this.entity.body.enforce(vx * this.movePowerX * this.entity.material.mass / dt, 0);
+                }
+                if (this.ai.changeState(`grabwalk`)) {
+                    // restore
+                    let aabb = this.entity.collider.getAABB();
+                    this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+                    this.stateAnimation.init();
+                }
+            }
             // restore
             let aabb = this.entity.collider.getAABB();
-            let old = new AABB(aabb.startX - this.entity.x, aabb.startY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
-            this.entity.collider.fixBound(this.restoreAABB);
+            this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
             // change
             let ground = Util.getUnderEntity(this.entity);
             if (BaseUtil.implementsOf(ground, Terrainable)) {
-                this.entity.changeType(ground.getTerrainID());
+                if (!this.entity.changeType(ground.getTerrainID())) {
+                    aabb = this.entity.collider.getAABB();
+                    this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+                }
             }
-            this.entity.collider.fixBound(old);
         }
         return true;
     }

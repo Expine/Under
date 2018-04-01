@@ -67,7 +67,7 @@ class UnderPlayer extends Player /* , UnderPlayable */ { // eslint-disable-line 
                 break;
         }
         // inspect whether it changes
-        if (this.aiType.constructor == ai.constructor || ai == null) {
+        if (ai == null || this.aiType.constructor == ai.constructor) {
             return false;
         }
         // remove currently AI

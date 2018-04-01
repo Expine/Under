@@ -259,6 +259,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
         }
         width = Math.round(width);
         height = Math.round(height);
+        this.ctx_.save();
         if (width < 0) {
             width = -width;
             x = -x - width;
@@ -278,6 +279,6 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
             srcH = Math.round(srcH);
             this.ctx_.drawImage(image, srcX, srcY, srcW, srcH, x, y, width, height);
         }
-        this.ctx_.setTransform(1, 0, 0, 1, 0, 0);
+        this.ctx_.restore();
     }
 }
