@@ -24,6 +24,7 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
      * Change state
      * @interface
      * @param {string} state Name of state to change
+     * @return {bool} Whether change state or not
      */
     changeState(state) {}
 }

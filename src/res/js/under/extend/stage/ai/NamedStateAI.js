@@ -90,21 +90,23 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      * Change state
      * @override
      * @param {string} state State to change
+     * @return {bool} Whether change state or not
      */
     changeState(state) {
         // Do not process if it is in the same state
         if (state == this.stateName_) {
-            return;
+            return false;
         }
         this.stateName_ = state;
         this.state_ = this.namedStates[state];
         // assign null if it does not exist
         if (this.state_ === undefined) {
             this.state_ = null;
-            return;
+            return true;
         }
         this.state_.setEntity(this.entity);
         this.state_.setAI(this);
         this.state_.init();
+        return true;
     }
 }
