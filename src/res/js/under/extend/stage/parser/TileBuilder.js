@@ -53,6 +53,8 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
         for (let it of anime.animation) {
             if (base instanceof MultiAnimation) {
                 base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation(it.loop));
+            } else if (it.loop !== undefined) {
+                base.setLoop(it.loop);
             }
             for (let e of it.list) {
                 base.addAnimation(new AnimationElement(id, e.srcX, e.srcY, e.srcW, e.srcH, e.delta));

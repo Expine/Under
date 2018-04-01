@@ -14,10 +14,8 @@ class UnderPlayerState extends TransferableState { // eslint-disable-line  no-un
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         if (this.stateAnimation !== null) {
-            // set direction
-            this.stateAnimation.setName(`${this.entity.directionX}-${this.entity.directionY}`);
             // render
-            this.stateAnimation.render(ctx, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, this.entity.imageID);
+            this.stateAnimation.render(ctx, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width * this.entity.directionX, this.entity.height, this.entity.imageID);
         }
     }
 }

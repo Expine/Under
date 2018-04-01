@@ -32,7 +32,7 @@ class BaseState extends State { // eslint-disable-line  no-unused-vars
 
     /**
      * Set state animation
-     * @param {NamedAnimation} stateAnimation State animation
+     * @param {Animation} stateAnimation State animation
      */
     setStateAnimaton(stateAnimation) {
         this.stateAnimation = stateAnimation;
@@ -58,10 +58,8 @@ class BaseState extends State { // eslint-disable-line  no-unused-vars
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         if (this.stateAnimation !== null) {
-            // set direction
-            this.stateAnimation.setName(`${this.entity.directionX}-${this.entity.directionY}`);
             // render
-            this.stateAnimation.render(ctx, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height);
+            this.stateAnimation.render(ctx, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width * this.entity.directionX, this.entity.height);
         }
     }
 }
