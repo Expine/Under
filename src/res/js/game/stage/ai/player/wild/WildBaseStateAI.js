@@ -21,9 +21,13 @@ class WildBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  no-unu
             this.namedStates[`walk`].setMaxVelocity(400, 0);
             this.namedStates[`walk`].setMovePower(24000, 0);
         }
-        if (BaseUtil.implementsOf(this.namedStates[`grab`], MovableState)) {
+        if (BaseUtil.implementsOf(this.namedStates[`grabwalk`], MovableState)) {
             this.namedStates[`grab`].setMaxVelocity(120, 0);
-            this.namedStates[`grab`].setMovePower(18000, 0);
+            this.namedStates[`grab`].setMovePower(36000, 0);
+        }
+        if (BaseUtil.implementsOf(this.namedStates[`grabwalk`], MovableState)) {
+            this.namedStates[`grabwalk`].setMaxVelocity(120, 0);
+            this.namedStates[`grabwalk`].setMovePower(18000, 0);
         }
         for (let it of [`jumping`, `fall`, `falling`]) {
             if (BaseUtil.implementsOf(this.namedStates[it], MovableState)) {

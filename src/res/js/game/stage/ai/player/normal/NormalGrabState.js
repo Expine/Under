@@ -36,6 +36,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @override
      */
     init() {
+        this.stateAnimation.restore();
         this.underCount_ = 0;
         let aabb = this.entity.collider.getAABB();
         this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
@@ -65,18 +66,31 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
                 // restore
                 let aabb = this.entity.collider.getAABB();
                 this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
-                if (this.entity.body.isFix) {
-                    this.ai.changeState(`stationary`);
-                } else {
-                    this.ai.changeState(`walk`);
+                // check collision
+                let check = false;
+                for (let it of this.entity.stage.getPhysicalWorld().getCollisionData(this.entity)) {
+                    if (it.ny < -0.5) {
+                        check = true;
+                    }
                 }
-                this.stateAnimation.init();
-                return;
+                if (!check) {
+                    if (this.entity.body.isFix) {
+                        this.ai.changeState(`stationary`);
+                    } else {
+                        this.ai.changeState(`walk`);
+                    }
+                    this.stateAnimation.init();
+                    return;
+                } else {
+                    // restore
+                    let aabb = this.entity.collider.getAABB();
+                    this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+                }
             }
         } else {
             this.underCount_ = 0;
         }
-        if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity) && Input.it.isKeyPressed(Input.it.down)) {
+        if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity)) {
             // input
             let vx = 0;
             // walk
@@ -87,6 +101,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
                 vx += 1;
             }
             if (vx != 0) {
+                this.stateAnimation.restore();
                 this.entity.directionX = vx;
                 if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
                     this.entity.body.enforce(vx * this.movePowerX * this.entity.material.mass / dt, 0);
@@ -97,7 +112,11 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
                     this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
                     this.stateAnimation.init();
                 }
+            } else {
+                this.stateAnimation.pause();
             }
+        }
+        if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity) && Input.it.isKeyPressed(Input.it.down)) {
             // restore
             let aabb = this.entity.collider.getAABB();
             this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
