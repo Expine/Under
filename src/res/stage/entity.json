@@ -28,7 +28,7 @@
                     "name": "NormalBaseStateAI"
                 }
             ],
-            "animation": {
+            "state": {
                 "stationary": {
                     "file": "player.png",
                     "animation": [{
@@ -911,14 +911,14 @@
                                     "srcY": 576,
                                     "srcW": 32,
                                     "srcH": 32,
-                                    "delta": 200
+                                    "delta": 100
                                 },
                                 {
                                     "srcX": 96,
                                     "srcY": 576,
                                     "srcW": 32,
                                     "srcH": 32,
-                                    "delta": 200
+                                    "delta": 100
                                 }
                             ]
                         },
@@ -927,20 +927,19 @@
                                 "x": -1,
                                 "y": 0
                             },
-                            "loop": false,
                             "list": [{
                                     "srcX": 64,
                                     "srcY": 608,
                                     "srcW": 32,
                                     "srcH": 32,
-                                    "delta": 200
+                                    "delta": 100
                                 },
                                 {
                                     "srcX": 96,
                                     "srcY": 608,
                                     "srcW": 32,
                                     "srcH": 32,
-                                    "delta": 200
+                                    "delta": 100
                                 }
                             ]
                         }

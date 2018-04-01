@@ -19,24 +19,6 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     }
 
     /**
-     * Make animation
-     * @protected
-     * @param {json} anime Animation json data
-     * @return {NamedAnimation} Animation
-     */
-    makeAnimation(anime) {
-        let base = new MultiNamedAnimation();
-        let id = ContextImage.it.loadImage(`chara/${anime.file}`);
-        for (let it of anime.animation) {
-            base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation(it.loop));
-            for (let e of it.list) {
-                base.addAnimation(new AnimationElement(id, e.srcX, e.srcY, e.srcW, e.srcH, e.delta));
-            }
-        }
-        return base;
-    }
-
-    /**
      * Make AI
      * @param {json} ai AI information json data
      * @param {json} animation AI animation json data
@@ -92,8 +74,11 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         }
         if (json.ai !== undefined && base instanceof AutonomyObject) {
             for (let ai of json.ai) {
-                base.addAI(this.makeAI(ai, json.animation));
+                base.addAI(this.makeAI(ai, json.state));
             }
+        }
+        if (json.animation !== undefined && BaseUtil.implementsOf(base, Animationable)) {
+            base.setAnimation(this.makeAnimation(json.animation));
         }
         return base;
     }

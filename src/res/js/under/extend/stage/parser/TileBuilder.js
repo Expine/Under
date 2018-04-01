@@ -42,6 +42,26 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Make animation
+     * @protected
+     * @param {json} anime Animation json data
+     * @return {NamedAnimation} Animation
+     */
+    makeAnimation(anime) {
+        let base = anime.animation.length == 1 ? new SingleAnimation() : new MultiNamedAnimation();
+        let id = ContextImage.it.loadImage(`chara/${anime.file}`);
+        for (let it of anime.animation) {
+            if (base instanceof MultiAnimation) {
+                base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation(it.loop));
+            }
+            for (let e of it.list) {
+                base.addAnimation(new AnimationElement(id, e.srcX, e.srcY, e.srcW, e.srcH, e.delta));
+            }
+        }
+        return base;
+    }
+
+    /**
      * Build tile from json data
      * @override
      * @param {number} x Entity x position

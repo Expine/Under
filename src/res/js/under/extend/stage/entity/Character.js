@@ -4,9 +4,10 @@
  * And can be damaged and destroyed
  * @implements {SingleAIObject}
  * @implements {Damagable}
+ * @implements {Animationable}
  * @classdesc Character that can be damaged and destroyed
  */
-class Character extends SingleAIObject /* , Damagable */ { // eslint-disable-line  no-unused-vars
+class Character extends SingleAIObject /* , Damagable, Animationable */ { // eslint-disable-line  no-unused-vars
     /**
      * Character constructor
      * @constructor
@@ -29,6 +30,13 @@ class Character extends SingleAIObject /* , Damagable */ { // eslint-disable-lin
          * @type {number}
          */
         this.hp = 0;
+
+        /**
+         * Animation for rendering
+         * @protected
+         * @type {Animation}
+         */
+        this.animation = null;
     }
 
     /**
@@ -58,5 +66,47 @@ class Character extends SingleAIObject /* , Damagable */ { // eslint-disable-lin
      */
     destroy() {
         this.stage.removeEntity(this);
+    }
+
+
+    /**
+     * Set animation
+     * @override
+     * @param {Animation} animation Animation
+     */
+    setAnimation(animation) {
+        this.animation = animation;
+    }
+
+    /**
+     * Update object
+     * @override
+     * @param {number} dt - delta time
+     */
+    update(dt) {
+        super.update(dt);
+        if (this.animation != null) {
+            this.animation.update(dt);
+        }
+    }
+
+    /**
+     * Render entity
+     * @override
+     * @param {Context} ctx - canvas context
+     * @param {number} [shiftX = 0] shift x position
+     * @param {number} [shiftY = 0] shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {
+        if (this.animation == null) {
+            super.render(ctx, shiftX, shiftY);
+        } else {
+            this.animation.render(ctx, this.x + shiftX, this.y + shiftY, this.width, this.height);
+
+            // For debug to render collider
+            if (Engine.debug && this.collider !== undefined) {
+                this.collider.render(ctx, shiftX, shiftY);
+            }
+        }
     }
 }
