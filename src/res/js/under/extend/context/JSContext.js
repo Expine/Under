@@ -255,9 +255,21 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
         y = Math.round(y);
         if (width === undefined) {
             this.ctx_.drawImage(image, x, y);
-        } else if (srcX === undefined) {
-            width = Math.round(width);
-            height = Math.round(height);
+            return;
+        }
+        width = Math.round(width);
+        height = Math.round(height);
+        if (width < 0) {
+            width = -width;
+            x = -x - width;
+            this.ctx_.scale(-1, 1);
+        }
+        if (height < 0) {
+            height = -height;
+            y = -y - height;
+            this.ctx_.scale(1, -1);
+        }
+        if (srcX === undefined) {
             this.ctx_.drawImage(image, x, y, width, height);
         } else {
             srcX = Math.round(srcX);
@@ -266,5 +278,6 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
             srcH = Math.round(srcH);
             this.ctx_.drawImage(image, srcX, srcY, srcW, srcH, x, y, width, height);
         }
+        this.ctx_.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
