@@ -87,13 +87,15 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/ai/EnemyAI.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/SingleAIObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/parser/CharacterBuilder.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/attack/AttackObject.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/attack/PunchObject.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/Character.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/Enemy.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/StateCharacter.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/Player.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/Character.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/Enemy.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/StateCharacter.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/PossessedObject.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/Player.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/AttackObject.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/PunchObject.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
 };
 };
 };

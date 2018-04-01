@@ -1,10 +1,10 @@
 /**
  * Attack object
  * Object indicating attack
- * @implements {SingleAIObject}
+ * @implements {PossessedObject}
  * @classdesc Attack object indicating attack
  */
-class AttackObject extends SingleAIObject /* , Breakable, Animationable */ { // eslint-disable-line  no-unused-vars
+class AttackObject extends PossessedObject /* , Breakable, Animationable */ { // eslint-disable-line  no-unused-vars
     /**
      * Attack object constructor
      * @constructor
@@ -17,14 +17,7 @@ class AttackObject extends SingleAIObject /* , Breakable, Animationable */ { // 
      * @param {number} [lifespan=0] Lifespan of attack object
      */
     constructor(x, y, width, height, entity, imageID = -1, lifespan = 0) {
-        super(x, y, width, height, imageID);
-
-        /**
-         * Entity of attacker
-         * @protected
-         * @type {Entity}
-         */
-        this.entity = entity;
+        super(x, y, width, height, entity, imageID);
 
         /**
          * Lifespan of attack object
