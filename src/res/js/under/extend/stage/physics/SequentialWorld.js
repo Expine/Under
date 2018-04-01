@@ -78,6 +78,30 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     }
 
     /**
+     * Get collision information
+     * @override
+     * @return {Array<CollisionData>} Collision information
+     */
+    getCollisionData(entity) {
+        let ret = [];
+        if (entity.collider === undefined) {
+            return ret;
+        }
+        let data = new CollisionData();
+        for (let it of this.entities) {
+            let itCollider = it.collider;
+            if (itCollider === undefined || !itCollider.enable || it === entity) {
+                continue;
+            }
+            if (entity.collider.isCollisionRoughly(itCollider) && entity.collider.isCollision(itCollider, data)) {
+                ret.push(data);
+                data = new CollisionData();
+            }
+        }
+        return ret;
+    }
+
+    /**
      * Update physical world
      * @override
      * @param {number} dt Delta time

@@ -53,6 +53,13 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     removeEntity(entity) {}
 
     /**
+     * Get collision information
+     * @interface
+     * @return {Array<CollisionData>} Collision information
+     */
+    getCollisionData(entity) {}
+
+    /**
      * Update physical world
      * @interface
      * @param {number} dt Delta time
