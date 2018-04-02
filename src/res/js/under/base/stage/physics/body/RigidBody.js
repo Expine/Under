@@ -71,10 +71,17 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {bool}
          */
         this.isFix = false;
+
+        /**
+         * Whether it is enabled or not
+         * @protected
+         * @type {bool}
+         */
+        this.enable = true;
     }
 
     /**
-     * Set mutabel entity
+     * Set mutable entity
      * @param {MutableObject} entity Mutable entity
      */
     setEntity(entity) {
@@ -83,6 +90,31 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {MutableObject}
          */
         this.entity = entity;
+    }
+
+    /**
+     * Set enable or not
+     * @param {bool} enable Whether it is enabled or not
+     */
+    setEnable(enable) {
+        this.enable = enable;
+    }
+
+    /**
+     * Reset rigid body state
+     */
+    reset() {
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.preVelocityX = 0;
+        this.preVelocityY = 0;
+        this.accelerationX = 0;
+        this.accelerationY = 0;
+        this.preAccelerationX = 0;
+        this.preAccelerationY = 0;
+        this.diffX = 0;
+        this.diffY = 0;
+        this.isFix = false;
     }
 
     /**

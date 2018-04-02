@@ -71,6 +71,18 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Reset rigid body state
+     * @override
+     */
+    reset() {
+        super.reset();
+        this.vpx = 0;
+        this.vpy = 0;
+        this.vmx = 0;
+        this.vmy = 0;
+    }
+
+    /**
      * Apply force to objects
      * @override
      * @param {number} forceX Force in x direction
