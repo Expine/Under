@@ -15,7 +15,8 @@ class TransferableStateAI extends NamedStateAI { // eslint-disable-line  no-unus
                 let other = state.namedStates[name];
                 if (other === undefined) {
                     // create to store animation
-                    state.namedStates[name] = new NormalNoneState();
+                    other = new NormalNoneState();
+                    state.setState(other, name);
                 }
                 if (other instanceof TransferableState) {
                     // transfer state

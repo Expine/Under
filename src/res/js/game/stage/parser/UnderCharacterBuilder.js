@@ -6,6 +6,31 @@
  */
 class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  no-unused-vars
     /**
+     * Make AI
+     * @param {json} ai AI information json data
+     * @param {json} animation AI animation json data
+     * @return {AI} AI
+     */
+    makeAI(ai, animation) {
+        let ret = eval(`new ${ai.name}()`);
+        if (ret instanceof StateAI) {
+            for (let name in animation) {
+                if (animation.hasOwnProperty(name)) {
+                    let target = ret.getStateByName(name);
+                    if (target === undefined) {
+                        target = new NormalNoneState();
+                        ret.setState(target, name);
+                    }
+                    if (target instanceof BaseState) {
+                        target.setStateAnimaton(this.makeAnimation(animation[name]));
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
+    /**
      * Make underlying entity
      * @override
      * @protected
