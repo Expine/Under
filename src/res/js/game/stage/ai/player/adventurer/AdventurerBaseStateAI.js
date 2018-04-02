@@ -12,7 +12,7 @@ class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  
     constructor() {
         super();
 
-        this.specialActionName = `pray`;
+        this.specialActionName = `hook`;
         if (BaseUtil.implementsOf(this.namedStates[`stationary`], MovableState)) {
             this.namedStates[`stationary`].setMaxVelocity(350, 0);
             this.namedStates[`stationary`].setMovePower(42000, 0);
@@ -38,5 +38,6 @@ class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  
         this.namedStates[`jump`] = new AdventurerJumpState(320);
         this.namedStates[`walkjump`] = new AdventurerJumpState(390);
         this.namedStates[`attack`] = new WildClawState();
+        this.namedStates[`hook`] = new AdventurerHookState();
     }
 }

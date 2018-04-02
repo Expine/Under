@@ -26,5 +26,6 @@ class NormalBaseStateAI extends UnderStateAI { // eslint-disable-line  no-unused
         this.namedStates[`pray`] = new NormalSpecialState();
         this.namedStates[`roll`] = new NormalNoneState();
         this.namedStates[`rolling`] = new NormalNoneState();
+        this.namedStates[`hook`] = new NormalNoneState();
     }
 }
