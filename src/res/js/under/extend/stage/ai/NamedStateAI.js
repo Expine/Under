@@ -78,7 +78,7 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
 
     /**
      * Get state by name
-     * @interface
+     * @override
      * @param {string} state State name
      * @return {State} State of AI
      */

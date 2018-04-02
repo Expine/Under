@@ -123,11 +123,12 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
             // change
             let ground = Util.getUnderEntity(this.entity);
             if (BaseUtil.implementsOf(ground, Terrainable)) {
-                if (!this.entity.changeType(ground.getTerrainID())) {
-                    aabb = this.entity.collider.getAABB();
-                    this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+                if (this.entity.changeType(ground.getTerrainID())) {
+                    return true;
                 }
             }
+            aabb = this.entity.collider.getAABB();
+            this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
         }
         return true;
     }
