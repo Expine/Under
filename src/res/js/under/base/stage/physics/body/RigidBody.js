@@ -54,6 +54,16 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.k = 0.5;
+        /**
+         * Coefficient of x friction coefficient
+         * @type {number}
+         */
+        this.frictionX = 1;
+        /**
+         * Coefficient of y friction coefficient
+         * @type {number}
+         */
+        this.frictionY = 0;
 
         /**
          * Difference of previous x position (actural x velocity)

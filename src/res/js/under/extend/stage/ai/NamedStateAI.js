@@ -77,6 +77,16 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set state by name
+     * @override
+     * @param {State} state State
+     * @param {string} name State name
+     */
+    setState(state, name) {
+        this.namedStates[name] = state;
+    }
+
+    /**
      * Get state by name
      * @override
      * @param {string} state State name

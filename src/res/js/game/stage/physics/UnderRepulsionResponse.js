@@ -123,7 +123,7 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
         }
 
         // friction
-        nx = 0; // no sliding friction
+        // nx = 0; // no sliding friction
         if (e1.collider.getAABB().startY < e2.collider.getAABB().startY) {
             // e1 on e2
             let mu = e2.material.mu;
@@ -158,8 +158,9 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
                     }
                 }
             }
-            vdx1 -= dvx;
-            vdy1 -= dvy;
+            vdx1 -= dvx * b1.frictionX;
+            // Apply only to down wall
+            vdy1 -= dvy < 0 ? 0 : dvy * b1.frictionY;
         } else if (b2 !== undefined) {
             // e2 on e1
             let mu = e1.material.mu;
@@ -194,8 +195,9 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
                     }
                 }
             }
-            vdx2 -= dvx;
-            vdy2 -= dvy;
+            vdx2 -= dvx * b2.frictionX;
+            // Apply only to down wall
+            vdy2 -= dvy < 0 ? 0 : dvy * b2.frictionY;
         }
 
 

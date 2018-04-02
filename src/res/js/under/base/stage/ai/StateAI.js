@@ -13,6 +13,14 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
     getState() {}
 
     /**
+     * Set state by name
+     * @interface
+     * @param {State} state State
+     * @param {string} name State name
+     */
+    setState(state, name) {}
+
+    /**
      * Get state by name
      * @interface
      * @param {string} state State name
