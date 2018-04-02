@@ -16,6 +16,21 @@ class NormalStationaryState extends UnderMovableState { // eslint-disable-line  
 
         this.maxVelocityX = maxVelocityX;
         this.movePowerX = walkPower;
+
+        /**
+         * Falling count
+         * @protected
+         * @type {number}
+         */
+        this.fallCount = 0;
+    }
+
+    /**
+     * Initialize state
+     * @override
+     */
+    init() {
+        this.fallCount = 0;
     }
 
     /**
@@ -57,8 +72,11 @@ class NormalStationaryState extends UnderMovableState { // eslint-disable-line  
             if (Input.it.isKeyPress(Input.it.sub)) {
                 this.ai.changeState(`special`);
             }
+            this.fallCount = 0;
         } else {
-            this.ai.changeState(`fall`);
+            if (++this.fallCount == 2) {
+                this.ai.changeState(`fall`);
+            }
         }
         return true;
     }
