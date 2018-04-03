@@ -130,6 +130,20 @@ class Input { // eslint-disable-line  no-unused-vars
     clear() {}
 
     /**
+     * Block mouse input
+     * @interface
+     * @param {number} code Target mouse code
+     */
+    blockMouseInput(code) {}
+
+    /**
+     * Block key input
+     * @interface
+     * @param {number} code Target key code
+     */
+    blockKeyInput(code) {}
+
+    /**
      * Get mouse x position
      * @interface
      * @return mouse x position

@@ -39,6 +39,19 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
         this.mouseY_ = 0;
 
         /**
+         * Whether mouse is blocked or not
+         * @protected
+         * @type {bool}
+         */
+        this.mouseBlocked = new Array(5);
+        /**
+         * Whether key is blocked or not
+         * @protected
+         * @type {bool}
+         */
+        this.keyBlocked = new Array(255);
+
+        /**
          * Input state
          * @private
          * @const
@@ -202,6 +215,7 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
             } else if (this.inputMouse[i] == this.STATE_.PRESSED) {
                 this.inputMouse[i] = this.STATE_.ON;
             }
+            this.blockMouseInput[i] = false;
         }
         // update key state
         for (let i = 0; i < this.inputKey.length; ++i) {
@@ -210,7 +224,26 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
             } else if (this.inputKey[i] == this.STATE_.PRESSED) {
                 this.inputKey[i] = this.STATE_.ON;
             }
+            this.blockKeyInput[i] = false;
         }
+    }
+
+    /**
+     * Block mouse input
+     * @interface
+     * @param {number} code Target mouse code
+     */
+    blockMouseInput(code) {
+        this.blockMouseInput[code] = true;
+    }
+
+    /**
+     * Block key input
+     * @interface
+     * @param {number} code Target key code
+     */
+    blockKeyInput(code) {
+        this.blockKeyInput[code] = true;
     }
 
     /**
@@ -220,7 +253,7 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
      * @return whether mouse pressed now
      */
     isMousePress(code) {
-        return this.inputMouse[code] !== undefined && this.inputMouse[code] == this.STATE_.PRESSED;
+        return !this.blockMouseInput[code] && this.inputMouse[code] !== undefined && this.inputMouse[code] == this.STATE_.PRESSED;
     }
 
     /**
@@ -230,7 +263,7 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
      * @return whether mouse pressed
      */
     isMousePressed(code) {
-        return this.inputMouse[code] !== undefined && (this.inputMouse[code] == this.STATE_.PRESSED || this.inputMouse[code] == this.STATE_.ON);
+        return !this.blockMouseInput[code] && this.inputMouse[code] !== undefined && (this.inputMouse[code] == this.STATE_.PRESSED || this.inputMouse[code] == this.STATE_.ON);
     }
 
     /**
@@ -240,7 +273,7 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
      * @return whether key pressed now
      */
     isKeyPress(code) {
-        return this.inputKey[code] !== undefined && this.inputKey[code] == this.STATE_.PRESSED;
+        return !this.blockKeyInput[code] && this.inputKey[code] !== undefined && this.inputKey[code] == this.STATE_.PRESSED;
     }
 
     /**
@@ -250,6 +283,6 @@ class AllInput extends Input { // eslint-disable-line  no-unused-vars
      * @return whether key pressed
      */
     isKeyPressed(code) {
-        return this.inputKey[code] !== undefined && (this.inputKey[code] == this.STATE_.PRESSED || this.inputKey[code] == this.STATE_.ON);
+        return !this.blockKeyInput[code] && this.inputKey[code] !== undefined && (this.inputKey[code] == this.STATE_.PRESSED || this.inputKey[code] == this.STATE_.ON);
     }
 }
