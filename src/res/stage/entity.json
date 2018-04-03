@@ -14,7 +14,7 @@
                 "cut": 10
             },
             "body": {
-                "type": "MaxAdopt"
+                "type": "Player"
             },
             "material": {
                 "mass": 30,
@@ -478,6 +478,75 @@
                                 "srcW": 32,
                                 "srcH": 32,
                                 "delta": 100
+                            }
+                        ]
+                    }]
+                },
+                "hook": {
+                    "file": "adventurere.png",
+                    "animation": [{
+                        "loop": false,
+                        "list": [{
+                                "srcX": 0,
+                                "srcY": 288,
+                                "srcW": 32,
+                                "srcH": 32,
+                                "delta": 200
+                            },
+                            {
+                                "srcX": 32,
+                                "srcY": 288,
+                                "srcW": 32,
+                                "srcH": 32,
+                                "delta": 200
+                            },
+                            {
+                                "srcX": 64,
+                                "srcY": 288,
+                                "srcW": 32,
+                                "srcH": 32,
+                                "delta": 200
+                            },
+                            {
+                                "srcX": 96,
+                                "srcY": 288,
+                                "srcW": 32,
+                                "srcH": 32,
+                                "delta": 200
+                            }
+                        ]
+                    }]
+                },
+                "downwall": {
+                    "file": "adventurere.png",
+                    "animation": [{
+                        "list": [{
+                                "srcX": 0,
+                                "srcY": 320,
+                                "srcW": 32,
+                                "srcH": 32,
+                                "delta": 200
+                            },
+                            {
+                                "srcX": 32,
+                                "srcY": 320,
+                                "srcW": 32,
+                                "srcH": 32,
+                                "delta": 200
+                            },
+                            {
+                                "srcX": 64,
+                                "srcY": 320,
+                                "srcW": 32,
+                                "srcH": 32,
+                                "delta": 200
+                            },
+                            {
+                                "srcX": 96,
+                                "srcY": 320,
+                                "srcW": 32,
+                                "srcH": 32,
+                                "delta": 200
                             }
                         ]
                     }]

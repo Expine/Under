@@ -70,7 +70,7 @@ class UnderPlayer extends Player /* , UnderPlayable */ { // eslint-disable-line 
             case 2:
                 ai = new AdventurerBaseStateAI();
                 this.imageID = ContextImage.it.loadImage(`chara/adventurer.png`);
-                this.body.frictionY = 1;
+                this.body.frictionY = 2;
                 break;
         }
         // inspect whether it changes

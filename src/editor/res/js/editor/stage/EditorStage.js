@@ -87,7 +87,10 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
     addEntity(entity) {
         super.addEntity(entity);
         // onece update
-        entity.update(0);
+        entity.update(30);
+        if (entity instanceof Player) {
+            // this.camera.setCameraPosition(-entity.x + Screen.it.width / 2, -entity.y + Screen.it.height / 2, this.map.width, this.map.height);
+        }
     }
 
 
@@ -222,6 +225,24 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             this.playMode = !this.playMode;
         }
 
+        // test play
+        if (this.playMode) {
+            if (Input.it.isKeyPress(Input.it.A + 5)) {
+                if (this.debugMode) {
+                    this.debugMode = false;
+                } else {
+                    this.debugMode = true;
+                }
+            }
+            if (!this.debugMode || (Input.it.isKeyPress(Input.it.A) || Input.it.isKeyPressed(Input.it.A + 1))) {
+                super.update(dt);
+            }
+            return;
+        } else {
+            // update camera
+            this.camera.setCameraPosition(1, 1, this.map.width, this.map.height);
+        }
+
         // move camera to end
         if (Input.it.isKeyPress(Input.it.A + 4)) {
             for (let it of this.getEntities()) {
@@ -243,14 +264,6 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         }
         if (Input.it.isKeyPress(Input.it.down)) {
             this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY - this.camera.screenHeight / 2, this.map.width, this.map.height);
-        }
-
-        // test play
-        if (this, this.playMode) {
-            super.update(dt);
-        } else {
-            // update camera
-            this.camera.setCameraPosition(1, 1, this.map.width, this.map.height);
         }
 
         // update selected area

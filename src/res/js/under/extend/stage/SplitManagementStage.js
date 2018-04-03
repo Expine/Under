@@ -95,13 +95,11 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         if (!this.enable) {
             return;
         }
-        // if (Input.it.isKeyPress(Input.it.A) || Input.it.isKeyPressed(Input.it.A + 1)) {
         // update mutables and autonomies
         for (let it of this.mutables_) {
             it.update(dt);
         }
         this.physic.update(dt, this.mutables_, this.entities_);
-        // }
         if (this.player_ != null) {
             let x = this.player_.getCameraX();
             let y = this.player_.getCameraY();

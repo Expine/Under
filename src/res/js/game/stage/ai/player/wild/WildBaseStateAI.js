@@ -38,7 +38,7 @@ class WildBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  no-unu
         this.namedStates[`jump`] = new WildJumpState(400);
         this.namedStates[`walkjump`] = new WildJumpState(460);
         this.namedStates[`attack`] = new WildClawState();
-        this.namedStates[`roll`] = new WildRollState(780000, 240000);
+        this.namedStates[`roll`] = new WildRollState(880000, 240000);
         this.namedStates[`rolling`] = new WildRollingState();
     }
 }
