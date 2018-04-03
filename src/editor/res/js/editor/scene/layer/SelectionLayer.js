@@ -43,6 +43,32 @@ class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  n
          * @type {number}
          */
         this.height = 0;
+
+        /**
+         * Clipping x position
+         * @protected
+         * @type {number}
+         */
+        this.clipX = 0;
+        /**
+         * Clipping y position
+         * @protected
+         * @type {number}
+         */
+        this.clipY = 0;
+
+        /**
+         * Currently mouse x position
+         * @protected
+         * @type {number}
+         */
+        this.oldMouseX = 0;
+        /**
+         * Currently mouse y position
+         * @protected
+         * @type {number}
+         */
+        this.oldMouseY = 0;
     }
 
     /**
@@ -74,14 +100,78 @@ class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  n
     setSelected(id) {}
 
     /**
+     * Get selection image width
+     * @return {number} Selection image width
+     */
+    getImageWidth() {
+        return ContextImage.it.getWidth(this.imageID);
+    }
+
+    /**
+     * Get selection image height
+     * @return {number} Selection image height
+     */
+    getImageHeight() {
+        return ContextImage.it.getHeight(this.imageID);
+    }
+
+    /**
+     * Update layer
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        let x = Input.it.getMouseX();
+        let y = Input.it.getMouseY();
+        if (this.x <= x && x < this.x + this.width && this.y <= y && y < this.y + this.height && Input.it.isMousePressed(Input.it.M.RIGHT)) {
+            // block
+            Input.it.blockMouseInput(Input.it.M.RIGHT);
+            // get width and height
+            let width = this.getImageWidth();
+            let height = this.getImageHeight();
+            if (this.width < width || this.height < height) {
+                if (this.oldMouseX != 0 || this.oldMouseY != 0) {
+                    if (this.width < width) {
+                        this.clipX -= x - this.oldMouseX;
+                        if (this.clipX < 0) {
+                            this.clipX = 0;
+                        } else if (this.clipX > width - this.width) {
+                            this.clipX = width - this.width;
+                        }
+                    }
+                    if (this.height < height) {
+                        this.clipY -= y - this.oldMouseY;
+                        if (this.clipY < 0) {
+                            this.clipY = 0;
+                        } else if (this.clipY > height - this.height) {
+                            this.clipY = height - this.height;
+                        }
+                    }
+                }
+                //                console.log(`${this.clipX}, ${this.clipY}`);
+                this.oldMouseX = x;
+                this.oldMouseY = y;
+                return;
+            }
+        }
+        this.oldMouseX = 0;
+        this.oldMouseY = 0;
+    }
+
+    /**
      * Render layer
      * @override
      * @param {Context} ctx
      */
     render(ctx) {
-        ctx.fillRect(this.x, this.y, this.width, this.height, `green`);
         if (this.imageID >= 0) {
-            ctx.drawImage(this.imageID, this.x, this.y);
+            let width = ContextImage.it.getWidth(this.imageID);
+            let height = ContextImage.it.getHeight(this.imageID);
+            if (this.width < width || this.height < height) {
+                ctx.drawImage(this.imageID, this.x, this.y, this.width < width ? this.width : width, this.height < height ? this.height : height, this.clipX, this.clipY, this.width < width ? this.width : width, this.height < height ? this.height : height);
+            } else {
+                ctx.drawImage(this.imageID, this.x, this.y);
+            }
         }
     }
 }
