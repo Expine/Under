@@ -53,7 +53,7 @@ class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars
             }
         }
         // stationary
-        if (!input && this.entity.body.isFix) {
+        if (!input && this.entity.body.isFixX) {
             this.ai.changeState(`stationary`);
         }
         // jump

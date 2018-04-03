@@ -14,7 +14,8 @@ class PreciseBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
         // set previous posiiton
         this.diffX = (this.entity.x - this.preX) * 1000 / dt;
         this.diffY = (this.entity.y - this.preY) * 1000 / dt;
-        this.isFix = Math.abs(this.diffX) < 25 && Math.abs(this.diffY) < 50;
+        this.isFixX = Math.abs(this.diffX) < 25;
+        this.isFixY = Math.abs(this.diffY) < 50;
         this.preX = this.entity.x;
         this.preY = this.entity.y;
 

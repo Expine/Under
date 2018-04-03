@@ -42,7 +42,7 @@ class NormalJumpingState extends UnderMovableState { // eslint-disable-line  no-
             this.ai.changeState(`fall`);
         }
         if (Util.onGround(this.entity)) {
-            if (this.entity.body.isFix) {
+            if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);
             } else {
                 this.ai.changeState(`walk`);

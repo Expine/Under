@@ -77,10 +77,15 @@ class RigidBody { // eslint-disable-line  no-unused-vars
         this.diffY = 0;
 
         /**
-         * Whether it is fixed or not
+         * Whether it is fixed for x direction or not
          * @type {bool}
          */
-        this.isFix = false;
+        this.isFixX = false;
+        /**
+         * Whether it is fixed for y direction or not
+         * @type {bool}
+         */
+        this.isFixY = false;
 
         /**
          * Whether it is enabled or not
@@ -124,7 +129,8 @@ class RigidBody { // eslint-disable-line  no-unused-vars
         this.preAccelerationY = 0;
         this.diffX = 0;
         this.diffY = 0;
-        this.isFix = false;
+        this.isFixX = false;
+        this.isFixY = false;
     }
 
     /**

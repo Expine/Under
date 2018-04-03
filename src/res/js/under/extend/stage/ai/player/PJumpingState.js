@@ -49,7 +49,7 @@ class PJumpingState extends BaseState { // eslint-disable-line  no-unused-vars
             }
         }
         if (Util.onGround(this.entity)) {
-            if (this.entity.body.isFix) {
+            if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);
             } else {
                 this.ai.changeState(`walk`);

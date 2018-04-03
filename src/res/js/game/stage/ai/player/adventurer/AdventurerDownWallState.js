@@ -59,7 +59,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
             return true;
         }
         if (Util.onGround(this.entity)) {
-            if (this.entity.body.isFix) {
+            if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);
             } else {
                 this.ai.changeState(`walk`);

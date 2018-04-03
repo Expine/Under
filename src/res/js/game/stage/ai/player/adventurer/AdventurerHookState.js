@@ -19,7 +19,7 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
             }
             if (Util.onGround(this.entity)) {
                 this.ai.changeState(`falling`);
-            } else if (this.entity.body.isFix) {
+            } else if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);
             } else {
                 this.ai.changeState(`walk`);

@@ -133,7 +133,7 @@
                 let p = Math.sqrt(px * px + py * py);
                 let dvx = 0;
                 let dvy = 0;
-                if (b2 === undefined || b2.isFix) {
+                if (b2 === undefined || (b2.isFixX && b2.iFixY)) {
                     let dot = Math.sign((b1.preVelocityX) * -ny + (b1.preVelocityY) * nx);
                     dvx = dot * -ny * p * mu * dt / 1000;
                     dvy = dot * nx * p * mu * dt / 1000;
@@ -170,7 +170,7 @@
                 let p = Math.sqrt(px * px + py * py);
                 let dvx = 0;
                 let dvy = 0;
-                if (b1.isFix) {
+                if (b1.isFixX && b1.isFixY) {
                     let dot = Math.sign((b2.preVelocityX) * -ny + (b2.preVelocityY) * nx);
                     dvx = dot * -ny * p * mu * dt / 1000;
                     dvy = dot * nx * p * mu * dt / 1000;

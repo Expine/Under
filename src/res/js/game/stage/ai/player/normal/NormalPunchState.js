@@ -57,7 +57,7 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
         // change state
         if (this.stateAnimation.isEnded()) {
             // punch
-            if (this.entity.body.isFix) {
+            if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);
             } else {
                 this.ai.changeState(`walk`);

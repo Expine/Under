@@ -24,7 +24,7 @@ class PPunchState extends State { // eslint-disable-line  no-unused-vars
         // punch
         this.entity.stage.addEntity(this.makeAttackObject());
         // change state
-        if (this.entity.body.isFix) {
+        if (this.entity.body.isFixX) {
             this.ai.changeState(`stationary`);
         } else {
             this.ai.changeState(`walk`);

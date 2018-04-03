@@ -80,7 +80,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
                     }
                 }
                 if (!check) {
-                    if (this.entity.body.isFix) {
+                    if (this.entity.body.isFixX) {
                         this.ai.changeState(`stationary`);
                     } else {
                         this.ai.changeState(`walk`);
