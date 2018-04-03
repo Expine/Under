@@ -32,10 +32,6 @@ class HookedState extends State { // eslint-disable-line  no-unused-vars
         let dx = this.actor.x - this.entity.x;
         let dy = this.actor.y - this.entity.y;
         this.actor.body.enforce(-dx * 8000 / dt, -dy * 8000 / dt);
-
-        if (Input.it.isKeyPress(Input.it.sub)) {
-            this.ai.changeState(`released`);
-        }
         return true;
     }
 }

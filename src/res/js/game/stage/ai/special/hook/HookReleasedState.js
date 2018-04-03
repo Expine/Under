@@ -42,7 +42,7 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
         let dy = this.actor.y + this.actor.height / 2 - this.entity.y - this.entity.height / 2;
         dx += Math.sign(dx) * 100;
         dy += Math.sign(dx) * 100;
-        this.entity.body.enforce(dx * 1000 / dt, dy * 1000 / dt);
+        this.entity.body.enforce(dx * 3000 / dt, dy * 3000 / dt);
         // set direction
         let vx = Math.sign(this.entity.body.preVelocityX);
         let vy = Math.sign(this.entity.body.preVelocityY);
