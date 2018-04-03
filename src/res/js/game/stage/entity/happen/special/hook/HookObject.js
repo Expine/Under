@@ -1,9 +1,10 @@
 /**
  * Hook object
  * @implements {SpecialObject}
+ * @implements {Hookable}
  * @classdesc Hook object
  */
-class HookObject extends SpecialObject { // eslint-disable-line  no-unused-vars
+class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line  no-unused-vars
     /**
      * Hook object constructor
      * @constructor
@@ -29,6 +30,28 @@ class HookObject extends SpecialObject { // eslint-disable-line  no-unused-vars
         this.setRigidBody(new PreciseBody());
         this.addAI(new HookStateAI(entity));
     }
+
+    /**
+     * Get actor who it belongs to
+     * @override
+     * @return {Entity} Actor who it belongs to
+     */
+    getActor() {
+        return this.entity;
+    }
+
+    /**
+     * Release hook
+     * @override
+     */
+    release() {
+        for (let it of this.ai) {
+            if (it instanceof StateAI) {
+                it.changeState(`released`);
+            }
+        }
+    }
+
     /**
      * Render entity
      * @override

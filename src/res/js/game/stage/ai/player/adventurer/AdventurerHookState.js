@@ -10,10 +10,12 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
      */
     init() {
         super.init();
-        let hooks = this.entity.stage.getEntities().filter((it) => it instanceof HookObject);
+        let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, Hookable));
         if (hooks.length >= 1) {
             for (let it of hooks) {
-                it.ai[0].changeState(`released`);
+                if (it.getActor() === this.entity) {
+                    it.release();
+                }
             }
             if (Util.onGround(this.entity)) {
                 this.ai.changeState(`falling`);

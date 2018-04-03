@@ -68,10 +68,12 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
         }
         if (Input.it.isKeyPress(Input.it.sub)) {
             // check already
-            let hooks = this.entity.stage.getEntities().filter((it) => it instanceof HookObject);
+            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, Hookable));
             if (hooks.length >= 1) {
                 for (let it of hooks) {
-                    it.ai[0].changeState(`released`);
+                    if (it.getActor() === this.entity) {
+                        it.release();
+                    }
                 }
             } else {
                 let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
