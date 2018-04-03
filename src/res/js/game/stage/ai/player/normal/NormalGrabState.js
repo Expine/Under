@@ -54,6 +54,12 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
     }
 
     /**
+     * Type changed function
+     * @protected
+     */
+    changed() {}
+
+    /**
      * Apply AI and decide action
      * @override
      * @param {number} dt - delta time
@@ -124,6 +130,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
             let ground = Util.getUnderEntity(this.entity);
             if (BaseUtil.implementsOf(ground, Terrainable)) {
                 if (this.entity.changeType(ground.getTerrainID())) {
+                    this.changed();
                     return true;
                 }
             }

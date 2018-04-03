@@ -5,15 +5,24 @@
  */
 class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
-     * Initialize state
+     * Initilaize state
      * @override
      */
     init() {
         super.init();
-        let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
-        let hook = new HookObject(x, this.entity.y, 32, 32, this.entity);
-        hook.body.enforce(300000 * this.entity.directionX, -500000);
-        this.entity.stage.addEntity(hook);
+        let hooks = this.entity.stage.getEntities().filter((it) => it instanceof HookObject);
+        if (hooks.length >= 1) {
+            for (let it of hooks) {
+                it.ai[0].changeState(`released`);
+            }
+            if (Util.onGround(this.entity)) {
+                this.ai.changeState(`falling`);
+            } else if (this.entity.body.isFix) {
+                this.ai.changeState(`stationary`);
+            } else {
+                this.ai.changeState(`walk`);
+            }
+        }
     }
 
     /**
@@ -23,7 +32,13 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        this.ai.changeState(`stationary`);
+        if (this.stateAnimation.isEnded()) {
+            let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
+            let hook = new HookObject(x, this.entity.y, 32, 32, this.entity);
+            hook.body.enforce(6000000 * this.entity.directionX / dt, -10000000 / dt);
+            this.entity.stage.addEntity(hook);
+            this.ai.changeState(`stationary`);
+        }
         return true;
     }
 }

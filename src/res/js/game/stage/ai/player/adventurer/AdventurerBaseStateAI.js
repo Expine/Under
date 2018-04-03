@@ -29,15 +29,19 @@ class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  
             this.namedStates[`grabwalk`].setMaxVelocity(110, 0);
             this.namedStates[`grabwalk`].setMovePower(15000, 0);
         }
-        for (let it of [`jumping`, `fall`, `falling`]) {
+        for (let it of [`jumping`]) {
             if (BaseUtil.implementsOf(this.namedStates[it], MovableState)) {
                 this.namedStates[it].setMaxVelocity(250, 0);
                 this.namedStates[it].setMovePower(15000, 0);
             }
         }
+        this.namedStates[`grab`] = new AdventurerGrabState(110, 30000);
+        this.namedStates[`fall`] = new AdventurerFallState(250, 15000);
+        this.namedStates[`falling`] = new AdventurerFallState(250, 15000);
         this.namedStates[`jump`] = new AdventurerJumpState(320);
         this.namedStates[`walkjump`] = new AdventurerJumpState(390);
         this.namedStates[`attack`] = new WildClawState();
         this.namedStates[`hook`] = new AdventurerHookState();
+        this.namedStates[`downwall`] = new AdventurerDownWallState(250, 15000);
     }
 }
