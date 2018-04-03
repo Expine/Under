@@ -37,12 +37,32 @@ class ContextImage { // eslint-disable-line  no-unused-vars
     unloadImage(imageID) {}
 
     /**
+     * Reload all image
+     * @interface
+     */
+    reload() {}
+
+    /**
      * Get image path
      * @interface
      * @param {number} imageID Image ID
      * @return {string} Image path (return null if not exists)
      */
     getImagePath(imageID) {}
+
+    /**
+     * Get image width
+     * @param {number} id Image ID
+     * @return {number} Image width
+     */
+    getWidth(id) {}
+
+    /**
+     * Get image height
+     * @param {number} id Image ID
+     * @return {number} Image height
+     */
+    getHeight(id) {}
 
     /**
      * Get image by ID

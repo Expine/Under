@@ -59,6 +59,20 @@ class CachedImage extends ContextImage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Reload all image
+     * @override
+     */
+    reload() {
+        for (let it in this.caches_) {
+            if (this.caches_.hasOwnProperty(it)) {
+                let image = new Image();
+                image.src = `${it}?time=${new Date()}`;
+                this.images_[this.caches_[it]] = image;
+            }
+        }
+    }
+
+    /**
      * Get image path
      * @override
      * @param {number} imageID Image ID
@@ -73,6 +87,26 @@ class CachedImage extends ContextImage { // eslint-disable-line  no-unused-vars
             }
         }
         return null;
+    }
+
+    /**
+     * Get image width
+     * @param {number} id Image ID
+     * @return {number} Image width
+     */
+    getWidth(id) {
+        let image = this.images_[id];
+        return image === undefined ? -1 : image.width;
+    }
+
+    /**
+     * Get image height
+     * @param {number} id Image ID
+     * @return {number} Image height
+     */
+    getHeight(id) {
+        let image = this.images_[id];
+        return image === undefined ? -1 : image.height;
     }
 
     /**
