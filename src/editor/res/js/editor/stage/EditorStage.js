@@ -237,33 +237,32 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             if (!this.debugMode || (Input.it.isKeyPress(Input.it.A) || Input.it.isKeyPressed(Input.it.A + 1))) {
                 super.update(dt);
             }
-            return;
         } else {
-            // update camera
-            this.camera.setCameraPosition(1, 1, this.map.width, this.map.height);
-        }
-
-        // move camera to end
-        if (Input.it.isKeyPress(Input.it.A + 4)) {
-            for (let it of this.getEntities()) {
-                if (it instanceof Player) {
-                    this.camera.setCameraPosition(-it.x + Screen.it.width / 2, -it.y + Screen.it.height / 2, this.map.width, this.map.height);
+            // move camera to end
+            if (Input.it.isKeyPress(Input.it.A + 4)) {
+                for (let it of this.getEntities()) {
+                    if (it instanceof Player) {
+                        this.camera.setCameraPosition(-it.x + Screen.it.width / 2, -it.y + Screen.it.height / 2, this.map.width, this.map.height);
+                    }
                 }
             }
-        }
 
-        // move camera
-        if (Input.it.isKeyPress(Input.it.right)) {
-            this.camera.setCameraPosition(this.camera.cameraX - this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
-        }
-        if (Input.it.isKeyPress(Input.it.left)) {
-            this.camera.setCameraPosition(this.camera.cameraX + this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
-        }
-        if (Input.it.isKeyPress(Input.it.up)) {
-            this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY + this.camera.screenHeight / 2, this.map.width, this.map.height);
-        }
-        if (Input.it.isKeyPress(Input.it.down)) {
-            this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY - this.camera.screenHeight / 2, this.map.width, this.map.height);
+            // move camera
+            if (Input.it.isKeyPress(Input.it.right)) {
+                this.camera.setCameraPosition(this.camera.cameraX - this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
+            }
+            if (Input.it.isKeyPress(Input.it.left)) {
+                this.camera.setCameraPosition(this.camera.cameraX + this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
+            }
+            if (Input.it.isKeyPress(Input.it.up)) {
+                this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY + this.camera.screenHeight / 2, this.map.width, this.map.height);
+            }
+            if (Input.it.isKeyPress(Input.it.down)) {
+                this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY - this.camera.screenHeight / 2, this.map.width, this.map.height);
+            }
+
+            // update camera
+            this.camera.setCameraPosition(1, 1, this.map.width, this.map.height);
         }
 
         // update selected area

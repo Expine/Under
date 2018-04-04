@@ -96,8 +96,8 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
     update(dt) {
         this.animation.update(dt);
         this.selectEntity = null;
-        let x = Input.it.getMouseX() - this.x;
-        let y = Input.it.getMouseY() - this.y;
+        let x = Input.it.getMouseX() - this.x + this.clipX;
+        let y = Input.it.getMouseY() - this.y + this.clipY;
         // check layer
         if (0 <= x && x < this.width && 0 <= y && y < this.height) {
             this.selectEntity = this.entity;
@@ -113,12 +113,12 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
      * @param {Context} ctx
      */
     render(ctx) {
-        this.animation.render(ctx, this.x, this.y, this.width, this.height);
+        this.animation.render(ctx, this.x - this.clipX, this.y - this.clipY, this.width, this.height);
         if (this.selectEntity != null) {
-            ctx.strokeRect(this.x, this.y, this.width, this.height, `red`);
+            ctx.strokeRect(this.x - this.clipX, this.y - this.clipY, this.width, this.height, `red`);
         }
         if (this.selectedEntity != null) {
-            ctx.strokeRect(this.x, this.y, this.width, this.height, `white`);
+            ctx.strokeRect(this.x - this.clipX, this.y - this.clipY, this.width, this.height, `white`);
         }
     }
 }

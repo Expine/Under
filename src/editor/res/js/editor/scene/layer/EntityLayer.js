@@ -80,11 +80,43 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
     }
 
     /**
+     * Get selection image width
+     * @override
+     * @return {number} Selection image width
+     */
+    getImageWidth() {
+        let width = 0;
+        for (let it of this.entityLayers) {
+            width = Math.max(width, it.x + it.width);
+        }
+        return width - this.x;
+    }
+
+    /**
+     * Get selection image height
+     * @override
+     * @return {number} Selection image height
+     */
+    getImageHeight() {
+        let height = 0;
+        for (let it of this.entityLayers) {
+            height = Math.max(height, it.y + it.height);
+        }
+        return height - this.y;
+    }
+
+
+    /**
      * Update layer
      * @override
      * @param {number} dt - delta time
      */
     update(dt) {
+        super.update(dt);
+        for (let it of this.entityLayers) {
+            it.clipX = this.clipX;
+            it.clipY = this.clipY;
+        }
         // save currently id
         let id = this.getSelected();
         let maxID = -1;
@@ -111,6 +143,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
      * @param {Context} ctx
      */
     render(ctx) {
+        ctx.fillRect(this.x, this.y, this.width, this.height, `green`);
         super.render(ctx);
         for (let it of this.entityLayers) {
             it.render(ctx);

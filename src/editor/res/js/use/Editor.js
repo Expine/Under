@@ -68,6 +68,7 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/parser/TileBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/body/MaxAdoptBody.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/body/PreciseBody.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/CircleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/RectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/RoundRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
@@ -83,6 +84,7 @@
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/EditorBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/scene/EditorScene.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/scene/layer/SelectionLayer.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/editor/res/js/editor/scene/layer/SingleChipLayer.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/scene/layer/SingleEntityLayer.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/screen/EditorScreen.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/stage/camera/EditorCamera.js';document.head.appendChild(script);script.onload = function() 
@@ -97,12 +99,19 @@
 {let script = document.createElement('script');script.src='src/res/js/game/scene/GameScene.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/scene/TitleScene.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/MovableState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/special/hook/HookedState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/special/hook/HookingState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/special/hook/HookReleasedState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/special/hook/HookStateAI.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/TransferableState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/TransferabletateAI.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/entity/happen/special/hook/Hookable.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/entity/interface/Terrainable.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/entity/UnderTileObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/parser/UnderStageParser.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/parser/UnderTileBuilder.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/DirectionalRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/DirectionalRoundRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/physics/UnderRepulsionResponse.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/stage/entity/AutonomyObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/stage/entity/interface/Animationable.js';document.head.appendChild(script);script.onload = function() 
@@ -125,6 +134,8 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/Enemy.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/StateCharacter.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/PossessedObject.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/special/SpecialObject.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerHookState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/common/CommonGameoverState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/common/CommonNone.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalBaseStateAI.js';document.head.appendChild(script);script.onload = function() 
@@ -137,19 +148,38 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/wild/WildClawState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/wild/WildJumpState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/wild/WildRollState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/entity/happen/special/hook/HookObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/Player.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/AttackObject.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/PunchObject.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/PunchObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerBaseStateAI.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerDownWallState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerJumpState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalFallState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalGrabState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalJumpingState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalStationaryState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalWalkState.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/game/stage/entity/UnderPlayer.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalFallState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/entity/character/UnderPlayer.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerFallState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerGrabState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/EditorMain.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
+};
+};
+};
+};
+};
+};
+};
+};
+};
+};
+};
+};
+};
+};
 };
 };
 };
