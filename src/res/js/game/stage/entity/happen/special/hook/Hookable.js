@@ -23,6 +23,20 @@ class Hookable extends Interface { // eslint-disable-line  no-unused-vars
     getActor() {}
 
     /**
+     * Get hook length
+     * @interface
+     * @param {number} length Hook length
+     */
+    setLength(length) {}
+
+    /**
+     * Get hook length
+     * @interface
+     * @return {number} Hook length
+     */
+    getLength() {}
+
+    /**
      * Release hook
      * @interface
      */

@@ -22,6 +22,16 @@ class HookingState extends State { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set entity for targeting
+     * @param {AutonomyObject} entity Entity for tageting
+     */
+    setEntity(entity) {
+        if (BaseUtil.implementsOf(entity, Hookable)) {
+            super.setEntity(entity);
+        }
+    }
+
+    /**
      * Initialize
      * @override
      */
@@ -40,7 +50,11 @@ class HookingState extends State { // eslint-disable-line  no-unused-vars
         // enforce
         let dx = this.actor.x - this.entity.x;
         let dy = this.actor.y - this.entity.y;
-        this.entity.body.enforce(dx * 500 / dt, dy * 500 / dt);
+        let d = Math.sqrt(dx * dx + dy * dy);
+        let l = d - this.entity.getLength();
+        if (l > 0) {
+            this.entity.body.enforce(l * dx * 500 / d / dt, l * dy * 500 / d / dt);
+        }
         // set direction
         let vx = Math.sign(this.entity.body.preVelocityX);
         let vy = Math.sign(this.entity.body.preVelocityY);
@@ -49,6 +63,9 @@ class HookingState extends State { // eslint-disable-line  no-unused-vars
         // check collisions
         for (let it of this.entity.collider.collisions) {
             let dot = it.nx * this.entity.directionX + it.ny * this.entity.directionY;
+            if (it.e1 === this.actor || it.e2 === this.actor) {
+                continue;
+            }
             if ((it.e1 === this.entity && dot > 0) || (it.e2 === this.entity && dot < 0)) {
                 this.entity.body.setEnable(false);
                 this.ai.changeState(`hooked`);

@@ -31,7 +31,11 @@ class HookedState extends State { // eslint-disable-line  no-unused-vars
         // enforce actor
         let dx = this.actor.x - this.entity.x;
         let dy = this.actor.y - this.entity.y;
-        this.actor.body.enforce(-dx * 8000 / dt, -dy * 8000 / dt);
+        let d = Math.sqrt(dx * dx + dy * dy);
+        let l = d - this.entity.getLength() + 50;
+        if (l > 0) {
+            this.actor.body.enforce(l * -dx * 8000 / d / dt, l * -dy * 8000 / d / dt);
+        }
         return true;
     }
 }
