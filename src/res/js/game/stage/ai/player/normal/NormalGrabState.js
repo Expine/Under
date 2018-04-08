@@ -122,7 +122,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
                 this.stateAnimation.pause();
             }
         }
-        if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity) && Input.it.isKeyPressed(Input.it.down)) {
+        if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity)) {
             // restore
             let aabb = this.entity.collider.getAABB();
             this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
