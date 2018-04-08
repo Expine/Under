@@ -30,6 +30,9 @@ class Interface { // eslint-disable-line  no-unused-vars
      * @return {bool} Whether you are implementing interfaces
      */
     validate(instance) {
+        if (instance === null || instance === undefined) {
+            return false;
+        }
         for (let it of this.methods_) {
             if (instance[it.name] instanceof Function && instance[it.name].length == it.length) {
                 continue;
