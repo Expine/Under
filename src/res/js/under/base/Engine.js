@@ -71,6 +71,19 @@ class Engine { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set timer
+     * @param {Timer} timer Timer
+     */
+    setTimer(timer) {
+        /**
+         * Timer
+         * @protected
+         * @type {Timer}
+         */
+        this.timer = timer;
+    }
+
+    /**
      * Execute engine
      * @param {Scene} scene First scene
      */

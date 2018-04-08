@@ -32,7 +32,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
      * Make context to render
      * @interface
      * @protected
-     * @return {Screen} Context to render
+     * @return {Context} Context to render
      */
     makeContext() {}
 
@@ -40,15 +40,23 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
      * Make music system
      * @interface
      * @protected
-     * @return {Screen} Music system
+     * @return {Music} Music system
      */
     makeMusic() {}
+
+    /**
+     * Make timer
+     * @interface
+     * @protected
+     * @return {Timer} Timer
+     */
+    makeTimer() {}
 
     /**
      * Make scene manager
      * @interface
      * @protected
-     * @return {Screen} Scene manager
+     * @return {SceneManager} Scene manager
      */
     makeSceneManager() {}
 
@@ -63,6 +71,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
         engine.setContext(this.makeContext());
         engine.setMusic(this.makeMusic());
         engine.setSceneManager(this.makeSceneManager());
+        engine.setTimer(this.makeTimer());
         return engine;
     }
 }
