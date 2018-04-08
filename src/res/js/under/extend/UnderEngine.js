@@ -30,15 +30,19 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
             requestAnimationFrame(this.render_);
             // update
             let newTime = +new Date();
-            window.deltaTime = newTime - this.oldTime_;
+            this.timer.update(newTime - this.oldTime_);
+            this.timer.startTimer(`update`);
             this.input.update();
-            this.manager.update(window.deltaTime > 30 ? 30 : window.deltaTime);
+            this.manager.update(window.deltaTime > 30 ? 30 : this.timer.deltaTime);
             this.oldTime_ = newTime;
+            this.timer.stopTimer(`update`);
 
             // draw
+            this.timer.startTimer(`render`);
             this.context.preRendering();
             this.manager.render(this.context);
             this.context.postRendering();
+            this.timer.stopTimer(`render`);
         };
         requestAnimationFrame(this.render_);
     }

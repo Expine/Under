@@ -39,7 +39,7 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * Make context to render
      * @override
      * @protected
-     * @return {Screen} Context to render
+     * @return {Context} Context to render
      */
     makeContext() {
         let context = new JSContext();
@@ -51,17 +51,27 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * Make music system
      * @override
      * @protected
-     * @return {Screen} Music system
+     * @return {Music} Music system
      */
     makeMusic() {
         return new XHTMLMusic();
     }
 
     /**
+     * Make timer
+     * @override
+     * @protected
+     * @return {Timer} Timer
+     */
+    makeTimer() {
+        return new SimpleTimer();
+    }
+
+    /**
      * Make scene manager
      * @override
      * @protected
-     * @return {Screen} Scene manager
+     * @return {SceneManager} Scene manager
      */
     makeSceneManager() {
         return new StackSceneManager();
