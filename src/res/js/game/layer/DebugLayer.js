@@ -60,6 +60,20 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         for (var i = 0; i < 10; ++i) {
             this.record.push({});
         }
+
+        /**
+         * Timers for registering time
+         * @protected
+         * @type {Dictionary<string. Array<number>>}
+         */
+        this.timers = {};
+
+        /**
+         * Timer values
+         * @protected
+         * @type {Dictionary<string, number>}
+         */
+        this.timerVals = {};
     }
     /**
      * Update layer
@@ -68,10 +82,17 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         let it = this.record[this.count];
-        it.deltaTime = window.deltaTime;
+        it.deltaTime = Timer.it.deltaTime;
         // TODO: May be implement getter method
         it.collisions = this.stage.getPhysicalWorld().collisionSize;
         it.playerCollisions = this.player.collider.collisions.length;
+        for (let name of Timer.it.getRegisteredNames()) {
+            let time = Timer.it.getTimer(name);
+            if (this.timers[name] === undefined) {
+                this.timers[name] = [];
+            }
+            this.timers[name].push(time);
+        }
         if (++this.count >= this.record.length) {
             this.deltaTime = 0;
             this.collisions = 0;
@@ -82,6 +103,13 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
                 this.playerCollisions = Math.max(this.playerCollisions, v.playerCollisions);
             }
             this.count = 0;
+            for (let name of Timer.it.getRegisteredNames()) {
+                this.timerVals[name] = 0;
+                for (let time of this.timers[name]) {
+                    this.timerVals[name] = Math.max(this.timerVals[name], time);
+                }
+                this.timers[name].length = 0;
+            }
         }
     }
 
@@ -91,6 +119,19 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx
      */
     render(ctx) {
+        // timer
+        {
+            let x = 0;
+            let y = 0;
+            for (let name in this.timerVals) {
+                if (this.timerVals.hasOwnProperty(name)) {
+                    ctx.fillText(`${name} : ${this.timerVals[name]} msec`, x, y, 0.0, 0.0, 20, `red`);
+                    y += 30;
+                }
+            }
+        }
+
+
         ctx.fillText(`${this.deltaTime} msec`, Screen.it.width, 0, 1.0, 0.0, 20, `white`);
         ctx.fillText(`${this.collisions} collision`, Screen.it.width, 30, 1.0, 0.0, 20, `white`);
         ctx.fillText(`${this.playerCollisions} P collision`, Screen.it.width, 60, 1.0, 0.0, 20, `white`);

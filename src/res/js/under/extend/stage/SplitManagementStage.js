@@ -96,10 +96,14 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             return;
         }
         // update mutables and autonomies
+        Timer.it.startTimer(`entity`);
         for (let it of this.mutables_) {
             it.update(dt);
         }
+        Timer.it.stopTimer(`entity`);
+        Timer.it.startTimer(`physics`);
         this.physic.update(dt, this.mutables_, this.entities_);
+        Timer.it.stopTimer(`physics`);
         if (this.player_ != null) {
             let x = this.player_.getCameraX();
             let y = this.player_.getCameraY();
