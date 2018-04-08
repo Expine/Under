@@ -12,6 +12,11 @@ class Hookable extends Interface { // eslint-disable-line  no-unused-vars
         super();
 
         this.addMethod(this.getActor);
+        this.addMethod(this.getLength);
+        this.addMethod(this.getHookX);
+        this.addMethod(this.getHookY);
+        this.addMethod(this.getPrevious);
+        this.addMethod(this.hooked);
         this.addMethod(this.release);
     }
 
@@ -25,20 +30,48 @@ class Hookable extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Get hook length
      * @interface
-     * @param {number} length Hook length
-     */
-    setLength(length) {}
-
-    /**
-     * Get hook length
-     * @interface
      * @return {number} Hook length
      */
     getLength() {}
+
+    /**
+     * Hook center x position
+     * @interface
+     * @return {number} Hook center x position
+     */
+    getHookX() {}
+
+    /**
+     * Hook center x position
+     * @interface
+     * @return {number} Hook center x position
+     */
+    getHookY() {}
+
+    /**
+     * Get previous entity
+     * @interface
+     * @return {Hookable} Previous entity
+     */
+    getPrevious() {}
+
+    /**
+     * Hooked hook
+     * @interface
+     */
+    hooked() {}
 
     /**
      * Release hook
      * @interface
      */
     release() {}
+
+    /**
+     * Enforce tension
+     * @param {number} x Tension of x
+     * @param {number} y Tension of y
+     * @param {number} dt Delta time
+     */
+    tension(x, y, dt) {}
 }

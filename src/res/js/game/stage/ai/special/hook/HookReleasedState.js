@@ -48,14 +48,5 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
         let vy = Math.sign(this.entity.body.preVelocityY);
         this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
         this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
-        // check collisions
-        for (let it of this.entity.collider.collisions) {
-            let you = Util.getCollidedEntity(this.entity, it);
-            if (you === this.actor) {
-                if (BaseUtil.implementsOf(this.entity, Breakable)) {
-                    this.entity.destroy();
-                }
-            }
-        }
     }
 }

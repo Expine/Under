@@ -8,17 +8,28 @@ class HookedState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Hooked state
      * @constructor
-     * @param {Entity} actor Actor who threw a hook
+     * @param {Hookable} hook Hook object to get previous entity
      */
-    constructor(actor) {
+    constructor(hook) {
         super();
 
         /**
-         * Actor who threw a hook
+         * Hook object to get previous entity
          * @protected
-         * @type {Entity}
+         * @type {Hookable}
          */
-        this.actor = actor;
+        this.hook = hook;
+    }
+
+    /**
+     * Set entity for targeting
+     * @override
+     * @param {AutonomyObject} entity Entity for tageting
+     */
+    setEntity(entity) {
+        if (BaseUtil.implementsOf(entity, Hookable)) {
+            super.setEntity(entity);
+        }
     }
 
     /**
@@ -28,13 +39,19 @@ class HookedState extends State { // eslint-disable-line  no-unused-vars
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        // enforce actor
-        let dx = this.actor.x - this.entity.x;
-        let dy = this.actor.y - this.entity.y;
-        let d = Math.sqrt(dx * dx + dy * dy);
-        let l = d - this.entity.getLength() + 50;
-        if (l > 0) {
-            this.actor.body.enforce(l * -dx * 8000 / d / dt, l * -dy * 8000 / d / dt);
+        let pre = this.hook.getPrevious();
+        if (pre !== null) {
+            // enforce hook
+            let dx = this.entity.getHookX() - pre.getHookX();
+            let dy = this.entity.getHookY() - pre.getHookY();
+            let d = Math.sqrt(dx * dx + dy * dy);
+            let l = d - this.hook.getLength();
+            if (l > 0) {
+                this.entity.body.enforce(-l * dx * 10000 / d / dt, -l * dy * 10000 / d / dt);
+                pre.tension(l * dx / d, l * dy / d, dt);
+            }
+        } else {
+            // enforce actor
         }
         return true;
     }

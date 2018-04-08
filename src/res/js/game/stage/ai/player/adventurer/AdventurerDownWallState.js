@@ -77,7 +77,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
                 }
             } else {
                 let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
-                let hook = new HookObject(x, this.entity.y, 32, 32, this.entity);
+                let hook = new HookHead(x, this.entity.y + 8, 32, 32, this.entity, 6, 1000);
                 hook.body.enforce(6000000 * this.entity.directionX / dt, -10000000 / dt);
                 this.entity.stage.addEntity(hook);
             }

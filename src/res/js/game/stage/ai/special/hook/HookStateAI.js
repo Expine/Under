@@ -8,13 +8,13 @@ class HookStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
     /**
      * Hook State AI Constructor
      * @constructor
-     * @param {Entity} actor Actor who threw a hook
+     * @param {Hookable} hook Hook object to get previous entity
+     * @param {Entity} actor Hook actor
      */
-    constructor(actor) {
+    constructor(hook, actor) {
         super(`hooking`);
 
-        this.namedStates[`hooking`] = new HookingState(actor);
-        this.namedStates[`hooked`] = new HookedState(actor);
-        this.namedStates[`released`] = new HookReleasedState(actor);
+        this.namedStates[`hooking`] = new HookingState(hook);
+        this.namedStates[`released`] = new HookReleasedState(hook);
     }
 }
