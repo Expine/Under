@@ -166,7 +166,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
         ctx.strokeLine(this.aabb.endX + shiftX, this.aabb.startY + this.cut + shiftY, this.aabb.endX + shiftX, this.aabb.endY - this.cut + shiftY);
         ctx.strokeLine(this.aabb.startX + this.cut + shiftX, this.aabb.endY + shiftY, this.aabb.endX - this.cut + shiftX, this.aabb.endY + shiftY);
 
-        if (Engine.debug) {
+        for (let it of this.collisions) {
             let me = 0;
             let you = 0;
             for (let it of this.collisions) {
@@ -179,18 +179,16 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             // ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 15, `red`);
             ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
             ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
-            for (let it of this.collisions) {
-                if (it.e2 === this.entity) {
-                    continue;
-                }
-                var hueVal = it.e1.imageID + (it.e2.imageID << 5);
-                ctx.strokeLine(
-                    this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
-                    this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
-                    this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
-                    this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
-                    hueVal);
+            if (it.e2 === this.entity) {
+                continue;
             }
+            var hueVal = it.e1.imageID + (it.e2.imageID << 5);
+            ctx.strokeLine(
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
+                hueVal);
         }
     }
 }
