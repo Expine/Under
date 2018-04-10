@@ -19,7 +19,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         super(x, y, width, height, entity, null, length, restLength);
 
         // set base data
-        let imageID = ContextImage.it.loadImage(`chara/hook.png`);
+        let imageID = ResourceManager.image.load(`chara/hook.png`);
         let anime = new SingleAnimation();
         anime.addAnimation(new AnimationElement(imageID, 0, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 32, 0, 32, 32, 100));

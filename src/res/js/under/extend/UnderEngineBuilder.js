@@ -43,9 +43,17 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * @return {Context} Context to render
      */
     makeContext() {
-        let context = new JSContext();
-        context.setContextImage(new CachedImage(`src/res/image/`));
-        return context;
+        return new JSContext();
+    }
+
+    /**
+     * Make image manager
+     * @override
+     * @protected
+     * @return {IImageManager} Image manager
+     */
+    makeImageManager() {
+        return new CachedImage(`src/res/image/`);
     }
 
     /**
@@ -55,7 +63,17 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * @return {Music} Music system
      */
     makeMusic() {
-        return new XHTMLMusic();
+        return new BufferSourceMusic();
+    }
+
+    /**
+     * Make music manager
+     * @interface
+     * @protected
+     * @return {IMusicManager} Music manager
+     */
+    makeMusicManager() {
+        return new CachedMusic(`src/res/sound/`);
     }
 
     /**

@@ -1,8 +1,7 @@
 /**
- * Music system
- * Manages music resources
- * Also manages music playback and so on
- * @classdesc Music system for managing music resources
+ * Music
+ * - ### Control to play music as BGM or SE
+ * @classdesc Music to control to play music as BGM or SE
  */
 class Music { // eslint-disable-line  no-unused-vars
     /**
@@ -10,24 +9,28 @@ class Music { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        // set singleton instance
+        /**
+         * Music manager
+         * @protected
+         * @type {IMusicManager}
+         */
+        this.music = null;
+
+        /**
+         * Instance for singleton
+         * @static
+         * @type {Music}
+         */
         Music.it = this;
     }
 
     /**
-     * Load music and return ID
-     * @interface
-     * @param {string} filePath music file path
-     * @return {number} music ID
+     * Set music manager
+     * @param {IMusicManager} musicManager Music manager
      */
-    loadMusic(filePath) {}
-
-    /**
-     * Unload music
-     * @interface
-     * @param {number} musicID Music ID
-     */
-    unloadMusic(musicID) {}
+    setMusicManager(musicManager) {
+        this.music = musicManager;
+    }
 
     /**
      * Sound the SE

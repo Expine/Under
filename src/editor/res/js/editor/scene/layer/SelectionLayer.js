@@ -104,7 +104,7 @@ class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  n
      * @return {number} Selection image width
      */
     getImageWidth() {
-        return ContextImage.it.getWidth(this.imageID);
+        return ResourceManager.image.getWidth(this.imageID);
     }
 
     /**
@@ -112,7 +112,7 @@ class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  n
      * @return {number} Selection image height
      */
     getImageHeight() {
-        return ContextImage.it.getHeight(this.imageID);
+        return ResourceManager.image.getHeight(this.imageID);
     }
 
     /**
@@ -165,8 +165,8 @@ class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  n
      */
     render(ctx) {
         if (this.imageID >= 0) {
-            let width = ContextImage.it.getWidth(this.imageID);
-            let height = ContextImage.it.getHeight(this.imageID);
+            let width = ResourceManager.image.getWidth(this.imageID);
+            let height = ResourceManager.image.getHeight(this.imageID);
             if (this.width < width || this.height < height) {
                 ctx.drawImage(this.imageID, this.x, this.y, this.width < width ? this.width : width, this.height < height ? this.height : height, this.clipX, this.clipY, this.width < width ? this.width : width, this.height < height ? this.height : height);
             } else {

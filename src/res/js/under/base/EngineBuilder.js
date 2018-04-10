@@ -37,12 +37,28 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
     makeContext() {}
 
     /**
+     * Make image manager
+     * @interface
+     * @protected
+     * @return {IImageManager} Image manager
+     */
+    makeImageManager() {}
+
+    /**
      * Make music system
      * @interface
      * @protected
      * @return {Music} Music system
      */
     makeMusic() {}
+
+    /**
+     * Make music manager
+     * @interface
+     * @protected
+     * @return {IMusicManager} Music manager
+     */
+    makeMusicManager() {}
 
     /**
      * Make timer
@@ -68,8 +84,14 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
         let engine = this.makeEngine();
         engine.setInput(this.makeInput());
         engine.setScreen(this.makeScreen());
-        engine.setContext(this.makeContext());
-        engine.setMusic(this.makeMusic());
+        // set context
+        let context = this.makeContext();
+        context.setImageManager(this.makeImageManager());
+        engine.setContext(context);
+        // set music
+        let music = this.makeMusic();
+        music.setMusicManager(this.makeMusicManager());
+        engine.setMusic(music);
         engine.setSceneManager(this.makeSceneManager());
         engine.setTimer(this.makeTimer());
         return engine;

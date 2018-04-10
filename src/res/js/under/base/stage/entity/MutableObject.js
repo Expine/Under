@@ -17,6 +17,7 @@ class MutableObject extends Entity { // eslint-disable-line  no-unused-vars
         this.body = body;
         if (body !== undefined) {
             body.setEntity(this);
+            body.init();
         }
     }
 

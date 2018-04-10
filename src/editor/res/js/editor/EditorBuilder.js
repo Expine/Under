@@ -19,11 +19,9 @@ class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unus
      * Make context to render
      * @override
      * @protected
-     * @return {Screen} Context to render
+     * @return {Context} Context to render
      */
     makeContext() {
-        let context = new EditorContext();
-        context.setContextImage(new CachedImage(`src/res/image/`));
-        return context;
+        return new EditorContext();
     }
 }

@@ -14,7 +14,7 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
          * @private
          * @type {number}
          */
-        this.title_ = ContextImage.it.loadImage(`ui/title.png`);
+        this.title_ = ResourceManager.image.load(`ui/title.png`);
     }
 
     /**

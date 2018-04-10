@@ -32,6 +32,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
 
         this.layers.push(this.chipLayer);
         this.layers.push(this.entityLayer);
+        this.layers.push(new DebugLayer(this.stage));
         this.stage.setTileSelection(this.chipLayer);
         this.stage.setEntitySelection(this.entityLayer);
     }
@@ -66,7 +67,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
 
         // change debug mode
         if (Input.it.isKeyPress(Input.it.A + 6)) {
-            ContextImage.it.reload();
+            ResourceManager.image.reload();
         }
     }
 

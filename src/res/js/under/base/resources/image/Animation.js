@@ -1,6 +1,6 @@
 /**
  * Animation
- * Manages animation
+ * - ### Manages animation
  * @classdesc Animation to manage animation
  */
 class Animation { // eslint-disable-line  no-unused-vars

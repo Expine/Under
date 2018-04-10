@@ -1,9 +1,10 @@
 /**
- * Context for rendering by JavaScript
- * Renders by using HTML5 API
- * Using by editor
+ * Editor context
+ * - Controls rendering to the screen
+ * - Renders by using HTML5 API
+ * - Renders back by gray
  * @extends {JSContext}
- * @classdesc Context for rendering by JavaScript
+ * @classdesc Editor context for rendering back by gray
  */
 class EditorContext extends JSContext { // eslint-disable-line  no-unused-vars
     /**

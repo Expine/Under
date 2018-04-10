@@ -86,7 +86,6 @@ class Collider { // eslint-disable-line  no-unused-vars
      * @param {Colllder} collider
      * @param {CollisionData} data Pointer to save conflict information
      * @return {bool} whether collision
-
      */
     isCollision(collider, data) {}
 

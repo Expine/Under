@@ -86,10 +86,10 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
         let tileBaseData = lines[1].split(`,`);
         let stageData = lines[2].split(`,`);
         // set base data
-        let backID = ContextImage.it.loadImage(`back/` + stageBaseData[0]);
+        let backID = ResourceManager.image.load(`back/` + stageBaseData[0]);
         let stageWidth = parseInt(stageBaseData[1]);
         let stageHeight = parseInt(stageBaseData[2]);
-        let tileID = ContextImage.it.loadImage(`tile/` + tileBaseData[0]);
+        let tileID = ResourceManager.image.load(`tile/` + tileBaseData[0]);
         let tileWidth = parseInt(tileBaseData[1]);
         let tileHeight = parseInt(tileBaseData[2]);
         let tileHorizontalNumber = parseInt(tileBaseData[3]);

@@ -39,7 +39,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      */
     makeMapElement(map, back) {
         if (back.type == `Invariant`) {
-            let id = ContextImage.it.loadImage(`back/${back.file}`);
+            let id = ResourceManager.image.load(`back/${back.file}`);
             return new EditorInvariantBackMap(id, map.width, map.height);
         } else {
             return super.makeMapElement(map, back);

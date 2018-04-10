@@ -49,7 +49,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      */
     makeAnimation(anime) {
         let base = anime.animation.length == 1 ? new SingleAnimation() : new MultiNamedAnimation();
-        let id = ContextImage.it.loadImage(`chara/${anime.file}`);
+        let id = ResourceManager.image.load(`chara/${anime.file}`);
         for (let it of anime.animation) {
             if (base instanceof MultiAnimation) {
                 base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation(it.loop));

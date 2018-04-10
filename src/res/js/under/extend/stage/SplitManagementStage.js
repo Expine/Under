@@ -120,8 +120,11 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         // render map
+        Timer.it.startTimer(`renderMap`);
         this.map.render(ctx, this.x + shiftX, this.y + shiftY);
+        Timer.it.stopTimer(`renderMap`);
         // render entity
+        Timer.it.startTimer(`renderEntity`);
         let startX = -this.camera.cameraX;
         let startY = -this.camera.cameraY;
         let endX = startX + this.camera.screenWidth;
@@ -131,6 +134,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
                 it.render(ctx, this.x - startX, this.y - startY);
             }
         }
+        Timer.it.stopTimer(`renderEntity`);
 
         // For debug to render entity information
         if (Engine.debug) {

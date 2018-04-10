@@ -1,6 +1,6 @@
 /**
  * Animation element
- * Having information for animation
+ * - ### Having information for animation
  * @classdesc Animation element having information for animation
  */
 class AnimationElement { // eslint-disable-line  no-unused-vars

@@ -134,6 +134,12 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Initialize body
+     * @interface
+     */
+    init() {}
+
+    /**
      * Set the value added to the next speed vector
      * @interface
      * @param {number} vx X component of the velocity vector to be added

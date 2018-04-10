@@ -16,6 +16,7 @@ class Interface { // eslint-disable-line  no-unused-vars
          */
         this.methods_ = [];
 
+        // add method automatically
         let proto = this.__proto__;
         if (proto) {
             for (let it of Object.getOwnPropertyNames(proto)) {

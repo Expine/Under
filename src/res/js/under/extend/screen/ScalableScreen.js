@@ -21,11 +21,6 @@ class ScalableScreen extends GeneratableScreen { // eslint-disable-line     no-u
             this.canvas.style.width = this.canvas.width + `px`;
             this.canvas.height = this.gameSize * this.height;
             this.canvas.style.height = this.canvas.height + `px`;
-            let ctx = this.canvas.getContext(`2d`);
-            ctx.mozImageSmoothingEnabled = false;
-            ctx.webkitImageSmoothingEnabled = false;
-            ctx.msImageSmoothingEnabled = false;
-            ctx.imageSmoothingEnabled = false;
         })();
     }
 }

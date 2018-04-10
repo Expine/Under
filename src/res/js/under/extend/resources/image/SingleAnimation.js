@@ -1,8 +1,9 @@
 /**
  * Single Animation
- * Manages an animation and run single animation
+ * - Manages animation
+ * - ### Runs single animation
  * @implements {Animation}
- * @classdesc Animation to manage an animation
+ * @classdesc Animation to run single animation
  */
 class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     /**

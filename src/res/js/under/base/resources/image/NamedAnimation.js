@@ -1,8 +1,10 @@
 /**
  * Named animation
- * Manages animation by name
+ * - Manages animation
+ * - Manages multiple animations
+ * - ### Manages animation by name
  * @implements {MultiAnimation}
- * @classdesc Animation to manage animation by name
+ * @classdesc Named animation to manage animation by name
  */
 class NamedAnimation extends MultiAnimation { // eslint-disable-line  no-unused-vars
     /**

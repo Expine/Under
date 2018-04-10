@@ -15,7 +15,7 @@ class EditorMap extends SequentialMap { // eslint-disable-line  no-unused-vars
             let map = {};
             if (it instanceof InvariantBackMap) {
                 map.type = `Invariant`;
-                map.file = ContextImage.it.getImagePath(it.getBackID()).replace(`back/`, ``);
+                map.file = ResourceManager.image.getPath(it.getBackID()).replace(`back/`, ``);
             }
             data.backs.push(map);
         }

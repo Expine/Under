@@ -5,8 +5,12 @@ package under {
         abstract EngineBuilder {
             {abstract} #makeEngine() : Engine
             {abstract} #makeInput() : Input
+            {abstract} #makeScreen() : Screen
             {abstract} #makeContext() : Context
+            {abstract} #makeImageManager() : IImageManager
             {abstract} #makeMusic() : Music
+            {abstract} #makeMusicManager() : IMusicManager
+            {abstract} #makeTimer() : Timer
             {abstract} #makeSceneManager() : SceneManager
             +build() : Engine
         }
@@ -16,11 +20,13 @@ package under {
             #manager : SceneManager
             #context : Context
             #music : Music
+            #timer : Timer
             +setInput(input)
             +setScreen(screen)
             +setContext(context)
             +setSceneManager(manager)
             +setMusic(music)
+            +setTimer(timer)
             +execute(scene)
             {static} +debug : bool
             {abstract} #main()
@@ -57,74 +63,92 @@ package under {
                 +gameSize : number
                 +width : number
                 +height : number
+                {abstract} +init()
                 {abstract} +getTarget() : Element
                 {abstract} +getCanvas() : Canvas
             }
         }
 
-        package music {
-            abstract Music {
-                {static} +it : Music /' Singleton '/
-                {abstract} +loadMusic(filePath) : number
-                {abstract} +unloadMusic(musicID)
-                {abstract} +playSE(musicID)
-                {abstract} +playBGM(musicID)
-                {abstract} +pauseBGM()
-                {abstract} +resumeBGM()
-                {abstract} +stopBGM()
+        package resources {
+            abstract ResourceManager {
+                ResrouceManager(root) : ResrouceManager
+                #root : string
+                {static} +image : ResrouceManager
+                {static} +music : ResrouceManager
+                {abstract} +load(filePath) : Object
+                {abstract} +unload(id)
+                {abstract} +reload
+                {abstract} +getPath(id) : string
             }
-        }
-
-        package context {
-            abstract Context {
-                #screen : Screen
-                #image : ContextImage
-                +setScreen(screen)
-                {abstract} +setContextImage(contextImage)
-                {abstract} +setFontColorByame(colorName)
-                {abstract} +setFontColorByRGB(r,g,b)
-                {abstract} +setFontSize(size)
-                {abstract} +setFontName(fontName)
-                {abstract} +preRendering()
-                {abstract} +postRendering()
-                {abstract} +fillText(text,x,y,anchorX,anchorY,size,color,font)
-                {abstract} +strokeLine(sx,sy,ex,ey,color,lineWidth)
-                {abstract} +strokeCircle(x,y,radius,startAngle,endAngle,anticlockwise,color,lineWidth)
-                {abstract} +strokeRect(x,y,width,height,color,lineWidth)
-                {abstract} +fillRect(x,y,width,height,color,lineWidth)
-                {abstract} +drawImage(imageID,x,y,width,height,srcX,srcY,srcW,srcH)
-            }
-            abstract ContextImage {
-                {static} +it : ContextImage /' Singleton '/
-                {abstract} +loadImage(filePath) : number
-                {abstract} +unloadImage(imageID)
-                {abstract} +getImagePath(imageID) : string
+            interface IImageManager {
+                {abstract} +getWidth(id) : number
+                {abstract} +getHeight(id) : number
                 {abstract} +getImage(id) : Image
             }
+            interface IMusicManager {
+                {abstract} +getMusic(id) : BufferSource
+            }
 
-            abstract Animation {
-                {abstract} +init()
-                {abstract} +setLoop(loop)
-                {abstract} +isLoop() : bool
-                {abstract} +isEnded() : bool
-                {abstract} +addAnimation(element)
-                {abstract} +update(dt)
-                {abstract} +render(ctx,x,y,width,height,imageID)
+            package music {
+                abstract Music {
+                    {static} +it : Music /' Singleton '/
+                    #music : IMusicManager
+                    +setMusicManager(musicManager)
+                    {abstract} +playSE(musicID)
+                    {abstract} +playBGM(musicID)
+                    {abstract} +pauseBGM()
+                    {abstract} +resumeBGM()
+                    {abstract} +stopBGM()
+                }
             }
-            abstract MultiAnimation {
-                {abstract} +getAnimation() : Animation
-                {abstract} +setAnimation(animation)
-            }
-            abstract NamedAnimation {
-                {abstract} +setName(name) : NamedAnimation
-            }
-            class AnimationElement {
-                +imageID : number
-                +srcX : number
-                +srcY : number
-                +srcW : number
-                +srcH : number
-                +delta : number
+
+            package image {
+                abstract Context {
+                    #screen : Screen
+                    #image : IImageManager
+                    +setScreen(screen)
+                    {abstract} +setImageManager(imageManager)
+                    {abstract} +setFontColorByame(colorName)
+                    {abstract} +setFontColorByRGB(r,g,b)
+                    {abstract} +setFontSize(size)
+                    {abstract} +setFontName(fontName)
+                    {abstract} +preRendering()
+                    {abstract} +postRendering()
+                    {abstract} +fillText(text,x,y,anchorX,anchorY,size,color,font)
+                    {abstract} +strokeLine(sx,sy,ex,ey,color,lineWidth)
+                    {abstract} +strokeCircle(x,y,radius,startAngle,endAngle,anticlockwise,color,lineWidth)
+                    {abstract} +strokeRect(x,y,width,height,color,lineWidth)
+                    {abstract} +fillRect(x,y,width,height,color,lineWidth)
+                    {abstract} +drawImage(imageID,x,y,width,height,srcX,srcY,srcW,srcH)
+                }
+
+                abstract Animation {
+                    {abstract} +init()
+                    {abstract} +setLoop(loop)
+                    {abstract} +isLoop() : bool
+                    {abstract} +isEnded() : bool
+                    {abstract} +getAnimationCount() : number
+                    {abstract} +addAnimation(element)
+                    {abstract} +pause()
+                    {abstract} +restore()
+                    {abstract} +update(dt)
+                    {abstract} +render(ctx,x,y,width,height,imageID)
+                }
+                abstract MultiAnimation {
+                    {abstract} +getAnimation() : Animation
+                    {abstract} +setAnimation(animation)
+                }
+                abstract NamedAnimation {
+                    {abstract} +setName(name) : NamedAnimation
+                }
+                class AnimationElement {
+                    +imageID : number
+                    +srcX : number
+                    +srcY : number
+                    +srcW : number
+                    +srcH : number
+                    +delta : number
+                }
             }
         }
 
@@ -170,7 +194,7 @@ package under {
     }
 }
 
-EngineBuilder --> Engine : Should generate
+EngineBuilder --> Engine : Generate
 Engine "1"*-- "1" Screen : Own
 Engine "1"*-- "1" Input : Own
 Engine "1"*-- "1" SceneManager : Own
@@ -180,9 +204,11 @@ Engine "1"*-- "1" Music : Own
 Input .> Screen : Input target
 Context .> Screen : Rendering target
 
+Context ..> IImageManager : Get resource
+Music ..> IMusicManager : Get resource
+
 SceneManager "1"*--"*" Scene : Should own
 Scene "1" o--"*" Layer : May own
-Context "1"*--"1" ContextImage : Own
 
 Animation "1"*--"*"AnimationElement : Should own
 

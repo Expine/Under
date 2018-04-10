@@ -7,10 +7,6 @@ package editor {
     package ed_context {
         class EditorContext
     }
-
-    package ed_screen {
-        class EditorScreen
-    }
 }
 
 package under {
@@ -21,7 +17,7 @@ package under {
             class CachedImage
         }
         package ex_screen {
-            class GeneratableScreen
+            class FitableScreen
         }
     }
 }
@@ -34,12 +30,11 @@ package editor {
 
 EditorBuilder <.. EditorMain : "Execute"
 EditorScene <.. EditorMain : "Generate"
-EditorScreen <.. EditorBuilder : "Generate"
+FitableScreen <.. EditorBuilder : "Generate"
 EditorContext <.. EditorBuilder : "Generate"
 CachedImage <.. EditorBuilder : "Generate"
 
 UnderEngineBuilder <|... EditorBuilder
 JSContext <|-- EditorContext
-GeneratableScreen <|--- EditorScreen
 
 @enduml

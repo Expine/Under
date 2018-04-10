@@ -13,6 +13,7 @@ class FitableScreen extends GeneratableScreen { // eslint-disable-line     no-un
      * @override
      */
     init() {
+        super.init();
         // resize
         (window.onresize = () => {
             let size = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
@@ -22,11 +23,6 @@ class FitableScreen extends GeneratableScreen { // eslint-disable-line     no-un
             this.canvas.style.width = this.canvas.width + `px`;
             this.canvas.height = this.height;
             this.canvas.style.height = this.canvas.height + `px`;
-            let ctx = this.canvas.getContext(`2d`);
-            ctx.mozImageSmoothingEnabled = false;
-            ctx.webkitImageSmoothingEnabled = false;
-            ctx.msImageSmoothingEnabled = false;
-            ctx.imageSmoothingEnabled = false;
         })();
     }
 }

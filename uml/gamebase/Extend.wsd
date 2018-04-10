@@ -4,9 +4,12 @@ package under {
     package extend {
         class UnderEngineBuilder
         class UnderEngine {
-            -oldTime : number
+            #oldTime : number
             -render_ : lambda
+            #update()
+            #render()
         }
+        class UnderDebugEngine
 
         package ex_input {
             class AllInput {
@@ -29,46 +32,54 @@ package under {
                 +GeneratableScreen(width,height) : GeneratableScreen
                 #canvas : Canvas
             }
-            class ScalableScreen {
-                +ScalableScreen(width,height) : ScalableScreen
-            }
+            class ScalableScreen
+            class FitableScreen
         }
 
-        package ex_context {
-            class JSContext {
-                -fontColor_ : string
-                -fontSize_ : number
-                -fontName_ : string
-                -lineColor_ : string
-                -lineWidth_ : number
-                -ctx_ : CanvasRenderingContext2D
+        package ex_resource {
+            abstract CachedArrayManager {
+                #resources : Array<Object>
+                #caches : Dictionary<string, Object>
+                #loadResource(filePath) : Object
             }
-            class GLContext {
-                -gl_ : WebGLRenderingContext
+            class CachedImage
+            class CachedMusic {
+                #context : AudioContext
             }
-            class CachedImage {
-                -images : Array<Image>
-                -caches : Dictionary<string, number>
+            package ex_music {
+                class BufferSourceMusic {
+                    -music_ : Array<BufferSource>
+                    -bgmList_ : Array<number>
+                    -context_ : AudioContext
+                }
             }
-            class SingleAnimation {
-                #animation : Array<AnimationElement>
-                #animationCount : number
-                #runningAnimarion : number
-                #loop : bool
-                #ended : bool
-            }
-            class MultiNamedAnimation {
-                #name : string
-                #animation : Dictionary<string, Animation>
-            }
-        }
 
-        package ex_music {
-            class XHTMLMusic {
-                -music_ : Array<BufferSource>
-                -bgmList_ : Array<number>
-                -context_ : AudioContext
+            package ex_image {
+                class JSContext {
+                    -fontColor_ : string
+                    -fontSize_ : number
+                    -fontName_ : string
+                    -lineColor_ : string
+                    -lineWidth_ : number
+                    -ctx_ : CanvasRenderingContext2D
+                }
+                class GLContext {
+                    -gl_ : WebGLRenderingContext
+                }
+                class SingleAnimation {
+                    #animation : Array<AnimationElement>
+                    #animationCount : number
+                    #runningAnimarion : number
+                    #loop : bool
+                    #ended : bool
+                    #paused : bool
+                }
+                class MultiNamedAnimation {
+                    #name : string
+                    #animation : Dictionary<string, Animation>
+                }
             }
+
         }
 
         package ex_scene {
@@ -100,11 +111,18 @@ package under {
         package screen {
             abstract Screen
         }
-        package context {
-            abstract Context
-            abstract ContextImage
-            abstract Animation
-            abstract NamedAnimation
+        package resource {
+            abstract ResourceManager
+            interface IImageManager
+            interface IMusicManager
+            package music {
+                abstract Music
+            }
+            package image {
+                abstract Context
+                abstract Animation
+                abstract NamedAnimation
+            }
         }
         package scene {
             abstract Scene
@@ -113,38 +131,46 @@ package under {
                 abstract Layer
             }
         }
-        package music {
-            abstract Music
-        }
     }
 }
 
-UnderEngineBuilder ..> UnderEngine : Generate
-UnderEngineBuilder ..> AllInput : Generate
-UnderEngineBuilder ..> ScalableScreen : Generate
-UnderEngineBuilder ..> JSContext : Generate
-UnderEngineBuilder ..> CachedImage : Generate
-UnderEngineBuilder ..> XHTMLMusic : Generate
-UnderEngineBuilder ..> StackSceneManager : Generate
+UnderEngine <.. UnderEngineBuilder  : Generate
+UnderDebugEngine <.. UnderEngineBuilder  : Generate
+AllInput <.. UnderEngineBuilder  : Generate
+ScalableScreen <.. UnderEngineBuilder  : Generate
+JSContext <.. UnderEngineBuilder  : Generate
+CachedImage <.. UnderEngineBuilder  : Generate
+CachedMusic <.. UnderEngineBuilder  : Generate
+BufferSourceMusic <.. UnderEngineBuilder  : Generate
+StackSceneManager <.. UnderEngineBuilder  : Generate
 
-MultiNamedAnimation "1"*--"*" Animation : Should own
+Animation "*"--"1" MultiNamedAnimation : Own
 
-ScalableScreen --|> GeneratableScreen
+GeneratableScreen <|-- ScalableScreen
+GeneratableScreen <|-- FitableScreen
 
-UnderEngineBuilder ..|> EngineBuilder
-UnderEngine ..|> Engine
-AllInput ..|> Input
-GeneratableScreen ..|> Screen
-JSContext ..|> Context
-GLContext ..|> Context
-StackSceneManager ..|> SceneManager
-XHTMLMusic ..|> Music
-CachedImage ..|> ContextImage
-LayerBaseScene ..|> Scene
-DefaultTitleScene ...|> Scene
-GameoverLayer ...|> Layer
+EngineBuilder <|.... UnderEngineBuilder
+Engine <|.. UnderEngine
+UnderEngine <|-- UnderDebugEngine
 
-SingleAnimation ..|> Animation
-MultiNamedAnimation ..|> NamedAnimation
+Input <|.. AllInput
+Screen <|.. GeneratableScreen
+
+Context <|.. JSContext
+Context <|.. GLContext
+Music <|.. BufferSourceMusic
+ResourceManager <|.. CachedArrayManager
+CachedArrayManager <|.. CachedImage
+IImageManager <|.. CachedImage
+CachedArrayManager <|.. CachedMusic
+IMusicManager <|.. CachedMusic
+
+SceneManager <|.. StackSceneManager
+Scene <|.. LayerBaseScene
+Scene <|.. DefaultTitleScene
+Layer <|.. GameoverLayer
+
+Animation <|.. SingleAnimation
+NamedAnimation <|.. MultiNamedAnimation
 
 @enduml

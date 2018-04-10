@@ -1,7 +1,8 @@
 /**
  * Multi animation
- * Manages animations
- * @classdesc Animation to manage animations
+ * - Manages animation
+ * - ### Manages multiple animations
+ * @classdesc Multi animation to manage multiple animations
  */
 class MultiAnimation extends Animation { // eslint-disable-line  no-unused-vars
     /**
