@@ -12,7 +12,7 @@ class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unus
      * @return {Screen} Screen system
      */
     makeScreen() {
-        return new EditorScreen(800, 850);
+        return new FitableScreen(800, 850);
     }
 
     /**
