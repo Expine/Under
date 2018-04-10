@@ -1,25 +1,35 @@
 /**
- * Screen manager that can generate a canvas automatically
- * If the canvas does not exist, it is generated
+ * Generatable screen
+ * - Indicates the rendering target and input target
+ * - ### It can generate a canvas automatically
+ * - ### Both Input and rendering target is canvas
  * @implements {Screen}
- * @classdesc Screen manager to generate  a canvas automatically
+ * @classdesc Generatable screen to generate a canvas automatically
  */
 class GeneratableScreen extends Screen { // eslint-disable-line  no-unused-vars
     /**
      * Generatable screen constructor
      * @constructor
-     * @param {number} [width = 800]  screen width
-     * @param {number} [height = 600]  screen height
+     * @param {number} [width = 800] Screen width
+     * @param {number} [height = 600] Screen height
      */
     constructor(width = 800, height = 600) {
         super(width, height);
 
         /**
          * Game canvas
-         * @private
+         * @protected
          * @type {Canvas}
          */
-        this.canvas;
+        this.canvas = null;
+    }
+
+    /**
+     * Initialize screen
+     * @override
+     */
+    init() {
+        // detect canvas
         if (document.querySelector(`canvas`) == null) {
             // generate canvas
             this.canvas = document.createElement(`canvas`);

@@ -102,6 +102,8 @@ class Engine { // eslint-disable-line  no-unused-vars
      * @param {Scene} scene First scene
      */
     execute(scene) {
+        // initialize
+        this.screen.init();
         // set access
         this.input.setScreen(this.screen);
         this.context.setScreen(this.screen);

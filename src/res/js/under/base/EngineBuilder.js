@@ -62,7 +62,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Perform initial construction of the game engine
-     * @return {Engine} game engine
+     * @return {Engine} Game engine
      */
     build() {
         let engine = this.makeEngine();

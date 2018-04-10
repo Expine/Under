@@ -1,14 +1,14 @@
 /**
- * Screen manager
- * Indicates the rendering target
- * @classdesc Screen class for managing screen information
+ * Screen
+ * - ### Indicates the rendering target and input target
+ * @classdesc Screen indicating the rendering and input target
  */
 class Screen { // eslint-disable-line  no-unused-vars
     /**
      * Screen constructor
      * @constructor
-     * @param {number} width  screen width
-     * @param {number} height  screen height
+     * @param {number} width Screen width
+     * @param {number} height Screen height
      */
     constructor(width, height) {
         /**
@@ -17,19 +17,29 @@ class Screen { // eslint-disable-line  no-unused-vars
          */
         this.gameSize = 1;
         /**
-         * Game screen width size
+         * Width of game screen size
          * @type {number}
          */
         this.width = width;
         /**
-         * Game screen height size
+         * Height of game screen size
          * @type {number}
          */
         this.height = height;
 
-        // set singleton instance
+        /**
+         * Instance for singleton
+         * @static
+         * @type {Screen}
+         */
         Screen.it = this;
     }
+
+    /**
+     * Initialize screen
+     * @interface
+     */
+    init() {}
 
     /**
      * Get input target element
