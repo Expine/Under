@@ -135,7 +135,7 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
      * @param {number} dt Delta time
      */
     tension(x, y, dt) {
-        this.body.enforce(x * 5000 / dt, y * 5000 / dt);
+        // this.body.enforce(x * 5000 / dt, y * 5000 / dt);
         // this.body.setNextAddVelocity(x * 1000 / dt - this.body.preVelocityX, y * 1000 / dt - this.body.preVelocityY);
         // this.body.setNextAddVelocity(x * 1000 / dt - this.body.preVelocityX, y * 1000 / dt - this.body.preVelocityY);
     }
@@ -168,7 +168,7 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
             if (d > this.length) {
                 this.previous = new HookChild(x, y, 4, 4, this.entity, this, this.length, this.restLength - 15);
                 this.stage.addEntity(this.previous);
-                this.previous.body.update(dt);
+                // this.previous.body.update(dt);
             }
         }
     }

@@ -26,8 +26,10 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        this.entity.body.setEnable(true);
-        this.entity.body.reset();
+        if (this.entity.body !== undefined) {
+            this.entity.body.setEnable(true);
+            this.entity.body.reset();
+        }
     }
 
     /**
@@ -42,11 +44,13 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
         let dy = this.actor.y + this.actor.height / 2 - this.entity.y - this.entity.height / 2;
         dx += Math.sign(dx) * 100;
         dy += Math.sign(dx) * 100;
-        this.entity.body.enforce(dx * 3000 / dt, dy * 3000 / dt);
-        // set direction
-        let vx = Math.sign(this.entity.body.preVelocityX);
-        let vy = Math.sign(this.entity.body.preVelocityY);
-        this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
-        this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
+        if (this.entity.body !== undefined) {
+            this.entity.body.enforce(dx * 3000 / dt, dy * 3000 / dt);
+            // set direction
+            let vx = Math.sign(this.entity.body.preVelocityX);
+            let vy = Math.sign(this.entity.body.preVelocityY);
+            this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
+            this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
+        }
     }
 }

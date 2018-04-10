@@ -24,7 +24,7 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
         this.setMaterial(new DefaultMaterial());
         let px = post.directionX >= 0 ? post.getHookX() - post.x - post.width : post.x - post.getHookX();
         let py = post.directionY <= 0 ? post.y - post.getHookY() : post.getHookY() - post.y + post.height;
-        this.setRigidBody(new JointBody(this.x - this.getHookX(), this.y - this.getHookY(), post, px, py, length));
+        //        this.setRigidBody(new JointBody(this.x - this.getHookX(), this.y - this.getHookY(), post, px, py, length));
         this.addAI(new HookStateAI(this, entity));
 
         this.x -= (this.getHookX() - this.x);
