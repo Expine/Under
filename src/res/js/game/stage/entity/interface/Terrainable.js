@@ -6,16 +6,6 @@
  */
 class Terrainable extends Interface { // eslint-disable-line  no-unused-vars
     /**
-     * Terrainable constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-
-        this.addMethod(this.getTerrainID);
-    }
-
-    /**
      * Get terrain ID
      * @interface
      * @return {number} Terrain ID

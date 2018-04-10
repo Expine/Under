@@ -7,14 +7,6 @@
  */
 class Breakable extends Interface { // eslint-disable-line  no-unused-vars
     /**
-     * Breakable constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-        this.addMethod(this.destroy);
-    }
-    /**
      * Destroy object
      * @interface
      */

@@ -4,16 +4,6 @@
  */
 class MovableState extends Interface { // eslint-disable-line  no-unused-vars
     /**
-     * Breakable constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-        this.addMethod(this.setMovePower);
-        this.addMethod(this.setMaxVelocity);
-    }
-
-    /**
      * Set max velocity
      * @interface
      * @param {number} maxVelocityX The max velocity of x direction

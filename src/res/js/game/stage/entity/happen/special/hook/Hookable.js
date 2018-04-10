@@ -5,22 +5,6 @@
  */
 class Hookable extends Interface { // eslint-disable-line  no-unused-vars
     /**
-     * Hookable constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-
-        this.addMethod(this.getActor);
-        this.addMethod(this.getLength);
-        this.addMethod(this.getHookX);
-        this.addMethod(this.getHookY);
-        this.addMethod(this.getPrevious);
-        this.addMethod(this.hooked);
-        this.addMethod(this.release);
-    }
-
-    /**
      * Get actor who it belongs to
      * @interface
      * @return {Entity} Actor who it belongs to

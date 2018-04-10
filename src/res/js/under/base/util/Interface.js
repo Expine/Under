@@ -1,10 +1,12 @@
 /**
- * Base class of interface
+ * Interface
+ * - ### Base class of interface
  * @classdesc Base class of interface
  */
 class Interface { // eslint-disable-line  no-unused-vars
     /**
      * Interface constructor
+     * @constructor
      */
     constructor() {
         /**
@@ -13,6 +15,16 @@ class Interface { // eslint-disable-line  no-unused-vars
          * @type {Array<Method>}
          */
         this.methods_ = [];
+
+        let proto = this.__proto__;
+        if (proto) {
+            for (let it of Object.getOwnPropertyNames(proto)) {
+                if (it != `constructor` && proto[it] instanceof Function) {
+                    this.addMethod(proto[it]);
+                }
+            }
+            proto = proto.__proto__;
+        }
     }
 
     /**
