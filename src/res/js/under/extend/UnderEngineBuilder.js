@@ -1,6 +1,7 @@
 /**
  * Under engine builder
- * Performs initial construction of the game engine
+ * - Performs initial construction of the game engine
+ * - ### Generates all necessary instances
  * @implements {EngineBuilder}
  * @classdesc Under engine builder to perform initial construction of the game engine
  */
@@ -12,7 +13,7 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * @return {Engine} Game engine
      */
     makeEngine() {
-        return new UnderEngine();
+        return Engine.debug ? new UnderDebugEngine() : new UnderEngine();
     }
 
     /**

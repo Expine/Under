@@ -1,20 +1,59 @@
 /**
- * Control the core of the game
- * Manages each piece of game information
- * Fires update and rendering processing respectively
- * @classdesc Control the core of the game
+ * Engine
+ * - ### Control the core of the game
+ * - ### Manages each piece of game information
+ * - ### Fires update and rendering processing respectively
+ * @classdesc Engine for control the core of the game to manage each piece of game information
  */
 class Engine { // eslint-disable-line  no-unused-vars
     /**
-     * Set input system
-     * @param {Input} input Input system
+     * Engine constructor
+     * @constructor
      */
-    setInput(input) {
+    constructor() {
         /**
          * Input system instance
          * @protected
          * @type {Input}
          */
+        this.input = null;
+        /**
+         * Screen system
+         * @protected
+         * @type {Screen}
+         */
+        this.screen = null;
+        /**
+         * Context tp render
+         * @protected
+         * @type {Context}
+         */
+        this.context = null;
+        /**
+         * Scene manager
+         * @protected
+         * @type {SceneManager}
+         */
+        this.manager = null;
+        /**
+         * Music system
+         * @protected
+         * @type {Music}
+         */
+        this.music = null;
+        /**
+         * Timer
+         * @protected
+         * @type {Timer}
+         */
+        this.timer = null;
+    }
+
+    /**
+     * Set input system
+     * @param {Input} input Input system
+     */
+    setInput(input) {
         this.input = input;
     }
 
@@ -23,11 +62,6 @@ class Engine { // eslint-disable-line  no-unused-vars
      * @param {Screen} screen Screen system
      */
     setScreen(screen) {
-        /**
-         * Screen system
-         * @protected
-         * @type {Screen}
-         */
         this.screen = screen;
     }
 
@@ -36,11 +70,6 @@ class Engine { // eslint-disable-line  no-unused-vars
      * @param {Context} context Context to render
      */
     setContext(context) {
-        /**
-         * Context tp render
-         * @protected
-         * @type {Context}
-         */
         this.context = context;
     }
 
@@ -49,11 +78,6 @@ class Engine { // eslint-disable-line  no-unused-vars
      * @param {SceneManager} manager Scene manager
      */
     setSceneManager(manager) {
-        /**
-         * Scene manager
-         * @protected
-         * @type {SceneManager}
-         */
         this.manager = manager;
     }
 
@@ -62,11 +86,6 @@ class Engine { // eslint-disable-line  no-unused-vars
      * @param {Music} music Music system
      */
     setMusic(music) {
-        /**
-         * Music system
-         * @protected
-         * @type {Music}
-         */
         this.music = music;
     }
 
@@ -75,11 +94,6 @@ class Engine { // eslint-disable-line  no-unused-vars
      * @param {Timer} timer Timer
      */
     setTimer(timer) {
-        /**
-         * Timer
-         * @protected
-         * @type {Timer}
-         */
         this.timer = timer;
     }
 
@@ -105,4 +119,9 @@ class Engine { // eslint-disable-line  no-unused-vars
     main() {}
 }
 
+/**
+ * Whether it is debug mode or not
+ * @static
+ * @type {bool}
+ */
 Engine.debug = true;

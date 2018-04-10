@@ -1,6 +1,6 @@
 /**
  * Engine builder
- * Performs initial construction of the game engine
+ * - ### Performs initial construction of the game engine
  * @classdesc Engine builder to perform initial construction of the game engine
  */
 class EngineBuilder { // eslint-disable-line  no-unused-vars

@@ -1,6 +1,8 @@
 /**
  * Main game engine builder
- * Performs initial construction of the game engine
+ * - Performs initial construction of the game engine
+ * - Generates all necessary instances
+ * - ### Generates unique instance
  * @extends {UnderEngineBuilder}
  * @classdesc Main game engine builder to perform initial construction of the game engine
  */

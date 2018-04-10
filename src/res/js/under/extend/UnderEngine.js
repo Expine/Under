@@ -1,7 +1,11 @@
 /**
  * Under engine
+ * - Control the core of the game
+ * - Manages each piece of game information
+ * - Fires update and rendering processing respectively
+ * - ### Executes the main loop by requestAnimationFrame
  * @implements {Engine}
- * @classdesc Under engine main class
+ * @classdesc Under engine to execute main loop by requestAnimationFrame
  */
 class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
     /**
@@ -12,10 +16,40 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
         super();
         /**
          * Previous measurement time
-         * @private
+         * @protected
          * @type {number}
          */
-        this.oldTime_;
+        this.oldTime = +new Date();
+
+        /**
+         * Rendering lambda function
+         * @protected
+         * @type {lambda}
+         */
+        this.loop = null;
+    }
+
+    /**
+     * Update in main loop
+     * @protected
+     */
+    update() {
+        let newTime = +new Date();
+        this.timer.update(newTime - this.oldTime);
+        this.input.update();
+        // minimum delta time is 30 milisec
+        this.manager.update(this.timer.deltaTime > 30 ? 30 : this.timer.deltaTime);
+        this.oldTime = newTime;
+    }
+
+    /**
+     * Rendering in main loop
+     * @protected
+     */
+    render() {
+        this.context.preRendering();
+        this.manager.render(this.context);
+        this.context.postRendering();
     }
 
     /**
@@ -25,25 +59,12 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
      */
     main() {
         // start main loop
-        this.oldTime_ = +new Date();
-        this.render_ = (_) => {
-            requestAnimationFrame(this.render_);
-            // update
-            let newTime = +new Date();
-            this.timer.update(newTime - this.oldTime_);
-            this.timer.startTimer(`update`);
-            this.input.update();
-            this.manager.update(window.deltaTime > 30 ? 30 : this.timer.deltaTime);
-            this.oldTime_ = newTime;
-            this.timer.stopTimer(`update`);
-
-            // draw
-            this.timer.startTimer(`render`);
-            this.context.preRendering();
-            this.manager.render(this.context);
-            this.context.postRendering();
-            this.timer.stopTimer(`render`);
+        this.oldTime = +new Date();
+        this.loop = (_) => {
+            requestAnimationFrame(this.loop);
+            this.update();
+            this.render();
         };
-        requestAnimationFrame(this.render_);
+        requestAnimationFrame(this.loop);
     }
 }
