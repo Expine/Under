@@ -75,7 +75,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Camera} camera instance for base of parsing
      */
     makeBaseCamera(camera, width, height) {
-        return new CenterCamera(width, height);
+        return new MovingCenterCamera(width, height);
     }
 
     /**
