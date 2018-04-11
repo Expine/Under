@@ -1,288 +1,253 @@
 /**
- * Input system that implements input
- * Keeps all mouse and key states
- * There is much waste, but you can respond to any key input
+ * All input
+ * - Manages input event
+ * - ### Manages all input and delegate it
  * @implements {Input}
- * @classdesc Input system to keep all states
+ * @classdesc All input to manage all input and delegate it
  */
-class AllInput extends Input { // eslint-disable-line  no-unused-vars
+class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-unused-vars
     /**
      * All input constructor
      * @constructor
+     * @param {IKey} key Key instance for input
+     * @param {IMouse} mouse Mouse instance for input
      */
-    constructor() {
+    constructor(key, mouse) {
         super();
-        /**
-         * Array for registering mouse input state
-         * @protected
-         * @type {Array<number>}
-         */
-        this.inputMouse = new Array(5);
-        /**
-         * Array for registering key input state
-         * @protected
-         * @type {Array<number>}
-         */
-        this.inputKey = new Array(255);
 
         /**
-         * Mouse x position
-         * @private
-         * @type {number}
+         * Key instance for delegation
+         * @protected
+         * @type {IKey}
          */
-        this.mouseX_ = 0;
+        this.keyDelegate = key;
         /**
-         * Mouse y position
-         * @private
-         * @type {number}
+         * Mouse instance for delegation
+         * @protected
+         * @type {IMouse}
          */
-        this.mouseY_ = 0;
+        this.mouseDelegate = mouse;
 
         /**
-         * Whether mouse is blocked or not
+         * Mouse base code number
          * @protected
-         * @type {bool}
-         */
-        this.mouseBlocked = new Array(5);
-        /**
-         * Whether key is blocked or not
-         * @protected
-         * @type {bool}
-         */
-        this.keyBlocked = new Array(255);
-
-        /**
-         * Input state
-         * @private
          * @const
-         * @enum {Enum<number>}
-         */
-        this.STATE_ = {
-            NONE: 0,
-            PRESS: 1,
-            PRESSED: 2,
-            ON: 3,
-        };
-        /**
-         * Mouse button enumeration
-         * @const
-         * @enum {Enum<number>}
-         */
-        this.M = {
-            LEFT: 0,
-            CENTER: 1,
-            RIGHT: 2,
-        };
-
-        /**
-         * Left arrow key code
          * @type {number}
          */
-        this.left = 37;
-        /**
-         * Up arrow key code
-         * @type {number}
-         */
-        this.up = 38;
-        /**
-         * Right arrow key code
-         * @type {number}
-         */
-        this.right = 39;
-        /**
-         * Down arrow key code
-         * @type {number}
-         */
-        this.down = 40;
-
-        /**
-         * Z key code
-         * @type {number}
-         */
-        this.yes = 90;
-        /**
-         * X key code
-         * @type {number}
-         */
-        this.no = 88;
-        /**
-         * C key code
-         * @type {number}
-         */
-        this.sub = 67;
-
-        // ban context menu
-        document.oncontextmenu = function() {
-            return false;
-        };
+        this.mousBaseCode = 1000;
     }
 
     /**
-     * Get mouse x position
+     * Set screen instance for getting screen ratio and setting inut target
      * @override
-     * @return mouse x position
+     * @param {Screen} screen
      */
-    getMouseX() {
-        return this.mouseX_;
-    }
-
-    /**
-     * Get mouse x position
-     * @override
-     * @return mouse x position
-     */
-    getMouseY() {
-        return this.mouseY_;
-    }
-
-    /**
-     * Mouse move function
-     * @override
-     * @param {MouseEvent} e - mouse event
-     */
-    onMouseMove(e) {
-        const rect = this.target.getBoundingClientRect();
-        this.mouseX_ = (e.clientX - rect.left) / this.screen.gameSize;
-        this.mouseY_ = (e.clientY - rect.top) / this.screen.gameSize;
-    }
-
-    /**
-     * Mouse down function
-     * @override
-     * @param {MouseEvent} e - mouse event
-     */
-    onMouseDown(e) {
-        let button = e.button;
-        if (this.inputMouse[button] === undefined || this.inputMouse[button] == this.STATE_.NONE) {
-            this.inputMouse[button] = this.STATE_.PRESS;
+    setScreen(screen) {
+        super.setScreen(screen);
+        if (this.keyDelegate instanceof Input) {
+            this.keyDelegate.setScreen(screen);
+        }
+        if (this.mouseDelegate instanceof Input) {
+            this.mouseDelegate.setScreen(screen);
         }
     }
 
     /**
-     * Mouse up function
+     * Initialize input
      * @override
-     * @param {MouseEvent} e - mouse event
      */
-    onMouseUp(e) {
-        let button = e.button;
-        this.inputMouse[button] = this.STATE_.NONE;
-    }
-
-    /**
-     * Key down function
-     * @override
-     * @param {KeyEvent} e - key event
-     */
-    onKeyDown(e) {
-        let code = e.keyCode;
-        if (this.inputKey[code] === undefined || this.inputKey[code] == this.STATE_.NONE) {
-            this.inputKey[code] = this.STATE_.PRESS;
+    init() {
+        if (this.keyDelegate instanceof Input) {
+            this.keyDelegate.init();
+        }
+        if (this.mouseDelegate instanceof Input) {
+            this.mouseDelegate.init();
         }
     }
 
     /**
-     * Key up function
-     * @override
-     * @param {KeyEvent} e - key event
-     */
-    onKeyUp(e) {
-        let code = e.keyCode;
-        this.inputKey[code] = this.STATE_.NONE;
-    }
-
-    /**
-     * Clear key and mouse state
-     * @override
-     */
-    clear() {
-        for (let i = 0; i < this.inputMouse.length; ++i) {
-            this.inputMouse[i] = this.STATE_.NONE;
-        }
-        for (let i = 0; i < this.inputKey.length; ++i) {
-            this.inputKey[i] = this.STATE_.NONE;
-        }
-    }
-
-    /**
-     * Update input state
+     * Update input
      * @override
      */
     update() {
-        // update mouse state
-        for (let i = 0; i < this.inputMouse.length; ++i) {
-            if (this.inputMouse[i] == this.STATE_.PRESS) {
-                this.inputMouse[i] = this.STATE_.PRESSED;
-            } else if (this.inputMouse[i] == this.STATE_.PRESSED) {
-                this.inputMouse[i] = this.STATE_.ON;
-            }
-            this.blockMouseInput[i] = false;
+        if (this.keyDelegate instanceof Input) {
+            this.keyDelegate.update();
         }
-        // update key state
-        for (let i = 0; i < this.inputKey.length; ++i) {
-            if (this.inputKey[i] == this.STATE_.PRESS) {
-                this.inputKey[i] = this.STATE_.PRESSED;
-            } else if (this.inputKey[i] == this.STATE_.PRESSED) {
-                this.inputKey[i] = this.STATE_.ON;
-            }
-            this.blockKeyInput[i] = false;
+        if (this.mouseDelegate instanceof Input) {
+            this.mouseDelegate.update();
         }
     }
 
     /**
-     * Block mouse input
+     * Clear input state
+     * @override
+     * @protected
+     */
+    clear() {
+        if (this.keyDelegate instanceof Input) {
+            this.keyDelegate.clear();
+        }
+        if (this.mouseDelegate instanceof Input) {
+            this.mouseDelegate.clear();
+        }
+    }
+
+    /**
+     * Get A key code
+     * @override
+     * @return {number} A key code
+     */
+    a() {
+        return this.keyDelegate.a();
+    }
+    /**
+     * Get 0 key code
+     * @override
+     * @return {number} 0 key code
+     */
+    zero() {
+        return this.keyDelegate.zero();
+    }
+
+    /**
+     * Get right key code
+     * @override
+     * @return {number} Right key code
+     */
+    right() {
+        return this.keyDelegate.right();
+    }
+    /**
+     * Get left key code
+     * @override
+     * @return {number} Left key code
+     */
+    left() {
+        return this.keyDelegate.left();
+    }
+    /**
+     * Get up key code
+     * @override
+     * @return {number} Up key code
+     */
+    up() {
+        return this.keyDelegate.up();
+    }
+    /**
+     * Get down key code
+     * @override
+     * @return {number} Down key code
+     */
+    down() {
+        return this.keyDelegate.down();
+    }
+
+    /**
+     * Get yes key code
+     * @override
+     * @return {number} Yes key code
+     */
+    yes() {
+        return this.keyDelegate.yes();
+    }
+    /**
+     * Get no key code
+     * @override
+     * @return {number} No key code
+     */
+    no() {
+        return this.keyDelegate.no();
+    }
+    /**
+     * Get sub key code
+     * @override
+     * @return {number} Sub key code
+     */
+    sub() {
+        return this.keyDelegate.sub();
+    }
+
+    /**
+     * Get mouse right code
+     * @override
+     * @return {number} Mouse right code
+     */
+    mRight() {
+        return this.mouseDelegate.mRight() + this.mousBaseCode;
+    }
+    /**
+     * Get mouse left code
+     * @override
+     * @return {number} Mouse left code
+     */
+    mLeft() {
+        return this.mouseDelegate.mLeft() + this.mousBaseCode;
+    }
+    /**
+     * Get mouse center code
+     * @override
+     * @return {number} Mouse center code
+     */
+    mCenter() {
+        return this.mouseDelegate.mCenter() + this.mousBaseCode;
+    }
+
+    /**
+     * Get mouse x position
      * @interface
-     * @param {number} code Target mouse code
+     * @return mouse x position
      */
-    blockMouseInput(code) {
-        this.blockMouseInput[code] = true;
+    getMouseX() {
+        return this.mouseDelegate.getMouseX();
     }
 
     /**
-     * Block key input
+     * Get mouse x position
      * @interface
-     * @param {number} code Target key code
+     * @return mouse x position
      */
-    blockKeyInput(code) {
-        this.blockKeyInput[code] = true;
+    getMouseY() {
+        return this.mouseDelegate.getMouseY();
     }
 
     /**
-     * Judge whether mouse pressed now
-     * @override
-     * @param {number} code - target mouse code
-     * @return whether mouse pressed now
+     * Block input
+     * @interface
+     * @param {number} code Target code
      */
-    isMousePress(code) {
-        return !this.blockMouseInput[code] && this.inputMouse[code] !== undefined && this.inputMouse[code] == this.STATE_.PRESSED;
+    blockInput(code) {
+        if (code >= this.mousBaseCode) {
+            this.mouseDelegate.blockInput(code - this.mousBaseCode);
+        } else {
+            this.keyDelegate.blockInput(code);
+        }
     }
 
     /**
-     * Judge whether mouse pressed
-     * @override
-     * @param {number} code - target mouse code
-     * @return whether mouse pressed
+     * Judge whether pressed now
+     * @interface
+     * @param {number} code Target code
+     * @return {bool} whether pressed now
      */
-    isMousePressed(code) {
-        return !this.blockMouseInput[code] && this.inputMouse[code] !== undefined && (this.inputMouse[code] == this.STATE_.PRESSED || this.inputMouse[code] == this.STATE_.ON);
+    isPress(code) {
+        if (code >= this.mousBaseCode) {
+            return this.mouseDelegate.isPress(code - this.mousBaseCode);
+        } else {
+            return this.keyDelegate.isPress(code);
+        }
     }
 
     /**
-     * Judge whether key pressed now
-     * @override
-     * @param {number} code - target key code
-     * @return whether key pressed now
+     * Judge whether pressed
+     * @interface
+     * @param {number} code Target code
+     * @return {bool} whether pressed
      */
-    isKeyPress(code) {
-        return !this.blockKeyInput[code] && this.inputKey[code] !== undefined && this.inputKey[code] == this.STATE_.PRESSED;
-    }
-
-    /**
-     * Judge whether key pressed
-     * @override
-     * @param {number} code - target key code
-     * @return whether key pressed
-     */
-    isKeyPressed(code) {
-        return !this.blockKeyInput[code] && this.inputKey[code] !== undefined && (this.inputKey[code] == this.STATE_.PRESSED || this.inputKey[code] == this.STATE_.ON);
+    isPressed(code) {
+        if (code >= this.mousBaseCode) {
+            return this.mouseDelegate.isPressed(code - this.mousBaseCode);
+        } else {
+            return this.keyDelegate.isPressed(code);
+        }
     }
 }

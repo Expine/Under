@@ -36,10 +36,10 @@ class PJumpingState extends BaseState { // eslint-disable-line  no-unused-vars
     apply(dt) {
         // input
         let vx = 0;
-        if (Input.it.isKeyPressed(Input.it.left)) {
+        if (Input.it.isPressed(Input.key.left())) {
             vx += -1;
         }
-        if (Input.it.isKeyPressed(Input.it.right)) {
+        if (Input.it.isPressed(Input.key.right())) {
             vx += 1;
         }
         if (vx != 0) {

@@ -43,19 +43,20 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.lineWidth_ = 1;
-    }
 
-    /**
-     * Set screen
-     * @param {Screen} screen Screen system
-     */
-    setScreen(screen) {
-        super.setScreen(screen);
         /**
          * Canvas context for rendering
          * @private
          * @type {CanvasRenderingContext2D}
          */
+        this.ctx_ = null;
+    }
+
+    /**
+     * Initialize context
+     * @interface
+     */
+    init() {
         this.ctx_ = this.screen.getCanvas().getContext(`2d`);
     }
 

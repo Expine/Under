@@ -23,7 +23,7 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * @return {Input} Input system
      */
     makeInput() {
-        return new AllInput();
+        return new AllInput(new KeyInput(), new MouseInput());
     }
 
     /**

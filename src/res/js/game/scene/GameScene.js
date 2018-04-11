@@ -55,9 +55,9 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
         super.update(dt);
         if (this.gameover) {
             // retry
-            if (Input.it.isKeyPress(Input.it.yes)) {
+            if (Input.it.isPress(Input.key.yes())) {
                 this.init();
-            } else if (Input.it.isKeyPress(Input.it.no)) {
+            } else if (Input.it.isPress(Input.key.no())) {
                 SceneManager.it.replaceScene(new TitleScene());
             }
         }

@@ -41,6 +41,12 @@ class Context { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Initialize context
+     * @interface
+     */
+    init() {}
+
+    /**
      * Set the color of text
      * @interface
      * @param {string} colorName Color name

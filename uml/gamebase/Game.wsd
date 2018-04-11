@@ -3,19 +3,13 @@
 package game {
     class Main
     class MainBuilder
-    package ga_input {
-        class ExtendedInput {
-            #subYes : number
-            #subNo : number
-        }
-    }
 }
 
 package under {
     package extend {
         class UnderEngineBuilder
         package ex_input {
-            class AllInput
+            class PreventKeyInput
         }
     }
 }
@@ -29,9 +23,8 @@ package game {
 
 Main ..> MainBuilder : Generate
 Main ..> TitleScene : Generate
-MainBuilder ..> ExtendedInput : Generate
+MainBuilder ..> PreventKeyInput : Generate
 
 MainBuilder --|> UnderEngineBuilder
-ExtendedInput --|> AllInput
 
 @enduml

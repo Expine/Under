@@ -90,8 +90,8 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
 
         // tile selection
         this.selectTile = null;
-        let x = Input.it.getMouseX() - this.x;
-        let y = Input.it.getMouseY() - this.y;
+        let x = Input.mouse.getMouseX() - this.x;
+        let y = Input.mouse.getMouseY() - this.y;
         // check layer
         if (0 > x || x >= this.width || 0 > y || y >= this.height) {
             return;
@@ -107,7 +107,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
                 }
             }
         }
-        if (Input.it.isMousePress(Input.it.M.LEFT)) {
+        if (Input.it.isPress(Input.mouse.mLeft())) {
             this.selectedTile = this.selectTile;
         }
     }

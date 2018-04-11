@@ -38,11 +38,11 @@ class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars
         let input = false;
         let vx = 0;
         // walk
-        if (Input.it.isKeyPressed(Input.it.left)) {
+        if (Input.it.isPressed(Input.key.left())) {
             vx += -1;
             input = true;
         }
-        if (Input.it.isKeyPressed(Input.it.right)) {
+        if (Input.it.isPressed(Input.key.right())) {
             vx += 1;
             input = true;
         }
@@ -57,12 +57,12 @@ class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars
             this.ai.changeState(`stationary`);
         }
         // jump
-        if (Input.it.isKeyPressed(Input.it.up) && Util.onGround(this.entity)) {
+        if (Input.it.isPressed(Input.key.up()) && Util.onGround(this.entity)) {
             this.ai.changeState(`walkjump`);
             input = true;
         }
         // punch
-        if (Input.it.isKeyPress(Input.it.yes)) {
+        if (Input.it.isPress(Input.key.yes())) {
             this.ai.changeState(`attack`);
             input = true;
         }

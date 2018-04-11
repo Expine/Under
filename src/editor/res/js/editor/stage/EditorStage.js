@@ -213,7 +213,7 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
      */
     update(dt) {
         // switch test play
-        if (Input.it.isKeyPress(Input.it.A + 15)) {
+        if (Input.it.isPress(Input.key.a() + 15)) {
             if (this.playMode) {
                 this.camera = this.preCamera;
                 this.restore();
@@ -227,19 +227,19 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
 
         // test play
         if (this.playMode) {
-            if (Input.it.isKeyPress(Input.it.A + 5)) {
+            if (Input.it.isPress(Input.key.a() + 5)) {
                 if (this.debugMode) {
                     this.debugMode = false;
                 } else {
                     this.debugMode = true;
                 }
             }
-            if (!this.debugMode || (Input.it.isKeyPress(Input.it.A) || Input.it.isKeyPressed(Input.it.A + 1))) {
+            if (!this.debugMode || (Input.it.isPress(Input.key.a()) || Input.it.isPressed(Input.key.a() + 1))) {
                 super.update(dt);
             }
         } else {
             // move camera to end
-            if (Input.it.isKeyPress(Input.it.A + 4)) {
+            if (Input.it.isPress(Input.key.a() + 4)) {
                 for (let it of this.getEntities()) {
                     if (it instanceof Player) {
                         this.camera.setCameraPosition(-it.x + Screen.it.width / 2, -it.y + Screen.it.height / 2, this.map.width, this.map.height);
@@ -248,16 +248,16 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             }
 
             // move camera
-            if (Input.it.isKeyPress(Input.it.right)) {
+            if (Input.it.isPress(Input.key.right())) {
                 this.camera.setCameraPosition(this.camera.cameraX - this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
             }
-            if (Input.it.isKeyPress(Input.it.left)) {
+            if (Input.it.isPress(Input.key.left())) {
                 this.camera.setCameraPosition(this.camera.cameraX + this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
             }
-            if (Input.it.isKeyPress(Input.it.up)) {
+            if (Input.it.isPress(Input.key.up())) {
                 this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY + this.camera.screenHeight / 2, this.map.width, this.map.height);
             }
-            if (Input.it.isKeyPress(Input.it.down)) {
+            if (Input.it.isPress(Input.key.down())) {
                 this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY - this.camera.screenHeight / 2, this.map.width, this.map.height);
             }
 
@@ -268,8 +268,8 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         // update selected area
         this.selectedX = -1;
         this.selectedY = -1;
-        let x = Math.floor((Input.it.getMouseX() - this.x - this.camera.cameraX) / 32) * 32;
-        let y = Math.floor((Input.it.getMouseY() - this.y - this.camera.cameraY) / 32) * 32;
+        let x = Math.floor((Input.mouse.getMouseX() - this.x - this.camera.cameraX) / 32) * 32;
+        let y = Math.floor((Input.mouse.getMouseY() - this.y - this.camera.cameraY) / 32) * 32;
         // check camera position
         if (x + 32 >= -this.camera.cameraX && x < this.camera.screenWidth - this.camera.cameraX && y + 32 >= -this.camera.cameraY && y < this.camera.screenHeight - this.camera.cameraY) {
             // check map position
@@ -280,7 +280,7 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         }
 
         // syrunge
-        if (this.selectedX >= 0 && Input.it.isMousePressed(Input.it.M.RIGHT)) {
+        if (this.selectedX >= 0 && Input.it.isPressed(Input.mouse.mRight())) {
             if (this.entitySelection.getSelected() < 0) {
                 let entities = this.getEntities();
                 for (let i = 0; i < entities.length; ++i) {
@@ -296,7 +296,7 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         }
 
         // place tile
-        if (this.selectedX >= 0 && Input.it.isMousePressed(Input.it.M.LEFT)) {
+        if (this.selectedX >= 0 && Input.it.isPressed(Input.mouse.mLeft())) {
             let tileID = this.tileSelection.getSelected();
             let entityID = this.entitySelection.getSelected();
             if (entityID >= 0) {

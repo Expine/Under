@@ -55,20 +55,20 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         this.stage.update(dt);
 
         // save
-        if (Input.it.isKeyPress(Input.it.A + 18)) {
+        if (Input.it.isPress(Input.key.a() + 18)) {
             this.stage.getSaveData();
             console.log(this.stage.saveData);
         }
-        if (Input.it.isKeyPress(Input.it.A + 19)) {
+        if (Input.it.isPress(Input.key.a() + 19)) {
             console.log(JSON.stringify(this.chipLayer.getSaveData()));
         }
         // change debug mode
-        if (Input.it.isKeyPress(Input.it.A + 3)) {
+        if (Input.it.isPress(Input.key.a() + 3)) {
             Engine.debug = !Engine.debug;
         }
 
         // change debug mode
-        if (Input.it.isKeyPress(Input.it.A + 6)) {
+        if (Input.it.isPress(Input.key.a() + 6)) {
             ResourceManager.image.reload();
         }
     }

@@ -67,7 +67,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      */
     apply(dt) {
         // judge
-        if (!Util.onGround(this.entity) || !Input.it.isKeyPressed(Input.it.down)) {
+        if (!Util.onGround(this.entity) || !Input.it.isPressed(Input.key.down())) {
             if (++this.underCount_ > 5) {
                 // restore
                 let aabb = this.entity.collider.getAABB();
@@ -100,10 +100,10 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
             // input
             let vx = 0;
             // walk
-            if (Input.it.isKeyPressed(Input.it.left)) {
+            if (Input.it.isPressed(Input.key.left())) {
                 vx += -1;
             }
-            if (Input.it.isKeyPressed(Input.it.right)) {
+            if (Input.it.isPressed(Input.key.right())) {
                 vx += 1;
             }
             if (vx != 0) {

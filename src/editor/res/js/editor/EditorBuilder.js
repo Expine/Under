@@ -16,6 +16,16 @@ class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unus
     }
 
     /**
+     * Make input system
+     * @override
+     * @protected
+     * @return {Input} Input system
+     */
+    makeInput() {
+        return new AllInput(new KeyInput(), new MouseInput());
+    }
+
+    /**
      * Make context to render
      * @override
      * @protected

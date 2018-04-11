@@ -98,13 +98,13 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
     update(dt) {
         this.animation.update(dt);
         this.selectEntity = null;
-        let x = Input.it.getMouseX() - this.x + this.clipX;
-        let y = Input.it.getMouseY() - this.y + this.clipY;
+        let x = Input.mouse.getMouseX() - this.x + this.clipX;
+        let y = Input.mouse.getMouseY() - this.y + this.clipY;
         // check layer
         if (0 <= x && x < this.width && 0 <= y && y < this.height) {
             this.selectEntity = this.entity;
         }
-        if (Input.it.isMousePress(Input.it.M.LEFT)) {
+        if (Input.it.isPress(Input.mouse.mLeft())) {
             this.selectedEntity = this.selectEntity;
         }
     }

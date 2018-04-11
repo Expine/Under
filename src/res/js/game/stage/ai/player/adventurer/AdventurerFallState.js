@@ -13,10 +13,10 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
     apply(dt) {
         // input
         let vx = 0;
-        if (Input.it.isKeyPressed(Input.it.left)) {
+        if (Input.it.isPressed(Input.key.left())) {
             vx += -1;
         }
-        if (Input.it.isKeyPressed(Input.it.right)) {
+        if (Input.it.isPressed(Input.key.right())) {
             vx += 1;
         }
         if (vx != 0) {
@@ -28,7 +28,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
                 }
             }
         }
-        if (Input.it.isKeyPress(Input.it.sub)) {
+        if (Input.it.isPress(Input.key.sub())) {
             this.ai.changeState(`special`);
             return true;
         }

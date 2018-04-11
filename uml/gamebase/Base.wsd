@@ -34,25 +34,40 @@ package under {
 
         package input {
             abstract Input {
-                {static} +it : Input /' Singleton '/
-                +A : number
-                +ZERO : number
+                {static} +it : IInput /' Singleton '/
+                {static} +key : IKey /' Singleton '/
+                {static} +mouse : IMouse /' Singleton '/
                 #screen : Screen
-                #target : Element
                 +setScreen(screen)
-                {abstract} #onMouseMove(mouseEvent)
-                {abstract} #onMouseDown(mouseEvent)
-                {abstract} #onMouseUp(mouseEvent)
-                {abstract} #onKeyDown(keyEvent)
-                {abstract} #onKeyUp(keyEvent)
-                {abstract} #clear()
+                {abstract} +init()
                 {abstract} +update()
+                {abstract} #clear()
+            }
+
+            interface IInput {
+                {abstract} +blockInput(code)
+                {abstract} +isPress(code) : bool
+                {abstract} +isPressed(code) : bool
+            }
+
+            interface IKey {
+                {abstract} +a() : number
+                {abstract} +zero() : number
+                {abstract} +right() : number
+                {abstract} +left() : number
+                {abstract} +up() : number
+                {abstract} +down() : number
+                {abstract} +yes() : number
+                {abstract} +no() : number
+                {abstract} +sub() : number
+            }
+
+            interface IMouse {
+                {abstract} +mRight() : number
+                {abstract} +mLeft() : number
+                {abstract} +mCenter() : number
                 {abstract} +getMouseX() : number
                 {abstract} +getMouseY() : number
-                {abstract} +isMousePress(code) : bool
-                {abstract} +isMousePressed(code) : bool
-                {abstract} +isKeyPress(code) : bool
-                {abstract} +isKeyPressed(code) : bool
             }
         }
 
@@ -204,13 +219,22 @@ Engine "1"*-- "1" Music : Own
 Input .> Screen : Input target
 Context .> Screen : Rendering target
 
+Input ..> IInput : Singleton
+Input ..> IKey : Singleton
+Input ..> IMouse : Singleton
+
 Context ..> IImageManager : Get resource
 Music ..> IMusicManager : Get resource
+IImageManager <.. ResourceManager : Set singleton
+IMusicManager <.. ResourceManager : Set singleton
 
 SceneManager "1"*--"*" Scene : Should own
 Scene "1" o--"*" Layer : May own
 
 Animation "1"*--"*"AnimationElement : Should own
+
+IInput <|-- IKey
+IInput <|-- IMouse
 
 Animation <|-- MultiAnimation
 MultiAnimation <|-- NamedAnimation

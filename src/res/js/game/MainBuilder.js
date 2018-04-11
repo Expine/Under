@@ -14,6 +14,6 @@ class MainBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unused
      * @return {Input} Input system
      */
     makeInput() {
-        return new ExtendedInput();
+        return new PreventKeyInput();
     }
 }

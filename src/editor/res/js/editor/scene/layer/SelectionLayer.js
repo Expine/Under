@@ -122,11 +122,11 @@ class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  n
      * @param {number} dt Delta time
      */
     update(dt) {
-        let x = Input.it.getMouseX();
-        let y = Input.it.getMouseY();
-        if (this.x <= x && x < this.x + this.width && this.y <= y && y < this.y + this.height && Input.it.isMousePressed(Input.it.M.RIGHT)) {
+        let x = Input.mouse.getMouseX();
+        let y = Input.mouse.getMouseY();
+        if (this.x <= x && x < this.x + this.width && this.y <= y && y < this.y + this.height && Input.it.isPressed(Input.mouse.mRight())) {
             // block
-            Input.it.blockMouseInput(Input.it.M.RIGHT);
+            Input.it.blockInput(Input.mouse.mRight());
             // get width and height
             let width = this.getImageWidth();
             let height = this.getImageHeight();

@@ -66,7 +66,7 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
     apply(dt) {
         // animation
         this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.1 - this.entity.body.preVelocityX, 0);
-        if (Input.it.isKeyPressed(Input.it.up)) {
+        if (Input.it.isPressed(Input.key.up())) {
             this.jumpPressedTime_ += 1;
         }
         this.jumpDeltaTime_ += 1;

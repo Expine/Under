@@ -14,10 +14,14 @@ package under {
         abstract UnderEngineBuilder
         package ex_context {
             class JSContext
-            class CachedImage
         }
         package ex_screen {
             class FitableScreen
+        }
+        package ex_input {
+            class AllInput
+            class KeyInput
+            class MouseInput
         }
     }
 }
@@ -32,7 +36,9 @@ EditorBuilder <.. EditorMain : "Execute"
 EditorScene <.. EditorMain : "Generate"
 FitableScreen <.. EditorBuilder : "Generate"
 EditorContext <.. EditorBuilder : "Generate"
-CachedImage <.. EditorBuilder : "Generate"
+AllInput <.. EditorBuilder : "Generate"
+KeyInput <.. EditorBuilder : "Generate"
+MouseInput <.. EditorBuilder : "Generate"
 
 UnderEngineBuilder <|... EditorBuilder
 JSContext <|-- EditorContext

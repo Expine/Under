@@ -65,7 +65,7 @@ class NormalJumpState extends UnderPlayerState { // eslint-disable-line  no-unus
     apply(dt) {
         // animation
         this.entity.body.setNextAddVelocity(-this.entity.body.preVelocityX / 11, 0);
-        if (Input.it.isKeyPressed(Input.it.up)) {
+        if (Input.it.isPressed(Input.key.up())) {
             this.jumpPressedTime_ += 1;
         }
         this.jumpDeltaTime_ += 1;

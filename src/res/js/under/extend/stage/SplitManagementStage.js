@@ -138,8 +138,8 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
 
         // For debug to render entity information
         if (Engine.debug) {
-            let mx = Input.it.getMouseX() + startX;
-            let my = Input.it.getMouseY() + startY;
+            let mx = Input.mouse.getMouseX() + startX;
+            let my = Input.mouse.getMouseY() + startY;
             for (let it of this.entities_) {
                 if (it.collider !== undefined && it.collider.isInCollider(mx, my)) {
                     ctx.fillText(`(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);

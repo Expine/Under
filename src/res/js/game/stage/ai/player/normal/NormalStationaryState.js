@@ -42,10 +42,10 @@ class NormalStationaryState extends UnderMovableState { // eslint-disable-line  
     apply(dt) {
         let vx = 0;
         // walk
-        if (Input.it.isKeyPressed(Input.it.left)) {
+        if (Input.it.isPressed(Input.key.left())) {
             vx += -1;
         }
-        if (Input.it.isKeyPressed(Input.it.right)) {
+        if (Input.it.isPressed(Input.key.right())) {
             vx += 1;
         }
         if (vx != 0) {
@@ -56,20 +56,20 @@ class NormalStationaryState extends UnderMovableState { // eslint-disable-line  
             this.ai.changeState(`walk`);
         }
         if (Util.onGround(this.entity)) {
-            if (Input.it.isKeyPressed(Input.it.down)) {
+            if (Input.it.isPressed(Input.key.down())) {
                 this.ai.changeState(`grab`);
             }
-            if (Input.it.isKeyPressed(Input.it.up)) {
+            if (Input.it.isPressed(Input.key.up())) {
                 if (vx != 0) {
                     this.ai.changeState(`walkjump`);
                 } else {
                     this.ai.changeState(`jump`);
                 }
             }
-            if (Input.it.isKeyPress(Input.it.yes)) {
+            if (Input.it.isPress(Input.key.yes())) {
                 this.ai.changeState(`attack`);
             }
-            if (Input.it.isKeyPress(Input.it.sub)) {
+            if (Input.it.isPress(Input.key.sub())) {
                 this.ai.changeState(`special`);
             }
             this.fallCount = 0;

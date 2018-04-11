@@ -11,7 +11,7 @@ class NormalSpecialState extends UnderPlayerState { // eslint-disable-line  no-u
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        if (!Input.it.isKeyPressed(Input.it.sub)) {
+        if (!Input.it.isPressed(Input.key.sub())) {
             // change state
             if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);

@@ -12,19 +12,29 @@ package under {
         class UnderDebugEngine
 
         package ex_input {
+            abstract StateInputManager {
+                #inputState : Array<number>
+                #blocked : Array<bool>
+                #STATE: Enum<number>
+                #target : Element
+            }
+            class KeyInput {
+                {abstract} #onKeyDown(keyEvent)
+                {abstract} #onKeyUp(keyEvent)
+            }
+            class PreventKeyInput
+            class MouseInput {
+                #mouseX_
+                #mouseY_
+                {abstract} #onMouseMove(mouseEvent)
+                {abstract} #onMouseDown(mouseEvent)
+                {abstract} #onMouseUp(mouseEvent)
+
+            }
             class AllInput {
-                -mouseX_
-                -mouseY_
-                -STATE : Enum<number>
-                #inputMouse : Array<number>
-                #inputKey : Array<number>
-                +M : Enum<number>
-                #left : number
-                #up : number
-                #right : number
-                #down : number
-                #yes : number
-                #no : number
+                #keyDelegate : IKey
+                #mouseDelegate : IMouse
+                #mousBaseCode : number
             }
         }
         package ex_screen {
@@ -107,6 +117,9 @@ package under {
         abstract Engine
         package input {
             abstract Input
+            interface IInput
+            interface IKey
+            interface IMouse
         }
         package screen {
             abstract Screen
@@ -137,6 +150,8 @@ package under {
 UnderEngine <.. UnderEngineBuilder  : Generate
 UnderDebugEngine <.. UnderEngineBuilder  : Generate
 AllInput <.. UnderEngineBuilder  : Generate
+KeyInput <.. UnderEngineBuilder  : Generate
+MouseInput <.. UnderEngineBuilder  : Generate
 ScalableScreen <.. UnderEngineBuilder  : Generate
 JSContext <.. UnderEngineBuilder  : Generate
 CachedImage <.. UnderEngineBuilder  : Generate
@@ -154,6 +169,17 @@ Engine <|.. UnderEngine
 UnderEngine <|-- UnderDebugEngine
 
 Input <|.. AllInput
+IKey <|.. AllInput
+IMouse <|.. AllInput
+Input <|-- StateInputManager
+IInput <|-- StateInputManager
+StateInputManager <|.. KeyInput
+IKey <|.. KeyInput
+KeyInput <|-- PreventKeyInput
+StateInputManager <|.. MouseInput
+IMouse <|.. MouseInput
+
+
 Screen <|.. GeneratableScreen
 
 Context <|.. JSContext

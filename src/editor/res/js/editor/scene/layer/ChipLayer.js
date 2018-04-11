@@ -129,9 +129,9 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
             it.clipY = this.clipY;
         }
         // switch tab
-        let x = Input.it.getMouseX() - this.x;
-        let y = Input.it.getMouseY() - this.y;
-        if (Input.it.isMousePress(Input.it.M.LEFT)) {
+        let x = Input.mouse.getMouseX() - this.x;
+        let y = Input.mouse.getMouseY() - this.y;
+        if (Input.it.isPress(Input.mouse.mLeft())) {
             for (let i = 0; i < this.chipLayers.length; ++i) {
                 let sx = this.x + this.tabX + (this.tabWidth + this.tabPadding) * i;
                 if (sx < x && x < sx + this.tabWidth && this.tabY < y && y < this.tabY + this.tabHeight) {
