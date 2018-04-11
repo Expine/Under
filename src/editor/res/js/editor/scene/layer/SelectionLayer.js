@@ -1,6 +1,7 @@
 /**
  * Selection layer
- * Selects something
+ * - Performs drawing processing collectively
+ * - ### Selects something
  * @implements {Layer}
  * @implements {Selection}
  * @classdesc Selection layer to select something
@@ -148,7 +149,6 @@ class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  n
                         }
                     }
                 }
-                //                console.log(`${this.clipX}, ${this.clipY}`);
                 this.oldMouseX = x;
                 this.oldMouseY = y;
                 return;
@@ -161,7 +161,7 @@ class SelectionLayer extends Layer /* , Selection */ { // eslint-disable-line  n
     /**
      * Render layer
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         if (this.imageID >= 0) {

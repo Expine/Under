@@ -1,7 +1,9 @@
 /**
  * Title Scene
+ * - Controls updating and rendering
+ * - ### Display title image
  * @implements {Scene}
- * @classdesc Title scene class
+ * @classdesc Title scene to display title image
  */
 class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
     /**
@@ -20,7 +22,7 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
     /**
      * Update scene
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         if (Input.it.isKeyPress(Input.it.yes)) {
@@ -31,7 +33,7 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
     /**
      * Render scene
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         ctx.drawImage(this.title_, 215, 240, 370, 120);

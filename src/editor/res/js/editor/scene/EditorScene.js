@@ -1,8 +1,10 @@
 /**
- * Scene of editor
- * To make stage
+ * Editor scene
+ * - Controls updating and rendering
+ * - Basic form of a scene composed of layers
+ * - ### Makes stage
  * @extends {LayerBaseScene}
- * @classdesc scene of making stage
+ * @classdesc Editor scene to make stage
  */
 class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     /**
@@ -41,7 +43,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
     /**
      * Update scene
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         // set position and size
@@ -74,7 +76,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
     /**
      * Render scene
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         this.stage.render(ctx);

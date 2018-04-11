@@ -1,8 +1,9 @@
 /**
- * Manage scene by stack
- * Use the stack to manage scenes
+ * Stack scene manager
+ * - Manages transitions of scenes, ie additions and deletions
+ * - ### Uses the stack to manage scenes
  * @implements {SceneManager}
- * @classdesc Manager for scene by using stack
+ * @classdesc Stack scene manager using the stack to manage scenes
  */
 class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused-vars
     /**
@@ -21,7 +22,7 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
     /**
      * Get currently running scene
      * @override
-     * @return {Scene} currently running scene
+     * @return {Scene} Currently running scene
      */
     getScene() {
         return this.scenes_[0];
@@ -30,7 +31,7 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
     /**
      * Push scene instance for running it
      * @override
-     * @param {Scene} scene scene instance for running it
+     * @param {Scene} scene Scene instance for running it
      */
     pushScene(scene) {
         this.scenes_.push(scene);
@@ -48,7 +49,7 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
     /**
      * Replace currently scene by new scene
      * @override
-     * @param {Scene} scene scene instance for replacing currently scene
+     * @param {Scene} scene Scene instance for replacing currently scene
      */
     replaceScene(scene) {
         this.scenes_.length = 0;
@@ -58,7 +59,7 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
     /**
      * Update scene
      * @interface
-     * @param {number} dt delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         this.getScene().update(dt);
@@ -67,7 +68,7 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
     /**
      * Render scene
      * @interface
-     * @param {Context} ctx - canvas context
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         this.getScene().render(ctx);

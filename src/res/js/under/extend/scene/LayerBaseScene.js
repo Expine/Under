@@ -1,6 +1,7 @@
 /**
  * Layer base scene
- * Basic form of a scene composed of layers
+ * - Controls updating and rendering
+ * - ### Basic form of a scene composed of layers
  * @implements {Scene}
  * @classdesc Layer base scene composed of layers
  */
@@ -23,7 +24,7 @@ class LayerBaseScene extends Scene { // eslint-disable-line  no-unused-vars
     /**
      * Update scene
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         for (let layer of this.layers) {
@@ -34,7 +35,7 @@ class LayerBaseScene extends Scene { // eslint-disable-line  no-unused-vars
     /**
      * Render scene
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         for (let layer of this.layers) {

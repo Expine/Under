@@ -1,8 +1,10 @@
 /**
  * Chip layer
- * Selects chip
+ * - Performs drawing processing collectively
+ * - Selects something
+ * - ### Selects chips
  * @implements {SelectionLayer}
- * @classdesc Chip layer to select chip
+ * @classdesc Chip layer to select chips
  */
 class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
     /**
@@ -118,7 +120,7 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
     /**
      * Update layer
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         super.update(dt);
@@ -145,7 +147,7 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
     /**
      * Render layer
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         ctx.fillRect(this.x, this.y, this.width, this.height, `green`);

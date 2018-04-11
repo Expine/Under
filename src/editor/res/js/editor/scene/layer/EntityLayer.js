@@ -1,6 +1,8 @@
 /**
  * Entity layer
- * Selects entities
+ * - Performs drawing processing collectively
+ * - Selects something
+ * - ### Selects entities
  * @implements {SelectionLayer}
  * @classdesc Entity layer to select entities
  */
@@ -109,7 +111,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
     /**
      * Update layer
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         super.update(dt);
@@ -140,7 +142,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
     /**
      * Render layer
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         ctx.fillRect(this.x, this.y, this.width, this.height, `green`);

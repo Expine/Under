@@ -1,6 +1,8 @@
 /**
  * Single entity layer
- * Selects a entity
+ * - Performs drawing processing collectively
+ * - Selects something
+ * - ### Selects a entity
  * @implements {SelectionLayer}
  * @classdesc Entity layer to select a entity
  */
@@ -91,7 +93,7 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
     /**
      * Update layer
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         this.animation.update(dt);
@@ -110,7 +112,7 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
     /**
      * Render layer
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         this.animation.render(ctx, this.x - this.clipX, this.y - this.clipY, this.width, this.height);

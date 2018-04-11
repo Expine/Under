@@ -1,7 +1,10 @@
 /**
  * Game Scene
+ * - Controls updating and rendering
+ * - Basic form of a scene composed of layers
+ * - ### Render stage and control gameover
  * @extends {LayerBaseScene}
- * @classdesc Game scene
+ * @classdesc Game scene to render stage and control gameover
  */
 class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     /**
@@ -23,16 +26,17 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
          */
         this.player = this.stage.getEntities().filter((it) => it instanceof Player)[0];
 
-        // initialize layer
-        this.layers.length = 0;
-        this.layers.push(new DebugLayer(this.stage));
-        this.layers.push(new UILayer(this.player));
         /**
          * Whether the game is over
          * @protected
          * @type {bool}
          */
         this.gameover = false;
+
+        // initialize layer
+        this.layers.length = 0;
+        this.layers.push(new DebugLayer(this.stage));
+        this.layers.push(new UILayer(this.player));
     }
 
     /**

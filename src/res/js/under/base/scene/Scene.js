@@ -1,7 +1,7 @@
 /**
- * Game scene class
- * Controls updating and rendering
- * @classdesc Scene base class to control updating and rendering
+ * Scene
+ * - ### Controls updating and rendering
+ * @classdesc Scene to control updating and rendering
  */
 class Scene { // eslint-disable-line  no-unused-vars
     /**
@@ -13,14 +13,14 @@ class Scene { // eslint-disable-line  no-unused-vars
     /**
      * Update scene
      * @interface
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {}
 
     /**
      * Render scene
      * @interface
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {}
 }

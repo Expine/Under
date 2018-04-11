@@ -1,6 +1,8 @@
+// TODO: Should move extend directory
 /**
  * Debug layer
- * Renders information necessary for debugging
+ * - Performs drawing processing collectively
+ * - ### Renders information necessary for debugging
  * @implements {Layer}
  * @classdesc Debug layer to render information necessary for debugging
  */
@@ -78,7 +80,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * Update layer
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         let it = this.record[this.count];
@@ -116,7 +118,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * Render layer
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         // timer
@@ -131,7 +133,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
             }
         }
 
-
+        // TODO: May be create debug information data class
         ctx.fillText(`${this.deltaTime} msec`, Screen.it.width, 0, 1.0, 0.0, 20, `white`);
         ctx.fillText(`${this.collisions} collision`, Screen.it.width, 30, 1.0, 0.0, 20, `white`);
         ctx.fillText(`${this.playerCollisions} P collision`, Screen.it.width, 60, 1.0, 0.0, 20, `white`);

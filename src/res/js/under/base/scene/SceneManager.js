@@ -1,7 +1,7 @@
 /**
- * Manage scene
- * Manages transitions of scenes, ie additions and deletions
- * @classdesc Manager for scene
+ * Scene manager
+ * - ### Manages transitions of scenes, ie additions and deletions
+ * @classdesc Scene manager to manage transitions of scenes
  */
 class SceneManager { // eslint-disable-line  no-unused-vars
     /**
@@ -9,21 +9,24 @@ class SceneManager { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        // set singleton instance
+        /**
+         * Instance for singleton
+         * @type {SceneManager}
+         */
         SceneManager.it = this;
     }
 
     /**
      * Get currently running scene
      * @interface
-     * @return {Scene} currently running scene
+     * @return {Scene} Currently running scene
      */
     getScene() {}
 
     /**
      * Push scene instance for running it
      * @interface
-     * @param {Scene} scene scene instance for running it
+     * @param {Scene} scene Scene instance for running it
      */
     pushScene(scene) {}
 
@@ -36,21 +39,21 @@ class SceneManager { // eslint-disable-line  no-unused-vars
     /**
      * Replace currently scene by new scene
      * @interface
-     * @param {Scene} scene scene instance for replacing currently scene
+     * @param {Scene} scene Scene instance for replacing currently scene
      */
     replaceScene(scene) {}
 
     /**
      * Update scene
      * @interface
-     * @param {number} dt delta time
+     * @param {number} dt Delta time
      */
     update(dt) {}
 
     /**
      * Render scene
      * @interface
-     * @param {Context} ctx - canvas context
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {}
 }

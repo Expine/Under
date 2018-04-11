@@ -1,12 +1,14 @@
 /**
- * Chip layer
- * Selects chip
+ * Single chip layer
+ * - Performs drawing processing collectively
+ * - Selects something
+ * - ### Selects chip
  * @implements {SelectionLayer}
- * @classdesc Chip layer to select chip
+ * @classdesc Single chip layer to select chip
  */
 class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
     /**
-     * Chip layer constructor
+     * Single chip layer constructor
      * @constructor
      * @param {Dictionary<number, json>} tileInfo Tile inforamtion json data
      * @param {number} imageID Image ID
@@ -81,7 +83,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
     /**
      * Update layer
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         super.update(dt);
@@ -113,7 +115,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
     /**
      * Render layer
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         super.render(ctx);

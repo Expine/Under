@@ -1,6 +1,7 @@
 /**
  * UI layer
- * Display UI
+ * - Performs drawing processing collectively
+ * - ### Display UI
  * @implements {Layer}
  * @classdesc UI layer to display UI
  */
@@ -51,7 +52,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * Update layer
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         // Check hp change
@@ -72,7 +73,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * Render layer
      * @override
-     * @param {Context} ctx
+     * @param {Context} ctx Canvas context
      */
     render(ctx) {
         this.uiAnimation.render(ctx, 10, 530, 64, 64);
