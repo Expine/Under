@@ -9,10 +9,7 @@ class SceneManager { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        /**
-         * Instance for singleton
-         * @type {SceneManager}
-         */
+        // set singleton
         SceneManager.it = this;
     }
 
@@ -57,3 +54,9 @@ class SceneManager { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {}
 }
+
+/**
+ * Instance for singleton
+ * @type {SceneManager}
+ */
+SceneManager.it = null;

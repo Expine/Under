@@ -1,6 +1,9 @@
 /**
  * All input
  * - Manages input event
+ * - Get key code
+ * - Get mouse code
+ * - Get mouse position
  * - ### Manages all input and delegate it
  * @implements {Input}
  * @classdesc All input to manage all input and delegate it

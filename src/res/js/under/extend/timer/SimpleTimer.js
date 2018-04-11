@@ -1,8 +1,9 @@
 /**
  * Simple Timer
- * Measure the time
+ * - Measure the time
+ * - ### Measure time by Date
  * @implements {Timer}
- * @classdesc Simple TImer to measure the time
+ * @classdesc Simple TImer to measure time by Date
  */
 class SimpleTimer extends Timer { // eslint-disable-line  no-unused-vars
     /**

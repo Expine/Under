@@ -1,8 +1,11 @@
 /**
- * Input system
- * Manages input event including mouse and key
- * Manages input state and provide input state
- * @classdesc Input system for managing input event
+ * Mouse interface
+ * - It can get input state
+ * - It can make input blocked
+ * - ### Get mouse code
+ * - ### Get mouse position
+ * @implements {IInput}
+ * @classdesc Mouse interface to get mouse code and position
  */
 class IMouse extends IInput { // eslint-disable-line  no-unused-vars
     /**

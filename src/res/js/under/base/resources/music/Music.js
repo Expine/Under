@@ -16,11 +16,7 @@ class Music { // eslint-disable-line  no-unused-vars
          */
         this.music = null;
 
-        /**
-         * Instance for singleton
-         * @static
-         * @type {Music}
-         */
+        // set singleton
         Music.it = this;
     }
 
@@ -64,3 +60,10 @@ class Music { // eslint-disable-line  no-unused-vars
      */
     stopBGM() {}
 }
+
+/**
+ * Instance for singleton
+ * @static
+ * @type {Music}
+ */
+Music.it = null;

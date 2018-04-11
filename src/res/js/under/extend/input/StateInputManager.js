@@ -1,6 +1,8 @@
 /**
  * State input manager
  * - Manages input event
+ * - It can get input state
+ * - It can make input blocked
  * - ### Registers input state by input event
  * @implements {Input}
  * @classdesc State input manager to regiter input state by input event

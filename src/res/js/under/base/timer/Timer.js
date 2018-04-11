@@ -1,6 +1,6 @@
 /**
  * Timer
- * Measure the time
+ * - ### Measure the time
  * @classdesc TImer to measure the time
  */
 class Timer { // eslint-disable-line  no-unused-vars
@@ -16,10 +16,7 @@ class Timer { // eslint-disable-line  no-unused-vars
          */
         this.deltaTime = 0;
 
-        /**
-         * Instance for singleton
-         * @type {Timer}
-         */
+        // set singleton
         Timer.it = this;
     }
     /**
@@ -62,7 +59,13 @@ class Timer { // eslint-disable-line  no-unused-vars
     /**
      * Get name of registered timer
      * @interface
-     * @return {Array<string>}
+     * @return {Array<string>} List of name of registered timer
      */
     getRegisteredNames() {}
 }
+
+/**
+ * Instance for singleton
+ * @type {Timer}
+ */
+Timer.it = null;

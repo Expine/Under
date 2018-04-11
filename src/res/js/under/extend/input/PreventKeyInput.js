@@ -1,8 +1,10 @@
 /**
  * Prevent key input
  * - Manages input event
+ * - It can get input state
+ * - It can make input blocked
  * - Registers input state by input event
- * - Manages key input event and register state
+ * - Get key code
  * - ### Prevents default key function
  * @extends {KeyInput}
  * @classdesc Prevent key input to prevent default key function

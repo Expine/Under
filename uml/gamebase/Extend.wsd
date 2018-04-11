@@ -108,6 +108,24 @@ package under {
                 class GameoverLayer
             }
         }
+
+        package ex_timer {
+            class SimpleTimer {
+                #initTime : number
+                #namedTimer : Dictionary<string. number>
+                #namedStartTimer : Dictionary<string. number>
+            }
+        }
+
+        package ex_util {
+            class Util {
+                {static} +onGround(entity) : bool
+                {static} +getUnderEntity(entity) : Entity
+                {static} +getSideEntity(entity) : Entity
+                {static} +getCollidedEntity(self, data) : Entity
+                {static} +loadFile(filePath) : string
+            }
+        }
     }
 }
 
@@ -143,6 +161,10 @@ package under {
             package layer {
                 abstract Layer
             }
+        }
+
+        package timer {
+            abstract Timer
         }
     }
 }
@@ -198,5 +220,7 @@ Layer <|.. GameoverLayer
 
 Animation <|.. SingleAnimation
 NamedAnimation <|.. MultiNamedAnimation
+
+Timer <|.. SimpleTimer
 
 @enduml

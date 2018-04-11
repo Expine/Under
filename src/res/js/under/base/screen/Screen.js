@@ -27,11 +27,7 @@ class Screen { // eslint-disable-line  no-unused-vars
          */
         this.height = height;
 
-        /**
-         * Instance for singleton
-         * @static
-         * @type {Screen}
-         */
+        // set singleton
         Screen.it = this;
     }
 
@@ -53,3 +49,10 @@ class Screen { // eslint-disable-line  no-unused-vars
      */
     getCanvas() {}
 }
+
+/**
+ * Instance for singleton
+ * @static
+ * @type {Screen}
+ */
+Screen.it = null;

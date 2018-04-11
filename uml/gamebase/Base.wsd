@@ -191,6 +191,19 @@ package under {
             }
         }
 
+        package timer {
+            abstract Timer {
+                {static} +it : Timer /' Singleton '/
+                #deltaTime : number
+                {abstract} +init()
+                {abstract} +update(dt)
+                {abstract} +startTimer(name)
+                {abstract} +stopTimer(name)
+                {abstract} +getTimer(name) : number
+                {abstract} +getRegisteredNames() : Array<string>
+            }
+        }
+
         package util {
             class BaseUtil {
                 {static} +implementsOf(instance,i) : bool

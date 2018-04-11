@@ -1,7 +1,10 @@
 /**
  * Key input
  * - Manages input event
+ * - It can get input state
+ * - It can make input blocked
  * - Registers input state by input event
+ * - Get key code
  * - ### Manages key input event and register state
  * @implements {StateInputManager}
  * @classdesc Key input to manage key input event and register state

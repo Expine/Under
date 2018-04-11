@@ -1,7 +1,11 @@
 /**
  * Mouse input
  * - Manages input event
+ * - It can get input state
+ * - It can make input blocked
  * - Registers input state by input event
+ * - Get mouse code
+ * - Get mouse position
  * - ### Manages mouse input event and register state
  * @implements {StateInputManager}
  * @classdesc Mouse input to manage mouse input event and register state

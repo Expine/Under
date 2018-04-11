@@ -21,6 +21,7 @@ class Util { // eslint-disable-line  no-unused-vars
     /**
      * Get under entity
      * @param {Entity} entity Target entity
+     * @return {Entity} Under entity (if not, return null)
      */
     static getUnderEntity(entity) {
         let list = entity.collider.collisions;
@@ -29,11 +30,13 @@ class Util { // eslint-disable-line  no-unused-vars
                 return this.getCollidedEntity(entity, it);
             }
         }
+        return null;
     }
 
     /**
      * Get collided entity
      * @param {Entity} entity Target entity
+     * @return {Entity} Under entity (if not, return null)
      */
     static getSideEntity(entity) {
         let list = entity.collider.collisions;
@@ -46,6 +49,7 @@ class Util { // eslint-disable-line  no-unused-vars
                 return this.getCollidedEntity(entity, it);
             }
         }
+        return null;
     }
 
     /**
@@ -61,6 +65,7 @@ class Util { // eslint-disable-line  no-unused-vars
     /**
      * Load text file
      * @param {string} filePath File path
+     * @return {string} Loaded text
      */
     static loadFile(filePath) {
         let req = new XMLHttpRequest();
