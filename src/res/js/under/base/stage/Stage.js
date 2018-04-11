@@ -1,27 +1,30 @@
 /**
  * Stage
- * Performs updating and rendering stage
- * Manages stage element such as entity
+ * - ### Store stage size
+ * - ### Performs updating and rendering stage
+ * - ### Manages stage element such as entity
  * @classdesc Stage to control stage element
  */
 class Stage { // eslint-disable-line  no-unused-vars
     /**
      * Stage constructor
      * @constructor
+     * @param {number} stageWidth Stage width (pixel)
+     * @param {number} stageHeight Stage height (pixel)
      */
-    constructor() {
+    constructor(stageWidth, stageHeight) {
         /**
-         * Stage x position
+         * Stage width (pixel)
          * @protected
          * @type {number}
          */
-        this.x = 0;
+        this.stageWidth = stageWidth;
         /**
-         * Stage y position
+         * Stage height (pixel)
          * @protected
          * @type {number}
          */
-        this.y = 0;
+        this.stageHeight = stageHeight;
 
         /**
          * Whether to update the stage or not
@@ -29,31 +32,40 @@ class Stage { // eslint-disable-line  no-unused-vars
          * @type {bool}
          */
         this.enable = true;
-    }
 
-    /**
-     * Set map manager
-     * @param {Map} map map manager
-     */
-    setMap(map) {
         /**
          * Stage map element
          * @protected
          * @type {Map}
          */
-        this.map = map;
-    }
-
-    /**
-     * Set camera
-     * @param {Camera} map camera
-     */
-    setCamera(camera) {
+        this.map = null;
         /**
          * Stage camera element
          * @protected
          * @type {Camera}
          */
+        this.camera = null;
+        /**
+         * Physical world
+         * @protected
+         * @type {PhysicalWorld}
+         */
+        this.physic = null;
+    }
+
+    /**
+     * Set map manager
+     * @param {Map} map Map manager
+     */
+    setMap(map) {
+        this.map = map;
+    }
+
+    /**
+     * Set camera
+     * @param {Camera} map Camera
+     */
+    setCamera(camera) {
         this.camera = camera;
     }
 
@@ -62,11 +74,6 @@ class Stage { // eslint-disable-line  no-unused-vars
      * @param {PhysicalWorld} physic Physical world
      */
     setPhysicalWorld(physic) {
-        /**
-         * Physical world
-         * @protected
-         * @type {PhysicalWorld}
-         */
         this.physic = physic;
     }
 
@@ -76,17 +83,6 @@ class Stage { // eslint-disable-line  no-unused-vars
      */
     getPhysicalWorld() {
         return this.physic;
-    }
-
-
-    /**
-     * Set stage position
-     * @param {number} x Stage x posiiton
-     * @param {number} y Stage y position
-     */
-    setPosition(x, y) {
-        this.x = x;
-        this.y = y;
     }
 
     /**
@@ -100,14 +96,17 @@ class Stage { // eslint-disable-line  no-unused-vars
     /**
      * Add entity to stage
      * @interface
-     * @param {Entity} entity - entity object
+     * @param {Entity} entity Entity object
      */
-    addEntity(entity) {}
+    addEntity(entity) {
+        entity.setStage(this);
+        entity.init();
+    }
 
     /**
      * Remove entity from stage
      * @interface
-     * @param {Entity} entity - entity object
+     * @param {Entity} entity Entity object
      */
     removeEntity(entity) {}
 
@@ -119,18 +118,72 @@ class Stage { // eslint-disable-line  no-unused-vars
     getEntities() {}
 
     /**
-     * Update stage
-     * @interfane
-     * @param {number} dt delta time
+     * Update entity in stage
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
      */
-    update(dt) {}
+    updateEntity(dt) {}
+
+    /**
+     * Update entity in stage by physical world
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updatePhysics(dt) {}
+
+    /**
+     * Update camera
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateCamera(dt) {}
+
+    /**
+     * Update stage
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        if (!this.enable) {
+            return;
+        }
+        this.updateEntity(dt);
+        this.updatePhysics(dt);
+        this.updateCamera(dt);
+    }
+
+    /**
+     * Render map in stage
+     * @interface
+     * @protected
+     * @param {Context} ctx Canvas context
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
+     */
+    renderMap(ctx, shiftX, shiftY) {}
+
+    /**
+     * Render entities in stage
+     * @interface
+     * @protected
+     * @param {Context} ctx Canvas context
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
+     */
+    renderEntity(ctx, shiftX, shiftY) {}
 
     /**
      * Render stage
-     * @interface
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
      */
-    render(ctx, shiftX = 0, shiftY = 0) {}
+    render(ctx, shiftX = 0, shiftY = 0) {
+        shiftX += this.camera.baseX;
+        shiftY += this.camera.baseY;
+        this.renderMap(ctx, shiftX, shiftY);
+        this.renderEntity(ctx, shiftX, shiftY);
+    }
 }

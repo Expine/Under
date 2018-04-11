@@ -3,11 +3,11 @@ package under {
     package extend {
         package ex_stage {
             class SplitManagementStage {
-                -mutables_ : Array<MutableObject>
-                -entities_ : Array<Entity>
-                -player_ : Playable
-                -enable_ : bool
+                #mutables : Array<MutableObject>
+                #entities : Array<Entity>
+                #player : Playable
             }
+            class DebugStage
             package ex_map {
                 class SequentialMap {
                     #maps : Array<Map>
@@ -61,6 +61,7 @@ CollisionData <.. RepulsionResponse : Collision response
 CollisionData "1"--o "*"SequentialWorld : Pool
 
 Stage <|.. SplitManagementStage
+SplitManagementStage <|-- DebugStage
 Camera <|.. CenterCamera
 Map <|.. SequentialMap
 Map <|.. InvariantBackMap

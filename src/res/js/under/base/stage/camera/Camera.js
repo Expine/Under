@@ -1,14 +1,14 @@
 /**
- * Camera view class
- * Calculate the area to render
- * @classdesc Camera view abstract class
+ * Camera
+ * - ### Calculates the area to rendering
+ * @classdesc Camera to calculate the area of rendering
  */
 class Camera { // eslint-disable-line  no-unused-vars
     /**
      * Camera Constructor
      * @constructor
-     * @param {number} screenWidth camera screen width
-     * @param {number} screenHeight camera screen height
+     * @param {number} screenWidth Camera screen width
+     * @param {number} screenHeight Camera screen height
      */
     constructor(screenWidth, screenHeight) {
         /**
@@ -18,9 +18,20 @@ class Camera { // eslint-disable-line  no-unused-vars
         this.cameraX = 0;
         /**
          * Camera y position
-         * @typpe {number}
+         * @type {number}
          */
         this.cameraY = 0;
+
+        /**
+         * Camera base x position
+         * @type {number}
+         */
+        this.baseX = 0;
+        /**
+         * Camera base y position
+         * @type {number}
+         */
+        this.baseY = 0;
         /**
          * Camera screen width
          * @type {number}
@@ -36,10 +47,10 @@ class Camera { // eslint-disable-line  no-unused-vars
     /**
      * Set camera position
      * @interface
-     * @param {number} x base x position
-     * @param {number} y base y position
-     * @param {number} width camera max width
-     * @param {number} height camera max height
+     * @param {number} x Base x position
+     * @param {number} y Base y position
+     * @param {number} width Camera max width
+     * @param {number} height Camera max height
      */
     setCameraPosition(x, y, width, height) {}
 }

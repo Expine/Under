@@ -1,36 +1,41 @@
 /**
  * Split management stage
- * Dividingly manages entities according to type
- * Do not update immutable objects
+ * - Store stage size
+ * - Performs updating and rendering stage
+ * - Manages stage element such as entity
+ * - ### Dividingly manages entities according to type
+ * - ### Do not update immutable objects
  * @implements {Stage}
  * @classdesc Split management stage to manage entities according to type dividingly
  */
 class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-vars
     /**
-     * Split management stage
+     * Split management stage constructor
      * @constructor
+     * @param {number} stageWidth Stage width (pixel)
+     * @param {number} stageHeight Stage height (pixel)
      */
-    constructor() {
-        super();
+    constructor(stageWidth, stageHeight) {
+        super(stageWidth, stageHeight);
         /**
          * Mutable entity list for updating and phisical operation
-         * @private
+         * @protected
          * @type {Array<MutableObject>}
          */
-        this.mutables_ = [];
+        this.mutables = [];
         /**
          * All entity list
-         * @private
+         * @protected
          * @type {Array<Entity>}
          */
-        this.entities_ = [];
+        this.entities = [];
 
         /**
          * Playable instance for camera
-         * @orivate
+         * @protected
          * @type {Playable}
          */
-        this.player_ = null;
+        this.player = null;
     }
 
     /**
@@ -39,17 +44,19 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {Entity} Pentity - entity object
      */
     addEntity(entity) {
-        if (this.player_ == null && BaseUtil.implementsOf(entity, Playable)) {
-            this.player_ = entity;
+        // set player
+        if (this.player == null && BaseUtil.implementsOf(entity, Playable)) {
+            this.player = entity;
         }
+        // set mutables
         if (entity instanceof MutableObject) {
-            this.mutables_.push(entity);
+            this.mutables.push(entity);
             this.physic.addActor(entity);
         }
-        this.entities_.push(entity);
+        this.entities.push(entity);
         this.physic.addEntity(entity);
-        entity.setStage(this);
-        entity.init();
+        // initialize entity
+        super.addEntity(entity);
     }
 
     /**
@@ -58,23 +65,16 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {Entity} entity - entity object
      */
     removeEntity(entity) {
-        if (entity === this.player_) {
-            this.player_ = null;
+        // remove player
+        if (entity === this.player) {
+            this.player = null;
         }
+        // remove mutables
         if (entity instanceof MutableObject) {
-            this.mutables_.splice(this.mutables_.indexOf(entity), 1);
+            this.mutables.splice(this.mutables.indexOf(entity), 1);
         }
-        this.entities_.splice(this.entities_.indexOf(entity), 1);
+        this.entities.splice(this.entities.indexOf(entity), 1);
         this.physic.removeEntity(entity);
-    }
-
-    /**
-     * Control stage update
-     * @override
-     * @param {bool} enable Whether to update the stage or not
-     */
-    setEnable(enable) {
-        this.enable_ = enable;
     }
 
     /**
@@ -83,73 +83,74 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @return {Array<Entity>} All entities
      */
     getEntities() {
-        return this.entities_;
+        return this.entities;
     }
 
     /**
-     * Update stage
+     * Update entity in stage
      * @override
-     * @param {number} dt delta time
+     * @protected
+     * @param {number} dt Delta time
      */
-    update(dt) {
-        if (!this.enable) {
-            return;
-        }
+    updateEntity(dt) {
         // update mutables and autonomies
-        Timer.it.startTimer(`entity`);
-        for (let it of this.mutables_) {
+        for (let it of this.mutables) {
             it.update(dt);
         }
-        Timer.it.stopTimer(`entity`);
-        Timer.it.startTimer(`physics`);
-        this.physic.update(dt, this.mutables_, this.entities_);
-        Timer.it.stopTimer(`physics`);
-        if (this.player_ != null) {
-            let x = this.player_.getCameraX();
-            let y = this.player_.getCameraY();
-            this.camera.setCameraPosition(x, y, this.map.width, this.map.height);
+    }
+
+    /**
+     * Update entity in stage by physical world
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updatePhysics(dt) {
+        this.physic.update(dt, this.mutables, this.entities);
+    }
+
+    /**
+     * Update camera
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateCamera(dt) {
+        if (this.player != null) {
+            let x = this.player.getCameraX();
+            let y = this.player.getCameraY();
+            this.camera.setCameraPosition(x, y, this.stageWidth, this.stageHeight);
         }
     }
 
     /**
-     * Render stage
+     * Render map in stage
      * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @protected
+     * @param {Context} ctx Canvas context
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
      */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        // render map
-        Timer.it.startTimer(`renderMap`);
-        this.map.render(ctx, this.x + shiftX, this.y + shiftY);
-        Timer.it.stopTimer(`renderMap`);
-        // render entity
-        Timer.it.startTimer(`renderEntity`);
+    renderMap(ctx, shiftX, shiftY) {
+        this.map.render(ctx, this.camera.baseX + shiftX, this.camera.baseY + shiftY);
+    }
+
+    /**
+     * Render entities in stage
+     * @override
+     * @protected
+     * @param {Context} ctx Canvas context
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
+     */
+    renderEntity(ctx, shiftX, shiftY) {
         let startX = -this.camera.cameraX;
         let startY = -this.camera.cameraY;
         let endX = startX + this.camera.screenWidth;
         let endY = startY + this.camera.screenHeight;
-        for (let it of this.entities_) {
+        for (let it of this.entities) {
             if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
-                it.render(ctx, this.x - startX, this.y - startY);
-            }
-        }
-        Timer.it.stopTimer(`renderEntity`);
-
-        // For debug to render entity information
-        if (Engine.debug) {
-            let mx = Input.mouse.getMouseX() + startX;
-            let my = Input.mouse.getMouseY() + startY;
-            for (let it of this.entities_) {
-                if (it.collider !== undefined && it.collider.isInCollider(mx, my)) {
-                    ctx.fillText(`(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
-                    if (it.body !== undefined) {
-                        ctx.fillText(`(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
-                        ctx.fillText(`(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
-                        ctx.fillText(`(${Math.floor(it.body.preAccelerationX)}, ${Math.floor(it.body.preAccelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, `white`);
-                        ctx.fillText(`((${it.body.isFixX}, ${it.body.isFixY}) - (${Math.floor(it.body.diffX)}, ${Math.floor(it.body.diffY)}))`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`);
-                    }
-                }
+                it.render(ctx, this.camera.baseX - startX, this.camera.baseY - startY);
             }
         }
     }

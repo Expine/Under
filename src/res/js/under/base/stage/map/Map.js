@@ -13,11 +13,13 @@ class Map { // eslint-disable-line  no-unused-vars
     constructor(width, height) {
         /**
          * Map width
+         * @protected
          * @type {number}
          */
         this.width = width;
         /**
          * Map height
+         * @protected
          * @type {number}
          */
         this.height = height;

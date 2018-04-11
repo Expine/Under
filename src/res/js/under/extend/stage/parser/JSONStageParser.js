@@ -33,7 +33,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Stage} stage instance for base of parsing
      */
     makeBaseStage(stage) {
-        return new SplitManagementStage();
+        return Engine.debug ? new DebugStage(stage.width, stage.height) : new SplitManagementStage(stage.width, stage.height);
     }
 
     /**

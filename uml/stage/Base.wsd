@@ -4,18 +4,26 @@ package unde {
     package base {
         package stage {
             abstract Stage {
+                #stageWidth : number
+                #stageHeight : number
                 #map : Map
                 #camera : Camera
                 #physic : PhysicalWorld
+                #enable : bool
                 +setMap(map)
                 +setCamera(camera)
                 +setPhysicalWorld(physic)
                 +getPhysicalWorld() : PhysicalWorld
+                +setEnable(enable)
                 {abstract} +addEntity(entity)
                 {abstract} +removeEntity(entity)
-                {abstract} +setEnable(enable)
-                {abstract} +update(dt)
-                {abstract} +render(ctx,shiftX,shiftY)
+                {abstract} #updateEntity(dt)
+                {abstract} #updatePhysics(dt)
+                {abstract} #updateCemera(dt)
+                +update(dt)
+                {abstract} #renderMap(ctx,shiftX,shiftY)
+                {abstract} #renderEntity(ctx,shiftX,shiftY)
+                +render(ctx,shiftX,shiftY)
             }
             package parser {
                 abstract StageParser {

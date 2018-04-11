@@ -1,18 +1,26 @@
 /**
  * Editor stage
- * Enable to put, remove and replace
- * @extends {SplitManagementStage}
- * @classdesc stage for editor
+ * - Store stage size
+ * - Performs updating and rendering stage
+ * - Manages stage element such as entity
+ * - Dividingly manages entities according to type
+ * - Do not update immutable objects
+ * - Executes debug process
+ * - ### Enable to put, remove and replace entity
+ * @extends {DebugStage}
+ * @classdesc Editor stage that can put, remove and replace entity
  */
-class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unused-vars
+class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
     /**
      * Editor stage constructor
      * @constructor
+     * @param {number} stageWidth Stage width (pixel)
+     * @param {number} stageHeight Stage height (pixel)
      * @param {Dictionary<number, json>} tileInfo Tile information json data
      * @param {Dictionary<number, json>} entityInfo Entity information json data
      */
-    constructor(tileInfo, entityInfo) {
-        super();
+    constructor(stageWidth, stageHeight, tileInfo, entityInfo) {
+        super(stageWidth, stageHeight);
 
         /**
          * Tile information json data
@@ -89,7 +97,7 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
         // onece update
         entity.update(30);
         if (entity instanceof Player) {
-            // this.camera.setCameraPosition(-entity.x + Screen.it.width / 2, -entity.y + Screen.it.height / 2, this.map.width, this.map.height);
+            // this.camera.setCameraPosition(-entity.x + Screen.it.width / 2, -entity.y + Screen.it.height / 2, this.stageWidth, this.stageHeight);
         }
     }
 
@@ -143,6 +151,8 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
      */
     getSaveData() {
         let data = {};
+        data.width = this.stageWidth;
+        data.height = this.stageHeight;
         data.map = this.map.getSaveData();
         // TODO: Should I save camera?
         data.camera = `Center`;
@@ -242,38 +252,38 @@ class EditorStage extends SplitManagementStage { // eslint-disable-line  no-unus
             if (Input.it.isPress(Input.key.a() + 4)) {
                 for (let it of this.getEntities()) {
                     if (it instanceof Player) {
-                        this.camera.setCameraPosition(-it.x + Screen.it.width / 2, -it.y + Screen.it.height / 2, this.map.width, this.map.height);
+                        this.camera.setCameraPosition(-it.x + Screen.it.width / 2, -it.y + Screen.it.height / 2, this.stageWidth, this.stageHeight);
                     }
                 }
             }
 
             // move camera
             if (Input.it.isPress(Input.key.right())) {
-                this.camera.setCameraPosition(this.camera.cameraX - this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
+                this.camera.setCameraPosition(this.camera.cameraX - this.camera.screenWidth / 2, this.camera.cameraY, this.stageWidth, this.stageHeight);
             }
             if (Input.it.isPress(Input.key.left())) {
-                this.camera.setCameraPosition(this.camera.cameraX + this.camera.screenWidth / 2, this.camera.cameraY, this.map.width, this.map.height);
+                this.camera.setCameraPosition(this.camera.cameraX + this.camera.screenWidth / 2, this.camera.cameraY, this.stageWidth, this.stageHeight);
             }
             if (Input.it.isPress(Input.key.up())) {
-                this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY + this.camera.screenHeight / 2, this.map.width, this.map.height);
+                this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY + this.camera.screenHeight / 2, this.stageWidth, this.stageHeight);
             }
             if (Input.it.isPress(Input.key.down())) {
-                this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY - this.camera.screenHeight / 2, this.map.width, this.map.height);
+                this.camera.setCameraPosition(this.camera.cameraX, this.camera.cameraY - this.camera.screenHeight / 2, this.stageWidth, this.stageHeight);
             }
 
             // update camera
-            this.camera.setCameraPosition(1, 1, this.map.width, this.map.height);
+            this.camera.setCameraPosition(1, 1, this.stageWidth, this.stageHeight);
         }
 
         // update selected area
         this.selectedX = -1;
         this.selectedY = -1;
-        let x = Math.floor((Input.mouse.getMouseX() - this.x - this.camera.cameraX) / 32) * 32;
-        let y = Math.floor((Input.mouse.getMouseY() - this.y - this.camera.cameraY) / 32) * 32;
+        let x = Math.floor((Input.mouse.getMouseX() - this.camera.baseX - this.camera.cameraX) / 32) * 32;
+        let y = Math.floor((Input.mouse.getMouseY() - this.camera.baseY - this.camera.cameraY) / 32) * 32;
         // check camera position
         if (x + 32 >= -this.camera.cameraX && x < this.camera.screenWidth - this.camera.cameraX && y + 32 >= -this.camera.cameraY && y < this.camera.screenHeight - this.camera.cameraY) {
             // check map position
-            if (0 <= x && x <= this.map.width && 0 <= y && y <= this.map.height) {
+            if (0 <= x && x <= this.stageWidth && 0 <= y && y <= this.stageHeight) {
                 this.selectedX = x + this.camera.cameraX;
                 this.selectedY = y + this.camera.cameraY;
             }

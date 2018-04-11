@@ -1,11 +1,11 @@
 {
+    "width": 12800,
+    "height": 4800,
     "map": {
         "backs": [{
             "type": "Invariant",
             "file": "back.png"
-        }],
-        "width": 12800,
-        "height": 4800
+        }]
     },
     "camera": "Center",
     "tiles": "tile.json",

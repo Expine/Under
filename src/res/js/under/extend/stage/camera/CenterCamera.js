@@ -1,17 +1,17 @@
 /**
- * Camera for centering at the indicated coordinates
- * Does not draw the portion beyond the given maximum area
- * Priority is given from left and bottom
+ * Center camera
+ * - Calculates the area to rendering
+ * - ### Centering at the indicated coordinates
  * @implements {Camera}
- * @classdesc Camera for centering at the indicated coordinates
+ * @classdesc Center camera for centering at the indicated coodinates
  */
 class CenterCamera extends Camera { // eslint-disable-line  no-unused-vars
     /**
      * Set camera position
-     * @param {number} x base x position
-     * @param {number} y base y position
-     * @param {number} width camera max width
-     * @param {number} height camera max height
+     * @param {number} x Base x position
+     * @param {number} y Base y position
+     * @param {number} width Camera max width
+     * @param {number} height Camera max height
      */
     setCameraPosition(x, y, width, height) {
         this.cameraX = this.screenWidth / 2 - x;
