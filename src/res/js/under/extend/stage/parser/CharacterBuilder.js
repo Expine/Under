@@ -11,15 +11,30 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * Make rigid body
      * @protected
      * @param {json} body Rigid body information json data
-     * @return {RigidBody} RigidBody
+     * @return {RigidBody} Rigid body
      */
     makeBody(body) {
+        let ret = null;
         if (body.type == `MaxAdopt`) {
-            return new MaxAdoptBody();
+            ret = new MaxAdoptBody();
         } else if (body.type == `Precise`) {
-            return new PreciseBody();
+            ret = new PreciseBody();
         } else if (body.type == `Player`) {
-            return new PlayerBody();
+            ret = new PlayerBody();
+        }
+        ret.setMaterial(this.makeBodyMaterial(body.material));
+        return ret;
+    }
+
+    /**
+     * Make rigid body material
+     * @protected
+     * @param {json} material Rigid body material
+     * @return {RigidBodyMaterial} Rigid body material
+     */
+    makeBodyMaterial(material) {
+        if (material.type == `Immutable`) {
+            return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY);
         }
     }
 

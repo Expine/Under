@@ -18,14 +18,11 @@ class UnderStageParser extends JSONStageParser { // eslint-disable-line  no-unus
     }
 
     /**
-     * Make base phisical world for parsing stage
-     * @override
+     * Make physical response
      * @protected
-     * @return {PhysicalWorld} Physical world instance for base of parsing
+     * @return {CollisionResponse} Physical response
      */
-    makeBaseWorld() {
-        let world = new SequentialWorld();
-        world.setResponse(new UnderRepulsionResponse());
-        return world;
+    makePhysicalResponse() {
+        return new UnderRepulsionResponse();
     }
 }

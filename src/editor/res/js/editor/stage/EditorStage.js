@@ -141,7 +141,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
      * @param {Entity} entity - entity object
      */
     removeEntity(entity) {
-        this.entitiesID.splice(this.entities_.indexOf(entity), 1);
+        this.entitiesID.splice(this.entities.indexOf(entity), 1);
         super.removeEntity(entity);
     }
 

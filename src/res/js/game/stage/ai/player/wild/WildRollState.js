@@ -23,7 +23,7 @@ class WildRollState extends UnderMovableState { // eslint-disable-line  no-unuse
      */
     init() {
         super.init();
-        this.entity.body.setNextAddVelocity(-this.entity.body.preVelocityX, 0);
+        this.entity.body.setNextAddVelocity(-this.entity.body.velocityX, 0);
     }
 
     /**

@@ -14,7 +14,13 @@
                 "cut": 10
             },
             "body": {
-                "type": "Player"
+                "type": "Player",
+                "material": {
+                    "type": "Immutable",
+                    "k": 10,
+                    "frictionX": 1.0,
+                    "frictionY": 0.0
+                }
             },
             "material": {
                 "mass": 30,
@@ -568,7 +574,13 @@
                 "cut": 5
             },
             "body": {
-                "type": "MaxAdopt"
+                "type": "MaxAdopt",
+                "material": {
+                    "type": "Immutable",
+                    "k": 0.5,
+                    "frictionX": 1.0,
+                    "frictionY": 0.0
+                }
             },
             "material": {
                 "mass": 20,
@@ -594,7 +606,13 @@
                 "cut": 5
             },
             "body": {
-                "type": "MaxAdopt"
+                "type": "MaxAdopt",
+                "material": {
+                    "type": "Immutable",
+                    "k": 0.5,
+                    "frictionX": 1.0,
+                    "frictionY": 0.0
+                }
             },
             "material": {
                 "mass": 20,
@@ -620,7 +638,13 @@
                 "cut": 5
             },
             "body": {
-                "type": "MaxAdopt"
+                "type": "MaxAdopt",
+                "material": {
+                    "type": "Immutable",
+                    "k": 0.5,
+                    "frictionX": 1.0,
+                    "frictionY": 0.0
+                }
             },
             "material": {
                 "mass": 1000,
@@ -646,7 +670,13 @@
                 "cut": 3
             },
             "body": {
-                "type": "MaxAdopt"
+                "type": "MaxAdopt",
+                "material": {
+                    "type": "Immutable",
+                    "k": 0.5,
+                    "frictionX": 1.0,
+                    "frictionY": 0.0
+                }
             },
             "material": {
                 "mass": 1,

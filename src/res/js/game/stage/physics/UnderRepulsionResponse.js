@@ -20,12 +20,12 @@
             let ny = data.ny;
             let d = data.depth;
             // e1 is the colliding side
-            if (b1 === undefined || (b1.preVelocityX * nx + b1.preVelocityY * ny <= 0)) {
+            if (b1 === undefined || (b1.velocityX * nx + b1.velocityY * ny <= 0)) {
                 data.nx = -data.nx;
                 data.ny = -data.ny;
                 nx = -nx;
                 ny = -ny;
-                if (b2 === undefined || (b2.preVelocityX * nx + b2.preVelocityY * ny <= 0)) {
+                if (b2 === undefined || (b2.velocityX * nx + b2.velocityY * ny <= 0)) {
                     data.nx = -data.nx;
                     data.ny = -data.ny;
                     nx = -nx;
@@ -60,9 +60,9 @@
             let vdy1 = 0;
             let vdx2 = 0;
             let vdy2 = 0;
-            if (b2 !== undefined && (ny < 1 || b1.preVelocityX * b2.preVelocityX + b1.preVelocityY * b2.preVelocityY < 0)) {
-                let dot1 = b1.preVelocityX * nx + b1.preVelocityY * ny;
-                let dot2 = b2.preVelocityX * nx + b2.preVelocityY * ny;
+            if (b2 !== undefined && (ny < 1 || b1.velocityX * b2.velocityX + b1.velocityY * b2.velocityY < 0)) {
+                let dot1 = b1.velocityX * nx + b1.velocityY * ny;
+                let dot2 = b2.velocityX * nx + b2.velocityY * ny;
                 let v1x = dot1 * nx;
                 let v1y = dot1 * ny;
                 let v2x = dot2 * nx;
@@ -106,7 +106,7 @@
                 vdx2 = -(v2x - v1x) * (1 + e) * (e1.material.mass) / (e1.material.mass + e2.material.mass);
                 vdy2 = -(v2y - v1y) * (1 + e) * (e1.material.mass) / (e1.material.mass + e2.material.mass);
             } else {
-                let dot1 = b1.preVelocityX * nx + b1.preVelocityY * ny;
+                let dot1 = b1.velocityX * nx + b1.velocityY * ny;
                 let v1x = dot1 * nx;
                 let v1y = dot1 * ny;
                 // push back
@@ -123,81 +123,82 @@
             }
 
             // friction
-            // nx = 0; // no sliding friction
             if (e1.collider.getAABB().startY < e2.collider.getAABB().startY) {
                 // e1 on e2
                 let mu = e2.material.mu;
-                let dotp = b1.preAccelerationX * nx + b1.preAccelerationY * ny;
+                let dotp = b1.accelerationX * nx + b1.accelerationY * ny;
                 let px = dotp * nx;
                 let py = dotp * ny;
                 let p = Math.sqrt(px * px + py * py);
                 let dvx = 0;
                 let dvy = 0;
                 if (b2 === undefined || (b2.isFixX && b2.iFixY)) {
-                    let dot = Math.sign((b1.preVelocityX) * -ny + (b1.preVelocityY) * nx);
+                    // e2 is fixed object
+                    let dot = Math.sign((b1.velocityX) * -ny + (b1.velocityY) * nx);
                     dvx = dot * -ny * p * mu * dt / 1000;
                     dvy = dot * nx * p * mu * dt / 1000;
-                    if (Math.abs(dvx) > Math.abs(b1.preVelocityX)) {
-                        dvx = b1.preVelocityX;
+                    if (Math.abs(dvx) > Math.abs(b1.velocityX)) {
+                        dvx = b1.velocityX;
                     }
-                    if (Math.abs(dvy) > Math.abs(b1.preVelocityY)) {
-                        dvy = b1.preVelocityY;
+                    if (Math.abs(dvy) > Math.abs(b1.velocityY)) {
+                        dvy = b1.velocityY;
                     }
                 } else {
-                    let dot = Math.sign((b2.diffX * b2.preVelocityX < 0 ? b1.preVelocityX : b1.diffX - b2.diffX) * -ny + (b2.diffY * b2.preVelocityY < 0 ? b1.preVelocityY : b1.diffY - b2.diffY) * nx);
+                    // e2 is moving object
+                    let dot = Math.sign((b2.diffX * b2.velocityX < 0 ? b1.velocityX : b1.diffX - b2.diffX) * -ny + (b2.diffY * b2.velocityY < 0 ? b1.velocityY : b1.diffY - b2.diffY) * nx);
                     dvx = dot * -ny * p * mu * dt / 1000;
                     dvy = dot * nx * p * mu * dt / 1000;
-                    if (b2.diffX * b2.preVelocityX < 0) {
-                        if (Math.abs(dvx) > Math.abs(b1.preVelocityX)) {
-                            dvx = b1.preVelocityX;
+                    if (b2.diffX * b2.velocityX < 0) {
+                        if (Math.abs(dvx) > Math.abs(b1.velocityX)) {
+                            dvx = b1.velocityX;
                         }
                     }
-                    if (b2.diffY * b2.preVelocityY < 0) {
-                        if (Math.abs(dvy) > Math.abs(b1.preVelocityY)) {
-                            dvy = b1.preVelocityY;
+                    if (b2.diffY * b2.velocityY < 0) {
+                        if (Math.abs(dvy) > Math.abs(b1.velocityY)) {
+                            dvy = b1.velocityY;
                         }
                     }
                 }
-                vdx1 -= dvx * b1.frictionX;
+                vdx1 -= dvx * b1.material.frictionX;
                 // Apply only to down wall
-                vdy1 -= dvy < 0 ? 0 : dvy * b1.frictionY;
+                vdy1 -= dvy < 0 ? 0 : dvy * b1.material.frictionY;
             } else if (b2 !== undefined) {
                 // e2 on e1
                 let mu = e1.material.mu;
-                let dotp = b2.preAccelerationX * nx + b2.preAccelerationY * ny;
+                let dotp = b2.accelerationX * nx + b2.accelerationY * ny;
                 let px = dotp * nx;
                 let py = dotp * ny;
                 let p = Math.sqrt(px * px + py * py);
                 let dvx = 0;
                 let dvy = 0;
                 if (b1.isFixX && b1.isFixY) {
-                    let dot = Math.sign((b2.preVelocityX) * -ny + (b2.preVelocityY) * nx);
+                    let dot = Math.sign((b2.velocityX) * -ny + (b2.velocityY) * nx);
                     dvx = dot * -ny * p * mu * dt / 1000;
                     dvy = dot * nx * p * mu * dt / 1000;
-                    if ((Math.abs(dvx) > Math.abs(b2.preVelocityX))) {
-                        dvx = b2.preVelocityX;
+                    if ((Math.abs(dvx) > Math.abs(b2.velocityX))) {
+                        dvx = b2.velocityX;
                     }
-                    if ((Math.abs(dvy) > Math.abs(b2.preVelocityY))) {
-                        dvy = b2.preVelocityY;
+                    if ((Math.abs(dvy) > Math.abs(b2.velocityY))) {
+                        dvy = b2.velocityY;
                     }
                 } else {
-                    let dot = Math.sign((b1.diffX * b1.preVelocityX < 0 ? b2.preVelocityX : b2.diffX - b1.diffX) * -ny + (b1.diffY * b1.preVelocityY < 0 ? b2.preVelocityY : b2.diffY - b1.diffY) * nx);
+                    let dot = Math.sign((b1.diffX * b1.velocityX < 0 ? b2.velocityX : b2.diffX - b1.diffX) * -ny + (b1.diffY * b1.velocityY < 0 ? b2.velocityY : b2.diffY - b1.diffY) * nx);
                     dvx = dot * -ny * p * mu * dt / 1000;
                     dvy = dot * nx * p * mu * dt / 1000;
-                    if (b1.diffX * b1.preVelocityX < 0) {
-                        if (Math.abs(dvx) > Math.abs(b2.preVelocityX)) {
-                            dvx = b2.preVelocityX;
+                    if (b1.diffX * b1.velocityX < 0) {
+                        if (Math.abs(dvx) > Math.abs(b2.velocityX)) {
+                            dvx = b2.velocityX;
                         }
                     }
-                    if (b1.diffY * b1.preVelocityY < 0) {
-                        if (Math.abs(dvy) > Math.abs(b2.preVelocityY)) {
-                            dvy = b2.preVelocityY;
+                    if (b1.diffY * b1.velocityY < 0) {
+                        if (Math.abs(dvy) > Math.abs(b2.velocityY)) {
+                            dvy = b2.velocityY;
                         }
                     }
                 }
-                vdx2 -= dvx * b2.frictionX;
+                vdx2 -= dvx * b2.material.frictionX;
                 // Apply only to down wall
-                vdy2 -= dvy < 0 ? 0 : dvy * b2.frictionY;
+                vdy2 -= dvy < 0 ? 0 : dvy * b2.material.frictionY;
             }
 
 

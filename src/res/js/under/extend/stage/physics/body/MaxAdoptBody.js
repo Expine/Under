@@ -1,16 +1,30 @@
 /**
  * Max adopt body
- * Adopt the maximum for adding to the next speed
+ * - Update entity by physical quantity
+ * - ### Adopt the maximum for adding to the next speed
  * @implements {RigidBody}
- * @classdesc Body to ddopt the maximum for adding to the next speed
+ * @classdesc Max adopt body to adopt the maximum for adding to the next speed
  */
 class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
     /**
-     * Rigid body constructor
+     * Max adopt body constructor
      * @constructor
      */
     constructor() {
         super();
+
+        /**
+         * Internal current x acceleration
+         * @protected
+         * @type {number}
+         */
+        this.internalAccelerationX = 0;
+        /**
+         * Internal current y acceleration
+         * @protected
+         * @type {number}
+         */
+        this.internalAccelerationY = 0;
 
         /**
          * Positive x velocity vector to be added nextly
@@ -68,6 +82,9 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
         } else {
             this.vmy = Math.min(this.vmy, vy);
         }
+        if (isNaN(this.vmx)) {
+            console.log(this.material);
+        }
     }
 
     /**
@@ -89,17 +106,16 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
      * @param {number} forceY Force in y direction
      */
     enforce(forceX, forceY) {
-        this.accelerationX += forceX / this.entity.material.mass;
-        this.accelerationY += forceY / this.entity.material.mass;
+        this.internalAccelerationX += forceX / this.entity.material.mass;
+        this.internalAccelerationY += forceY / this.entity.material.mass;
     }
 
-
     /**
-     * Update by rigid body
+     * Update rigid body information
      * @override
-     * @param {number} dt delta time
+     * @protected
      */
-    update(dt) {
+    updateInfo(dt) {
         // set previous posiiton
         this.diffX = (this.entity.x - this.preX) * 1000 / dt;
         this.diffY = (this.entity.y - this.preY) * 1000 / dt;
@@ -107,38 +123,59 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
         this.isFixY = Math.abs(this.diffY) < 50;
         this.preX = this.entity.x;
         this.preY = this.entity.y;
+    }
 
+    /**
+     * Update velocity
+     * @override
+     * @protected
+     */
+    updateVelocity(dt) {
         // next add velocity
-        this.velocityX += this.vpx + this.vmx;
-        this.velocityY += this.vpy + this.vmy;
+        this.material.velocityX += this.vpx + this.vmx;
+        this.material.velocityY += this.vpy + this.vmy;
         // enforce
-        this.velocityX += this.accelerationX * dt / 1000;
-        this.velocityY += this.accelerationY * dt / 1000;
+        this.material.velocityX += this.internalAccelerationX * dt / 1000;
+        this.material.velocityY += this.internalAccelerationY * dt / 1000;
         // air resistance
-        let kx = -this.velocityX * this.k / this.entity.material.mass * dt / 1000;
-        let ky = -this.velocityY * this.k / this.entity.material.mass * dt / 1000;
-        if (Math.abs(this.velocityX) < Math.abs(kx)) {
-            this.velocityX = 0;
+        let kx = -this.material.velocityX * this.material.k / this.entity.material.mass * dt / 1000;
+        let ky = -this.material.velocityY * this.material.k / this.entity.material.mass * dt / 1000;
+        if (Math.abs(this.material.velocityX) < Math.abs(kx)) {
+            this.material.velocityX = 0;
         } else {
-            this.velocityX += kx;
+            this.material.velocityX += kx;
         }
-        if (Math.abs(this.velocityY) < Math.abs(ky)) {
-            this.velocityY = 0;
+        if (Math.abs(this.material.velocityY) < Math.abs(ky)) {
+            this.material.velocityY = 0;
         } else {
-            this.velocityY += ky;
+            this.material.velocityY += ky;
         }
+    }
+
+    /**
+     * Update entity by velocity
+     * @override
+     * @protected
+     */
+    updateEntity(dt) {
         // move
-        let dx = this.velocityX * dt / 1000;
-        let dy = this.velocityY * dt / 1000;
+        let dx = this.material.velocityX * dt / 1000;
+        let dy = this.material.velocityY * dt / 1000;
         this.entity.deltaMove(dx, dy);
-        // reserve velocity and acceleration
-        this.preVelocityX = this.velocityX;
-        this.preVelocityY = this.velocityY;
-        this.preAccelerationX = this.accelerationX;
-        this.preAccelerationY = this.accelerationY;
+    }
+
+    /**
+     * Update by rigid body
+     * @override
+     * @param {number} dt delta time
+     */
+    update(dt) {
+        super.update(dt);
         // reset
-        this.accelerationX = 0;
-        this.accelerationY = 0;
+        this.material.accelerationX = this.internalAccelerationX;
+        this.material.accelerationY = this.internalAccelerationY;
+        this.internalAccelerationX = 0;
+        this.internalAccelerationY = 0;
         this.vpx = 0;
         this.vpy = 0;
         this.vmx = 0;

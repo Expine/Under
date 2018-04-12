@@ -13,7 +13,7 @@ class WildRollingState extends UnderPlayerState { // eslint-disable-line  no-unu
     apply(dt) {
         // change state
         if (Util.onGround(this.entity)) {
-            this.entity.body.setNextAddVelocity(-this.entity.body.preVelocityX, 0);
+            this.entity.body.setNextAddVelocity(-this.entity.body.velocityX, 0);
             if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);
             } else {

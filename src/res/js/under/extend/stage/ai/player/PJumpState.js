@@ -54,7 +54,7 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
          * Reserved velocity of X
          * @type {number}
          */
-        this.velocityX = this.entity.body.preVelocityX;
+        this.this.reservedVelocityX = this.entity.body.velocityX;
     }
 
     /**
@@ -65,7 +65,7 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // animation
-        this.entity.body.setNextAddVelocity(this.entity.body.preVelocityX / 1.1 - this.entity.body.preVelocityX, 0);
+        this.entity.body.setNextAddVelocity(this.entity.body.velocityX / 1.1 - this.entity.body.velocityX, 0);
         if (Input.it.isPressed(Input.key.up())) {
             this.jumpPressedTime_ += 1;
         }
@@ -81,7 +81,7 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
         }
         if (this.stateAnimation.isEnded() && this.inAirCount_ == 0) {
             // reset and jump
-            this.entity.body.setNextAddVelocity(this.velocityX - this.entity.body.preVelocityX, -this.entity.body.preVelocityY);
+            this.entity.body.setNextAddVelocity(this.this.reservedVelocityX - this.entity.body.velocityX, -this.entity.body.velocityY);
             this.entity.body.enforce(0, -this.jumpPower_ * 1000 / dt * this.jumpPressedTime_ / this.jumpDeltaTime_);
             this.ai.changeState(`jumping`);
         }

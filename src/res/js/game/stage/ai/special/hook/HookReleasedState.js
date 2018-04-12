@@ -47,8 +47,8 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
         if (this.entity.body !== undefined) {
             this.entity.body.enforce(dx * 3000 / dt, dy * 3000 / dt);
             // set direction
-            let vx = Math.sign(this.entity.body.preVelocityX);
-            let vy = Math.sign(this.entity.body.preVelocityY);
+            let vx = Math.sign(this.entity.body.velocityX);
+            let vy = Math.sign(this.entity.body.velocityY);
             this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
             this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
         }

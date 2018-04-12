@@ -17,8 +17,8 @@ class ImpulseBasedResponse extends CollisionResponse { // eslint-disable-line  n
         let b1 = data.e1.body;
         let b2 = data.e2.body;
         if (b2 !== undefined) {
-            let dot1 = b1.preVelocityX * nx + b1.preVelocityY * ny;
-            let dot2 = b2.preVelocityX * nx + b2.preVelocityY * ny;
+            let dot1 = b1.velocityX * nx + b1.velocityY * ny;
+            let dot2 = b2.velocityX * nx + b2.velocityY * ny;
             let v1x = dot1 * nx;
             let v1y = dot1 * ny;
             let v2x = dot2 * nx;
@@ -38,7 +38,7 @@ class ImpulseBasedResponse extends CollisionResponse { // eslint-disable-line  n
             b1.enforce(j1 * vdx - d1 * nx, j1 * vdy - d1 * ny);
             b2.enforce(-j2 * vdx + d2 * nx, -j2 * vdy + d2 * ny);
         } else {
-            let dot1 = b1.preVelocityX * nx + b1.preVelocityY * ny;
+            let dot1 = b1.velocityX * nx + b1.velocityY * ny;
             let v1x = dot1 * nx;
             let v1y = dot1 * ny;
             let m1 = data.e1.material.mass;

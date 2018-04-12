@@ -1,17 +1,10 @@
 /**
  * Player body
- * Adopt the maximum for adding to the next speed
+ * - Update entity by physical quantity
+ * - Adopt the maximum for adding to the next speed
+ * - ### Implements player unique function
  * @extends {MaxAdoptBody}
- * @classdesc Body to ddopt the maximum for adding to the next speed
+ * @classdesc Player body to implement player unique function
  */
 class PlayerBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
-    /**
-     * Rigid body constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-
-        this.k = 10;
-    }
 }

@@ -95,10 +95,10 @@ package under {
                         #velocityY : number
                         #accelerationX : number
                         #accelerationY : number
-                        +preVelocityX : number
-                        +preVelocityY : number
-                        +preAccelerationX : number
-                        +preAccelerationY : number
+                        +velocityX : number
+                        +velocityY : number
+                        +accelerationX : number
+                        +accelerationY : number
                         +diffX : number
                         +diffY : number
                         +isFix : bool

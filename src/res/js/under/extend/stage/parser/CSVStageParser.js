@@ -66,7 +66,7 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
     makeTileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID) {
         let tile = new TileObject(horizontalId * tileWidth, verticalId * tileHeight, tileWidth, tileHeight, x, y, width, height, imageID);
         tile.setCollider(new RectangleCollider(0, 0, width, height));
-        tile.setMaterial(new DefaultMaterial());
+        tile.setMaterial(new ImmutableMaterial());
         return tile;
     }
 

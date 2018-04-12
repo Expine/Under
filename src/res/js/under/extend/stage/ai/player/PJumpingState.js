@@ -44,7 +44,7 @@ class PJumpingState extends BaseState { // eslint-disable-line  no-unused-vars
         }
         if (vx != 0) {
             this.entity.directionX = vx;
-            if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < Math.abs(this.maxVelocityX)) {
+            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(this.maxVelocityX)) {
                 this.entity.body.enforce(this.movePower * vx / dt, 0);
             }
         }

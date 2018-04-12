@@ -31,7 +31,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
     init() {
         super.init();
         // Check input
-        this.entity.directionX = -Math.sign(this.entity.body.preVelocityX);
+        this.entity.directionX = -Math.sign(this.entity.body.velocityX);
         this.directionX = this.entity.directionX;
         this.downWallCount = 0;
         // push wall

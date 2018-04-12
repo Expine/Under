@@ -41,7 +41,7 @@ class StraightAI extends AI { // eslint-disable-line  no-unused-vars
         if (Util.getSideEntity(this.entity)) {
             this.entity.directionX *= -1;
         }
-        if (Math.abs(this.entity.body.preVelocityX) < this.maxVelocityX) {
+        if (Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
             this.entity.body.enforce(this.entity.directionX * this.walkPower * this.entity.material.mass, 0);
         }
         return true;

@@ -110,9 +110,8 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     updateExternalForce(dt) {
-        Timer.it.startTimer(`body`);
         for (let target of this.actors) {
-            if (target.body !== undefined && target.body.enable) {
+            if (target.body !== undefined) {
                 target.body.enforce(0, this.gravity * target.material.mass);
             }
         }
@@ -126,11 +125,10 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     updateBody(dt) {
         for (let target of this.actors) {
-            if (target.body !== undefined && target.body.enable) {
+            if (target.body !== undefined) {
                 target.body.update(dt);
             }
         }
-        Timer.it.stopTimer(`body`);
     }
 
     /**
@@ -151,7 +149,6 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
             }
         }
 
-        Timer.it.startTimer(`collide`);
         // collision detection
         for (let target of this.actors) {
             let targetCollider = target.collider;
@@ -189,7 +186,6 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                 }
             }
         }
-        Timer.it.stopTimer(`collide`);
     }
 
     /**
@@ -199,7 +195,6 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     updateResponse(dt) {
-        Timer.it.startTimer(`response`);
         // collision response
         let sorted = this.collisions.sort((a, b) => a.py > b.py ? -1 : a.py < b.py ? 1 : 0);
         for (let j = 0; j < this.collisionSize; ++j) {
@@ -209,6 +204,5 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
             }
             it.py = -1000000000;
         }
-        Timer.it.stopTimer(`response`);
     }
 }

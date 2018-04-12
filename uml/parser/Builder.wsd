@@ -46,7 +46,7 @@ package under {
                     class RoundRectangleCollider
                 }
                 package ex_material {
-                    class DefaultMaterial
+                    class ImmutableMaterial
                 }
                 package ex_body {
                     class MaxAdoptBody
@@ -72,7 +72,7 @@ TileBuilder ....> TileObject : Generate
 TileBuilder ....> RectangleCollider : Generate
 TileBuilder ....> CircleCollider : Generate
 TileBuilder ....> RoundRectangleCollider : Generate
-TileBuilder ....> DefaultMaterial : Generate
+TileBuilder ....> ImmutableMaterial : Generate
 CharacterBuilder ...> MaxAdoptBody : Generate
 CharacterBuilder ...> PreciseBody : Generate
 CharacterBuilder ...> PlayerBody : Generate

@@ -13,6 +13,6 @@ class EditorInvariantBackMap extends InvariantBackMap { // eslint-disable-line  
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.backID_, 0, Screen.it.height - 850);
+        ctx.drawImage(this.backID, 0, Screen.it.height - 850);
     }
 }

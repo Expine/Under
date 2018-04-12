@@ -31,8 +31,8 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
      */
     tension(x, y, dt) {
         this.entity.body.enforce(x * 10000 / dt, y * 5000 / dt);
-        // this.entity.body.setNextAddVelocity(0, y * 500 / dt - this.entity.body.preVelocityY);
-        // this.entity.body.setNextAddVelocity(x * 1000 / dt - this.entity.body.preVelocityX, y * 1000 / dt - this.entity.body.preVelocityY);
+        // this.entity.body.setNextAddVelocity(0, y * 500 / dt - this.entity.body.velocityY);
+        // this.entity.body.setNextAddVelocity(x * 1000 / dt - this.entity.body.velocityX, y * 1000 / dt - this.entity.body.velocityY);
     }
 
     /**

@@ -36,7 +36,7 @@ package under {
                     class RectangleCollider
                 }
                 package ex_material {
-                    class DefaultMaterial
+                    class ImmutableMaterial
                 }
             }
             package ex_entity {
@@ -53,7 +53,7 @@ CSVStageParser ...> SequentialWorld : Generate
 CSVStageParser ...> RepulsionResponse : Generate
 CSVStageParser ...> TileObject : Generate
 CSVStageParser ...> RectangleCollider : Generate
-CSVStageParser ...> DefaultMaterial : Generate
+CSVStageParser ...> ImmutableMaterial : Generate
 
 StageParser <|.. CSVStageParser
 

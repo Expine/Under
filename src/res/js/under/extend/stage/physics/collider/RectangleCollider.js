@@ -72,10 +72,10 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
                     let nx = Math.abs(sx) < Math.abs(ex) ? sx : ex;
                     let ny = Math.abs(sy) < Math.abs(ey) ? sy : ey;
                     if (this.entity.body !== undefined && Math.abs(Math.abs(nx) - Math.abs(ny)) < 1) {
-                        if (nx * this.entity.body.preVelocityX <= 0) {
+                        if (nx * this.entity.body.velocityX <= 0) {
                             nx = this.endX - this.startX + 1;
                         }
-                        if (ny * this.entity.body.preVelocityY <= 0) {
+                        if (ny * this.entity.body.velocityY <= 0) {
                             ny = this.endY - this.startY + 1;
                         }
                         if (Math.abs(nx) > this.endX - this.startX && Math.abs(ny) > this.endY - this.startY) {
