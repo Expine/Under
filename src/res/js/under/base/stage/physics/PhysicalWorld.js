@@ -1,13 +1,14 @@
 /**
- * Physical world for performing a physical operation
- * Receive a list of entities and apply a physical operation
- * @classdesc Physical world for performing a physical operation
+ * Physical world
+ * - ### Performs a physical operation
+ * - ### Registers entities and apply a physical operation
+ * @classdesc Physical world to perform a physical operation by registering entities
  */
 class PhysicalWorld { // eslint-disable-line  no-unused-vars
     /**
      * Physical world constructor
      * @constructor
-     * @param {number} gravity gravity of the world
+     * @param {number} gravity Gravity of the world
      */
     constructor(gravity) {
         /**
@@ -53,16 +54,54 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     removeEntity(entity) {}
 
     /**
-     * Get collision information
+     * Get collision information now
      * @interface
-     * @return {Array<CollisionData>} Collision information
+     * @return {Array<CollisionData>} Collision information now
      */
     getCollisionData(entity) {}
 
     /**
-     * Update physical world
+     * Update external force
      * @interface
+     * @protected
      * @param {number} dt Delta time
      */
-    update(dt) {}
+    updateExternalForce(dt) {}
+
+    /**
+     * Update body
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateBody(dt) {}
+
+    /**
+     * Update collisions
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateCollision(dt) {}
+
+    /**
+     * Update collisions response
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateResponse(dt) {}
+
+    /**
+     * Update physical world
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        this.updateExternalForce(dt);
+        this.updateBody(dt);
+        this.updateCollision(dt);
+        this.updateResponse(dt);
+    }
 }

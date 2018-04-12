@@ -1,6 +1,8 @@
 /**
  * Sequential world
- * Continually perform collision processing
+ * - Performs a physical operation
+ * - Registers entities and apply a physical operation
+ * - ### Continually perform collision processing
  * @implements {PhysicalWorld}
  * @classdesc Sequential world to perform collision processing continually
  */
@@ -78,9 +80,9 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     }
 
     /**
-     * Get collision information
+     * Get collision information now
      * @override
-     * @return {Array<CollisionData>} Collision information
+     * @return {Array<CollisionData>} Collision information now
      */
     getCollisionData(entity) {
         let ret = [];
@@ -102,25 +104,42 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     }
 
     /**
-     * Update physical world
+     * Update external force
+     * @protected
      * @override
      * @param {number} dt Delta time
      */
-    update(dt) {
+    updateExternalForce(dt) {
         Timer.it.startTimer(`body`);
-        // body update
         for (let target of this.actors) {
             if (target.body !== undefined && target.body.enable) {
                 target.body.enforce(0, this.gravity * target.material.mass);
             }
         }
+    }
+
+    /**
+     * Update body
+     * @protected
+     * @override
+     * @param {number} dt Delta time
+     */
+    updateBody(dt) {
         for (let target of this.actors) {
             if (target.body !== undefined && target.body.enable) {
                 target.body.update(dt);
             }
         }
         Timer.it.stopTimer(`body`);
+    }
 
+    /**
+     * Update collisions
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateCollision(dt) {
         // collision initialize
         for (let j = 0; j < this.collisionSize; ++j) {
             this.collisions[j].py = -1000000000;
@@ -171,7 +190,15 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
             }
         }
         Timer.it.stopTimer(`collide`);
+    }
 
+    /**
+     * Update collisions response
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateResponse(dt) {
         Timer.it.startTimer(`response`);
         // collision response
         let sorted = this.collisions.sort((a, b) => a.py > b.py ? -1 : a.py < b.py ? 1 : 0);

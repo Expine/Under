@@ -50,6 +50,7 @@ package under {
                 }
                 package ex_body {
                     class MaxAdoptBody
+                    class PreciseBody
                     class PlayerBody
                 }
             }
@@ -73,6 +74,7 @@ TileBuilder ....> CircleCollider : Generate
 TileBuilder ....> RoundRectangleCollider : Generate
 TileBuilder ....> DefaultMaterial : Generate
 CharacterBuilder ...> MaxAdoptBody : Generate
+CharacterBuilder ...> PreciseBody : Generate
 CharacterBuilder ...> PlayerBody : Generate
 CharacterBuilder ...> Player : Generate
 CharacterBuilder ...> Enemy : Generate
