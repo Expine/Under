@@ -93,6 +93,10 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
      */
     reset() {
         super.reset();
+        this.internalVelocityX = 0;
+        this.internalVelocityY = 0;
+        this.internalAccelerationX = 0;
+        this.internalAccelerationY = 0;
         this.vpx = 0;
         this.vpy = 0;
         this.vmx = 0;
