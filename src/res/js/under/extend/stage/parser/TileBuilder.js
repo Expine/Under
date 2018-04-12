@@ -29,7 +29,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {Material} Material
      */
     makeMaterial(material) {
-        return new DefaultMaterial(material.mass, material.elasticity, material.mu);
+        return new ImmutableMaterial(material.mass, material.elasticity, material.mu);
     }
 
     /**

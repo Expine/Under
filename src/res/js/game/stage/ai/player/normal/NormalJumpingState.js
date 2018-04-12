@@ -34,11 +34,11 @@ class NormalJumpingState extends UnderMovableState { // eslint-disable-line  no-
         }
         if (vx != 0) {
             this.entity.directionX = vx;
-            if (this.entity.body.preVelocityX * vx < 0 || Math.abs(this.entity.body.preVelocityX) < Math.abs(this.maxVelocityX)) {
+            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(this.maxVelocityX)) {
                 this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
             }
         }
-        if (this.entity.body.preVelocityY > 0) {
+        if (this.entity.body.velocityY > 0) {
             this.ai.changeState(`fall`);
         }
         if (Util.onGround(this.entity)) {

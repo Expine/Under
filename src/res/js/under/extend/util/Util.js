@@ -44,7 +44,7 @@ class Util { // eslint-disable-line  no-unused-vars
             if (it.ny != 0) {
                 continue;
             }
-            let dot = entity.body.preVelocityX * it.nx + entity.body.preVelocityY * it.ny;
+            let dot = entity.body.velocityX * it.nx + entity.body.velocityY * it.ny;
             if ((it.e1 === entity && dot > 0) || (it.e2 === entity && dot < 0)) {
                 return this.getCollidedEntity(entity, it);
             }

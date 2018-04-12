@@ -27,7 +27,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
         this.setAnimation(anime);
         this.setCollider(new DirectionalRectangleCollider((23 - 8) * this.width / 32, (10 - 2) * this.height / 32, 10 * this.width / 32, 10 * this.height / 32));
-        this.setMaterial(new DefaultMaterial());
+        this.setMaterial(new ImmutableMaterial());
         this.setRigidBody(new PreciseBody());
         this.addAI(new HeadHookStateAI(this, entity));
 

@@ -139,7 +139,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         ctx.fillText(`${this.playerCollisions} P collision`, Screen.it.width, 60, 1.0, 0.0, 20, `white`);
         // TODO: May be implement getter method
         ctx.fillText(`${this.stage.getPhysicalWorld().response instanceof ImpulseBasedResponse ? 'Impluse' : `Repulsion`}`, Screen.it.width, 90, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`(${Math.floor(this.player.x)}, ${Math.floor(this.player.y)})(${Math.floor(this.player.body.velocityX)}, ${Math.floor(this.player.body.velocityY)})(${Math.floor(this.player.body.preVelocityX)},${Math.floor(this.player.body.preVelocityY)})`, Screen.it.width, 120, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`(${Math.floor(this.player.x)}, ${Math.floor(this.player.y)})(${Math.floor(this.player.body.velocityX)}, ${Math.floor(this.player.body.velocityY)})(${Math.floor(this.player.body.velocityX)},${Math.floor(this.player.body.velocityY)})`, Screen.it.width, 120, 1.0, 0.0, 20, `white`);
         if (this.player.state != null) {
             ctx.fillText(this.player.state.constructor.toString().split(`\n`)[0].split(` `)[1], Screen.it.width, 150, 1.0, 0.0, 20, `white`);
         }

@@ -136,8 +136,8 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
      */
     tension(x, y, dt) {
         // this.body.enforce(x * 5000 / dt, y * 5000 / dt);
-        // this.body.setNextAddVelocity(x * 1000 / dt - this.body.preVelocityX, y * 1000 / dt - this.body.preVelocityY);
-        // this.body.setNextAddVelocity(x * 1000 / dt - this.body.preVelocityX, y * 1000 / dt - this.body.preVelocityY);
+        // this.body.setNextAddVelocity(x * 1000 / dt - this.body.velocityX, y * 1000 / dt - this.body.velocityY);
+        // this.body.setNextAddVelocity(x * 1000 / dt - this.body.velocityX, y * 1000 / dt - this.body.velocityY);
     }
 
     /**

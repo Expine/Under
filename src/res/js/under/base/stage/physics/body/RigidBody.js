@@ -1,10 +1,12 @@
 /**
  * Rigid body
- * @classdesc Physics item for rigid body
+ * - ### Update entity by physical quantity
+ * @classdesc Rigid body to update entity by phsycal quantity
  */
 class RigidBody { // eslint-disable-line  no-unused-vars
     /**
      * Rigid body constructor
+     * @constructor
      */
     constructor() {
         /**
@@ -27,27 +29,6 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.accelerationY = 0;
-
-        /**
-         * X velocity of the previous frame
-         * @type {number}
-         */
-        this.preVelocityX = 0;
-        /**
-         * Y velocity of the previous frame
-         * @type {number}
-         */
-        this.preVelocityY = 0;
-        /**
-         * Horizontal acceleration of entity of the previous frame
-         * @type {number}
-         */
-        this.preAccelerationX = 0;
-        /**
-         * Vertical acceleration of entity of the previous frame
-         * @type {number}
-         */
-        this.preAccelerationY = 0;
 
         /**
          * Coefficient of air resistance
@@ -121,12 +102,8 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     reset() {
         this.velocityX = 0;
         this.velocityY = 0;
-        this.preVelocityX = 0;
-        this.preVelocityY = 0;
         this.accelerationX = 0;
         this.accelerationY = 0;
-        this.preAccelerationX = 0;
-        this.preAccelerationY = 0;
         this.diffX = 0;
         this.diffY = 0;
         this.isFixX = false;

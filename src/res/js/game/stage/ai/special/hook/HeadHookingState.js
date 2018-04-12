@@ -10,8 +10,8 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
      * @override
      */
     init() {
-        this.entity.directionX = Math.sign(this.entity.body.preVelocityX) == 0 ? 1 : Math.sign(this.entity.body.preVelocityX);
-        this.entity.directionY = Math.sign(this.entity.body.preVelocityY) == 0 ? -1 : Math.sign(this.entity.body.preVelocityY);
+        this.entity.directionX = Math.sign(this.entity.body.velocityX) == 0 ? 1 : Math.sign(this.entity.body.velocityX);
+        this.entity.directionY = Math.sign(this.entity.body.velocityY) == 0 ? -1 : Math.sign(this.entity.body.velocityY);
     }
 
     /**
@@ -23,8 +23,8 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
     apply(dt) {
         super.apply(dt);
         // set direction
-        let vx = Math.sign(this.entity.body.preVelocityX);
-        let vy = Math.sign(this.entity.body.preVelocityY);
+        let vx = Math.sign(this.entity.body.velocityX);
+        let vy = Math.sign(this.entity.body.velocityY);
         this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
         this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
         // check collisions

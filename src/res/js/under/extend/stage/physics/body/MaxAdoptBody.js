@@ -13,6 +13,31 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
         super();
 
         /**
+         * Internal current x velocity
+         * @protected
+         * @type {number}
+         */
+        this.internalVelocityX = this.velocityX;
+        /**
+         * Internal current y velocity
+         * @protected
+         * @type {number}
+         */
+        this.internalVelocityY = this.velocityY;
+        /**
+         * Internal current x acceleration
+         * @protected
+         * @type {number}
+         */
+        this.internalAccelerationX = this.accelerationX;
+        /**
+         * Internal current y acceleration
+         * @protected
+         * @type {number}
+         */
+        this.internalAccelerationY = this.accelerationY;
+
+        /**
          * Positive x velocity vector to be added nextly
          * @protected
          * @type {number}
@@ -76,6 +101,10 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
      */
     reset() {
         super.reset();
+        this.internalVelocityX = 0;
+        this.internalVelocityY = 0;
+        this.internalAccelerationX = 0;
+        this.internalAccelerationY = 0;
         this.vpx = 0;
         this.vpy = 0;
         this.vmx = 0;
@@ -89,8 +118,8 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
      * @param {number} forceY Force in y direction
      */
     enforce(forceX, forceY) {
-        this.accelerationX += forceX / this.entity.material.mass;
-        this.accelerationY += forceY / this.entity.material.mass;
+        this.internalAccelerationX += forceX / this.entity.material.mass;
+        this.internalAccelerationY += forceY / this.entity.material.mass;
     }
 
 
@@ -109,36 +138,36 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
         this.preY = this.entity.y;
 
         // next add velocity
-        this.velocityX += this.vpx + this.vmx;
-        this.velocityY += this.vpy + this.vmy;
+        this.internalVelocityX += this.vpx + this.vmx;
+        this.internalVelocityY += this.vpy + this.vmy;
         // enforce
-        this.velocityX += this.accelerationX * dt / 1000;
-        this.velocityY += this.accelerationY * dt / 1000;
+        this.internalVelocityX += this.internalAccelerationX * dt / 1000;
+        this.internalVelocityY += this.internalAccelerationY * dt / 1000;
         // air resistance
-        let kx = -this.velocityX * this.k / this.entity.material.mass * dt / 1000;
-        let ky = -this.velocityY * this.k / this.entity.material.mass * dt / 1000;
-        if (Math.abs(this.velocityX) < Math.abs(kx)) {
-            this.velocityX = 0;
+        let kx = -this.internalVelocityX * this.k / this.entity.material.mass * dt / 1000;
+        let ky = -this.internalVelocityY * this.k / this.entity.material.mass * dt / 1000;
+        if (Math.abs(this.internalVelocityX) < Math.abs(kx)) {
+            this.internalVelocityX = 0;
         } else {
-            this.velocityX += kx;
+            this.internalVelocityX += kx;
         }
-        if (Math.abs(this.velocityY) < Math.abs(ky)) {
-            this.velocityY = 0;
+        if (Math.abs(this.internalVelocityY) < Math.abs(ky)) {
+            this.internalVelocityY = 0;
         } else {
-            this.velocityY += ky;
+            this.internalVelocityY += ky;
         }
         // move
-        let dx = this.velocityX * dt / 1000;
-        let dy = this.velocityY * dt / 1000;
+        let dx = this.internalVelocityX * dt / 1000;
+        let dy = this.internalVelocityY * dt / 1000;
         this.entity.deltaMove(dx, dy);
         // reserve velocity and acceleration
-        this.preVelocityX = this.velocityX;
-        this.preVelocityY = this.velocityY;
-        this.preAccelerationX = this.accelerationX;
-        this.preAccelerationY = this.accelerationY;
+        this.velocityX = this.internalVelocityX;
+        this.velocityY = this.internalVelocityY;
+        this.accelerationX = this.internalAccelerationX;
+        this.accelerationY = this.internalAccelerationY;
         // reset
-        this.accelerationX = 0;
-        this.accelerationY = 0;
+        this.internalAccelerationX = 0;
+        this.internalAccelerationY = 0;
         this.vpx = 0;
         this.vpy = 0;
         this.vmx = 0;

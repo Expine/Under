@@ -36,7 +36,7 @@ package under {
                     class PlayerBody
                 }
                 package ex_material {
-                    class DefaultMaterial
+                    class ImmutableMaterial
                 }
             }
         }
@@ -66,6 +66,6 @@ Collider <|.. CircleCollider
 RectangleCollider <|-- RoundRectangleCollider
 RigidBody <|.. MaxAdoptBody
 MaxAdoptBody <|-- PlayerBody
-Material <|.. DefaultMaterial
+Material <|.. ImmutableMaterial
 
 @enduml

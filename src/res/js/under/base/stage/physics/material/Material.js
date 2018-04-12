@@ -1,32 +1,28 @@
 /**
  * Material
- * Object information
- * If the object has a Collider, it must be held
+ * - ### Object information
+ * - ### If the object has a Collider, it must be held
+ * @classdesc Material that indicates object information
  */
 class Material { // eslint-disable-line  no-unused-vars
     /**
-     * Material constructor
-     * @param {number} mass Entity mass
-     * @param {number} elasticity Coefficient of restitution
-     * @param {number} mu Coefficient of friction
+     * Get mass
+     * @interface
+     * @return {number} Mass
      */
-    constructor(mass, elasticity, mu) {
-        /**
-         * Entity mass
-         * @type {number}
-         */
-        this.mass = mass;
+    get mass() { }
 
-        /**
-         * Coefficient of restitution
-         * @type {number}
-         */
-        this.e = elasticity;
+    /**
+     * Get coefficient of restitution
+     * @interface
+     * @return {number} Coefficient of restitution
+     */
+    get e() { }
 
-        /**
-         * Coefficient of friction
-         * @type {number}
-         */
-        this.mu = mu;
-    }
+    /**
+     * Get coefficient of restitution
+     * @interface
+     * @return {number} Coefficient of restitution
+     */
+    get mu() { }
 }

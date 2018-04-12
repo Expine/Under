@@ -57,10 +57,10 @@ class PreciseBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
             }
         }
         // reserve velocity and acceleration
-        this.preVelocityX = this.velocityX;
-        this.preVelocityY = this.velocityY;
-        this.preAccelerationX = this.accelerationX;
-        this.preAccelerationY = this.accelerationY;
+        this.velocityX = this.velocityX;
+        this.velocityY = this.velocityY;
+        this.accelerationX = this.accelerationX;
+        this.accelerationY = this.accelerationY;
         // reset
         this.accelerationX = 0;
         this.accelerationY = 0;
