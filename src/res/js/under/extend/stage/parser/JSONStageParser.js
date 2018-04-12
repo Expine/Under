@@ -43,7 +43,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Map} map instance for base of parsing
      */
     makeBaseMap(map) {
-        let ret = new SequentialMap(map.width, map.height);
+        let ret = new SequentialMap();
         for (let back of map.backs) {
             ret.addMap(this.makeMapElement(map, back));
         }
@@ -60,7 +60,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     makeMapElement(map, back) {
         if (back.type == `Invariant`) {
             let id = ResourceManager.image.load(`back/${back.file}`);
-            return new InvariantBackMap(id, map.width, map.height);
+            return new InvariantBackMap(id);
         } else {
             console.log(`Not Map: ${back}`);
         }

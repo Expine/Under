@@ -35,9 +35,9 @@ class PPunchState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Render entity by this state
      * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, 96, 16 - this.entity.directionX * 16, 32, 32);

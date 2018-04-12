@@ -139,9 +139,9 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
     /**
      * Render collider for debug
      * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX, shiftY) {
         ctx.strokeCircle(this.centerX + shiftX, this.centerY + shiftY, this.radius, 0, 2 * Math.PI, false);

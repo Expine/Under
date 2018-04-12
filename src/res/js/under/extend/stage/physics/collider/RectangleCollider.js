@@ -139,9 +139,9 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
     /**
      * Render collider for debug
      * @interface
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX, shiftY) {
         ctx.strokeRect(this.aabb.startX + shiftX, this.aabb.startY + shiftY, this.endX - this.startX, this.endY - this.startY);

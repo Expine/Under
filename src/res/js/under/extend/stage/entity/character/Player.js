@@ -74,9 +74,9 @@ class Player extends StateCharacter /* , Playable */ { // eslint-disable-line  n
     /**
      * Render entity
      * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         if (this.invincible_ % 2 == 0 || this.hp <= 0) {

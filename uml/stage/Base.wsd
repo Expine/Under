@@ -35,9 +35,6 @@ package unde {
             }
             package map {
                 abstract Map {
-                    +Map(width,height) : Map
-                    +width : number
-                    +height : number
                     {abstract} +getBackID() : number
                     {abstract} +update(dt)
                     {abstract} +render(ctx,shiftX,shiftY)
@@ -48,6 +45,8 @@ package unde {
                     +Camera(screenWidth,screenHeight) : Camera
                     +cameraX : number
                     +cameraY : number
+                    +baseX : number
+                    +baseY : number
                     +screenWidth : number
                     +screenHeight : number
                     +setCameraPosition(x,y,width,height)

@@ -13,12 +13,13 @@ package under {
                     #maps : Array<Map>
                 }
                 class InvariantBackMap {
-                    +InvariantBackMap(imageID,width,height)
-                    -backID_ : number
+                    +InvariantBackMap(imageID)
+                    #backID : number
                 }
             }
             package ex_camera {
                 class CenterCamera
+                class MovingCenterCamera
             }
 
             package ex_physics {
@@ -63,6 +64,7 @@ CollisionData "1"--o "*"SequentialWorld : Pool
 Stage <|.. SplitManagementStage
 SplitManagementStage <|-- DebugStage
 Camera <|.. CenterCamera
+CenterCamera <|-- MovingCenterCamera
 Map <|.. SequentialMap
 Map <|.. InvariantBackMap
 PhysicalWorld <|.. SequentialWorld

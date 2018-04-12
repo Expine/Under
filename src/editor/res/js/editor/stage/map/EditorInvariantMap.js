@@ -8,9 +8,9 @@ class EditorInvariantBackMap extends InvariantBackMap { // eslint-disable-line  
     /**
      * Render map
      * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         ctx.drawImage(this.backID_, 0, Screen.it.height - 850);

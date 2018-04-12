@@ -1,24 +1,25 @@
 /**
- * Map where the background does not move
+ * Invariant back map
+ * - Renders and update backgrdoun image
+ * - ### Map where the background does not move
  * @implements {Map}
- * @classdesc Map where the background does not move
+ * @classdesc Invariant back map where the background does not move
  */
 class InvariantBackMap extends Map { // eslint-disable-line  no-unused-vars
     /**
-     *
+     * Invariant back map constructor
+     * @constructor
      * @param {number} backID background image id
-     * @param {number} width
-     * @param {number} height
      */
-    constructor(backID, width, height) {
-        super(width, height);
+    constructor(backID) {
+        super();
 
         /**
          * Background image id
-         * @private
+         * @protected
          * @type {number}
          */
-        this.backID_ = backID;
+        this.backID = backID;
     }
 
     /**
@@ -27,17 +28,17 @@ class InvariantBackMap extends Map { // eslint-disable-line  no-unused-vars
      * @return {number} Back image ID
      */
     getBackID() {
-        return this.backID_;
+        return this.backID;
     }
 
     /**
      * Render map
      * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.backID_, 0, 0);
+        ctx.drawImage(this.backID, 0, 0);
     }
 }

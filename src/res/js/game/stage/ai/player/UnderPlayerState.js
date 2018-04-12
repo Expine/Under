@@ -8,9 +8,9 @@ class UnderPlayerState extends TransferableState { // eslint-disable-line  no-un
     /**
      * Render entity by this state
      * @override
-     * @param {Context} ctx - canvas context
-     * @param {number} [shiftX = 0] shift x position
-     * @param {number} [shiftY = 0] shift y position
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         if (this.stateAnimation !== null) {
