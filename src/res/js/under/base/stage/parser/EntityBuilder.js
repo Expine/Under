@@ -1,7 +1,7 @@
 /**
- * Generate entity from json data
- * Has json data parsing
- * @classdesc Builder to generate entity
+ * Entity builder
+ * - ### Generates entity from json data
+ * @classdesc Entity builder to generate entity
  */
 class EntityBuilder { // eslint-disable-line  no-unused-vars
     /**

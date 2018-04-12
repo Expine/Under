@@ -1,7 +1,12 @@
 /**
  * Editor stage parser to generate stage
+ * - Generates a stage from a file
+ * - Parses JSON file
+ * - Set original response
+ * - Set unique builder by default
+ * - ### Generates editor element
  * @extends {UnderStageParser}
- * @classdesc Editor stage parser to generate stage
+ * @classdesc Editor stage parser to generate editor element
  */
 class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-unused-vars
     /**
@@ -9,7 +14,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @override
      * @protected
      * @param {json} stage Stage json data
-     * @return {Stage} stage instance for base of parsing
+     * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
         return new EditorStage(stage.width, stage.height, stage.tileInfo, stage.entityInfo);
@@ -20,7 +25,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @override
      * @protected
      * @param {json} map Map json data
-     * @return {Map} map instance for base of parsing
+     * @return {Map} Map instance for base of parsing
      */
     makeBaseMap(map) {
         let ret = new EditorMap(map.width, map.height);
@@ -53,7 +58,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @param {json} camera Camera json data
      * @param {number} width Camera width
      * @param {number} height Camera height
-     * @return {Camera} camera instance for base of parsing
+     * @return {Camera} Camera instance for base of parsing
      */
     makeBaseCamera(camera, width, height) {
         return new EditorCamera(width, height);

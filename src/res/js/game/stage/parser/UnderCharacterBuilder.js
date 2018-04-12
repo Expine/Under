@@ -1,12 +1,18 @@
 /**
- * Generate under character from json data
- * Has json data parsing
+ * Under character builder
+ * - Generates entity from json data
+ * - Generate tile from json data
+ * - Generate not tile but mutable entity from json data
+ * - ### Gemerates under player
+ * - ### Automatically sets normal none state
  * @extends {CharacterBuilder}
- * @classdesc Builder to generate under character
+ * @classdesc Under character builder to generate under player and sets normal none state automatically
  */
 class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make AI
+     * @override
+     * @protected
      * @param {json} ai AI information json data
      * @param {json} animation AI animation json data
      * @return {AI} AI

@@ -1,35 +1,38 @@
 /**
- * CSV parser to generate stage
- * It can also be used as a builder pattern
+ * CSV stage parser
+ * - Generates a stage from a file
+ * - ### Parses CSV file
  * @implements {StageParser}
- * @classdesc CSV parser to generate stage
+ * @classdesc CSV stage parser to parse CSV file
  */
 class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-vars
     /**
      * Make base stage for parsing stage
      * @protected
-     * @return {Stage} stage instance for base of parsing
+     * @param {number} width Stage width
+     * @param {height} height Stage height
+     * @return {Stage} Stage instance for base of parsing
      */
-    makeBaseStage() {
-        return new SplitManagementStage();
+    makeBaseStage(width, height) {
+        return new SplitManagementStage(width, height);
     }
 
     /**
      * Make base map for parsing stage
      * @protected
-     * @param {number} imageID background image id
-     * @param {number} width map width
-     * @param {height} height map height
-     * @return {Map} map instance for base of parsing
+     * @param {number} imageID Background image id
+     * @return {Map} Map instance for base of parsing
      */
-    makeBaseMap(imageID, width, height) {
-        return new InvariantBackMap(imageID, width, height);
+    makeBaseMap(imageID) {
+        return new InvariantBackMap(imageID);
     }
 
     /**
      * Make base camera for parsing stage
      * @protected
-     * @return {Camera} camera instance for base of parsing
+     * @param {number} width Camera width
+     * @param {height} height Camera height
+     * @return {Camera} Camera instance for base of parsing
      */
     makeBaseCamera(width, height) {
         return new CenterCamera(width, height);
@@ -49,16 +52,16 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
     /**
      * Make tile object
      * @protected
-     * @param {number} verticalId tile vertical id
-     * @param {number} horizontalId tile horizontal id
-     * @param {number} tileWidth tile width
-     * @param {number} tileHeight tile height
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
-     * @param {number} imageID tile image id
-     * @return {TileObject} tile object
+     * @param {number} verticalId Tile vertical id
+     * @param {number} horizontalId Tile horizontal id
+     * @param {number} tileWidth Tile width
+     * @param {number} tileHeight Tile height
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Object width
+     * @param {number} height Object height
+     * @param {number} imageID Tile image id
+     * @return {TileObject} Tile object
      */
     makeTileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID) {
         let tile = new TileObject(horizontalId * tileWidth, verticalId * tileHeight, tileWidth, tileHeight, x, y, width, height, imageID);
@@ -70,10 +73,10 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
     /**
      * Parset file to stage
      * @override
-     * @param {string} filePath stage file path
-     * @param {number} width stage width for rendering area
-     * @param {number} height stage height for rendering area
-     * @return {Stage} stage instance
+     * @param {string} filePath Stage file path
+     * @param {number} width Stage width for rendering area
+     * @param {number} height Stage height for rendering area
+     * @return {Stage} Stage instance
      */
     parse(filePath, width, height) {
         // Load stage file
@@ -93,11 +96,10 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
         let tileWidth = parseInt(tileBaseData[1]);
         let tileHeight = parseInt(tileBaseData[2]);
         let tileHorizontalNumber = parseInt(tileBaseData[3]);
-        // let tileVerticalNumber = parseInt(tileBaseData[4]);
 
         // set base
-        let stage = this.makeBaseStage();
-        stage.setMap(this.makeBaseMap(backID, stageWidth * tileWidth, stageHeight * tileHeight));
+        let stage = this.makeBaseStage(stageWidth * tileWidth, stageHeight * tileHeight);
+        stage.setMap(this.makeBaseMap(backID));
         stage.setCamera(this.makeBaseCamera(width, height));
         stage.setPhysicalWorld(this.makeBaseWorld());
         // set tile

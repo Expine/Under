@@ -1,18 +1,23 @@
 /**
- * Generate character from json data
- * Has json data parsing
+ * Character builder
+ * - Generates entity from json data
+ * - Generate tile from json data
+ * - ### Generate not tile but mutable entity from json data
  * @extends {TileBuilder}
- * @classdesc Builder to generate character
+ * @classdesc Character builder to generate mutable entity
  */
 class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make rigid body
+     * @protected
      * @param {json} body Rigid body information json data
      * @return {RigidBody} RigidBody
      */
     makeBody(body) {
         if (body.type == `MaxAdopt`) {
             return new MaxAdoptBody();
+        } else if (body.type == `Precise`) {
+            return new PreciseBody();
         } else if (body.type == `Player`) {
             return new PlayerBody();
         }
@@ -20,6 +25,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
 
     /**
      * Make AI
+     * @protected
      * @param {json} ai AI information json data
      * @param {json} animation AI animation json data
      * @return {AI} AI

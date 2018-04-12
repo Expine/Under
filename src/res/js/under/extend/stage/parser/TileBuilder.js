@@ -1,12 +1,14 @@
 /**
- * Generate tile from json data
- * Has json data parsing
+ * Tile builder
+ * - Generates entity from json data
+ * - ### Generate tile from json data
  * @implements {EntityBuilder}
- * @classdesc Builder to generate tile
+ * @classdesc Tile builder to generate tile from json data
  */
 class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make collider
+     * @protected
      * @param {json} collider Collider information json data
      * @return {Collider} Collider
      */
@@ -22,6 +24,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make material
+     * @protected
      * @param {json} material Material information json data
      * @return {Material} Material
      */

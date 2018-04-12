@@ -1,8 +1,9 @@
 /**
- * JSON parser to generate stage
- * It can also be used as a builder pattern
+ * JSON stage parser
+ * - Generates a stage from a file
+ * - ### Parses JSON file
  * @implements {StageParser}
- * @classdesc JSON parser to generate stage
+ * @classdesc JSON stage parser to parse JSON file
  */
 class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-vars
     /**
@@ -30,7 +31,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * Make base stage for parsing stage
      * @protected
      * @param {json} stage Stage json data
-     * @return {Stage} stage instance for base of parsing
+     * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
         return Engine.debug ? new DebugStage(stage.width, stage.height) : new SplitManagementStage(stage.width, stage.height);
@@ -40,7 +41,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * Make base map for parsing stage
      * @protected
      * @param {json} map Map json data
-     * @return {Map} map instance for base of parsing
+     * @return {Map} Map instance for base of parsing
      */
     makeBaseMap(map) {
         let ret = new SequentialMap();
@@ -72,7 +73,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @param {json} camera Camera json data
      * @param {number} width Camera width
      * @param {number} height Camera height
-     * @return {Camera} camera instance for base of parsing
+     * @return {Camera} Camera instance for base of parsing
      */
     makeBaseCamera(camera, width, height) {
         return new MovingCenterCamera(width, height);
@@ -113,10 +114,10 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     /**
      * Parset file to stage
      * @override
-     * @param {string} filePath stage file path
-     * @param {number} width stage width for rendering area
-     * @param {number} height stage height for rendering area
-     * @return {Stage} stage instance
+     * @param {string} filePath Stage file path
+     * @param {number} width Stage width for rendering area
+     * @param {number} height Stage height for rendering area
+     * @return {Stage} Stage instance
      */
     parse(filePath, width, height) {
         // get stage file data

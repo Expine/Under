@@ -1,8 +1,10 @@
 /**
- * Generate under tile from json data
- * Has json data parsing
+ * Under tile builder
+ * - Generates entity from json data
+ * - Generate tile from json data
+ * - ### Generates unique tile object
  * @extends {TileBuilder}
- * @classdesc Builder to generate under tile
+ * @classdesc Under tile builder to generates unique tile object
  */
 class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-vars
     /**
