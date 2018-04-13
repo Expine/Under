@@ -72,11 +72,11 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                if (dot2 > 0 || e1 instanceof AutonomyObject) {
+                if (dot2 > 0 || e1 instanceof AutonomyEntitiy) {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                         e1.deltaMove(-nx * d / 10, -ny * d / 10);
                     }
-                } else if (e2 instanceof AutonomyObject) {
+                } else if (e2 instanceof AutonomyEntitiy) {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                         e2.deltaMove(nx * d / 10, ny * d / 10);
                     }

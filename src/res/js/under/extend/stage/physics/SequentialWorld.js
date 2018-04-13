@@ -32,21 +32,21 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         /**
          * List of entities to act on
          * @protected
-         * @type {Array<Entity>}
+         * @type {Array<MutableEntity>}
          */
         this.actors = [];
 
         /**
          * List of entities not to act on
          * @protected
-         * @type {Array<Entity>}
+         * @type {Array<InfluentialEntity>}
          */
         this.notActors = [];
 
         /**
          * List of all entities
          * @protected
-         * @type {Array<Entity>}
+         * @type {Array<InfluentialEntity>}
          */
         this.entities = [];
 
@@ -59,7 +59,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     /**
      * Add entity as actior
      * @override
-     * @param {Entity} actor Entity as actor
+     * @param {MutableEntity} actor Entity as actor
      */
     addActor(actor) {
         this.actors.push(actor);
@@ -72,7 +72,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     /**
      * Add entity in physical world
      * @override
-     * @param {Entity} entity Entity in physical world
+     * @param {InfluentialEntity} entity Entity in physical world
      */
     addEntity(entity) {
         this.entities.push(entity);
@@ -84,7 +84,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     /**
      * Remove entity from physical world
      * @override
-     * @param {Entity} entity Entity to remove from physical world
+     * @param {InfluentialEntity} entity Entity to remove from physical world
      */
     removeEntity(entity) {
         let index = this.entities.indexOf(entity);
@@ -133,8 +133,10 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     updateExternalForce(dt) {
         for (let target of this.actors) {
-            if (target.body !== undefined) {
+            if (target.body !== null) {
                 target.body.enforce(0, this.gravity * target.material.mass);
+            } else {
+                console.log(target.body);
             }
         }
     }
@@ -147,7 +149,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     updateBody(dt) {
         for (let target of this.actors) {
-            if (target.body !== undefined) {
+            if (target.body !== null) {
                 target.body.update(dt);
             }
         }

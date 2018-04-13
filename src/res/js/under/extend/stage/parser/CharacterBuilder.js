@@ -66,7 +66,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {number} x Entity x position
      * @param {number} y Entity y position
      * @param {json} entity Entity information json data
-     * @return {Entity} Underlying entity
+     * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(x, y, entity) {
         if (entity.type == `Player`) {
@@ -90,10 +90,10 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         let base = this.makeEntityBase(x, y, json);
         base.setCollider(this.makeCollider(json.collider));
         base.setMaterial(this.makeMaterial(json.material));
-        if (base instanceof MutableObject) {
+        if (base instanceof MutableEntity) {
             base.setRigidBody(this.makeBody(json.body));
         }
-        if (json.ai !== undefined && base instanceof AutonomyObject) {
+        if (json.ai !== undefined && base instanceof AutonomyEntitiy) {
             for (let ai of json.ai) {
                 base.addAI(this.makeAI(ai, json.state));
             }

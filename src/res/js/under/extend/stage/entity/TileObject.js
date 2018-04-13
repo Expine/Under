@@ -2,10 +2,10 @@
  * Stage tile object
  * Indicates the tile of not moving on stage
  * Decides the tile to be displayed by the ID, using the sprite indicating the stage tiles
- * @implements {ImmutableObject}
+ * @implements {ImmutableEntity}
  * @classdesc Stage tile object to indicate the tile of not moving on stage
  */
-class TileObject extends ImmutableObject { // eslint-disable-line  no-unused-vars
+class TileObject extends ImmutableEntity { // eslint-disable-line  no-unused-vars
     /**
      * Tile object constructor
      * @constructor

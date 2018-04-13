@@ -1,10 +1,10 @@
 /**
  * Single AI Object
  * Manages AI by list
- * @implements {AutonomyObject}
+ * @implements {AutonomyEntitiy}
  * @classdesc AI Listed object to manager AI by list
  */
-class SingleAIObject extends AutonomyObject { // eslint-disable-line  no-unused-vars
+class SingleAIObject extends AutonomyEntitiy { // eslint-disable-line  no-unused-vars
     /**
      * Single AI object constructor
      * @constructor

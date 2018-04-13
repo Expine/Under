@@ -14,7 +14,7 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {number} x Entity x position
      * @param {number} y Entity y position
      * @param {json} tile Tile information json data
-     * @return {Entity} Underlying tile object
+     * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(x, y, tile) {
         return new UnderTileObject(tile.terrain, tile.x, tile.y, tile.width, tile.height, x, y, tile.width, tile.height, tile.file);

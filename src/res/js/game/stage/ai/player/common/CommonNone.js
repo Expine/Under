@@ -6,7 +6,7 @@
 class CommonNoneState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Set entity for targeting
-     * @param {AutonomyObject implements Damagable} entity Entity for tageting
+     * @param {AutonomyEntitiy implements Damagable} entity Entity for tageting
      */
     setEntity(entity) {
         if (BaseUtil.implementsOf(entity, Damagable)) {

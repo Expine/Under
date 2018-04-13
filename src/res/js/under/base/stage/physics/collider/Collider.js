@@ -36,7 +36,7 @@ class Collider { // eslint-disable-line  no-unused-vars
         /**
          * Entity attaching this
          * @protected
-         * @type {Entity}
+         * @type {InfluentialEntity}
          */
         this.entity = null;
     }
@@ -51,7 +51,7 @@ class Collider { // eslint-disable-line  no-unused-vars
 
     /**
      * Set entity attaching this
-     * @param {Entity} entity Entity attaching this
+     * @param {InfluentialEntity} entity Entity attaching this
      */
     setEntity(entity) {
         this.entity = entity;

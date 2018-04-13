@@ -25,6 +25,9 @@ public class Builder {
                 if(files.size() == 0)
                     break;
                 File file = files.get(0);
+                if(i > 1000) {
+                    System.out.println(file);
+                }
                 files.remove(0);
                 if(isCanInclude(file)) {
                     if(isMainClass(file)) {

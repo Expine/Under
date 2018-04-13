@@ -7,8 +7,8 @@ class CollisionData { // eslint-disable-line  no-unused-vars
     /**
      * Collision data constructor
      * @constructor
-     * @param {Entity} e1 Collision entity
-     * @param {Entity} e2 Collision entity
+     * @param {InfluentialEntity} e1 Collision entity
+     * @param {InfluentialEntity} e2 Collision entity
      * @param {number} nx X component of normal vector
      * @param {number} ny Y component of normal vector
      * @param {number} px Collision x point
@@ -18,12 +18,12 @@ class CollisionData { // eslint-disable-line  no-unused-vars
     constructor(e1, e2, nx, ny, px, py, depth) {
         /**
          * Collision entity
-         * @type {Entity}
+         * @type {InfluentialEntity}
          */
         this.e1 = e1;
         /**
          * Collision entity
-         * @type {Entity}
+         * @type {InfluentialEntity}
          */
         this.e2 = e2;
         // TODO: Directed vector? Undirected vector? At present, Directed vector

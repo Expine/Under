@@ -24,7 +24,7 @@ class HookingState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Set entity for targeting
      * @override
-     * @param {AutonomyObject} entity Entity for tageting
+     * @param {AutonomyEntitiy} entity Entity for tageting
      */
     setEntity(entity) {
         if (BaseUtil.implementsOf(entity, Hookable)) {

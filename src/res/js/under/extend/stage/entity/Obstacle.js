@@ -1,10 +1,10 @@
 /**
  * Obstacle
  * Obstacle on the stage
- * @implements {MmutableObject}
+ * @implements {MutableEntity}
  * @classdesc Obstacle on the stage
  */
-class Obstacle extends MutableObject { // eslint-disable-line  no-unused-vars
+class Obstacle extends MutableEntity { // eslint-disable-line  no-unused-vars
     /**
      * Render entity
      * @override

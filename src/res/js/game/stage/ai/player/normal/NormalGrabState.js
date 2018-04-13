@@ -45,7 +45,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
     /**
      * Set entity for targeting
      * @override
-     * @param {AutonomyObject} entity Entity for tageting
+     * @param {AutonomyEntitiy} entity Entity for tageting
      */
     setEntity(entity) {
         if (BaseUtil.implementsOf(entity, UnderPlayable)) {

@@ -38,7 +38,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {number} x Entity x position
      * @param {number} y Entity y position
      * @param {json} tile Tile information json data
-     * @return {Entity} Underlying tile object
+     * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(x, y, tile) {
         return new TileObject(tile.x, tile.y, tile.width, tile.height, x, y, tile.width, tile.height, tile.file);

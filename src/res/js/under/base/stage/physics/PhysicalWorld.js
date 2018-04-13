@@ -37,21 +37,21 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     /**
      * Add entity as actior
      * @interface
-     * @param {Entity} actor Entity as actor
+     * @param {MutableEntity} actor Entity as actor
      */
     addActor(actor) {}
 
     /**
      * Add entity in physical world
      * @interface
-     * @param {Entity} entity Entity in physical world
+     * @param {InfluentialEntity} entity Entity in physical world
      */
     addEntity(entity) {}
 
     /**
      * Remove entity from physical world
      * @interface
-     * @param {Entity} entity Entity to remove from physical world
+     * @param {InfluentialEntity} entity Entity to remove from physical world
      */
     removeEntity(entity) {}
 

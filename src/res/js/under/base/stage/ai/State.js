@@ -7,12 +7,12 @@
 class State { // eslint-disable-line  no-unused-vars
     /**
      * Set entity for targeting
-     * @param {AutonomyObject} entity Entity for tageting
+     * @param {AutonomyEntitiy} entity Entity for tageting
      */
     setEntity(entity) {
         /**
          * Entity for targeting
-         * @type {AutonomyObject}
+         * @type {AutonomyEntitiy}
          */
         this.entity = entity;
     }

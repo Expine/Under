@@ -43,7 +43,7 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @param {number} x Entity x position
      * @param {number} y Entity y position
      * @param {json} entity Entity information json data
-     * @return {Entity} Underlying entity
+     * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(x, y, entity) {
         if (entity.type == `Player`) {

@@ -40,7 +40,7 @@ class RigidBody { // eslint-disable-line  no-unused-vars
         /**
          * Mutable entity attaching rigid body
          * @protected
-         * @type {MutableObject}
+         * @type {MutableEntity}
          */
         this.entity = null;
         /**
@@ -52,7 +52,7 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Set mutable entity
-     * @param {MutableObject} entity Mutable entity
+     * @param {MutableEntity} entity Mutable entity
      */
     setEntity(entity) {
         this.entity = entity;

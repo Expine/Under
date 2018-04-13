@@ -20,7 +20,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         /**
          * Mutable entity list for updating and phisical operation
          * @protected
-         * @type {Array<MutableObject>}
+         * @type {Array<MutableEntity>}
          */
         this.mutables = [];
         /**
@@ -41,7 +41,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     /**
      * Add entity to stage
      * @override
-     * @param {Entity} Pentity - entity object
+     * @param {Entity} entity Entity object
      */
     addEntity(entity) {
         // set player
@@ -49,12 +49,14 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             this.player = entity;
         }
         // set mutables
-        if (entity instanceof MutableObject) {
+        if (entity instanceof MutableEntity) {
             this.mutables.push(entity);
             this.physic.addActor(entity);
         }
+        if (entity instanceof InfluentialEntity) {
+            this.physic.addEntity(entity);
+        }
         this.entities.push(entity);
-        this.physic.addEntity(entity);
         // initialize entity
         super.addEntity(entity);
     }
@@ -62,7 +64,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     /**
      * Remove entity from stage
      * @override
-     * @param {Entity} entity - entity object
+     * @param {Entity} entity Entity object
      */
     removeEntity(entity) {
         // remove player
@@ -70,11 +72,13 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             this.player = null;
         }
         // remove mutables
-        if (entity instanceof MutableObject) {
+        if (entity instanceof MutableEntity) {
             this.mutables.splice(this.mutables.indexOf(entity), 1);
         }
+        if (entity instanceof InfluentialEntity) {
+            this.physic.removeEntity(entity);
+        }
         this.entities.splice(this.entities.indexOf(entity), 1);
-        this.physic.removeEntity(entity);
     }
 
     /**
@@ -93,8 +97,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt Delta time
      */
     updateEntity(dt) {
-        // update mutables and autonomies
-        for (let it of this.mutables) {
+        for (let it of this.entities) {
             it.update(dt);
         }
     }

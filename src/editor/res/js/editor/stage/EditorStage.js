@@ -90,7 +90,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
     /**
      * Add entity to stage
      * @override
-     * @param {Entity} Pentity - entity object
+     * @param {Entity} entity Entity object
      */
     addEntity(entity) {
         super.addEntity(entity);
@@ -138,7 +138,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
     /**
      * Remove entity from stage
      * @override
-     * @param {Entity} entity - entity object
+     * @param {Entity} entity Entity object
      */
     removeEntity(entity) {
         this.entitiesID.splice(this.entities.indexOf(entity), 1);
@@ -168,7 +168,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
             entity.id = this.entitiesID[i];
             entity.x = it.x;
             entity.y = it.y;
-            if (it instanceof ImmutableObject) {
+            if (it instanceof ImmutableEntity) {
                 data.layers[0].push(entity);
             } else {
                 data.deploy.push(entity);
@@ -186,7 +186,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         let charaBuilder = new UnderCharacterBuilder();
         let entities = this.getEntities();
         for (let i = entities.length - 1; i >= 0; --i) {
-            if (entities[i] instanceof MutableObject) {
+            if (entities[i] instanceof MutableEntity) {
                 this.removeEntity(entities[i]);
             }
         }
@@ -296,7 +296,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 for (let i = 0; i < entities.length; ++i) {
                     let entity = entities[i];
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        if (entity instanceof ImmutableObject) {
+                        if (entity instanceof ImmutableEntity) {
                             this.tileSelection.setSelected(this.entitiesID[i]);
                             break;
                         }
@@ -313,7 +313,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 // remove
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        if (entity instanceof MutableObject) {
+                        if (entity instanceof MutableEntity) {
                             this.removeEntity(entity);
                         }
                     }
@@ -324,7 +324,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 // remove
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        if (entity instanceof ImmutableObject) {
+                        if (entity instanceof ImmutableEntity) {
                             this.removeEntity(entity);
                         }
                     }

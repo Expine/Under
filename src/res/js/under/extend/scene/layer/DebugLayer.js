@@ -42,9 +42,9 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         /**
          * Game player
          * @protected
-         * @type {Entity}
+         * @type {MutableEntity}
          */
-        this.player = this.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, Playable))[0];
+        this.player = this.stage.getEntities().filter((it) => it instanceof MutableEntity && BaseUtil.implementsOf(it, Playable))[0];
 
         /**
          * Count for determinig information
