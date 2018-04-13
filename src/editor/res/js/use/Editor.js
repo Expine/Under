@@ -99,7 +99,7 @@
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/stage/camera/EditorCamera.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/stage/map/EditorInvariantMap.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/stage/map/EditorMap.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/editor/res/js/editor/util/Selection.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/editor/res/js/editor/util/ISelection.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/MainBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/scene/GameScene.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/scene/layer/UILayer.js';document.head.appendChild(script);script.onload = function() 

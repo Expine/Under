@@ -1,6 +1,7 @@
 /**
  * Single entity layer
  * - Performs drawing processing collectively
+ * - Selects something and set selected
  * - Selects something
  * - ### Selects a entity
  * @implements {SelectionLayer}

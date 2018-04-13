@@ -1,6 +1,7 @@
 /**
  * Single chip layer
  * - Performs drawing processing collectively
+ * - Selects something and set selected
  * - Selects something
  * - ### Selects chip
  * @implements {SelectionLayer}

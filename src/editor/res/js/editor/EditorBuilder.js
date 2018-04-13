@@ -1,8 +1,10 @@
 /**
  * Editor engine builder
- * Performs initial construction of the edtiro
+ * - Performs initial construction of the game engine
+ * - Generates all necessary instances
+ * - ### Generates instance related to editor
  * @extends {UnderEngineBuilder}
- * @classdesc Editor engine builder to perform initial construction of the editor
+ * @classdesc Editor engine builder to generate instance related to editor
  */
 class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unused-vars
     /**

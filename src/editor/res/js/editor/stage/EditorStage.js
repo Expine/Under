@@ -201,7 +201,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
      * @param {Selection} selection Tile selection
      */
     setTileSelection(selection) {
-        if (BaseUtil.implementsOf(selection, Selection)) {
+        if (BaseUtil.implementsOf(selection, ISelection)) {
             this.tileSelection = selection;
         }
     }
@@ -211,7 +211,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
      * @param {Selection} selection Entity selection
      */
     setEntitySelection(selection) {
-        if (BaseUtil.implementsOf(selection, Selection)) {
+        if (BaseUtil.implementsOf(selection, ISelection)) {
             this.entitySelection = selection;
         }
     }

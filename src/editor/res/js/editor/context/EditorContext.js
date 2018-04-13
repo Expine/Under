@@ -2,7 +2,7 @@
  * Editor context
  * - Controls rendering to the screen
  * - Renders by using HTML5 API
- * - Renders back by gray
+ * - ### Renders back by gray
  * @extends {JSContext}
  * @classdesc Editor context for rendering back by gray
  */

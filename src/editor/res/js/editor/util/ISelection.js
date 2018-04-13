@@ -1,10 +1,9 @@
 /**
  * Selection interface
- * Selects something and set selected
- * @implements {Layer}
+ * - ### Selects something and set selected
  * @classdesc Selection to select something and set selected
  */
-class Selection extends Interface { // eslint-disable-line  no-unused-vars
+class ISelection extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Get selected ID
      * @interface

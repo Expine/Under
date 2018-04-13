@@ -1,8 +1,10 @@
 /**
- * Map where the background does not move
- * And referense point is lower left
+ * Editor invariant back map
+ * - Renders and update backgrdoun image
+ * - Map where the background does not move
+ * - ### Referense point is lower left
  * @extends {InvariantBackMap}
- * @classdesc Map where the background does not move
+ * @classdesc Editor invariant back map that referense point is lower left
  */
 class EditorInvariantBackMap extends InvariantBackMap { // eslint-disable-line  no-unused-vars
     /**

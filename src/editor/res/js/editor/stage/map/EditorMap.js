@@ -1,7 +1,10 @@
 /**
- * Map for eidtor
+ * Editor map
+ * - Renders and update backgrdoun image
+ * - Processes continuously
+ * - ### It can be gotten save data
  * @extends {SequentialMap}
- * @classdesc Map for eidtor
+ * @classdesc Editor map that can be gotten save data
  */
 class EditorMap extends SequentialMap { // eslint-disable-line  no-unused-vars
     /**
