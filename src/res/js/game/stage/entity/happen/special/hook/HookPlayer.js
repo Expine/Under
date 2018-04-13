@@ -58,7 +58,7 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Update object
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         super.update(dt);

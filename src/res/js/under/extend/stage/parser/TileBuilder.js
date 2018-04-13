@@ -36,7 +36,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * Make underlying tile object
      * @protected
      * @param {number} x Entity x position
-     * @param {number} y Entity y position
+     * @param {number} y Entity Y position
      * @param {json} tile Tile information json data
      * @return {InfluentialEntity} Underlying tile object
      */
@@ -70,7 +70,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * Build tile from json data
      * @override
      * @param {number} x Entity x position
-     * @param {number} y Entity y position
+     * @param {number} y Entity Y position
      * @param {json} json tile json data
      * @return {Entity} Generated tile
      */

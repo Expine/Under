@@ -1,31 +1,44 @@
 /**
- * Player object
- * Entities operated by the player
+ * Player
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Object that can be destroyed
+ * - Object that can be damaged
+ * - Enable to set animation
+ * - Implements damagable and animationable
+ * - Entity that manages AI according to state and rendering by it
+ * - Player function interface
+ * - ### Entity operated by the player
  * @implements {StateCharacter}
- * @classdesc Player object to operate by input
+ * @implements {IPlayable}
+ * @classdesc Player to be operate by the player
  */
-class Player extends StateCharacter /* , Playable */ { // eslint-disable-line  no-unused-vars
+class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  no-unused-vars
     /**
      * Player constructor
      * @constructor
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
-     * @param {number} imageID image ID for rendering
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     * @param {number} imageID Image ID for rendering
      */
     constructor(x, y, width, height, imageID) {
-        super(x, y, width, height, imageID);
+        super(x, y, width, height, 3, imageID);
 
         // initialize
-        this.hp = 3;
         this.directionX = 1;
 
         /**
          * Remaining time of invincible state
+         * @protected
          * @type {number}
          */
-        this.invincible_ = 0;
+        this.invincible = 0;
     }
 
     /**
@@ -34,9 +47,9 @@ class Player extends StateCharacter /* , Playable */ { // eslint-disable-line  n
      * @param {number} damage Amount of damage
      */
     damage(damage) {
-        if (this.invincible_ == 0 && this.hp > 0) {
+        if (this.invincible == 0 && this.hp > 0) {
             this.hp -= damage;
-            this.invincible_ = 1000;
+            this.invincible = 1000;
         }
     }
 
@@ -61,12 +74,12 @@ class Player extends StateCharacter /* , Playable */ { // eslint-disable-line  n
     /**
      * Update object
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
-        this.invincible_ -= dt;
-        if (this.invincible_ <= 0) {
-            this.invincible_ = 0;
+        this.invincible -= dt;
+        if (this.invincible <= 0) {
+            this.invincible = 0;
         }
         super.update(dt);
     }
@@ -79,7 +92,7 @@ class Player extends StateCharacter /* , Playable */ { // eslint-disable-line  n
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.invincible_ % 2 == 0 || this.hp <= 0) {
+        if (this.invincible % 2 == 0 || this.hp <= 0) {
             super.render(ctx, shiftX, shiftY);
         }
     }

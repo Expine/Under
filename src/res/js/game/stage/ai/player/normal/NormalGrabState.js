@@ -48,7 +48,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @param {AutonomyEntitiy} entity Entity for tageting
      */
     setEntity(entity) {
-        if (BaseUtil.implementsOf(entity, UnderPlayable)) {
+        if (BaseUtil.implementsOf(entity, IUnderPlayable)) {
             super.setEntity(entity);
         }
     }
@@ -62,7 +62,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
     /**
      * Apply AI and decide action
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      * @return {bool} Whether decided on action
      */
     apply(dt) {
@@ -128,7 +128,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
             this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
             // change
             let ground = Util.getUnderEntity(this.entity);
-            if (BaseUtil.implementsOf(ground, Terrainable)) {
+            if (BaseUtil.implementsOf(ground, ITerrain)) {
                 if (this.entity.changeType(ground.getTerrainID())) {
                     this.changed();
                     return true;

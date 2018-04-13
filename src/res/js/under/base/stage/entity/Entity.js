@@ -19,7 +19,7 @@ class Entity { // eslint-disable-line  no-unused-vars
          */
         this.x = x;
         /**
-         * Entity y position
+         * Entity Y position
          * @type {number}
          */
         this.y = y;

@@ -8,7 +8,7 @@ class HeadHookReleasedState extends HookReleasedState { // eslint-disable-line  
     /**
      * Apply AI and decide action
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      * @return {bool} Whether decided on action
      */
     apply(dt) {
@@ -17,7 +17,7 @@ class HeadHookReleasedState extends HookReleasedState { // eslint-disable-line  
         for (let it of this.entity.collider.collisions) {
             let you = Util.getCollidedEntity(this.entity, it);
             if (you === this.actor) {
-                if (BaseUtil.implementsOf(this.entity, Breakable)) {
+                if (BaseUtil.implementsOf(this.entity, IBreakable)) {
                     this.entity.destroy();
                 }
             }

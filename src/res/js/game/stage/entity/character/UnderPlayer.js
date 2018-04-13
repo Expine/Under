@@ -1,18 +1,33 @@
 /**
- * Under player object
- * Entities operated by the player
+ * Under player
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Object that can be destroyed
+ * - Object that can be damaged
+ * - Enable to set animation
+ * - Implements damagable and animationable
+ * - Entity that manages AI according to state and rendering by it
+ * - Player function interface
+ * - Entity operated by the player
+ * - Under player function interface
+ * - ### It can change type
  * @extends {Player}
- * @classdesc Under player object to operate by input
+ * @implements {IUnderPlayable}
+ * @classdesc Under player that can change type
  */
-class UnderPlayer extends Player /* , UnderPlayable */ { // eslint-disable-line  no-unused-vars
+class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line  no-unused-vars
     /**
      * Under player constructor
      * @constructor
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
-     * @param {number} imageID image ID for rendering
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     * @param {number} imageID Image ID for rendering
      */
     constructor(x, y, width, height, imageID) {
         super(x, y, width, height, imageID);

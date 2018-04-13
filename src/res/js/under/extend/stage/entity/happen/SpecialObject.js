@@ -1,22 +1,33 @@
 /**
  * Special object
- * Object caused by special actions
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Generated and owned by someone
+ * - Object that can be destroyed
+ * - Enable to set animation
+ * - ### Object caused by special actions
  * @implements {PossessedObject}
+ * @implements {IBreakable}
+ * @implements {IAnimationable}
  * @classdesc Special object caused by special actions
  */
-class SpecialObject extends PossessedObject /* , Breakable, Animationable */ { // eslint-disable-line  no-unused-vars
+class SpecialObject extends PossessedObject /* , IBreakable, IAnimationable */ { // eslint-disable-line  no-unused-vars
     /**
-     * Attack object constructor
+     * Special object constructor
      * @constructor
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
-     * @param {Entity} entity Attacker entity
-     * @param {number} [imageID=-1] image ID for rendering (if has not, -1)
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     * @param {Entity} owner Owned entity
+     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, entity, imageID = -1) {
-        super(x, y, width, height, entity, imageID);
+    constructor(x, y, width, height, owner, imageID = -1) {
+        super(x, y, width, height, owner, imageID);
 
         /**
          * Animation for rendering
@@ -47,7 +58,7 @@ class SpecialObject extends PossessedObject /* , Breakable, Animationable */ { /
     /**
      * Update object
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         if (this.animation != null) {
@@ -68,11 +79,6 @@ class SpecialObject extends PossessedObject /* , Breakable, Animationable */ { /
             super.render(ctx, shiftX, shiftY);
         } else {
             this.animation.render(ctx, this.x + shiftX, this.y + shiftY, this.width, this.height);
-
-            // For debug to render collider
-            if (Engine.debug && this.collider !== undefined) {
-                this.collider.render(ctx, shiftX, shiftY);
-            }
         }
     }
 }

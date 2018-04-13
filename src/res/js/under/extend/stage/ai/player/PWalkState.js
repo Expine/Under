@@ -30,7 +30,7 @@ class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars
     /**
      * Apply AI and decide action
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      * @return {bool} Whether decided on action
      */
     apply(dt) {

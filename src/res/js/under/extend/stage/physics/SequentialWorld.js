@@ -108,13 +108,13 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     getCollisionData(entity) {
         let ret = [];
-        if (entity.collider === undefined) {
+        if (entity.collider === null) {
             return ret;
         }
         let data = new CollisionData();
         for (let it of this.entities) {
             let itCollider = it.collider;
-            if (itCollider === undefined || it === entity) {
+            if (itCollider === null || it === entity) {
                 continue;
             }
             if (entity.collider.isCollisionRoughly(itCollider) && entity.collider.isCollision(itCollider, data)) {
@@ -135,8 +135,6 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         for (let target of this.actors) {
             if (target.body !== null) {
                 target.body.enforce(0, this.gravity * target.material.mass);
-            } else {
-                console.log(target.body);
             }
         }
     }
@@ -163,7 +161,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     updateBodyCleanup(dt) {
         for (let target of this.actors) {
-            if (target.body !== undefined) {
+            if (target.body !== null) {
                 target.body.cleanup(dt);
             }
         }
@@ -182,7 +180,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         }
         this.collisionSize = 0;
         for (let it of this.entities) {
-            if (it.collider !== undefined) {
+            if (it.collider !== null) {
                 it.collider.init();
             }
         }
@@ -191,13 +189,13 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         for (let i = 0; i < this.actors.length; ++i) {
             let target = this.actors[i];
             let targetCollider = target.collider;
-            if (targetCollider === undefined) {
+            if (targetCollider === null) {
                 continue;
             }
             for (let j = i + 1; j < this.actors.length; ++j) {
                 let it = this.actors[j];
                 let itCollider = it.collider;
-                if (itCollider === undefined || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                if (itCollider === null || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
                     continue;
                 }
                 let same = false;
@@ -222,12 +220,12 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         }
         for (let target of this.actors) {
             let targetCollider = target.collider;
-            if (targetCollider === undefined) {
+            if (targetCollider === null) {
                 continue;
             }
             for (let it of this.notActors) {
                 let itCollider = it.collider;
-                if (itCollider === undefined || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                if (itCollider === null || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
                     continue;
                 }
                 let same = false;

@@ -46,8 +46,8 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
     /**
      * Judge whether position is in collider
      * @interface
-     * @param {number} x x position
-     * @param {number} y y position
+     * @param {number} x X position
+     * @param {number} y Y position
      * @return {bool} whether position is in collider
      */
     isInCollider(x, y) {

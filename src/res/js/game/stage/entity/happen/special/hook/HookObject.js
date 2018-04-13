@@ -9,10 +9,10 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
     /**
      * Hook object constructor
      * @constructor
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
      * @param {Entity} entity Attacker entity
      * @param {Entity : Hookable} post Post entity
      * @param {number} length Hook length
@@ -145,7 +145,7 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
      * @override
      */
     destroy() {
-        if (BaseUtil.implementsOf(this.previous, Breakable)) {
+        if (BaseUtil.implementsOf(this.previous, IBreakable)) {
             this.previous.destroy();
         }
         super.destroy();
@@ -154,7 +154,7 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
     /**
      * Update object
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         super.update(dt);

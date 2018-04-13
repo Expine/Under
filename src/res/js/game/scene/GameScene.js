@@ -41,7 +41,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     /**
      * Update scene
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         // gameover

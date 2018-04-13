@@ -64,7 +64,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * Make underlying entity
      * @protected
      * @param {number} x Entity x position
-     * @param {number} y Entity y position
+     * @param {number} y Entity Y position
      * @param {json} entity Entity information json data
      * @return {InfluentialEntity} Underlying entity
      */
@@ -82,7 +82,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * Build character from json data
      * @override
      * @param {number} x Entity x position
-     * @param {number} y Entity y position
+     * @param {number} y Entity Y position
      * @param {json} json Character json data
      * @return {Entity} Generated character
      */
@@ -98,7 +98,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 base.addAI(this.makeAI(ai, json.state));
             }
         }
-        if (json.animation !== undefined && BaseUtil.implementsOf(base, Animationable)) {
+        if (json.animation !== undefined && BaseUtil.implementsOf(base, IAnimationable)) {
             base.setAnimation(this.makeAnimation(json.animation));
         }
         return base;

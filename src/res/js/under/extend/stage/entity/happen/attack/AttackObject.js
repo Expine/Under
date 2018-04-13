@@ -1,23 +1,33 @@
 /**
  * Attack object
- * Object indicating attack
- * @implements {PossessedObject}
- * @classdesc Attack object indicating attack
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Generated and owned by someone
+ * - Object that can be destroyed
+ * - Enable to set animation
+ * - Object caused by special actions
+ * - ### Object indicating attack that have lifespan
+ * @implements {SpecialObject}
+ * @classdesc Attack object indicating attack that have lifespan
  */
-class AttackObject extends PossessedObject /* , Breakable, Animationable */ { // eslint-disable-line  no-unused-vars
+class AttackObject extends SpecialObject { // eslint-disable-line  no-unused-vars
     /**
      * Attack object constructor
      * @constructor
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
-     * @param {Entity} entity Attacker entity
-     * @param {number} [imageID=-1] image ID for rendering (if has not, -1)
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     * @param {Entity} owner Owned entity
+     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      * @param {number} [lifespan=0] Lifespan of attack object
      */
-    constructor(x, y, width, height, entity, imageID = -1, lifespan = 0) {
-        super(x, y, width, height, entity, imageID);
+    constructor(x, y, width, height, owner, imageID = -1, lifespan = 0) {
+        super(x, y, width, height, owner, imageID);
 
         /**
          * Lifespan of attack object
@@ -25,54 +35,20 @@ class AttackObject extends PossessedObject /* , Breakable, Animationable */ { //
          * @type {number}
          */
         this.lifespan = lifespan;
-
-        /**
-         * Animation for rendering
-         * @protected
-         * @type {Animation}
-         */
-        this.animation = null;
     }
 
     /**
-     * Set collider
-     * @override
-     * @param {Collider} collider collider
-     */
-    setCollider(collider) {
-        super.setCollider(collider);
-        collider.isResponse = false;
-    }
-
-    /**
-     * Destroy object
-     * @override
-     */
-    destroy() {
-        this.stage.removeEntity(this);
-    }
-
-    /**
-     * Set animation
-     * @override
-     * @param {Animation} animation Animation
-     */
-    setAnimation(animation) {
-        this.animation = animation;
-    }
-
-    /**
-     * Check collisions and process if the object collides
-     * @protected
+     * Update attack after update it
      * @interface
-     * @return {bool} Collision or not
+     * @protected
+     * @param {number} dt Delta time
      */
-    judgeCollision() {}
+    updateAttack(dt) {}
 
     /**
      * Update object
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         this.lifespan -= dt;
@@ -83,28 +59,7 @@ class AttackObject extends PossessedObject /* , Breakable, Animationable */ { //
         if (this.animation != null) {
             this.animation.update(dt);
         }
-        if (!this.judgeCollision()) {
-            super.update(dt);
-        }
-    }
-
-    /**
-     * Render entity
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.animation == null) {
-            super.render(ctx, shiftX, shiftY);
-        } else {
-            this.animation.render(ctx, this.x + shiftX, this.y + shiftY, this.width, this.height);
-
-            // For debug to render collider
-            if (Engine.debug && this.collider !== undefined) {
-                this.collider.render(ctx, shiftX, shiftY);
-            }
-        }
+        super.update(dt);
+        this.updateAttack(dt);
     }
 }

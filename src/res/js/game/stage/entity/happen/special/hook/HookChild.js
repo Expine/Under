@@ -7,10 +7,10 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Hook child object constructor
      * @constructor
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
      * @param {Entity} entity Attacker entity
      * @param {Entity : Hookable} post Post entity
      * @param {number} length Hook length

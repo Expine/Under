@@ -41,7 +41,7 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @override
      * @protected
      * @param {number} x Entity x position
-     * @param {number} y Entity y position
+     * @param {number} y Entity Y position
      * @param {json} entity Entity information json data
      * @return {InfluentialEntity} Underlying entity
      */

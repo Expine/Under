@@ -6,10 +6,10 @@
 class CommonNoneState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
      * Set entity for targeting
-     * @param {AutonomyEntitiy implements Damagable} entity Entity for tageting
+     * @param {AutonomyEntitiy implements IDamagable} entity Entity for tageting
      */
     setEntity(entity) {
-        if (BaseUtil.implementsOf(entity, Damagable)) {
+        if (BaseUtil.implementsOf(entity, IDamagable)) {
             super.setEntity(entity);
         }
     }
@@ -17,7 +17,7 @@ class CommonNoneState extends UnderPlayerState { // eslint-disable-line  no-unus
     /**
      * Apply AI and decide action
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      * @return {bool} Whether decided on action
      */
     apply(dt) {

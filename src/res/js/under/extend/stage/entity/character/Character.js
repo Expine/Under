@@ -1,27 +1,32 @@
 /**
  * Character
- * Manages AI by list
- * And can be damaged and destroyed
- * @implements {SingleAIObject}
- * @implements {Damagable}
- * @implements {Animationable}
- * @classdesc Character that can be damaged and destroyed
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Object that can be destroyed
+ * - Object that can be damaged
+ * - Enable to set animation
+ * - ### Implements damagable and animationable
+ * @implements {AIListedObject}
+ * @implements {IDamagable}
+ * @implements {IAnimationable}
+ * @classdesc Character that implements damagable and animationable
  */
-class Character extends SingleAIObject /* , Damagable, Animationable */ { // eslint-disable-line  no-unused-vars
+class Character extends AIListedObject /* , IDamagable, IAnimationable */ { // eslint-disable-line  no-unused-vars
     /**
      * Character constructor
      * @constructor
-     * @param {number} srcX X coordinate on the file
-     * @param {number} srcY Y coordinate on the file
-     * @param {number} srcW Width on file
-     * @param {number} srcH Height on file
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
-     * @param {number} [imageID=-1] image ID for rendering (if has not, -1)
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     * @param {number} hp Hit point
+     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, imageID = -1) {
+    constructor(x, y, width, height, hp, imageID = -1) {
         super(x, y, width, height, imageID);
 
         /**
@@ -29,7 +34,7 @@ class Character extends SingleAIObject /* , Damagable, Animationable */ { // esl
          * @protected
          * @type {number}
          */
-        this.hp = 0;
+        this.hp = hp;
 
         /**
          * Animation for rendering
@@ -81,11 +86,11 @@ class Character extends SingleAIObject /* , Damagable, Animationable */ { // esl
     /**
      * Update object
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         super.update(dt);
-        if (this.animation != null) {
+        if (this.animation !== null) {
             this.animation.update(dt);
         }
     }
@@ -98,15 +103,10 @@ class Character extends SingleAIObject /* , Damagable, Animationable */ { // esl
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.animation == null) {
+        if (this.animation === null) {
             super.render(ctx, shiftX, shiftY);
         } else {
             this.animation.render(ctx, this.x + shiftX, this.y + shiftY, this.width, this.height);
-
-            // For debug to render collider
-            if (Engine.debug && this.collider !== undefined) {
-                this.collider.render(ctx, shiftX, shiftY);
-            }
         }
     }
 }

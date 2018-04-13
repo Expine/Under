@@ -65,16 +65,25 @@ class DebugStage extends SplitManagementStage { // eslint-disable-line  no-unuse
         if (Engine.debug) {
             let startX = -this.camera.cameraX;
             let startY = -this.camera.cameraY;
+            let endX = startX + this.camera.screenWidth;
+            let endY = startY + this.camera.screenHeight;
             let mx = Input.mouse.getMouseX() + startX;
             let my = Input.mouse.getMouseY() + startY;
             for (let it of this.entities) {
-                if (it.collider !== undefined && it.collider.isInCollider(mx, my)) {
-                    ctx.fillText(`(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
-                    if (it.body !== undefined) {
-                        ctx.fillText(`(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
-                        ctx.fillText(`(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
-                        ctx.fillText(`(${Math.floor(it.body.accelerationX)}, ${Math.floor(it.body.accelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, `white`);
-                        ctx.fillText(`((${it.body.isFixX}, ${it.body.isFixY}) - (${Math.floor(it.body.diffX)}, ${Math.floor(it.body.diffY)}))`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`);
+                if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
+                    if (it.collider !== null) {
+                        // render collider
+                        it.collider.render(ctx, this.camera.baseX - startX, this.camera.baseY - startY);
+                        // render information
+                        if (it.collider.isInCollider(mx, my)) {
+                            ctx.fillText(`(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
+                            if (it.body !== undefined) {
+                                ctx.fillText(`(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
+                                ctx.fillText(`(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
+                                ctx.fillText(`(${Math.floor(it.body.accelerationX)}, ${Math.floor(it.body.accelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, `white`);
+                                ctx.fillText(`((${it.body.isFixX}, ${it.body.isFixY}) - (${Math.floor(it.body.diffX)}, ${Math.floor(it.body.diffY)}))`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`);
+                            }
+                        }
                     }
                 }
             }

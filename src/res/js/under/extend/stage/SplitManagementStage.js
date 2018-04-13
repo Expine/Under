@@ -33,7 +33,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         /**
          * Playable instance for camera
          * @protected
-         * @type {Playable}
+         * @type {IPlayable}
          */
         this.player = null;
     }
@@ -45,7 +45,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     addEntity(entity) {
         // set player
-        if (this.player == null && BaseUtil.implementsOf(entity, Playable)) {
+        if (this.player == null && BaseUtil.implementsOf(entity, IPlayable)) {
             this.player = entity;
         }
         // set mutables

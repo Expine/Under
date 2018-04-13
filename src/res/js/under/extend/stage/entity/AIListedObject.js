@@ -1,18 +1,23 @@
 /**
- * Single AI Object
- * Manages AI by list
+ * AI listed object
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - ### Manages AI by list
  * @implements {AutonomyEntitiy}
- * @classdesc AI Listed object to manager AI by list
+ * @classdesc AI listed object to manage AI by list
  */
-class SingleAIObject extends AutonomyEntitiy { // eslint-disable-line  no-unused-vars
+class AIListedObject extends AutonomyEntitiy { // eslint-disable-line  no-unused-vars
     /**
-     * Single AI object constructor
+     * AI listed object constructor
      * @constructor
-     * @param {number} x x position
-     * @param {number} y y position
-     * @param {number} width object width
-     * @param {number} height object height
-     * @param {number} [imageID=-1] image ID for rendering (if has not, -1)
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
     constructor(x, y, width, height, imageID = -1) {
         super(x, y, width, height, imageID);
@@ -29,12 +34,12 @@ class SingleAIObject extends AutonomyEntitiy { // eslint-disable-line  no-unused
      * Add AI system
      * @override
      * @param {AI} ai AI to control this
-     * @param {number} priority priority of AI. If it is a positive number count from the front, if it is a negative number count from the back
+     * @param {number} [priority=-1] Priority of AI. If it is a positive number count from the front, if it is a negative number count from the back
      */
     addAI(ai, priority = -1) {
         let index = priority < 0 ? this.ai.length + priority + 1 : priority;
         this.ai.splice(index, 0, ai);
-        // init
+        // initialize
         ai.setEntity(this);
         ai.init();
     }
@@ -52,14 +57,24 @@ class SingleAIObject extends AutonomyEntitiy { // eslint-disable-line  no-unused
     }
 
     /**
-     * Update object
+     * Update entity's AI
      * @override
-     * @param {number} dt - delta time
+     * @protected
+     * @param {number} dt Delta time
      */
-    update(dt) {
+    updateAI(dt) {
         for (let it of this.ai) {
             it.update(dt);
         }
+    }
+
+    /**
+     * Apply entity's AI
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    applyAI(dt) {
         for (let it of this.ai) {
             if (it.apply(dt)) {
                 break;
@@ -77,11 +92,6 @@ class SingleAIObject extends AutonomyEntitiy { // eslint-disable-line  no-unused
     render(ctx, shiftX = 0, shiftY = 0) {
         if (this.imageID != -1) {
             ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height);
-        }
-
-        // For debug to render collider
-        if (Engine.debug && this.collider !== undefined) {
-            this.collider.render(ctx, shiftX, shiftY);
         }
     }
 }

@@ -30,7 +30,7 @@ class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
     /**
      * Update scene
      * @override
-     * @param {number} dt - delta time
+     * @param {number} dt Delta time
      */
     update(dt) {
         // update circle angle and radius

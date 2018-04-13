@@ -15,7 +15,7 @@ class MutableEntity extends InfluentialEntity { // eslint-disable-line  no-unuse
      * @param {number} y Y position
      * @param {number} width Entity width
      * @param {number} height Entity height
-     * @param {number} imageID Image ID for rendering (if has not, -1)
+     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
     constructor(x, y, width, height, imageID = -1) {
         super(x, y, width, height, imageID);
