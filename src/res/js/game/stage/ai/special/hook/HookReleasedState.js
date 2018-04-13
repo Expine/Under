@@ -27,7 +27,7 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
      */
     init() {
         if (this.entity.body !== undefined) {
-            this.entity.body.setEnable(true);
+            this.entity.body.enable = true;
             this.entity.body.reset();
         }
     }

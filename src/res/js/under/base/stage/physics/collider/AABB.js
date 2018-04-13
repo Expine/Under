@@ -1,6 +1,7 @@
 /**
  * Axis Aligned Bounding Box
- * @classdesc Axis Aligned Bounding Box for collision detection
+ * - ### Uses for rough collision determination
+ * @classdesc Axis Aligned Bounding Box to use for rough collision determination
  */
 class AABB { // eslint-disable-line  no-unused-vars
     /**

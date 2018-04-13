@@ -1,7 +1,7 @@
 /**
- * Collision pair data
- * Data obtained by collision detection
- * @classdesc Collision pair data obtained by collision detection
+ * Collision data
+ * - Data obtained by collision detection
+ * @classdesc Collision data obtained by collision detection
  */
 class CollisionData { // eslint-disable-line  no-unused-vars
     /**

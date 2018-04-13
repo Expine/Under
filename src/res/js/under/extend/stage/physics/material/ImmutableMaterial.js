@@ -43,7 +43,7 @@ class ImmutableMaterial extends Material { // eslint-disable-line  no-unused-var
      * @override
      * @return {number} Mass
      */
-    get mass() { 
+    get mass() {
         return this.massVal;
     }
 
@@ -52,7 +52,7 @@ class ImmutableMaterial extends Material { // eslint-disable-line  no-unused-var
      * @override
      * @return {number} Coefficient of restitution
      */
-    get e() { 
+    get e() {
         return this.eVal;
     }
 
@@ -61,7 +61,7 @@ class ImmutableMaterial extends Material { // eslint-disable-line  no-unused-var
      * @override
      * @return {number} Coefficient of restitution
      */
-    get mu() { 
+    get mu() {
         return this.muVal;
     }
 }

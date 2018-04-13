@@ -1,7 +1,10 @@
 /**
- * Rectangle collider taken a horn
+ * Round rectangle collider
+ * - Store collider data for judgeing collision
+ * - Makes a collision judgment considered to be rectangle
+ * - ### Makes a collision judgment considered to be rectangle taken a horn
  * @implements {Collider}
- * @classdesc Collider for rectangle taken a horn
+ * @classdesc Round rectangle collider to make a collision judgment considered to be rectangle taken a horn
  */
 class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line  no-unused-vars
     /**
@@ -161,24 +164,28 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX, shiftY) {
+        // rect
         ctx.strokeLine(this.aabb.startX + this.cut + shiftX, this.aabb.startY + shiftY, this.aabb.endX - this.cut + shiftX, this.aabb.startY + shiftY);
         ctx.strokeLine(this.aabb.startX + shiftX, this.aabb.startY + this.cut + shiftY, this.aabb.startX + shiftX, this.aabb.endY - this.cut + shiftY);
         ctx.strokeLine(this.aabb.endX + shiftX, this.aabb.startY + this.cut + shiftY, this.aabb.endX + shiftX, this.aabb.endY - this.cut + shiftY);
         ctx.strokeLine(this.aabb.startX + this.cut + shiftX, this.aabb.endY + shiftY, this.aabb.endX - this.cut + shiftX, this.aabb.endY + shiftY);
 
+        // collision
+        let me = 0;
+        let you = 0;
         for (let it of this.collisions) {
-            let me = 0;
-            let you = 0;
-            for (let it of this.collisions) {
-                if (it.e1 === this.entity) {
-                    me += 1;
-                } else {
-                    you += 1;
-                }
+            if (it.e1 === this.entity) {
+                me += 1;
+            } else {
+                you += 1;
             }
-            // ctx.fillText(this.collisions.length + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY, 0.0, 0.0, 15, `red`);
+        }
+        if (me != 0 || you != 0) {
             ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
             ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
+        }
+        // vector
+        for (let it of this.collisions) {
             if (it.e2 === this.entity) {
                 continue;
             }

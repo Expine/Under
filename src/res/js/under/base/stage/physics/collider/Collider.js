@@ -1,6 +1,7 @@
 /**
- * Collider for judging collision
- * @classdesc collder for collisiion
+ * Collder
+ * - ### Store collider data for judgeing collision
+ * @classdesc Collider to store collider data for judging collision
  */
 class Collider { // eslint-disable-line  no-unused-vars
     /**
@@ -26,12 +27,18 @@ class Collider { // eslint-disable-line  no-unused-vars
          * @type {bool}
          */
         this.isResponse = true;
-
         /**
          * Whether collision judgment is to be done or not
          * @type {bool}
          */
         this.enable = true;
+
+        /**
+         * Entity attaching this
+         * @protected
+         * @type {Entity}
+         */
+        this.entity = null;
     }
 
     /**
@@ -47,11 +54,6 @@ class Collider { // eslint-disable-line  no-unused-vars
      * @param {Entity} entity Entity attaching this
      */
     setEntity(entity) {
-        /**
-         * Entity attaching this
-         * @protected
-         * @type {Entity}
-         */
         this.entity = entity;
     }
 
@@ -74,9 +76,9 @@ class Collider { // eslint-disable-line  no-unused-vars
     /**
      * Judge whether position is in collider
      * @interface
-     * @param {number} x x position
-     * @param {number} y y position
-     * @return {bool} whether position is in collider
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @return {bool} Whether position is in collider
      */
     isInCollider(x, y) {}
 
@@ -85,17 +87,21 @@ class Collider { // eslint-disable-line  no-unused-vars
      * @interface
      * @param {Colllder} collider
      * @param {CollisionData} data Pointer to save conflict information
-     * @return {bool} whether collision
+     * @return {bool} Whether collision
      */
     isCollision(collider, data) {}
 
     /**
      * Judge whether collision roughly
      * @interface
-     * @param {Colllder} collider
-     * @return {bool} whether collision roughly
+     * @param {Colllder} collider Target collider
+     * @return {bool} Qhether collision roughly
      */
     isCollisionRoughly(collider) {
+        // check enable
+        if (!this.enable) {
+            return false;
+        }
         let me = this.getAABB();
         let you = collider.getAABB();
         return me.endX >= you.startX && you.endX >= me.startX && me.endY >= you.startY & you.endY >= me.startY;

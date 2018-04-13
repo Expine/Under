@@ -1,7 +1,9 @@
 /**
  * Circle collider
+ * - Store collider data for judgeing collision
+ * - ### Make a collision judgment considered to be circular
  * @implements {Collider}
- * @classdesc Collider for circle
+ * @classdesc Circle collider to make a collision judgment considered to be circular
  */
 class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
     /**
@@ -49,15 +51,6 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
 
         // calculate initial value
         this.update();
-    }
-
-    /**
-     * Get collider AABB
-     * @override
-     * @return {AABB} Axis Aligned Bounding Box
-     */
-    getAABB() {
-        return this.aabb;
     }
 
     /**
@@ -145,6 +138,32 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      */
     render(ctx, shiftX, shiftY) {
         ctx.strokeCircle(this.centerX + shiftX, this.centerY + shiftY, this.radius, 0, 2 * Math.PI, false);
-        // ctx.fillText(this.collisions.length + ``, this.centerX + shiftX, this.centerY + shiftY, 0.5, 0.5, this.radius * 2, `red`);
+        // collision
+        let me = 0;
+        let you = 0;
+        for (let it of this.collisions) {
+            if (it.e1 === this.entity) {
+                me += 1;
+            } else {
+                you += 1;
+            }
+        }
+        if (me != 0 || you != 0) {
+            ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
+            ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
+        }
+        // vector
+        for (let it of this.collisions) {
+            if (it.e2 === this.entity) {
+                continue;
+            }
+            var hueVal = it.e1.imageID + (it.e2.imageID << 5);
+            ctx.strokeLine(
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
+                hueVal);
+        }
     }
 }

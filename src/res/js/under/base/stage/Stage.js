@@ -28,7 +28,6 @@ class Stage { // eslint-disable-line  no-unused-vars
 
         /**
          * Whether to update the stage or not
-         * @protected
          * @type {bool}
          */
         this.enable = true;
@@ -83,14 +82,6 @@ class Stage { // eslint-disable-line  no-unused-vars
      */
     getPhysicalWorld() {
         return this.physic;
-    }
-
-    /**
-     * Control stage update
-     * @param {bool} enable Whether to update the stage or not
-     */
-    setEnable(enable) {
-        this.enable = enable;
     }
 
     /**

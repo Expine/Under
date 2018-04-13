@@ -1,7 +1,13 @@
 /**
  * Excluded round rectangle collider
- * @implements {RoundRectangleCollider}
- * @classdesc Collider for rectangle
+ * - Store collider data for judgeing collision
+ * - Makes a collision judgment considered to be rectangle
+ * - Makes a collision judgment considered to be rectangle taken a horn
+ * - Acquire the ID of the exclusion target
+ * - ### Excludes some colliders
+ * @extends {RoundRectangleCollider}
+ * @implements {IExclude}
+ * @classdesc Excluded round rectangle collider to exclude some collider
  */
 class ExcludedRoundRectangleCollider extends RoundRectangleCollider /* , Excludedable */ { // eslint-disable-line  no-unused-vars
     /**

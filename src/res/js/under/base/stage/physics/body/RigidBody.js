@@ -33,7 +33,6 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
         /**
          * Whether it is enabled or not
-         * @protected
          * @type {bool}
          */
         this.enable = true;
@@ -65,14 +64,6 @@ class RigidBody { // eslint-disable-line  no-unused-vars
      */
     setMaterial(material) {
         this.material = material;
-    }
-
-    /**
-     * Set enable or not
-     * @param {bool} enable Whether it is enabled or not
-     */
-    setEnable(enable) {
-        this.enable = enable;
     }
 
     /**

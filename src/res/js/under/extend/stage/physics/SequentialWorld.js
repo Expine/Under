@@ -38,6 +38,13 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         this.actors = [];
 
         /**
+         * List of entities not to act on
+         * @protected
+         * @type {Array<Entity>}
+         */
+        this.notActors = [];
+
+        /**
          * List of all entities
          * @protected
          * @type {Array<Entity>}
@@ -52,6 +59,10 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     addActor(actor) {
         this.actors.push(actor);
+        let index = this.notActors.indexOf(actor);
+        if (index != -1) {
+            this.notActors.splice(index, 1);
+        }
     }
 
     /**
@@ -61,6 +72,9 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     addEntity(entity) {
         this.entities.push(entity);
+        if (this.actors.indexOf(entity) != -1) {
+            this.notActors.push(entity);
+        }
     }
 
     /**
@@ -77,6 +91,10 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         if (index >= 0) {
             this.actors.splice(index, 1);
         }
+        index = this.notActors.indexOf(entity);
+        if (index >= 0) {
+            this.notActors.splice(index, 1);
+        }
     }
 
     /**
@@ -92,7 +110,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         let data = new CollisionData();
         for (let it of this.entities) {
             let itCollider = it.collider;
-            if (itCollider === undefined || !itCollider.enable || it === entity) {
+            if (itCollider === undefined || it === entity) {
                 continue;
             }
             if (entity.collider.isCollisionRoughly(itCollider) && entity.collider.isCollision(itCollider, data)) {
@@ -150,20 +168,76 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         }
 
         // collision detection
+        for (let i = 0; i < this.actors.length; ++i) {
+            let target = this.actors[i];
+            let targetCollider = target.collider;
+            if (targetCollider === undefined) {
+                continue;
+            }
+            for (let j = i + 1; j < this.actors.length; ++j) {
+                let it = this.actors[j];
+                let itCollider = it.collider;
+                if (itCollider === undefined || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                    continue;
+                }
+                let same = false;
+                for (let j = 0; j < this.collisionSize; ++j) {
+                    let data = this.collisions[j];
+                    if ((data.e1 === target && data.e2 === it) || (data.e2 === target && data.e1 === it)) {
+                        same = true;
+                        break;
+                    }
+                }
+                if (same) {
+                    this.collisions[this.collisionSize].py = -1000000000;
+                    continue;
+                }
+                // add collision data
+                targetCollider.addCollision(this.collisions[this.collisionSize]);
+                itCollider.addCollision(this.collisions[this.collisionSize]);
+                if (++this.collisionSize >= this.collisions.length) {
+                    this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
+                }
+            }
+        }
         for (let target of this.actors) {
             let targetCollider = target.collider;
-            if (targetCollider === undefined || !targetCollider.enable) {
+            if (targetCollider === undefined) {
+                continue;
+            }
+            for (let it of this.notActors) {
+                let itCollider = it.collider;
+                if (itCollider === undefined || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                    continue;
+                }
+                let same = false;
+                for (let j = 0; j < this.collisionSize; ++j) {
+                    let data = this.collisions[j];
+                    if ((data.e1 === target && data.e2 === it) || (data.e2 === target && data.e1 === it)) {
+                        same = true;
+                        break;
+                    }
+                }
+                if (same) {
+                    this.collisions[this.collisionSize].py = -1000000000;
+                    continue;
+                }
+                // add collision data
+                targetCollider.addCollision(this.collisions[this.collisionSize]);
+                itCollider.addCollision(this.collisions[this.collisionSize]);
+                if (++this.collisionSize >= this.collisions.length) {
+                    this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
+                }
+            }
+        }
+        for (let target of this.actors) {
+            let targetCollider = target.collider;
+            if (targetCollider === undefined) {
                 continue;
             }
             for (let it of this.entities) {
                 let itCollider = it.collider;
-                if (itCollider === undefined || !itCollider.enable || it === target) {
-                    continue;
-                }
-                if (!targetCollider.isCollisionRoughly(itCollider)) {
-                    continue;
-                }
-                if (!targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                if (itCollider === undefined || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
                     continue;
                 }
                 let same = false;

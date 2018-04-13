@@ -1,7 +1,10 @@
 /**
  * Directional rectangle collider
- * @implements {RectangleCollider}
- * @classdesc Collider for rectangle
+ * - Store collider data for judgeing collision
+ * - Makes a collision judgment considered to be rectangle
+ * - - ### Considers the direction
+ * @extends {RectangleCollider}
+ * @classdesc Directional rectangle collider considered the direction
  */
 class DirectionalRectangleCollider extends RectangleCollider { // eslint-disable-line  no-unused-vars
     /**

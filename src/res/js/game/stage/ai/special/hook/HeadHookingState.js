@@ -38,7 +38,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
                     }
                 }
                 this.entity.hooked();
-                this.entity.body.setEnable(false);
+                this.entity.body.enable = false;
                 this.ai.changeState(`hooked`);
             }
         }
