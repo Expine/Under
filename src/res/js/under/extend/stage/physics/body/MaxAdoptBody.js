@@ -169,13 +169,11 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Update by rigid body
-     * @override
-     * @param {number} dt delta time
+     * Cleanup body information
+     * @interface
+     * @param {nuumber} dt Delta time
      */
-    update(dt) {
-        super.update(dt);
-        // reset
+    cleanup(dt) {
         this.material.accelerationX = this.internalAccelerationX;
         this.material.accelerationY = this.internalAccelerationY;
         this.internalAccelerationX = 0;

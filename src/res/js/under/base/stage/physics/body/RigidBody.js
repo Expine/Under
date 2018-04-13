@@ -157,12 +157,17 @@ class RigidBody { // eslint-disable-line  no-unused-vars
      * @param {number} dt delta time
      */
     update(dt) {
+        this.updateInfo(dt);
         if (this.enable) {
-            this.updateInfo(dt);
             this.updateVelocity(dt);
             this.updateEntity(dt);
-        } else {
-            this.reset();
         }
     }
+
+    /**
+     * Cleanup body information
+     * @interface
+     * @param {nuumber} dt Delta time
+     */
+    cleanup(dt) {}
 }

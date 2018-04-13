@@ -154,6 +154,20 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     }
 
     /**
+     * Update body to cleanup
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateBodyCleanup(dt) {
+        for (let target of this.actors) {
+            if (target.body !== undefined) {
+                target.body.cleanup(dt);
+            }
+        }
+    }
+
+    /**
      * Update collisions
      * @override
      * @protected
