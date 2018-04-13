@@ -17,6 +17,13 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.gravity = gravity * 100;
+
+        /**
+         * Collision response instance
+         * @protected
+         * @type {CollisionResponse}
+         */
+        this.response = null;
     }
 
     /**
@@ -24,11 +31,6 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
      * @param {CollisionResponse} response Collision response instance
      */
     setResponse(response) {
-        /**
-         * Collision response instance
-         * @protected
-         * @type {CollisionResponse}
-         */
         this.response = response;
     }
 

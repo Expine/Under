@@ -27,6 +27,7 @@ package under {
                     #collisions : Array<CollisionData>
                     #collisionSize : number
                     #actors : Array<Entity>
+                    #notActors : Array<Entity>
                     #entities : Array<Entity>
                 }
                 class ImpulseBasedResponse

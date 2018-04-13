@@ -21,7 +21,6 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
          * @type {Array<CollisionData>}
          */
         this.collisions = [];
-        this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
 
         /**
          * Size of collision data list
@@ -50,6 +49,11 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
          * @type {Array<Entity>}
          */
         this.entities = [];
+
+        // initialize
+        for (let i = 0; i < 100; ++i) {
+            this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
+        }
     }
 
     /**
@@ -72,7 +76,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     addEntity(entity) {
         this.entities.push(entity);
-        if (this.actors.indexOf(entity) != -1) {
+        if (this.actors.indexOf(entity) == -1) {
             this.notActors.push(entity);
         }
     }
@@ -206,36 +210,6 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                 continue;
             }
             for (let it of this.notActors) {
-                let itCollider = it.collider;
-                if (itCollider === undefined || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
-                    continue;
-                }
-                let same = false;
-                for (let j = 0; j < this.collisionSize; ++j) {
-                    let data = this.collisions[j];
-                    if ((data.e1 === target && data.e2 === it) || (data.e2 === target && data.e1 === it)) {
-                        same = true;
-                        break;
-                    }
-                }
-                if (same) {
-                    this.collisions[this.collisionSize].py = -1000000000;
-                    continue;
-                }
-                // add collision data
-                targetCollider.addCollision(this.collisions[this.collisionSize]);
-                itCollider.addCollision(this.collisions[this.collisionSize]);
-                if (++this.collisionSize >= this.collisions.length) {
-                    this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
-                }
-            }
-        }
-        for (let target of this.actors) {
-            let targetCollider = target.collider;
-            if (targetCollider === undefined) {
-                continue;
-            }
-            for (let it of this.entities) {
                 let itCollider = it.collider;
                 if (itCollider === undefined || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
                     continue;

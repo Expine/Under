@@ -28,15 +28,34 @@ package under {
                         #vpy : number
                         #vmx : number
                         #vmy : number
-                        #vmx : number
-                        #vmy : number
                         #preX : number
                         #preY : number
                     }
+                    class PreciseBody
                     class PlayerBody
+                    class JointBody {
+                        JointBody(jointingX,jointingY,jointed,jointedX,jointedY,length) : JointingBody
+                        #jointingX : number
+                        #jointingY : number
+                        #jointed : Entity
+                        #jointedX : number
+                        #jointedY : number
+                        #length : number
+                    }
+                    class ImmutableRigidMaterial {
+                        ImmutableRigidMaterial(k,frictionX,frictionY) : ImmutableRigidMaterial
+                        #kVal : number
+                        #frictionXVal : number
+                        #frictionYVal : number
+                    }
                 }
                 package ex_material {
-                    class ImmutableMaterial
+                    class ImmutableMaterial  {
+                        ImmutableMaterial(mass,elasticity,mu) : ImmutableMaterial
+                        #massVal : number
+                        #eVal : number
+                        #muVal : number
+                    }
                 }
             }
         }
@@ -52,6 +71,7 @@ package under {
                 }
                 package body {
                     abstract RigidBody
+                    abstract RigidMaterial
                 }
                 package material {
                     abstract Material
@@ -66,6 +86,9 @@ Collider <|.. CircleCollider
 RectangleCollider <|-- RoundRectangleCollider
 RigidBody <|.. MaxAdoptBody
 MaxAdoptBody <|-- PlayerBody
+MaxAdoptBody <|-- PreciseBody
+MaxAdoptBody <|-- JointBody
+RigidMaterial <|.. ImmutableRigidMaterial
 Material <|.. ImmutableMaterial
 
 @enduml

@@ -49,6 +49,7 @@ package under {
                     class ImmutableMaterial
                 }
                 package ex_body {
+                    class ImmutableRigidMaterial
                     class MaxAdoptBody
                     class PreciseBody
                     class PlayerBody
@@ -73,15 +74,16 @@ TileBuilder ....> RectangleCollider : Generate
 TileBuilder ....> CircleCollider : Generate
 TileBuilder ....> RoundRectangleCollider : Generate
 TileBuilder ....> ImmutableMaterial : Generate
+TileBuilder ...> SingleAnimation : Generate
+TileBuilder ...> MultiNamedAnimation : Generate
+TileBuilder ...> AnimationElement : Generate
 CharacterBuilder ...> MaxAdoptBody : Generate
 CharacterBuilder ...> PreciseBody : Generate
 CharacterBuilder ...> PlayerBody : Generate
+CharacterBuilder ...> ImmutableRigidMaterial : Generate
 CharacterBuilder ...> Player : Generate
 CharacterBuilder ...> Enemy : Generate
 CharacterBuilder ...> Obstacle : Generate
-CharacterBuilder ...> MultiNamedAnimation : Generate
-CharacterBuilder ...> SingleAnimation : Generate
-CharacterBuilder ...> AnimationElement : Generate
 CharacterBuilder ...> BaseState : Set animation
 
 EntityBuilder <|.. TileBuilder

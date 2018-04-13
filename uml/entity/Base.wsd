@@ -83,18 +83,14 @@ package under {
                 }
                 package material {
                     abstract Material {
-                        +Material(mass,elasticity,mu) : Material
-                        +mass : number
-                        +e : number
-                        +mu : number
+                        +Material() : Material
+                        {abstract} +mass : number
+                        {abstract} +e : number
+                        {abstract} +mu : number
                     }
                 }
                 package body {
                     abstract RigidBody {
-                        #velocityX : number
-                        #velocityY : number
-                        #accelerationX : number
-                        #accelerationY : number
                         +velocityX : number
                         +velocityY : number
                         +accelerationX : number
@@ -102,11 +98,25 @@ package under {
                         +diffX : number
                         +diffY : number
                         +isFix : bool
-                        +k : number
                         #entity : Entity
+                        +material : RigidMaterial
                         +setEntity(entity)
+                        {abstract} +init()
                         {abstract} +setNextAddVelocity(vx,vy)
-                        {abstract} +update(dt)
+                        {abstract} +enforce(forceX, forceY)
+                        {abstract} #updateInfor(dt)
+                        {abstract} #updateVeocity(dt)
+                        {abstract} #updateEntity(dt)
+                        +update(dt)
+                    }
+                    abstract RigidMaterial {
+                        +velocityX : number
+                        +velocityY : number
+                        +accelerationX : number
+                        +accelerationY : number
+                        {abstract} +k : number
+                        {abstract} +frictionX : number
+                        {abstract} +frictionY : number
                     }
                 }
             }
@@ -147,6 +157,7 @@ Entity "1" o--"1" Material ::Own
 Collider ..> Entity : Own
 MutableObject "1"*--"1" RigidBody : Initialize and own
 RigidBody .> MutableObject : Own
+RigidBody "1" o--"1" RigidMaterial : Own
 
 AutonomyObject "1"*--"*" AI : Should own
 AI <|-- StateAI

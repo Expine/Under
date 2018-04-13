@@ -1,7 +1,7 @@
 /**
  * Rectangle collider
  * - Store collider data for judgeing collision
- * - ### Make a collision judgment considered to be rectangle
+ * - ### Makes a collision judgment considered to be rectangle
  * @implements {Collider}
  * @classdesc Rectangle collider to make a collision judgment considered to be rectangle
  */

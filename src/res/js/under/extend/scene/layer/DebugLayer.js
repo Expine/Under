@@ -1,4 +1,3 @@
-// TODO: Should move extend directory
 /**
  * Debug layer
  * - Performs drawing processing collectively
@@ -43,9 +42,9 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         /**
          * Game player
          * @protected
-         * @type {Player}
+         * @type {Entity}
          */
-        this.player = this.stage.getEntities().filter((it) => it instanceof Player)[0];
+        this.player = this.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, Playable))[0];
 
         /**
          * Count for determinig information
@@ -56,7 +55,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         /**
          * Recode for registering information temporary
          * @protected
-         * @type {Array<<Object>}
+         * @type {Array<Object>}
          */
         this.record = [];
         for (var i = 0; i < 10; ++i) {
@@ -88,6 +87,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         // TODO: May be implement getter method
         it.collisions = this.stage.getPhysicalWorld().collisionSize;
         it.playerCollisions = this.player.collider.collisions.length;
+        // check timer
         for (let name of Timer.it.getRegisteredNames()) {
             let time = Timer.it.getTimer(name);
             if (this.timers[name] === undefined) {
@@ -96,6 +96,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
             this.timers[name].push(time);
         }
         if (++this.count >= this.record.length) {
+            // update all data
             this.deltaTime = 0;
             this.collisions = 0;
             this.playerCollisions = 0;
@@ -138,7 +139,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         ctx.fillText(`${this.collisions} collision`, Screen.it.width, 30, 1.0, 0.0, 20, `white`);
         ctx.fillText(`${this.playerCollisions} P collision`, Screen.it.width, 60, 1.0, 0.0, 20, `white`);
         // TODO: May be implement getter method
-        ctx.fillText(`${this.stage.getPhysicalWorld().response instanceof ImpulseBasedResponse ? 'Impluse' : `Repulsion`}`, Screen.it.width, 90, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`${this.stage.getPhysicalWorld().response.constructor.toString().split(`\n`)[0].split(` `)[1]}`, Screen.it.width, 90, 1.0, 0.0, 20, `white`);
         ctx.fillText(`(${Math.floor(this.player.x)}, ${Math.floor(this.player.y)})(${Math.floor(this.player.body.velocityX)}, ${Math.floor(this.player.body.velocityY)})(${Math.floor(this.player.body.velocityX)},${Math.floor(this.player.body.velocityY)})`, Screen.it.width, 120, 1.0, 0.0, 20, `white`);
         if (this.player.state != null) {
             ctx.fillText(this.player.state.constructor.toString().split(`\n`)[0].split(` `)[1], Screen.it.width, 150, 1.0, 0.0, 20, `white`);

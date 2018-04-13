@@ -35,7 +35,6 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
 
         // initialize layer
         this.layers.length = 0;
-        this.layers.push(new DebugLayer(this.stage));
         this.layers.push(new UILayer(this.player));
     }
 

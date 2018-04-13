@@ -1,6 +1,6 @@
 @startuml StageBase
 
-package unde {
+package under {
     package base {
         package stage {
             abstract Stage {
@@ -52,27 +52,6 @@ package unde {
                     +setCameraPosition(x,y,width,height)
                 }
             }
-            package entity {
-                abstract Entity {
-                    +Entity(x,y,width,height,imageID)
-                    +x : number
-                    +y : number
-                    +width : number
-                    +height : number
-                    #imageID : number
-                    +directionX : number
-                    +directionY : number
-                    +stage : Stage
-                    +collider : Collider
-                    +material : Material
-                    +setStage(stage)
-                    +setCollider(collider)
-                    +setMaterial(material)
-                    {abstract} +update(dt)
-                    {abstract} +render(ctx,shiftX,shiftY)
-                }
-                abstract ImmutableObject
-            }
             package physics {
                 abstract PhysicalWorld {
                     +PhysicalWorld(gravity) : PhysicalWorld
@@ -82,11 +61,26 @@ package unde {
                     {abstract} +addActor(actor)
                     {abstract} +addEntity(entity)
                     {abstract} +removeEntity(entity)
-                    {abstract} +update(dt)
+                    {abstract} +getCollisionData(entity) : Array<CollisionData>
+                    {abstract} #updateExternalForce(dt)
+                    {abstract} #updateBody(dt)
+                    {abstract} #updateCollision(dt)
+                    {abstract} #updateResponse(dt)
+                    +update(dt)
                 }
                 abstract CollisionResponse {
                     +collisionResponse(data,dt)
                 }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package entity {
+                abstract Entity
             }
         }
     }
@@ -99,7 +93,5 @@ Stage "1" *-- "1" PhysicalWorld : Own
 Stage "1" *-- "*" Entity : Should own
 PhysicalWorld "1"*--"*" Entity : Should own
 PhysicalWorld "1"*--"1" CollisionResponse : Own
-
-Entity <|.. ImmutableObject
 
 @enduml

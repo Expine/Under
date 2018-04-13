@@ -32,12 +32,13 @@ package under {
     package extend {
         package ex_stage {
             class SplitManagementStage
+            class DebugStage
             package ex_parser {
                 class TileBuilder
                 class CharacterBuilder
             }
             package ex_camera {
-                class CenterCamera
+                class MovingCenterCamera
             }
             package ex_map {
                 class InvariantBackMap
@@ -45,6 +46,7 @@ package under {
             }
             package ex_physics {
                 class SequentialWorld
+                class DebugWorld
                 class RepulsionResponse
             }
         }
@@ -53,10 +55,12 @@ package under {
 }
 
 JSONStageParser ..> SplitManagementStage : Generate
-JSONStageParser ..> CenterCamera : Generate
+JSONStageParser ..> DebugStage : Generate
+JSONStageParser ..> MovingCenterCamera : Generate
 JSONStageParser ..> SequentialMap : Generate
 JSONStageParser ..> InvariantBackMap : Generate
 JSONStageParser ..> SequentialWorld : Generate
+JSONStageParser ..> DebugWorld : Generate
 JSONStageParser ..> RepulsionResponse : Generate
 
 JSONStageParser ..> TileBuilder : "Default"

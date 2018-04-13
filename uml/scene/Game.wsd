@@ -2,15 +2,6 @@
 
 package game {
     package ga_layer {
-        class DebugLayer {
-            #deltaTime : number
-            #collisions : number
-            #playerCollisions : number
-            #stage : Stage
-            #player : Player
-            #count : number
-            #recode : Array<Object>
-        }
         class UILayer {
             #player : Player
             #playerHP : number
@@ -51,10 +42,6 @@ package under {
         package ex_stage {
             package ex_entity {
                 class Player
-                package ex_physics {
-                    class SequentialWorld
-                    class ImpulseBasedResponse
-                }
             }
         }
     }
@@ -70,20 +57,14 @@ package game {
 }
 
 GameScene ..> UnderStageParser : Generate
-GameScene ..> DebugLayer : Generate
 GameScene ..> UILayer : Generate
 GameScene ..> GameoverLayer : Generate
 GameScene ..> Player : Pass to another class, transtate gameover state
 GameScene ..> TitleScene : Generate
 
-DebugLayer ..> Player : Get player information
-DebugLayer ..> ImpulseBasedResponse : Get physical state
-DebugLayer ..> SequentialWorld : Get physical information
-
 UILayer ..> MultiNamedAnimation : Use
 
 GameScene --|> LayerBaseScene
-DebugLayer ..|> Layer
 UILayer ..|> Layer
 
 @enduml

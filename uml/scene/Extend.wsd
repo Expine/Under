@@ -1,0 +1,53 @@
+@startuml SceneExtend
+
+package under {
+    package extend {
+        package ex_scene {
+            class StackSceneManager {
+                -scenes_ : Array<Scene>
+            }
+            class LayerBaseScene {
+                #layers : Array<Layer>
+            }
+            class DefaultTitleScene {
+                -r_ : number
+                -angle_ : number
+            }
+
+            package ex_layer {
+                class GameoverLayer
+                class DebugLayer {
+                    #deltaTime : number
+                    #collisions : number
+                    #playerCollisions : number
+                    #stage : Stage
+                    #player : Entity
+                    #count : number
+                    #recode : Array<Object>
+                    #timers : Dictionary<string, Array<number>>
+                    #timerVals : Dictionary<string, number>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package scene {
+            abstract Scene
+            abstract SceneManager
+            package layer {
+                abstract Layer
+            }
+        }
+    }
+}
+
+SceneManager <|.. StackSceneManager
+Scene <|.. LayerBaseScene
+Scene <|.. DefaultTitleScene
+Layer <|.. GameoverLayer
+Layer <|.. DebugLayer
+
+@enduml

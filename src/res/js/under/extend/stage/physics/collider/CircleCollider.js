@@ -1,7 +1,7 @@
 /**
  * Circle collider
  * - Store collider data for judgeing collision
- * - ### Make a collision judgment considered to be circular
+ * - ### Makes a collision judgment considered to be circular
  * @implements {Collider}
  * @classdesc Circle collider to make a collision judgment considered to be circular
  */

@@ -1,0 +1,48 @@
+@startuml PhysicalGame
+
+package game {
+    package ga_stage {
+        package ga_physics {
+            package ga_body {
+
+            }
+            package ga_collider {
+                class DirectionalRectangleCollider
+                class DirectionalRoundRectangleCollider
+                class ExcludedRectangleCollider {
+                    +ExcludedRectangleCollider(startX, startY, width, height, targetID) : ExcludedRectangleCollider
+                    #targetID : number
+                }
+                class ExcludedRoundRectangleCollider {
+                    +ExcludedRoundRectangleCollider(startX, startY, width, height, cut,targetID) : ExcludedRoundRectangleCollider
+                    #targetID : number
+                }
+                interface IExclude {
+                    {abstract} +getTartgetID() : number
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_physics {
+                package ex_collider {
+                    class RectangleCollider
+                    class RoundRectangleCollider
+                }
+            }
+        }
+    }
+}
+
+RectangleCollider <|-- DirectionalRectangleCollider
+RoundRectangleCollider <|-- DirectionalRoundRectangleCollider
+RectangleCollider <|-- ExcludedRectangleCollider
+IExclude <|.. ExcludedRectangleCollider
+RoundRectangleCollider <|-- ExcludedRoundRectangleCollider
+IExclude <|.. ExcludedRoundRectangleCollider
+
+@enduml
