@@ -65,6 +65,16 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     }
 
     /**
+     * Make base phisical world for parsing stage
+     * @protected
+     * @param {json} world World json data
+     * @return {PhysicalWorld} Physical world instance for base of parsing
+     */
+    makeBaseWorld(world) {
+        return new EditorWorld(new SplitWorld(world.width, world.height), world.width, world.height);
+    }
+
+    /**
      * Add tile by chip data
      * @param {EditorStage} base Base stage
      * @param {json} chip Chip json data

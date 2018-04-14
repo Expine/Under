@@ -82,10 +82,11 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     /**
      * Make base phisical world for parsing stage
      * @protected
+     * @param {json} world World json data
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
-    makeBaseWorld() {
-        return Engine.debug ? new DebugWorld(new SequentialWorld()) : new SequentialWorld();
+    makeBaseWorld(world) {
+        return Engine.debug ? new DebugWorld(new SplitWorld(world.width, world.height)) : new SplitWorld(world.width, world.height);
     }
 
     /**
@@ -153,7 +154,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         let base = this.makeBaseStage(stage);
         base.setMap(this.makeBaseMap(stage.map));
         base.setCamera(this.makeBaseCamera(stage.camera, width, height));
-        base.setPhysicalWorld(this.makeBaseWorld());
+        base.setPhysicalWorld(this.makeBaseWorld(stage));
         base.getPhysicalWorld().setResponse(this.makePhysicalResponse());
         // make tile
         for (let layer of stage.layers) {
