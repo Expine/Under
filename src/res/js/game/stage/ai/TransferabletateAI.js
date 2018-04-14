@@ -1,6 +1,9 @@
 /**
  * Transferable state AI
- * Basic information can be transferred to another state AI
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - Manages state by name
+ * - ### Basic information can be transferred to another state AI
  * @implements {NamedStateAI}
  * @classdesc Transferable state AI to transfer information to another state AI
  */
@@ -25,6 +28,6 @@ class TransferableStateAI extends NamedStateAI { // eslint-disable-line  no-unus
             }
         }
         // set same state
-        state.stateName_ = this.stateName_;
+        state.stateName = this.stateName;
     }
 }

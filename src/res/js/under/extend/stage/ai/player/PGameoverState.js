@@ -1,6 +1,9 @@
 /**
  * Player gameover state
- * The state in which the player got over game
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - ### The state in which the player got over game
  * @implements {BaseState}
  * @classdesc Player gameover state in which the player got over game
  */

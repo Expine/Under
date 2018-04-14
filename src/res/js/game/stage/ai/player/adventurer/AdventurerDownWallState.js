@@ -1,5 +1,12 @@
 /**
  * State of adventurer down wall
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - Render entity by entity own image ID for change type
+ * - Sets max velocity and move power for moving
+ * - Enable to set velocity and power
  * @implements {UnderMovableState}
  * @classdesc State of adventurer down wall
  */
@@ -11,10 +18,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
      * @param {number} movePower The power to move in the air
      */
     constructor(maxVelocityX, movePower) {
-        super();
-
-        this.maxVelocityX = maxVelocityX;
-        this.movePowerX = movePower;
+        super(maxVelocityX, 0, movePower, 0);
 
         /**
          * Down wall direction
@@ -22,6 +26,13 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
          * @type {number}
          */
         this.directionX = 0;
+
+        /**
+         * Down wall counter
+         * @protected
+         * @type {number}
+         */
+        this.downWallCount = 0;
     }
 
     /**
@@ -30,7 +41,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
      */
     init() {
         super.init();
-        // Check input
+        // Check direction
         this.entity.directionX = -Math.sign(this.entity.body.velocityX);
         this.directionX = this.entity.directionX;
         this.downWallCount = 0;
@@ -82,6 +93,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
                 this.entity.stage.addEntity(hook);
             }
         }
+
         // always push wall
         let collided = false;
         for (let it of this.entity.collider.collisions) {

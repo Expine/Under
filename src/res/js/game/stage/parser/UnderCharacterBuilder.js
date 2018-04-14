@@ -22,13 +22,13 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
         if (ret instanceof StateAI) {
             for (let name in animation) {
                 if (animation.hasOwnProperty(name)) {
-                    let target = ret.getStateByName(name);
+                    let target = ret.getStateByID(name);
                     if (target === undefined) {
                         target = new NormalNoneState();
                         ret.setState(target, name);
                     }
-                    if (target instanceof BaseState) {
-                        target.setStateAnimaton(this.makeAnimation(animation[name]));
+                    if (BaseUtil.implementsOf(target, IAnimationable)) {
+                        target.setAnimation(this.makeAnimation(animation[name]));
                     }
                 }
             }

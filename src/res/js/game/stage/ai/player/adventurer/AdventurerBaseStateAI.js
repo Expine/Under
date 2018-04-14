@@ -1,8 +1,14 @@
 /**
  * Adventurer base State AI
- * AI with state
- * @implements {NormalBaseStateAI}
- * @classdesc AI with state for determining action
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - Manages state by name
+ * - Basic information can be transferred to another state AI
+ * - Changes special state by alias
+ * - Initializes by normal state
+ * - ### Initializes by adventurer state
+ * @extends {NormalBaseStateAI}
+ * @classdesc Adventurer base state AI to initialize by adventurer state
  */
 class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  no-unused-vars
     /**
@@ -13,34 +19,24 @@ class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  
         super();
 
         this.specialActionName = `hook`;
-        if (BaseUtil.implementsOf(this.namedStates[`stationary`], MovableState)) {
-            this.namedStates[`stationary`].setMaxVelocity(350, 0);
-            this.namedStates[`stationary`].setMovePower(42000, 0);
-        }
-        if (BaseUtil.implementsOf(this.namedStates[`walk`], MovableState)) {
-            this.namedStates[`walk`].setMaxVelocity(350, 0);
-            this.namedStates[`walk`].setMovePower(21000, 0);
-        }
-        if (BaseUtil.implementsOf(this.namedStates[`grabwalk`], MovableState)) {
-            this.namedStates[`grab`].setMaxVelocity(110, 0);
-            this.namedStates[`grab`].setMovePower(30000, 0);
-        }
-        if (BaseUtil.implementsOf(this.namedStates[`grabwalk`], MovableState)) {
-            this.namedStates[`grabwalk`].setMaxVelocity(110, 0);
-            this.namedStates[`grabwalk`].setMovePower(15000, 0);
-        }
-        for (let it of [`jumping`]) {
-            if (BaseUtil.implementsOf(this.namedStates[it], MovableState)) {
-                this.namedStates[it].setMaxVelocity(250, 0);
-                this.namedStates[it].setMovePower(15000, 0);
+        for (let name in this.namedStates) {
+            if (this.namedStates.hasOwnProperty(name)) {
+                let state = this.namedStates[name];
+                if (BaseUtil.implementsOf(state, IMovableState)) {
+                    state.setMaxVelocity(state.maxVX * 7 / 6, state.maxVY * 7 / 6);
+                    state.setMovePower(state.movePX * 7 / 6, state.movePY * 7 / 6);
+                }
+                if (BaseUtil.implementsOf(state, IPrepareState)) {
+                    state.speedMagnification = state.speedMagnification * 3;
+                    state.appliedPower = state.appliedPower * 5 / 4;
+                }
             }
         }
         this.namedStates[`grab`] = new AdventurerGrabState(110, 30000);
         this.namedStates[`fall`] = new AdventurerFallState(250, 15000);
         this.namedStates[`falling`] = new AdventurerFallState(250, 15000);
-        this.namedStates[`jump`] = new AdventurerJumpState(320);
-        this.namedStates[`walkjump`] = new AdventurerJumpState(390);
-        this.namedStates[`attack`] = new WildClawState();
+        // TODO: Adventurer attack state
+        this.namedStates[`attack`] = new NormalPunchState();
         this.namedStates[`hook`] = new AdventurerHookState();
         this.namedStates[`downwall`] = new AdventurerDownWallState(250, 15000);
     }

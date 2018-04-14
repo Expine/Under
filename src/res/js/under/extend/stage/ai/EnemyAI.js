@@ -1,8 +1,9 @@
 /**
  * Enemy AI
- * AI to control operation
+ * - Determines the behavior of an entity
+ * - ### Damages to the collided opponent
  * @implements {StraightAI}
- * @classdesc Enemy AI to control operation
+ * @classdesc Enemy AI to damage to the conflicting opponent
  */
 class EnemyAI extends StraightAI { // eslint-disable-line  no-unused-vars
     /**
@@ -13,9 +14,9 @@ class EnemyAI extends StraightAI { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         for (let it of this.entity.collider.collisions) {
-            if ((it.e1 instanceof Player && it.nx * this.entity.body.velocityX < 0) || (it.e2 instanceof Player && it.nx * this.entity.body.velocityX > 0)) {
-                let player = Util.getCollidedEntity(this.entity, it);
-                player.damage(1);
+            let opponent = Util.getSideEntity(this.entity, it);
+            if (opponent !== null && BaseUtil.implementsOf(opponent, IDamagable)) {
+                opponent.damage(1);
             }
         }
         return super.apply(dt);

@@ -1,7 +1,15 @@
 /**
- * State of wild roll action
+ * Wild roll state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - Render entity by entity own image ID for change type
+ * - Sets max velocity and move power for moving
+ * - Enable to set velocity and power
+ * - ### Prepares rolling action
  * @implements {UnderMovableState}
- * @classdesc State of wild roll action
+ * @classdesc Wild roll state to prepare rolling action
  */
 class WildRollState extends UnderMovableState { // eslint-disable-line  no-unused-vars
     /**
@@ -11,10 +19,7 @@ class WildRollState extends UnderMovableState { // eslint-disable-line  no-unuse
      * @param {number} movePowerY The power of y direction to move in the air
      */
     constructor(movePowerX, movePowerY) {
-        super();
-
-        this.movePowerX = movePowerX;
-        this.movePowerY = movePowerY;
+        super(0, 0, movePowerX, movePowerY);
     }
 
     /**

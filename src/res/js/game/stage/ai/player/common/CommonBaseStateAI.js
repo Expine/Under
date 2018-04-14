@@ -1,8 +1,12 @@
 /**
  * Common base state AI
- * AI with state
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - Manages state by name
+ * - Basic information can be transferred to another state AI
+ * - ### Implements by common state
  * @extends {TransferableStateAI}
- * @classdesc AI with state for determining action
+ * @classdesc Common base state AI to implement by common state
  */
 class CommonBaseStateAI extends TransferableStateAI { // eslint-disable-line  no-unused-vars
     /**

@@ -15,7 +15,10 @@ class AutonomyEntitiy extends MutableEntity { // eslint-disable-line  no-unused-
      * @param {AI} ai AI to control this
      * @param {number} priority Priority of AI
      */
-    addAI(ai, priority) {}
+    addAI(ai, priority) {
+        ai.setEntity(this);
+        ai.init();
+    }
 
     /**
      * Remove AI system

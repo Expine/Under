@@ -1,6 +1,7 @@
 /**
  * Jump AI
- * AI to jump
+ * - Determines the behavior of an entity
+ * - ### Jumps
  * @implements {AI}
  * @classdesc Jump AI to jump
  */

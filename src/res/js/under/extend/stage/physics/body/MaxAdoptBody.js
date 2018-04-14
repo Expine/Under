@@ -82,9 +82,6 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
         } else {
             this.vmy = Math.min(this.vmy, vy);
         }
-        if (isNaN(this.vmx)) {
-            console.log(this.material);
-        }
     }
 
     /**

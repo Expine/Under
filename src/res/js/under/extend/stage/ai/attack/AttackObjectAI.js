@@ -1,6 +1,7 @@
 /**
  * Attack object AI
- * AI that is attached to attack object
+ * - Determines the behavior of an entity
+ * - ### AI that is attached to attack object
  * @implements {AI}
  * @classdesc Attack object AI that is attached to attack object
  */
@@ -19,13 +20,7 @@ class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
          * @type {Entity}
          */
         this.actor = actor;
-    }
 
-    /**
-     * Initialize AI
-     * @override
-     */
-    init() {
         /**
          * Previous actor x position
          * @protected

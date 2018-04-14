@@ -1,7 +1,13 @@
 /**
- * State of wild clawing
+ * Wild claw state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - About to attack
+ * - ### Attacks by claw
  * @extends {NormalPunchState}
- * @classdesc State of wild clawing
+ * @classdesc Wild claw state to attack by claw
  */
 class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused-vars
     /**
@@ -13,6 +19,8 @@ class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused
 
         this.threshold = 0.0;
     }
+
+    // TODO: Should imeplement claw
     /**
      *
      * Make attack object

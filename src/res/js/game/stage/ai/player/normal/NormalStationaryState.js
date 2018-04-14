@@ -1,7 +1,15 @@
 /**
- * State of noraml stationary
+ * Normal stationary state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - Render entity by entity own image ID for change type
+ * - Sets max velocity and move power for moving
+ * - Enable to set velocity and power
+ * - ### To walk, jump, grab, attack, special and fall
  * @implements {UnderMovableState}
- * @classdesc State of normal stationary
+ * @classdesc Normal stationary state to walk, jump, grab, attack, special and fall
  */
 class NormalStationaryState extends UnderMovableState { // eslint-disable-line  no-unused-vars
     /**
@@ -11,11 +19,7 @@ class NormalStationaryState extends UnderMovableState { // eslint-disable-line  
      * @param {number} walkPower The power to walk
      */
     constructor(maxVelocityX, walkPower) {
-        super();
-
-
-        this.maxVelocityX = maxVelocityX;
-        this.movePowerX = walkPower;
+        super(maxVelocityX, 0, walkPower, 0);
 
         /**
          * Falling count
@@ -40,19 +44,9 @@ class NormalStationaryState extends UnderMovableState { // eslint-disable-line  
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        let vx = 0;
-        // walk
-        if (Input.it.isPressed(Input.key.left())) {
-            vx += -1;
-        }
-        if (Input.it.isPressed(Input.key.right())) {
-            vx += 1;
-        }
-        if (vx != 0) {
-            this.entity.directionX = vx;
-            if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
-                this.entity.body.enforce(vx * this.movePowerX * this.entity.material.mass / dt, 0);
-            }
+        // move
+        let moved = this.moveByInput(dt);
+        if (moved) {
             this.ai.changeState(`walk`);
         }
         if (Util.onGround(this.entity)) {
@@ -60,7 +54,7 @@ class NormalStationaryState extends UnderMovableState { // eslint-disable-line  
                 this.ai.changeState(`grab`);
             }
             if (Input.it.isPressed(Input.key.up())) {
-                if (vx != 0) {
+                if (moved) {
                     this.ai.changeState(`walkjump`);
                 } else {
                     this.ai.changeState(`jump`);

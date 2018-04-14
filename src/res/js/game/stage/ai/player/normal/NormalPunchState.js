@@ -1,7 +1,12 @@
 /**
- * State of normal punching
+ * Normal punch state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - ### About to attack
  * @implements {UnderPlayerState}
- * @classdesc State of normal punching
+ * @classdesc Normal punch state that about to attack
  */
 class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
@@ -25,6 +30,7 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
          */
         this.threshold = 0.5;
     }
+
     /**
      * Make attack object
      * @protected

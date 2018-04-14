@@ -1,31 +1,32 @@
 /**
  * Named state AI
- * AI with state
- * Manage the state with a name
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - ### Manages state by name
  * @implements {StateAI}
- * @classdesc AI with state for determining action
+ * @classdesc Named state AI to manage state by name
  */
 class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
     /**
-     * Base State AI Constructor
-     * @param {string} state Initial state name
+     * Named State AI Constructor
+     * @param {string} id Initial state name
      */
-    constructor(state) {
+    constructor(id) {
         super();
 
         /**
          * AI State
-         * @private
+         * @protected
          * @type {State}
          */
-        this.state_ = null;
+        this.state = null;
 
         /**
          * AI State name
-         * @private
+         * @protected
          * @type {string}
          */
-        this.stateName_ = state;
+        this.stateName = id;
 
         /**
          * List of named states
@@ -41,30 +42,10 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        let state = this.stateName_;
-        this.stateName_ = ``;
+        // save
+        let state = this.stateName;
+        this.stateName = ``;
         this.changeState(state);
-    }
-
-    /**
-     * Apply AI and decide action
-     * @override
-     * @param {number} dt Delta time
-     * @return {bool} Whether decided on action
-     */
-    apply(dt) {
-        return this.state_ != null && this.state_.apply(dt);
-    }
-
-    /**
-     * Update state
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        if (this.state_ != null) {
-            this.state_.update(dt);
-        }
     }
 
     /**
@@ -73,50 +54,49 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      * @return {State} state of ai
      */
     getState() {
-        return this.state_;
+        return this.state;
     }
 
     /**
      * Set state by name
      * @override
      * @param {State} state State
-     * @param {string} name State name
+     * @param {string} id State ID
      */
-    setState(state, name) {
-        this.namedStates[name] = state;
+    setState(state, id) {
+        this.namedStates[id] = state;
     }
 
     /**
      * Get state by name
      * @override
-     * @param {string} state State name
+     * @param {string} id State ID
      * @return {State} State of AI
      */
-    getStateByName(state) {
-        return this.namedStates[state];
+    getStateByID(id) {
+        return this.namedStates[id];
     }
 
     /**
      * Change state
      * @override
-     * @param {string} state State to change
+     * @param {string} id ID of state to change
      * @return {bool} Whether change state or not
      */
-    changeState(state) {
+    changeState(id) {
         // Do not process if it is in the same state
-        if (state == this.stateName_) {
+        if (id == this.stateName) {
             return false;
         }
-        this.stateName_ = state;
-        this.state_ = this.namedStates[state];
+        this.stateName = id;
+        this.state = this.namedStates[id];
         // assign null if it does not exist
-        if (this.state_ === undefined) {
-            this.state_ = null;
+        if (this.state === undefined) {
+            this.state = null;
             return true;
         }
-        this.state_.setEntity(this.entity);
-        this.state_.setAI(this);
-        this.state_.init();
+        // initialize
+        super.changeState(id);
         return true;
     }
 }

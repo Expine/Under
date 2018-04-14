@@ -1,6 +1,10 @@
 /**
  * Under player state
- * Render entity by entity own image ID for change type
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - ### Render entity by entity own image ID for change type
  * @implements {TransferableState}
  * @classdesc Under player state to render entity by entity own image ID
  */

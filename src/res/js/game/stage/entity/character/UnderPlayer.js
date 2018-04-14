@@ -69,23 +69,24 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
                 }
             }
         }
+        // TODO: Should apply proxy pattern
         // set type
         let ai = null;
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
                 this.imageID = ResourceManager.image.load(`chara/wild.png`);
-                this.body.frictionY = 0;
+                this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
                 break;
             case 1:
                 ai = new NormalBaseStateAI();
                 this.imageID = ResourceManager.image.load(`chara/player.png`);
-                this.body.frictionY = 0;
+                this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
                 break;
             case 2:
                 ai = new AdventurerBaseStateAI();
                 this.imageID = ResourceManager.image.load(`chara/adventurer.png`);
-                this.body.frictionY = 2;
+                this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 2));
                 break;
         }
         // inspect whether it changes

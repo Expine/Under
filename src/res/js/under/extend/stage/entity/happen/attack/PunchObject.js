@@ -37,7 +37,11 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
         anime.addAnimation(new AnimationElement(imageID, 64, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
         this.setAnimation(anime);
+        this.setMaterial(new ImmutableMaterial());
         this.setCollider(new RectangleCollider(0, 0, this.width, this.height));
+        let body = new MaxAdoptBody();
+        body.setMaterial(new ImmutableRigidMaterial());
+        this.setRigidBody(body);
         this.addAI(new AttackObjectAI(owner));
     }
 
@@ -49,6 +53,15 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
     setCollider(collider) {
         super.setCollider(collider);
         collider.isResponse = false;
+    }
+
+    /**
+     * Set rigid body
+     * @param {RigidBody} body rigid body
+     */
+    setRigidBody(body) {
+        super.setRigidBody(body);
+        body.enable = false;
     }
 
     /**

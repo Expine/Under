@@ -1,7 +1,12 @@
 /**
- * State of normal special action
+ * Normal special state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - ### Does special action
  * @implements {UnderPlayerState}
- * @classdesc State of normal special action
+ * @classdesc Normal special state to do special action
  */
 class NormalSpecialState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**

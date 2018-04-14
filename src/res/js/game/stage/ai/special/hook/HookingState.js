@@ -21,6 +21,7 @@ class HookingState extends State { // eslint-disable-line  no-unused-vars
         this.hook = hook;
     }
 
+    // TODO: Should store other value
     /**
      * Set entity for targeting
      * @override

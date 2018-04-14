@@ -1,8 +1,11 @@
 /**
  * Player base State AI
- * AI with state
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - Manages state by name
+ * - ### Manages player state
  * @extends {NamedStateAI}
- * @classdesc AI with state for determining action
+ * @classdesc Player base State AI to manage player state
  */
 class PlayerBaseStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
     /**

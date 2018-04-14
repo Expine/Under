@@ -1,17 +1,26 @@
 /**
- * AI for determining the behavior of an entity
+ * AI
+ * - ### Determines the behavior of an entity
  * @classdesc AI for determining the behavior of an entity
  */
 class AI { // eslint-disable-line  no-unused-vars
+    /**
+     * AI constructor
+     * @constructor
+     */
+    constructor() {
+        /**
+         * Entity to which AI is attached
+         * @type {AutonomyEntitiy}
+         */
+        this.entity = null;
+    }
+
     /**
      * Set autonomy object
      * @param {AutonomyEntitiy} entity
      */
     setEntity(entity) {
-        /**
-         * Entity to which AI is attached
-         * @type {AutonomyEntitiy}
-         */
         this.entity = entity;
     }
 

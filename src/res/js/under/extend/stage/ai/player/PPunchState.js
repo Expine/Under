@@ -1,17 +1,52 @@
-// TODO: Should implement BaseState
 /**
- * State of player punching
- * @implements {State}
- * @classdesc State of player punching
+ * Player punch state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - ### About to attack
+ * @implements {BaseState}
+ * @classdesc Player punch state that about to attack
  */
-class PPunchState extends State { // eslint-disable-line  no-unused-vars
+class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
+    /**
+     * Player punch state
+     * @constructor
+     */
+    constructor() {
+        super();
+
+        /**
+         * Whether it attacked or not
+         * @protected
+         * @type {bool}
+         */
+        this.attacked = false;
+
+        /**
+         * Animation threshold for starting attack
+         * @protected
+         * @type {number}
+         */
+        this.threshold = 0.5;
+    }
+
     /**
      * Make attack object
      * @protected
      * @return {AttackObject} Attack object
      */
     makeAttackObject() {
-        return new PunchObject(this.entity.x + this.entity.directionX * (this.entity.width + 10), this.entity.y);
+        let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
+        return new PunchObject(x, this.entity.y + 27, 32, 32, this.entity);
+    }
+
+    /**
+     * Initialize
+     * @override
+     */
+    init() {
+        super.init();
+        this.attacked = false;
     }
 
     /**
@@ -21,25 +56,22 @@ class PPunchState extends State { // eslint-disable-line  no-unused-vars
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        // punch
-        this.entity.stage.addEntity(this.makeAttackObject());
+        if (!this.stateAnimation.isEnded() && this.stateAnimation.getAnimationCount() < this.threshold) {
+            return;
+        }
+        if (!this.attacked) {
+            this.entity.stage.addEntity(this.makeAttackObject());
+            this.attacked = true;
+        }
         // change state
-        if (this.entity.body.isFixX) {
-            this.ai.changeState(`stationary`);
-        } else {
-            this.ai.changeState(`walk`);
+        if (this.stateAnimation.isEnded()) {
+            // punch
+            if (this.entity.body.isFixX) {
+                this.ai.changeState(`stationary`);
+            } else {
+                this.ai.changeState(`walk`);
+            }
         }
         return true;
-    }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.entity.imageID, this.entity.x + shiftX, this.entity.y + shiftY, this.entity.width, this.entity.height, 96, 16 - this.entity.directionX * 16, 32, 32);
     }
 }

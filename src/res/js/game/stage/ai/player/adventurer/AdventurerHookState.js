@@ -1,7 +1,13 @@
 /**
- * State of adventurer hooking
+ * Adventurer hook state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - Render entity by entity own image ID for change type
+ * - ### It can generate and release hook
  * @extends {UnderPlayerState}
- * @classdesc State of adventurer hooking
+ * @classdesc Adventurer hook state that can generate and release hook
  */
 class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**

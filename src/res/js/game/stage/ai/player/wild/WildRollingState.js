@@ -1,7 +1,13 @@
 /**
- * State of wild rolling action
+ * Wild rolling state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - Render entity by entity own image ID for change type
+ * - ### Stops rolling after landing
  * @implements {UnderPlayerState}
- * @classdesc State of wild rolling action
+ * @classdesc Wild rolling state to stop rolling after landing
  */
 class WildRollingState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**

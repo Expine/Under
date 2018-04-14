@@ -1,7 +1,16 @@
 /**
- * State of adventurer fall
- * @implements {NormalFallState}
- * @classdesc State of adventurer fall
+ * Adventurer fall state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - Render entity by entity own image ID for change type
+ * - Sets max velocity and move power for moving
+ * - Enable to set velocity and power
+ * - To falling, walk and stop
+ * - ### It can release hook and down wall
+ * @extends {NormalFallState}
+ * @classdesc Adventurer fall state that can release hook and down wall
  */
 class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-unused-vars
     /**
@@ -11,7 +20,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
      * @return {bool} Whether decided on action
      */
     apply(dt) {
-        // input
+        // down wall check
         let vx = 0;
         if (Input.it.isPressed(Input.key.left())) {
             vx += -1;
@@ -28,9 +37,16 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
                 }
             }
         }
+        // release hook
         if (Input.it.isPress(Input.key.sub())) {
-            this.ai.changeState(`special`);
-            return true;
+            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, Hookable));
+            if (hooks.length >= 1) {
+                for (let it of hooks) {
+                    if (it.getActor() === this.entity) {
+                        it.release();
+                    }
+                }
+            }
         }
         return super.apply(dt);
     }

@@ -1,42 +1,38 @@
 /**
- * Wild base State AI
- * AI with state
- * @implements {NormalBaseStateAI}
- * @classdesc AI with state for determining action
+ * Wild base state AI
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - Manages state by name
+ * - Basic information can be transferred to another state AI
+ * - Changes special state by alias
+ * - Initializes by normal state
+ * - ### Initializes by wild state
+ * @extends {NormalBaseStateAI}
+ * @classdesc Wild base state AI to initialize by wild state
  */
 class WildBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  no-unused-vars
     /**
-     * Wild base State AI Constructor
+     * Wild base state AI Constructor
      * @constructor
      */
     constructor() {
         super();
 
         this.specialActionName = `roll`;
-        if (BaseUtil.implementsOf(this.namedStates[`stationary`], MovableState)) {
-            this.namedStates[`stationary`].setMaxVelocity(400, 0);
-            this.namedStates[`stationary`].setMovePower(48000, 0);
-        }
-        if (BaseUtil.implementsOf(this.namedStates[`walk`], MovableState)) {
-            this.namedStates[`walk`].setMaxVelocity(400, 0);
-            this.namedStates[`walk`].setMovePower(24000, 0);
-        }
-        if (BaseUtil.implementsOf(this.namedStates[`grabwalk`], MovableState)) {
-            this.namedStates[`grab`].setMaxVelocity(120, 0);
-            this.namedStates[`grab`].setMovePower(40000, 0);
-        }
-        if (BaseUtil.implementsOf(this.namedStates[`grabwalk`], MovableState)) {
-            this.namedStates[`grabwalk`].setMaxVelocity(120, 0);
-            this.namedStates[`grabwalk`].setMovePower(20000, 0);
-        }
-        for (let it of [`jumping`, `fall`, `falling`]) {
-            if (BaseUtil.implementsOf(this.namedStates[it], MovableState)) {
-                this.namedStates[it].setMaxVelocity(300, 0);
-                this.namedStates[it].setMovePower(18000, 0);
+        for (let name in this.namedStates) {
+            if (this.namedStates.hasOwnProperty(name)) {
+                let state = this.namedStates[name];
+                if (BaseUtil.implementsOf(state, IMovableState)) {
+                    state.setMaxVelocity(state.maxVX * 4 / 3, state.maxVY * 4 / 3);
+                    state.setMovePower(state.movePX * 5 / 4, state.movePY * 5 / 3);
+                }
+                if (BaseUtil.implementsOf(state, IPrepareState)) {
+                    state.speedMagnification = state.speedMagnification * 5;
+                    state.appliedPower = state.appliedPower * 3 / 2;
+                }
             }
         }
-        this.namedStates[`jump`] = new WildJumpState(400);
-        this.namedStates[`walkjump`] = new WildJumpState(460);
+
         this.namedStates[`attack`] = new WildClawState();
         this.namedStates[`roll`] = new WildRollState(880000, 240000);
         this.namedStates[`rolling`] = new WildRollingState();

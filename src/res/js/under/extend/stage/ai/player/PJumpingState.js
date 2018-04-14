@@ -1,7 +1,11 @@
 /**
- * State of player jumping
+ * Player jump state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - ### Decides actions while jumping
  * @implements {BaseState}
- * @classdesc State of player jumping
+ * @classdesc Player jump state to decide actions while jumping
  */
 class PJumpingState extends BaseState { // eslint-disable-line  no-unused-vars
     /**

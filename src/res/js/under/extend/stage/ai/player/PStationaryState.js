@@ -1,7 +1,11 @@
 /**
- * State of player's stationary
+ * Stationary state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - ### Moves, jumps, and attacks
  * @implements {BaseState}
- * @classdesc State of player's stationary
+ * @classdesc Stationary state to move, jump, and attack
  */
 class PStationaryState extends BaseState { // eslint-disable-line  no-unused-vars
     /**
@@ -45,15 +49,17 @@ class PStationaryState extends BaseState { // eslint-disable-line  no-unused-var
         if (vx != 0) {
             this.entity.directionX = vx;
             if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
-                this.entity.body.enforce(vx * this.walkPower / dt, 0);
+                this.entity.body.enforce(vx * this.walkPower * this.entity.material.mass / dt, 0);
             }
             this.ai.changeState(`walk`);
         }
-        if (Input.it.isPressed(Input.key.up()) && Util.onGround(this.entity)) {
-            this.ai.changeState(`jump`);
-        }
-        if (Input.it.isPress(Input.key.yes())) {
-            this.ai.changeState(`attack`);
+        if (Util.onGround(this.entity)) {
+            if (Input.it.isPressed(Input.key.up())) {
+                this.ai.changeState(`jump`);
+            }
+            if (Input.it.isPress(Input.key.yes())) {
+                this.ai.changeState(`attack`);
+            }
         }
         return true;
     }

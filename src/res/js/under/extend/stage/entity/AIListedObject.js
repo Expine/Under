@@ -40,8 +40,7 @@ class AIListedObject extends AutonomyEntitiy { // eslint-disable-line  no-unused
         let index = priority < 0 ? this.ai.length + priority + 1 : priority;
         this.ai.splice(index, 0, ai);
         // initialize
-        ai.setEntity(this);
-        ai.init();
+        super.addAI(ai, priority);
     }
 
     /**

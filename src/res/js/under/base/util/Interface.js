@@ -89,7 +89,7 @@ class Interface { // eslint-disable-line  no-unused-vars
             let proto = instance.__proto__;
             let exists = false;
             while (proto !== null) {
-                let disc = Object.getOwnPropertyDescriptor(instance, it);
+                let disc = Object.getOwnPropertyDescriptor(proto, it);
                 if (disc !== undefined && disc.get !== undefined) {
                     exists = true;
                     break;
@@ -105,7 +105,7 @@ class Interface { // eslint-disable-line  no-unused-vars
             let proto = instance.__proto__;
             let exists = false;
             while (proto !== null) {
-                let disc = Object.getOwnPropertyDescriptor(instance, it);
+                let disc = Object.getOwnPropertyDescriptor(proto, it);
                 if (disc !== undefined && disc.set !== undefined) {
                     exists = true;
                     break;

@@ -1,10 +1,13 @@
 /**
- * Base state for rendering state animation
- * Renders animation according to direction
+ * Base State
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - ### Base state for rendering state animation
  * @implements {State}
+ * @implements {IAnimationable}
  * @classdesc Base state for rendering state animation
  */
-class BaseState extends State { // eslint-disable-line  no-unused-vars
+class BaseState extends State /* IAnimationable */ { // eslint-disable-line  no-unused-vars
     /**
      * Base state constructor
      * @constructor
@@ -30,12 +33,14 @@ class BaseState extends State { // eslint-disable-line  no-unused-vars
         }
     }
 
+
     /**
-     * Set state animation
-     * @param {Animation} stateAnimation State animation
+     * Set animation
+     * @override
+     * @param {Animation} animation Animation
      */
-    setStateAnimaton(stateAnimation) {
-        this.stateAnimation = stateAnimation;
+    setAnimation(animation) {
+        this.stateAnimation = animation;
     }
 
     /**

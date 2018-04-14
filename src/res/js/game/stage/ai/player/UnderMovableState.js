@@ -1,15 +1,26 @@
 /**
- * Under player state that can be movable
- * Render entity by entity own image ID for change type
- * @extends {UnderPlayerState}
- * @classdesc Under player state to render entity by entity own image ID
+ * Under movable state that can be movable
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - Render entity by entity own image ID for change type
+ * - Sets max velocity and move power for moving
+ * - ### Enable to set velocity and power
+ * @implements {UnderPlayerState}
+ * @implements {IMovableState}
+ * @classdesc Under movable state to enable to set velocity and power
  */
-class UnderMovableState extends UnderPlayerState /* , MovableState */ { // eslint-disable-line  no-unused-vars
+class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // eslint-disable-line  no-unused-vars
     /**
      * Under movable state constructor
      * @constructor
+     * @param {number} maxVeocityX Maximum speed x vector
+     * @param {number} maxVeocityY Maximum speed y vector
+     * @param {number} movePowerX Force of x direction applied when moving
+     * @param {number} movePowerY Force of y direction applied when moving
      */
-    constructor() {
+    constructor(maxVelocityX, maxVelocityY, movePowerX, movePowerY) {
         super();
 
         /**
@@ -17,26 +28,62 @@ class UnderMovableState extends UnderPlayerState /* , MovableState */ { // eslin
          * @protected
          * @type {number}
          */
-        this.maxVelocityX = 0;
+        this.maxVelocityX = maxVelocityX;
         /**
          * Maximum speed y vector
          * @protected
          * @type {number}
          */
-        this.maxVelocityY = 0;
+        this.maxVelocityY = maxVelocityY;
 
         /**
          * Force of x direction applied when moving
          * @protected
          * @type {number}
          */
-        this.movePowerX = 0;
+        this.movePowerX = movePowerX;
         /**
          * Force of x direction applied when moving
          * @protected
          * @type {number}
          */
-        this.movePowerY = 0;
+        this.movePowerY = movePowerY;
+    }
+
+    /**
+     * Get max velocity of x
+     * @override
+     * @return {number} Max velocity of x
+     */
+    get maxVX() {
+        return this.maxVelocityX;
+    }
+
+    /**
+     * Get max velocity of y
+     * @override
+     * @return {number} Max velocity of y
+     */
+    get maxVY() {
+        return this.maxVelocityY;
+    }
+
+    /**
+     * Get power of x
+     * @override
+     * @return {number} Power of x
+     */
+    get movePX() {
+        return this.movePowerX;
+    }
+
+    /**
+     * Get power of y
+     * @override
+     * @return {number} Power of y
+     */
+    get movePY() {
+        return this.movePowerY;
     }
 
     /**
@@ -59,5 +106,49 @@ class UnderMovableState extends UnderPlayerState /* , MovableState */ { // eslin
     setMovePower(movePowerX, movePowerY) {
         this.movePowerX = movePowerX;
         this.movePowerY = movePowerY;
+    }
+
+    /**
+     * Move by input
+     * @protected
+     * @param {number} dt Delta time
+     * @return {bool} Whether move or not
+     */
+    moveByInput(dt) {
+        let moved = false;
+        // input
+        if (this.movePowerX > 0) {
+            let vx = 0;
+            if (Input.it.isPressed(Input.key.left())) {
+                vx += -1;
+            }
+            if (Input.it.isPressed(Input.key.right())) {
+                vx += 1;
+            }
+            if (vx != 0) {
+                this.entity.directionX = vx;
+                if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(this.maxVelocityX)) {
+                    this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
+                }
+                moved = true;
+            }
+        }
+        if (this.movePowerY > 0) {
+            let vy = 0;
+            if (Input.it.isPressed(Input.key.up())) {
+                vy += -1;
+            }
+            if (Input.it.isPressed(Input.key.down())) {
+                vy += 1;
+            }
+            if (vy != 0) {
+                this.entity.directionX = vy;
+                if (this.entity.body.velocityY * vy < 0 || Math.abs(this.entity.body.velocityY) < Math.abs(this.maxVelocityY)) {
+                    this.entity.body.enforce(this.movePowerY * this.entity.material.mass * vy / dt, 0);
+                }
+                moved = true;
+            }
+        }
+        return moved;
     }
 }

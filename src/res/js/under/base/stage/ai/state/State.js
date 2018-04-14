@@ -1,19 +1,32 @@
 /**
- * State of ai
- * Determine the operation by AI according to the state
- * Also renders based on state
- * @classdesc State of ai to determine the operation
+ * State
+ * - ### Determines the operation by AI according to the state and renders based on state
+ * @classdesc State to determine the operation and render by state
  */
 class State { // eslint-disable-line  no-unused-vars
+    /**
+     * State constructor
+     * @constructor
+     */
+    constructor() {
+        /**
+         * Entity for targeting
+         * @type {AutonomyEntitiy}
+         */
+        this.entity = null;
+
+        /**
+         * AI for operating
+         * @type {StateAI}
+         */
+        this.ai = null;
+    }
+
     /**
      * Set entity for targeting
      * @param {AutonomyEntitiy} entity Entity for tageting
      */
     setEntity(entity) {
-        /**
-         * Entity for targeting
-         * @type {AutonomyEntitiy}
-         */
         this.entity = entity;
     }
 
@@ -22,10 +35,6 @@ class State { // eslint-disable-line  no-unused-vars
      * @param {StateAI} ai AI for operating
      */
     setAI(ai) {
-        /**
-         * AI for operating
-         * @type {StateAI}
-         */
         this.ai = ai;
     }
 
@@ -36,19 +45,19 @@ class State { // eslint-disable-line  no-unused-vars
     init() {}
 
     /**
+     * Update state
+     * @interface
+     * @param {number} dt Delta time
+     */
+    update(dt) {}
+
+    /**
      * Apply AI and decide action
      * @interface
      * @param {number} dt Delta time
      * @return {bool} Whether decided on action
      */
     apply(dt) {}
-
-    /**
-     * Update state
-     * @interface
-     * @param {number} dt Delta time
-     */
-    update(dt) {}
 
     /**
      * Render entity by this state

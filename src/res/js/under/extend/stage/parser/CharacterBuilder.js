@@ -51,8 +51,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             for (let name in animation) {
                 if (animation.hasOwnProperty(name)) {
                     let target = ret.getStateByName(name);
-                    if (target instanceof BaseState) {
-                        target.setStateAnimaton(this.makeAnimation(animation[name]));
+                    if (BaseUtil.implementsOf(target, IAnimationable)) {
+                        target.setAnimaton(this.makeAnimation(animation[name]));
                     }
                 }
             }

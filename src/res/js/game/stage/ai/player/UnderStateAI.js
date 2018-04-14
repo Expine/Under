@@ -1,8 +1,12 @@
 /**
  * Under state AI
- * AI with state
- * @extends {TransferableStateAI}
- * @classdesc AI with state for determining action
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - Manages state by name
+ * - Basic information can be transferred to another state AI
+ * - ### Changes special state by alias
+ * @implements {TransferableStateAI}
+ * @classdesc Under state AI to change special state by alias
  */
 class UnderStateAI extends TransferableStateAI { // eslint-disable-line  no-unused-vars
     /**

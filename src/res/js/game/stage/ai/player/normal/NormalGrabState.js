@@ -1,27 +1,32 @@
 /**
- * State of normal grab action
+ * Normal grab state
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Enable to set animation
+ * - Base state for rendering state animation
+ * - Basic information can be transferred to another state
+ * - Render entity by entity own image ID for change type
+ * - Sets max velocity and move power for moving
+ * - Enable to set velocity and power
+ * - ### Manages grabed behavior
  * @implements {UnderMovableState}
- * @classdesc State for normal grab action
+ * @classdesc Normal grab state to manage grabed behavior
  */
 class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unused-vars
     /**
-     * Normal Grab state constructor
+     * Normal grab state constructor
      * @constructor
      * @param {number} maxVelocityX Maximum speed
      * @param {number} walkPower The power to walk
      */
     constructor(maxVelocityX, walkPower) {
-        super();
-
-        this.maxVelocityX = maxVelocityX;
-        this.movePowerX = walkPower;
+        super(maxVelocityX, 0, walkPower, 0);
 
         /**
          * Count for action
-         * @private
+         * @protected
          * @type {number}
          */
-        this.underCount_ = 0;
+        this.underCount = 0;
 
         /**
          * Amount of indicating difference of height
@@ -29,6 +34,13 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
          * @type {number}
          */
         this.underDiffY = 12;
+
+        /**
+         * Player at registered entity
+         * @protected
+         * @type {IUnderPlayable}
+         */
+        this.player = null;
     }
 
     /**
@@ -37,7 +49,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      */
     init() {
         this.stateAnimation.restore();
-        this.underCount_ = 0;
+        this.underCount = 0;
         let aabb = this.entity.collider.getAABB();
         this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
     }
@@ -48,8 +60,9 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @param {AutonomyEntitiy} entity Entity for tageting
      */
     setEntity(entity) {
+        super.setEntity(entity);
         if (BaseUtil.implementsOf(entity, IUnderPlayable)) {
-            super.setEntity(entity);
+            this.player = entity;
         }
     }
 
@@ -68,7 +81,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
     apply(dt) {
         // judge
         if (!Util.onGround(this.entity) || !Input.it.isPressed(Input.key.down())) {
-            if (++this.underCount_ > 5) {
+            if (++this.underCount > 5) {
                 // restore
                 let aabb = this.entity.collider.getAABB();
                 this.entity.collider.fixBoundDirectly(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
@@ -94,7 +107,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
                 }
             }
         } else {
-            this.underCount_ = 0;
+            this.underCount = 0;
         }
         if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity)) {
             // input
@@ -129,7 +142,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
             // change
             let ground = Util.getUnderEntity(this.entity);
             if (BaseUtil.implementsOf(ground, ITerrain)) {
-                if (this.entity.changeType(ground.getTerrainID())) {
+                if (this.player.changeType(ground.getTerrainID())) {
                     this.changed();
                     return true;
                 }
