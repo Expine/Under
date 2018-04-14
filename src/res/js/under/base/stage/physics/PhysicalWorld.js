@@ -35,6 +35,14 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get response instance for collision response
+     * @return {CollisionResponse} Collision response instance
+     */
+    getResponse() {
+        return this.response;
+    }
+
+    /**
      * Add entity as actior
      * @interface
      * @param {MutableEntity} actor Entity as actor
@@ -61,6 +69,13 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
      * @return {Array<CollisionData>} Collision information now
      */
     getCollisionData(entity) {}
+
+    /**
+     * Get the total number of collisions
+     * @interface
+     * @return {number} Total number of collisions
+     */
+    getCollisionSize() {}
 
     /**
      * Update external force

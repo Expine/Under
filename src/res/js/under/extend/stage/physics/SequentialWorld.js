@@ -126,6 +126,15 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     }
 
     /**
+     * Get the total number of collisions
+     * @override
+     * @return {number} Total number of collisions
+     */
+    getCollisionSize() {
+        return this.collisionSize;
+    }
+
+    /**
      * Update external force
      * @protected
      * @override

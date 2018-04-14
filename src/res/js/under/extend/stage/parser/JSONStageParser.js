@@ -34,7 +34,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
-        return Engine.debug ? new DebugStage(stage.width, stage.height) : new SplitManagementStage(stage.width, stage.height);
+        return Engine.debug ? new DebugStage(new SplitManagementStage(stage.width, stage.height)) : new SplitManagementStage(stage.width, stage.height);
     }
 
     /**
@@ -85,7 +85,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
     makeBaseWorld() {
-        return Engine.debug ? new DebugWorld() : new SequentialWorld();
+        return Engine.debug ? new DebugWorld(new SequentialWorld()) : new SequentialWorld();
     }
 
     /**

@@ -3,13 +3,89 @@
  * - Store stage size
  * - Performs updating and rendering stage
  * - Manages stage element such as entity
- * - Dividingly manages entities according to type
- * - Do not update immutable objects
- * - ### Executes debug process
- * @extends {SplitManagementStage}
- * @classdesc Debug stage to execute debug process
+ * - ### Executes debug process by delegation
+ * @extends {Stage}
+ * @classdesc Debug stage to execute debug processs by delegation
  */
-class DebugStage extends SplitManagementStage { // eslint-disable-line  no-unused-vars
+class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
+    /**
+     * Debug stage constructor
+     * @param {Stage} stage Original stage for delegation
+     * @constructor
+     */
+    constructor(stage) {
+        super(stage.stageWidth, stage.stageHeight);
+
+        /**
+         * Original stage for delegation
+         * @protected
+         * @type {Stage}
+         */
+        this.stage = stage;
+    }
+    /**
+     * Set map manager
+     * @override
+     * @param {Map} map Map manager
+     */
+    setMap(map) {
+        this.stage.setMap(map);
+    }
+
+    /**
+     * Set camera
+     * @override
+     * @param {Camera} map Camera
+     */
+    setCamera(camera) {
+        this.stage.setCamera(camera);
+    }
+
+    /**
+     * Set physical world
+     * @override
+     * @param {PhysicalWorld} physic Physical world
+     */
+    setPhysicalWorld(physic) {
+        this.stage.setPhysicalWorld(physic);
+    }
+
+    /**
+     * Get physical world
+     * @override
+     * @return {PhysicalWorld} Physical world
+     */
+    getPhysicalWorld() {
+        return this.stage.getPhysicalWorld();
+    }
+
+    /**
+     * Add entity to stage
+     * @override
+     * @param {Entity} entity Entity object
+     */
+    addEntity(entity) {
+        this.stage.addEntity(entity);
+    }
+
+    /**
+     * Remove entity from stage
+     * @override
+     * @param {Entity} entity Entity object
+     */
+    removeEntity(entity) {
+        this.stage.removeEntity(entity);
+    }
+
+    /**
+     * Get all entities
+     * @override
+     * @return {Array<Entity>} All entities
+     */
+    getEntities() {
+        return this.stage.getEntities();
+    }
+
     /**
      * Update entity in stage
      * @override
@@ -18,7 +94,7 @@ class DebugStage extends SplitManagementStage { // eslint-disable-line  no-unuse
      */
     updateEntity(dt) {
         Timer.it.startTimer(`entity`);
-        super.updateEntity(dt);
+        this.stage.updateEntity(dt);
         Timer.it.stopTimer(`entity`);
     }
 
@@ -30,8 +106,18 @@ class DebugStage extends SplitManagementStage { // eslint-disable-line  no-unuse
      */
     updatePhysics(dt) {
         Timer.it.startTimer(`physics`);
-        super.updatePhysics(dt);
+        this.stage.updatePhysics(dt);
         Timer.it.stopTimer(`physics`);
+    }
+
+    /**
+     * Update camera
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateCamera(dt) {
+        this.stage.updateCamera(dt);
     }
 
     /**
@@ -44,7 +130,7 @@ class DebugStage extends SplitManagementStage { // eslint-disable-line  no-unuse
      */
     renderMap(ctx, shiftX, shiftY) {
         Timer.it.startTimer(`renderMap`);
-        super.renderMap(ctx, shiftX, shiftY);
+        this.stage.renderMap(ctx, shiftX, shiftY);
         Timer.it.stopTimer(`renderMap`);
     }
 
@@ -58,22 +144,22 @@ class DebugStage extends SplitManagementStage { // eslint-disable-line  no-unuse
      */
     renderEntity(ctx, shiftX, shiftY) {
         Timer.it.startTimer(`renderEntity`);
-        super.renderEntity(ctx, shiftX, shiftY);
+        this.stage.renderEntity(ctx, shiftX, shiftY);
         Timer.it.stopTimer(`renderEntity`);
 
         // For debug to render entity information
         if (Engine.debug) {
-            let startX = -this.camera.cameraX;
-            let startY = -this.camera.cameraY;
-            let endX = startX + this.camera.screenWidth;
-            let endY = startY + this.camera.screenHeight;
+            let startX = -this.stage.camera.cameraX;
+            let startY = -this.stage.camera.cameraY;
+            let endX = startX + this.stage.camera.screenWidth;
+            let endY = startY + this.stage.camera.screenHeight;
             let mx = Input.mouse.getMouseX() + startX;
             let my = Input.mouse.getMouseY() + startY;
-            for (let it of this.entities) {
+            for (let it of this.getEntities()) {
                 if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
                     if (it.collider !== null) {
                         // render collider
-                        it.collider.render(ctx, this.camera.baseX - startX, this.camera.baseY - startY);
+                        it.collider.render(ctx, this.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
                         // render information
                         if (it.collider.isInCollider(mx, my)) {
                             ctx.fillText(`(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
@@ -88,5 +174,19 @@ class DebugStage extends SplitManagementStage { // eslint-disable-line  no-unuse
                 }
             }
         }
+    }
+
+    /**
+     * Render stage
+     * @override
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {
+        shiftX += this.stage.camera.baseX;
+        shiftY += this.stage.camera.baseY;
+        this.renderMap(ctx, shiftX, shiftY);
+        this.renderEntity(ctx, shiftX, shiftY);
     }
 }
