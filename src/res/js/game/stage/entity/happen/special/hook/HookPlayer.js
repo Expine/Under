@@ -1,8 +1,20 @@
 /**
  * Hook player object
- * Player's representation
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Generated and owned by someone
+ * - Object that can be destroyed
+ * - Enable to set animation
+ * - Object caused by special actions
+ * - It can get hook position and change state
+ * - Implements hook and automatically generates post hook object
+ * - ### Player's representation so it does not exists on stage
  * @implements {HookObject}
- * @classdesc Hook player object
+ * @classdesc Hook player object that player's representation so it does not exists on stage
  */
 class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
     /**
@@ -11,7 +23,7 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
      * @return {number} Hook center x position
      */
     getHookX() {
-        return this.entity.directionX >= 0 ? this.generatedX + this.entity.x + this.entity.width : this.entity.x - this.generatedX;
+        return this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
     }
 
     /**
@@ -20,19 +32,7 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
      * @return {number} Hook center x position
      */
     getHookY() {
-        return this.entity.y - this.generatedY;
-    }
-
-    /**
-     * Enforce tension
-     * @param {number} x Tension of x
-     * @param {number} y Tension of y
-     * @param {number} dt Delta time
-     */
-    tension(x, y, dt) {
-        this.entity.body.enforce(x * 10000 / dt, y * 5000 / dt);
-        // this.entity.body.setNextAddVelocity(0, y * 500 / dt - this.entity.body.velocityY);
-        // this.entity.body.setNextAddVelocity(x * 1000 / dt - this.entity.body.velocityX, y * 1000 / dt - this.entity.body.velocityY);
+        return this.owner.y - this.generatedY;
     }
 
     /**
@@ -45,22 +45,11 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
      * Release hook
      * @override
      */
-    release() {
-        super.destroy();
-    }
+    release() {}
 
     /**
      * Destroy object
      * @override
      */
     destroy() {}
-
-    /**
-     * Update object
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        super.update(dt);
-    }
 }

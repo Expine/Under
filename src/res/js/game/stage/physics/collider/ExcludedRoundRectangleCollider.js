@@ -49,7 +49,7 @@ class ExcludedRoundRectangleCollider extends RoundRectangleCollider /* , Exclude
 
      */
     isCollision(collider, data) {
-        if (BaseUtil.implementsOf(collider, Excludedable) && this.targetID == collider.getTargetID()) {
+        if (BaseUtil.implementsOf(collider, IExclude) && this.targetID == collider.getTargetID()) {
             return false;
         }
         return super.isCollision(collider, data);

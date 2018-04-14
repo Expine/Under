@@ -32,7 +32,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
             let dot = it.nx * this.entity.directionX + it.ny * this.entity.directionY;
             if ((it.e1 === this.entity && dot > 0) || (it.e2 === this.entity && dot < 0)) {
                 let you = Util.getCollidedEntity(this.entity, it);
-                if (BaseUtil.implementsOf(you, Hookable)) {
+                if (BaseUtil.implementsOf(you, IHook)) {
                     if (you.getActor() === this.entity.getActor()) {
                         continue;
                     }

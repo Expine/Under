@@ -8,7 +8,7 @@ class HookStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
     /**
      * Hook State AI Constructor
      * @constructor
-     * @param {Hookable} hook Hook object to get previous entity
+     * @param {IHook} hook Hook object to get previous entity
      * @param {Entity} actor Hook actor
      */
     constructor(hook, actor) {

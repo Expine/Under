@@ -8,7 +8,7 @@ class HookedState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Hooked state
      * @constructor
-     * @param {Hookable} hook Hook object to get previous entity
+     * @param {IHook} hook Hook object to get previous entity
      */
     constructor(hook) {
         super();
@@ -16,7 +16,7 @@ class HookedState extends State { // eslint-disable-line  no-unused-vars
         /**
          * Hook object to get previous entity
          * @protected
-         * @type {Hookable}
+         * @type {IHook}
          */
         this.hook = hook;
     }
@@ -28,7 +28,7 @@ class HookedState extends State { // eslint-disable-line  no-unused-vars
      * @param {AutonomyEntitiy} entity Entity for tageting
      */
     setEntity(entity) {
-        if (BaseUtil.implementsOf(entity, Hookable)) {
+        if (BaseUtil.implementsOf(entity, IHook)) {
             super.setEntity(entity);
         }
     }

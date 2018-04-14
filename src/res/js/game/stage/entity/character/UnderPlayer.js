@@ -38,6 +38,13 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
          * @type {TransferableStateAI}
          */
         this.aiType = null;
+
+        /**
+         * Previous terrain ID
+         * @protected
+         * @type {number}
+         */
+        this.preTerrain = 1;
     }
 
     /**
@@ -69,24 +76,32 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
                 }
             }
         }
-        // TODO: Should apply proxy pattern
+        if (this.preTerrain == id) {
+            return false;
+        }
         // set type
         let ai = null;
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
                 this.imageID = ResourceManager.image.load(`chara/wild.png`);
-                this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
+                if (this.body.material.frictionY != 0) {
+                    this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
+                }
                 break;
             case 1:
                 ai = new NormalBaseStateAI();
                 this.imageID = ResourceManager.image.load(`chara/player.png`);
-                this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
+                if (this.body.material.frictionY != 0) {
+                    this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
+                }
                 break;
             case 2:
                 ai = new AdventurerBaseStateAI();
                 this.imageID = ResourceManager.image.load(`chara/adventurer.png`);
-                this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 2));
+                if (this.body.material.frictionY != 2) {
+                    this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 2));
+                }
                 break;
         }
         // inspect whether it changes
@@ -97,6 +112,7 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
         this.aiType.transfer(ai);
         this.removeAI(this.aiType);
         this.addAI(ai);
+        this.preTerrain = id;
 
         return true;
     }

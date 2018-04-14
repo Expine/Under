@@ -16,7 +16,7 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
      */
     init() {
         super.init();
-        let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, Hookable));
+        let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
         if (hooks.length >= 1) {
             for (let it of hooks) {
                 if (it.getActor() === this.entity) {

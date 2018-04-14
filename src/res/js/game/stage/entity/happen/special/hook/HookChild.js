@@ -1,7 +1,20 @@
 /**
  * Hook child object
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Generated and owned by someone
+ * - Object that can be destroyed
+ * - Enable to set animation
+ * - Object caused by special actions
+ * - It can get hook position and change state
+ * - Implements hook and automatically generates post hook object
+ * - ### Implements as rectangle
  * @implements {HookObject}
- * @classdesc Hook child object
+ * @classdesc Hook child object to implement as rectangle
  */
 class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
     /**
@@ -11,22 +24,20 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {number} y Y position
      * @param {number} width Entity width
      * @param {number} height Entity height
-     * @param {Entity} entity Attacker entity
-     * @param {Entity : Hookable} post Post entity
-     * @param {number} length Hook length
+     * @param {MutableEntity} owner Owned entity
+     * @param {HookObject} previous Previous hook object
+     * @param {IString} string Hook string
      * @param {number} restLength Hook rest length
      */
-    constructor(x, y, width, height, entity, post, length, restLength) {
-        super(x, y, width, height, entity, post, length, restLength);
+    constructor(x, y, width, height, owner, previous, string, restLength) {
+        super(x, y, width, height, owner, previous, string, restLength);
 
         // set base data
         this.setCollider(new ExcludedRectangleCollider(0, 0, width, height, 0));
         this.setMaterial(new ImmutableMaterial());
-        let px = post.directionX >= 0 ? post.getHookX() - post.x - post.width : post.x - post.getHookX();
-        let py = post.directionY <= 0 ? post.y - post.getHookY() : post.getHookY() - post.y + post.height;
-        //        this.setRigidBody(new JointBody(this.x - this.getHookX(), this.y - this.getHookY(), post, px, py, length));
-        // this.body.setMaterial(new ImmutableRigidMaterial());
-        this.addAI(new HookStateAI(this, entity));
+        this.setRigidBody(new MaxAdoptBody());
+        this.body.setMaterial(new ImmutableRigidMaterial());
+        // this.addAI(new HookStateAI(this, entity));
 
         this.x -= (this.getHookX() - this.x);
         this.y -= (this.getHookY() - this.y);
@@ -48,24 +59,5 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
      */
     getHookY() {
         return this.y + this.height / 2;
-    }
-
-    /**
-     * Render entity
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        // ctx.fillRect(this.x + shiftX, this.y + shiftY, this.width, this.height, `red`, 1);
-        if (this.previous !== null) {
-            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.previous.getHookX() + shiftX, this.previous.getHookY() + shiftY, `red`, 2);
-        } else {
-            let x = this.entity.directionX >= 0 ? this.generatedX + this.entity.x + this.entity.width : this.entity.x - this.generatedX;
-            let y = this.entity.y - this.generatedY;
-            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, `red`, 2);
-        }
-        super.render(ctx, shiftX, shiftY);
     }
 }

@@ -39,7 +39,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
         }
         // release hook
         if (Input.it.isPress(Input.key.sub())) {
-            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, Hookable));
+            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {
                 for (let it of hooks) {
                     if (it.getActor() === this.entity) {

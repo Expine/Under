@@ -1,11 +1,22 @@
 /**
  * Hook object
- * Base object of hook
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Generated and owned by someone
+ * - Object that can be destroyed
+ * - Enable to set animation
+ * - Object caused by special actions
+ * - It can get hook position and change state
+ * - ### Implements hook and automatically generates post hook object
  * @implements {SpecialObject}
- * @implements {Hookable}
- * @classdesc Hook object that indicates base object of hook
+ * @implements {IHook}
+ * @classdesc Hook object to implement hook and automatically generate post hook object
  */
-class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line  no-unused-vars
+class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  no-unused-vars
     /**
      * Hook object constructor
      * @constructor
@@ -13,33 +24,41 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
      * @param {number} y Y position
      * @param {number} width Entity width
      * @param {number} height Entity height
-     * @param {Entity} entity Attacker entity
-     * @param {Entity : Hookable} post Post entity
-     * @param {number} length Hook length
+     * @param {MutableEntity} owner Owned entity
+     * @param {HookObject} previous Previous hook object
+     * @param {IString} string Hook string
      * @param {number} restLength Hook rest length
      */
-    constructor(x, y, width, height, entity, post, length, restLength) {
-        super(x, y, width, height, entity, -1);
+    constructor(x, y, width, height, owner, previous, string, restLength) {
+        super(x, y, width, height, owner, -1);
 
         /**
-         * Previous entity
+         * Owned entity
+         * @override
          * @protected
-         * @type {Entity : Hookable}
+         * @type {MutableEntity}
          */
-        this.previous = null;
-        /**
-         * Post entity
-         * @protected
-         * @type {Entity : Hookable}
-         */
-        this.post = post;
+        this.owner = owner;
 
         /**
-         * Hook length
+         * Previous hook object
          * @protected
-         * @type {number}
+         * @type {HookObject}
          */
-        this.length = length;
+        this.previous = previous;
+        /**
+         * Post hook object
+         * @protected
+         * @type {HookObject}
+         */
+        this.post = null;
+
+        /**
+         * Hook string
+         * @protected
+         * @type {IString}
+         */
+        this.string = string;
 
         /**
          * Hook rest length
@@ -53,13 +72,13 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
          * @protected
          * @type {number}
          */
-        this.generatedX = entity.directionX >= 0 ? x - entity.width - entity.x : entity.x - x;
+        this.generatedX = owner.directionX >= 0 ? x - owner.width - owner.x : owner.x - x;
         /**
          * Generated y position
          * @protected
          * @type {number}
          */
-        this.generatedY = entity.y - y;
+        this.generatedY = owner.y - y;
 
         /**
          * Whether it is hooked or not
@@ -67,12 +86,17 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
          * @type {bool}
          */
         this.isHooked = false;
-
-        if (this.restLength < 0) {
-            this.hooked();
-        }
     }
 
+    /**
+     * Connect hook to player
+     * @protected
+     */
+    connectPlayer() {
+        let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+        let y = this.owner.y - this.generatedY;
+        this.post = new HookPlayer(x, y, 8, 8, this.owner, this, this.length, this.restLength - 15);
+    }
 
     /**
      * Get actor who it belongs to
@@ -80,38 +104,32 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
      * @return {Entity} Actor who it belongs to
      */
     getActor() {
-        return this.entity;
+        return this.owner;
     }
 
     /**
-     * Get hook length
-     * @override
-     * @return {number} Hook length
+     * Hook center x position
+     * @interface
+     * @return {number} Hook center x position
      */
-    getLength() {
-        return this.length;
-    }
+    getHookX() {}
 
     /**
-     * Get previous entity
-     * @override
-     * @return {Hookable} Previous entity
+     * Hook center x position
+     * @interface
+     * @return {number} Hook center x position
      */
-    getPrevious() {
-        return this.previous;
-    }
+    getHookY() {}
 
     /**
      * Hooked hook
      * @override
      */
     hooked() {
-        if (this.previous !== null) {
-            this.previous.hooked();
+        if (this.post !== null) {
+            this.post.hooked();
         } else {
-            let x = this.entity.directionX >= 0 ? this.generatedX + this.entity.x + this.entity.width : this.entity.x - this.generatedX;
-            let y = this.entity.y - this.generatedY;
-            this.previous = new HookPlayer(x, y, 8, 8, this.entity, this, this.length, this.restLength - 15);
+            this.connectPlayer();
         }
         this.isHooked = true;
     }
@@ -129,24 +147,12 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
     }
 
     /**
-     * Enforce tension
-     * @param {number} x Tension of x
-     * @param {number} y Tension of y
-     * @param {number} dt Delta time
-     */
-    tension(x, y, dt) {
-        // this.body.enforce(x * 5000 / dt, y * 5000 / dt);
-        // this.body.setNextAddVelocity(x * 1000 / dt - this.body.velocityX, y * 1000 / dt - this.body.velocityY);
-        // this.body.setNextAddVelocity(x * 1000 / dt - this.body.velocityX, y * 1000 / dt - this.body.velocityY);
-    }
-
-    /**
      * Destroy object
      * @override
      */
     destroy() {
-        if (BaseUtil.implementsOf(this.previous, IBreakable)) {
-            this.previous.destroy();
+        if (BaseUtil.implementsOf(this.post, IBreakable)) {
+            this.post.destroy();
         }
         super.destroy();
     }
@@ -159,17 +165,39 @@ class HookObject extends SpecialObject /* , Hookable */ { // eslint-disable-line
     update(dt) {
         super.update(dt);
 
-        if (this.previous === null && this.restLength > 0 && !this.isHooked) {
-            let x = this.entity.directionX >= 0 ? this.generatedX + this.entity.x + this.entity.width : this.entity.x - this.generatedX;
-            let y = this.entity.y - this.generatedY;
+        if (this.post === null && this.restLength > 0 && !this.isHooked) {
+            let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+            let y = this.owner.y - this.generatedY;
             let dx = Math.abs(x - this.getHookX());
             let dy = Math.abs(y - this.getHookY());
             let d = Math.sqrt(dx * dx + dy * dy);
-            if (d > this.length) {
-                this.previous = new HookChild(x, y, 4, 4, this.entity, this, this.length, this.restLength - 15);
-                this.stage.addEntity(this.previous);
-                // this.previous.body.update(dt);
+            if (d > this.string.getLength()) {
+                this.post = new HookChild(x, y, 4, 4, this.owner, this, this.string, this.restLength - 15);
+                this.string.addBody(this.post.body);
+                this.stage.addEntity(this.post);
             }
+            if (this.restLength - 15 <= 0) {
+                this.connectPlayer();
+            }
+        }
+    }
+
+    /**
+     * Render entity
+     * @override
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {
+        super.render(ctx, shiftX, shiftY);
+        // ctx.fillRect(this.x + shiftX, this.y + shiftY, this.width, this.height, `red`, 1);
+        if (this.post !== null) {
+            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.post.getHookX() + shiftX, this.post.getHookY() + shiftY, `red`, 2);
+        } else {
+            let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+            let y = this.owner.y - this.generatedY;
+            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, `red`, 2);
         }
     }
 }

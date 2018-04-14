@@ -1,7 +1,20 @@
 /**
  * Hook head object
+ * - Object present on the stage that has coordinate and size
+ * - Has image ID
+ * - It can be collided because it has material and collider
+ * - It is not fixed and can be moved
+ * - It can move by AI
+ * - Manages AI by list
+ * - Generated and owned by someone
+ * - Object that can be destroyed
+ * - Enable to set animation
+ * - Object caused by special actions
+ * - It can get hook position and change state
+ * - Implements hook and automatically generates post hook object
+ * - ### Implements as head
  * @implements {HookObject}
- * @classdesc Hook object
+ * @classdesc Hook head object to implement as head
  */
 class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     /**
@@ -11,12 +24,25 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {number} y Y position
      * @param {number} width Entity width
      * @param {number} height Entity height
-     * @param {Entity} entity Attacker entity
+     * @param {MutableEntity} owner Owned entity
      * @param {number} length Hook length
      * @param {number} restLength Hook rest length
      */
-    constructor(x, y, width, height, entity, length, restLength) {
-        super(x, y, width, height, entity, null, length, restLength);
+    constructor(x, y, width, height, owner, length, restLength) {
+        super(x, y, width, height, owner, null, null, restLength);
+
+        /**
+         * Original width for calculating hook x position
+         * @protected
+         * @type {number}
+         */
+        this.originalWidth = width;
+        /**
+         * Original height for calculating hook x position
+         * @protected
+         * @type {number}
+         */
+        this.originalHeight = height;
 
         // set base data
         let imageID = ResourceManager.image.load(`chara/hook.png`);
@@ -28,11 +54,15 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         this.setAnimation(anime);
         this.setCollider(new DirectionalRectangleCollider((23 - 8) * this.width / 32, (10 - 2) * this.height / 32, 10 * this.width / 32, 10 * this.height / 32));
         this.setMaterial(new ImmutableMaterial());
-        this.setRigidBody(new PreciseBody());
-        this.body.setMaterial(new ImmutableRigidMaterial());
-        this.addAI(new HeadHookStateAI(this, entity));
+        let org = new PreciseBody();
+        org.setMaterial(new ImmutableRigidMaterial());
+        let body = new StringBody(org, length);
+        body.setMaterial(new ImmutableRigidMaterial());
+        this.setRigidBody(body);
+        // this.addAI(new HeadHookStateAI(this, owner));
 
-        this.directionX = entity.directionX;
+        this.string = body;
+        this.directionX = owner.directionX;
         this.directionY = -1;
         this.x -= (this.getHookX() - this.x);
         this.y -= (this.getHookY() - this.y);
@@ -45,9 +75,9 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      */
     getHookX() {
         if (this.directionX >= 0) {
-            return this.x + 5 * this.width / 32;
+            return this.x + 5 * this.originalWidth / 32;
         } else {
-            return this.x + this.width - 5 * this.width / 32;
+            return this.x + this.originalWidth - 5 * this.originalWidth / 32;
         }
     }
 
@@ -58,9 +88,9 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      */
     getHookY() {
         if (this.directionY <= 0) {
-            return this.y + this.height - 5 * this.height / 32;
+            return this.y + this.originalHeight - 5 * this.originalHeight / 32;
         } else {
-            return this.y + 5 * this.height / 32;
+            return this.y + 5 * this.originalHeight / 32;
         }
     }
 
@@ -77,13 +107,5 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         super.render(ctx, shiftX, shiftY);
         this.width *= this.directionX;
         this.height *= -this.directionY;
-        // head to child line
-        if (this.previous !== null) {
-            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.previous.getHookX() + shiftX, this.previous.getHookY() + shiftY, `red`, 2);
-        } else {
-            let x = this.entity.directionX >= 0 ? this.generatedX + this.entity.x + this.entity.width : this.entity.x - this.generatedX;
-            let y = this.entity.y - this.generatedY;
-            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, `red`, 2);
-        }
     }
 }

@@ -1,29 +1,81 @@
 /**
  * String body
- * For string
- * @implements {MaxAdoptBody}
- * @classdesc String body for string
+ * - Update entity by physical quantity
+ * - It can add or remove rigid body
+ * - ### Connects all rigid bodies and processes them all together
+ * @implements {RigidBody}
+ * @classdesc String body to connect all rigid bodies and process them all together
  */
-class StringBody extends MaxAdoptBody /* , Stringable */ { // eslint-disable-line  no-unused-vars
+class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-unused-vars
     /**
      * String body constructor
      * @constructor
-     * @param {number} jointingX Jointing x position
-     * @param {number} jointingY Jointing y position
+     * @param {RigidBody} body Original body for delegation
      * @param {number} length Jointing length
      */
-    constructor(jointingX, jointingY, length) {
+    constructor(body, length) {
         super();
 
+        /**
+         * Original body for delegation
+         * @protected
+         * @type {RigidBody}
+         */
+        this.body = body;
+
+        /**
+         * Jointing body list
+         * @protected
+         * @type {Array<RigidBody>}
+         */
         this.jointingList = [];
-        this.jointingXList = [];
-        this.jointingYList = [];
 
-        this.parent = null;
+        /**
+         * String length per unit
+         * @protected
+         * @type {number}
+         */
+        this.length = length;
 
-        this.jointingList.push(this);
-        this.jointingXList.push(jointingX);
-        this.jointingYList.push(jointingY);
+        // initialize
+        this.jointingList.push(body);
+    }
+
+    /**
+     * Set mutable entity
+     * @override
+     * @param {MutableEntity} entity Mutable entity
+     */
+    setEntity(entity) {
+        super.setEntity(entity);
+        this.body.setEntity(entity);
+    }
+
+    /**
+     * Initialize body
+     * @override
+     */
+    init() {
+        this.body.init();
+    }
+
+    /**
+     * Set the value added to the next speed vector
+     * @override
+     * @param {number} vx X component of the velocity vector to be added
+     * @param {number} vy Y component of the velocity vector to be added
+     */
+    setNextAddVelocity(vx, vy) {
+        this.body.setNextAddVelocity(vx, vy);
+    }
+
+    /**
+     * Apply force to objects
+     * @param {number} forceX Force in x direction
+     * @param {number} forceY Force in y direction
+     */
+    enforce(forceX, forceY) {
+        this.body.enforce(forceX, forceY);
     }
 
     /**
@@ -32,47 +84,46 @@ class StringBody extends MaxAdoptBody /* , Stringable */ { // eslint-disable-lin
      * @param {number} dt delta time
      */
     update(dt) {
-        if (this.parent == null) {
-            for (let it of this.jointingList) {
-                it.body.update(dt);
-            }
+        for (let it of this.jointingList) {
+            it.enable = true;
+            it.update(dt);
+            it.enable = false;
         }
+        this.body.cleanup();
+    }
+
+    /**
+     * Get string length
+     * @override
+     * @return {number} String length
+     */
+    getLength() {
+        return this.length;
     }
 
     /**
      * Add entity for string
      * @override
-     * @param {StringBody} jointing Jointing body
+     * @param {RigidBody} jointing Jointing body
+     * @param {number} jointingX Jointing x position
+     * @param {number} jointingY Jointing y position
      */
     addBody(jointing) {
-        if (this.parent !== null) {
-            this.parent.addBody(jointing);
-        } else {
-            let post = this;
-            for (let it of jointing.jointingList) {
-                this.jointingList.push(it.jointingList[0]);
-                this.jointingXList.push(it.jointingXList[0]);
-                this.jointingYList.push(it.jointingYList[1]);
-                it.parent = post;
-                post = it;
-            }
-        }
+        this.jointingList.push(jointing);
+        // disable
+        jointing.enable = false;
     }
 
     /**
      * Remove body from string
      * @override
-     * @param {StringBody} body Joiting body
+     * @param {RigidBody} body Joiting body
      */
     removeBody(body) {
         let index = this.jointingList.indexOf(jointed);
         if (index >= 0) {
-            if (index != this.jointingList.length - 1 && index !== 0) {
-                this.jointingList[index + 1].parent = this.jointingList[index - 1];
-            }
             this.jointingList.splice(index, 1);
-            this.jointingXList.splice(index, 1);
-            this.jointingYList.splice(index, 1);
         }
+        body.enable = true;
     }
 }
