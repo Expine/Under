@@ -15,8 +15,10 @@ class IString extends Interface { // eslint-disable-line  no-unused-vars
      * Add entity for string
      * @interface
      * @param {RigidBody} jointing Jointing body
+     * @param {number} jointingX Jointing x position
+     * @param {number} jointingY Jointing y position
      */
-    addBody(jointing) {}
+    addBody(jointing, jointingX, jointingY) {}
 
     /**
      * Remove body from string

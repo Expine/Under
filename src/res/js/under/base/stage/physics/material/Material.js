@@ -10,19 +10,19 @@ class Material { // eslint-disable-line  no-unused-vars
      * @interface
      * @return {number} Mass
      */
-    get mass() { }
+    get mass() {}
 
     /**
      * Get coefficient of restitution
      * @interface
      * @return {number} Coefficient of restitution
      */
-    get e() { }
+    get e() {}
 
     /**
      * Get coefficient of restitution
      * @interface
      * @return {number} Coefficient of restitution
      */
-    get mu() { }
+    get mu() {}
 }

@@ -99,6 +99,29 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     }
 
     /**
+     * Generete hook child
+     * @protected
+     */
+    makeChild() {
+        if (this.post === null && this.restLength > 0 && !this.isHooked) {
+            let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+            let y = this.owner.y - this.generatedY;
+            let dx = Math.abs(x - this.getHookX());
+            let dy = Math.abs(y - this.getHookY());
+            let d = Math.sqrt(dx * dx + dy * dy);
+            if (d > this.string.getLength()) {
+                this.post = new HookChild(x, y, 4, 4, this.owner, this, this.string, this.restLength - 15);
+                // this.post.body.setNextAddVelocity(this.body.velocityX, this.body.velocityY);
+                this.string.addBody(this.post.body, (this.getHookX() - this.x), (this.getHookY() - this.y));
+                this.stage.addEntity(this.post);
+            }
+            if (this.restLength - 15 <= 0) {
+                this.connectPlayer();
+            }
+        }
+    }
+
+    /**
      * Get actor who it belongs to
      * @override
      * @return {Entity} Actor who it belongs to
@@ -165,21 +188,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     update(dt) {
         super.update(dt);
 
-        if (this.post === null && this.restLength > 0 && !this.isHooked) {
-            let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
-            let y = this.owner.y - this.generatedY;
-            let dx = Math.abs(x - this.getHookX());
-            let dy = Math.abs(y - this.getHookY());
-            let d = Math.sqrt(dx * dx + dy * dy);
-            if (d > this.string.getLength()) {
-                this.post = new HookChild(x, y, 4, 4, this.owner, this, this.string, this.restLength - 15);
-                this.string.addBody(this.post.body);
-                this.stage.addEntity(this.post);
-            }
-            if (this.restLength - 15 <= 0) {
-                this.connectPlayer();
-            }
-        }
+        this.makeChild();
     }
 
     /**

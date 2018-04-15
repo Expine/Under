@@ -66,6 +66,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     /**
      * Get collision information now
      * @interface
+     * @param {InfluentialEntity} entity Target entity
      * @return {Array<CollisionData>} Collision information now
      */
     getCollisionData(entity) {}

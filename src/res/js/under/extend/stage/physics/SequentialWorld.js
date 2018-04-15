@@ -104,6 +104,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     /**
      * Get collision information now
      * @override
+     * @param {InfluentialEntity} entity Target entity
      * @return {Array<CollisionData>} Collision information now
      */
     getCollisionData(entity) {
