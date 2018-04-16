@@ -53,6 +53,8 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
 
         // initialize
         this.jointingList.push(body);
+        this.jointingXList.push(jointingX);
+        this.jointingYList.push(jointingY);
     }
 
     /**
@@ -151,10 +153,16 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         let l2 = this.length * this.length;
         let xList = new Array(this.jointingList.length);
         let yList = new Array(this.jointingList.length);
+        let dxList = new Array(this.jointingList.length);
+        let dyList = new Array(this.jointingList.length);
         let vxList = new Array(this.jointingList.length);
         let vyList = new Array(this.jointingList.length);
-        let willXList = new Array(this.jointingList.length);
-        let willYList = new Array(this.jointingList.length);
+        let willXList = [];
+        willXList.push(new Array(this.jointingList.length));
+        willXList.push(new Array(this.jointingList.length));
+        let willYList = [];
+        willYList.push(new Array(this.jointingList.length));
+        willYList.push(new Array(this.jointingList.length));
         let pxList = new Array(this.jointingList.length);
         let pyList = new Array(this.jointingList.length);
         let lenList = new Array(this.jointingList.length);
@@ -165,28 +173,41 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             it.updateInfo(dt);
             it.updateVelocity(dt);
             let aabb = it.entity.collider.getAABB();
-            xList[i] = (aabb.startX + aabb.endX) / 2;
-            yList[i] = (aabb.startY + aabb.endY) / 2;
+            dxList[i] = it.entity.directionX >= 0 ? this.jointingXList[i] : it.entity.width - this.jointingXList[i];
+            dyList[i] = it.entity.directionY > 0 ? this.jointingYList[i] : it.entity.height - this.jointingYList[i];
+            xList[i] = it.entity.x + dxList[i];
+            yList[i] = it.entity.y + dyList[i];
             vxList[i] = it.velocityX;
             vyList[i] = it.velocityY;
-            willXList[i] = xList[i] + vxList[i] * milisec;
-            willYList[i] = yList[i] + vyList[i] * milisec;
+            willXList[0][i] = xList[i] + vxList[i] * milisec;
+            willYList[0][i] = yList[i] + vyList[i] * milisec;
+            willXList[1][i] = willXList[0][i];
+            willYList[1][i] = willYList[0][i];
             pxList[i] = 0;
             pyList[i] = 0;
             let dx = (aabb.startX - aabb.endX) / 2;
             let dy = (aabb.startY - aabb.endY) / 2;
             lenList[i] = Math.sqrt(dx * dx + dy * dy);
         }
+        let count = 0;
+        let maxd = 0;
         const COUNT = 10000;
         let isLoop = true;
-        for (let count = 0; count < COUNT && isLoop; ++count) {
+        for (count = 0; count < COUNT && isLoop; ++count) {
+            let index = count % 2;
+            let will = (index + 1) % 2;
             isLoop = false;
+            maxd = 0;
             for (let i = 0; i < this.jointingList.length - 1; ++i) {
-                let dx = willXList[i + 1] - willXList[i];
-                let dy = willYList[i + 1] - willYList[i];
+                let dx = willXList[index][i + 1] - willXList[index][i];
+                let dy = willYList[index][i + 1] - willYList[index][i];
                 dx -= Math.sign(dx) * (lenList[i + 1] + lenList[i]);
                 dy -= Math.sign(dy) * (lenList[i + 1] + lenList[i]);
                 let d2 = dx * dx + dy * dy;
+                if (d2 > maxd) {
+                    maxd = d2;
+                }
+                console.log(d2);
                 if ((d2 - l2) > elim) {
                     let m1 = this.jointingList[i].entity.material.mass;
                     let m2 = this.jointingList[i + 1].entity.material.mass;
@@ -194,18 +215,25 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                     let power = (d - this.length) * k;
                     let px = power * dx / d;
                     let py = power * dy / d;
-                    willXList[i] += px * milisec2 / m1;
-                    willYList[i] += py * milisec2 / m1;
+                    willXList[will][i] += px * milisec2 / m1;
+                    willYList[will][i] += py * milisec2 / m1;
                     pxList[i] += px;
                     pyList[i] += py;
-                    willXList[i + 1] -= px * milisec2 / m2;
-                    willYList[i + 1] -= py * milisec2 / m2;
+                    willXList[will][i + 1] -= px * milisec2 / m2;
+                    willYList[will][i + 1] -= py * milisec2 / m2;
                     pxList[i + 1] -= px;
                     pyList[i + 1] -= py;
                     isLoop = true;
                 }
             }
+            for (let i = 0; i < this.jointingList.length - 1; ++i) {
+                // console.log(`${willXList[index][i + 1]}, ${willYList[index][i + 1]} => ${willXList[will][i + 1]}, ${willYList[will][i + 1]}`);
+            }
         }
+        if (isLoop) {
+            // console.log(`${maxd} - ${Math.sqrt(maxd - l2)} -> ${count}`);
+        }
+        // console.log(`${maxd} - ${Math.sqrt(maxd - l2)} -> ${count}`);
         for (let i = 0; i < this.jointingList.length; ++i) {
             let it = this.jointingList[i];
             it.cleanup(dt);
@@ -218,6 +246,10 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             it.enforce(pxList[i], pyList[i]);
             it.updateVelocity(dt);
             it.updateEntity(dt);
+            it.cleanup(dt);
+            // it.entity.deltaMove(willXList[i] - dxList[i] - it.entity.x, willYList[i] - dyList[i] - it.entity.y);
+            it.enforce((milisec - 1) * pxList[i], (milisec - 1) * pyList[i]);
+            it.updateVelocity(dt);
             it.cleanup(dt);
         }
         /*

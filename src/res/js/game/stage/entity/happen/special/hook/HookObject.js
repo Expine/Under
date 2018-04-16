@@ -111,8 +111,8 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
             let d = Math.sqrt(dx * dx + dy * dy);
             if (d > this.string.getLength()) {
                 this.post = new HookChild(x, y, 4, 4, this.owner, this, this.string, this.restLength - 15);
-                // this.post.body.setNextAddVelocity(this.body.velocityX, this.body.velocityY);
-                this.string.addBody(this.post.body, (this.getHookX() - this.x), (this.getHookY() - this.y));
+                this.post.body.setNextAddVelocity(this.body.velocityX, this.body.velocityY);
+                this.string.addBody(this.post.body, (this.post.directionX >= 0 ? this.post.getHookX() - this.post.x : this.post.x + this.post.width - this.post.getHookX()), (this.post.directionY > 0 ? this.post.getHookY() - this.post.y : this.post.y + this.post.height - this.post.getHookY()));
                 this.stage.addEntity(this.post);
             }
             if (this.restLength - 15 <= 0) {

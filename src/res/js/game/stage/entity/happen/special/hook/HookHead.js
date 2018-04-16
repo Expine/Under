@@ -56,7 +56,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         this.setMaterial(new ImmutableMaterial());
         let org = new PreciseBody();
         org.setMaterial(new ImmutableRigidMaterial());
-        let body = new StringBody(org, (this.getHookX() - this.x), (this.getHookY() - this.y), length);
+        let body = new StringBody(org, (this.directionX >= 0 ? this.getHookX() - this.x : this.x + this.width - this.getHookX()), (this.directionY > 0 ? this.getHookY() - this.y : this.y + this.height - this.getHookY()), length);
         body.setMaterial(new ImmutableRigidMaterial());
         this.setRigidBody(body);
         // this.addAI(new HeadHookStateAI(this, owner));
