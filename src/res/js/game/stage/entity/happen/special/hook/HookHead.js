@@ -52,7 +52,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         anime.addAnimation(new AnimationElement(imageID, 64, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
         this.setAnimation(anime);
-        this.setCollider(new DirectionalRectangleCollider((23 - 8) * this.width / 32, (10 - 2) * this.height / 32, 10 * this.width / 32, 10 * this.height / 32));
+        this.setCollider(new DirectionalExcludedRectangleCollider((23 - 8) * this.width / 32, (10 - 2) * this.height / 32, 10 * this.width / 32, 10 * this.height / 32, 0));
         this.setMaterial(new ImmutableMaterial());
         let org = new PreciseBody();
         org.setMaterial(new ImmutableRigidMaterial());
@@ -102,6 +102,8 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
+        this.directionX = Math.sign(this.body.velocityX);
+        this.directionY = Math.sign(this.body.velocityY);
         this.width *= this.directionX;
         this.height *= -this.directionY;
         super.render(ctx, shiftX, shiftY);

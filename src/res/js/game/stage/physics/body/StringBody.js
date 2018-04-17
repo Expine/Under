@@ -43,18 +43,18 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
          * @type {Array<number>}
          */
         this.jointingYList = [];
-
         /**
-         * String length per unit
+         * Jointing length list
          * @protected
-         * @type {number}
+         * @type {Array<number>}
          */
-        this.length = length;
+        this.jointingLengthList = [];
 
         // initialize
         this.jointingList.push(body);
         this.jointingXList.push(jointingX);
         this.jointingYList.push(jointingY);
+        this.jointingLengthList.push(length);
     }
 
     /**
@@ -146,122 +146,127 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      * @param {number} dt delta time
      */
     update(dt) {
-        let milisec = dt / 1000;
-        let milisec2 = milisec * milisec;
-        let k = 2000;
-        let elim = 0.01;
-        let l2 = this.length * this.length;
-        let xList = new Array(this.jointingList.length);
-        let yList = new Array(this.jointingList.length);
-        let dxList = new Array(this.jointingList.length);
-        let dyList = new Array(this.jointingList.length);
-        let vxList = new Array(this.jointingList.length);
-        let vyList = new Array(this.jointingList.length);
+        // set constant value
+        const listLength = this.jointingLengthList.length;
+        const milisec = dt / 1000;
+        const milisec2 = milisec * milisec;
+        const k = 2000;
+        const elim = 0.75;
+        // generate element
+        let world = this.entity.stage.getPhysicalWorld();
+        let response = world.getResponse();
+        // generate list
+        let dxList = new Array(listLength);
+        let dyList = new Array(listLength);
         let willXList = [];
-        willXList.push(new Array(this.jointingList.length));
-        willXList.push(new Array(this.jointingList.length));
+        willXList.push(new Array(listLength));
+        willXList.push(new Array(listLength));
         let willYList = [];
-        willYList.push(new Array(this.jointingList.length));
-        willYList.push(new Array(this.jointingList.length));
-        let pxList = new Array(this.jointingList.length);
-        let pyList = new Array(this.jointingList.length);
-        let lenList = new Array(this.jointingList.length);
-        // let world = this.entity.stage.getPhysicalWorld();
-        // let response = world.getResponse();
-        for (let i = 0; i < this.jointingList.length; ++i) {
+        willYList.push(new Array(listLength));
+        willYList.push(new Array(listLength));
+        let pxList = new Array(listLength);
+        let pyList = new Array(listLength);
+        // initialize
+        for (let i = 0; i < listLength; ++i) {
             let it = this.jointingList[i];
+            // update information
             it.updateInfo(dt);
             it.updateVelocity(dt);
-            let aabb = it.entity.collider.getAABB();
+            // initialize list
             dxList[i] = it.entity.directionX >= 0 ? this.jointingXList[i] : it.entity.width - this.jointingXList[i];
             dyList[i] = it.entity.directionY > 0 ? this.jointingYList[i] : it.entity.height - this.jointingYList[i];
-            xList[i] = it.entity.x + dxList[i];
-            yList[i] = it.entity.y + dyList[i];
-            vxList[i] = it.velocityX;
-            vyList[i] = it.velocityY;
-            willXList[0][i] = xList[i] + vxList[i] * milisec;
-            willYList[0][i] = yList[i] + vyList[i] * milisec;
-            willXList[1][i] = willXList[0][i];
-            willYList[1][i] = willYList[0][i];
-            pxList[i] = 0;
-            pyList[i] = 0;
-            let dx = (aabb.startX - aabb.endX) / 2;
-            let dy = (aabb.startY - aabb.endY) / 2;
-            lenList[i] = Math.sqrt(dx * dx + dy * dy);
+            willXList[1][i] = it.entity.x + dxList[i] + it.velocityX * milisec;
+            willYList[1][i] = it.entity.y + dyList[i] + it.velocityY * milisec;
+            // initial enforce
+            if (i > 0) {
+                let length = this.jointingLengthList[i - 1] + this.jointingLengthList[i];
+                let dx = willXList[1][i - 1] - willXList[1][i];
+                let dy = willYList[1][i - 1] - willYList[1][i];
+                let d2 = dx * dx + dy * dy;
+                let d = Math.sqrt(d2);
+                let power = (d - length) * k;
+                let px = power * dx / d;
+                let py = power * dy / d;
+                pxList[i - 1] -= px;
+                pyList[i - 1] -= py;
+                pxList[i] = px;
+                pyList[i] = py;
+            } else {
+                pxList[i] = 0;
+                pyList[i] = 0;
+            }
+            // initial move
+            it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
+            // check collision
+            let data = world.getCollisionData(it.entity);
+            for (let col of data) {
+                willXList[1][i] -= col.nx * col.depth;
+                willYList[1][i] -= col.ny * col.depth;
+            }
+            // decide position
+            willXList[0][i] = willXList[1][i];
+            willYList[0][i] = willYList[1][i];
         }
         let count = 0;
-        let maxd = 0;
-        const COUNT = 1000000;
+        const COUNT = 10000;
         let isLoop = true;
         for (count = 0; count < COUNT && isLoop; ++count) {
             isLoop = false;
-            maxd = 0;
-            for (let i = 0; i < this.jointingList.length - 1; ++i) {
-                let dx = willXList[1][i + 1] - willXList[1][i];
-                let dy = willYList[1][i + 1] - willYList[1][i];
-                dx -= Math.sign(dx) * (lenList[i + 1] + lenList[i]);
-                dy -= Math.sign(dy) * (lenList[i + 1] + lenList[i]);
+            for (let i = 0; i < listLength - 1; ++i) {
+                let length = this.jointingLengthList[i + 1] + this.jointingLengthList[i];
+                let dx = willXList[0][i + 1] - willXList[0][i];
+                let dy = willYList[0][i + 1] - willYList[0][i];
                 let d2 = dx * dx + dy * dy;
-                if (d2 > maxd) {
-                    maxd = d2;
-                }
-                if (Math.abs(d2 - l2) < elim) {
+                if (Math.abs(d2 - length * length) < elim) {
                     continue;
                 }
                 let m1 = this.jointingList[i].entity.material.mass;
                 let m2 = this.jointingList[i + 1].entity.material.mass;
                 let d = Math.sqrt(d2);
-                let power = (d - this.length) * k;
+                let power = (d - length) * k;
                 let px = power * dx / d;
                 let py = power * dy / d;
                 willXList[1][i] += px * milisec2 / m1;
                 willYList[1][i] += py * milisec2 / m1;
-                pxList[i] += px;
-                pyList[i] += py;
                 willXList[1][i + 1] -= px * milisec2 / m2;
                 willYList[1][i + 1] -= py * milisec2 / m2;
-                pxList[i + 1] -= px;
-                pyList[i + 1] -= py;
                 isLoop = true;
             }
-            for (let i = 0; i < this.jointingList.length; ++i) {
+            for (let i = 0; i < listLength; ++i) {
+                let it = this.jointingList[i];
+                it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
+                let data = world.getCollisionData(it.entity);
+                for (let col of data) {
+                    willXList[1][i] -= col.nx * col.depth;
+                    willYList[1][i] -= col.ny * col.depth;
+                }
                 willXList[0][i] = willXList[1][i];
                 willYList[0][i] = willYList[1][i];
-                // console.log(`${willXList[0][i]}, ${willYList[0][i]} => ${willXList[1][i]}, ${willYList[1][i]}`);
             }
         }
         if (isLoop) {
-            console.log(`${maxd} - ${Math.sqrt(maxd - l2)} -> ${count}`);
+            let maxd = 0;
+            for (let i = 0; i < listLength - 1; ++i) {
+                let length = this.jointingLengthList[i + 1] + this.jointingLengthList[i];
+                let dx = willXList[1][i + 1] - willXList[1][i];
+                let dy = willYList[1][i + 1] - willYList[1][i];
+                let d2 = dx * dx + dy * dy;
+                if (Math.abs(d2 - length * length) < elim) {
+                    continue;
+                }
+                let d = Math.sqrt(d2);
+                maxd = Math.max(d, maxd);
+            }
+            console.log(`${maxd} -> ${count}`);
         }
-        // console.log(`${this.jointingList.length} -> ${count}`);
         for (let i = 0; i < this.jointingList.length; ++i) {
             let it = this.jointingList[i];
             it.cleanup(dt);
-            // console.log(`${xList[i] + vxList[i] * milisec}, ${yList[i] + vyList[i] * milisec} => ${willXList[1][i]}, ${willYList[1][i]}`);
-            /*
-            console.log(`F${pxList[i] / 10}, ${pyList[i] / 10}`);
-            console.log(`dV${pxList[i] / 10 * milisec2}, ${pyList[i] / 10 * milisec2}`);
-            console.log(`P${xList[i]} -> ${willXList[i]}, ${yList[i]} -> ${willYList[i]}`);
-            console.log(`V${vxList[i]} -> ${vxList[i] + pxList[i] / 10 * milisec}, ${vyList[i]} -> ${vyList[i] + pyList[i] / 10 * milisec}`);
-            */
+            // console.log(`${pxList[i]}, ${pyList[i]}`);
             it.enforce(pxList[i], pyList[i]);
             it.updateVelocity(dt);
-            it.updateEntity(dt);
-            it.cleanup(dt);
-            // it.entity.deltaMove(willXList[1][i] - dxList[i] - it.entity.x, willYList[1][i] - dyList[i] - it.entity.y);
-            it.enforce(-1 * pxList[i], -1 * pyList[i]);
-            //            it.enforce((milisec - 1) * pxList[i], (milisec - 1) * pyList[i]);
-            it.updateVelocity(dt);
             it.cleanup(dt);
         }
-        /*
-        for (let body of this.jointingList) {
-            let data = world.getCollisionData(body.entity);
-            for (let it of data) {
-                response.collisionResponse(it, dt / COUNT);
-            }
-        }
-        */
     }
 
     /**
@@ -272,15 +277,15 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
     cleanup(dt) {
         this.body.cleanup();
     }
-
     /**
      * Get string length
      * @override
      * @return {number} String length
      */
     getLength() {
-        return this.length;
+        return this.jointingLengthList[0];
     }
+
 
     /**
      * Add entity for string
@@ -288,11 +293,13 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      * @param {RigidBody} jointing Jointing body
      * @param {number} jointingX Jointing x position
      * @param {number} jointingY Jointing y position
+     * @param {number} length Jointing length
      */
-    addBody(jointing, jointingX, jointingY) {
+    addBody(jointing, jointingX, jointingY, length) {
         this.jointingList.push(jointing);
         this.jointingXList.push(jointingX);
         this.jointingYList.push(jointingY);
+        this.jointingLengthList.push(length);
         // disable
         jointing.enable = false;
     }
@@ -308,6 +315,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             this.jointingList.splice(index, 1);
             this.jointingXList.splice(index, 1);
             this.jointingYList.splice(index, 1);
+            this.jointingLengthList.splice(index, 1);
         }
         body.enable = true;
     }

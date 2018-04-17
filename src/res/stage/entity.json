@@ -489,7 +489,7 @@
                     }]
                 },
                 "hook": {
-                    "file": "adventurere.png",
+                    "file": "adventurer.png",
                     "animation": [{
                         "loop": false,
                         "list": [{
@@ -524,7 +524,7 @@
                     }]
                 },
                 "downwall": {
-                    "file": "adventurere.png",
+                    "file": "adventurer.png",
                     "animation": [{
                         "list": [{
                                 "srcX": 0,

@@ -36,8 +36,8 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
         this.notActorsMap = [];
 
         // initialize
-        for (let y = 0; y < this.stageHeight; ++y) {
-            for (let x = 0; x < this.stageWidth; ++x) {
+        for (let y = 0; y < this.stageHeight + 1; ++y) {
+            for (let x = 0; x < this.stageWidth + 1; ++x) {
                 this.notActorsMap.push([]);
             }
         }
@@ -127,6 +127,7 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
             return ret;
         }
         let data = new CollisionData();
+        /*
         for (let it of this.actors) {
             let itCollider = it.collider;
             if (itCollider === null || it === entity) {
@@ -137,6 +138,7 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
                 data = new CollisionData();
             }
         }
+        */
         let sx = Math.floor(entity.x / this.splitNumber);
         let sy = Math.floor(entity.y / this.splitNumber);
         let ex = Math.floor((entity.x + entity.width) / this.splitNumber);
@@ -146,9 +148,6 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
         }
         for (let y = sy; y <= ey; ++y) {
             for (let x = sx; x <= ex; ++x) {
-                if (this.notActorsMap[x + this.stageWidth * y] === undefined) {
-                    console.log(x + this.stageWidth * y);
-                }
                 for (let it of this.notActorsMap[x + this.stageWidth * y]) {
                     let itCollider = it.collider;
                     if (itCollider === null || it === entity) {
