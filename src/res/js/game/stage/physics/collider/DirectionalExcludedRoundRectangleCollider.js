@@ -1,12 +1,15 @@
 /**
- * Directional rectangle collider
+ * Directional excluded round rectangle collider
  * - Store collider data for judgeing collision
  * - Makes a collision judgment considered to be rectangle
+ * - Makes a collision judgment considered to be rectangle taken a horn
+ * - Acquire the ID of the exclusion target
+ * - Excludes some colliders
  * - ### Considers the direction
- * @extends {RectangleCollider}
- * @classdesc Directional rectangle collider considered the direction
+ * @extends {ExcludedRoundRectangleCollider}
+ * @classdesc Directional excluded round rectangle collider considered the direction
  */
-class DirectionalRectangleCollider extends RectangleCollider { // eslint-disable-line  no-unused-vars
+class DirectionalExcludedRoundRectangleCollider extends ExcludedRoundRectangleCollider { // eslint-disable-line  no-unused-vars
     /**
      * Update collide information
      * Called whenever coordinate information is updated

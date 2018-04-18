@@ -52,8 +52,8 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         anime.addAnimation(new AnimationElement(imageID, 64, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
         this.setAnimation(anime);
-        this.setCollider(new DirectionalExcludedRectangleCollider((23 - 8) * this.width / 32, (10 - 2) * this.height / 32, 10 * this.width / 32, 10 * this.height / 32, 0));
-        this.setMaterial(new ImmutableMaterial());
+        this.setCollider(new DirectionalExcludedRoundRectangleCollider((22 - 0) * this.width / 32, 0, 10 * this.width / 32, 10 * this.height / 32, 2, 0));
+        this.setMaterial(new ImmutableMaterial(1, 0.0, 0.0));
         let org = new PreciseBody();
         org.setMaterial(new ImmutableRigidMaterial());
         let body = new StringBody(org, (this.directionX >= 0 ? this.getHookX() - this.x : this.x + this.width - this.getHookX()), (this.directionY > 0 ? this.getHookY() - this.y : this.y + this.height - this.getHookY()), length);
@@ -74,11 +74,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @return {number} Hook center x position
      */
     getHookX() {
-        if (this.directionX >= 0) {
-            return this.x + 5 * this.originalWidth / 32;
-        } else {
-            return this.x + this.originalWidth - 5 * this.originalWidth / 32;
-        }
+        return this.x + this.originalWidth / 2;
     }
 
     /**
@@ -87,11 +83,18 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @return {number} Hook center x position
      */
     getHookY() {
-        if (this.directionY <= 0) {
-            return this.y + this.originalHeight - 5 * this.originalHeight / 32;
-        } else {
-            return this.y + 5 * this.originalHeight / 32;
-        }
+        return this.y + this.originalHeight / 2;
+    }
+
+    /**
+     * Update object
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        super.update(dt);
+        this.directionX = Math.sign(this.body.velocityX) == 0 ? this.directionX : Math.sign(this.body.velocityX);
+        this.directionY = Math.sign(this.body.velocityY) == 0 ? this.directionY : Math.sign(this.body.velocityY);
     }
 
     /**
@@ -102,12 +105,10 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        this.directionX = Math.sign(this.body.velocityX);
-        this.directionY = Math.sign(this.body.velocityY);
-        this.width *= this.directionX;
-        this.height *= -this.directionY;
+        this.width *= (this.directionX == 0 ? 1 : this.directionX);
+        this.height *= -(this.directionY == 0 ? 1 : this.directionY);
         super.render(ctx, shiftX, shiftY);
-        this.width *= this.directionX;
-        this.height *= -this.directionY;
+        this.width = this.originalWidth;
+        this.height = this.originalHeight;
     }
 }

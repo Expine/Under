@@ -154,6 +154,17 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
                         continue;
                     }
                     if (entity.collider.isCollisionRoughly(itCollider) && entity.collider.isCollision(itCollider, data)) {
+                        let same = false;
+                        for (let j = 0; j < ret.length; ++j) {
+                            let col = this.collisions[j];
+                            if ((col.e1 === entity && col.e2 === it) || (col.e2 === entity && col.e1 === it)) {
+                                same = true;
+                                break;
+                            }
+                        }
+                        if (same) {
+                            continue;
+                        }
                         ret.push(data);
                         data = new CollisionData();
                     }

@@ -4,7 +4,7 @@
  * - Makes a collision judgment considered to be rectangle
  * - Acquire the ID of the exclusion target
  * - Excludes some colliders
- * - - ### Considers the direction
+ * - ### Considers the direction
  * @extends {ExcludedRectangleCollider}
  * @classdesc Directional rectangle collider considered the direction
  */

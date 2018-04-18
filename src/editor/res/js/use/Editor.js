@@ -171,6 +171,7 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/entity/UnderTileObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/parser/UnderCharacterBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/DirectionalExcludedRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/DirectionalExcludedRoundRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/Player.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/PunchObject.js';document.head.appendChild(script);script.onload = function() 
@@ -200,6 +201,7 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerGrabState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/EditorMain.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
 };
 };
 };

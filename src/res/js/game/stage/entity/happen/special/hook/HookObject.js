@@ -102,18 +102,21 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
      * Generete hook child
      * @protected
      */
-    makeChild() {
+    makeChild(vx, vy) {
         if (this.post === null && this.restLength > 0 && !this.isHooked) {
             let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
             let y = this.owner.y - this.generatedY;
             let dx = Math.abs(x - this.getHookX());
             let dy = Math.abs(y - this.getHookY());
             let d = Math.sqrt(dx * dx + dy * dy);
-            if (d > this.string.getLength()) {
+            let l = this.string.getLength() + 3;
+            if (d > l) {
                 this.post = new HookChild(x, y, 4, 4, this.owner, this, this.string, this.restLength - 15);
-                // this.post.body.setNextAddVelocity(this.body.velocityX, this.body.velocityY);
+                this.post.body.setNextAddVelocity(vx, vy);
                 this.string.addBody(this.post.body, (this.post.directionX >= 0 ? this.post.getHookX() - this.post.x : this.post.x + this.post.width - this.post.getHookX()), (this.post.directionY > 0 ? this.post.getHookY() - this.post.y : this.post.y + this.post.height - this.post.getHookY()), 3);
                 this.stage.addEntity(this.post);
+                this.post.deltaMove(-dx * (d - l) / d, -dy * (d - l) / d);
+                this.post.makeChild(vx, vy);
             }
             if (this.restLength - 15 <= 0) {
                 this.connectPlayer();
@@ -188,7 +191,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     update(dt) {
         super.update(dt);
 
-        this.makeChild();
+        this.makeChild(this.body.velocityX, this.body.velocityY);
     }
 
     /**

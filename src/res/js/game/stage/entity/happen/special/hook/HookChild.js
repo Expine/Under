@@ -33,16 +33,14 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
         super(x, y, width, height, owner, previous, string, restLength);
 
         // set base data
-        this.setCollider(new ExcludedRectangleCollider(0, 0, width, height, 0));
-        this.setMaterial(new ImmutableMaterial());
-        this.setRigidBody(new MaxAdoptBody());
+        this.setCollider(new ExcludedRectangleCollider(0, 0, width, height, 0, 2));
+        this.setMaterial(new ImmutableMaterial(0.1, 0.0, 0.0));
+        this.setRigidBody(new PreciseBody());
         this.body.setMaterial(new ImmutableRigidMaterial());
         // this.addAI(new HookStateAI(this, entity));
 
         this.x -= (this.getHookX() - this.x);
         this.y -= (this.getHookY() - this.y);
-
-        this.makeChild();
     }
 
     /**

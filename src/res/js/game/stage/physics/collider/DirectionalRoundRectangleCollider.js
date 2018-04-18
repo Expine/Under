@@ -3,7 +3,7 @@
  * - Store collider data for judgeing collision
  * - Makes a collision judgment considered to be rectangle
  * - Makes a collision judgment considered to be rectangle taken a horn
- * - - ### Considers the direction
+ * - ### Considers the direction
  * @extends {RoundRectangleCollider}
  * @classdesc Directional round rectangle collider considered the direction
  */
