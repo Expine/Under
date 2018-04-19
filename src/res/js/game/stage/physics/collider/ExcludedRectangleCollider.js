@@ -39,17 +39,12 @@ class ExcludedRectangleCollider extends RectangleCollider /* , Excludedable */ {
     }
 
     /**
-     * Judge whether collision
+     * Set whether to perform collision response or not
      * @override
-     * @param {Colllder} collider
-     * @param {CollisionData} data Pointer to save conflict information
-     * @return {bool} whether collision
-
+     * @param {Colllder} collider Target collider
+     * @return {bool} whether to perform collision response or not
      */
-    isCollision(collider, data) {
-        if (BaseUtil.implementsOf(collider, IExclude) && this.targetID == collider.getTargetID()) {
-            return false;
-        }
-        return super.isCollision(collider, data);
+    isResponse(collider) {
+        return super.isResponse() && (!BaseUtil.implementsOf(collider, IExclude) || !this.targetID == collider.getTargetID());
     }
 }
