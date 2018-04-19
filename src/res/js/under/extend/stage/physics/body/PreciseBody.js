@@ -20,11 +20,13 @@ class PreciseBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
         for (let i = 0; i < max; ++i) {
             this.entity.deltaMove(dx / max, dy / max);
             for (let it of this.entity.stage.getPhysicalWorld().getCollisionData(this.entity)) {
-                if (it.nx * dx > 0) {
-                    dx = 0;
-                }
-                if (it.ny * dy > 0) {
-                    dy = 0;
+                if (it.e1.collider.isResponse(it.e2.collider) && it.e2.collider.isResponse(it.e1.collider)) {
+                    if (it.nx * dx > 0) {
+                        dx = 0;
+                    }
+                    if (it.ny * dy > 0) {
+                        dy = 0;
+                    }
                 }
             }
             if (dx == 0 && dy == 0) {

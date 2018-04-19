@@ -271,7 +271,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         let sorted = this.collisions.sort((a, b) => a.py > b.py ? -1 : a.py < b.py ? 1 : 0);
         for (let j = 0; j < this.collisionSize; ++j) {
             let it = sorted[j];
-            if (it.e1.collider.isResponse && it.e2.collider.isResponse) {
+            if (it.e1.collider.isResponse(it.e2.collider) && it.e2.collider.isResponse(it.e1.collider)) {
                 this.response.collisionResponse(it, dt);
             }
             it.py = -1000000000;

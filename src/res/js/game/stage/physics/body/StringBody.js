@@ -199,6 +199,9 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             // check collision
             let data = world.getCollisionData(it.entity);
             for (let col of data) {
+                if (!col.e1.collider.isResponse(col.e2.collider) || !col.e2.collider.isResponse(col.e1.collider)) {
+                    continue;
+                }
                 // push back
                 willXList[1][i] -= col.nx * col.depth;
                 willYList[1][i] -= col.ny * col.depth;
@@ -266,6 +269,9 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                     // check collision
                     let data = world.getCollisionData(it.entity);
                     for (let col of data) {
+                        if (!col.e1.collider.isResponse(col.e2.collider) || !col.e2.collider.isResponse(col.e1.collider)) {
+                            continue;
+                        }
                         // push back
                         willXList[1][i] -= col.nx * col.depth;
                         willYList[1][i] -= col.ny * col.depth;

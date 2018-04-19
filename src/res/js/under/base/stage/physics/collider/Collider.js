@@ -26,7 +26,7 @@ class Collider { // eslint-disable-line  no-unused-vars
          * Whether to perform collision response or not
          * @type {bool}
          */
-        this.isResponse = true;
+        this.response = true;
         /**
          * Whether collision judgment is to be done or not
          * @type {bool}
@@ -74,6 +74,15 @@ class Collider { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set whether to perform collision response or not
+     * @param {Colllder} collider Target collider
+     * @return {bool} whether to perform collision response or not
+     */
+    isResponse(collider) {
+        return this.response;
+    }
+
+    /**
      * Judge whether position is in collider
      * @interface
      * @param {number} x X position
@@ -85,7 +94,7 @@ class Collider { // eslint-disable-line  no-unused-vars
     /**
      * Judge whether collision
      * @interface
-     * @param {Colllder} collider
+     * @param {Colllder} collider Target collider
      * @param {CollisionData} data Pointer to save conflict information
      * @return {bool} Whether collision
      */

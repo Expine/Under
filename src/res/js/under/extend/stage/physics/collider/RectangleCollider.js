@@ -57,7 +57,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
     /**
      * Judge whether collision
      * @interface
-     * @param {Colllder} collider
+     * @param {Colllder} collider Target collider
      * @param {CollisionData} data Pointer to save conflict information
      * @return {bool} whether collision
      */

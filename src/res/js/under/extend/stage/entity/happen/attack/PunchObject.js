@@ -52,7 +52,7 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
      */
     setCollider(collider) {
         super.setCollider(collider);
-        collider.isResponse = false;
+        collider.response = false;
     }
 
     /**
