@@ -13,4 +13,10 @@ class IJoint extends Interface { // eslint-disable-line  no-unused-vars
      * @param {number} length Jointed length
      */
     joint(jointed, jointedX, jointedY, length) {}
+
+    /**
+     * Unjoint
+     * @interface
+     */
+    unjoint() {}
 }

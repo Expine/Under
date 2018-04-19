@@ -64,10 +64,13 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
     updateVelocity(dt) {
         if (this.jointed !== null) {
             if (this.jointed instanceof MutableEntity) {
-                if (this.jointed.body !== null) {}
+                if (this.jointed.body !== null) {
+                    this.material.velocityX = this.jointed.velocityX;
+                    this.material.velocityY = this.jointed.velocityY;
+                }
             } else {
-                this.material.velocityX = this.jointed.velocityX;
-                this.material.velocityY = this.jointed.velocityY;
+                this.material.velocityX = 0;
+                this.material.velocityY = 0;
             }
         } else {
             super.updateVelocity(dt);
@@ -124,5 +127,13 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
         this.jointedX = jointedX;
         this.jointedY = jointedY;
         this.length = length;
+    }
+
+    /**
+     * Unjoint
+     * @interface
+     */
+    unjoint() {
+        this.jointed = null;
     }
 }

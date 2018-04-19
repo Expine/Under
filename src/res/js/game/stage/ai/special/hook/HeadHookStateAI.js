@@ -20,5 +20,6 @@ class HeadHookStateAI extends HookStateAI { // eslint-disable-line  no-unused-va
         super(hook);
 
         this.namedStates[`hooking`] = new HeadHookingState(hook, string, joint);
+        this.namedStates[`released`] = new HeadHookReleasedState(hook, joint);
     }
 }
