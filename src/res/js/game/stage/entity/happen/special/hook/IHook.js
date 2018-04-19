@@ -26,6 +26,12 @@ class IHook extends Interface { // eslint-disable-line  no-unused-vars
     getHookY() {}
 
     /**
+     * Create post hook (Do not create it if it already exists)
+     * @interface
+     */
+    createPost() {}
+
+    /**
      * Hooked hook
      * @interface
      */
@@ -36,4 +42,10 @@ class IHook extends Interface { // eslint-disable-line  no-unused-vars
      * @interface
      */
     release() {}
+
+    /**
+     * Try to remove it
+     * @interface
+     */
+    tryRemove() {}
 }

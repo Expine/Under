@@ -50,6 +50,13 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
          */
         this.jointingLengthList = [];
 
+        /**
+         * Collision data list
+         * @protected
+         * @type {Array<CollisionData>}
+         */
+        this.collisions = [];
+
         // initialize
         this.jointingList.push(body);
         this.jointingXList.push(jointingX);
@@ -146,15 +153,19 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      * @param {number} dt delta time
      */
     update(dt) {
+        if (!this.enable) {
+            return;
+        }
+        // initialize
+        this.collisions.length = 0;
         // set constant value
         const listLength = this.jointingLengthList.length;
         const milisec = dt / 1000;
         const milisec2 = milisec * milisec;
-        const k = 15;
+        const k = 45;
         const elim = 1;
         // generate element
         let world = this.entity.stage.getPhysicalWorld();
-        // let response = world.getResponse();
         // generate list
         let dxList = new Array(listLength);
         let dyList = new Array(listLength);
@@ -178,10 +189,9 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             it.updateEntity(dt);
             // initialize list
             dxList[i] = it.entity.directionX >= 0 ? this.jointingXList[i] : it.entity.width - this.jointingXList[i];
-            dyList[i] = it.entity.directionY > 0 ? this.jointingYList[i] : it.entity.height - this.jointingYList[i];
+            dyList[i] = it.entity.directionY >= 0 ? this.jointingYList[i] : it.entity.height - this.jointingYList[i];
             willXList[1][i] = it.entity.x + dxList[i];
             willYList[1][i] = it.entity.y + dyList[i];
-            // initial enforce
             pxList[i] = 0;
             pyList[i] = 0;
             xRepulsionList[i] = false;
@@ -189,8 +199,10 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             // check collision
             let data = world.getCollisionData(it.entity);
             for (let col of data) {
+                // push back
                 willXList[1][i] -= col.nx * col.depth;
                 willYList[1][i] -= col.ny * col.depth;
+                // repulsion
                 if (it.velocityX * col.nx + it.velocityY * col.ny > 0) {
                     if (!xRepulsionList[i]) {
                         pxList[i] -= col.nx * it.entity.material.mass * Math.abs(it.velocityX) / milisec / 2;
@@ -201,20 +213,21 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                         yRepulsionList[i] = col.ny != 0;
                     }
                 }
+                this.collisions.push(col);
             }
+            // correct
             it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
             // decide position
             willXList[0][i] = willXList[1][i];
             willYList[0][i] = willYList[1][i];
         }
         // repeat move
-        let count = 0;
         const COUNT = 10;
         let isLoop = true;
-        for (count = 0; count < COUNT && isLoop; ++count) {
-            let maxd = 0;
+        for (let count = 0; count < COUNT && isLoop; ++count) {
             isLoop = false;
             for (let i = 0; i < listLength - 1; ++i) {
+                // check length
                 let length = this.jointingLengthList[i + 1] + this.jointingLengthList[i];
                 let dx = willXList[0][i + 1] - willXList[0][i];
                 let dy = willYList[0][i + 1] - willYList[0][i];
@@ -222,33 +235,41 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                 if ((d2 - length * length) < elim || d2 == 0) {
                     continue;
                 }
+                // set power
                 let m1 = this.jointingList[i].entity.material.mass;
                 let m2 = this.jointingList[i + 1].entity.material.mass;
                 let d = Math.sqrt(d2);
-                maxd = Math.max(d - length, maxd);
                 let power = (d - length) * k;
                 let px = power * dx / d;
                 let py = power * dy / d;
+                // move by power
                 willXList[1][i] += px * milisec2 / m1;
                 willYList[1][i] += py * milisec2 / m1;
                 willXList[1][i + 1] -= px * milisec2 / m2;
                 willYList[1][i + 1] -= py * milisec2 / m2;
+                // register force
                 pxList[i] += px;
                 pyList[i] += py;
                 pxList[i + 1] -= px;
                 pyList[i + 1] -= py;
+                // set moved
                 movedList[i] = true;
                 movedList[i + 1] = true;
                 isLoop = true;
             }
+            // move and check collision
             for (let i = 0; i < listLength; ++i) {
                 if (movedList[i]) {
                     let it = this.jointingList[i];
+                    // move
                     it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
+                    // check collision
                     let data = world.getCollisionData(it.entity);
                     for (let col of data) {
+                        // push back
                         willXList[1][i] -= col.nx * col.depth;
                         willYList[1][i] -= col.ny * col.depth;
+                        // repulsion
                         if (it.velocityX * col.nx + it.velocityY * col.ny > 0) {
                             if (!xRepulsionList[i]) {
                                 pxList[i] -= col.nx * it.entity.material.mass * Math.abs(it.velocityX) / milisec / 2;
@@ -259,42 +280,22 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                                 yRepulsionList[i] = col.ny != 0;
                             }
                         }
+                        this.collisions.push(col);
                     }
+                    // decide position
                     willXList[0][i] = willXList[1][i];
                     willYList[0][i] = willYList[1][i];
                 }
                 movedList[i] = false;
             }
         }
-        /*
-        if (isLoop) {
-            let maxd = 0;
-            for (let i = 0; i < listLength - 1; ++i) {
-                let length = this.jointingLengthList[i + 1] + this.jointingLengthList[i];
-                let dx = willXList[1][i + 1] - willXList[1][i];
-                let dy = willYList[1][i + 1] - willYList[1][i];
-                let d2 = dx * dx + dy * dy;
-                if (Math.abs(d2 - length * length) < elim) {
-                    continue;
-                }
-                let d = Math.sqrt(d2);
-                maxd = Math.max(d, maxd);
-            }
-            if (isNaN(maxd)) {
-                console.log(`Error`);
-            }
-            // console.log(`${maxd} -> ${count}`);
-        }
-        */
+        // cleaunp and update velocity
         for (let i = 0; i < listLength; ++i) {
             let it = this.jointingList[i];
             it.cleanup(dt);
             it.enforce(pxList[i], pyList[i]);
             it.updateVelocity(dt);
             it.cleanup(dt);
-        }
-        if (this.tail != null) {
-
         }
     }
 
@@ -347,5 +348,14 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             this.jointingLengthList.splice(index, 1);
         }
         body.enable = true;
+    }
+
+    /**
+     * Get collision data by each string element
+     * @override
+     * @return {Array<CollisionData>} collision data by each string element
+     */
+    getCollisions() {
+        return this.collisions;
     }
 }

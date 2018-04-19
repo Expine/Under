@@ -95,7 +95,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     connectPlayer() {
         let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
         let y = this.owner.y - this.generatedY;
-        this.post = new HookPlayer(x, y, 8, 8, this.owner, this, this.length, this.restLength - 15);
+        this.post = new HookPlayer(x, y, 8, 8, this.owner, this, this.string, this.restLength - 15);
     }
 
     /**
@@ -148,6 +148,14 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     getHookY() {}
 
     /**
+     * Create post hook (Do not create it if it already exists)
+     * @override
+     */
+    createPost() {
+        this.makeChild(this.body.velocityX, this.body.velocityY);
+    }
+
+    /**
      * Hooked hook
      * @override
      */
@@ -173,25 +181,18 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     }
 
     /**
-     * Destroy object
+     * Try to remove it
      * @override
      */
-    destroy() {
-        if (BaseUtil.implementsOf(this.post, IBreakable)) {
-            this.post.destroy();
+    tryRemove() {
+        if (this.post instanceof HookPlayer) {
+            if (this.previous !== null) {
+                this.previous.post = this.post;
+            }
+            this.post = null;
+            this.string.removeBody(this.body);
+            this.destroy();
         }
-        super.destroy();
-    }
-
-    /**
-     * Update object
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        super.update(dt);
-
-        this.makeChild(this.body.velocityX, this.body.velocityY);
     }
 
     /**

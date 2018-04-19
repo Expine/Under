@@ -1,17 +1,35 @@
 /**
  * Head hooking state
- * Hook condition before collision
- * @implements {HookingState}
- * @classdesc Hooking state before collision
+ * - Determines the operation by AI according to the state and renders based on state
+ * - Hook condition before collision to create post hook
+ * - ### Transition to hooked state
+ * @extends {HookingState}
+ * @classdesc Head Hooking state for transition to hooked sate
  */
 class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-vars
     /**
-     * Initialize
-     * @override
+     * Head hooking state constructor
+     * @constructor
+     * @param {IHook} hook Hook for getting hook information
+     * @param {IString} string String for getting string information
+     * @param {IJoint} joint Joint for jointing to collision object
      */
-    init() {
-        this.entity.directionX = Math.sign(this.entity.body.velocityX) == 0 ? 1 : Math.sign(this.entity.body.velocityX);
-        this.entity.directionY = Math.sign(this.entity.body.velocityY) == 0 ? -1 : Math.sign(this.entity.body.velocityY);
+    constructor(hook, string, joint) {
+        super(hook);
+
+        /**
+         * String for getting string information
+         * @protected
+         * @type {IString}
+         */
+        this.string = string;
+
+        /**
+         * Joint for jointing to collision object
+         * @protected
+         * @type {IJoint}
+         */
+        this.joint = joint;
     }
 
     /**
@@ -28,18 +46,25 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
         this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
         // check collisions
-        for (let it of this.entity.collider.collisions) {
+        for (let it of this.string.getCollisions()) {
+            if (it.e1 !== this.entity && it.e2 !== this.entity) {
+                continue;
+            }
             let dot = it.nx * this.entity.directionX + it.ny * this.entity.directionY;
             if ((it.e1 === this.entity && dot > 0) || (it.e2 === this.entity && dot < 0)) {
                 let you = Util.getCollidedEntity(this.entity, it);
-                if (BaseUtil.implementsOf(you, IHook)) {
-                    if (you.getActor() === this.entity.getActor()) {
-                        continue;
-                    }
+                if (BaseUtil.implementsOf(you, IHook) && you.getActor() === this.entity.getActor()) {
+                    continue;
                 }
+                // hook
                 this.entity.hooked();
-                this.entity.body.enable = false;
+                let youWidth = (you.collider.aabb.endX - you.collider.aabb.startX) / 2;
+                let youHeight = (you.collider.aabb.endY - you.collider.aabb.startY) / 2;
+                let meWidth = (this.entity.collider.aabb.endX - this.entity.collider.aabb.startX) / 2;
+                let meHeight = (this.entity.collider.aabb.endY - this.entity.collider.aabb.startY) / 2;
+                this.joint.joint(you, youWidth, youHeight, (Math.max(youWidth, youHeight) + Math.max(meWidth, meHeight)) * 2);
                 this.ai.changeState(`hooked`);
+                break;
             }
         }
         return true;

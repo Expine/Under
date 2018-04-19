@@ -54,12 +54,12 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         this.setAnimation(anime);
         this.setCollider(new DirectionalExcludedRoundRectangleCollider((22 - 0) * this.width / 32, 0, 10 * this.width / 32, 10 * this.height / 32, 2, 0));
         this.setMaterial(new ImmutableMaterial(1, 0.0, 0.0));
-        let org = new PreciseBody();
+        let org = new JointBody((17 - 0) * this.width / 32, 5 * this.height / 32);
         org.setMaterial(new ImmutableRigidMaterial());
         let body = new StringBody(org, (this.directionX >= 0 ? this.getHookX() - this.x : this.x + this.width - this.getHookX()), (this.directionY > 0 ? this.getHookY() - this.y : this.y + this.height - this.getHookY()), length);
         body.setMaterial(new ImmutableRigidMaterial());
         this.setRigidBody(body);
-        // this.addAI(new HeadHookStateAI(this, owner));
+        this.addAI(new HeadHookStateAI(this, body, org));
 
         this.string = body;
         this.directionX = owner.directionX;
@@ -84,17 +84,6 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      */
     getHookY() {
         return this.y + this.originalHeight / 2;
-    }
-
-    /**
-     * Update object
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        super.update(dt);
-        this.directionX = Math.sign(this.body.velocityX) == 0 ? this.directionX : Math.sign(this.body.velocityX);
-        this.directionY = Math.sign(this.body.velocityY) == 0 ? this.directionY : Math.sign(this.body.velocityY);
     }
 
     /**

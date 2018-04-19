@@ -37,7 +37,7 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
         this.setMaterial(new ImmutableMaterial(0.1, 0.0, 0.0));
         this.setRigidBody(new PreciseBody());
         this.body.setMaterial(new ImmutableRigidMaterial());
-        // this.addAI(new HookStateAI(this, entity));
+        this.addAI(new HookStateAI(this));
 
         this.x -= (this.getHookX() - this.x);
         this.y -= (this.getHookY() - this.y);

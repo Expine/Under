@@ -1,21 +1,24 @@
 /**
  * Head Hook state AI
- * AI with state
- * @extends {NamedStateAI}
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - Manages state by name
+ * - Indicates hooking and released state
+ * - ### Also indicates hooked state
+ * @extends {HookStateAI}
  * @classdesc AI with state for determining action
  */
-class HeadHookStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
+class HeadHookStateAI extends HookStateAI { // eslint-disable-line  no-unused-vars
     /**
      * Head hook State AI Constructor
      * @constructor
-     * @param {IHook} hook Hook object to get previous entity
-     * @param {Entity} actor Hook actor
+     * @param {IHook} hook Hook for getting hook information
+     * @param {IString} string String for getting string information
+     * @param {IJoint} joint Joint for jointing to collision object
      */
-    constructor(hook, actor) {
-        super(`hooking`);
+    constructor(hook, string, joint) {
+        super(hook);
 
-        this.namedStates[`hooking`] = new HeadHookingState(hook);
-        this.namedStates[`hooked`] = new HookingState(hook);
-        this.namedStates[`released`] = new HeadHookReleasedState(actor);
+        this.namedStates[`hooking`] = new HeadHookingState(hook, string, joint);
     }
 }

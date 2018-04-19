@@ -127,7 +127,6 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
             return ret;
         }
         let data = new CollisionData();
-        /*
         for (let it of this.actors) {
             let itCollider = it.collider;
             if (itCollider === null || it === entity) {
@@ -138,7 +137,6 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
                 data = new CollisionData();
             }
         }
-        */
         let sx = Math.floor(entity.x / this.splitNumber);
         let sy = Math.floor(entity.y / this.splitNumber);
         let ex = Math.floor((entity.x + entity.width) / this.splitNumber);

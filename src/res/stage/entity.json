@@ -7,6 +7,9 @@
             "height": 64,
             "collider": {
                 "type": "RoundRectangle",
+                "excluded": true,
+                "directional": true,
+                "id": 0,
                 "startX": 12,
                 "startY": 12,
                 "width": 38,

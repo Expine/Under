@@ -18,6 +18,23 @@
  */
 class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
     /**
+     * Hook object constructor
+     * @constructor
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     * @param {MutableEntity} owner Owned entity
+     * @param {HookObject} previous Previous hook object
+     * @param {IString} string Hook string
+     * @param {number} restLength Hook rest length
+     */
+    constructor(x, y, width, height, owner, previous, string, restLength) {
+        super(x, y, width, height, owner, previous, string, restLength);
+
+        string.addBody(owner.body, -this.generatedX, -this.generatedY, Math.max(owner.collider.aabb.endX - owner.collider.aabb.startX, owner.collider.aabb.endY - owner.collider.aabb.startY) + string.getLength());
+    }
+    /**
      * Hook center x position
      * @override
      * @return {number} Hook center x position

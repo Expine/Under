@@ -1,17 +1,19 @@
 /**
  * Hook state AI
- * AI with state
+ * - Determines the behavior of an entity
+ * - Determines by state
+ * - Manages state by name
+ * - ### Indicates hooking and released state
  * @extends {NamedStateAI}
- * @classdesc AI with state for determining action
+ * @classdesc Hook state AI to indicate hooked and released state
  */
 class HookStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
     /**
      * Hook State AI Constructor
      * @constructor
-     * @param {IHook} hook Hook object to get previous entity
-     * @param {Entity} actor Hook actor
+     * @param {IHook} hook Hook for getting hook information
      */
-    constructor(hook, actor) {
+    constructor(hook) {
         super(`hooking`);
 
         this.namedStates[`hooking`] = new HookingState(hook);

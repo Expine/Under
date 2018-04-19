@@ -15,6 +15,7 @@ class UnderDebugEngine extends UnderEngine { // eslint-disable-line  no-unused-v
      * @protected
      */
     update() {
+        this.timer.startTimer(`overall`);
         this.timer.startTimer(`update`);
         super.update();
         this.timer.stopTimer(`update`);
@@ -29,5 +30,6 @@ class UnderDebugEngine extends UnderEngine { // eslint-disable-line  no-unused-v
         this.timer.startTimer(`render`);
         super.render();
         this.timer.stopTimer(`render`);
+        this.timer.stopTimer(`overall`);
     }
 }

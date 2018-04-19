@@ -6,18 +6,14 @@
  * @implements {MaxAdoptBody}
  * @classdesc Joint body to fit within a certain length range of some object
  */
-class JointBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
+class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
     /**
      * Joint body constructor
      * @constructor
      * @param {number} jointingX Jointing x position (object that attached it)
      * @param {number} jointingY Jointing y position (object that attached it)
-     * @param {Entity} jointed Jointed entity
-     * @param {number} jointedX Jointed x position
-     * @param {number} jointedY Jointed y position
-     * @param {number} length Jointed length
      */
-    constructor(jointingX, jointingY, jointed, jointedX, jointedY, length) {
+    constructor(jointingX, jointingY) {
         super();
 
         /**
@@ -38,41 +34,59 @@ class JointBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {Entity}
          */
-        this.jointed = jointed;
+        this.jointed = null;
         /**
          * Jointed x position
          * @protected
          * @type {number}
          */
-        this.jointedX = jointedX;
+        this.jointedX = 0;
         /**
          * Jointed y position
          * @protected
          * @type {number}
          */
-        this.jointedY = jointedY;
+        this.jointedY = 0;
 
         /**
          * Jointed length
          * @protected
          * @type {number}
          */
-        this.length = length;
+        this.length = 0;
     }
 
     /**
-     * Update by rigid body
-     * @override
-     * @param {number} dt delta time
+     * Update velocity
+     * @interface
+     * @protected
      */
-    update(dt) {
-        super.update(dt);
+    updateVelocity(dt) {
+        if (this.jointed !== null) {
+            if (this.jointed instanceof MutableEntity) {
+                if (this.jointed.body !== null) {}
+            } else {
+                this.material.velocityX = this.jointed.velocityX;
+                this.material.velocityY = this.jointed.velocityY;
+            }
+        } else {
+            super.updateVelocity(dt);
+        }
+    }
 
-        if (this.enable) {
-            let ex = this.entity.directionX >= 0 ? this.entity.x + this.entity.width + this.jointingX : this.entity.x - this.jointingX;
-            let ey = this.entity.directionY <= 0 ? this.entity.y - this.jointingY : this.entity.y + this.entity.height + this.jointingY;
-            let jx = this.jointed.directionX >= 0 ? this.jointed.x + this.jointed.width + this.jointedX : this.jointed.x - this.jointedX;
-            let jy = this.jointed.directionY >= 0 ? this.jointed.y + this.jointed.height + this.jointedY : this.jointed.y - this.jointedY;
+    /**
+     * Update entity by velocity
+     * @override
+     * @param {number} dt Delta time
+     */
+    updateEntity(dt) {
+        super.updateEntity(dt);
+
+        if (this.enable && this.jointed !== null) {
+            let ex = this.entity.directionX >= 0 ? this.entity.x + this.jointingX : this.entity.x + this.entity.width - this.jointingX;
+            let ey = this.entity.directionY > 0 ? this.entity.y + this.jointingY : this.entity.y + this.entity.height - this.jointingY;
+            let jx = this.jointed.directionX >= 0 ? this.jointed.x + this.jointedX : this.jointed.x + this.jointed.width - this.jointedX;
+            let jy = this.jointed.directionY > 0 ? this.jointed.y + this.jointedY : this.jointed.y + this.jointed.height - this.jointedY;
             let dx = jx - ex;
             let dy = jy - ey;
             let d = Math.sqrt(dx * dx + dy * dy);
@@ -95,5 +109,20 @@ class JointBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
                 this.entity.deltaMove(l * dx / d, l * dy / d);
             }
         }
+    }
+
+    /**
+     * Joint to something
+     * @interface
+     * @param {Entity} jointed Jointed entity
+     * @param {number} jointedX Jointed x position
+     * @param {number} jointedY Jointed y position
+     * @param {number} length Jointed length
+     */
+    joint(jointed, jointedX, jointedY, length) {
+        this.jointed = jointed;
+        this.jointedX = jointedX;
+        this.jointedY = jointedY;
+        this.length = length;
     }
 }
