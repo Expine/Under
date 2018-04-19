@@ -46,6 +46,7 @@ class IHook extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Try to remove it
      * @interface
+     * @return {bool} Whether it was removed
      */
     tryRemove() {}
 }

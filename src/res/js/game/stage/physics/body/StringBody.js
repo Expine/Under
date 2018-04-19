@@ -340,7 +340,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      * @param {RigidBody} body Joiting body
      */
     removeBody(body) {
-        let index = this.jointingList.indexOf(jointed);
+        let index = this.jointingList.indexOf(body);
         if (index >= 0) {
             this.jointingList.splice(index, 1);
             this.jointingXList.splice(index, 1);

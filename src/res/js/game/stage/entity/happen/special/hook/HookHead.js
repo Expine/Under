@@ -87,6 +87,18 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Try to remove it
+     * @override
+     * @return {bool} Whether it was removed
+     */
+    tryRemove() {
+        if (super.tryRemove()) {
+            this.owner.body.enable = true;
+        }
+        return false;
+    }
+
+    /**
      * Render entity
      * @override
      * @param {Context} ctx Canvas context

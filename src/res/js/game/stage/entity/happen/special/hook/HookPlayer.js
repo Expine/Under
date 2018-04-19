@@ -32,7 +32,7 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
     constructor(x, y, width, height, owner, previous, string, restLength) {
         super(x, y, width, height, owner, previous, string, restLength);
 
-        string.addBody(owner.body, -this.generatedX, -this.generatedY, Math.max(owner.collider.aabb.endX - owner.collider.aabb.startX, owner.collider.aabb.endY - owner.collider.aabb.startY) + string.getLength());
+        string.addBody(owner.body, owner.width + this.generatedX, -this.generatedY, string.getLength());
     }
     /**
      * Hook center x position

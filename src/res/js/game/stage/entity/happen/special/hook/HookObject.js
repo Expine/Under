@@ -183,6 +183,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     /**
      * Try to remove it
      * @override
+     * @return {bool} Whether it was removed
      */
     tryRemove() {
         if (this.post instanceof HookPlayer) {
@@ -192,7 +193,9 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
             this.post = null;
             this.string.removeBody(this.body);
             this.destroy();
+            return true;
         }
+        return false;
     }
 
     /**
