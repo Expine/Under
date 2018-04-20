@@ -14,12 +14,12 @@ class HeadHookStateAI extends HookStateAI { // eslint-disable-line  no-unused-va
      * @constructor
      * @param {IHook} hook Hook for getting hook information
      * @param {IString} string String for getting string information
-     * @param {IJoint} joint Joint for jointing to collision object
+     * @param {RigidBody} body Original body of hook head
      */
-    constructor(hook, string, joint) {
+    constructor(hook, string, body) {
         super(hook);
 
-        this.namedStates[`hooking`] = new HeadHookingState(hook, string, joint);
-        this.namedStates[`released`] = new HeadHookReleasedState(hook, joint);
+        this.namedStates[`hooking`] = new HeadHookingState(hook, string, body);
+        this.namedStates[`released`] = new HeadHookReleasedState(hook, body);
     }
 }

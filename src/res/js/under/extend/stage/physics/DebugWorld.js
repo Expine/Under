@@ -98,15 +98,24 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Prepare body
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
+     */
+    prepareBody(dt) {
+        Timer.it.startTimer(`body`);
+        this.world.prepareBody(dt);
+    }
+
+    /**
      * Update body
      * @protected
      * @override
      * @param {number} dt Delta time
      */
     updateBody(dt) {
-        Timer.it.startTimer(`body`);
         this.world.updateBody(dt);
-        Timer.it.stopTimer(`body`);
     }
 
     /**
@@ -117,6 +126,7 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
      */
     updateBodyCleanup(dt) {
         this.world.updateBodyCleanup(dt);
+        Timer.it.stopTimer(`body`);
     }
 
     /**

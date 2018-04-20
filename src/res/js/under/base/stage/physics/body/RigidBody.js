@@ -116,6 +116,13 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     init() {}
 
     /**
+     * Prepare for updagte
+     * @interface
+     * @param {number} dt delta time
+     */
+    prepare(dt) {}
+
+    /**
      * Set the value added to the next speed vector
      * @interface
      * @param {number} vx X component of the velocity vector to be added
@@ -125,6 +132,7 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Apply force to objects
+     * @interface
      * @param {number} forceX Force in x direction
      * @param {number} forceY Force in y direction
      */

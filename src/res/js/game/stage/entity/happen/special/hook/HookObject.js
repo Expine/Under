@@ -199,6 +199,15 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     }
 
     /**
+     * Whether the tip of the hook
+     * @override
+     * @return {bool} Whether the tip of the hook
+     */
+    isHead() {
+        return false;
+    }
+
+    /**
      * Render entity
      * @override
      * @param {Context} ctx Canvas context

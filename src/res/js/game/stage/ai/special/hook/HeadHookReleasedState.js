@@ -10,17 +10,17 @@ class HeadHookReleasedState extends HookReleasedState { // eslint-disable-line  
      * Head Hook released state
      * @constructor
      * @param {IHook} hook Hook for getting hook information
-     * @param {IJoint} joint Joint for jointing to collision object
+     * @param {RigidBody} body Original body of hook head
      */
-    constructor(hook, joint) {
+    constructor(hook, body) {
         super(hook);
 
         /**
-         * Joint for jointing to collision object
+         * Original body of hook head
          * @protected
-         * @type {IJoint}
+         * @type {RigidBody}
          */
-        this.joint = joint;
+        this.body = body;
     }
 
     /**
@@ -28,6 +28,6 @@ class HeadHookReleasedState extends HookReleasedState { // eslint-disable-line  
      * @interface
      */
     init() {
-        this.joint.unjoint();
+        this.body.enable = true;
     }
 }

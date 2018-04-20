@@ -51,6 +51,13 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         this.jointingLengthList = [];
 
         /**
+         * Jointing body enable list
+         * @protected
+         * @type {Array<bool>}
+         */
+        this.enableList = [];
+
+        /**
          * Collision data list
          * @protected
          * @type {Array<CollisionData>}
@@ -140,11 +147,25 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
 
     /**
      * Apply force to objects
+     * @override
      * @param {number} forceX Force in x direction
      * @param {number} forceY Force in y direction
      */
     enforce(forceX, forceY) {
         this.body.enforce(forceX, forceY);
+    }
+
+    /**
+     * Prepare for updagte
+     * @override
+     * @param {number} dt delta time
+     */
+    prepare() {
+        for (let i = 0; i < this.jointingList.length; ++i) {
+            let it = this.jointingList[i];
+            this.enableList[i] = it.enable;
+            it.enable = false;
+        }
     }
 
     /**
@@ -184,9 +205,11 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         for (let i = 0; i < listLength; ++i) {
             let it = this.jointingList[i];
             // update information
-            it.updateInfo(dt);
-            it.updateVelocity(dt);
-            it.updateEntity(dt);
+            if (this.enableList[i]) {
+                it.updateInfo(dt);
+                it.updateVelocity(dt);
+                it.updateEntity(dt);
+            }
             // initialize list
             dxList[i] = it.entity.directionX >= 0 ? this.jointingXList[i] : it.entity.width - this.jointingXList[i];
             dyList[i] = it.entity.directionY >= 0 ? this.jointingYList[i] : it.entity.height - this.jointingYList[i];
@@ -197,29 +220,31 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             xRepulsionList[i] = false;
             yRepulsionList[i] = false;
             // check collision
-            let data = world.getCollisionData(it.entity);
-            for (let col of data) {
-                if (!col.e1.collider.isResponse(col.e2.collider) || !col.e2.collider.isResponse(col.e1.collider)) {
-                    continue;
-                }
-                // push back
-                willXList[1][i] -= col.nx * col.depth;
-                willYList[1][i] -= col.ny * col.depth;
-                // repulsion
-                if (it.velocityX * col.nx + it.velocityY * col.ny > 0) {
-                    if (!xRepulsionList[i]) {
-                        pxList[i] -= col.nx * it.entity.material.mass * Math.abs(it.velocityX) / milisec / 2;
-                        xRepulsionList[i] = col.nx != 0;
+            if (this.enableList[i]) {
+                let data = world.getCollisionData(it.entity);
+                for (let col of data) {
+                    if (!col.e1.collider.isResponse(col.e2.collider) || !col.e2.collider.isResponse(col.e1.collider)) {
+                        continue;
                     }
-                    if (!yRepulsionList[i]) {
-                        pyList[i] -= col.ny * it.entity.material.mass * Math.abs(it.velocityY) / milisec / 2;
-                        yRepulsionList[i] = col.ny != 0;
+                    // push back
+                    willXList[1][i] -= col.nx * col.depth;
+                    willYList[1][i] -= col.ny * col.depth;
+                    // repulsion
+                    if (it.velocityX * col.nx + it.velocityY * col.ny > 0) {
+                        if (!xRepulsionList[i]) {
+                            pxList[i] -= col.nx * it.entity.material.mass * Math.abs(it.velocityX) / milisec / 2;
+                            xRepulsionList[i] = col.nx != 0;
+                        }
+                        if (!yRepulsionList[i]) {
+                            pyList[i] -= col.ny * it.entity.material.mass * Math.abs(it.velocityY) / milisec / 2;
+                            yRepulsionList[i] = col.ny != 0;
+                        }
                     }
+                    this.collisions.push(col);
                 }
-                this.collisions.push(col);
+                // correct
+                it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
             }
-            // correct
-            it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
             // decide position
             willXList[0][i] = willXList[1][i];
             willYList[0][i] = willYList[1][i];
@@ -246,18 +271,22 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                 let px = power * dx / d;
                 let py = power * dy / d;
                 // move by power
-                willXList[1][i] += px * milisec2 / m1;
-                willYList[1][i] += py * milisec2 / m1;
-                willXList[1][i + 1] -= px * milisec2 / m2;
-                willYList[1][i + 1] -= py * milisec2 / m2;
+                if (this.enableList[i]) {
+                    willXList[1][i] += px * milisec2 / m1;
+                    willYList[1][i] += py * milisec2 / m1;
+                    movedList[i] = true;
+                }
+                if (this.enableList[i + 1]) {
+                    willXList[1][i + 1] -= px * milisec2 / m2;
+                    willYList[1][i + 1] -= py * milisec2 / m2;
+                    movedList[i + 1] = true;
+                }
                 // register force
                 pxList[i] += px;
                 pyList[i] += py;
                 pxList[i + 1] -= px;
                 pyList[i + 1] -= py;
                 // set moved
-                movedList[i] = true;
-                movedList[i + 1] = true;
                 isLoop = true;
             }
             // move and check collision
@@ -299,19 +328,24 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         for (let i = 0; i < listLength; ++i) {
             let it = this.jointingList[i];
             it.cleanup(dt);
-            it.enforce(pxList[i], pyList[i]);
-            it.updateVelocity(dt);
-            it.cleanup(dt);
+            if (this.enableList[i]) {
+                it.enforce(pxList[i], pyList[i]);
+                it.updateVelocity(dt);
+                it.cleanup(dt);
+            }
         }
     }
 
     /**
      * Cleanup body information
-     * @interface
+     * @override
      * @param {nuumber} dt Delta time
      */
     cleanup(dt) {
-        this.body.cleanup();
+        for (let i = 0; i < this.jointingList.length; ++i) {
+            let it = this.jointingList[i];
+            it.enable = this.enableList[i];
+        }
     }
     /**
      * Get string length
@@ -336,8 +370,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         this.jointingXList.push(jointingX);
         this.jointingYList.push(jointingY);
         this.jointingLengthList.push(length);
-        // disable
-        jointing.enable = false;
+        this.enableList.push(jointing.enable);
     }
 
     /**
@@ -352,8 +385,8 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             this.jointingXList.splice(index, 1);
             this.jointingYList.splice(index, 1);
             this.jointingLengthList.splice(index, 1);
+            this.enableList.splice(index, 1);
         }
-        body.enable = true;
     }
 
     /**

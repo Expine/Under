@@ -150,6 +150,20 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     }
 
     /**
+     * Prepare body
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    prepareBody(dt) {
+        for (let target of this.actors) {
+            if (target.body !== null) {
+                target.body.prepare(dt);
+            }
+        }
+    }
+
+    /**
      * Update body
      * @protected
      * @override

@@ -42,7 +42,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
             let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {
                 for (let it of hooks) {
-                    if (it.getActor() === this.entity) {
+                    if (!it.isHead() && it.getActor() === this.entity) {
                         if (it.tryRemove()) {
                             break;
                         }

@@ -12,9 +12,9 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
      * @constructor
      * @param {IHook} hook Hook for getting hook information
      * @param {IString} string String for getting string information
-     * @param {IJoint} joint Joint for jointing to collision object
+     * @param {RigidBody} body Original body of hook head
      */
-    constructor(hook, string, joint) {
+    constructor(hook, string, body) {
         super(hook);
 
         /**
@@ -25,11 +25,11 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         this.string = string;
 
         /**
-         * Joint for jointing to collision object
+         * Original body of hook head
          * @protected
-         * @type {IJoint}
+         * @type {RigidBody}
          */
-        this.joint = joint;
+        this.body = body;
     }
 
     /**
@@ -58,11 +58,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
                 }
                 // hook
                 this.entity.hooked();
-                let youWidth = (you.collider.aabb.endX - you.collider.aabb.startX) / 2;
-                let youHeight = (you.collider.aabb.endY - you.collider.aabb.startY) / 2;
-                let meWidth = (this.entity.collider.aabb.endX - this.entity.collider.aabb.startX) / 2;
-                let meHeight = (this.entity.collider.aabb.endY - this.entity.collider.aabb.startY) / 2;
-                this.joint.joint(you, youWidth, youHeight, (Math.max(youWidth, youHeight) + Math.max(meWidth, meHeight)) * 2);
+                this.body.enable = false;
                 this.ai.changeState(`hooked`);
                 break;
             }

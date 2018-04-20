@@ -87,6 +87,14 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     updateExternalForce(dt) {}
 
     /**
+     * Prepare body
+     * @interface
+     * @protected
+     * @param {number} dt Delta time
+     */
+    prepareBody(dt) {}
+
+    /**
      * Update body
      * @interface
      * @protected
@@ -126,6 +134,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         this.updateExternalForce(dt);
+        this.prepareBody(dt);
         this.updateBody(dt);
         this.updateBodyCleanup(dt);
         this.updateCollision(dt);

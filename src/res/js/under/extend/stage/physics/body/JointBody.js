@@ -85,7 +85,7 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
     updateEntity(dt) {
         super.updateEntity(dt);
 
-        if (this.enable && this.jointed !== null) {
+        if (this.jointed !== null) {
             let ex = this.entity.directionX >= 0 ? this.entity.x + this.jointingX : this.entity.x + this.entity.width - this.jointingX;
             let ey = this.entity.directionY > 0 ? this.entity.y + this.jointingY : this.entity.y + this.entity.height - this.jointingY;
             let jx = this.jointed.directionX >= 0 ? this.jointed.x + this.jointedX : this.jointed.x + this.jointed.width - this.jointedX;

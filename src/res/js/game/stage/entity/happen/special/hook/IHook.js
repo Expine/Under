@@ -49,4 +49,11 @@ class IHook extends Interface { // eslint-disable-line  no-unused-vars
      * @return {bool} Whether it was removed
      */
     tryRemove() {}
+
+    /**
+     * Whether the tip of the hook
+     * @interface
+     * @return {bool} Whether the tip of the hook
+     */
+    isHead() {}
 }
