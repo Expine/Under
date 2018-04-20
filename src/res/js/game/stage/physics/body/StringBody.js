@@ -225,9 +225,9 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             willYList[0][i] = willYList[1][i];
         }
         // repeat move
-        const COUNT = 10;
+        const COUNT = 300;
         let isLoop = true;
-        for (let count = 0; count < COUNT && isLoop; ++count) {
+        for (let count = 0; count < COUNT && isLoop; count += listLength) {
             isLoop = false;
             for (let i = 0; i < listLength - 1; ++i) {
                 // check length
