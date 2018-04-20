@@ -77,6 +77,7 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/CircleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/RectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/RoundRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/SimpleAABB.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/DebugWorld.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/ImpulseBasedResponse.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/material/ImmutableMaterial.js';document.head.appendChild(script);script.onload = function() 
@@ -118,8 +119,6 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/parser/UnderTileBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/physics/body/IString.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/physics/body/StringBody.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/DirectionalRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/DirectionalRoundRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/ExcludedRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/ExcludedRoundRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/IExclude.js';document.head.appendChild(script);script.onload = function() 
@@ -155,6 +154,7 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/TileObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/parser/CharacterBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/body/JointBody.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/DirectionalAABB.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/UnderDebugEngine.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/scene/layer/ChipLayer.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/scene/layer/EntityLayer.js';document.head.appendChild(script);script.onload = function() 
@@ -171,8 +171,6 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/entity/interface/IUnderPlayable.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/entity/UnderTileObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/parser/UnderCharacterBuilder.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/DirectionalExcludedRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/game/stage/physics/collider/DirectionalExcludedRoundRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/Player.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/PunchObject.js';document.head.appendChild(script);script.onload = function() 
@@ -202,8 +200,6 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerGrabState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/EditorMain.js';document.head.appendChild(script);script.onload = function() 
 {};
-};
-};
 };
 };
 };

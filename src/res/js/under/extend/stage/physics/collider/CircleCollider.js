@@ -104,12 +104,15 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
     /**
      * Fix collider bounds
      * @override
-     * @param {AABB} aabb AABB covering collider
+     * @param {number} startX Relative x coordinate of the upper left
+     * @param {number} startY Relative y coordinate of the upper left
+     * @param {number} endX Relative x coordinate of the lower right
+     * @param {number} endY Relative y coordinate of the lower right
      */
-    fixBound(aabb) {
-        this.shiftX = this.aabb.startX;
-        this.shiftY = this.aabb.startY;
-        this.radius = Math.max(this.endX - this.startY, this.endY - this.startY);
+    fixBound(startX, startY, endX, endY) {
+        this.shiftX = startX;
+        this.shiftY = startY;
+        this.radius = Math.max(endX - startX, endY - startY) / 2;
         this.update();
     }
 
@@ -120,10 +123,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      */
     update() {
         // AABB
-        this.aabb.startX = this.entity.x + this.shiftX;
-        this.aabb.startY = this.entity.y + this.shiftY;
-        this.aabb.endX = this.entity.x + this.radius * 2 + this.shiftX;
-        this.aabb.endY = this.entity.y + this.radius * 2 + this.shiftY;
+        this.aabb.update(this.shiftX, this.shiftY, this.radius * 2 + this.shiftX, this.radius * 2 + this.shiftY, this.entity);
         // Center position
         this.centerX = this.entity.x + this.radius + this.shiftX;
         this.centerY = this.entity.y + this.radius + this.shiftY;

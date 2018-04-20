@@ -52,7 +52,9 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         anime.addAnimation(new AnimationElement(imageID, 64, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
         this.setAnimation(anime);
-        this.setCollider(new DirectionalExcludedRoundRectangleCollider((22 - 0) * this.width / 32, 0, 10 * this.width / 32, 10 * this.height / 32, 2, 0));
+        let collider = new ExcludedRoundRectangleCollider((22 - 0) * this.width / 32, 0, 10 * this.width / 32, 10 * this.height / 32, 2, 0);
+        collider.setAABB(new DirectionalAABB());
+        this.setCollider(collider);
         this.setMaterial(new ImmutableMaterial(1, 0.0, 0.0));
         let org = new JointBody((17 - 0) * this.width / 32, 5 * this.height / 32);
         org.setMaterial(new ImmutableRigidMaterial());

@@ -77,6 +77,7 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/CircleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/RectangleCollider.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/RoundRectangleCollider.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/SimpleAABB.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/DebugWorld.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/ImpulseBasedResponse.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/material/ImmutableMaterial.js';document.head.appendChild(script);script.onload = function() 
@@ -119,11 +120,14 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/TileObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/parser/CharacterBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/body/JointBody.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/DirectionalAABB.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/UnderDebugEngine.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/character/Player.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/PunchObject.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
+};
 };
 };
 };

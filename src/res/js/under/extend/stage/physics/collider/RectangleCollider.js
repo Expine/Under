@@ -115,13 +115,16 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
     /**
      * Fix collider bounds
      * @override
-     * @param {AABB} aabb AABB covering collider
+     * @param {number} startX Relative x coordinate of the upper left
+     * @param {number} startY Relative y coordinate of the upper left
+     * @param {number} endX Relative x coordinate of the lower right
+     * @param {number} endY Relative y coordinate of the lower right
      */
-    fixBound(aabb) {
-        this.startX = aabb.startX;
-        this.startY = aabb.startY;
-        this.endX = aabb.endX;
-        this.endY = aabb.endY;
+    fixBound(startX, startY, endX, endY) {
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
         this.update();
     }
 
@@ -132,10 +135,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
      */
     update() {
         // AABB
-        this.aabb.startX = this.entity.x + this.startX;
-        this.aabb.startY = this.entity.y + this.startY;
-        this.aabb.endX = this.entity.x + this.endX;
-        this.aabb.endY = this.entity.y + this.endY;
+        this.aabb.update(this.startX, this.startY, this.endX, this.endY, this.entity);
     }
 
     /**

@@ -33,7 +33,9 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
         super(x, y, width, height, owner, previous, string, restLength);
 
         // set base data
-        this.setCollider(new ExcludedRectangleCollider(0, 0, width, height, 0, 2));
+        let collider = new ExcludedRectangleCollider(0, 0, width, height, 0, 2);
+        collider.setAABB(new SimpleAABB());
+        this.setCollider(collider);
         this.setMaterial(new ImmutableMaterial(0.1, 0.0, 0.0));
         this.setRigidBody(new PreciseBody());
         this.body.setMaterial(new ImmutableRigidMaterial());

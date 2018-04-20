@@ -5,33 +5,41 @@
  */
 class AABB { // eslint-disable-line  no-unused-vars
     /**
-     * AABB Constructor
-     * @constructor
-     * @param {number} [startX = 0] X coordinate of the upper left
-     * @param {number} [startY = 0] Y coordinate of the upper left
-     * @param {number} [endX = 0] X coordinate of the lower right
-     * @param {number} [endY = 0] Y coordinate of the lower right
+     * Get start x position
+     * @interface
+     * @return {number} Start x position
      */
-    constructor(startX = 0, startY = 0, endX = 0, endY = 0) {
-        /**
-         * X coordinate of the upper left
-         * @type {number}
-         */
-        this.startX = startX;
-        /**
-         * Y coordinate of the upper left
-         * @type {number}
-         */
-        this.startY = startY;
-        /**
-         * X coordinate of the lower right
-         * @type {number}
-         */
-        this.endX = endX;
-        /**
-         * Y coordinate of the lower right
-         * @type {number}
-         */
-        this.endY = endY;
-    }
+    get startX() {}
+
+    /**
+     * Get start y position
+     * @interface
+     * @return {number} Start y position
+     */
+    get startY() {}
+
+    /**
+     * Get end x position
+     * @interface
+     * @return {number} End x position
+     */
+    get endX() {}
+
+    /**
+     * Get end y position
+     * @interface
+     * @return {number} End y position
+     */
+    get endY() {}
+
+    /**
+     * Update AABB
+     * @interface
+     * @param {number} startX Relative x coordinate of the upper left
+     * @param {number} startY Relative y coordinate of the upper left
+     * @param {number} endX Relative x coordinate of the lower right
+     * @param {number} endY Relative y coordinate of the lower right
+     * @param {InfluentialEntity} entity Entity attaced it
+     */
+    update(startX, startY, endX, endY, entity) {}
 }

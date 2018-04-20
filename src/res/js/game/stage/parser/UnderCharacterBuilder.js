@@ -10,36 +10,20 @@
  */
 class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  no-unused-vars
     /**
-     * Make collider
+     * Make base collider
      * @protected
      * @param {json} collider Collider information json data
      * @return {Collider} Collider
      */
-    makeCollider(collider) {
+    makeBaseCollider(collider) {
         if (collider.excluded) {
-            if (collider.directional) {
-                if (collider.type == `Rectangle`) {
-                    return new DirectionalExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
-                } else if (collider.type == `RoundRectangle`) {
-                    return new DirectionalExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
-                }
-            } else {
-                if (collider.type == `Rectangle`) {
-                    return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
-                } else if (collider.type == `RoundRectangle`) {
-                    return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
-                }
+            if (collider.type == `Rectangle`) {
+                return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
+            } else if (collider.type == `RoundRectangle`) {
+                return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
             }
         } else {
-            if (collider.directional) {
-                if (collider.type == `Rectangle`) {
-                    return new DirectionalRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
-                } else if (collider.type == `RoundRectangle`) {
-                    return new DirectionalRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
-                }
-            } else {
-                return super.makeCollider(collider);
-            }
+            return super.makeBaseCollider(collider);
         }
     }
 

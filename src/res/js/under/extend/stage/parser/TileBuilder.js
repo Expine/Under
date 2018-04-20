@@ -13,12 +13,38 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {Collider} Collider
      */
     makeCollider(collider) {
+        let ret = this.makeBaseCollider(collider);
+        ret.setAABB(this.makeAABB(collider));
+        return ret;
+    }
+
+    /**
+     * Make base collider
+     * @protected
+     * @param {json} collider Collider information json data
+     * @return {Collider} Collider
+     */
+    makeBaseCollider(collider) {
         if (collider.type == `Rectangle`) {
             return new RectangleCollider(collider.startX, collider.startY, collider.width, collider.height);
         } else if (collider.type == `Circle`) {
             return new CircleCollider(ret.radius, ret.shiftX, ret.shiftY);
         } else if (collider.type == `RoundRectangle`) {
             return new RoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut);
+        }
+    }
+
+    /**
+     * Make AABB
+     * @protected
+     * @param {json} collider Collider information json data
+     * @return {AABB} AABB
+     */
+    makeAABB(collider) {
+        if (collider.directional) {
+            return new DirectionalAABB();
+        } else {
+            return new SimpleAABB();
         }
     }
 

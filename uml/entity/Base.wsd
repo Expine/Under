@@ -59,7 +59,7 @@ package under {
                         {abstract} +isInCollider(x,y) : bool
                         {abstract} +isCollision(collider,data)
                         +isCollisionRoughly(collider)
-                        +fixBoundDirectly(startX,startY,endX,endY)
+                        +fixBound(startX,startY,endX,endY)
                         {abstract} +fixBound(aabb)
                         {abstract} +update()
                         {abstract} +render(ctx,shiftX,shiftY)

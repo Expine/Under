@@ -14,7 +14,7 @@ class Collider { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {AABB}
          */
-        this.aabb = new AABB();
+        this.aabb = null;
 
         /**
          * List of collided objects
@@ -63,6 +63,14 @@ class Collider { // eslint-disable-line  no-unused-vars
      */
     addCollision(collision) {
         this.collisions.push(collision);
+    }
+
+    /**
+     * Set collider AABB
+     * @param {AABB} aabb Axis Aligned Bounding Box
+     */
+    setAABB(aabb) {
+        this.aabb = aabb;
     }
 
     /**
@@ -118,18 +126,13 @@ class Collider { // eslint-disable-line  no-unused-vars
 
     /**
      * Fix collider bounds
-     * @param {AABB} aabb AABB covering collider
-     */
-    fixBoundDirectly(startX, startY, endX, endY) {
-        this.fixBound(new AABB(startX, startY, endX, endY));
-    }
-
-    /**
-     * Fix collider bounds
      * @interface
-     * @param {AABB} aabb AABB covering collider
+     * @param {number} startX Relative x coordinate of the upper left
+     * @param {number} startY Relative y coordinate of the upper left
+     * @param {number} endX Relative x coordinate of the lower right
+     * @param {number} endY Relative y coordinate of the lower right
      */
-    fixBound(aabb) {}
+    fixBound(startX, startY, endX, endY) {}
 
     /**
      * Update collide information

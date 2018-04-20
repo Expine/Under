@@ -14,7 +14,7 @@ class CommonGameoverState extends UnderPlayerState { // eslint-disable-line  no-
      * @override
      */
     init() {
-        this.entity.collider.fixBoundDirectly(0, this.entity.height / 2, this.entity.width, this.entity.height);
+        this.entity.collider.fixBound(0, this.entity.height / 2, this.entity.width, this.entity.height);
     }
 
     /**
