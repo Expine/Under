@@ -39,14 +39,32 @@ class Collider { // eslint-disable-line  no-unused-vars
          * @type {InfluentialEntity}
          */
         this.entity = null;
+
+        /**
+         * Whether or not the collision information has already been cleared
+         * @protected
+         * @type {bool}
+         */
+        this.cleared = false;
     }
 
     /**
      * Initialize state
      */
     init() {
-        this.collisions.length = 0;
+        if (!this.cleared) {
+            this.clear();
+        }
         this.update();
+        this.cleared = false;
+    }
+
+    /**
+     * Clear collision data
+     */
+    clear() {
+        this.collisions.length = 0;
+        this.cleared = true;
     }
 
     /**

@@ -333,6 +333,13 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                 it.updateVelocity(dt);
                 it.cleanup(dt);
             }
+            // clear collision data
+            it.entity.collider.clear();
+        }
+        // update collision data
+        for (let it of this.collisions) {
+            it.e1.collider.addCollision(it);
+            it.e2.collider.addCollision(it);
         }
     }
 
