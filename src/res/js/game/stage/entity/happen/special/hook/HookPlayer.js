@@ -28,9 +28,10 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {HookObject} previous Previous hook object
      * @param {IString} string Hook string
      * @param {number} restLength Hook rest length
+     * @param {number} hookedLength Hook length of hooked
      */
-    constructor(x, y, width, height, owner, previous, string, restLength) {
-        super(x, y, width, height, owner, previous, string, restLength);
+    constructor(x, y, width, height, owner, previous, string, restLength, hookedLength) {
+        super(x, y, width, height, owner, previous, string, restLength, hookedLength);
 
         string.addBody(owner.body, owner.width + this.generatedX, -this.generatedY, string.getLength());
     }

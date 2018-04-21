@@ -28,9 +28,10 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {HookObject} previous Previous hook object
      * @param {IString} string Hook string
      * @param {number} restLength Hook rest length
+     * @param {number} hookedLength Hook length of hooked
      */
-    constructor(x, y, width, height, owner, previous, string, restLength) {
-        super(x, y, width, height, owner, previous, string, restLength);
+    constructor(x, y, width, height, owner, previous, string, restLength, hookedLength) {
+        super(x, y, width, height, owner, previous, string, restLength, hookedLength);
 
         // set base data
         let collider = new ExcludedRectangleCollider(0, 0, width, height, 0, 2);

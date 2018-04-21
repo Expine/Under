@@ -27,9 +27,10 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {MutableEntity} owner Owned entity
      * @param {number} length Hook length
      * @param {number} restLength Hook rest length
+     * @param {number} hookedLength Hook length of hooked
      */
-    constructor(x, y, width, height, owner, length, restLength) {
-        super(x, y, width, height, owner, null, null, restLength);
+    constructor(x, y, width, height, owner, length, restLength, hookedLength) {
+        super(x, y, width, height, owner, null, null, restLength, hookedLength);
 
         /**
          * Original width for calculating hook x position
