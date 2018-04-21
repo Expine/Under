@@ -167,6 +167,7 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalNoneState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalPunchState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalSpecialState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/propeller/PropellerBaseStateAI.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/UnderMovableState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/wild/WildBaseStateAI.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/wild/WildClawState.js';document.head.appendChild(script);script.onload = function() 
@@ -181,6 +182,7 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalJumpingState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalStationaryState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/normal/NormalWalkState.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/propeller/PropellerBJumpingState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerFallState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerGrabState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerJumpingState.js';document.head.appendChild(script);script.onload = function() 
@@ -188,6 +190,8 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerWalkState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/Main.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
+};
 };
 };
 };

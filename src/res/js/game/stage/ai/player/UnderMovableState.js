@@ -109,6 +109,32 @@ class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // esli
     }
 
     /**
+     * Move x direction by input
+     * @protected
+     * @param {number} vx X direction
+     * @param {number} dt Delta time
+     */
+    moveX(vx, dt) {
+        this.entity.directionX = vx;
+        if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(this.maxVelocityX)) {
+            this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
+        }
+    }
+
+    /**
+     * Move y direction by input
+     * @protected
+     * @param {number} vy y direction
+     * @param {number} dt Delta time
+     */
+    moveY(vy, dt) {
+        this.entity.directionX = vy;
+        if (this.entity.body.velocityY * vy < 0 || Math.abs(this.entity.body.velocityY) < Math.abs(this.maxVelocityY)) {
+            this.entity.body.enforce(0, this.movePowerY * this.entity.material.mass * vy / dt);
+        }
+    }
+
+    /**
      * Move by input
      * @protected
      * @param {number} dt Delta time
@@ -126,10 +152,7 @@ class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // esli
                 vx += 1;
             }
             if (vx != 0) {
-                this.entity.directionX = vx;
-                if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(this.maxVelocityX)) {
-                    this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
-                }
+                this.moveX(vx, dt);
                 moved = true;
             }
         }
@@ -142,10 +165,7 @@ class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // esli
                 vy += 1;
             }
             if (vy != 0) {
-                this.entity.directionX = vy;
-                if (this.entity.body.velocityY * vy < 0 || Math.abs(this.entity.body.velocityY) < Math.abs(this.maxVelocityY)) {
-                    this.entity.body.enforce(this.movePowerY * this.entity.material.mass * vy / dt, 0);
-                }
+                this.moveY(vy, dt);
                 moved = true;
             }
         }

@@ -78,6 +78,177 @@
                 "mu": 0.6
             }
         }, {
+            "id": 5,
+            "terrain": 3,
+            "x": 160,
+            "y": 0,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
+            "id": 8,
+            "terrain": 3,
+            "x": 192,
+            "y": 0,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
+            "id": 11,
+            "terrain": 3,
+            "x": 224,
+            "y": 0,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
+            "id": 13,
+            "terrain": 3,
+            "x": 160,
+            "y": 32,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
+            "id": 14,
+            "terrain": 3,
+            "x": 192,
+            "y": 32,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
+            "id": 15,
+            "terrain": 3,
+            "x": 224,
+            "y": 32,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
+            "id": 21,
+            "terrain": 3,
+            "x": 160,
+            "y": 64,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
+            "id": 22,
+            "terrain": 3,
+            "x": 192,
+            "y": 64,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
+            "id": 23,
+            "terrain": 3,
+            "x": 224,
+            "y": 64,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "material": {
+                "mass": 10,
+                "elasticity": 0.1,
+                "mu": 0.6
+            }
+        }, {
             "id": 6,
             "terrain": -1,
             "x": 0,

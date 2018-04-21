@@ -103,6 +103,13 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 2));
                 }
                 break;
+            case 3:
+                ai = new PropellerBaseStateAI();
+                this.imageID = ResourceManager.image.load(`chara/propeller.png`);
+                if (this.body.material.frictionY != 0) {
+                    this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
+                }
+                break;
         }
         // inspect whether it changes
         if (ai == null || this.aiType.constructor == ai.constructor) {

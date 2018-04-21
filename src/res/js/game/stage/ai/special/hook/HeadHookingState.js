@@ -65,7 +65,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
             return true;
         }
         // check collisions
-        for (let it of this.string.getCollisions()) {
+        for (let it of this.entity.collider.collisions) {
             if (it.e1 !== this.entity && it.e2 !== this.entity) {
                 continue;
             }
@@ -74,6 +74,12 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
                 let you = Util.getCollidedEntity(this.entity, it);
                 if (BaseUtil.implementsOf(you, IHook) && you.getActor() === this.hook.getActor()) {
                     continue;
+                }
+                // move
+                let dx = Math.sign(this.entity.body.velocityX);
+                let dy = Math.sign(this.entity.body.velocityY);
+                while (this.entity.stage.getPhysicalWorld().getCollisionData(this.entity).length == 0) {
+                    this.entity.deltaMove(dx, dy);
                 }
                 // hook
                 this.entity.hooked();

@@ -10,9 +10,9 @@
                 "excluded": true,
                 "directional": true,
                 "id": 0,
-                "startX": 12,
+                "startX": 15,
                 "startY": 12,
-                "width": 38,
+                "width": 33,
                 "height": 52,
                 "cut": 10
             },
