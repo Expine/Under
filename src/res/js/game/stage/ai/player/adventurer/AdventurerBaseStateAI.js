@@ -32,7 +32,10 @@ class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  
                 }
             }
         }
+        this.namedStates[`stationary`] = new AdventurerStationaryState(350, 42000);
+        this.namedStates[`walk`] = new AdventurerWalkState(350, 21000);
         this.namedStates[`grab`] = new AdventurerGrabState(110, 30000);
+        this.namedStates[`jumping`] = new AdventurerJumpingState(262.5, 14000);
         this.namedStates[`fall`] = new AdventurerFallState(250, 15000);
         this.namedStates[`falling`] = new AdventurerFallState(250, 15000);
         // TODO: Adventurer attack state

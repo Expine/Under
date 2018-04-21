@@ -19,6 +19,7 @@ class AdventurerGrabState extends NormalGrabState { // eslint-disable-line  no-u
      * @protected
      */
     changed() {
+        // auto release
         let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
         for (let it of hooks) {
             if (it.getActor() === this.entity) {

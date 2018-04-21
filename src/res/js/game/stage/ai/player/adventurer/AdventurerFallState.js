@@ -8,7 +8,7 @@
  * - Sets max velocity and move power for moving
  * - Enable to set velocity and power
  * - To falling, walk and stop
- * - ### It can release hook and down wall
+ * - ### It can release and drag hook and down wall
  * @extends {NormalFallState}
  * @classdesc Adventurer fall state that can release hook and down wall
  */
@@ -28,6 +28,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
         if (Input.it.isPressed(Input.key.right())) {
             vx += 1;
         }
+        // down wall
         if (vx != 0) {
             for (let it of this.entity.collider.collisions) {
                 if (Math.abs(it.nx) > 0.5 && vx * it.nx > 0 && it.e1.collider.isResponse(it.e2.collider) && it.e2.collider.isResponse(it.e1.collider)) {
@@ -43,7 +44,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
                 let you = Util.getCollidedEntity(this.entity, it);
                 if (BaseUtil.implementsOf(you, IHook) && !you.isHead() && you.getActor() === this.entity) {
                     if (you.tryRemove()) {
-                        break;
+                        return true;
                     }
                 }
             }
