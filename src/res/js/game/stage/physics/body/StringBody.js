@@ -183,7 +183,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         const listLength = this.jointingLengthList.length;
         const milisec = dt / 1000;
         const milisec2 = milisec * milisec;
-        const k = 45;
+        const k = 60;
         const elim = 1;
         // generate element
         let world = this.entity.stage.getPhysicalWorld();
@@ -250,7 +250,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             willYList[0][i] = willYList[1][i];
         }
         // repeat move
-        const COUNT = 300;
+        const COUNT = 400;
         let isLoop = true;
         for (let count = 0; count < COUNT && isLoop; count += listLength) {
             isLoop = false;

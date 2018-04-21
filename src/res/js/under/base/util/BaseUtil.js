@@ -10,7 +10,11 @@ class BaseUtil { // eslint-disable-line  no-unused-vars
      * @return {bool} Whether you are implementing interfaces
      */
     static implementsOf(instance, i) {
-        return (new(i.bind(i))).validate(instance);
+        let inter = BaseUtil.interfaces[i.name];
+        if (inter === undefined) {
+            inter = BaseUtil.interfaces[i.name] = (new(i.bind(i)));
+        }
+        return inter.validate(instance);
     }
 
     /**
@@ -22,3 +26,9 @@ class BaseUtil { // eslint-disable-line  no-unused-vars
         return instance.constructor.toString().split(`\n`)[0].split(` `)[1];
     }
 }
+
+/**
+ * Singleton interface list
+ * @type {Directionary<class<Interface>, Interface>}
+ */
+BaseUtil.interfaces = {};

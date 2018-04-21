@@ -30,6 +30,13 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
          * @type {RigidBody}
          */
         this.body = body;
+
+        /**
+         * Count during descent
+         * @protected
+         * @type {number}
+         */
+        this.descentCount = 0;
     }
 
     /**
@@ -45,6 +52,18 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         let vy = Math.sign(this.entity.body.velocityY);
         this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
         this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
+        // auto release
+        if (vy > 0 && this.descentCount++ == 3) {
+            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
+            if (hooks.length >= 1) {
+                for (let it of hooks) {
+                    if (it.getActor() === this.hook.getActor()) {
+                        it.release();
+                    }
+                }
+            }
+            return true;
+        }
         // check collisions
         for (let it of this.string.getCollisions()) {
             if (it.e1 !== this.entity && it.e2 !== this.entity) {
@@ -53,7 +72,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
             let dot = it.nx * this.entity.directionX + it.ny * this.entity.directionY;
             if ((it.e1 === this.entity && dot > 0) || (it.e2 === this.entity && dot < 0)) {
                 let you = Util.getCollidedEntity(this.entity, it);
-                if (BaseUtil.implementsOf(you, IHook) && you.getActor() === this.entity.getActor()) {
+                if (BaseUtil.implementsOf(you, IHook) && you.getActor() === this.hook.getActor()) {
                     continue;
                 }
                 // hook

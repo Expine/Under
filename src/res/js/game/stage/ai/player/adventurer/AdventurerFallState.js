@@ -39,13 +39,11 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
         }
         // drag hook
         if (Input.it.isPressed(Input.key.up())) {
-            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
-            if (hooks.length >= 1) {
-                for (let it of hooks) {
-                    if (!it.isHead() && it.getActor() === this.entity) {
-                        if (it.tryRemove()) {
-                            break;
-                        }
+            for (let it of this.entity.collider.collisions) {
+                let you = Util.getCollidedEntity(this.entity, it);
+                if (BaseUtil.implementsOf(you, IHook) && !you.isHead() && you.getActor() === this.entity) {
+                    if (you.tryRemove()) {
+                        break;
                     }
                 }
             }

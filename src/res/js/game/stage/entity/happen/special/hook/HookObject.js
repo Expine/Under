@@ -178,6 +178,9 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
                 it.changeState(`released`);
             }
         }
+        if (this.post === null) {
+            this.connectPlayer();
+        }
     }
 
     /**

@@ -42,7 +42,7 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
     apply(dt) {
         if (this.stateAnimation.isEnded()) {
             let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 12 : 12);
-            let hook = new HookHead(x, this.entity.y + 40, 32, 32, this.entity, 4, 2000);
+            let hook = new HookHead(this.entity.x + this.entity.width / 2, this.entity.y + this.entity.height / 2, 32, 32, this.entity, 4, 2000);
             // hook.body.enforce(12000000 * this.entity.directionX / dt, -20000000 / dt);
             // hook.body.enforce(6000000 * this.entity.directionX / dt, -10000000 / dt);
             hook.body.enforce(1200000 * this.entity.directionX / dt, -2000000 / dt);

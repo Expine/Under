@@ -38,7 +38,9 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
         anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
         this.setAnimation(anime);
         this.setMaterial(new ImmutableMaterial());
-        this.setCollider(new RectangleCollider(0, 0, this.width, this.height));
+        let col = new RectangleCollider(0, 0, this.width, this.height);
+        col.setAABB(new SimpleAABB());
+        this.setCollider(col);
         let body = new MaxAdoptBody();
         body.setMaterial(new ImmutableRigidMaterial());
         this.setRigidBody(body);
