@@ -161,7 +161,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
             entity.id = this.entitiesID[i];
             entity.x = it.x;
             entity.y = it.y;
-            if (it instanceof ImmutableEntity) {
+            if (it instanceof TileObject) {
                 data.layers[0].push(entity);
             } else {
                 data.deploy.push(entity);
@@ -179,7 +179,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         let charaBuilder = new UnderCharacterBuilder();
         let entities = this.getEntities();
         for (let i = entities.length - 1; i >= 0; --i) {
-            if (entities[i] instanceof MutableEntity) {
+            if (!(entities[i] instanceof TileObject)) {
                 this.removeEntity(entities[i]);
             }
         }

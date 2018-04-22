@@ -8,6 +8,16 @@
  */
 class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-vars
     /**
+     * Load character image
+     * @protected
+     * @param {string} path Character image path
+     * @return {number} Character image ID
+     */
+    loadCharaImage(path) {
+        return ResourceManager.image.load(`chara/${path}`);
+    }
+
+    /**
      * Make rigid body
      * @protected
      * @param {json} body Rigid body information json data
@@ -73,14 +83,16 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     makeEntityBase(x, y, entity) {
         if (entity.type == `Player`) {
-            return new Player(x, y, entity.width, entity.height, entity.file);
+            return new Player(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
         } else if (entity.type == 'Enemy') {
-            return new Enemy(x, y, entity.width, entity.height, entity.file);
+            return new Enemy(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
         } else if (entity.type == `Obstacle`) {
-            return new Obstacle(x, y, entity.width, entity.height, entity.file);
-            // TODO: Separate event
+            return new Obstacle(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
+        } else if (entity.type == `Sign`) {
+            return new SignObject(x, y, entity.width, entity.height, this.loadCharaImage(entity.file), this.loadCharaImage(entity.sign.file));
         } else if (entity.type == `Event`) {
-            return new ImmutableEventObject(x, y, entity.width, entity.height, entity.file);
+            // TODO: Separate event
+            return new ImmutableEventObject(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
         }
     }
 

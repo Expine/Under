@@ -73,10 +73,10 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
     addEntity(entity) {
         this.entities.push(entity);
         if (this.actors.indexOf(entity) == -1) {
-            let sx = Math.floor(entity.x / this.splitNumber);
-            let sy = Math.floor(entity.y / this.splitNumber);
-            let ex = Math.floor((entity.x + entity.width) / this.splitNumber);
-            let ey = Math.floor((entity.y + entity.height) / this.splitNumber);
+            let sx = Math.floor(entity.collider.aabb.startX / this.splitNumber);
+            let sy = Math.floor(entity.collider.aabb.startY / this.splitNumber);
+            let ex = Math.floor((entity.collider.aabb.endX) / this.splitNumber);
+            let ey = Math.floor((entity.collider.aabb.endY) / this.splitNumber);
             for (let y = sy; y <= ey; ++y) {
                 for (let x = sx; x <= ex; ++x) {
                     this.notActorsMap[x + this.stageWidth * y].push(entity);

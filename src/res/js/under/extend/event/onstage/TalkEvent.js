@@ -62,8 +62,8 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
 
         if (Input.it.isPress(Input.key.yes())) {
             if (this.talked) {
-                EventManager.it.dequeueEvent();
                 this.stage.setEnable(true);
+                EventManager.it.dequeueEvent();
             } else {
                 this.talkCount = this.sentence.length;
                 this.talked = true;

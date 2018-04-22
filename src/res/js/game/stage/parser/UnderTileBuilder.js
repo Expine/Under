@@ -35,6 +35,6 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(x, y, tile) {
-        return new UnderTileObject(tile.terrain, tile.x, tile.y, tile.width, tile.height, x, y, tile.width, tile.height, tile.file);
+        return new UnderTileObject(tile.terrain, tile.x, tile.y, tile.width, tile.height, x, y, tile.width, tile.height, this.loadTileImage(tile.file));
     }
 }

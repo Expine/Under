@@ -65,7 +65,7 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      */
     makeEntityBase(x, y, entity) {
         if (entity.type == `Player`) {
-            return new UnderPlayer(x, y, entity.width, entity.height, entity.file);
+            return new UnderPlayer(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
         }
         return super.makeEntityBase(x, y, entity);
     }

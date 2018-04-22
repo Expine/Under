@@ -136,10 +136,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         stage.tileInfo = {};
         stage.tileInfo.tiles = stage.tiles;
         for (let tile of tiles.tiles) {
-            let fileID = ResourceManager.image.load(`tile/${tile.file}`);
             for (let chip of tile.chips) {
                 stage.tileInfo[chip.id] = chip;
-                stage.tileInfo[chip.id].file = fileID;
+                stage.tileInfo[chip.id].file = tile.file;
             }
         }
         // make entity information
@@ -147,7 +146,6 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         stage.entityInfo.entities = stage.entities;
         for (let entity of entities.entities) {
             stage.entityInfo[entity.id] = entity;
-            stage.entityInfo[entity.id].file = ResourceManager.image.load(`chara/${entity.file}`);
         }
 
         // make stage

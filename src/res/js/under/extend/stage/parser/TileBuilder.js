@@ -7,6 +7,16 @@
  */
 class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
+     * Load tile image
+     * @protected
+     * @param {string} path Tile image path
+     * @return {number} Tile image ID
+     */
+    loadTileImage(path) {
+        return ResourceManager.image.load(`tile/${path}`);
+    }
+
+    /**
      * Make collider
      * @protected
      * @param {json} collider Collider information json data
@@ -70,7 +80,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(x, y, tile) {
-        return new TileObject(tile.x, tile.y, tile.width, tile.height, x, y, tile.width, tile.height, tile.file);
+        return new TileObject(tile.x, tile.y, tile.width, tile.height, x, y, tile.width, tile.height, this.loadTileImage(tile.file));
     }
 
     /**
