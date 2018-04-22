@@ -1,5 +1,5 @@
 /**
- * PropellerB jump state
+ * Propeller jump state
  * - Determines the operation by AI according to the state and renders based on state
  * - Enable to set animation
  * - Base state for rendering state animation
@@ -9,9 +9,23 @@
  * - Enable to set velocity and power
  * - ### It not transitate falling and can fly
  * @implements {UnderMovableState}
- * @classdesc PropellerB jump state that can fly
+ * @classdesc Propeller jump state that can fly
  */
 class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line  no-unused-vars
+    /**
+     * Propeller jump state constructor
+     * @constructor
+     * @param {number} maxVeocityX Maximum speed x vector
+     * @param {number} maxVeocityY Maximum speed y vector
+     * @param {number} movePowerX Force of x direction applied when moving
+     * @param {number} movePowerY Force of y direction applied when moving
+     */
+    constructor(maxVelocityX, maxVelocityY, movePowerX, movePowerY) {
+        super(maxVelocityX, maxVelocityY, movePowerX, movePowerY);
+
+        this.propellerDiffY = 8;
+    }
+
     /**
      * Move y direction by input
      * @override
@@ -26,6 +40,16 @@ class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line 
         }
     }
 
+    /**
+     * Initialize state
+     * @override
+     */
+    init() {
+        this.stateAnimation.restore();
+        this.underCount = 0;
+        let aabb = this.entity.collider.getAABB();
+        this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.propellerDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+    }
 
     /**
      * Update state
@@ -53,6 +77,9 @@ class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line 
             } else {
                 this.ai.changeState(`walk`);
             }
+            // restore
+            let aabb = this.entity.collider.getAABB();
+            this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY + this.propellerDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
         }
         return true;
     }

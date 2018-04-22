@@ -103,8 +103,12 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
         if (collided) {
             this.entity.body.enforce(-30000 * this.entity.material.mass * this.directionX / dt, 0);
             this.entity.directionX = this.directionX;
-        } else {
+            this.downWallCount = 0;
+        } else if (++this.downWallCount > 2) {
             this.ai.changeState(`falling`);
+        } else {
+            this.entity.body.enforce(-30000 * this.entity.material.mass * this.directionX / dt, 0);
+            this.entity.directionX = this.directionX;
         }
         return true;
     }

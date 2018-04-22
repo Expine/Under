@@ -68,7 +68,7 @@ class NormalStationaryState extends UnderMovableState { // eslint-disable-line  
             }
             this.fallCount = 0;
         } else {
-            if (++this.fallCount == 2) {
+            if (++this.fallCount > 2) {
                 this.ai.changeState(`fall`);
             }
         }

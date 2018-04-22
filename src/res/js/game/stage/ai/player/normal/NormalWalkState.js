@@ -65,7 +65,7 @@ class NormalWalkState extends UnderMovableState { // eslint-disable-line  no-unu
             }
             this.fallCount = 0;
         } else {
-            if (++this.fallCount == 2) {
+            if (++this.fallCount > 2) {
                 this.ai.changeState(`fall`);
             }
         }
