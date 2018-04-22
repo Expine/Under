@@ -64,4 +64,30 @@ class Util { // eslint-disable-line  no-unused-vars
         req.send(null);
         return req.responseText;
     }
+
+    /**
+     * Renders window
+     * @param {Context} ctx Canvas context
+     * @param {number} id Window image ID
+     * @param {number} x Window x position
+     * @param {number} y Window x position
+     * @param {number} width Window width
+     * @param {number} height Window height
+     */
+    static renderWindow(ctx, id, x, y, width, height) {
+        let imageWidth = ResourceManager.image.getWidth(id) / 3;
+        let imageHeight = ResourceManager.image.getHeight(id) / 3;
+
+        ctx.drawImage(id, x, y, imageWidth, imageHeight, 0, 0, imageWidth, imageHeight);
+        ctx.drawImage(id, x + imageWidth, y, width - imageWidth * 2, imageHeight, imageWidth, 0, imageWidth, imageHeight);
+        ctx.drawImage(id, x + width - imageWidth, y, imageWidth, imageHeight, imageWidth * 2, 0, imageWidth, imageHeight);
+
+        ctx.drawImage(id, x, y + imageHeight, imageWidth, height - imageHeight * 2, 0, imageHeight, imageWidth, imageHeight);
+        ctx.drawImage(id, x + imageWidth, y + imageHeight, width - imageWidth * 2, height - imageHeight * 2, imageWidth, imageHeight, imageWidth, imageHeight);
+        ctx.drawImage(id, x + width - imageWidth, y + imageHeight, imageWidth, height - imageHeight * 2, imageWidth * 2, imageHeight, imageWidth, imageHeight);
+
+        ctx.drawImage(id, x, y + height - imageHeight, imageWidth, imageHeight, 0, imageHeight * 2, imageWidth, imageHeight);
+        ctx.drawImage(id, x + imageWidth, y + height - imageHeight, width - imageWidth * 2, imageHeight, imageWidth, imageHeight * 2, imageWidth, imageHeight);
+        ctx.drawImage(id, x + width - imageWidth, y + height - imageHeight, imageWidth, imageHeight, imageWidth * 2, imageHeight * 2, imageWidth, imageHeight);
+    }
 }

@@ -77,6 +77,11 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        ctx.fillText(this.sentence.substr(0, this.talkCount), 400, 300, 0.5, 0.5, 50);
+        let id = ResourceManager.image.load(`window/win2.png`);
+        let face = ResourceManager.image.load(`face/actor.png`);
+        Util.renderWindow(ctx, id, 0, 0, 600, 200);
+        Util.renderWindow(ctx, id, 610, 10, 180, 180);
+        ctx.drawImage(face, 636, 36, 128, 128);
+        ctx.fillText(this.sentence.substr(0, this.talkCount), 32, 32, 0, 0, 25);
     }
 }

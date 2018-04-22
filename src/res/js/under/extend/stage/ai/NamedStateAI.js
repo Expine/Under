@@ -88,6 +88,9 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
         if (id == this.stateName) {
             return false;
         }
+        if (this.namedStates[id] === undefined) {
+            return false;
+        }
         this.stateName = id;
         this.state = this.namedStates[id];
         // assign null if it does not exist
