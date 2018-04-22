@@ -14,9 +14,10 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
         super();
         /**
          * Scene stack
+         * @protected
          * @type {Array<Scene>}
          */
-        this.scenes_ = [];
+        this.scenes = [];
     }
 
     /**
@@ -25,7 +26,7 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
      * @return {Scene} Currently running scene
      */
     getScene() {
-        return this.scenes_[0];
+        return this.scenes[this.scenes.length - 1];
     }
 
     /**
@@ -34,8 +35,8 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
      * @param {Scene} scene Scene instance for running it
      */
     pushScene(scene) {
-        this.scenes_.push(scene);
-        scene.init();
+        this.scenes.push(scene);
+        super.pushScene(scene);
     }
 
     /**
@@ -43,7 +44,7 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
      * @override
      */
     popScene() {
-        this.scenes_.pop();
+        this.scenes.pop();
     }
 
     /**
@@ -52,25 +53,7 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
      * @param {Scene} scene Scene instance for replacing currently scene
      */
     replaceScene(scene) {
-        this.scenes_.length = 0;
+        this.scenes.length = 0;
         this.pushScene(scene);
-    }
-
-    /**
-     * Update scene
-     * @interface
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        this.getScene().update(dt);
-    }
-
-    /**
-     * Render scene
-     * @interface
-     * @param {Context} ctx Canvas context
-     */
-    render(ctx) {
-        this.getScene().render(ctx);
     }
 }

@@ -68,7 +68,7 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
 
     /**
      * Make music manager
-     * @interface
+     * @override
      * @protected
      * @return {IMusicManager} Music manager
      */
@@ -94,5 +94,15 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      */
     makeSceneManager() {
         return new StackSceneManager();
+    }
+
+    /**
+     * Make event manager
+     * @override
+     * @protected
+     * @return {EventManager} Event manager
+     */
+    makeEventManager() {
+        return new QueueEventManager();
     }
 }

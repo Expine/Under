@@ -686,6 +686,24 @@
                 "elasticity": 0.1,
                 "mu": 0.95
             }
+        },
+        {
+            "type": "Event",
+            "file": "box.png",
+            "id": 5,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 32,
+                "height": 32
+            },
+            "event": {
+                "type": "Talk",
+                "sentence": "Hello world"
+            }
         }
     ]
 }

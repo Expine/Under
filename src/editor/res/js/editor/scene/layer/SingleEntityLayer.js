@@ -30,7 +30,9 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
         this.animation = new SingleAnimation();
         if (info.animation === undefined) {
             let file = info.file;
-            this.animation.addAnimation(new AnimationElement(file, 0, 0, 32, 32, 200));
+            if (file !== undefined) {
+                this.animation.addAnimation(new AnimationElement(file, 0, 0, 32, 32, 200));
+            }
         } else {
             for (let it in info.animation) {
                 if (info.animation.hasOwnProperty(it) && info.animation[it].animation !== undefined) {

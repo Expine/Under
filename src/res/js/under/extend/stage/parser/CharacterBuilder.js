@@ -22,7 +22,9 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         } else if (body.type == `Player`) {
             ret = new PlayerBody();
         }
-        ret.setMaterial(this.makeBodyMaterial(body.material));
+        if (ret != null) {
+            ret.setMaterial(this.makeBodyMaterial(body.material));
+        }
         return ret;
     }
 
@@ -36,6 +38,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         if (material.type == `Immutable`) {
             return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY);
         }
+        return null;
     }
 
     /**
@@ -75,6 +78,9 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             return new Enemy(x, y, entity.width, entity.height, entity.file);
         } else if (entity.type == `Obstacle`) {
             return new Obstacle(x, y, entity.width, entity.height, entity.file);
+            // TODO: Separate event
+        } else if (entity.type == `Event`) {
+            return new ImmutableEventObject(x, y, entity.width, entity.height, entity.file);
         }
     }
 

@@ -23,6 +23,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
          */
         this.stage = stage;
     }
+
     /**
      * Set map manager
      * @override
@@ -57,6 +58,23 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      */
     getPhysicalWorld() {
         return this.stage.getPhysicalWorld();
+    }
+
+    /**
+     * Set whether to update the stage or not
+     * @param {bool} enable Whether to update the stage or not
+     */
+    setEnable(enable) {
+        this.enable = enable;
+        this.stage.setEnable(enable);
+    }
+
+    /**
+     * Get whether to update the stage or not
+     * @return {bool} Whether to update the stage or not
+     */
+    getEnable() {
+        return this.stage.getEnable();
     }
 
     /**

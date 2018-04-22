@@ -77,6 +77,14 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
     makeSceneManager() {}
 
     /**
+     * Make event manager
+     * @interface
+     * @protected
+     * @return {EventManager} Event manager
+     */
+    makeEventManager() {}
+
+    /**
      * Perform initial construction of the game engine
      * @return {Engine} Game engine
      */
@@ -93,6 +101,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
         music.setMusicManager(this.makeMusicManager());
         engine.setMusic(music);
         engine.setSceneManager(this.makeSceneManager());
+        engine.setEventManager(this.makeEventManager());
         engine.setTimer(this.makeTimer());
         return engine;
     }

@@ -60,6 +60,9 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
                 SceneManager.it.replaceScene(new TitleScene());
             }
         }
+
+        // update event
+        EventManager.it.update(dt);
     }
 
     /**
@@ -70,5 +73,6 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     render(ctx) {
         this.stage.render(ctx);
         super.render(ctx);
+        EventManager.it.render(ctx);
     }
 }

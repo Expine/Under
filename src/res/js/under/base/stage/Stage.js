@@ -28,6 +28,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
         /**
          * Whether to update the stage or not
+         * @protected
          * @type {bool}
          */
         this.enable = true;
@@ -95,6 +96,22 @@ class Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set whether to update the stage or not
+     * @param {bool} enable Whether to update the stage or not
+     */
+    setEnable(enable) {
+        this.enable = enable;
+    }
+
+    /**
+     * Get whether to update the stage or not
+     * @return {bool} Whether to update the stage or not
+     */
+    getEnable() {
+        return this.enable;
+    }
+
+    /**
      * Remove entity from stage
      * @interface
      * @param {Entity} entity Entity object
@@ -137,11 +154,10 @@ class Stage { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        if (!this.enable) {
-            return;
+        if (this.getEnable()) {
+            this.updateEntity(dt);
+            this.updatePhysics(dt);
         }
-        this.updateEntity(dt);
-        this.updatePhysics(dt);
         this.updateCamera(dt);
     }
 

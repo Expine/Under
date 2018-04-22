@@ -36,6 +36,12 @@ class Engine { // eslint-disable-line  no-unused-vars
          */
         this.manager = null;
         /**
+         * Event manager
+         * @protected
+         * @type {EventManager}
+         */
+        this.events = null;
+        /**
          * Music system
          * @protected
          * @type {Music}
@@ -79,6 +85,14 @@ class Engine { // eslint-disable-line  no-unused-vars
      */
     setSceneManager(manager) {
         this.manager = manager;
+    }
+
+    /**
+     * Set event manager
+     * @param {EventManager} events Event manager
+     */
+    setEventManager(events) {
+        this.events = events;
     }
 
     /**

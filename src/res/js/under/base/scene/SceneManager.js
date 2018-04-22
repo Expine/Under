@@ -16,6 +16,7 @@ class SceneManager { // eslint-disable-line  no-unused-vars
     /**
      * Get currently running scene
      * @interface
+     * @protected
      * @return {Scene} Currently running scene
      */
     getScene() {}
@@ -25,7 +26,9 @@ class SceneManager { // eslint-disable-line  no-unused-vars
      * @interface
      * @param {Scene} scene Scene instance for running it
      */
-    pushScene(scene) {}
+    pushScene(scene) {
+        scene.init();
+    }
 
     /**
      * Pop currently scene for returning to the previous scene
@@ -42,17 +45,19 @@ class SceneManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Update scene
-     * @interface
      * @param {number} dt Delta time
      */
-    update(dt) {}
+    update(dt) {
+        this.getScene().update(dt);
+    }
 
     /**
      * Render scene
-     * @interface
      * @param {Context} ctx Canvas context
      */
-    render(ctx) {}
+    render(ctx) {
+        this.getScene().render(ctx);
+    }
 }
 
 /**

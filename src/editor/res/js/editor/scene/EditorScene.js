@@ -54,6 +54,9 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         super.update(dt);
         this.stage.update(dt);
 
+        // update event
+        EventManager.it.update(dt);
+
         // save
         if (Input.it.isPress(Input.key.a() + 18)) {
             this.stage.getSaveData();
@@ -80,6 +83,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
      */
     render(ctx) {
         this.stage.render(ctx);
+        EventManager.it.render(ctx);
         ctx.fillRect(0, Screen.it.height - 250, Screen.it.width, 250, `blue`);
         super.render(ctx);
     }
