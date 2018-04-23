@@ -1,13 +1,13 @@
 /**
- * Stage event
+ * Talk event
  * - Updates and renders event
  * - Controls the stage
  * - ### Start talking and stop stage
- * @classdesc Stage event to control the stage
+ * @classdesc Talk event to control the stage
  */
 class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     /**
-     * Stage event constructor
+     * Talk event constructor
      * @constructor
      * @param {string} sentence Talking sentence
      */

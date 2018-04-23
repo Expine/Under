@@ -1,13 +1,12 @@
 /**
- * Stage event
+ * Image event
  * - Updates and renders event
- * - Controls the stage
  * - ### Renders the image
- * @classdesc Stage event to control the stage
+ * @classdesc Image event to render the image
  */
-class ImageEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
     /**
-     * Stage event constructor
+     * Image event constructor
      * @constructor
      * @param {number} x Image x position
      * @param {number} y Image y position
@@ -37,15 +36,13 @@ class ImageEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Update event
-     * @interface
-     * @param {number} dt Delta time
+     * Initialize event
+     * @override
      */
-    update(dt) {
-        if (Input.it.isPress(Input.key.yes())) {
-            this.op.stopUpdate(this);
-            this.op.stopRender(this);
-        }
+    init() {
+        super.init();
+        this.op.stopUpdate(this);
+        this.op.next();
     }
 
     /**

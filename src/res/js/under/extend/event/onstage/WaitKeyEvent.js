@@ -1,9 +1,9 @@
 /**
- * Stage event
+ * Wait key event
  * - Updates and renders event
  * - Controls the stage
  * - ### Waits to input key
- * @classdesc Stage event to wait to input key
+ * @classdesc Wait key event to wait to input key
  */
 class WaitKeyEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     /**

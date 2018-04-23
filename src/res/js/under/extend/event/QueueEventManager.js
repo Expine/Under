@@ -90,7 +90,20 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
      * @param {name} Event name
      * @return {Array<GameEvent>} Running events that has name
      */
-    getRunningEventsByName(name) {}
+    getRunningEventsByName(name) {
+        let ret = [];
+        for (let it of this.updatingEvents) {
+            if (name == it.getName() && ret.indexOf(it) == -1) {
+                ret.push(it);
+            }
+        }
+        for (let it of this.renderingEvents) {
+            if (name == it.getName() && ret.indexOf(it) == -1) {
+                ret.push(it);
+            }
+        }
+        return ret;
+    }
 
     /**
      * Get currently updating event
