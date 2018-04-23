@@ -3,6 +3,7 @@
  * - Object present on the stage that has coordinate and size
  * - Has image ID
  * - ### It can be collided because it has material and collider
+ * @interface
  * @implements {ImagedEntity}
  * @classdesc Influential entity that can be collided because it has material and collider
  */

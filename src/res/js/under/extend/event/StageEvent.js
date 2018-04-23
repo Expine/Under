@@ -2,6 +2,7 @@
  * Stage event
  * - Updates and renders event
  * - ### Controls the stage
+ * @interface
  * @classdesc Stage event to control the stage
  */
 class StageEvent extends GameEvent { // eslint-disable-line  no-unused-vars

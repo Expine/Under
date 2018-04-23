@@ -11,6 +11,7 @@
  * - Enable to set animation
  * - Object caused by special actions
  * - ### Object indicating attack that have lifespan
+ * @interface
  * @implements {SpecialObject}
  * @classdesc Attack object indicating attack that have lifespan
  */

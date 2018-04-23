@@ -2,6 +2,7 @@
  * Imaged entity
  * - Object present on the stage that has coordinate and size
  * - ### Has image ID
+ * @interface
  * @implements {Entity}
  * @classdesc Imaged entity to have image ID
  */

@@ -65,7 +65,6 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
 
     /**
      * Render entity by this state
-     * @override
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position

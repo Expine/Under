@@ -4,6 +4,7 @@
  * - Has image ID
  * - It can be collided because it has material and collider
  * - ### It is fixed and no change will occur
+ * @interface
  * @implements {InfluentialEntity}
  * @classdesc Immutable entity that is fixed and no change will occur
  */

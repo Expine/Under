@@ -3,7 +3,6 @@
  * - Updates and renders event
  * - Controls the stage
  * - ### Start talking and stop stage
- * @interface
  * @classdesc Talk event to control the stage
  */
 class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
@@ -39,7 +38,7 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize event
-     * @abstract
+     * @override
      */
     init() {
         this.talkCount = 0;
@@ -48,7 +47,7 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
 
     /**
      * Update event
-     * @abstract
+     * @override
      * @param {number} dt Delta time
      */
     update(dt) {
@@ -76,7 +75,7 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
 
     /**
      * Render event
-     * @abstract
+     * @override
      * @param {Context} ctx Canvas context
      */
     render(ctx) {

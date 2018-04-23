@@ -18,8 +18,8 @@ class AI { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set autonomy object
-     * @param {AutonomyEntitiy} entity
+     * Set autonomy entity
+     * @param {AutonomyEntitiy} entity Autonomy entity
      */
     setEntity(entity) {
         this.entity = entity;

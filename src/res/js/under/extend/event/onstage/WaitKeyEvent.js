@@ -3,13 +3,12 @@
  * - Updates and renders event
  * - Controls the stage
  * - ### Waits to input key
- * @interface
  * @classdesc Wait key event to wait to input key
  */
 class WaitKeyEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     /**
      * Initialize event
-     * @abstract
+     * @override
      */
     init() {
         this.stage.setEnable(false);
@@ -17,7 +16,7 @@ class WaitKeyEvent extends StageEvent { // eslint-disable-line  no-unused-vars
 
     /**
      * Update event
-     * @abstract
+     * @override
      * @param {number} dt Delta time
      */
     update(dt) {
