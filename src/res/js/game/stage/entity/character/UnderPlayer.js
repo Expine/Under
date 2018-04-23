@@ -64,7 +64,7 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
      * Change working AI
      * @override
      * @param {number} id Terrain ID for changing player type
-     * @return {bool} Whther player is changed or not
+     * @return {boolean} Whther player is changed or not
      */
     changeType(id) {
         // initialize

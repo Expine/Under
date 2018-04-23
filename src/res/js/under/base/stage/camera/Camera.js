@@ -1,6 +1,7 @@
 /**
  * Camera
  * - ### Calculates the area to rendering
+ * @interface
  * @classdesc Camera to calculate the area of rendering
  */
 class Camera { // eslint-disable-line  no-unused-vars
@@ -46,7 +47,7 @@ class Camera { // eslint-disable-line  no-unused-vars
 
     /**
      * Set camera position
-     * @interface
+     * @abstract
      * @param {number} x Base x position
      * @param {number} y Base y position
      * @param {number} width Camera max width

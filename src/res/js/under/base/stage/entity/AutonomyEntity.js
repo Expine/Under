@@ -5,13 +5,13 @@
  * - It can be collided because it has material and collider
  * - It is not fixed and can be moved
  * - ### It can move by AI
+ * @interface
  * @implements {MutableEntity}
  * @classdesc Autonomy entity to move by AI
  */
 class AutonomyEntitiy extends MutableEntity { // eslint-disable-line  no-unused-vars
     /**
      * Add AI system
-     * @interface
      * @param {AI} ai AI to control this
      * @param {number} priority Priority of AI
      */
@@ -22,14 +22,14 @@ class AutonomyEntitiy extends MutableEntity { // eslint-disable-line  no-unused-
 
     /**
      * Remove AI system
-     * @interface
+     * @abstract
      * @param {AI} ai AI to control this
      */
     removeAI(ai) {}
 
     /**
      * Update entity's AI
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -37,7 +37,7 @@ class AutonomyEntitiy extends MutableEntity { // eslint-disable-line  no-unused-
 
     /**
      * Apply entity's AI
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */

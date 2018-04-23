@@ -1,12 +1,13 @@
 /**
  * Joint interface
  * - ### It can joint to something
+ * @interface
  * @classdesc Joint interface that can joint to something
  */
 class IJoint extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Joint to something
-     * @interface
+     * @abstract
      * @param {Entity} jointed Jointed entity
      * @param {number} jointedX Jointed x position
      * @param {number} jointedY Jointed y position
@@ -16,7 +17,7 @@ class IJoint extends Interface { // eslint-disable-line  no-unused-vars
 
     /**
      * Unjoint
-     * @interface
+     * @abstract
      */
     unjoint() {}
 }

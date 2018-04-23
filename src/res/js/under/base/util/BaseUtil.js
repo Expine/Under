@@ -7,7 +7,7 @@ class BaseUtil { // eslint-disable-line  no-unused-vars
      * Whether it inherit interfaces
      * @param {Object} instance Instance to be validated
      * @param {Interface} i Interface
-     * @return {bool} Whether you are implementing interfaces
+     * @return {boolean} Whether you are implementing interfaces
      */
     static implementsOf(instance, i) {
         let inter = BaseUtil.interfaces[i.name];
@@ -29,6 +29,6 @@ class BaseUtil { // eslint-disable-line  no-unused-vars
 
 /**
  * Singleton interface list
- * @type {Directionary<class<Interface>, Interface>}
+ * @type {Object<string, Interface>}
  */
 BaseUtil.interfaces = {};

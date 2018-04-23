@@ -3,6 +3,7 @@
  * - Executes event and update, render event
  * - Controls event
  * - ### Manages update and rendering event
+ * @interface
  * @classdesc Event manager to manage update and rendering event
  */
 class EventManager /* IEventExecutor, IEventOperator */ { // eslint-disable-line  no-unused-vars
@@ -17,7 +18,7 @@ class EventManager /* IEventExecutor, IEventOperator */ { // eslint-disable-line
 
     /**
      * Get currently updating event
-     * @interface
+     * @abstract
      * @protected
      * @return {Array<GameEvent>} Updating events
      */
@@ -25,7 +26,7 @@ class EventManager /* IEventExecutor, IEventOperator */ { // eslint-disable-line
 
     /**
      * Get currently rendering event
-     * @interface
+     * @abstract
      * @protected
      * @return {Array<GameEvent>} Rendering events
      */

@@ -1,12 +1,13 @@
 /**
  * Engine builder
  * - ### Performs initial construction of the game engine
+ * @interface
  * @classdesc Engine builder to perform initial construction of the game engine
  */
 class EngineBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make game engine
-     * @interface
+     * @abstract
      * @protected
      * @return {Engine} Game engine
      */
@@ -14,7 +15,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make input system
-     * @interface
+     * @abstract
      * @protected
      * @return {Input} Input system
      */
@@ -22,7 +23,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make screen system
-     * @interface
+     * @abstract
      * @protected
      * @return {Screen} Screen system
      */
@@ -30,7 +31,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make context to render
-     * @interface
+     * @abstract
      * @protected
      * @return {Context} Context to render
      */
@@ -38,7 +39,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make image manager
-     * @interface
+     * @abstract
      * @protected
      * @return {IImageManager} Image manager
      */
@@ -46,7 +47,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make music system
-     * @interface
+     * @abstract
      * @protected
      * @return {Music} Music system
      */
@@ -54,7 +55,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make music manager
-     * @interface
+     * @abstract
      * @protected
      * @return {IMusicManager} Music manager
      */
@@ -62,7 +63,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make timer
-     * @interface
+     * @abstract
      * @protected
      * @return {Timer} Timer
      */
@@ -70,7 +71,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make scene manager
-     * @interface
+     * @abstract
      * @protected
      * @return {SceneManager} Scene manager
      */
@@ -78,7 +79,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
 
     /**
      * Make event manager
-     * @interface
+     * @abstract
      * @protected
      * @return {EventManager} Event manager
      */

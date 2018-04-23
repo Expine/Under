@@ -11,7 +11,7 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
     /**
      * Chip layer constructor
      * @constructor
-     * @param {Dictionary<number, json>} tileInfo Tile inforamtion json data
+     * @param {Object<number, JSON>} tileInfo Tile inforamtion json data
      */
     constructor(tileInfo) {
         super(-1);
@@ -51,7 +51,7 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
 
     /**
      * Get json data for saving
-     * @return {json} Json data for saving
+     * @return {JSON} Json data for saving
      */
     getSaveData() {
         let data = {};

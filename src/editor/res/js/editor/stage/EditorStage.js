@@ -15,8 +15,8 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
      * Editor stage constructor
      * @constructor
      * @param {Stage} stage Original stage for delegation
-     * @param {Dictionary<number, json>} tileInfo Tile information json data
-     * @param {Dictionary<number, json>} entityInfo Entity information json data
+     * @param {Object<number, JSON>} tileInfo Tile information json data
+     * @param {Object<number, JSON>} entityInfo Entity information json data
      */
     constructor(stage, tileInfo, entityInfo) {
         super(stage);
@@ -24,13 +24,13 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         /**
          * Tile information json data
          * @protected
-         * @type {Dictionary<number, json>}
+         * @type {Object<number, JSON>}
          */
         this.tileInfo = tileInfo;
         /**
          * Entity information json data
          * @protected
-         * @type {Dictionary<number, json>}
+         * @type {Object<number, JSON>}
          */
         this.entityInfo = entityInfo;
 
@@ -61,7 +61,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         /**
          * Whether the test play is in progress or not
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.playMode = false;
         /**
@@ -111,7 +111,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
 
     /**
      * Get tile information
-     * @return {Dictionary<number, json>} Tile information json data
+     * @return {Object<number, JSON>} Tile information json data
      */
     getTileInfo() {
         return this.tileInfo;
@@ -119,7 +119,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
 
     /**
      * Get entity information
-     * @return {Dictionary<number, json>} Entity information json data
+     * @return {Object<number, JSON>} Entity information json data
      */
     getEntityInfo() {
         return this.entityInfo;
@@ -140,7 +140,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
 
     /**
      * Get json data for saving
-     * @return {json} Json data for saving
+     * @return {JSON} Json data for saving
      */
     getSaveData() {
         let data = {};

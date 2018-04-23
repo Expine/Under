@@ -1,6 +1,7 @@
 /**
  * Input
  * - ### Manages input event
+ * @interface
  * @classdesc Input to manage input event
  */
 class Input { // eslint-disable-line  no-unused-vars
@@ -31,19 +32,19 @@ class Input { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize input
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Update input
-     * @interface
+     * @abstract
      */
     update() {}
 
     /**
      * Clear input state
-     * @interface
+     * @abstract
      * @protected
      */
     clear() {}

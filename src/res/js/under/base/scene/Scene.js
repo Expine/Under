@@ -1,25 +1,26 @@
 /**
  * Scene
  * - ### Controls updating and rendering
+ * @interface
  * @classdesc Scene to control updating and rendering
  */
 class Scene { // eslint-disable-line  no-unused-vars
     /**
      * Initialize scene
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Update scene
-     * @interface
+     * @abstract
      * @param {number} dt Delta time
      */
     update(dt) {}
 
     /**
      * Render scene
-     * @interface
+     * @abstract
      * @param {Context} ctx Canvas context
      */
     render(ctx) {}

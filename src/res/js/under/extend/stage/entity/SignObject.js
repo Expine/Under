@@ -32,7 +32,7 @@ class SignObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
         /**
          * Whether sign can be showed or not
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.isShowSign = false;
 
@@ -72,7 +72,7 @@ class SignObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
 
     /**
      * Update entty
-     * @interface
+     * @override
      * @param {number} dt Delta time
      */
     update(dt) {
@@ -102,7 +102,7 @@ class SignObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
 
     /**
      * Render entity
-     * @interface
+     * @override
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position

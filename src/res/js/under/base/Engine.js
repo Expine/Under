@@ -3,6 +3,7 @@
  * - ### Control the core of the game
  * - ### Manages each piece of game information
  * - ### Fires update and rendering processing respectively
+ * @interface
  * @classdesc Engine for control the core of the game to manage each piece of game information
  */
 class Engine { // eslint-disable-line  no-unused-vars
@@ -131,7 +132,7 @@ class Engine { // eslint-disable-line  no-unused-vars
 
     /**
      * Game main process
-     * @interface
+     * @abstract
      * @protected
      */
     main() {}
@@ -140,6 +141,6 @@ class Engine { // eslint-disable-line  no-unused-vars
 /**
  * Whether it is debug mode or not
  * @static
- * @type {bool}
+ * @type {boolean}
  */
 Engine.debug = true;

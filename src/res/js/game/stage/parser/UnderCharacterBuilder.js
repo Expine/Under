@@ -12,7 +12,7 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
     /**
      * Make base collider
      * @protected
-     * @param {json} collider Collider information json data
+     * @param {JSON} collider Collider information json data
      * @return {Collider} Collider
      */
     makeBaseCollider(collider) {
@@ -31,8 +31,8 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * Make AI
      * @override
      * @protected
-     * @param {json} ai AI information json data
-     * @param {json} animation AI animation json data
+     * @param {JSON} ai AI information json data
+     * @param {JSON} animation AI animation json data
      * @return {AI} AI
      */
     makeAI(ai, animation) {
@@ -60,7 +60,7 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @protected
      * @param {number} x Entity x position
      * @param {number} y Entity Y position
-     * @param {json} entity Entity information json data
+     * @param {JSON} entity Entity information json data
      * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(x, y, entity) {

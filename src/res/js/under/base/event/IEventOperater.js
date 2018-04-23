@@ -1,32 +1,33 @@
 /**
  * Event operator interface
  * - ### Controls event
+ * @interface
  * @classdesc Event operator interface to control event
  */
 class IEventOperator extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Execute next event
-     * @interface
+     * @abstract
      */
     next() {}
 
     /**
      * Stop event update
-     * @interface
+     * @abstract
      * @param {GameEvent} event Target event
      */
     stopUpdate(event) {}
 
     /**
      * Stop event rendering
-     * @interface
+     * @abstract
      * @param {GameEvent} event Target event
      */
     stopRender(event) {}
 
     /**
      * Get running events by name
-     * @interface
+     * @abstract
      * @param {name} Event name
      * @return {Array<GameEvent>} Running events that has name
      */

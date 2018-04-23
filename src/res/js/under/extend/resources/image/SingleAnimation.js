@@ -9,7 +9,7 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     /**
      * Single animation constructor
      * @constructor
-     * @param {bool} [loop=true] Whether to loop or not
+     * @param {boolean} [loop=true] Whether to loop or not
      */
     constructor(loop = true) {
         super();
@@ -38,21 +38,21 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
         /**
          * Whether to loop or not
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.loop = loop;
 
         /**
          * Whether the animation has ended or not
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.ended = false;
 
         /**
          * Whether pause animation or not
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.paused = false;
     }
@@ -70,7 +70,7 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     /**
      * Set whether to loop or not
      * @override
-     * @param {bool} loop Whether to loop or not
+     * @param {boolean} loop Whether to loop or not
      */
     setLoop(loop) {
         this.loop = loop;
@@ -79,7 +79,7 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     /**
      * Whether to loop or not
      * @override
-     * @return {bool} Whether to loop or not
+     * @return {boolean} Whether to loop or not
      */
     isLoop() {
         return this.loop;
@@ -88,7 +88,7 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
     /**
      * Whether the animation has ended or not
      * @override
-     * @return {bool} Whether the animation has ended or not
+     * @return {boolean} Whether the animation has ended or not
      */
     isEnded() {
         return this.ended;

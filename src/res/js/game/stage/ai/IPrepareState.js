@@ -1,26 +1,27 @@
 /**
  * Prepare state interface
  * - ### Sets the power to be applied and the magnification of the elapsed speed of the preparation time
+ * @interface
  * @classdesc Prepare state interface to set the applied power and the magnification of preparation time
  */
 class IPrepareState extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Set the magnification of the elapsed speed of the preparation time
-     * @interface
+     * @abstract
      * @param {number} val The magnification of the elapsed speed of the preparation time
      */
     set speedMagnification(val) {}
 
     /**
      * Set the power to be applied
-     * @interface
+     * @abstract
      * @param {number} val The power to be applied
      */
     set appliedPower(val) {}
 
     /**
      * Get the magnification of the elapsed speed of the preparation time
-     * @interface
+     * @abstract
      * @return {number} The magnification of the elapsed speed of the preparation time
      */
     get speedMagnification() {
@@ -29,7 +30,7 @@ class IPrepareState extends Interface { // eslint-disable-line  no-unused-vars
 
     /**
      * Get the power to be applied
-     * @interface
+     * @abstract
      * @return {number} The power to be applied
      */
     get appliedPower() {}

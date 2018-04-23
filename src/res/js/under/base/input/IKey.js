@@ -3,63 +3,64 @@
  * - It can get input state
  * - It can make input blocked
  * - ### Get key code
+ * @interface
  * @implements {IInput}
  * @classdesc Key interface to get key code
  */
 class IKey extends IInput { // eslint-disable-line  no-unused-vars
     /**
      * Get A key code
-     * @interface
+     * @abstract
      * @return {number} A key code
      */
     a() {}
     /**
      * Get 0 key code
-     * @interface
+     * @abstract
      * @return {number} 0 key code
      */
     zero() {}
 
     /**
      * Get right key code
-     * @interface
+     * @abstract
      * @return {number} Right key code
      */
     right() {}
     /**
      * Get left key code
-     * @interface
+     * @abstract
      * @return {number} Left key code
      */
     left() {}
     /**
      * Get up key code
-     * @interface
+     * @abstract
      * @return {number} Up key code
      */
     up() {}
     /**
      * Get down key code
-     * @interface
+     * @abstract
      * @return {number} Down key code
      */
     down() {}
 
     /**
      * Get yes key code
-     * @interface
+     * @abstract
      * @return {number} Yes key code
      */
     yes() {}
     /**
      * Get no key code
-     * @interface
+     * @abstract
      * @return {number} No key code
      */
     no() {}
     /**
      * Get sub key code
-     * @interface
+     * @abstract
      * @return {number} Sub key code
      */
     sub() {}

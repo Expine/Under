@@ -1,72 +1,73 @@
 /**
  * Animation
  * - ### Manages animation
+ * @interface
  * @classdesc Animation to manage animation
  */
 class Animation { // eslint-disable-line  no-unused-vars
     /**
      * Initialize animation
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Set whether to loop or not
-     * @interface
-     * @param {bool} loop Whether to loop or not
+     * @abstract
+     * @param {boolean} loop Whether to loop or not
      */
     setLoop(loop) {}
 
     /**
      * Whether to loop or not
-     * @interface
-     * @return {bool} Whether to loop or not
+     * @abstract
+     * @return {boolean} Whether to loop or not
      */
     isLoop() {}
 
     /**
      * Whether the animation has ended or not
-     * @interface
-     * @return {bool} Whether the animation has ended or not
+     * @abstract
+     * @return {boolean} Whether the animation has ended or not
      */
     isEnded() {}
 
     /**
      * Get animation count indicating animation progress
-     * @interface
+     * @abstract
      * @return {number} Animation count
      */
     getAnimationCount() {}
 
     /**
      * Add animation
-     * @interface
+     * @abstract
      * @param {AnimationElement} elment Animation element
      */
     addAnimation(elment) {}
 
     /**
      * Pause animation
-     * @interface
+     * @abstract
      */
     pause() {}
 
     /**
      * Restore animation
-     * @interface
+     * @abstract
      */
     restore() {}
 
     /**
      * Update animation
-     * @interface
+     * @abstract
      * @param {number} dt
      */
     update(dt) {}
 
     /**
      * Render animation
-     * @interface
+     * @abstract
      * @param {Context} ctx Canvas context
      * @param {number} x Image x position
      * @param {number} y Image y position

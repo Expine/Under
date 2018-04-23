@@ -58,7 +58,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * @override
      * @param {number} x X position
      * @param {number} y Y position
-     * @return {bool} whether position is in collider
+     * @return {boolean} whether position is in collider
      */
     isInCollider(x, y) {
         let sx = this.centerX - x;
@@ -71,7 +71,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * @override
      * @param {Colllder} collider Target collider
      * @param {CollisionData} data Pointer to save conflict information
-     * @return {bool} whether collision
+     * @return {boolean} whether collision
      */
     isCollision(collider, data) {
         if (collider instanceof CircleCollider) {

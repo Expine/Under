@@ -3,6 +3,7 @@
  * - Resources Abstraction of resource management
  * - ### Manage resources by array
  * - ### Resources are cached by file path
+ * @interface
  * @implements {ResourceManager}
  * @classdesc Cached array manager to manage resources by array and cached by file path
  */
@@ -25,14 +26,14 @@ class CachedArrayManager extends ResourceManager { // eslint-disable-line  no-un
         /**
          * Cached image array
          * @protected
-         * @type {Dictionary<string, Object>}
+         * @type {Object<string, Object>}
          */
         this.caches = {};
     }
 
     /**
      * Load resource and return it
-     * @interface
+     * @abstract
      * @param {string} filePath Resource file path
      * @return {Object} Resource
      */

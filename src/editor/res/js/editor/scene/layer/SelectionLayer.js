@@ -3,6 +3,7 @@
  * - Performs drawing processing collectively
  * - Selects something and set selected
  * - ### Selects something
+ * @interface
  * @implements {Layer}
  * @implements {Selection}
  * @classdesc Selection layer to select something
@@ -89,14 +90,14 @@ class SelectionLayer extends Layer /* , ISelection */ { // eslint-disable-line  
 
     /**
      * Get selected ID
-     * @interface
+     * @abstract
      * @return {number} Selected ID (return -1 if not selected)
      */
     getSelected() {}
 
     /**
      * Set selected by ID
-     * @interface
+     * @abstract
      * @param {number} id Selected ID
      */
     setSelected(id) {}

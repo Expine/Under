@@ -11,7 +11,7 @@ class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars
      * Play sound
      * @private
      * @param {number} musicID SE Music id
-     * @param {bool} loop Whether sound is loop or not
+     * @param {boolean} loop Whether sound is loop or not
      */
     _play(musicID, loop) {
         let music = this.music.getMusic(musicID);

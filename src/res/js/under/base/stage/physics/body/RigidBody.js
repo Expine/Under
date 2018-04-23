@@ -1,6 +1,7 @@
 /**
  * Rigid body
  * - ### Update entity by physical quantity
+ * @interface
  * @classdesc Rigid body to update entity by phsycal quantity
  */
 class RigidBody { // eslint-disable-line  no-unused-vars
@@ -22,18 +23,18 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
         /**
          * Whether it is fixed for x direction or not
-         * @type {bool}
+         * @type {boolean}
          */
         this.isFixX = false;
         /**
          * Whether it is fixed for y direction or not
-         * @type {bool}
+         * @type {boolean}
          */
         this.isFixY = false;
 
         /**
          * Whether it is enabled or not
-         * @type {bool}
+         * @type {boolean}
          */
         this.enable = true;
 
@@ -111,20 +112,20 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize body
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Prepare for updagte
-     * @interface
+     * @abstract
      * @param {number} dt delta time
      */
     prepare(dt) {}
 
     /**
      * Set the value added to the next speed vector
-     * @interface
+     * @abstract
      * @param {number} vx X component of the velocity vector to be added
      * @param {number} vy Y component of the velocity vector to be added
      */
@@ -132,7 +133,7 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Apply force to objects
-     * @interface
+     * @abstract
      * @param {number} forceX Force in x direction
      * @param {number} forceY Force in y direction
      */
@@ -140,28 +141,28 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Update rigid body information
-     * @interface
+     * @abstract
      * @protected
      */
     updateInfo(dt) {}
 
     /**
      * Update velocity
-     * @interface
+     * @abstract
      * @protected
      */
     updateVelocity(dt) {}
 
     /**
      * Update entity by velocity
-     * @interface
+     * @abstract
      * @protected
      */
     updateEntity(dt) {}
 
     /**
      * Update by rigid body
-     * @interface
+     * @abstract
      * @param {number} dt delta time
      */
     update(dt) {
@@ -174,7 +175,7 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Cleanup body information
-     * @interface
+     * @abstract
      * @param {nuumber} dt Delta time
      */
     cleanup(dt) {}

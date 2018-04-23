@@ -13,7 +13,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * Make base stage for parsing stage
      * @override
      * @protected
-     * @param {json} stage Stage json data
+     * @param {JSON} stage Stage json data
      * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
@@ -24,7 +24,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * Make base map for parsing stage
      * @override
      * @protected
-     * @param {json} map Map json data
+     * @param {JSON} map Map json data
      * @return {Map} Map instance for base of parsing
      */
     makeBaseMap(map) {
@@ -38,8 +38,8 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     /**
      * Make map for parsing stage
      * @protected
-     * @param {json} map Map json data
-     * @param {json} back Map element json data
+     * @param {JSON} map Map json data
+     * @param {JSON} back Map element json data
      * @return {Map} Map element of parsing
      */
     makeMapElement(map, back) {
@@ -55,7 +55,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * Make base camera for parsing stage
      * @override
      * @protected
-     * @param {json} camera Camera json data
+     * @param {JSON} camera Camera json data
      * @param {number} width Camera width
      * @param {number} height Camera height
      * @return {Camera} Camera instance for base of parsing
@@ -67,7 +67,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     /**
      * Make base phisical world for parsing stage
      * @protected
-     * @param {json} world World json data
+     * @param {JSON} world World json data
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
     makeBaseWorld(world) {
@@ -77,8 +77,8 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     /**
      * Add tile by chip data
      * @param {EditorStage} base Base stage
-     * @param {json} chip Chip json data
-     * @param {json} tileInfo Tile information json data
+     * @param {JSON} chip Chip json data
+     * @param {JSON} tileInfo Tile information json data
      */
     addTile(base, chip, tileInfo) {
         base.addEntity(this.tileBuilder.build(chip.x, chip.y, tileInfo[chip.id]));
@@ -89,8 +89,8 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * Add entity by layer data
      * @override
      * @param {Stage} base Base stage
-     * @param {json} entity Entity json data
-     * @param {json} entityInfo Entity information json data
+     * @param {JSON} entity Entity json data
+     * @param {JSON} entityInfo Entity information json data
      */
     addEntity(base, entity, entityInfo) {
         base.addEntity(this.characterBuilder.build(entity.x, entity.y, entityInfo[entity.id]));

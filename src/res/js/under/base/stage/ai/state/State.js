@@ -1,6 +1,7 @@
 /**
  * State
  * - ### Determines the operation by AI according to the state and renders based on state
+ * @interface
  * @classdesc State to determine the operation and render by state
  */
 class State { // eslint-disable-line  no-unused-vars
@@ -40,28 +41,28 @@ class State { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Update state
-     * @interface
+     * @abstract
      * @param {number} dt Delta time
      */
     update(dt) {}
 
     /**
      * Apply AI and decide action
-     * @interface
+     * @abstract
      * @param {number} dt Delta time
-     * @return {bool} Whether decided on action
+     * @return {boolean} Whether decided on action
      */
     apply(dt) {}
 
     /**
      * Render entity by this state
-     * @interface
+     * @abstract
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position

@@ -29,7 +29,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
         /**
          * Whether the game is over
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.gameover = false;
 

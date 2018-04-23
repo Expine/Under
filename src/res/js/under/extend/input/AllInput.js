@@ -5,6 +5,7 @@
  * - Get mouse code
  * - Get mouse position
  * - ### Manages all input and delegate it
+ * @interface
  * @implements {Input}
  * @classdesc All input to manage all input and delegate it
  */
@@ -197,7 +198,7 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
 
     /**
      * Get mouse x position
-     * @interface
+     * @override
      * @return mouse x position
      */
     getMouseX() {
@@ -206,7 +207,7 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
 
     /**
      * Get mouse x position
-     * @interface
+     * @override
      * @return mouse x position
      */
     getMouseY() {
@@ -215,7 +216,7 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
 
     /**
      * Block input
-     * @interface
+     * @override
      * @param {number} code Target code
      */
     blockInput(code) {
@@ -228,9 +229,9 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
 
     /**
      * Judge whether pressed now
-     * @interface
+     * @override
      * @param {number} code Target code
-     * @return {bool} whether pressed now
+     * @return {boolean} whether pressed now
      */
     isPress(code) {
         if (code >= this.mousBaseCode) {
@@ -242,9 +243,9 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
 
     /**
      * Judge whether pressed
-     * @interface
+     * @override
      * @param {number} code Target code
-     * @return {bool} whether pressed
+     * @return {boolean} whether pressed
      */
     isPressed(code) {
         if (code >= this.mousBaseCode) {

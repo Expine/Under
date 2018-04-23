@@ -28,10 +28,10 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
 
     /**
      * Judge whether collision
-     * @interface
+     * @override
      * @param {Colllder} collider Target collider
      * @param {CollisionData} data Pointer to save conflict information
-     * @return {bool} whether collision
+     * @return {boolean} whether collision
      */
     isCollision(collider, data) {
         if (collider instanceof RoundRectangleCollider) {
@@ -153,7 +153,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
 
     /**
      * Render collider for debug
-     * @interface
+     * @override
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position

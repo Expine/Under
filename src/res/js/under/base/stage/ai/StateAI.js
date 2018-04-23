@@ -2,20 +2,21 @@
  * State AI
  * - Determines the behavior of an entity
  * - ### Determines by state
+ * @interface
  * @implements {AI}
  * @classdesc State AI to determine by state
  */
 class StateAI extends AI { // eslint-disable-line  no-unused-vars
     /**
      * Get state
-     * @interface
+     * @abstract
      * @return {State} State of AI
      */
     getState() {}
 
     /**
      * Set state by ID
-     * @interface
+     * @abstract
      * @param {State} state State
      * @param {Object} id State ID
      */
@@ -23,7 +24,7 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
 
     /**
      * Get state by ID
-     * @interface
+     * @abstract
      * @param {Object} id State ID
      * @return {State} State of AI
      */
@@ -31,9 +32,9 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
 
     /**
      * Change state
-     * @interface
+     * @abstract
      * @param {Object} id ID of state to change
-     * @return {bool} Whether change state or not
+     * @return {boolean} Whether change state or not
      */
     changeState(id) {
         this.getState().setEntity(this.entity);
@@ -56,7 +57,7 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
      * Apply AI and decide action
      * @override
      * @param {number} dt Delta time
-     * @return {bool} Whether decided on action
+     * @return {boolean} Whether decided on action
      */
     apply(dt) {
         return this.getState() != null && this.getState().apply(dt);

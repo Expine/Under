@@ -25,7 +25,6 @@ class HeadHookReleasedState extends HookReleasedState { // eslint-disable-line  
 
     /**
      * Initialize
-     * @interface
      */
     init() {
         this.body.enable = true;

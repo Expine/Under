@@ -1,6 +1,7 @@
 /**
  * Music
  * - ### Control to play music as BGM or SE
+ * @interface
  * @classdesc Music to control to play music as BGM or SE
  */
 class Music { // eslint-disable-line  no-unused-vars
@@ -30,33 +31,33 @@ class Music { // eslint-disable-line  no-unused-vars
 
     /**
      * Sound the SE
-     * @interface
+     * @abstract
      * @param {number} musicID SE Music id
      */
     playSE(musicID) {}
 
     /**
      * Sound the BGM
-     * @interface
+     * @abstract
      * @param {number} musicID BGM Music id
      */
     playBGM(musicID) {}
 
     /**
      * Pause BGM
-     * @interface
+     * @abstract
      */
     pauseBGM() {}
 
     /**
      * Resume BGM
-     * @interface
+     * @abstract
      */
     resumeBGM() {}
 
     /**
      * Stop BGM
-     * @interface
+     * @abstract
      */
     stopBGM() {}
 }

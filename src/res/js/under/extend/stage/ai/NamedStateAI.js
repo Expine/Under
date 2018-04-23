@@ -32,7 +32,7 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
          * List of named states
          * Associates a name with a state
          * @protected
-         * @type {Dictionary<string, State>}
+         * @type {Object<string, State>}
          */
         this.namedStates = {};
     }
@@ -81,7 +81,7 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      * Change state
      * @override
      * @param {string} id ID of state to change
-     * @return {bool} Whether change state or not
+     * @return {boolean} Whether change state or not
      */
     changeState(id) {
         // Do not process if it is in the same state

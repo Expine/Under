@@ -47,7 +47,6 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
 
     /**
      * Render event
-     * @interface
      * @param {Context} ctx Canvas context
      */
     render(ctx) {

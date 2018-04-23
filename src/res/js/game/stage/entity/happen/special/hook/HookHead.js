@@ -92,7 +92,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Try to remove it
      * @override
-     * @return {bool} Whether it was removed
+     * @return {boolean} Whether it was removed
      */
     tryRemove() {
         if (super.tryRemove()) {
@@ -104,7 +104,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Whether the tip of the hook
      * @override
-     * @return {bool} Whether the tip of the hook
+     * @return {boolean} Whether the tip of the hook
      */
     isHead() {
         return true;

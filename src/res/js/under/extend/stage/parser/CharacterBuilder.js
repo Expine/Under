@@ -30,7 +30,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     /**
      * Make rigid body
      * @protected
-     * @param {json} body Rigid body information json data
+     * @param {JSON} body Rigid body information json data
      * @return {RigidBody} Rigid body
      */
     makeBody(body) {
@@ -51,7 +51,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     /**
      * Make rigid body material
      * @protected
-     * @param {json} material Rigid body material
+     * @param {JSON} material Rigid body material
      * @return {RigidBodyMaterial} Rigid body material
      */
     makeBodyMaterial(material) {
@@ -64,8 +64,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     /**
      * Make AI
      * @protected
-     * @param {json} ai AI information json data
-     * @param {json} animation AI animation json data
+     * @param {JSON} ai AI information json data
+     * @param {JSON} animation AI animation json data
      * @return {AI} AI
      */
     makeAI(ai, animation) {
@@ -86,7 +86,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     /**
      * Make event
      * @protected
-     * @param {json} event Event json data
+     * @param {JSON} event Event json data
      * @return {Event} Event
      */
     makeEvent(event) {
@@ -104,7 +104,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @protected
      * @param {number} x Entity x position
      * @param {number} y Entity Y position
-     * @param {json} entity Entity information json data
+     * @param {JSON} entity Entity information json data
      * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(x, y, entity) {
@@ -127,7 +127,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @override
      * @param {number} x Entity x position
      * @param {number} y Entity Y position
-     * @param {json} json Character json data
+     * @param {JSON} json Character json data
      * @return {Entity} Generated character
      */
     build(x, y, json) {

@@ -41,7 +41,7 @@ class NormalWalkState extends UnderMovableState { // eslint-disable-line  no-unu
      * Apply AI and decide action
      * @override
      * @param {number} dt Delta time
-     * @return {bool} Whether decided on action
+     * @return {boolean} Whether decided on action
      */
     apply(dt) {
         // input

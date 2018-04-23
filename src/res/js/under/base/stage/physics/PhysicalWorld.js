@@ -2,6 +2,7 @@
  * Physical world
  * - ### Performs a physical operation
  * - ### Registers entities and apply a physical operation
+ * @interface
  * @classdesc Physical world to perform a physical operation by registering entities
  */
 class PhysicalWorld { // eslint-disable-line  no-unused-vars
@@ -44,28 +45,28 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Add entity as actior
-     * @interface
+     * @abstract
      * @param {MutableEntity} actor Entity as actor
      */
     addActor(actor) {}
 
     /**
      * Add entity in physical world
-     * @interface
+     * @abstract
      * @param {InfluentialEntity} entity Entity in physical world
      */
     addEntity(entity) {}
 
     /**
      * Remove entity from physical world
-     * @interface
+     * @abstract
      * @param {InfluentialEntity} entity Entity to remove from physical world
      */
     removeEntity(entity) {}
 
     /**
      * Get collision information now
-     * @interface
+     * @abstract
      * @param {InfluentialEntity} entity Target entity
      * @return {Array<CollisionData>} Collision information now
      */
@@ -73,14 +74,14 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Get the total number of collisions
-     * @interface
+     * @abstract
      * @return {number} Total number of collisions
      */
     getCollisionSize() {}
 
     /**
      * Update external force
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -88,7 +89,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Prepare body
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -96,7 +97,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Update body
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -104,7 +105,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Update body to cleanup
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -112,7 +113,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Update collisions
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -120,7 +121,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Update collisions response
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -128,7 +129,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Update physical world
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */

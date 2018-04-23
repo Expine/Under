@@ -39,7 +39,7 @@ class AttackObject extends SpecialObject { // eslint-disable-line  no-unused-var
 
     /**
      * Update attack after update it
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */

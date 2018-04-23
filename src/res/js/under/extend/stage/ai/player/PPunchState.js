@@ -18,7 +18,7 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
         /**
          * Whether it attacked or not
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.attacked = false;
 
@@ -53,7 +53,7 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
      * Apply AI and decide action
      * @override
      * @param {number} dt Delta time
-     * @return {bool} Whether decided on action
+     * @return {boolean} Whether decided on action
      */
     apply(dt) {
         if (!this.stateAnimation.isEnded() && this.stateAnimation.getAnimationCount() < this.threshold) {

@@ -3,6 +3,7 @@
  * - ### Store stage size
  * - ### Performs updating and rendering stage
  * - ### Manages stage element such as entity
+ * @interface
  * @classdesc Stage to control stage element
  */
 class Stage { // eslint-disable-line  no-unused-vars
@@ -29,7 +30,7 @@ class Stage { // eslint-disable-line  no-unused-vars
         /**
          * Whether to update the stage or not
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.enable = true;
 
@@ -87,7 +88,6 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Add entity to stage
-     * @interface
      * @param {Entity} entity Entity object
      */
     addEntity(entity) {
@@ -97,7 +97,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Set whether to update the stage or not
-     * @param {bool} enable Whether to update the stage or not
+     * @param {boolean} enable Whether to update the stage or not
      */
     setEnable(enable) {
         this.enable = enable;
@@ -105,7 +105,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Get whether to update the stage or not
-     * @return {bool} Whether to update the stage or not
+     * @return {boolean} Whether to update the stage or not
      */
     getEnable() {
         return this.enable;
@@ -113,21 +113,21 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Remove entity from stage
-     * @interface
+     * @abstract
      * @param {Entity} entity Entity object
      */
     removeEntity(entity) {}
 
     /**
      * Get all entities
-     * @interface
+     * @abstract
      * @return {Array<Entity>} All entities
      */
     getEntities() {}
 
     /**
      * Update entity in stage
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -135,7 +135,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Update entity in stage by physical world
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -143,7 +143,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Update camera
-     * @interface
+     * @abstract
      * @protected
      * @param {number} dt Delta time
      */
@@ -163,7 +163,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Render map in stage
-     * @interface
+     * @abstract
      * @protected
      * @param {Context} ctx Canvas context
      * @param {number} shiftX Shift x position
@@ -173,7 +173,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Render entities in stage
-     * @interface
+     * @abstract
      * @protected
      * @param {Context} ctx Canvas context
      * @param {number} shiftX Shift x position

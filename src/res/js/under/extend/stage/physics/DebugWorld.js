@@ -99,7 +99,7 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Prepare body
-     * @interface
+     * @override
      * @protected
      * @param {number} dt Delta time
      */

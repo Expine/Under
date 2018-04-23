@@ -18,7 +18,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
         /**
          * Dictionary of animation by string
          * @protected
-         * @type {Dictionary<string, Animation>}
+         * @type {Object<string, Animation>}
          */
         this.animation = {};
     }
@@ -58,7 +58,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
 
     /**
      * Set animation into animations
-     * @interface
+     * @override
      * @param {Animation} animation
      */
     setAnimation(animation) {
@@ -68,7 +68,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     /**
      * Set whether to loop or not
      * @override
-     * @param {bool} loop Whether to loop or not
+     * @param {boolean} loop Whether to loop or not
      */
     setLoop(loop) {
         this.animation[this.name].setLoop(loop);
@@ -77,7 +77,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     /**
      * Whether to loop or not
      * @override
-     * @return {bool} Whether to loop or not
+     * @return {boolean} Whether to loop or not
      */
     isLoop() {
         return this.animation[this.name].isLoop();
@@ -86,7 +86,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     /**
      * Whether the animation has ended or not
      * @override
-     * @return {bool} Whether the animation has ended or not
+     * @return {boolean} Whether the animation has ended or not
      */
     isEnded() {
         return this.animation[this.name].isEnded();

@@ -58,7 +58,7 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Update velocity
-     * @interface
+     * @override
      * @protected
      */
     updateVelocity(dt) {
@@ -116,7 +116,7 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Joint to something
-     * @interface
+     * @override
      * @param {Entity} jointed Jointed entity
      * @param {number} jointedX Jointed x position
      * @param {number} jointedY Jointed y position
@@ -131,7 +131,7 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Unjoint
-     * @interface
+     * @override
      */
     unjoint() {
         this.jointed = null;

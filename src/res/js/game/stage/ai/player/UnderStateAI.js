@@ -29,7 +29,7 @@ class UnderStateAI extends TransferableStateAI { // eslint-disable-line  no-unus
      * Change state
      * @override
      * @param {string} state State to change
-     * @return {bool} Whether change state or not
+     * @return {boolean} Whether change state or not
      */
     changeState(state) {
         if (state == `special`) {

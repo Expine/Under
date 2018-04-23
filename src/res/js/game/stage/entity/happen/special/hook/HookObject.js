@@ -12,6 +12,7 @@
  * - Object caused by special actions
  * - It can get hook position and change state
  * - ### Implements hook and automatically generates post hook object
+ * @interface
  * @implements {SpecialObject}
  * @implements {IHook}
  * @classdesc Hook object to implement hook and automatically generate post hook object
@@ -90,7 +91,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
         /**
          * Whether it is hooked or not
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.isHooked = false;
     }
@@ -143,14 +144,14 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
 
     /**
      * Hook center x position
-     * @interface
+     * @abstract
      * @return {number} Hook center x position
      */
     getHookX() {}
 
     /**
      * Hook center x position
-     * @interface
+     * @abstract
      * @return {number} Hook center x position
      */
     getHookY() {}
@@ -198,7 +199,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     /**
      * Try to remove it
      * @override
-     * @return {bool} Whether it was removed
+     * @return {boolean} Whether it was removed
      */
     tryRemove() {
         if (this.post == null) {
@@ -229,7 +230,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     /**
      * Whether the tip of the hook
      * @override
-     * @return {bool} Whether the tip of the hook
+     * @return {boolean} Whether the tip of the hook
      */
     isHead() {
         return false;

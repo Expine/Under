@@ -23,14 +23,14 @@ class SimpleTimer extends Timer { // eslint-disable-line  no-unused-vars
         /**
          * Named timer for measuring time
          * @protected
-         * @type {Dictionary<string. number>}
+         * @type {Object<string, number>}
          */
         this.namedTimer = {};
 
         /**
          * Named timer for registering start time
          * @protected
-         * @type {Dictionary<string. number>}
+         * @type {Object<string, number>}
          */
         this.namedStartTimer = {};
     }

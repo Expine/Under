@@ -32,7 +32,7 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
         /**
          * Whether it has already collided
          * @@protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.collided = false;
     }
@@ -49,7 +49,7 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
 
     /**
      * Update entty
-     * @interface
+     * @override
      * @param {number} dt Delta time
      */
     update(dt) {
@@ -70,7 +70,7 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
 
     /**
      * Render entity
-     * @interface
+     * @override
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position

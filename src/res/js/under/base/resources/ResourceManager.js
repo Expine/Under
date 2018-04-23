@@ -1,6 +1,7 @@
 /**
  * Resource manager
  * - ### Resources Abstraction of resource management
+ * @interface
  * @classdesc Resource manager that indicatas abstraction of resource management
  */
 class ResourceManager { // eslint-disable-line  no-unused-vars
@@ -26,7 +27,7 @@ class ResourceManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Load resource and return ID
-     * @interface
+     * @abstract
      * @param {string} filePath Resource file path
      * @return {Object} Resource ID
      */
@@ -34,20 +35,20 @@ class ResourceManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Unload resource
-     * @interface
+     * @abstract
      * @param {Object} id Resource ID
      */
     unload(id) {}
 
     /**
      * Reload all resources
-     * @interface
+     * @abstract
      */
     reload() {}
 
     /**
      * Get resource path
-     * @interface
+     * @abstract
      * @param {Object} id Resrouce ID
      * @return {string} Resource path (return null if not exists)
      */

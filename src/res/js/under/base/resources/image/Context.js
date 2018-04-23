@@ -1,6 +1,7 @@
 /**
  * Context
  * - ### Controls rendering to the screen
+ * @interface
  * @classdesc Context for rendering to the screen
  */
 class Context { // eslint-disable-line  no-unused-vars
@@ -42,20 +43,20 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize context
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Set the color of text
-     * @interface
+     * @abstract
      * @param {string} colorName Color name
      */
     setFontColorByName(colorName) {}
 
     /**
      * Set the color of text
-     * @interface
+     * @abstract
      * @param {number} r Red component   (0 <= r <= 255)
      * @param {number} g Green component (0 <= g <= 255)
      * @param {number} b Blue component  (0 <= b <= 255)
@@ -64,28 +65,28 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set the size of text
-     * @interface
+     * @abstract
      * @param {number} size Size of text
      */
     setFontSize(size) {}
 
     /**
      * Set the name of font
-     * @interface
+     * @abstract
      * @param {string} name Name of font
      */
     setFontName(name) {}
 
     /**
      * Set the color of line
-     * @interface
+     * @abstract
      * @param {string} colorName Color name
      */
     setLineColorByName(colorName) {}
 
     /**
      * Set the color of line
-     * @interface
+     * @abstract
      * @param {number} r Red component   (0 <= r <= 255)
      * @param {number} g Green component (0 <= g <= 255)
      * @param {number} b Blue component  (0 <= b <= 255)
@@ -94,26 +95,26 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set width of line
-     * @interface
+     * @abstract
      * @param {number} width Line width
      */
     setLineWidth(width) {}
 
     /**
      * Function to be executed before drawing
-     * @interface
+     * @abstract
      */
     preRendering() {}
 
     /**
      * Function to be executed after drawing
-     * @interface
+     * @abstract
      */
     postRendering() {}
 
     /**
      * Render text
-     * @interface
+     * @abstract
      * @param {string} text Rendering text
      * @param {number} x X position
      * @param {number} y Y position
@@ -127,7 +128,7 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering line
-     * @interface
+     * @abstract
      * @param {number} sx Start x position
      * @param {number} sy Start y position
      * @param {number} ex Terminal x position
@@ -139,13 +140,13 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering circle outline
-     * @interface
+     * @abstract
      * @param {number} x X position
      * @param {number} y Y position
      * @param {number} radius Raius of circle
      * @param {number} startAngle Beginning of arc
      * @param {number} endAngle End of arc
-     * @param {bool} anticlockwise Whether it is clockwise or not
+     * @param {boolean} anticlockwise Whether it is clockwise or not
      * @param {string} color Color name of circle
      * @param {number} lineWidth Line of circle width
      */
@@ -153,7 +154,7 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering rectangle outline
-     * @interface
+     * @abstract
      * @param {number} x Upper left x position
      * @param {number} y Upper left y position
      * @param {number} width Width of the rectangle
@@ -165,7 +166,7 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering rectangle
-     * @interface
+     * @abstract
      * @param {number} x Upper left x position
      * @param {number} y Upper left y position
      * @param {number} width Width of the rectangle
@@ -177,7 +178,7 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering image
-     * @interface
+     * @abstract
      * @param {number} imageID Image ID
      * @param {number} x Image x position
      * @param {number} y Image y position

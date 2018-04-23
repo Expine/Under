@@ -1,6 +1,7 @@
 /**
  * Rigid material
  * - ### Manages physical quantity
+ * @interface
  * @classdesc Rigid body to manage physical quantity
  */
 class RigidMaterial { // eslint-disable-line  no-unused-vars
@@ -33,7 +34,6 @@ class RigidMaterial { // eslint-disable-line  no-unused-vars
 
     /**
      * Reset rigid material state
-     * @interface
      */
     reset() {
         this.velocityX = 0;
@@ -44,21 +44,21 @@ class RigidMaterial { // eslint-disable-line  no-unused-vars
 
     /**
      * Get coefficient of air resistance
-     * @interface
+     * @abstract
      * @return {number} Coefficient of air resistance
      */
     get k() {}
 
     /**
      * Get coefficient of x friction coefficient
-     * @interface
+     * @abstract
      * @return {number} Coefficient of x friction coefficient
      */
     get frictionX() {}
 
     /**
      * Get coefficient of y friction coefficient
-     * @interface
+     * @abstract
      * @return {number} Coefficient of y friction coefficient
      */
     get frictionY() {}

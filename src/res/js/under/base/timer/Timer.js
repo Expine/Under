@@ -1,6 +1,7 @@
 /**
  * Timer
  * - ### Measure the time
+ * @interface
  * @classdesc TImer to measure the time
  */
 class Timer { // eslint-disable-line  no-unused-vars
@@ -21,13 +22,13 @@ class Timer { // eslint-disable-line  no-unused-vars
     }
     /**
      * Initialize timer
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Update timer
-     * @interface
+     * @abstract
      * @param {number} dt Delta time
      */
     update(dt) {
@@ -36,21 +37,21 @@ class Timer { // eslint-disable-line  no-unused-vars
 
     /**
      * Start to measure timer by name
-     * @interface
+     * @abstract
      * @param {string} name Timer name
      */
     startTimer(name) {}
 
     /**
      * Stop measuring timer by name
-     * @interface
+     * @abstract
      * @param {string} name Timer name
      */
     stopTimer(name) {}
 
     /**
      * Get timer by name
-     * @interface
+     * @abstract
      * @param {string} name Timer name
      * @return {number} Timer by name
      */
@@ -58,7 +59,7 @@ class Timer { // eslint-disable-line  no-unused-vars
 
     /**
      * Get name of registered timer
-     * @interface
+     * @abstract
      * @return {Array<string>} List of name of registered timer
      */
     getRegisteredNames() {}

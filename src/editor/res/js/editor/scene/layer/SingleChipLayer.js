@@ -11,7 +11,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
     /**
      * Single chip layer constructor
      * @constructor
-     * @param {Dictionary<number, json>} tileInfo Tile inforamtion json data
+     * @param {Object<number, JSON>} tileInfo Tile inforamtion json data
      * @param {number} imageID Image ID
      */
     constructor(tileInfo, imageID) {
@@ -19,28 +19,28 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
         /**
          * Tile inforamtion json data
          * @protected
-         * @type {Dictionary<number, json>}
+         * @type {Object<number, JSON>}
          */
         this.tileInfo = tileInfo;
 
         /**
          * Selection tile
          * @protected
-         * @type {json}
+         * @type {JSON}
          */
         this.selectTile = null;
 
         /**
          * Selected tile
          * @protected
-         * @type {json}
+         * @type {JSON}
          */
         this.selectedTile = null;
     }
 
     /**
      * Get json data for saving
-     * @return {json} Json data for saving
+     * @return {JSON} Json data for saving
      */
     getSaveData() {
         let data = [];

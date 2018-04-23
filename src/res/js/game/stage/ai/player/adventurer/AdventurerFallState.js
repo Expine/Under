@@ -17,7 +17,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
      * Apply AI and decide action
      * @override
      * @param {number} dt Delta time
-     * @return {bool} Whether decided on action
+     * @return {boolean} Whether decided on action
      */
     apply(dt) {
         // down wall check

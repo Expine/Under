@@ -1,6 +1,7 @@
 /**
  * Screen
  * - ### Indicates the rendering target and input target
+ * @interface
  * @classdesc Screen indicating the rendering and input target
  */
 class Screen { // eslint-disable-line  no-unused-vars
@@ -33,18 +34,20 @@ class Screen { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize screen
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Get input target element
+     * @abstract
      * @return {Element} Element of input target
      */
     getTarget() {}
 
     /**
      * Get canvas for rendering
+     * @abstract
      * @return {Canvas} Canvas
      */
     getCanvas() {}

@@ -11,7 +11,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
     /**
      * Entity layer constructor
      * @constructor
-     * @param {Dictionary<number, json>} entityInfo Entity inforamtion json data
+     * @param {Object<number, JSON>} entityInfo Entity inforamtion json data
      */
     constructor(entityInfo) {
         super(-1);

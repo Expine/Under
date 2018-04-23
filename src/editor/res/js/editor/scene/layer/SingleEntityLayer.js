@@ -11,7 +11,7 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
     /**
      * Single entity layer constructor
      * @constructor
-     * @param {json} info Entity inforamtion json data
+     * @param {JSON} info Entity inforamtion json data
      */
     constructor(info) {
         super(-1);
@@ -19,7 +19,7 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
         /**
          * Entity information json data
          * @protected
-         * @type {json}
+         * @type {JSON}
          */
         this.entity = info;
 
@@ -48,14 +48,14 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
         /**
          * Selection entity
          * @protected
-         * @type {json}
+         * @type {JSON}
          */
         this.selectEntity = null;
 
         /**
          * Selected entity
          * @protected
-         * @type {json}
+         * @type {JSON}
          */
         this.selectedEntity = null;
     }

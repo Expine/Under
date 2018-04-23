@@ -1,6 +1,7 @@
 /**
  * Scene manager
  * - ### Manages transitions of scenes, ie additions and deletions
+ * @interface
  * @classdesc Scene manager to manage transitions of scenes
  */
 class SceneManager { // eslint-disable-line  no-unused-vars
@@ -15,7 +16,7 @@ class SceneManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Get currently running scene
-     * @interface
+     * @abstract
      * @protected
      * @return {Scene} Currently running scene
      */
@@ -23,7 +24,7 @@ class SceneManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Push scene instance for running it
-     * @interface
+     * @abstract
      * @param {Scene} scene Scene instance for running it
      */
     pushScene(scene) {
@@ -32,13 +33,13 @@ class SceneManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Pop currently scene for returning to the previous scene
-     * @interface
+     * @abstract
      */
     popScene() {}
 
     /**
      * Replace currently scene by new scene
-     * @interface
+     * @abstract
      * @param {Scene} scene Scene instance for replacing currently scene
      */
     replaceScene(scene) {}

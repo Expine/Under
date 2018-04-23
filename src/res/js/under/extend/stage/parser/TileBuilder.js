@@ -19,7 +19,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make collider
      * @protected
-     * @param {json} collider Collider information json data
+     * @param {JSON} collider Collider information json data
      * @return {Collider} Collider
      */
     makeCollider(collider) {
@@ -31,7 +31,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make base collider
      * @protected
-     * @param {json} collider Collider information json data
+     * @param {JSON} collider Collider information json data
      * @return {Collider} Collider
      */
     makeBaseCollider(collider) {
@@ -47,7 +47,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make AABB
      * @protected
-     * @param {json} collider Collider information json data
+     * @param {JSON} collider Collider information json data
      * @return {AABB} AABB
      */
     makeAABB(collider) {
@@ -61,7 +61,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make material
      * @protected
-     * @param {json} material Material information json data
+     * @param {JSON} material Material information json data
      * @return {Material} Material
      */
     makeMaterial(material) {
@@ -76,7 +76,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @protected
      * @param {number} x Entity x position
      * @param {number} y Entity Y position
-     * @param {json} tile Tile information json data
+     * @param {JSON} tile Tile information json data
      * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(x, y, tile) {
@@ -86,7 +86,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make animation
      * @protected
-     * @param {json} anime Animation json data
+     * @param {JSON} anime Animation json data
      * @return {NamedAnimation} Animation
      */
     makeAnimation(anime) {
@@ -110,7 +110,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @override
      * @param {number} x Entity x position
      * @param {number} y Entity Y position
-     * @param {json} json tile json data
+     * @param {JSON} json tile json data
      * @return {Entity} Generated tile
      */
     build(x, y, json) {

@@ -1,6 +1,7 @@
 /**
  * Game event
  * - ### Updates and renders event
+ * @interface
  * @classdesc Game event to update and render event
  */
 class GameEvent { // eslint-disable-line  no-unused-vars
@@ -27,26 +28,27 @@ class GameEvent { // eslint-disable-line  no-unused-vars
 
     /**
      * Get event's unique name
+     * @abstract
      * @return {string} Unique name of event
      */
     getName() {}
 
     /**
      * Initialize event
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Update event
-     * @interface
+     * @abstract
      * @param {number} dt Delta time
      */
     update(dt) {}
 
     /**
      * Render event
-     * @interface
+     * @abstract
      * @param {Context} ctx Canvas context
      */
     render(ctx) {}

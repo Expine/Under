@@ -62,7 +62,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Set whether to update the stage or not
-     * @param {bool} enable Whether to update the stage or not
+     * @param {boolean} enable Whether to update the stage or not
      */
     setEnable(enable) {
         this.enable = enable;
@@ -71,7 +71,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Get whether to update the stage or not
-     * @return {bool} Whether to update the stage or not
+     * @return {boolean} Whether to update the stage or not
      */
     getEnable() {
         return this.stage.getEnable();

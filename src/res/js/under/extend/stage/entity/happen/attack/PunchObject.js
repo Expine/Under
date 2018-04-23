@@ -68,7 +68,7 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
 
     /**
      * Update attack after update it
-     * @interface
+     * @override
      * @protected
      * @param {number} dt Delta time
      */

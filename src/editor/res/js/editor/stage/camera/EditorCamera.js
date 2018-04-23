@@ -18,7 +18,7 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
         /**
          * Camera moving
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.moving = false;
         /**

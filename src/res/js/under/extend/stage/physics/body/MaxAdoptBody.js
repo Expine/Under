@@ -167,7 +167,7 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Cleanup body information
-     * @interface
+     * @override
      * @param {nuumber} dt Delta time
      */
     cleanup(dt) {

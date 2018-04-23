@@ -10,7 +10,7 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     /**
      * Make base collider
      * @protected
-     * @param {json} collider Collider information json data
+     * @param {JSON} collider Collider information json data
      * @return {Collider} Collider
      */
     makeBaseCollider(collider) {
@@ -31,7 +31,7 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @protected
      * @param {number} x Entity x position
      * @param {number} y Entity Y position
-     * @param {json} tile Tile information json data
+     * @param {JSON} tile Tile information json data
      * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(x, y, tile) {

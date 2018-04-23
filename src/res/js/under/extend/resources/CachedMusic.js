@@ -55,7 +55,6 @@ class CachedMusic extends CachedArrayManager /* , IMusicManager */ { // eslint-d
 
     /**
      * Get music by ID
-     * @interface
      * @param {Object} id Music ID
      * @return {BufferSource} Music resource
      */

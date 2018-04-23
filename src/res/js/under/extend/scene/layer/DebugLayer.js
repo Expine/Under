@@ -65,14 +65,14 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         /**
          * Timers for registering time
          * @protected
-         * @type {Dictionary<string. Array<number>>}
+         * @type {Object<string, Array<number>>}
          */
         this.timers = {};
 
         /**
          * Timer values
          * @protected
-         * @type {Dictionary<string, number>}
+         * @type {Object<string, number>}
          */
         this.timerVals = {};
     }

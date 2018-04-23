@@ -1,59 +1,60 @@
 /**
  * Hook interface
  * - ### It can get hook position and change state
+ * @interface
  * @classdesc Hook interface that can get hook position and change state
  */
 class IHook extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Get actor who it belongs to
-     * @interface
+     * @abstract
      * @return {Entity} Actor who it belongs to
      */
     getActor() {}
 
     /**
      * Hook center x position
-     * @interface
+     * @abstract
      * @return {number} Hook center x position
      */
     getHookX() {}
 
     /**
      * Hook center x position
-     * @interface
+     * @abstract
      * @return {number} Hook center x position
      */
     getHookY() {}
 
     /**
      * Create post hook (Do not create it if it already exists)
-     * @interface
+     * @abstract
      */
     createPost() {}
 
     /**
      * Hooked hook
-     * @interface
+     * @abstract
      */
     hooked() {}
 
     /**
      * Release hook
-     * @interface
+     * @abstract
      */
     release() {}
 
     /**
      * Try to remove it
-     * @interface
-     * @return {bool} Whether it was removed
+     * @abstract
+     * @return {boolean} Whether it was removed
      */
     tryRemove() {}
 
     /**
      * Whether the tip of the hook
-     * @interface
-     * @return {bool} Whether the tip of the hook
+     * @abstract
+     * @return {boolean} Whether the tip of the hook
      */
     isHead() {}
 }

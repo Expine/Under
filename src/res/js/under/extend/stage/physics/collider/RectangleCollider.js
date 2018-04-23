@@ -45,10 +45,10 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
 
     /**
      * Judge whether position is in collider
-     * @interface
+     * @override
      * @param {number} x X position
      * @param {number} y Y position
-     * @return {bool} whether position is in collider
+     * @return {boolean} whether position is in collider
      */
     isInCollider(x, y) {
         return this.aabb.startX < x && x < this.aabb.endX && this.aabb.startY < y && y < this.aabb.endY;
@@ -56,10 +56,10 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
 
     /**
      * Judge whether collision
-     * @interface
+     * @override
      * @param {Colllder} collider Target collider
      * @param {CollisionData} data Pointer to save conflict information
-     * @return {bool} whether collision
+     * @return {boolean} whether collision
      */
     isCollision(collider, data) {
         if (collider instanceof RoundRectangleCollider) {
@@ -140,7 +140,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
 
     /**
      * Render collider for debug
-     * @interface
+     * @override
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position

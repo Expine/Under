@@ -1,6 +1,7 @@
 /**
  * Collder
  * - ### Store collider data for judgeing collision
+ * @interface
  * @classdesc Collider to store collider data for judging collision
  */
 class Collider { // eslint-disable-line  no-unused-vars
@@ -24,12 +25,12 @@ class Collider { // eslint-disable-line  no-unused-vars
 
         /**
          * Whether to perform collision response or not
-         * @type {bool}
+         * @type {boolean}
          */
         this.response = true;
         /**
          * Whether collision judgment is to be done or not
-         * @type {bool}
+         * @type {boolean}
          */
         this.enable = true;
 
@@ -43,7 +44,7 @@ class Collider { // eslint-disable-line  no-unused-vars
         /**
          * Whether or not the collision information has already been cleared
          * @protected
-         * @type {bool}
+         * @type {boolean}
          */
         this.cleared = false;
     }
@@ -102,7 +103,7 @@ class Collider { // eslint-disable-line  no-unused-vars
     /**
      * Set whether to perform collision response or not
      * @param {Colllder} collider Target collider
-     * @return {bool} whether to perform collision response or not
+     * @return {boolean} whether to perform collision response or not
      */
     isResponse(collider) {
         return this.response;
@@ -110,27 +111,26 @@ class Collider { // eslint-disable-line  no-unused-vars
 
     /**
      * Judge whether position is in collider
-     * @interface
+     * @abstract
      * @param {number} x X position
      * @param {number} y Y position
-     * @return {bool} Whether position is in collider
+     * @return {boolean} Whether position is in collider
      */
     isInCollider(x, y) {}
 
     /**
      * Judge whether collision
-     * @interface
+     * @abstract
      * @param {Colllder} collider Target collider
      * @param {CollisionData} data Pointer to save conflict information
-     * @return {bool} Whether collision
+     * @return {boolean} Whether collision
      */
     isCollision(collider, data) {}
 
     /**
      * Judge whether collision roughly
-     * @interface
      * @param {Colllder} collider Target collider
-     * @return {bool} Qhether collision roughly
+     * @return {boolean} Qhether collision roughly
      */
     isCollisionRoughly(collider) {
         // check enable
@@ -144,7 +144,7 @@ class Collider { // eslint-disable-line  no-unused-vars
 
     /**
      * Fix collider bounds
-     * @interface
+     * @abstract
      * @param {number} startX Relative x coordinate of the upper left
      * @param {number} startY Relative y coordinate of the upper left
      * @param {number} endX Relative x coordinate of the lower right
@@ -155,13 +155,13 @@ class Collider { // eslint-disable-line  no-unused-vars
     /**
      * Update collide information
      * Called whenever coordinate information is updated
-     * @interface
+     * @abstract
      */
     update() {}
 
     /**
      * Render collider for debug
-     * @interface
+     * @abstract
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position

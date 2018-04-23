@@ -138,7 +138,7 @@ class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // esli
      * Move by input
      * @protected
      * @param {number} dt Delta time
-     * @return {bool} Whether move or not
+     * @return {boolean} Whether move or not
      */
     moveByInput(dt) {
         let moved = false;

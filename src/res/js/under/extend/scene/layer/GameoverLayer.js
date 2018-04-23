@@ -8,14 +8,14 @@
 class GameoverLayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * Update layer
-     * @interface
+     * @override
      * @param {number} dt Delta time
      */
     update(dt) {}
 
     /**
      * Render layer
-     * @interface
+     * @override
      * @param {Context} ctx Canvas context
      */
     render(ctx) {

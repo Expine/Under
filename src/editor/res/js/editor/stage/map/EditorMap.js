@@ -9,7 +9,7 @@
 class EditorMap extends SequentialMap { // eslint-disable-line  no-unused-vars
     /**
      * Get json data for saving
-     * @return {json} Json data for saving
+     * @return {JSON} Json data for saving
      */
     getSaveData() {
         let data = {};

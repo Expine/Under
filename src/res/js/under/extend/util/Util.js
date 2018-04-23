@@ -6,7 +6,7 @@ class Util { // eslint-disable-line  no-unused-vars
     /**
      * Determine whether entity is on the ground
      * @param {InfluentialEntity} entity Target entity
-     * @return {bool} Whether entity is on the ground
+     * @return {boolean} Whether entity is on the ground
      */
     static onGround(entity) {
         return this.getUnderEntity(entity) != null;

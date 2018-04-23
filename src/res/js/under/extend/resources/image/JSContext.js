@@ -54,7 +54,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize context
-     * @interface
+     * @override
      */
     init() {
         this.ctx_ = this.screen.getCanvas().getContext(`2d`);
@@ -194,7 +194,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {number} radius Raius of circle
      * @param {number} startAngle Beginning of arc
      * @param {number} endAngle End of arc
-     * @param {bool} anticlockwise Whether it is clockwise or not
+     * @param {boolean} anticlockwise Whether it is clockwise or not
      * @param {string} color Color name of circle
      * @param {number} lineWidth Line of circle width
      */

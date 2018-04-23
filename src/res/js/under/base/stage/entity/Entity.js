@@ -1,6 +1,7 @@
 /**
  * Entity
  * - ### Object present on the stage that has coordinate and size
+ * @interface
  * @classdesc Entity that has coordinate and size
  */
 class Entity { // eslint-disable-line  no-unused-vars
@@ -51,20 +52,20 @@ class Entity { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize entity
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Update entty
-     * @interface
+     * @abstract
      * @param {number} dt Delta time
      */
     update(dt) {}
 
     /**
      * Render entity
-     * @interface
+     * @abstract
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position

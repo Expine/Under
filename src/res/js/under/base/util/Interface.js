@@ -73,7 +73,7 @@ class Interface { // eslint-disable-line  no-unused-vars
     /**
      * Validate interface
      * @param {Object} instance Instance to be validated
-     * @return {bool} Whether you are implementing interfaces
+     * @return {boolean} Whether you are implementing interfaces
      */
     validate(instance) {
         if (instance === null || instance === undefined) {

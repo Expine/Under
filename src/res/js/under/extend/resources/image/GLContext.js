@@ -22,14 +22,12 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set the color of text
-     * @interface
      * @param {string} colorName Color name
      */
     setFontColorByName(colorName) {}
 
     /**
      * Set the color of text
-     * @interface
      * @param {number} r Red component   (0 <= r <= 255)
      * @param {number} g Green component (0 <= g <= 255)
      * @param {number} b Blue component  (0 <= b <= 255)
@@ -38,28 +36,24 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set the size of text
-     * @interface
      * @param {number} size Size of text
      */
     setFontSize(size) {}
 
     /**
      * Set the name of font
-     * @interface
      * @param {string} name Name of font
      */
     setFontName(name) {}
 
     /**
      * Set the color of line
-     * @interface
      * @param {string} colorName Color name
      */
     setLineColorByName(colorName) {}
 
     /**
      * Set the color of line
-     * @interface
      * @param {number} r Red component   (0 <= r <= 255)
      * @param {number} g Green component (0 <= g <= 255)
      * @param {number} b Blue component  (0 <= b <= 255)
@@ -68,26 +62,22 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set width of line
-     * @interface
      * @param {number} width Line width
      */
     setLineWidth(width) {}
 
     /**
      * Function to be executed before drawing
-     * @interface
      */
     preRendering() {}
 
     /**
      * Function to be executed after drawing
-     * @interface
      */
     postRendering() {}
 
     /**
      * Render text
-     * @interface
      * @param {string} text Rendering text
      * @param {number} x X position
      * @param {number} y Y position
@@ -101,7 +91,6 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering line
-     * @interface
      * @param {number} sx Start x position
      * @param {number} sy Start y position
      * @param {number} ex Terminal x position
@@ -113,13 +102,12 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering circle outline
-     * @interface
      * @param {number} x X position
      * @param {number} y Y position
      * @param {number} radius Raius of circle
      * @param {number} startAngle Beginning of arc
      * @param {number} endAngle End of arc
-     * @param {bool} anticlockwise Whether it is clockwise or not
+     * @param {boolean} anticlockwise Whether it is clockwise or not
      * @param {string} color Color name of circle
      * @param {number} lineWidth Line of circle width
      */
@@ -127,7 +115,6 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering square outline
-     * @interface
      * @param {number} x Upper left x position
      * @param {number} y Upper left y position
      * @param {number} width Width of the rectangle
@@ -139,7 +126,6 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Rendering image
-     * @interface
      * @param {number} imageID Image ID
      * @param {number} x Image x position
      * @param {number} y Image y position

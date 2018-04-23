@@ -96,9 +96,9 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
 
     /**
      * Judge whether pressed now
-     * @interface
+     * @override
      * @param {number} code Target code
-     * @return {bool} whether pressed now
+     * @return {boolean} whether pressed now
      */
     isPress(code) {
         return !this.blocked[code] && this.inputState[code] !== undefined && this.inputState[code] == this.STATE.PRESSED;
@@ -106,9 +106,9 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
 
     /**
      * Judge whether pressed
-     * @interface
+     * @override
      * @param {number} code Target code
-     * @return {bool} whether pressed
+     * @return {boolean} whether pressed
      */
     isPressed(code) {
         return !this.blocked[code] && this.inputState[code] !== undefined && (this.inputState[code] == this.STATE.PRESSED || this.inputState[code] == this.STATE.ON);

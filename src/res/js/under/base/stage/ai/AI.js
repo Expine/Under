@@ -1,6 +1,7 @@
 /**
  * AI
  * - ### Determines the behavior of an entity
+ * @interface
  * @classdesc AI for determining the behavior of an entity
  */
 class AI { // eslint-disable-line  no-unused-vars
@@ -26,21 +27,21 @@ class AI { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize AI
-     * @interface
+     * @abstract
      */
     init() {}
 
     /**
      * Apply AI and decide action
-     * @interface
+     * @abstract
      * @param {number} dt Delta time
-     * @return {bool} Whether decided on action
+     * @return {boolean} Whether decided on action
      */
     apply(dt) {}
 
     /**
      * Update AI
-     * @interface
+     * @abstract
      * @param {number} dt Delta time
      */
     update(dt) {}
