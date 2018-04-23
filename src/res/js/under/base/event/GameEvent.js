@@ -28,10 +28,11 @@ class GameEvent { // eslint-disable-line  no-unused-vars
 
     /**
      * Get event's unique name
-     * @abstract
-     * @return {string} Unique name of event
+     * @return {string} Unique name of event (return null if it is unnecessary)
      */
-    getName() {}
+    getName() {
+        return null;
+    }
 
     /**
      * Initialize event

@@ -41,7 +41,7 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
     execute(event) {
         event.setEventOperator(this);
         this.events.push(event);
-        if (this.updatingEvents.length == 0 && this.renderingEvents.length == 0) {
+        if (this.updatingEvents.length == 0) {
             this.next();
         }
     }
@@ -53,10 +53,10 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
     next() {
         let event = this.events[0];
         if (event !== undefined) {
+            this.events.splice(0, 1);
             this.updatingEvents.push(event);
             this.renderingEvents.push(event);
             event.init();
-            this.events.splice(0, 1);
         }
     }
 

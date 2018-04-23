@@ -8,12 +8,20 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
     /**
      * Image event constructor
      * @constructor
+     * @param {string} name Image unique name
      * @param {number} x Image x position
      * @param {number} y Image y position
      * @param {number} imageID Image ID for rendering
      */
-    constructor(x, y, imageID) {
+    constructor(name, x, y, imageID) {
         super();
+
+        /**
+         * Image unique name
+         * @protected
+         * @type {string}
+         */
+        this.name = name;
 
         /**
          * Image x position
@@ -43,6 +51,14 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
         super.init();
         this.op.stopUpdate(this);
         this.op.next();
+    }
+
+    /**
+     * Get event's unique name
+     * @return {string} Unique name of event (return null if it is unnecessary)
+     */
+    getName() {
+        return this.name;
     }
 
     /**

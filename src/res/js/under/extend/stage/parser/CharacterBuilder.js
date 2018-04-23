@@ -83,6 +83,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         return ret;
     }
 
+    // TODO: Maybe separat event
     /**
      * Make event
      * @protected
@@ -95,7 +96,9 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         } else if (event.type == `waitkey`) {
             return new WaitKeyEvent();
         } else if (event.type == `image`) {
-            return new ImageEvent(event.x, event.y, this.loadEventImage(event.file));
+            return new ImageEvent(event.name, event.x, event.y, this.loadEventImage(event.file));
+        } else if (event.type == `delete`) {
+            return new DeleteEvent(event.name);
         }
     }
 

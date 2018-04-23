@@ -59,7 +59,9 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
             if (BaseUtil.implementsOf(you, IPlayable)) {
                 localCollided = true;
                 if (!this.collided) {
-                    this.event.setStage(this.stage);
+                    if (this.event instanceof StageEvent) {
+                        this.event.setStage(this.stage);
+                    }
                     EventManager.exec.execute(this.event);
                     break;
                 }
