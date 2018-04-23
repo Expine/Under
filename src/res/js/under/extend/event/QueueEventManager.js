@@ -47,6 +47,21 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
     }
 
     /**
+     * Clear event
+     * @override
+     */
+    clear() {
+        for (let list of [this.events, this.updatingEvents, this.renderingEvents]) {
+            for (let it of list) {
+                it.destruct();
+            }
+        }
+        this.events.length = 0;
+        this.updatingEvents.length = 0;
+        this.renderingEvents.length = 0;
+    }
+
+    /**
      * Execute next event
      * @override
      */
@@ -69,6 +84,9 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
         let index = this.updatingEvents.indexOf(event);
         if (index != -1) {
             this.updatingEvents.splice(index, 1);
+            if (this.renderingEvents.indexOf(event) == -1) {
+                event.destruct();
+            }
         }
     }
 
@@ -81,6 +99,9 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
         let index = this.renderingEvents.indexOf(event);
         if (index != -1) {
             this.renderingEvents.splice(index, 1);
+            if (this.updatingEvents.indexOf(event) == -1) {
+                event.destruct();
+            }
         }
     }
 

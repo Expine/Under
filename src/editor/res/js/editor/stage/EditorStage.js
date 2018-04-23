@@ -161,6 +161,9 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
             entity.id = this.entitiesID[i];
             entity.x = it.x;
             entity.y = it.y;
+            if (BaseUtil.implementsOf(it, IEventEntity)) {
+                entity.event = EventUnparser.unparse(it.getEvent());
+            }
             if (it instanceof TileObject) {
                 data.layers[0].push(entity);
             } else {
@@ -177,6 +180,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
     restore() {
         let save = JSON.parse(this.saveData);
         let charaBuilder = new UnderCharacterBuilder();
+        let eventBuilder = new SimpleEventBuilder();
         let entities = this.getEntities();
         for (let i = entities.length - 1; i >= 0; --i) {
             if (!(entities[i] instanceof TileObject)) {
@@ -184,9 +188,14 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
             }
         }
         for (let it of save.deploy) {
-            this.addEntity(charaBuilder.build(it.x, it.y, this.entityInfo[it.id]));
+            let chara = charaBuilder.build(it, this.entityInfo[it.id]);
+            if (BaseUtil.implementsOf(chara, IEventEntity)) {
+                chara.setEvent(eventBuilder.build(it.event));
+            }
+            this.addEntity(chara);
             this.addEntityID(it.id);
         }
+        EventManager.exec.clear();
     }
 
     /**
@@ -307,7 +316,11 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                         }
                     }
                 }
-                this.addEntity(new UnderCharacterBuilder().build(x, y, this.entityInfo[entityID]));
+                let deploy = {
+                    x: x,
+                    y: y,
+                };
+                this.addEntity(new UnderCharacterBuilder().build(deploy, this.entityInfo[entityID]));
                 this.addEntityID(entityID);
             } else if (tileID >= 0) {
                 // remove
@@ -318,7 +331,11 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                         }
                     }
                 }
-                this.addEntity(new UnderTileBuilder().build(x, y, this.tileInfo[tileID]));
+                let deploy = {
+                    x: x,
+                    y: y,
+                };
+                this.addEntity(new UnderTileBuilder().build(deploy, this.tileInfo[tileID]));
                 this.addEntityID(tileID);
             } else {
                 // remove

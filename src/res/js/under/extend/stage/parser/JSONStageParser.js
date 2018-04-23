@@ -10,8 +10,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * JSON Stage parser constructor
      * @param {EntityBuilder} tile Tile builder instance
      * @param {EntityBuilder} chara Character builder instance
+     * @param {EventBuilder} event Event builder instance
      */
-    constructor(tile = new TileBuilder(), chara = new CharacterBuilder()) {
+    constructor(tile = new TileBuilder(), chara = new CharacterBuilder(), event = new SimpleEventBuilder()) {
         super();
         /**
          * Tile builder instance
@@ -25,6 +26,23 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
          * @type {EntityBuilder}
          */
         this.characterBuilder = chara;
+
+        /**
+         * Event builder instance
+         * @protected
+         * @type {EventBuilder}
+         */
+        this.eventBuilder = event;
+    }
+
+    /**
+     * Load map image
+     * @protected
+     * @param {string} path Map image path
+     * @return {number} Map image ID
+     */
+    loadMapImage(path) {
+        return ResourceManager.image.load(`back/${path}`);
     }
 
     /**
@@ -34,19 +52,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
-        return Engine.debug ? new DebugStage(new SplitManagementStage(stage.width, stage.height)) : new SplitManagementStage(stage.width, stage.height);
-    }
-
-    /**
-     * Make base map for parsing stage
-     * @protected
-     * @param {JSON} map Map json data
-     * @return {Map} Map instance for base of parsing
-     */
-    makeBaseMap(map) {
-        let ret = new SequentialMap();
-        for (let back of map.backs) {
-            ret.addMap(this.makeMapElement(map, back));
+        let ret = new SplitManagementStage(stage.width, stage.height);
+        if (Engine.debug) {
+            ret = new DebugStage(ret);
         }
         return ret;
     }
@@ -55,16 +63,19 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * Make map for parsing stage
      * @protected
      * @param {JSON} map Map json data
-     * @param {JSON} back Map element json data
-     * @return {Map} Map element of parsing
+     * @return {Map} Map instance for base of parsing
      */
-    makeMapElement(map, back) {
-        if (back.type == `Invariant`) {
-            let id = ResourceManager.image.load(`back/${back.file}`);
-            return new InvariantBackMap(id);
-        } else {
-            console.log(`Not Map: ${back}`);
+    makeMap(map) {
+        let ret = null;
+        if (map.type == `Sequential`) {
+            ret = new SequentialMap();
+            for (let back of map.backs) {
+                ret.addMap(this.makeMap(back));
+            }
+        } else if (map.type == `Invariant`) {
+            ret = new InvariantBackMap(this.loadMapImage(map.file));
         }
+        return ret;
     }
 
     /**
@@ -105,7 +116,11 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @param {JSON} tileInfo Tile information json data
      */
     addTile(base, chip, tileInfo) {
-        base.addEntity(this.tileBuilder.build(chip.x, chip.y, tileInfo[chip.id]));
+        let tile = this.tileBuilder.build(chip, tileInfo[chip.id]);
+        if (BaseUtil.implementsOf(tile, IEventEntity)) {
+            tile.setEvent(this.eventBuilder(chip.event));
+        }
+        base.addEntity(tile);
     }
 
     /**
@@ -115,7 +130,11 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @param {JSON} entityInfo Entity information json data
      */
     addEntity(base, entity, entityInfo) {
-        base.addEntity(this.characterBuilder.build(entity.x, entity.y, entityInfo[entity.id]));
+        let chara = this.characterBuilder.build(entity, entityInfo[entity.id]);
+        if (BaseUtil.implementsOf(chara, IEventEntity)) {
+            chara.setEvent(this.eventBuilder.build(entity.event));
+        }
+        base.addEntity(chara);
     }
 
 
@@ -150,7 +169,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
 
         // make stage
         let base = this.makeBaseStage(stage);
-        base.setMap(this.makeBaseMap(stage.map));
+        base.setMap(this.makeMap(stage.map));
         base.setCamera(this.makeBaseCamera(stage.camera, width, height));
         base.setPhysicalWorld(this.makeBaseWorld(stage));
         base.getPhysicalWorld().setResponse(this.makePhysicalResponse());

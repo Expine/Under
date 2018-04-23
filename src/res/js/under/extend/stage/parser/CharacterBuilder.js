@@ -18,16 +18,6 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     }
 
     /**
-     * Load event image
-     * @protected
-     * @param {string} path Event image path
-     * @return {number} Event image ID
-     */
-    loadEventImage(path) {
-        return ResourceManager.image.load(`event/${path}`);
-    }
-
-    /**
      * Make rigid body
      * @protected
      * @param {JSON} body Rigid body information json data
@@ -83,58 +73,36 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         return ret;
     }
 
-    // TODO: Maybe separat event
-    /**
-     * Make event
-     * @protected
-     * @param {JSON} event Event json data
-     * @return {Event} Event
-     */
-    makeEvent(event) {
-        if (event.type == `talk`) {
-            return new TalkEvent(event.sentence);
-        } else if (event.type == `waitkey`) {
-            return new WaitKeyEvent();
-        } else if (event.type == `image`) {
-            return new ImageEvent(event.name, event.x, event.y, this.loadEventImage(event.file));
-        } else if (event.type == `delete`) {
-            return new DeleteEvent(event.name);
-        }
-    }
-
     /**
      * Make underlying entity
      * @protected
-     * @param {number} x Entity x position
-     * @param {number} y Entity Y position
+     * @param {JSON} deploy Entity deploy json data
      * @param {JSON} entity Entity information json data
      * @return {InfluentialEntity} Underlying entity
      */
-    makeEntityBase(x, y, entity) {
+    makeEntityBase(deploy, entity) {
         if (entity.type == `Player`) {
-            return new Player(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            return new Player(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         } else if (entity.type == 'Enemy') {
-            return new Enemy(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            return new Enemy(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         } else if (entity.type == `Obstacle`) {
-            return new Obstacle(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            return new Obstacle(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         } else if (entity.type == `Sign`) {
-            return new SignObject(x, y, entity.width, entity.height, this.loadCharaImage(entity.file), this.loadCharaImage(entity.sign.file));
+            return new SignObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file), this.loadCharaImage(entity.sign.file));
         } else if (entity.type == `Event`) {
-            // TODO: Maybe separat event
-            return new ImmutableEventObject(x, y, entity.width, entity.height, this.makeEvent(entity.event), this.loadCharaImage(entity.file));
+            return new ImmutableEventObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         }
     }
 
     /**
      * Build character from json data
      * @override
-     * @param {number} x Entity x position
-     * @param {number} y Entity Y position
+     * @param {JSON} deploy Entity deploy json data
      * @param {JSON} json Character json data
      * @return {Entity} Generated character
      */
-    build(x, y, json) {
-        let base = this.makeEntityBase(x, y, json);
+    build(deploy, json) {
+        let base = this.makeEntityBase(deploy, json);
         base.setCollider(this.makeCollider(json.collider));
         base.setMaterial(this.makeMaterial(json.material));
         if (base instanceof MutableEntity) {

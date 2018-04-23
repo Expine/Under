@@ -14,7 +14,7 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {Collider} Collider
      */
     makeBaseCollider(collider) {
-        if (collider.excluded) {
+        if (collider !== undefined && collider.excluded) {
             if (collider.type == `Rectangle`) {
                 return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
             } else if (collider.type == `RoundRectangle`) {
@@ -29,12 +29,11 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * Make underlying tile object
      * @override
      * @protected
-     * @param {number} x Entity x position
-     * @param {number} y Entity Y position
+     * @param {JSON} deploy Entity deploy json data
      * @param {JSON} tile Tile information json data
      * @return {InfluentialEntity} Underlying tile object
      */
-    makeTileBase(x, y, tile) {
-        return new UnderTileObject(tile.terrain, tile.x, tile.y, tile.width, tile.height, x, y, tile.width, tile.height, this.loadTileImage(tile.file));
+    makeTileBase(deploy, tile) {
+        return new UnderTileObject(tile.terrain, tile.x, tile.y, tile.width, tile.height, deploy.x, deploy.y, tile.width, tile.height, this.loadTileImage(tile.file));
     }
 }

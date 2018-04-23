@@ -6,12 +6,11 @@
  */
 class EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
-     * Build enity from json data
+     * Build entity from json data
      * @abstract
-     * @param {number} x Entity x position
-     * @param {number} y Entity Y position
+     * @param {JSON} deploy Entity deploy json data
      * @param {JSON} json Entity json data
      * @return {Entity} Generated entity
      */
-    build(x, y, json) {}
+    build(deploy, json) {}
 }

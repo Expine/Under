@@ -1,13 +1,12 @@
 /**
- * Talk event
+ * Text window event
  * - Updates and renders event
- * - Controls the stage
- * - ### Start talking and stop stage
- * @classdesc Talk event to control the stage
+ * - ### Render text and window
+ * @classdesc Text window event to render text and window
  */
-class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
     /**
-     * Talk event constructor
+     * Text window event constructor
      * @constructor
      * @param {string} sentence Talking sentence
      */
@@ -46,14 +45,6 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Destructor of event
-     * @override
-     */
-    destruct() {
-        this.stage.setEnable(true);
-    }
-
-    /**
      * Update event
      * @override
      * @param {number} dt Delta time
@@ -70,6 +61,7 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
 
         if (Input.it.isPress(Input.key.yes())) {
             if (this.talked) {
+                this.stage.setEnable(true);
                 this.op.stopUpdate(this);
                 this.op.stopRender(this);
                 this.op.next();

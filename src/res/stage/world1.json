@@ -2,6 +2,7 @@
     "width": 12800,
     "height": 4800,
     "map": {
+        "type": "Sequential",
         "backs": [{
             "type": "Invariant",
             "file": "back.png"

@@ -27,28 +27,17 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @param {JSON} map Map json data
      * @return {Map} Map instance for base of parsing
      */
-    makeBaseMap(map) {
-        let ret = new EditorMap(map.width, map.height);
-        for (let back of map.backs) {
-            ret.addMap(this.makeMapElement(map, back));
+    makeMap(map) {
+        let ret = null;
+        if (map.type == `Sequential`) {
+            ret = new EditorMap();
+            for (let back of map.backs) {
+                ret.addMap(this.makeMap(back));
+            }
+        } else if (map.type == `Invariant`) {
+            ret = new EditorInvariantBackMap(this.loadMapImage(map.file));
         }
         return ret;
-    }
-
-    /**
-     * Make map for parsing stage
-     * @protected
-     * @param {JSON} map Map json data
-     * @param {JSON} back Map element json data
-     * @return {Map} Map element of parsing
-     */
-    makeMapElement(map, back) {
-        if (back.type == `Invariant`) {
-            let id = ResourceManager.image.load(`back/${back.file}`);
-            return new EditorInvariantBackMap(id, map.width, map.height);
-        } else {
-            return super.makeMapElement(map, back);
-        }
     }
 
     /**
@@ -81,7 +70,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @param {JSON} tileInfo Tile information json data
      */
     addTile(base, chip, tileInfo) {
-        base.addEntity(this.tileBuilder.build(chip.x, chip.y, tileInfo[chip.id]));
+        super.addTile(base, chip, tileInfo);
         base.addEntityID(chip.id);
     }
 
@@ -93,7 +82,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @param {JSON} entityInfo Entity information json data
      */
     addEntity(base, entity, entityInfo) {
-        base.addEntity(this.characterBuilder.build(entity.x, entity.y, entityInfo[entity.id]));
+        super.addEntity(base, entity, entityInfo);
         base.addEntityID(entity.id);
     }
 }

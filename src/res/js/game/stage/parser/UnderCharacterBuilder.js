@@ -58,15 +58,14 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * Make underlying entity
      * @override
      * @protected
-     * @param {number} x Entity x position
-     * @param {number} y Entity Y position
+     * @param {JSON} deploy Entity deploy json data
      * @param {JSON} entity Entity information json data
      * @return {InfluentialEntity} Underlying entity
      */
-    makeEntityBase(x, y, entity) {
+    makeEntityBase(deploy, entity) {
         if (entity.type == `Player`) {
-            return new UnderPlayer(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            return new UnderPlayer(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         }
-        return super.makeEntityBase(x, y, entity);
+        return super.makeEntityBase(deploy, entity);
     }
 }

@@ -699,10 +699,6 @@
                 "startY": 0,
                 "width": 32,
                 "height": 32
-            },
-            "event": {
-                "type": "talk",
-                "sentence": "Hello world"
             }
         },
         {
@@ -720,62 +716,6 @@
             },
             "sign": {
                 "file": "sign.png"
-            }
-        },
-        {
-            "type": "Event",
-            "file": "event.png",
-            "id": 7,
-            "width": 32,
-            "height": 32,
-            "collider": {
-                "type": "Rectangle",
-                "startX": 0,
-                "startY": 0,
-                "width": 32,
-                "height": 32
-            },
-            "event": {
-                "type": "waitkey"
-            }
-        },
-        {
-            "type": "Event",
-            "file": "event.png",
-            "id": 8,
-            "width": 32,
-            "height": 32,
-            "collider": {
-                "type": "Rectangle",
-                "startX": 0,
-                "startY": 0,
-                "width": 32,
-                "height": 32
-            },
-            "event": {
-                "type": "image",
-                "name": "test",
-                "file": "event.png",
-                "x": 100,
-                "y": 100
-            }
-        },
-        {
-            "type": "Event",
-            "file": "event.png",
-            "id": 9,
-            "width": 32,
-            "height": 32,
-            "collider": {
-                "type": "Rectangle",
-                "startX": 0,
-                "startY": 0,
-                "width": 32,
-                "height": 32
-            },
-            "event": {
-                "type": "delete",
-                "name": "test"
             }
         }
     ]

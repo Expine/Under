@@ -4,11 +4,12 @@
  * - Has image ID
  * - It can be collided because it has material and collider
  * - It is fixed and no change will occur
+ * - It can hold event and fire it
  * - ### Fire event
  * @implements {ImmutableEntity}
  * @classdesc Immutable event object to fire event
  */
-class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-unused-vars
+class ImmutableEventObject extends ImmutableEntity /* IEventEntity */ { // eslint-disable-line  no-unused-vars
     /**
      * Influential event object constructor
      * @constructor
@@ -16,10 +17,9 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
      * @param {number} y Y position
      * @param {number} width Entity width
      * @param {number} height Entity height
-     * @param {StageEvent} event Event
      * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, event, imageID = -1) {
+    constructor(x, y, width, height, imageID = -1) {
         super(x, y, width, height, imageID);
 
         /**
@@ -27,7 +27,7 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
          * @protected
          * @type {StageEvent}
          */
-        this.event = event;
+        this.event = null;
 
         /**
          * Whether it has already collided
@@ -48,6 +48,35 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
     }
 
     /**
+     * Set game event
+     * @override
+     * @param {GameEvent} event Stage event
+     */
+    setEvent(event) {
+        this.event = event;
+    }
+
+    /**
+     * Get stage event
+     * @override
+     * @return {GameEvent} Stage event
+     */
+    getEvent() {
+        return this.event;
+    }
+
+    /**
+     * Fires event
+     * @override
+     */
+    fire() {
+        if (this.event instanceof StageEvent) {
+            this.event.setStage(this.stage);
+        }
+        EventManager.exec.execute(this.event);
+    }
+
+    /**
      * Update entty
      * @override
      * @param {number} dt Delta time
@@ -59,10 +88,7 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
             if (BaseUtil.implementsOf(you, IPlayable)) {
                 localCollided = true;
                 if (!this.collided) {
-                    if (this.event instanceof StageEvent) {
-                        this.event.setStage(this.stage);
-                    }
-                    EventManager.exec.execute(this.event);
+                    this.fire();
                     break;
                 }
             }

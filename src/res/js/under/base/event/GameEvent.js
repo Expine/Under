@@ -41,6 +41,12 @@ class GameEvent { // eslint-disable-line  no-unused-vars
     init() {}
 
     /**
+     * Destructor of event
+     * @abstract
+     */
+    destruct() {}
+
+    /**
      * Update event
      * @abstract
      * @param {number} dt Delta time

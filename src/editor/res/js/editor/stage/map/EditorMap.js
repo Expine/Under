@@ -22,8 +22,6 @@ class EditorMap extends SequentialMap { // eslint-disable-line  no-unused-vars
             }
             data.backs.push(map);
         }
-        data.width = this.width;
-        data.height = this.height;
         return data;
     }
 }

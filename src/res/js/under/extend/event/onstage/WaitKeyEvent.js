@@ -15,13 +15,20 @@ class WaitKeyEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Destructor of event
+     * @override
+     */
+    destruct() {
+        this.stage.setEnable(true);
+    }
+
+    /**
      * Update event
      * @override
      * @param {number} dt Delta time
      */
     update(dt) {
         if (Input.it.isPress(Input.key.yes())) {
-            this.stage.setEnable(true);
             this.op.stopUpdate(this);
             this.op.stopRender(this);
             this.op.next();

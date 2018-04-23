@@ -74,13 +74,12 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Make underlying tile object
      * @protected
-     * @param {number} x Entity x position
-     * @param {number} y Entity Y position
+     * @param {JSON} deploy Entity deploy json data
      * @param {JSON} tile Tile information json data
      * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(x, y, tile) {
-        return new TileObject(tile.x, tile.y, tile.width, tile.height, x, y, tile.width, tile.height, this.loadTileImage(tile.file));
+        return new TileObject(tile.x, tile.y, tile.width, tile.height, deploy.x, deploy.y, tile.width, tile.height, this.loadTileImage(tile.file));
     }
 
     /**
@@ -108,13 +107,12 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
      * Build tile from json data
      * @override
-     * @param {number} x Entity x position
-     * @param {number} y Entity Y position
+     * @param {JSON} deploy Entity deploy json data
      * @param {JSON} json tile json data
      * @return {Entity} Generated tile
      */
-    build(x, y, json) {
-        let base = this.makeTileBase(x, y, json);
+    build(deploy, json) {
+        let base = this.makeTileBase(deploy, json);
         // set collider
         base.setCollider(this.makeCollider(json.collider));
         // set material

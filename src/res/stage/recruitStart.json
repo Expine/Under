@@ -2,6 +2,7 @@
     "width": 800,
     "height": 12800,
     "map": {
+        "type": "Sequential",
         "backs": [{
             "type": "Invariant",
             "file": "back.png"
@@ -14,8 +15,18 @@
         []
     ],
     "deploy": [{
-        "id": 0,
-        "x": 368,
-        "y": 0
-    }]
+            "id": 0,
+            "x": 368,
+            "y": 0
+        },
+        {
+            "id": 5,
+            "x": 384,
+            "y": 200,
+            "event": {
+                "type": "talk",
+                "sentence": "Hello world"
+            }
+        }
+    ]
 }
