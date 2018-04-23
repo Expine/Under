@@ -5,6 +5,27 @@
  */
 class GameEvent { // eslint-disable-line  no-unused-vars
     /**
+     * Game event constructor
+     * @constructor
+     */
+    constructor() {
+        /**
+         * Event operator
+         * @protected
+         * @type {IEventOperator}
+         */
+        this.op = null;
+    }
+
+    /**
+     * Set event operator
+     * @param {IEventOperator} op Event operator
+     */
+    setEventOperator(op) {
+        this.op = op;
+    }
+
+    /**
      * Initialize event
      * @interface
      */

@@ -92,6 +92,8 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/UnderEngine.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/UnderEngineBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/util/Util.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/base/event/IEventExecutor.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/base/event/IEventOperater.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/input/IInput.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/input/IKey.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/input/IMouse.js';document.head.appendChild(script);script.onload = function() 
@@ -103,7 +105,9 @@
 {let script = document.createElement('script');script.src='src/res/js/under/base/stage/entity/interface/IBreakable.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/stage/entity/interface/IDamagable.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/stage/entity/interface/IPlayable.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/event/onstage/ImageEvent.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/event/onstage/TalkEvent.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/event/onstage/WaitKeyEvent.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/input/KeyInput.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/input/MouseInput.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/input/PreventKeyInput.js';document.head.appendChild(script);script.onload = function() 
@@ -133,6 +137,10 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/entity/happen/attack/PunchObject.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
+};
+};
+};
 };
 };
 };

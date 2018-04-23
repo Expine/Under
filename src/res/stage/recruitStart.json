@@ -1,0 +1,21 @@
+{
+    "width": 800,
+    "height": 12800,
+    "map": {
+        "backs": [{
+            "type": "Invariant",
+            "file": "back.png"
+        }]
+    },
+    "camera": "Center",
+    "tiles": "tile.json",
+    "entities": "entity.json",
+    "layers": [
+        []
+    ],
+    "deploy": [{
+        "id": 0,
+        "x": 368,
+        "y": 0
+    }]
+}

@@ -302,7 +302,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 // remove
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        if (entity instanceof MutableEntity) {
+                        if (!(entity instanceof TileObject)) {
                             this.removeEntity(entity);
                         }
                     }
@@ -313,7 +313,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 // remove
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        if (entity instanceof ImmutableEntity) {
+                        if (entity instanceof TileObject) {
                             this.removeEntity(entity);
                         }
                     }

@@ -18,6 +18,16 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     }
 
     /**
+     * Load event image
+     * @protected
+     * @param {string} path Event image path
+     * @return {number} Event image ID
+     */
+    loadEventImage(path) {
+        return ResourceManager.image.load(`event/${path}`);
+    }
+
+    /**
      * Make rigid body
      * @protected
      * @param {json} body Rigid body information json data
@@ -74,6 +84,22 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     }
 
     /**
+     * Make event
+     * @protected
+     * @param {json} event Event json data
+     * @return {Event} Event
+     */
+    makeEvent(event) {
+        if (event.type == `talk`) {
+            return new TalkEvent(event.sentence);
+        } else if (event.type == `waitkey`) {
+            return new WaitKeyEvent();
+        } else if (event.type == `image`) {
+            return new ImageEvent(event.x, event.y, this.loadEventImage(event.file));
+        }
+    }
+
+    /**
      * Make underlying entity
      * @protected
      * @param {number} x Entity x position
@@ -91,8 +117,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         } else if (entity.type == `Sign`) {
             return new SignObject(x, y, entity.width, entity.height, this.loadCharaImage(entity.file), this.loadCharaImage(entity.sign.file));
         } else if (entity.type == `Event`) {
-            // TODO: Separate event
-            return new ImmutableEventObject(x, y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            // TODO: Maybe separat event
+            return new ImmutableEventObject(x, y, entity.width, entity.height, this.makeEvent(entity.event), this.loadCharaImage(entity.file));
         }
     }
 

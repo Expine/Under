@@ -75,11 +75,11 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
         this.screenWidth = Screen.it.width + this.screenDiffX;
         this.screenHeight = Screen.it.height + this.screenDiffY;
 
-        if (this.cameraX > 0) {
-            this.cameraX = 0;
-        }
         if (this.cameraX < this.screenWidth - width) {
             this.cameraX = this.screenWidth - width;
+        }
+        if (this.cameraX > 0) {
+            this.cameraX = 0;
         }
         if (this.cameraY > 0) {
             this.cameraY = 0;

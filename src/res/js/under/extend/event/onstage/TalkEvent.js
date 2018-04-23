@@ -1,18 +1,18 @@
 /**
  * Stage event
  * - Updates and renders event
- * - ### Controls the stage
+ * - Controls the stage
+ * - ### Start talking and stop stage
  * @classdesc Stage event to control the stage
  */
 class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     /**
      * Stage event constructor
      * @constructor
-     * @param {Stage} stage Stage for control
      * @param {string} sentence Talking sentence
      */
-    constructor(stage, sentence) {
-        super(stage);
+    constructor(sentence) {
+        super();
 
         /**
          * Talking sentence
@@ -63,7 +63,9 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
         if (Input.it.isPress(Input.key.yes())) {
             if (this.talked) {
                 this.stage.setEnable(true);
-                EventManager.it.dequeueEvent();
+                this.op.stopUpdate(this);
+                this.op.stopRender(this);
+                this.op.next();
             } else {
                 this.talkCount = this.sentence.length;
                 this.talked = true;

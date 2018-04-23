@@ -17,7 +17,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {Stage}
          */
-        this.stage = (new UnderStageParser().parse(`src/res/stage/map1.json`, Screen.it.width, Screen.it.height));
+        this.stage = (new UnderStageParser().parse(`src/res/stage/recruitStart.json`, Screen.it.width, Screen.it.height));
 
         /**
          * Game player
@@ -62,7 +62,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
         }
 
         // update event
-        EventManager.it.update(dt);
+        EventManager.exec.update(dt);
     }
 
     /**
@@ -73,6 +73,6 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     render(ctx) {
         this.stage.render(ctx);
         super.render(ctx);
-        EventManager.it.render(ctx);
+        EventManager.exec.render(ctx);
     }
 }

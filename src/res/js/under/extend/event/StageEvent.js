@@ -8,9 +8,8 @@ class StageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
     /**
      * Stage event constructor
      * @constructor
-     * @param {Stage} stage Stage for control
      */
-    constructor(stage) {
+    constructor() {
         super();
 
         /**
@@ -18,6 +17,14 @@ class StageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {Stage}
          */
+        this.stage = null;
+    }
+
+    /**
+     * Set stage
+     * @param {Stage} stage Stage to set
+     */
+    setStage(stage) {
         this.stage = stage;
     }
 }

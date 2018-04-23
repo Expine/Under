@@ -18,38 +18,97 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
          * @type {Array<GameEvent>}
          */
         this.events = [];
+
+        /**
+         * Updating events list
+         * @protected
+         * @type {Array<GameEvent>}
+         */
+        this.updatingEvents = [];
+        /**
+         * Rendering events list
+         * @protected
+         * @type {Array<GameEvent>}
+         */
+        this.renderingEvents = [];
     }
 
     /**
-     * Enqueue event for preparing to run it
+     * Execute event
      * @override
      * @param {GameEvent} event Event
      */
-    enqueueEvent(event) {
-        if (this.events.length == 0) {
-            event.init();
-        }
+    execute(event) {
+        event.setEventOperator(this);
         this.events.push(event);
+        if (this.updatingEvents.length == 0 && this.renderingEvents.length == 0) {
+            this.next();
+        }
     }
 
     /**
-     * Dequeue event for preparing to remove it
+     * Execute next event
      * @override
      */
-    dequeueEvent() {
-        this.events.splice(0, 1);
-        if (this.events.length != 0) {
-            this.getEvent().init();
+    next() {
+        let event = this.events[0];
+        if (event !== undefined) {
+            this.updatingEvents.push(event);
+            this.renderingEvents.push(event);
+            event.init();
+            this.events.splice(0, 1);
         }
     }
 
     /**
-     * Get currently running event
+     * Stop event update
+     * @override
+     * @param {GameEvent} event Target event
+     */
+    stopUpdate(event) {
+        let index = this.updatingEvents.indexOf(event);
+        if (index != -1) {
+            this.updatingEvents.splice(index, 1);
+        }
+    }
+
+    /**
+     * Stop event rendering
+     * @override
+     * @param {GameEvent} event Target event
+     */
+    stopRender(event) {
+        let index = this.renderingEvents.indexOf(event);
+        if (index != -1) {
+            this.renderingEvents.splice(index, 1);
+        }
+    }
+
+    /**
+     * Get running events by name
+     * @override
+     * @param {name} Event name
+     * @return {Array<GameEvent>} Running events that has name
+     */
+    getRunningEventsByName(name) {}
+
+    /**
+     * Get currently updating event
      * @override
      * @protected
-     * @return {GameEvent} Running event (if it not exists, return null)
+     * @return {Array<GameEvent>} Updating events
      */
-    getEvent() {
-        return this.events.length == 0 ? null : this.events[0];
+    getUpdatingEvents() {
+        return this.updatingEvents;
+    }
+
+    /**
+     * Get currently rendering event
+     * @override
+     * @protected
+     * @return {Array<GameEvent>} Rendering events
+     */
+    getRenderingEvents() {
+        return this.renderingEvents;
     }
 }

@@ -16,7 +16,7 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
      * @param {number} y Y position
      * @param {number} width Entity width
      * @param {number} height Entity height
-     * @param {GameEvent} event Event
+     * @param {StageEvent} event Event
      * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
     constructor(x, y, width, height, event, imageID = -1) {
@@ -25,7 +25,7 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
         /**
          * Event for firing
          * @protected
-         * @type {GameEvent}
+         * @type {StageEvent}
          */
         this.event = event;
 
@@ -59,7 +59,8 @@ class ImmutableEventObject extends ImmutableEntity { // eslint-disable-line  no-
             if (BaseUtil.implementsOf(you, IPlayable)) {
                 localCollided = true;
                 if (!this.collided) {
-                    EventManager.it.enqueueEvent(new TalkEvent(this.stage, `Hello World !!`));
+                    this.event.setStage(this.stage);
+                    EventManager.exec.execute(this.event);
                     break;
                 }
             }
