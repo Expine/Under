@@ -13,6 +13,12 @@ class IEventExecutor extends Interface { // eslint-disable-line  no-unused-vars
     execute(event) {}
 
     /**
+     * Clear event
+     * @abstract
+     */
+    clear() {}
+
+    /**
      * Update scene
      * @abstract
      * @param {number} dt Delta time

@@ -1,6 +1,8 @@
 /memo/
 /jsdoc/
-/recruit/
 /node_modules/
 *.class
 src/res/sound/test.mp3
+/recruit/
+recruit.json
+recruitStart.json

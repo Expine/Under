@@ -16,7 +16,7 @@ class DeleteEvent extends GameEvent { // eslint-disable-line  no-unused-vars
         /**
          * Event name to delte
          * @protected
-         * @type {number}
+         * @type {string}
          */
         this.name = name;
     }

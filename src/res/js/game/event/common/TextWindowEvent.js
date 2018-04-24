@@ -8,10 +8,34 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
     /**
      * Text window event constructor
      * @constructor
+     * @param {string} name Text unique name
+     * @param {number} x Text x position
+     * @param {number} y Text y position
      * @param {string} sentence Talking sentence
+     * @param {number} [size=-1] Font size
      */
-    constructor(sentence) {
+    constructor(name, x, y, sentence, size = -1) {
         super();
+
+        /**
+         * Text unique name
+         * @protected
+         * @type {string}
+         */
+        this.name = name;
+
+        /**
+         * Text x position
+         * @protected
+         * @type {number}
+         */
+        this.x = x;
+        /**
+         * Text y position
+         * @protected
+         * @type {number}
+         */
+        this.y = y;
 
         /**
          * Talking sentence
@@ -21,18 +45,25 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
         this.sentence = sentence;
 
         /**
-         * Talking word count
+         * Font size
          * @protected
          * @type {number}
          */
-        this.talkCount = 0;
+        this.size = size;
 
         /**
-         * Whether talking is ended or not
+         * Show count
+         * @@protected
+         * @type {number}
+         */
+        this.showCount = 0;
+
+        /**
+         * Whether Showing is ended or not
          * @protected
          * @type {boolean}
          */
-        this.talked = false;
+        this.ended = false;
     }
 
     /**
@@ -40,8 +71,8 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        this.talkCount = 0;
-        this.stage.setEnable(false);
+        super.init();
+        this.op.next();
     }
 
     /**
@@ -50,24 +81,20 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        // count up talking
-        if (!this.talked) {
-            this.talkCount += dt / 100;
-            if (this.talkCount > this.sentence.length) {
-                this.talkCount = this.sentence.length;
-                this.talked = true;
-            }
-        }
-
-        if (Input.it.isPress(Input.key.yes())) {
-            if (this.talked) {
-                this.stage.setEnable(true);
+        if (this.ended) {
+            this.showCount -= dt / 200;
+            if (this.showCount < 0) {
+                this.showCount = 0;
                 this.op.stopUpdate(this);
                 this.op.stopRender(this);
-                this.op.next();
-            } else {
-                this.talkCount = this.sentence.length;
-                this.talked = true;
+            }
+        } else {
+            this.showCount += dt / 1000;
+            if (this.showCount > 1) {
+                this.showCount = 1;
+            }
+            if (this.showCount == 1 && Input.it.isPressed(Input.key.yes())) {
+                this.ended = true;
             }
         }
     }
@@ -79,10 +106,9 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         let id = ResourceManager.image.load(`window/win2.png`);
-        let face = ResourceManager.image.load(`face/actor.png`);
-        Util.renderWindow(ctx, id, 0, 0, 600, 200);
-        Util.renderWindow(ctx, id, 610, 10, 180, 180);
-        ctx.drawImage(face, 636, 36, 128, 128);
-        ctx.fillText(this.sentence.substr(0, this.talkCount), 32, 32, 0, 0, 25);
+        let size = (this.size == -1 ? 25 : this.size) * this.showCount * this.showCount;
+        let width = ctx.measureText(this.sentence, size);
+        Util.renderWindow(ctx, id, this.x - (width + 64) / 2, this.y - (64 + size) / 2, width + 64, 64 + size);
+        ctx.fillText(this.sentence, this.x, this.y, 0.5, 0.5, size);
     }
 }

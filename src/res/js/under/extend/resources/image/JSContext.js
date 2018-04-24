@@ -29,7 +29,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
          * @private
          * @type {string}
          */
-        this.fontName_ = `Arial`;
+        this.fontName_ = `PixelMplus10`;
 
         /**
          * Color of the line
@@ -87,6 +87,15 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      */
     setFontSize(size) {
         this.fontSize_ = size;
+    }
+
+    /**
+     * Get the size of font
+     * @abstract
+     * @return {number} Size of text
+     */
+    getFontSize() {
+        return this.fontSize_;
     }
 
     /**
@@ -166,6 +175,19 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
         this.ctx_.font = size + `px ` + font;
         this.ctx_.fillStyle = color;
         this.ctx_.fillText(text, x - anchorX * this.ctx_.measureText(text).width, y + (1 - anchorY) * size);
+    }
+
+    /**
+     * Get rendering text width
+     * @abstract
+     * @param {string} text Rendering text
+     * @param {number} [size=fontSize] Font size
+     * @param {string} [font=fontName] Font name
+     * @return {number} Text width
+     */
+    measureText(text, size = this.fontSize_, font = this.fontName_) {
+        this.ctx_.font = size + `px ` + font;
+        return this.ctx_.measureText(text).width;
     }
 
     /**
@@ -252,10 +274,6 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      */
     drawImage(imageID, x, y, width, height, srcX, srcY, srcW, srcH) {
         let image = this.image.getImage(imageID);
-        if (image === undefined || image.src.indexOf(`undefined`) != -1) {
-            console.log(`Error: ${imageID}`);
-            return;
-        }
         x = Math.round(x);
         y = Math.round(y);
         if (width === undefined) {

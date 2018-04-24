@@ -70,7 +70,7 @@ class ImmutableEventObject extends ImmutableEntity /* IEventEntity */ { // eslin
      * @override
      */
     fire() {
-        if (this.event instanceof StageEvent) {
+        if (BaseUtil.implementsOf(this.event, IStageEvent)) {
             this.event.setStage(this.stage);
         }
         EventManager.exec.execute(this.event);

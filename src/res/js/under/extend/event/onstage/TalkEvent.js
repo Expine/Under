@@ -5,7 +5,7 @@
  * - ### Start talking and stop stage
  * @classdesc Talk event to control the stage
  */
-class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class TalkEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
     /**
      * Talk event constructor
      * @constructor
@@ -34,6 +34,21 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
          * @type {boolean}
          */
         this.talked = false;
+
+        /**
+         * Stage for constrol
+         * @protected
+         * @type {Stage}
+         */
+        this.stage = null;
+    }
+
+    /**
+     * Set stage
+     * @param {Stage} stage Stage to set
+     */
+    setStage(stage) {
+        this.stage = stage;
     }
 
     /**

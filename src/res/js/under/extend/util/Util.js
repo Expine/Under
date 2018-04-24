@@ -77,6 +77,10 @@ class Util { // eslint-disable-line  no-unused-vars
     static renderWindow(ctx, id, x, y, width, height) {
         let imageWidth = ResourceManager.image.getWidth(id) / 3;
         let imageHeight = ResourceManager.image.getHeight(id) / 3;
+        x = Math.floor(x);
+        y = Math.floor(y);
+        width = Math.floor(width);
+        height = Math.floor(height);
 
         ctx.drawImage(id, x, y, imageWidth, imageHeight, 0, 0, imageWidth, imageHeight);
         ctx.drawImage(id, x + imageWidth, y, width - imageWidth * 2, imageHeight, imageWidth, 0, imageWidth, imageHeight);

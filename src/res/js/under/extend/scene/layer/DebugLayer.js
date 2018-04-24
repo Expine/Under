@@ -144,5 +144,6 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         if (this.player.state != null) {
             ctx.fillText(BaseUtil.getClassName(this.player.state), Screen.it.width, 210, 1.0, 0.0, 20, `white`);
         }
+        ctx.fillText(`M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`, Screen.it.width, 240, 1.0, 0.0, 20, `white`);
     }
 }
