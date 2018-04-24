@@ -8,23 +8,24 @@
  */
 class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     /**
-     * Initialize scene
-     * @override
+     * Game scene
      */
-    init() {
+    constructor() {
+        super();
+
         /**
-         * Game stage
+         * Game stage manager
          * @protected
-         * @type {Stage}
+         * @type {StageManager}
          */
-        this.stage = (new UnderStageParser().parse(`src/res/stage/recruitStart.json`, Screen.it.width, Screen.it.height));
+        this.stageManager = null;
 
         /**
          * Game player
          * @protected
          * @type {Player}
          */
-        this.player = this.stage.getEntities().filter((it) => it instanceof Player)[0];
+        this.player = null;
 
         /**
          * Whether the game is over
@@ -32,6 +33,19 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
          * @type {boolean}
          */
         this.gameover = false;
+    }
+
+    /**
+     * Initialize scene
+     * @override
+     */
+    init() {
+        this.stageManager = new StackStageManager();
+        this.stageManager.setStageParser(new UnderStageParser());
+        this.stageManager.pushStage(`recruitStart`);
+
+        // set player
+        this.player = this.stageManager.getStage().getEntities().filter((it) => it instanceof Player)[0];
 
         // initialize layer
         this.layers.length = 0;
@@ -50,7 +64,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
             this.gameover = true;
         }
 
-        this.stage.update(dt);
+        this.stageManager.update(dt);
         super.update(dt);
         if (this.gameover) {
             // retry
@@ -71,7 +85,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx
      */
     render(ctx) {
-        this.stage.render(ctx);
+        this.stageManager.render(ctx);
         super.render(ctx);
         EventManager.exec.render(ctx);
     }

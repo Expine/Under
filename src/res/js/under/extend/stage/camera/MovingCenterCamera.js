@@ -22,8 +22,8 @@ class MovingCenterCamera extends CenterCamera { // eslint-disable-line  no-unuse
         super.setCameraPosition(x, y, width, height);
 
         if (preX != this.cameraX || preY != this.cameraY) {
-            this.cameraX = preX + (this.cameraX - preX) / 10;
-            this.cameraY = preY + (this.cameraY - preY) / 10;
+            this.cameraX = preX + (this.cameraX - preX) / 7;
+            this.cameraY = preY + (this.cameraY - preY) / 7;
         }
     }
 }

@@ -37,6 +37,8 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
             return new StageStopEvent();
         } else if (event.type == `restore`) {
             return new StageRestoreEvente();
+        } else if (event.type == `transition`) {
+            return new TransitionalEvent(event.stage, event.replace);
         } else if (event.type == `sequential`) {
             let ret = new SequentialEvent();
             for (let it of event.events) {
