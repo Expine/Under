@@ -9,7 +9,7 @@ class InvariantBackMap extends Map { // eslint-disable-line  no-unused-vars
     /**
      * Invariant back map constructor
      * @constructor
-     * @param {number} backID background image id
+     * @param {number} backID Background image id
      */
     constructor(backID) {
         super();
