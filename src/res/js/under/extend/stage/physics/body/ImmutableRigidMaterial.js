@@ -11,8 +11,9 @@ class ImmutableRigidMaterial extends RigidMaterial { // eslint-disable-line  no-
      * @param {number} [k = 0.5] Coefficient of air resistance
      * @param {number} [frictionX = 1] Coefficient of x friction coefficient
      * @param {number} [frictionY = 0] Coefficient of y friction coefficient
+     * @param {number} [g = 1] Gravity scale
      */
-    constructor(k = 0.5, frictionX = 1, frictionY = 0) {
+    constructor(k = 0.5, frictionX = 1, frictionY = 0, g = 1) {
         super();
         /**
          * Coefficient of air resistance
@@ -32,6 +33,13 @@ class ImmutableRigidMaterial extends RigidMaterial { // eslint-disable-line  no-
          * @type {number}
          */
         this.frictionYVal = frictionY;
+
+        /**
+         * Gravity scale
+         * @protected
+         * @type {number}
+         */
+        this.gVal = g;
     }
 
     /**
@@ -59,5 +67,14 @@ class ImmutableRigidMaterial extends RigidMaterial { // eslint-disable-line  no-
      */
     get frictionY() {
         return this.frictionYVal;
+    }
+
+    /**
+     * Get gravity scale
+     * @abstract
+     * @return {number} Gravity scale
+     */
+    get gravityScale() {
+        return this.gVal;
     }
 }

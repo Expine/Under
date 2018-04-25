@@ -46,7 +46,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     makeBodyMaterial(material) {
         if (material.type == `Immutable`) {
-            return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY);
+            return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
         }
         return null;
     }
@@ -89,6 +89,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             return new Obstacle(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         } else if (entity.type == `Sign`) {
             return new SignObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file), this.loadCharaImage(entity.sign.file));
+        } else if (entity.type == `Elevator`) {
+            return new Elevator(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         } else if (entity.type == `Event`) {
             return new ImmutableEventObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         }

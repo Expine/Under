@@ -1,7 +1,7 @@
 /**
  * Straight AI
  * - Determines the behavior of an entity
- * - AI to go straight ahead and reverses direction if it hit something
+ * - ### AI to go straight ahead and reverses direction if it hit something
  * @implements {AI}
  * @classdesc Straight AI to go straight ahead and reverses direction if it hit something
  */

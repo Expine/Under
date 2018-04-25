@@ -144,7 +144,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     updateExternalForce(dt) {
         for (let target of this.actors) {
             if (target.body !== null) {
-                target.body.enforce(0, this.gravity * target.material.mass);
+                target.body.enforce(0, this.gravity * target.material.mass * target.body.material.gravityScale);
             }
         }
     }

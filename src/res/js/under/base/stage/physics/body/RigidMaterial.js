@@ -62,4 +62,11 @@ class RigidMaterial { // eslint-disable-line  no-unused-vars
      * @return {number} Coefficient of y friction coefficient
      */
     get frictionY() {}
+
+    /**
+     * Get gravity scale
+     * @abstract
+     * @return {number} Gravity scale
+     */
+    get gravityScale() {}
 }

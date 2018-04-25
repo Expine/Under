@@ -717,6 +717,38 @@
             "sign": {
                 "file": "sign.png"
             }
+        },
+        {
+            "type": "Elevator",
+            "file": "enemy.png",
+            "id": 7,
+            "width": 192,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 1,
+                "startY": 0,
+                "width": 190,
+                "height": 32
+            },
+            "body": {
+                "type": "MaxAdopt",
+                "material": {
+                    "type": "Immutable",
+                    "k": 0.5,
+                    "frictionX": 0.0,
+                    "frictionY": 0.0,
+                    "g": 0.0
+                }
+            },
+            "material": {
+                "mass": 10000000,
+                "elasticity": 0.1,
+                "mu": 0.6
+            },
+            "ai": [{
+                "name": "ElevatorAI"
+            }]
         }
     ]
 }
