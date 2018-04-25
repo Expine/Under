@@ -26,6 +26,30 @@ class EventUnparser { // eslint-disable-line  no-unused-vars
         } else if (event instanceof DeleteEvent) {
             ret.type = `delete`;
             ret.name = event.name;
+        } else if (event instanceof DelayEvent) {
+            ret.type = `delay`;
+            ret.delay = event.delay;
+        } else if (event instanceof StageStopEvent) {
+            ret.type = `stop`;
+        } else if (event instanceof StageRestoreEvent) {
+            ret.type = `restore`;
+        } else if (event instanceof TransitionalEvent) {
+            ret.type = `transition`;
+            ret.stage = event.stage;
+            ret.replace = event.isReplace;
+        } else if (event instanceof TextWindowEvent) {
+            ret.type = `talkwindow`;
+            ret.name = event.name;
+            ret.x = event.x;
+            ret.y = event.y;
+            ret.sentence = event.sentence;
+            ret.size = event.size;
+        } else if (event instanceof SequentialEvent) {
+            ret.type = `sequential`;
+            ret.events = [];
+            for (let it of event.events) {
+                ret.events.push(EventUnparser.unparse(it));
+            }
         }
         return ret;
     }

@@ -27,6 +27,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @param {JSON} map Map json data
      * @return {Map} Map instance for base of parsing
      */
+    /*
     makeMap(map) {
         let ret = null;
         if (map.type == `Sequential`) {
@@ -39,6 +40,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
         }
         return ret;
     }
+    */
 
     /**
      * Make base camera for parsing stage

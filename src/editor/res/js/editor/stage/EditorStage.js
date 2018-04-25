@@ -146,7 +146,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         let data = {};
         data.width = this.stage.stageWidth;
         data.height = this.stage.stageHeight;
-        data.map = this.stage.map.getSaveData();
+        data.map = MapUnparser.unparse(this.stage.map);
         // TODO: Should I save camera?
         data.camera = `Center`;
         data.tiles = this.tileInfo.tiles;
@@ -180,7 +180,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
     restore() {
         let save = JSON.parse(this.saveData);
         let charaBuilder = new UnderCharacterBuilder();
-        let eventBuilder = new SimpleEventBuilder();
+        let eventBuilder = new UnderEventBuilder();
         let entities = this.getEntities();
         for (let i = entities.length - 1; i >= 0; --i) {
             if (!(entities[i] instanceof TileObject)) {

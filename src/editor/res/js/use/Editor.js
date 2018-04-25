@@ -1,4 +1,5 @@
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/event/EventUnparser.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/editor/res/js/editor/stage/map/MapUnparser.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/Engine.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/EngineBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/event/EventManager.js';document.head.appendChild(script);script.onload = function() 
@@ -233,6 +234,7 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerWalkState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/EditorMain.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
 };
 };
 };
