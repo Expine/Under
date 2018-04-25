@@ -10,21 +10,21 @@
  */
 class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  no-unused-vars
     /**
-     * Make base collider
+     * Make collider
      * @protected
      * @param {JSON} collider Collider information json data
      * @return {Collider} Collider
      */
-    makeBaseCollider(collider) {
+    makeCollider(collider) {
         if (collider.excluded) {
-            if (collider.type == `Rectangle`) {
-                return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
-            } else if (collider.type == `RoundRectangle`) {
-                return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
+            switch (collider.type) {
+                case `Rectangle`:
+                    return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
+                case `RoundRectangle`:
+                    return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
             }
-        } else {
-            return super.makeBaseCollider(collider);
         }
+        return super.makeCollider(collider);
     }
 
     /**
@@ -32,18 +32,40 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @override
      * @protected
      * @param {JSON} ai AI information json data
-     * @param {JSON} animation AI animation json data
      * @return {AI} AI
      */
-    makeAI(ai, animation) {
-        let ret = eval(`new ${ai.name}()`);
-        if (ret instanceof StateAI) {
+    makeAI(ai) {
+        let ret = null;
+        switch (ai.type) {
+            case `CommonBaseStateAI`:
+                ret = new CommonBaseStateAI();
+                break;
+            case `NormalBaseStateAI`:
+                ret = new NormalBaseStateAI();
+                break;
+            default:
+                ret = super.makeAI(ai);
+                break;
+        }
+        return ret;
+    }
+
+    /**
+     * Process AI
+     * @override
+     * @protected
+     * @param {AI} ai Target AI
+     * @param {JSON} animation AI animation json data
+     * @return {AI} Processed AI
+     */
+    processAI(ai, animation) {
+        if (ai instanceof StateAI) {
             for (let name in animation) {
                 if (animation.hasOwnProperty(name)) {
-                    let target = ret.getStateByID(name);
+                    let target = ai.getStateByID(name);
                     if (target === undefined) {
                         target = new NormalNoneState();
-                        ret.setState(target, name);
+                        ai.setState(target, name);
                     }
                     if (BaseUtil.implementsOf(target, IAnimationable)) {
                         target.setAnimation(this.makeAnimation(animation[name]));
@@ -51,7 +73,6 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
                 }
             }
         }
-        return ret;
     }
 
     /**
@@ -63,9 +84,11 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(deploy, entity) {
-        if (entity.type == `Player`) {
-            return new UnderPlayer(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+        switch (entity.type) {
+            case `Player`:
+                return new UnderPlayer(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            default:
+                return super.makeEntityBase(deploy, entity);
         }
-        return super.makeEntityBase(deploy, entity);
     }
 }

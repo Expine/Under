@@ -24,18 +24,16 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {RigidBody} Rigid body
      */
     makeBody(body) {
-        let ret = null;
-        if (body.type == `MaxAdopt`) {
-            ret = new MaxAdoptBody();
-        } else if (body.type == `Precise`) {
-            ret = new PreciseBody();
-        } else if (body.type == `Player`) {
-            ret = new PlayerBody();
+        switch (body.type) {
+            case `MaxAdopt`:
+                return new MaxAdoptBody();
+            case `Precise`:
+                return new PreciseBody();
+            case `Player`:
+                return new PlayerBody();
+            default:
+                return null;
         }
-        if (ret != null) {
-            ret.setMaterial(this.makeBodyMaterial(body.material));
-        }
-        return ret;
     }
 
     /**
@@ -45,32 +43,56 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {RigidBodyMaterial} Rigid body material
      */
     makeBodyMaterial(material) {
-        if (material.type == `Immutable`) {
-            return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
+        switch (material.type) {
+            case `Immutable`:
+                return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
+            default:
+                return null;
         }
-        return null;
     }
 
     /**
      * Make AI
      * @protected
      * @param {JSON} ai AI information json data
-     * @param {JSON} animation AI animation json data
      * @return {AI} AI
      */
     makeAI(ai, animation) {
-        let ret = eval(`new ${ai.name}()`);
-        if (ret instanceof StateAI) {
+        switch (ai.type) {
+            case `EnemyAI`:
+                return new EnemyAI();
+            case `StraightAI`:
+                return new StraightAI();
+            case `JumpAI`:
+                return new JumpAI();
+            case `ElevatorAI`:
+                return new ElevatorAI();
+            case `PlayerGameoverStateAI`:
+                return new PlayerGameoverStateAI();
+            case `PlayerBaseStateAI`:
+                return new PlayerBaseStateAI();
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Process AI
+     * @protected
+     * @param {AI} ai Target AI
+     * @param {JSON} animation AI animation json data
+     */
+    processAI(ai, animation) {
+        if (ai instanceof StateAI) {
             for (let name in animation) {
                 if (animation.hasOwnProperty(name)) {
-                    let target = ret.getStateByName(name);
+                    let target = ai.getStateByName(name);
                     if (BaseUtil.implementsOf(target, IAnimationable)) {
                         target.setAnimaton(this.makeAnimation(animation[name]));
                     }
                 }
             }
         }
-        return ret;
     }
 
     /**
@@ -81,18 +103,19 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(deploy, entity) {
-        if (entity.type == `Player`) {
-            return new Player(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
-        } else if (entity.type == 'Enemy') {
-            return new Enemy(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
-        } else if (entity.type == `Obstacle`) {
-            return new Obstacle(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
-        } else if (entity.type == `Sign`) {
-            return new SignObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file), this.loadCharaImage(entity.sign.file));
-        } else if (entity.type == `Elevator`) {
-            return new Elevator(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
-        } else if (entity.type == `Event`) {
-            return new ImmutableEventObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+        switch (entity.type) {
+            case `Player`:
+                return new Player(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            case `Enemy`:
+                return new Enemy(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            case `Obstacle`:
+                return new Obstacle(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            case `Sign`:
+                return new SignObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file), this.loadCharaImage(entity.sign.file));
+            case `Elevator`:
+                return new Elevator(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+            case `Event`:
+                return new ImmutableEventObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
         }
     }
 
@@ -105,14 +128,25 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     build(deploy, json) {
         let base = this.makeEntityBase(deploy, json);
-        base.setCollider(this.makeCollider(json.collider));
+        let collider = this.makeCollider(json.collider);
+        if (collider != null) {
+            collider.setAABB(this.makeAABB(json.collider));
+        }
+        base.setCollider(collider);
         base.setMaterial(this.makeMaterial(json.material));
         if (base instanceof MutableEntity) {
             base.setRigidBody(this.makeBody(json.body));
+            if (base.body != null) {
+                base.body.setMaterial(this.makeBodyMaterial(json.body.material));
+            }
         }
         if (json.ai !== undefined && base instanceof AutonomyEntitiy) {
             for (let ai of json.ai) {
-                base.addAI(this.makeAI(ai, json.state));
+                let attach = this.makeAI(ai);
+                if (attach != null) {
+                    this.processAI(attach, json.state);
+                    base.addAI(attach);
+                }
             }
         }
         if (json.animation !== undefined && BaseUtil.implementsOf(base, IAnimationable)) {

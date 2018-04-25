@@ -31,10 +31,10 @@
                 "mu": 0.1
             },
             "ai": [{
-                    "name": "CommonBaseStateAI"
+                    "type": "CommonBaseStateAI"
                 },
                 {
-                    "name": "NormalBaseStateAI"
+                    "type": "NormalBaseStateAI"
                 }
             ],
             "state": {
@@ -591,7 +591,7 @@
                 "mu": 0.95
             },
             "ai": [{
-                "name": "EnemyAI"
+                "type": "EnemyAI"
             }]
         },
         {
@@ -623,7 +623,7 @@
                 "mu": 0.95
             },
             "ai": [{
-                "name": "JumpAI"
+                "type": "JumpAI"
             }]
         },
         {
@@ -655,7 +655,7 @@
                 "mu": 0.95
             },
             "ai": [{
-                "name": "EnemyAI"
+                "type": "EnemyAI"
             }]
         },
         {
@@ -720,16 +720,17 @@
         },
         {
             "type": "Elevator",
-            "file": "enemy.png",
+            "file": "elevator.png",
             "id": 7,
             "width": 192,
             "height": 32,
             "collider": {
-                "type": "Rectangle",
-                "startX": 1,
-                "startY": 0,
-                "width": 190,
-                "height": 32
+                "type": "RoundRectangle",
+                "startX": 6,
+                "startY": 8,
+                "width": 180,
+                "height": 24,
+                "cut": 5
             },
             "body": {
                 "type": "MaxAdopt",
@@ -747,7 +748,7 @@
                 "mu": 0.6
             },
             "ai": [{
-                "name": "ElevatorAI"
+                "type": "ElevatorAI"
             }]
         }
     ]

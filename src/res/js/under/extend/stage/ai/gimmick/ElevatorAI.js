@@ -17,7 +17,7 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.maxVelocityY = 300;
+        this.maxVelocityY = 100;
         /**
          * Force applied when moving
          * @protected
@@ -51,7 +51,7 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
                 }
             }
         }
-        if (Math.abs(this.entity.body.velocityX) < this.maxVelocityY) {
+        if (Math.abs(this.entity.body.velocityY) < this.maxVelocityY) {
             this.entity.body.enforce(0, this.entity.directionY * this.movePower * this.entity.material.mass);
         }
         return true;

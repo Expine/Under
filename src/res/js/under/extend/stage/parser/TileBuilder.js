@@ -23,27 +23,15 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {Collider} Collider
      */
     makeCollider(collider) {
-        let ret = this.makeBaseCollider(collider);
-        ret.setAABB(this.makeAABB(collider));
-        return ret;
-    }
-
-    /**
-     * Make base collider
-     * @protected
-     * @param {JSON} collider Collider information json data
-     * @return {Collider} Collider
-     */
-    makeBaseCollider(collider) {
-        if (collider.type == `Rectangle`) {
-            return new RectangleCollider(collider.startX, collider.startY, collider.width, collider.height);
-        } else if (collider.type == `Circle`) {
-            return new CircleCollider(ret.radius, ret.shiftX, ret.shiftY);
-        } else if (collider.type == `RoundRectangle`) {
-            return new RoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut);
+        switch (collider.type) {
+            case `Rectangle`:
+                return new RectangleCollider(collider.startX, collider.startY, collider.width, collider.height);
+            case `Circle`:
+                return new CircleCollider(ret.radius, ret.shiftX, ret.shiftY);
+            case `RoundRectangle`:
+                return new RoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut);
         }
     }
-
     /**
      * Make AABB
      * @protected
@@ -114,7 +102,11 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     build(deploy, json) {
         let base = this.makeTileBase(deploy, json);
         // set collider
-        base.setCollider(this.makeCollider(json.collider));
+        let collider = this.makeCollider(json.collider);
+        if (collider != null) {
+            collider.setAABB(this.makeAABB(json.collider));
+        }
+        base.setCollider(collider);
         // set material
         base.setMaterial(this.makeMaterial(json.material));
         return base;

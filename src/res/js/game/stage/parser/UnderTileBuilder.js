@@ -15,14 +15,14 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     makeBaseCollider(collider) {
         if (collider !== undefined && collider.excluded) {
-            if (collider.type == `Rectangle`) {
-                return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
-            } else if (collider.type == `RoundRectangle`) {
-                return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
+            switch (collider.type) {
+                case `Rectangle`:
+                    return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
+                case `RoundRectangle`:
+                    return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
             }
-        } else {
-            return super.makeBaseCollider(collider);
         }
+        return super.makeBaseCollider(collider);
     }
 
     /**
