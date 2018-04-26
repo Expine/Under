@@ -30,15 +30,21 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
                 data.ny = -data.ny;
                 nx = -nx;
                 ny = -ny;
+                let nm1 = (e2.material.mass) / (e1.material.mass + e2.material.mass) * d / 10;
+                let n1x = -nx * nm1;
+                let n1y = -ny * nm1;
+                let nm2 = (e1.material.mass) / (e1.material.mass + e2.material.mass) * d / 10;
+                let n2x = nx * nm2;
+                let n2y = ny * nm2;
                 // push back
                 if (d > 1.0e-4) {
                     let i = 0;
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                         if (b1 !== undefined) {
-                            e1.deltaMove(-nx * d / 10, -ny * d / 10);
+                            e1.deltaMove(n1x, n1y);
                         }
                         if (b2 !== undefined) {
-                            e2.deltaMove(nx * d / 10, ny * d / 10);
+                            e2.deltaMove(n2x, n2y);
                         }
                     }
                 }
@@ -72,28 +78,40 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                if (dot2 > 0 || e1 instanceof AutonomyEntitiy) {
+                let nm1 = (e2.material.mass) / (e1.material.mass + e2.material.mass) * d / 10;
+                let n1x = -nx * nm1;
+                let n1y = -ny * nm1;
+                let nm2 = (e1.material.mass) / (e1.material.mass + e2.material.mass) * d / 10;
+                let n2x = nx * nm2;
+                let n2y = ny * nm2;
+                while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                    e1.deltaMove(n1x, n1y);
+                    e2.deltaMove(n2x, n2y);
+                }
+                /*
+            if (dot2 > 0 || e1 instanceof AutonomyEntitiy) {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e1.deltaMove(-nx * d / 10, -ny * d / 10);
+                        e1.deltaMove(n1x, n1y);
                     }
                 } else if (e2 instanceof AutonomyEntitiy) {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e2.deltaMove(nx * d / 10, ny * d / 10);
+                        e2.deltaMove(n2x, n2y);
                     }
                 } else if (v1 > v2) {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e1.deltaMove(-nx * d / 10, -ny * d / 10);
+                        e1.deltaMove(n1x, n1y);
                     }
                 } else if (v2 < v1) {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e2.deltaMove(nx * d / 10, ny * d / 10);
+                        e2.deltaMove(n2x, n2y);
                     }
                 } else {
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e1.deltaMove(-nx * d / 10, -ny * d / 10);
-                        e2.deltaMove(nx * d / 10, ny * d / 10);
+                        e1.deltaMove(n1x, n1y);
+                        e2.deltaMove(n2x, n2y);
                     }
                 }
+                */
             }
             // check impossible collision
             if (Math.abs(v1) < Math.abs(v2) && dot2 >= 0) {
@@ -132,32 +150,16 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             let p = Math.sqrt(px * px + py * py);
             let dvx = 0;
             let dvy = 0;
-            if (b2 === undefined || (b2.isFixX && b2.iFixY)) {
-                // e2 is fixed object
-                let dot = Math.sign((b1.velocityX) * -ny + (b1.velocityY) * nx);
-                dvx = dot * -ny * p * mu * dt / 1000;
-                dvy = dot * nx * p * mu * dt / 1000;
-                if (Math.abs(dvx) > Math.abs(b1.velocityX)) {
-                    dvx = b1.velocityX;
-                }
-                if (Math.abs(dvy) > Math.abs(b1.velocityY)) {
-                    dvy = b1.velocityY;
-                }
-            } else {
-                // e2 is moving object
-                let dot = Math.sign((b2.diffX * b2.velocityX < 0 ? b1.velocityX : b1.diffX - b2.diffX) * -ny + (b2.diffY * b2.velocityY < 0 ? b1.velocityY : b1.diffY - b2.diffY) * nx);
-                dvx = dot * -ny * p * mu * dt / 1000;
-                dvy = dot * nx * p * mu * dt / 1000;
-                if (b2.diffX * b2.velocityX < 0) {
-                    if (Math.abs(dvx) > Math.abs(b1.velocityX)) {
-                        dvx = b1.velocityX;
-                    }
-                }
-                if (b2.diffY * b2.velocityY < 0) {
-                    if (Math.abs(dvy) > Math.abs(b1.velocityY)) {
-                        dvy = b1.velocityY;
-                    }
-                }
+            let ovx = (b2 === undefined || b2.isFixX || b2.diffX * b2.velocityX < 0) ? b1.velocityX : b1.diffX - b2.diffX;
+            let ovy = (b2 === undefined || b2.isFixY || b2.diffY * b2.velocityY < 0) ? b1.velocityY : b1.diffY - b2.diffY;
+            let dot = Math.sign(ovx * -ny + ovy * nx);
+            dvx = dot * -ny * p * mu * dt / 1000;
+            dvy = dot * nx * p * mu * dt / 1000;
+            if (ovx == b1.velocityX && Math.abs(dvx) > Math.abs(b1.velocityX)) {
+                dvx = b1.velocityX;
+            }
+            if (ovy == b1.velocityY && Math.abs(dvy) > Math.abs(b1.velocityY)) {
+                dvy = b1.velocityY;
             }
             vdx1 -= dvx * b1.material.frictionX;
             // Apply only to down wall
@@ -171,30 +173,16 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             let p = Math.sqrt(px * px + py * py);
             let dvx = 0;
             let dvy = 0;
-            if (b1.isFixX && b1.isFixY) {
-                let dot = Math.sign((b2.velocityX) * -ny + (b2.velocityY) * nx);
-                dvx = dot * -ny * p * mu * dt / 1000;
-                dvy = dot * nx * p * mu * dt / 1000;
-                if ((Math.abs(dvx) > Math.abs(b2.velocityX))) {
-                    dvx = b2.velocityX;
-                }
-                if ((Math.abs(dvy) > Math.abs(b2.velocityY))) {
-                    dvy = b2.velocityY;
-                }
-            } else {
-                let dot = Math.sign((b1.diffX * b1.velocityX < 0 ? b2.velocityX : b2.diffX - b1.diffX) * -ny + (b1.diffY * b1.velocityY < 0 ? b2.velocityY : b2.diffY - b1.diffY) * nx);
-                dvx = dot * -ny * p * mu * dt / 1000;
-                dvy = dot * nx * p * mu * dt / 1000;
-                if (b1.diffX * b1.velocityX < 0) {
-                    if (Math.abs(dvx) > Math.abs(b2.velocityX)) {
-                        dvx = b2.velocityX;
-                    }
-                }
-                if (b1.diffY * b1.velocityY < 0) {
-                    if (Math.abs(dvy) > Math.abs(b2.velocityY)) {
-                        dvy = b2.velocityY;
-                    }
-                }
+            let ovx = (b1.isFixX || b1.diffX * b1.velocityX < 0) ? b2.velocityX : b2.diffX - b1.diffX;
+            let ovy = (b1.isFixY || b1.diffY * b1.velocityY < 0) ? b2.velocityY : b2.diffY - b1.diffY;
+            let dot = Math.sign(ovx * -ny + ovy * nx);
+            dvx = dot * -ny * p * mu * dt / 1000;
+            dvy = dot * nx * p * mu * dt / 1000;
+            if (ovx == b2.velocityX && Math.abs(dvx) > Math.abs(b2.velocityX)) {
+                dvx = b2.velocityX;
+            }
+            if (ovy == b2.velocityY && Math.abs(dvy) > Math.abs(b2.velocityY)) {
+                dvy = b2.velocityY;
             }
             vdx2 -= dvx * b2.material.frictionX;
             // Apply only to down wall

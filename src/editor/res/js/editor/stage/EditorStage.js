@@ -95,9 +95,11 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         super.addEntity(entity);
         // onece update
         entity.update(30);
+        /*
         if (entity instanceof Player) {
             // this.stage.camera.setCameraPosition(-entity.x + Screen.it.width / 2, -entity.y + Screen.it.height / 2, this.stageWidth, this.stageHeight);
         }
+        */
     }
 
 
@@ -244,7 +246,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 }
             }
             if (!this.debugMode || (Input.it.isPress(Input.key.a()) || Input.it.isPressed(Input.key.a() + 1))) {
-                super.update(dt);
+                super.update(Input.it.isPressed(Input.key.a() + 8) ? dt * 10 : dt);
             }
         } else {
             // move camera to end

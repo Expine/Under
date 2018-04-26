@@ -189,8 +189,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         // make tile
         for (let layer of stage.layers) {
             for (let chip of layer) {
-                this.addTile(base, layerIndex++, chip, stage.tileInfo);
+                this.addTile(base, layerIndex, chip, stage.tileInfo);
             }
+            layerIndex += 1;
         }
         // make entity
         for (let entity of stage.deploy) {
