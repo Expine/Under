@@ -57,6 +57,7 @@ class TalkEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  
      */
     init() {
         this.talkCount = 0;
+        this.talked = false;
         this.stage.setEnable(false);
     }
 
@@ -106,6 +107,18 @@ class TalkEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  
         Util.renderWindow(ctx, id, 0, 0, 600, 200);
         Util.renderWindow(ctx, id, 610, 10, 180, 180);
         ctx.drawImage(face, 636, 36, 128, 128);
-        ctx.fillText(this.sentence.substr(0, this.talkCount), 32, 32, 0, 0, 25);
+        // measure text
+        let texts = [];
+        texts.push(``);
+        for (let word of this.sentence.substr(0, this.talkCount)) {
+            if (ctx.measureText(texts[texts.length - 1] + word, 25) <= 536) {
+                texts[texts.length - 1] += word;
+            } else {
+                texts.push(word);
+            }
+        }
+        for (let i = 0; i < texts.length; ++i) {
+            ctx.fillText(texts[i], 32, 32 + 35 * i, 0, 0, 25);
+        }
     }
 }
