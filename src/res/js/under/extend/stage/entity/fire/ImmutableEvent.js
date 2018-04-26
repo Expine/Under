@@ -101,4 +101,17 @@ class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line 
         }
         this.collided = localCollided;
     }
+
+    /**
+     * Render entity
+     * @abstract
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {
+        if (Engine.debug) {
+            this.eventCollider.render(ctx, shiftX, shiftY);
+        }
+    }
 }

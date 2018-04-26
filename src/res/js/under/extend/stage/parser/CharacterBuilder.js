@@ -117,9 +117,11 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 break;
             case `Sign`:
                 ret = new SignObject();
-                collider = this.makeCollider(deploy.collider);
-                collider.setAABB(this.makeAABB(deploy.collider));
-                ret.setSign(this.loadCharaImage(deploy.sign.file), collider);
+                collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
+                collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                ret.setCollider(collider);
+                let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
+                ret.setSign(signData.x, signData.y, signData.width, signData.height, this.loadCharaImage(signData.file));
                 break;
             case `Elevator`:
                 ret = new Elevator();

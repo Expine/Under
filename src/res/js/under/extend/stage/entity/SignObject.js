@@ -22,6 +22,31 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
         this.signID = -1;
 
         /**
+         * Sign realative x position
+         * @protected
+         * @type {number}
+         */
+        this.signX = 0;
+        /**
+         * Sign realative y position
+         * @protected
+         * @type {number}
+         */
+        this.signY = 0;
+        /**
+         * Sign width
+         * @protected
+         * @type {number}
+         */
+        this.signWidth = 0;
+        /**
+         * Sign height
+         * @protected
+         * @type {number}
+         */
+        this.signHeight = 0;
+
+        /**
          * Sign collider for
          * @protected
          * @type {Collider}
@@ -52,11 +77,26 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
 
     /**
      * Set sign information
+     * @param {number} x Sign relative x position
+     * @param {number} y Sign relative y position
+     * @param {number} width Sign width
+     * @param {number} height Sign height
      * @param {number} imageID Sign image ID
-     * @param {Collider} collider Sign collider
      */
-    setSign(imageID, collider) {
+    setSign(x, y, width, height, imageID) {
+        this.signX = x;
+        this.signY = y;
+        this.signWidth = width;
+        this.signHeight = height;
         this.signID = imageID;
+    }
+
+    /**
+     * Set collider
+     * @override
+     * @param {Collider} collider collider
+     */
+    setCollider(collider) {
         this.signCollider = collider;
         this.signCollider.setEntity(this);
     }
@@ -114,7 +154,7 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
         }
         if (this.isShowSign && this.currentHeight == this.height) {
             if (this.signID != -1) {
-                ctx.drawImage(this.signID, this.x + shiftX, this.y + shiftY - 100);
+                ctx.drawImage(this.signID, this.x + shiftX + this.signX, this.y + shiftY - 100 + this.signY, this.signWidth, this.signHeight);
             }
         }
         if (Engine.debug) {
