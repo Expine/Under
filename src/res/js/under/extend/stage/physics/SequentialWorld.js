@@ -93,21 +93,21 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     /**
      * Get collision information now
      * @override
-     * @param {InfluentialEntity} entity Target entity
+     * @param {Collider} collider Target collider
      * @return {Array<CollisionData>} Collision information now
      */
-    getCollisionData(entity) {
+    getCollisionData(collider) {
         let ret = [];
-        if (entity.collider === null) {
+        if (collider === null) {
             return ret;
         }
         let data = new CollisionData();
         for (let it of this.entities) {
             let itCollider = it.collider;
-            if (itCollider === null || it === entity) {
+            if (itCollider === null || it === collider.entity) {
                 continue;
             }
-            if (entity.collider.isCollisionRoughly(itCollider) && entity.collider.isCollision(itCollider, data)) {
+            if (collider.isCollisionRoughly(itCollider) && collider.isCollision(itCollider, data)) {
                 ret.push(data);
                 data = new CollisionData();
             }

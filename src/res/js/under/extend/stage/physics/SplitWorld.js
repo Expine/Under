@@ -55,8 +55,8 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
         } else {
             let sx = Math.floor(entity.collider.aabb.startX / this.splitNumber);
             let sy = Math.floor(entity.collider.aabb.startY / this.splitNumber);
-            let ex = Math.floor((entity.collider.aabb.endX) / this.splitNumber);
-            let ey = Math.floor((entity.collider.aabb.endY) / this.splitNumber);
+            let ex = Math.floor(entity.collider.aabb.endX / this.splitNumber);
+            let ey = Math.floor(entity.collider.aabb.endY / this.splitNumber);
             for (let y = sy; y <= ey; ++y) {
                 for (let x = sx; x <= ex; ++x) {
                     this.notActorsMap[x + this.stageWidth * y].push(entity);
@@ -83,10 +83,10 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
         index = this.notActors.indexOf(entity);
         if (index >= 0) {
             this.notActors.splice(index, 1);
-            let sx = Math.floor(entity.x / this.splitNumber);
-            let sy = Math.floor(entity.y / this.splitNumber);
-            let ex = Math.floor((entity.x + entity.width) / this.splitNumber);
-            let ey = Math.floor((entity.y + entity.height) / this.splitNumber);
+            let sx = Math.floor(entity.collider.aabb.startX / this.splitNumber);
+            let sy = Math.floor(entity.collider.aabb.startY / this.splitNumber);
+            let ex = Math.floor(entity.collider.aabb.endX / this.splitNumber);
+            let ey = Math.floor(entity.collider.aabb.endY / this.splitNumber);
             for (let y = sy; y <= ey; ++y) {
                 for (let x = sx; x <= ex; ++x) {
                     this.notActorsMap[x + this.stageWidth * y].splice(this.notActorsMap[x + this.stageWidth * y].indexOf(entity), 1);
@@ -98,29 +98,29 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
     /**
      * Get collision information now
      * @override
-     * @param {InfluentialEntity} entity Target entity
+     * @param {Collider} collider Target collider
      * @return {Array<CollisionData>} Collision information now
      */
-    getCollisionData(entity) {
+    getCollisionData(collider) {
         let ret = [];
-        if (entity.collider === null) {
+        if (collider === null) {
             return ret;
         }
         let data = new CollisionData();
         for (let it of this.actors) {
             let itCollider = it.collider;
-            if (itCollider === null || it === entity) {
+            if (itCollider === null || it === collider.entity) {
                 continue;
             }
-            if (entity.collider.isCollisionRoughly(itCollider) && entity.collider.isCollision(itCollider, data)) {
+            if (collider.isCollisionRoughly(itCollider) && collider.isCollision(itCollider, data)) {
                 ret.push(data);
                 data = new CollisionData();
             }
         }
-        let sx = Math.floor(entity.x / this.splitNumber);
-        let sy = Math.floor(entity.y / this.splitNumber);
-        let ex = Math.floor((entity.x + entity.width) / this.splitNumber);
-        let ey = Math.floor((entity.y + entity.height) / this.splitNumber);
+        let sx = Math.floor(collider.aabb.startX / this.splitNumber);
+        let sy = Math.floor(collider.aabb.startY / this.splitNumber);
+        let ex = Math.floor(collider.aabb.endX / this.splitNumber);
+        let ey = Math.floor(collider.aabb.endY / this.splitNumber);
         if (sx < 0 || sy < 0 || ex >= this.stageWidth || ey >= this.stageHeight) {
             return ret;
         }
@@ -128,14 +128,14 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
             for (let x = sx; x <= ex; ++x) {
                 for (let it of this.notActorsMap[x + this.stageWidth * y]) {
                     let itCollider = it.collider;
-                    if (itCollider === null || it === entity) {
+                    if (itCollider === null || it === collider.entity) {
                         continue;
                     }
-                    if (entity.collider.isCollisionRoughly(itCollider) && entity.collider.isCollision(itCollider, data)) {
+                    if (collider.isCollisionRoughly(itCollider) && collider.isCollision(itCollider, data)) {
                         let same = false;
                         for (let j = 0; j < ret.length; ++j) {
                             let col = this.collisions[j];
-                            if ((col.e1 === entity && col.e2 === it) || (col.e2 === entity && col.e1 === it)) {
+                            if ((col.e1 === collider.entity && col.e2 === it) || (col.e2 === collider.entity && col.e1 === it)) {
                                 same = true;
                                 break;
                             }
@@ -208,10 +208,10 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
             if (targetCollider === null) {
                 continue;
             }
-            let sx = Math.floor(target.x / this.splitNumber);
-            let sy = Math.floor(target.y / this.splitNumber);
-            let ex = Math.floor((target.x + target.width) / this.splitNumber);
-            let ey = Math.floor((target.y + target.height) / this.splitNumber);
+            let sx = Math.floor(targetCollider.aabb.startX / this.splitNumber);
+            let sy = Math.floor(targetCollider.aabb.startY / this.splitNumber);
+            let ex = Math.floor(targetCollider.aabb.endX / this.splitNumber);
+            let ey = Math.floor(targetCollider.aabb.endY / this.splitNumber);
             if (sx < 0 || sy < 0 || ex >= this.stageWidth || ey >= this.stageHeight) {
                 continue;
             }

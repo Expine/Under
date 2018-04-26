@@ -116,7 +116,9 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 break;
             case `Sign`:
                 ret = new SignObject();
-                ret.setSign(this.loadCharaImage(entity.sign.file));
+                let collider = this.makeCollider(deploy.collider);
+                collider.setAABB(this.makeAABB(deploy.collider));
+                ret.setSign(this.loadCharaImage(deploy.sign.file), collider);
                 break;
             case `Elevator`:
                 ret = new Elevator();
@@ -144,12 +146,14 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     build(deploy, json) {
         let base = this.makeEntityBase(deploy, json);
-        let collider = this.makeCollider(json.collider);
-        if (collider != null) {
-            collider.setAABB(this.makeAABB(json.collider));
+        if (base instanceof InfluentialEntity) {
+            let collider = this.makeCollider(json.collider);
+            if (collider != null) {
+                collider.setAABB(this.makeAABB(json.collider));
+            }
+            base.setCollider(collider);
+            base.setMaterial(this.makeMaterial(json.material));
         }
-        base.setCollider(collider);
-        base.setMaterial(this.makeMaterial(json.material));
         if (base instanceof MutableEntity) {
             base.setRigidBody(this.makeBody(json.body));
             if (base.body != null) {

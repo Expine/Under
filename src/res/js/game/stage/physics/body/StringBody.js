@@ -221,7 +221,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             yRepulsionList[i] = false;
             // check collision
             if (this.enableList[i]) {
-                let data = world.getCollisionData(it.entity);
+                let data = world.getCollisionData(it.entity.collider);
                 for (let col of data) {
                     if (!col.e1.collider.isResponse(col.e2.collider) || !col.e2.collider.isResponse(col.e1.collider)) {
                         continue;
@@ -296,7 +296,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                     // move
                     it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
                     // check collision
-                    let data = world.getCollisionData(it.entity);
+                    let data = world.getCollisionData(it.entity.collider);
                     for (let col of data) {
                         if (!col.e1.collider.isResponse(col.e2.collider) || !col.e2.collider.isResponse(col.e1.collider)) {
                             continue;

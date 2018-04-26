@@ -175,7 +175,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
             let my = Input.mouse.getMouseY() + startY;
             for (let it of this.getEntities()) {
                 if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
-                    if (it.collider !== null) {
+                    if (it instanceof InfluentialEntity && it.collider !== null) {
                         // render collider
                         it.collider.render(ctx, this.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
                         // render information

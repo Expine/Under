@@ -82,7 +82,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
                 let count = 0;
                 let dx = Math.sign(this.entity.body.velocityX);
                 let dy = Math.sign(this.entity.body.velocityY);
-                while (this.entity.stage.getPhysicalWorld().getCollisionData(this.entity).length == 0 && ++count < 8) {
+                while (this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).length == 0 && ++count < 8) {
                     this.entity.deltaMove(dx, dy);
                 }
                 // hook

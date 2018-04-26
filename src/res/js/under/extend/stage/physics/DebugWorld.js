@@ -60,11 +60,11 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
     /**
      * Get collision information now
      * @override
-     * @param {InfluentialEntity} entity Target entity
+     * @param {Collider} collider Target collider
      * @return {Array<CollisionData>} Collision information now
      */
-    getCollisionData(entity) {
-        return this.world.getCollisionData(entity);
+    getCollisionData(collider) {
+        return this.world.getCollisionData(collider);
     }
 
     /**

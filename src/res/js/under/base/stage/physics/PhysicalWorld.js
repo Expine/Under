@@ -60,10 +60,10 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     /**
      * Get collision information now
      * @abstract
-     * @param {InfluentialEntity} entity Target entity
+     * @param {Collider} collider Target collider
      * @return {Array<CollisionData>} Collision information now
      */
-    getCollisionData(entity) {}
+    getCollisionData(collider) {}
 
     /**
      * Get the total number of collisions

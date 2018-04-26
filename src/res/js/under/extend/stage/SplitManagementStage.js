@@ -158,10 +158,10 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         let endX = startX + this.camera.screenWidth;
         let endY = startY + this.camera.screenHeight;
         // sort
-        this.entities.sort((a, b) => {
+        let sortedList = Object.assign([], this.entities).sort((a, b) => {
             return a.z < b.z ? -1 : a.z > b.z ? 1 : 0;
         });
-        for (let it of this.entities) {
+        for (let it of sortedList) {
             if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
                 it.render(ctx, this.camera.baseX - startX, this.camera.baseY - startY);
             }
