@@ -32,9 +32,10 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @override
      * @protected
      * @param {JSON} ai AI information json data
+     * @param {JSON} deploy AI deploy json data
      * @return {AI} AI
      */
-    makeAI(ai) {
+    makeAI(ai, deploy) {
         let ret = null;
         switch (ai.type) {
             case `CommonBaseStateAI`:
@@ -44,7 +45,7 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
                 ret = new NormalBaseStateAI();
                 break;
             default:
-                ret = super.makeAI(ai);
+                ret = super.makeAI(ai, deploy);
                 break;
         }
         return ret;

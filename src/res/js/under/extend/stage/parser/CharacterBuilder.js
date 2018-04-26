@@ -55,9 +55,10 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * Make AI
      * @protected
      * @param {JSON} ai AI information json data
+     * @param {JSON} deploy AI deploy json data
      * @return {AI} AI
      */
-    makeAI(ai, animation) {
+    makeAI(ai, deploy) {
         switch (ai.type) {
             case `EnemyAI`:
                 return new EnemyAI();
@@ -66,7 +67,11 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             case `JumpAI`:
                 return new JumpAI();
             case `ElevatorAI`:
-                return new ElevatorAI();
+                let ret = new ElevatorAI();
+                for (let it of deploy.floors) {
+                    ret.addPosition(it.x, it.y);
+                }
+                return ret;
             case `PlayerGameoverStateAI`:
                 return new PlayerGameoverStateAI();
             case `PlayerBaseStateAI`:
@@ -158,7 +163,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         }
         if (json.ai !== undefined && base instanceof AutonomyEntitiy) {
             for (let ai of json.ai) {
-                let attach = this.makeAI(ai);
+                let attach = this.makeAI(ai, deploy !== undefined ? deploy.ai : undefined);
                 if (attach != null) {
                     this.processAI(attach, json.state);
                     base.addAI(attach);
