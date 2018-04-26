@@ -2,9 +2,9 @@
  * Immutable event object
  * - Object present on the stage that has coordinate and size
  * - Has image ID
- * - ### Fire event
+ * - ### Show sign
  * @implements {ImagedEntity}
- * @classdesc Immutable event object to fire event
+ * @classdesc Immutable event object to show sign
  */
 class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
     /**

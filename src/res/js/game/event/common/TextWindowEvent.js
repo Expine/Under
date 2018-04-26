@@ -71,8 +71,9 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        super.init();
-        this.op.next();
+        if (this.op != null) {
+            this.op.next();
+        }
     }
 
     /**
@@ -85,8 +86,10 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
             this.showCount -= dt / 200;
             if (this.showCount < 0) {
                 this.showCount = 0;
-                this.op.stopUpdate(this);
-                this.op.stopRender(this);
+                if (this.op != null) {
+                    this.op.stopUpdate(this);
+                    this.op.stopRender(this);
+                }
             }
         } else {
             this.showCount += dt / 1000;

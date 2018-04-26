@@ -127,6 +127,7 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/TransferabletateAI.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/entity/happen/special/hook/IHook.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/entity/interface/ITerrain.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/game/stage/entity/TextSignObject.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/parser/UnderEventBuilder.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/parser/UnderStageParser.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/parser/UnderTileBuilder.js';document.head.appendChild(script);script.onload = function() 
@@ -219,6 +220,7 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerWalkState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/Main.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
 };
 };
 };

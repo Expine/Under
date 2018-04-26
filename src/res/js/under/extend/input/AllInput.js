@@ -228,6 +228,19 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
     }
 
     /**
+     * Unblock input
+     * @abstract
+     * @param {number} code Target code
+     */
+    unblockInput(code) {
+        if (code >= this.mousBaseCode) {
+            this.mouseDelegate.unblockInput(code - this.mousBaseCode);
+        } else {
+            this.keyDelegate.unblockInput(code);
+        }
+    }
+
+    /**
      * Judge whether pressed now
      * @override
      * @param {number} code Target code

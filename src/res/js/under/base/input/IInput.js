@@ -14,6 +14,13 @@ class IInput extends Interface { // eslint-disable-line  no-unused-vars
     blockInput(code) {}
 
     /**
+     * Unblock input
+     * @abstract
+     * @param {number} code Target code
+     */
+    unblockInput(code) {}
+
+    /**
      * Judge whether pressed now
      * @abstract
      * @param {number} code Target code

@@ -95,6 +95,15 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
     }
 
     /**
+     * Unblock input
+     * @abstract
+     * @param {number} code Target code
+     */
+    unblockInput(code) {
+        this.blocked[code] = false;
+    }
+
+    /**
      * Judge whether pressed now
      * @override
      * @param {number} code Target code

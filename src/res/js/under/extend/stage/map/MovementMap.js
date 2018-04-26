@@ -10,12 +10,14 @@ class MovementMap extends Map { // eslint-disable-line  no-unused-vars
      * Movement map constructor
      * @constructor
      * @param {number} backID Background image id
+     * @param {number} x Background x position
+     * @param {number} y Background x position
      * @param {number} width Background width
      * @param {number} height Background height
      * @param {number} speedRatioX Ratio of speed of x velocity
      * @param {number} speedRatioY Ratio of speed of y velocity
      */
-    constructor(backID, width, height, speedRatioX, speedRatioY) {
+    constructor(backID, x, y, width, height, speedRatioX, speedRatioY) {
         super();
 
         /**
@@ -25,6 +27,18 @@ class MovementMap extends Map { // eslint-disable-line  no-unused-vars
          */
         this.backID = backID;
 
+        /**
+         * Background x position
+         * @protected
+         * @type {number}
+         */
+        this.x = x;
+        /**
+         * Background y position
+         * @protected
+         * @type {number}
+         */
+        this.y = y;
         /**
          * Background width
          * @protected
@@ -68,6 +82,6 @@ class MovementMap extends Map { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        ctx.drawImage(this.backID, shiftX * this.speedRatioX, shiftY * this.speedRatioY, this.width, this.height);
+        ctx.drawImage(this.backID, this.x + shiftX * this.speedRatioX, this.y + shiftY * this.speedRatioY, this.width, this.height);
     }
 }

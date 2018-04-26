@@ -85,9 +85,22 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      */
     makeEntityBase(deploy, entity) {
         let ret = null;
+        let collider = null;
         switch (entity.type) {
             case `Player`:
                 ret = new UnderPlayer();
+                break;
+            case `Sign`:
+                let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
+                if (signData.file !== undefined) {
+                    return super.makeEntityBase(deploy, entity);
+                } else {
+                    ret = new TextSignObject();
+                }
+                collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
+                collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                ret.setCollider(collider);
+                ret.setSign(signData.x, signData.y, signData.size, signData.text);
                 break;
             default:
                 return super.makeEntityBase(deploy, entity);
