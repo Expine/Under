@@ -104,6 +104,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     makeEntityBase(deploy, entity) {
         let ret = null;
+        let collider = null;
         switch (entity.type) {
             case `Player`:
                 ret = new Player();
@@ -116,7 +117,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 break;
             case `Sign`:
                 ret = new SignObject();
-                let collider = this.makeCollider(deploy.collider);
+                collider = this.makeCollider(deploy.collider);
                 collider.setAABB(this.makeAABB(deploy.collider));
                 ret.setSign(this.loadCharaImage(deploy.sign.file), collider);
                 break;
@@ -124,7 +125,10 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 ret = new Elevator();
                 break;
             case `Event`:
-                ret = new ImmutableEventObject();
+                ret = new ImmutableEvent();
+                collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
+                collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                ret.setCollider(collider);
                 break;
         }
         if (ret != null) {

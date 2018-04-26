@@ -1,15 +1,11 @@
 /**
  * Immutable event object
  * - Object present on the stage that has coordinate and size
- * - Has image ID
- * - It can be collided because it has material and collider
- * - It is fixed and no change will occur
- * - It can hold event and fire it
  * - ### Fire event
- * @implements {ImmutableEntity}
+ * @implements {Entity}
  * @classdesc Immutable event object to fire event
  */
-class ImmutableEventObject extends ImmutableEntity /* IEventEntity */ { // eslint-disable-line  no-unused-vars
+class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line  no-unused-vars
     /**
      * Influential event object constructor
      * @constructor
@@ -30,6 +26,13 @@ class ImmutableEventObject extends ImmutableEntity /* IEventEntity */ { // eslin
          * @type {boolean}
          */
         this.collided = false;
+
+        /**
+         * Event collider for firing
+         * @protected
+         * @type {Collider}
+         */
+        this.eventCollider = null;
     }
 
     /**
@@ -38,8 +41,8 @@ class ImmutableEventObject extends ImmutableEntity /* IEventEntity */ { // eslin
      * @param {Collider} collider collider
      */
     setCollider(collider) {
-        super.setCollider(collider);
-        collider.response = false;
+        this.eventCollider = collider;
+        this.eventCollider.setEntity(this);
     }
 
     /**
@@ -72,13 +75,21 @@ class ImmutableEventObject extends ImmutableEntity /* IEventEntity */ { // eslin
     }
 
     /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        this.eventCollider.init();
+    }
+
+    /**
      * Update entty
      * @override
      * @param {number} dt Delta time
      */
     update(dt) {
         let localCollided = false;
-        for (let it of this.collider.collisions) {
+        for (let it of this.stage.getPhysicalWorld().getCollisionData(this.eventCollider)) {
             let you = Util.getCollidedEntity(this, it);
             if (BaseUtil.implementsOf(you, IPlayable)) {
                 localCollided = true;
@@ -89,18 +100,5 @@ class ImmutableEventObject extends ImmutableEntity /* IEventEntity */ { // eslin
             }
         }
         this.collided = localCollided;
-    }
-
-    /**
-     * Render entity
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.imageID != -1) {
-            ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY, this.width, this.height);
-        }
     }
 }
