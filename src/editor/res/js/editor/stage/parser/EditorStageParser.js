@@ -68,11 +68,12 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     /**
      * Add tile by chip data
      * @param {EditorStage} base Base stage
+     * @param {number} layer Layer index
      * @param {JSON} chip Chip json data
      * @param {JSON} tileInfo Tile information json data
      */
-    addTile(base, chip, tileInfo) {
-        super.addTile(base, chip, tileInfo);
+    addTile(base, layer, chip, tileInfo) {
+        super.addTile(base, layer, chip, tileInfo);
         base.addEntityID(chip.id);
     }
 
@@ -80,11 +81,12 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * Add entity by layer data
      * @override
      * @param {Stage} base Base stage
+     * @param {number} layer Layer index
      * @param {JSON} entity Entity json data
      * @param {JSON} entityInfo Entity information json data
      */
-    addEntity(base, entity, entityInfo) {
-        super.addEntity(base, entity, entityInfo);
+    addEntity(base, layer, entity, entityInfo) {
+        super.addEntity(base, layer, entity, entityInfo);
         base.addEntityID(entity.id);
     }
 }

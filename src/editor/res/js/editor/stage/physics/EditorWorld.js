@@ -8,7 +8,6 @@
  * @classdesc Editor world to chane world type
  */
 class EditorWorld extends DebugWorld { // eslint-disable-line  no-unused-vars
-
     /**
      * Editor world constructor
      * @param {PhysicalWorld} world Original world for delegation
@@ -49,9 +48,6 @@ class EditorWorld extends DebugWorld { // eslint-disable-line  no-unused-vars
             }
             world.setResponse(this.world.getResponse());
             for (let it of this.world.entities) {
-                if (it instanceof MutableEntity) {
-                    world.addActor(it);
-                }
                 world.addEntity(it);
             }
             this.world = world;

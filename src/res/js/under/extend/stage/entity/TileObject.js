@@ -12,41 +12,47 @@ class TileObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
     /**
      * Tile object constructor
      * @constructor
-     * @param {number} srcX X coordinate on the file
-     * @param {number} srcY Y coordinate on the file
-     * @param {number} srcW Width on file
-     * @param {number} srcH Height on file
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Tile width
-     * @param {number} height Tile height
-     * @param {number} imageID Tile image id
      */
-    constructor(srcX, srcY, srcW, srcH, x, y, width, height, imageID) {
-        super(x, y, width, height, imageID);
+    constructor() {
+        super();
         /**
          * X coordinate on the file
          * @protected
          * @type {number}
          */
-        this.srcX = srcX;
+        this.srcX = 0;
         /**
          * Y coordinate on the file
          * @protected
          * @type {number}
          */
-        this.srcY = srcY;
+        this.srcY = 0;
         /**
          * Width on file
          * @protected
          * @type {number}
          */
-        this.srcW = srcW;
+        this.srcW = 0;
         /**
          * Height on file
          * @protected
          * @type {number}
          */
+        this.srcH = 0;
+    }
+
+
+    /**
+     * Set tile area of source file
+     * @param {number} srcX X coordinate on the file
+     * @param {number} srcY Y coordinate on the file
+     * @param {number} srcW Width on file
+     * @param {number} srcH Height on file
+     */
+    setTileArea(srcX, srcY, srcW, srcH) {
+        this.srcX = srcX;
+        this.srcY = srcY;
+        this.srcW = srcW;
         this.srcH = srcH;
     }
 

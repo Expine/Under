@@ -44,35 +44,15 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
     }
 
     /**
-     * Add entity as actior
-     * @override
-     * @param {MutableEntity} actor Entity as actor
-     */
-    addActor(actor) {
-        this.actors.push(actor);
-        let index = this.notActors.indexOf(actor);
-        if (index != -1) {
-            this.notActors.splice(index, 1);
-            let sx = Math.floor(actor.x / this.splitNumber);
-            let sy = Math.floor(actor.y / this.splitNumber);
-            let ex = Math.floor((actor.x + actor.width) / this.splitNumber);
-            let ey = Math.floor((actor.y + actor.height) / this.splitNumber);
-            for (let y = sy; y <= ey; ++y) {
-                for (let x = sx; x <= ex; ++x) {
-                    this.notActorsMap[x + this.stageWidth * y].splice(this.notActorsMap[x + this.stageWidth * y].indexOf(actor), 1);
-                }
-            }
-        }
-    }
-
-    /**
      * Add entity in physical world
      * @override
      * @param {InfluentialEntity} entity Entity in physical world
      */
     addEntity(entity) {
         this.entities.push(entity);
-        if (this.actors.indexOf(entity) == -1) {
+        if (entity instanceof MutableEntity) {
+            this.actors.push(entity);
+        } else {
             let sx = Math.floor(entity.collider.aabb.startX / this.splitNumber);
             let sy = Math.floor(entity.collider.aabb.startY / this.splitNumber);
             let ex = Math.floor((entity.collider.aabb.endX) / this.splitNumber);

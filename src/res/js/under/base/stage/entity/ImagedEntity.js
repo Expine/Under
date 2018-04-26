@@ -10,20 +10,22 @@ class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
     /**
      * Imaged entity constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, imageID = -1) {
-        super(x, y, width, height);
+    constructor() {
+        super();
 
         /**
-         * Entity image id
+         * Image ID
          * @protected
          * @type {number}
          */
+        this.imageID = -1;
+    }
+    /**
+     * Set image ID
+     * @param {number} imageID Image ID
+     */
+    setImage(imageID) {
         this.imageID = imageID;
     }
 }

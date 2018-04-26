@@ -15,25 +15,23 @@ class UnderTileObject extends TileObject /* , ITerrain */ { // eslint-disable-li
     /**
      * Under tile object constructor
      * @constructor
-     * @param {number} terrainID Terrain ID
-     * @param {number} srcX X coordinate on the file
-     * @param {number} srcY Y coordinate on the file
-     * @param {number} srcW Width on file
-     * @param {number} srcH Height on file
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Tile width
-     * @param {number} height Tile height
-     * @param {number} imageID Tile image id
      */
-    constructor(terrainID, srcX, srcY, srcW, srcH, x, y, width, height, imageID) {
-        super(srcX, srcY, srcW, srcH, x, y, width, height, imageID);
+    constructor() {
+        super();
 
         /**
          * Terrain ID
          * @protected
          * @type {number}
          */
+        this.terrainID = -1;
+    }
+
+    /**
+     * Set terrain ID
+     * @param {number} terrainID Terrain ID
+     */
+    setTerrainID(terrainID) {
         this.terrainID = terrainID;
     }
 

@@ -8,32 +8,33 @@ class Entity { // eslint-disable-line  no-unused-vars
     /**
      * Entity constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
      */
-    constructor(x, y, width, height) {
+    constructor() {
         /**
          * Entity x position
          * @type {number}
          */
-        this.x = x;
+        this.x = 0;
         /**
          * Entity Y position
          * @type {number}
          */
-        this.y = y;
+        this.y = 0;
+        /**
+         * Entity Z position
+         * @type {number}
+         */
+        this.z = 0;
         /**
          * Entity width
          * @type {number}
          */
-        this.width = width;
+        this.width = 0;
         /**
          * Entity height
          * @type {number}
          */
-        this.height = height;
+        this.height = 0;
 
         /**
          * Stage instance
@@ -48,6 +49,23 @@ class Entity { // eslint-disable-line  no-unused-vars
      */
     setStage(stage) {
         this.stage = stage;
+    }
+
+    /**
+     * Set entity position
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {number} z Z position
+     */
+    setPosition(x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    setSize(width, height) {
+        this.width = width;
+        this.height = height;
     }
 
     /**

@@ -66,8 +66,13 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} tile Tile information json data
      * @return {InfluentialEntity} Underlying tile object
      */
-    makeTileBase(x, y, tile) {
-        return new TileObject(tile.x, tile.y, tile.width, tile.height, deploy.x, deploy.y, tile.width, tile.height, this.loadTileImage(tile.file));
+    makeTileBase(deploy, tile) {
+        let ret = new TileObject();
+        ret.setPosition(deploy.x, deploy.y, deploy.z);
+        ret.setSize(tile.width, tile.height);
+        ret.setTileArea(tile.x, tile.y, tile.width, tile.height);
+        ret.setImage(this.loadTileImage(tile.file));
+        return ret;
     }
 
     /**

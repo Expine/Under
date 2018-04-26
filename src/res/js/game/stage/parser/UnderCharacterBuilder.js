@@ -84,11 +84,21 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(deploy, entity) {
+        let ret = null;
         switch (entity.type) {
             case `Player`:
-                return new UnderPlayer(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+                ret = new UnderPlayer();
+                break;
             default:
                 return super.makeEntityBase(deploy, entity);
         }
+        if (ret != null) {
+            ret.setPosition(deploy.x, deploy.y, deploy.z);
+            ret.setSize(entity.width, entity.height);
+            if (ret instanceof ImagedEntity) {
+                ret.setImage(this.loadCharaImage(entity.file));
+            }
+        }
+        return ret;
     }
 }

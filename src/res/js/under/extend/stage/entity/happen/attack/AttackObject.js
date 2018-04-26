@@ -19,22 +19,23 @@ class AttackObject extends SpecialObject { // eslint-disable-line  no-unused-var
     /**
      * Attack object constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {Entity} owner Owned entity
-     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
-     * @param {number} [lifespan=0] Lifespan of attack object
      */
-    constructor(x, y, width, height, owner, imageID = -1, lifespan = 0) {
-        super(x, y, width, height, owner, imageID);
+    constructor() {
+        super();
 
         /**
          * Lifespan of attack object
          * @protected
          * @type {number}
          */
+        this.lifespan = 0;
+    }
+
+    /**
+     * Set lifespal
+     * @param {number} lifespan Lifespan of attack object
+     */
+    setLifeSpan(lifespan) {
         this.lifespan = lifespan;
     }
 

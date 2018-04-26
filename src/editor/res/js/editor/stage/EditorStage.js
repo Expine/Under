@@ -167,6 +167,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
             if (it instanceof TileObject) {
                 data.layers[0].push(entity);
             } else {
+                entity.z = it.z;
                 data.deploy.push(entity);
             }
         }

@@ -21,16 +21,12 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
     /**
      * Player constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {number} imageID Image ID for rendering
      */
-    constructor(x, y, width, height, imageID) {
-        super(x, y, width, height, 3, imageID);
+    constructor() {
+        super();
 
         // initialize
+        this.setHP(3);
         this.directionX = 1;
 
         /**

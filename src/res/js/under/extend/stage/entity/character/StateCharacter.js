@@ -18,15 +18,9 @@ class StateCharacter extends Character { // eslint-disable-line  no-unused-vars
     /**
      * State character constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {number} hp Hit point
-     * @param {number} imageID Image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, hp, imageID = -1) {
-        super(x, y, width, height, hp, imageID);
+    constructor() {
+        super();
 
         /**
          * State of character

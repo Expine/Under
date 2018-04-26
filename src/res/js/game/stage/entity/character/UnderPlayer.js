@@ -23,14 +23,9 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
     /**
      * Under player constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {number} imageID Image ID for rendering
      */
-    constructor(x, y, width, height, imageID) {
-        super(x, y, width, height, imageID);
+    constructor() {
+        super();
 
         /**
          * Currently used AI

@@ -14,21 +14,23 @@ class PossessedObject extends AIListedObject { // eslint-disable-line  no-unused
     /**
      * Possessed object constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {Entity} owner Owned entity
-     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, owner, imageID = -1) {
-        super(x, y, width, height, imageID);
+    constructor(owner) {
+        super();
 
         /**
          * Owned entity
          * @protected
          * @type {Entity}
          */
+        this.owner = null;
+    }
+
+    /**
+     * Set owned entity
+     * @param {Entity} owner Owned entity
+     */
+    setOwner(owner) {
         this.owner = owner;
     }
 }

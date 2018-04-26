@@ -21,18 +21,9 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     /**
      * Hook object constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {MutableEntity} owner Owned entity
-     * @param {HookObject} previous Previous hook object
-     * @param {IString} string Hook string
-     * @param {number} restLength Hook rest length
-     * @param {number} hookedLength Hook length of hooked
      */
-    constructor(x, y, width, height, owner, previous, string, restLength, hookedLength) {
-        super(x, y, width, height, owner, -1);
+    constructor() {
+        super();
 
         /**
          * Owned entity
@@ -40,14 +31,14 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
          * @protected
          * @type {MutableEntity}
          */
-        this.owner = owner;
+        this.owner = null;
 
         /**
          * Previous hook object
          * @protected
          * @type {HookObject}
          */
-        this.previous = previous;
+        this.previous = null;
         /**
          * Post hook object
          * @protected
@@ -60,33 +51,33 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
          * @protected
          * @type {IString}
          */
-        this.string = string;
+        this.string = null;
 
         /**
          * Hook rest length
          * @protected
          * @type {number}
          */
-        this.restLength = restLength;
+        this.restLength = 0;
         /**
          * Hook length of hooked
          * @protected
          * @type {number}
          */
-        this.hookedLength = hookedLength;
+        this.hookedLength = 0;
 
         /**
          * Generated x position
          * @protected
          * @type {number}
          */
-        this.generatedX = owner.directionX >= 0 ? x - owner.width - owner.x : owner.x - x;
+        this.generatedX = 0;
         /**
          * Generated y position
          * @protected
          * @type {number}
          */
-        this.generatedY = owner.y - y;
+        this.generatedY = 0;
 
         /**
          * Whether it is hooked or not
@@ -97,13 +88,49 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
     }
 
     /**
+     * Set owned entity
+     * @param {MutableEntity} owner Owned entity
+     */
+    setOwner(owner) {
+        this.owner = owner;
+    }
+
+    /**
+     * Set hook information
+     * @param {HookObject} previous Previous hook object
+     * @param {IString} string Hook string
+     * @param {number} restLength Hook rest length
+     * @param {number} hookedLength Hook length of hooked
+     */
+    setHookInfo(previous, string, restLength, hookedLength) {
+        this.previous = previous;
+        this.string = string;
+        this.restLength = restLength;
+        this.hookedLength = hookedLength;
+    }
+
+    /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        this.generatedX = this.owner.directionX >= 0 ? this.x - this.owner.width - this.owner.x : this.owner.x - this.x;
+        this.generatedY = this.owner.y - this.y;
+    }
+
+    /**
      * Connect hook to player
      * @protected
      */
     connectPlayer() {
         let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
         let y = this.owner.y - this.generatedY;
-        this.post = new HookPlayer(x, y, 8, 8, this.owner, this, this.string, this.restLength - 15);
+        this.post = new HookPlayer();
+        this.post.setPosition(x, y, this.z);
+        this.post.setSize(8, 8);
+        this.post.setOwner(this.owner);
+        this.post.setHookInfo(this, this.string, this.restLength - 15, this.hookedLength);
+        this.post.init();
     }
 
     /**
@@ -123,11 +150,18 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
             let d = Math.sqrt(dx * dx + dy * dy);
             let l = this.string.getLength() + 3;
             if (d > l) {
-                this.post = new HookChild(x, y, 4, 4, this.owner, this, this.string, this.restLength - 15, this.hookedLength);
+                // generate
+                this.post = new HookChild();
+                this.post.setPosition(x, y, this.z);
+                this.post.setSize(4, 4);
+                this.post.setOwner(this.owner);
+                this.post.setHookInfo(this, this.string, this.restLength - 15, this.hookedLength);
+                this.stage.addEntity(this.post);
+                // set initial info
                 this.post.body.setNextAddVelocity(vx, vy);
                 this.string.addBody(this.post.body, (this.post.directionX >= 0 ? this.post.getHookX() - this.post.x : this.post.x + this.post.width - this.post.getHookX()), (this.post.directionY > 0 ? this.post.getHookY() - this.post.y : this.post.y + this.post.height - this.post.getHookY()), 3);
-                this.stage.addEntity(this.post);
                 this.post.deltaMove(-dx * (d - l) / d, -dy * (d - l) / d);
+                // generate continuously
                 this.post.makeChild(vx, vy);
             }
         }

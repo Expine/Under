@@ -34,6 +34,12 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(deploy, tile) {
-        return new UnderTileObject(tile.terrain, tile.x, tile.y, tile.width, tile.height, deploy.x, deploy.y, tile.width, tile.height, this.loadTileImage(tile.file));
+        let ret = new UnderTileObject();
+        ret.setPosition(deploy.x, deploy.y, deploy.z);
+        ret.setSize(tile.width, tile.height);
+        ret.setTileArea(tile.x, tile.y, tile.width, tile.height);
+        ret.setImage(this.loadTileImage(tile.file));
+        ret.setTerrainID(tile.terrain);
+        return ret;
     }
 }

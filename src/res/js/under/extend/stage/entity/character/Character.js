@@ -19,22 +19,16 @@ class Character extends AIListedObject /* , IDamagable, IAnimationable */ { // e
     /**
      * Character constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {number} hp Hit point
-     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, hp, imageID = -1) {
-        super(x, y, width, height, imageID);
+    constructor() {
+        super();
 
         /**
          * Hit point
          * @protected
          * @type {number}
          */
-        this.hp = hp;
+        this.hp = 0;
 
         /**
          * Animation for rendering
@@ -42,6 +36,14 @@ class Character extends AIListedObject /* , IDamagable, IAnimationable */ { // e
          * @type {Animation}
          */
         this.animation = null;
+    }
+
+    /**
+     * Set hit point
+     * @param {number} hp Hit point
+     */
+    setHP(hp) {
+        this.hp = hp;
     }
 
     /**

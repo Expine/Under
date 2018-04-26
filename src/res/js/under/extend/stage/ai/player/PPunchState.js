@@ -31,16 +31,6 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Make attack object
-     * @protected
-     * @return {AttackObject} Attack object
-     */
-    makeAttackObject() {
-        let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
-        return new PunchObject(x, this.entity.y + 27, 32, 32, this.entity);
-    }
-
-    /**
      * Initialize
      * @override
      */

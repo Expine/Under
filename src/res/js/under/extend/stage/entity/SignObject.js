@@ -12,22 +12,16 @@ class SignObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
     /**
      * Influential event object constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {number} [imageID=-1] Image ID for rendering (if has not, -1)
-     * @param {number} [signID=-1] Sign image ID for rendering (if has not, -1)
      */
-    constructor(x, y, width, height, imageID = -1, signID = -1) {
-        super(x, y, width, height, imageID);
+    constructor() {
+        super();
 
         /**
          * Sign image ID for rendering
          * @protected
          * @type {number}
          */
-        this.signID = signID;
+        this.signID = -1;
 
         /**
          * Whether sign can be showed or not
@@ -37,11 +31,11 @@ class SignObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
         this.isShowSign = false;
 
         /**
-         * Sign original height
+         * Sign current height
          * @protected
          * @type {number}
          */
-        this.originalHeight = height;
+        this.currentHeight = 0;
 
         /**
          * Show speed
@@ -52,12 +46,20 @@ class SignObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
     }
 
     /**
+     * Set sign information
+     * @param {number} imageID Sign image ID
+     */
+    setSign(imageID) {
+        this.signID = imageID;
+    }
+
+    /**
      * Initialize entity
      * @override
      */
     init() {
         this.isShowSign = false;
-        this.height = 0;
+        this.currentHeight = 0;
     }
 
     /**
@@ -85,17 +87,17 @@ class SignObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
             }
         }
         // show
-        if (this.isShowSign && this.height < this.originalHeight) {
-            this.height += dt / 1000 * this.speed;
-            if (this.height > this.originalHeight) {
-                this.height = this.originalHeight;
+        if (this.isShowSign && currentHeight < this.height) {
+            currentHeight += dt / 1000 * this.speed;
+            if (currentHeight > this.height) {
+                currentHeight = this.height;
             }
         }
         // hide
-        if (!this.isShowSign && this.height > 0) {
-            this.height -= dt / 1000 * this.speed * 3;
-            if (this.height < 0) {
-                this.height = 0;
+        if (!this.isShowSign && currentHeight > 0) {
+            currentHeight -= dt / 1000 * this.speed * 3;
+            if (currentHeight < 0) {
+                currentHeight = 0;
             }
         }
     }
@@ -109,11 +111,11 @@ class SignObject extends ImmutableEntity { // eslint-disable-line  no-unused-var
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         if (this.imageID != -1) {
-            ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY + this.originalHeight - this.height, this.width, this.height);
+            ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY + this.height - currentHeight, this.width, currentHeight);
         }
-        if (this.isShowSign && this.height == this.originalHeight) {
+        if (this.isShowSign && currentHeight == this.height) {
             if (this.signID != -1) {
-                ctx.drawImage(this.signID, this.x + shiftX, this.y + shiftY - 100, this.width, this.height);
+                ctx.drawImage(this.signID, this.x + shiftX, this.y + shiftY - 100);
             }
         }
     }

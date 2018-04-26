@@ -37,8 +37,12 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
      * @return {AttackObject} Attack object
      */
     makeAttackObject() {
+        let punch = new PunchObject();
         let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
-        return new PunchObject(x, this.entity.y + 27, 32, 32, this.entity);
+        punch.setPosition(x, this.entity.y + 27, this.entity.z + 1);
+        punch.setSize(32, 32);
+        punch.setOwner(this.entity);
+        return punch;
     }
 
     init() {

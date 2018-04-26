@@ -18,23 +18,13 @@
  */
 class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
     /**
-     * Hook child object constructor
-     * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {MutableEntity} owner Owned entity
-     * @param {HookObject} previous Previous hook object
-     * @param {IString} string Hook string
-     * @param {number} restLength Hook rest length
-     * @param {number} hookedLength Hook length of hooked
+     * Initialize entity
+     * @override
      */
-    constructor(x, y, width, height, owner, previous, string, restLength, hookedLength) {
-        super(x, y, width, height, owner, previous, string, restLength, hookedLength);
-
+    init() {
+        super.init();
         // set base data
-        let collider = new ExcludedRectangleCollider(0, 0, width, height, 0, 2);
+        let collider = new ExcludedRectangleCollider(0, 0, this.width, this.height, 0, 2);
         collider.setAABB(new SimpleAABB());
         this.setCollider(collider);
         this.setMaterial(new ImmutableMaterial(0.1, 0.0, 0.0));

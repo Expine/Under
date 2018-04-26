@@ -19,15 +19,19 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
     /**
      * Punch object constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {Entity} owner Owned entity
      */
-    constructor(x, y, width, height, owner) {
-        super(x, y, width, height, owner, -1, 400);
+    constructor() {
+        super();
 
+        // initialize
+        this.setLifeSpan(400);
+    }
+
+    /**
+     * Initialize entity
+     * @override
+     */
+    init() {
         // TODO: Should be into a text file
         // set base data
         let imageID = ResourceManager.image.load(`chara/attack.png`);
@@ -44,7 +48,7 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
         let body = new MaxAdoptBody();
         body.setMaterial(new ImmutableRigidMaterial());
         this.setRigidBody(body);
-        this.addAI(new AttackObjectAI(owner));
+        this.addAI(new AttackObjectAI(this.owner));
     }
 
     /**

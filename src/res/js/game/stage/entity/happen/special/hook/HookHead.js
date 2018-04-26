@@ -20,31 +20,31 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Hook head object constructor
      * @constructor
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} width Entity width
-     * @param {number} height Entity height
-     * @param {MutableEntity} owner Owned entity
      * @param {number} length Hook length
      * @param {number} restLength Hook rest length
      * @param {number} hookedLength Hook length of hooked
      */
-    constructor(x, y, width, height, owner, length, restLength, hookedLength) {
-        super(x, y, width, height, owner, null, null, restLength, hookedLength);
+    constructor(length, restLength, hookedLength) {
+        super();
 
         /**
-         * Original width for calculating hook x position
+         * Hook length for string
          * @protected
          * @type {number}
          */
-        this.originalWidth = width;
-        /**
-         * Original height for calculating hook x position
-         * @protected
-         * @type {number}
-         */
-        this.originalHeight = height;
+        this.stringLength = length;
 
+
+        // initialize
+        this.setHookInfo(null, null, restLength, hookedLength);
+    }
+
+    /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        super.init();
         // set base data
         let imageID = ResourceManager.image.load(`chara/hook.png`);
         let anime = new SingleAnimation();
@@ -59,13 +59,13 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         this.setMaterial(new ImmutableMaterial(1, 0.0, 0.0));
         let org = new PreciseBody();
         org.setMaterial(new ImmutableRigidMaterial());
-        let body = new StringBody(org, (this.directionX >= 0 ? this.getHookX() - this.x : this.x + this.width - this.getHookX()), (this.directionY > 0 ? this.getHookY() - this.y : this.y + this.height - this.getHookY()), length);
+        let body = new StringBody(org, (this.directionX >= 0 ? this.getHookX() - this.x : this.x + this.width - this.getHookX()), (this.directionY > 0 ? this.getHookY() - this.y : this.y + this.height - this.getHookY()), this.stringLength);
         body.setMaterial(new ImmutableRigidMaterial());
         this.setRigidBody(body);
         this.addAI(new HeadHookStateAI(this, body, org));
 
         this.string = body;
-        this.directionX = owner.directionX;
+        this.directionX = this.owner.directionX;
         this.directionY = -1;
         this.x -= (this.getHookX() - this.x);
         this.y -= (this.getHookY() - this.y);
@@ -77,7 +77,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @return {number} Hook center x position
      */
     getHookX() {
-        return this.x + this.originalWidth / 2;
+        return this.x + Math.abs(this.width) / 2;
     }
 
     /**
@@ -86,7 +86,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @return {number} Hook center x position
      */
     getHookY() {
-        return this.y + this.originalHeight / 2;
+        return this.y + Math.abs(this.height) / 2;
     }
 
     /**
@@ -118,10 +118,12 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
+        let width = this.width;
+        let height = this.height;
         this.width *= (this.directionX == 0 ? 1 : this.directionX);
         this.height *= -(this.directionY == 0 ? 1 : this.directionY);
         super.render(ctx, shiftX, shiftY);
-        this.width = this.originalWidth;
-        this.height = this.originalHeight;
+        this.width = width;
+        this.height = height;
     }
 }

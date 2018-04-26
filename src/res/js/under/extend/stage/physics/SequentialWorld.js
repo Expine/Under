@@ -57,26 +57,15 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     }
 
     /**
-     * Add entity as actior
-     * @override
-     * @param {MutableEntity} actor Entity as actor
-     */
-    addActor(actor) {
-        this.actors.push(actor);
-        let index = this.notActors.indexOf(actor);
-        if (index != -1) {
-            this.notActors.splice(index, 1);
-        }
-    }
-
-    /**
      * Add entity in physical world
      * @override
      * @param {InfluentialEntity} entity Entity in physical world
      */
     addEntity(entity) {
         this.entities.push(entity);
-        if (this.actors.indexOf(entity) == -1) {
+        if (entity instanceof MutableEntity) {
+            this.actors.push(entity);
+        } else {
             this.notActors.push(entity);
         }
     }

@@ -103,20 +103,36 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(deploy, entity) {
+        let ret = null;
         switch (entity.type) {
             case `Player`:
-                return new Player(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+                ret = new Player();
+                break;
             case `Enemy`:
-                return new Enemy(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+                ret = new Enemy();
+                break;
             case `Obstacle`:
-                return new Obstacle(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+                ret = new Obstacle();
+                break;
             case `Sign`:
-                return new SignObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file), this.loadCharaImage(entity.sign.file));
+                ret = new SignObject();
+                ret.setSign(this.loadCharaImage(entity.sign.file));
+                break;
             case `Elevator`:
-                return new Elevator(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+                ret = new Elevator();
+                break;
             case `Event`:
-                return new ImmutableEventObject(deploy.x, deploy.y, entity.width, entity.height, this.loadCharaImage(entity.file));
+                ret = new ImmutableEventObject();
+                break;
         }
+        if (ret != null) {
+            ret.setPosition(deploy.x, deploy.y, deploy.z);
+            ret.setSize(entity.width, entity.height);
+            if (ret instanceof ImagedEntity) {
+                ret.setImage(this.loadCharaImage(entity.file));
+            }
+        }
+        return ret;
     }
 
     /**

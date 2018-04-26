@@ -116,10 +116,14 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     /**
      * Add tile by chip data
      * @param {Stage} base Base stage
+     * @param {number} layer Layer index
      * @param {JSON} chip Chip json data
      * @param {JSON} tileInfo Tile information json data
      */
-    addTile(base, chip, tileInfo) {
+    addTile(base, layer, chip, tileInfo) {
+        if (chip.z === undefined) {
+            chip.z = layer;
+        }
         let tile = this.tileBuilder.build(chip, tileInfo[chip.id]);
         if (BaseUtil.implementsOf(tile, IEventEntity)) {
             tile.setEvent(this.eventBuilder(chip.event));
@@ -130,10 +134,14 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     /**
      * Add entity by layer data
      * @param {Stage} base Base stage
+     * @param {number} layer Layer index
      * @param {JSON} entity Entity json data
      * @param {JSON} entityInfo Entity information json data
      */
-    addEntity(base, entity, entityInfo) {
+    addEntity(base, layer, entity, entityInfo) {
+        if (entity.z === undefined) {
+            entity.z = layer;
+        }
         let chara = this.characterBuilder.build(entity, entityInfo[entity.id]);
         if (BaseUtil.implementsOf(chara, IEventEntity)) {
             chara.setEvent(this.eventBuilder.build(entity.event));
@@ -177,15 +185,16 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         base.setCamera(this.makeBaseCamera(stage.camera, width, height));
         base.setPhysicalWorld(this.makeBaseWorld(stage));
         base.getPhysicalWorld().setResponse(this.makePhysicalResponse());
+        let layerIndex = 0;
         // make tile
         for (let layer of stage.layers) {
             for (let chip of layer) {
-                this.addTile(base, chip, stage.tileInfo);
+                this.addTile(base, layerIndex++, chip, stage.tileInfo);
             }
         }
         // make entity
         for (let entity of stage.deploy) {
-            this.addEntity(base, entity, stage.entityInfo);
+            this.addEntity(base, layerIndex, entity, stage.entityInfo);
         }
         return base;
     }

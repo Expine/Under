@@ -40,15 +40,6 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Add entity as actior
-     * @override
-     * @param {MutableEntity} actor Entity as actor
-     */
-    addActor(actor) {
-        this.world.addActor(actor);
-    }
-
-    /**
      * Add entity in physical world
      * @override
      * @param {InfluentialEntity} entity Entity in physical world
