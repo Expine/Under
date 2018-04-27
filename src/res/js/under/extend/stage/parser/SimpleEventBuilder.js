@@ -39,6 +39,22 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
             return new StageRestoreEvente();
         } else if (event.type == `transition`) {
             return new TransitionalEvent(event.stage, event.replace);
+        } else if (event.type == `auto`) {
+            let ret = new AutoInputEvent();
+            for (let it of event.orders) {
+                ret.addOrder(it);
+            }
+            return ret;
+        } else if (event.type == `control`) {
+            let ret = new ControlEntityEvent();
+            ret.setTarget(event.target);
+            if (event.vx !== undefined && event.vy !== undefined) {
+                ret.setVelocity(event.vx, event.vy);
+            }
+            if (event.fx !== undefined && event.fy !== undefined) {
+                ret.setForce(event.fx, event.fy);
+            }
+            return ret;
         } else if (event.type == `sequential`) {
             let ret = new SequentialEvent();
             for (let it of event.events) {

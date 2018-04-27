@@ -49,6 +49,13 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
          * @type {Element}
          */
         this.target = null;
+
+        /**
+         * Enable for input
+         * @protected
+         * @type {boolean}
+         */
+        this.enable = true;
     }
 
     /**
@@ -57,6 +64,7 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
      */
     init() {
         this.target = this.screen.getTarget();
+        this.enable = true;
     }
 
     /**
@@ -86,6 +94,16 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
     }
 
     /**
+     * Set inpt enable
+     * @override
+     * @param {boolean} enable Input enable
+     */
+    setInputEnable(enable) {
+        this.enable = enable;
+        this.clear();
+    }
+
+    /**
      * Block input
      * @iverride
      * @param {number} code Target code
@@ -96,11 +114,29 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
 
     /**
      * Unblock input
-     * @abstract
+     * @override
      * @param {number} code Target code
      */
     unblockInput(code) {
         this.blocked[code] = false;
+    }
+
+    /**
+     * Press target code
+     * @override
+     * @param {number} code Target code
+     */
+    press(code) {
+        this.inputState[code] = this.STATE.PRESSED;
+    }
+
+    /**
+     * Unpress target code
+     * @override
+     * @param {number} code Target code
+     */
+    unpress(code) {
+        this.inputState[code] = this.STATE.NONE;
     }
 
     /**
