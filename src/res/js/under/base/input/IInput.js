@@ -7,6 +7,13 @@
  */
 class IInput extends Interface { // eslint-disable-line  no-unused-vars
     /**
+     * Set inpt enable
+     * @abstract
+     * @param {boolean} enable Input enable
+     */
+    setInputEnable(enable) {}
+
+    /**
      * Block input
      * @abstract
      * @param {number} code Target code
@@ -19,6 +26,20 @@ class IInput extends Interface { // eslint-disable-line  no-unused-vars
      * @param {number} code Target code
      */
     unblockInput(code) {}
+
+    /**
+     * Press target code
+     * @abstract
+     * @param {number} code Target code
+     */
+    press(code) {}
+
+    /**
+     * Unpress target code
+     * @abstract
+     * @param {number} code Target code
+     */
+    unpress(code) {}
 
     /**
      * Judge whether pressed now

@@ -215,6 +215,16 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
     }
 
     /**
+     * Set inpt enable
+     * @override
+     * @param {boolean} enable Input enable
+     */
+    setInputEnable(enable) {
+        this.mouseDelegate.setInputEnable(enable);
+        this.keyDelegate.setInputEnable(enable);
+    }
+
+    /**
      * Block input
      * @override
      * @param {number} code Target code
@@ -229,7 +239,7 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
 
     /**
      * Unblock input
-     * @abstract
+     * @override
      * @param {number} code Target code
      */
     unblockInput(code) {
@@ -237,6 +247,32 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
             this.mouseDelegate.unblockInput(code - this.mousBaseCode);
         } else {
             this.keyDelegate.unblockInput(code);
+        }
+    }
+
+    /**
+     * Press target code
+     * @override
+     * @param {number} code Target code
+     */
+    press(code) {
+        if (code >= this.mousBaseCode) {
+            this.mouseDelegate.press(code - this.mousBaseCode);
+        } else {
+            this.keyDelegate.press(code);
+        }
+    }
+
+    /**
+     * Unpress target code
+     * @override
+     * @param {number} code Target code
+     */
+    unpress(code) {
+        if (code >= this.mousBaseCode) {
+            this.mouseDelegate.unpress(code - this.mousBaseCode);
+        } else {
+            this.keyDelegate.unpress(code);
         }
     }
 

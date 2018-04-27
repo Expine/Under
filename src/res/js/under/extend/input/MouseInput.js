@@ -129,6 +129,9 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
      * @param {MouseEvent} e - mouse event
      */
     onMouseDown(e) {
+        if (!this.enable) {
+            return;
+        }
         let button = e.button;
         if (this.inputState[button] === undefined || this.inputState[button] == this.STATE.NONE) {
             this.inputState[button] = this.STATE.PRESS;
@@ -141,6 +144,9 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
      * @param {MouseEvent} e - mouse event
      */
     onMouseUp(e) {
+        if (!this.enable) {
+            return;
+        }
         let button = e.button;
         this.inputState[button] = this.STATE.NONE;
     }

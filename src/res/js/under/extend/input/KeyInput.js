@@ -120,6 +120,9 @@ class KeyInput extends StateInputManager /* , IKey */ { // eslint-disable-line  
      * @param {KeyBoardEvent} e Key event
      */
     onKeyDown(e) {
+        if (!this.enable) {
+            return;
+        }
         let code = e.keyCode;
         if (this.inputState[code] === undefined || this.inputState[code] == this.STATE.NONE) {
             this.inputState[code] = this.STATE.PRESS;
@@ -132,6 +135,9 @@ class KeyInput extends StateInputManager /* , IKey */ { // eslint-disable-line  
      * @param {KeyBoardEvent} e Key event
      */
     onKeyUp(e) {
+        if (!this.enable) {
+            return;
+        }
         let code = e.keyCode;
         this.inputState[code] = this.STATE.NONE;
     }
