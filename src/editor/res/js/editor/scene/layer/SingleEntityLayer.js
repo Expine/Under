@@ -28,20 +28,16 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
          * @type {Animation}
          */
         this.animation = new SingleAnimation();
-        if (info.animation === undefined) {
+        if (info.anime === undefined) {
             let file = ResourceManager.image.load(`chara/${info.file}`);
             if (file !== undefined) {
                 this.animation.addAnimation(new AnimationElement(file, 0, 0, 32, 32, 200));
             }
         } else {
-            for (let it in info.animation) {
-                if (info.animation.hasOwnProperty(it) && info.animation[it].animation !== undefined) {
-                    let file = info.file;
-                    for (let anime of info.animation[it].animation[0].list) {
-                        this.animation.addAnimation(new AnimationElement(file, anime.srcX, anime.srcY, anime.srcW, anime.srcH, anime.delta));
-                    }
-                    break;
-                }
+            let file = ResourceManager.image.load(`chara/${info.anime.file}`);
+            let animes = info.anime.animation[0].list;
+            for (let anime of animes) {
+                this.animation.addAnimation(new AnimationElement(file, anime.srcX, anime.srcY, anime.srcW, anime.srcH, anime.delta));
             }
         }
 

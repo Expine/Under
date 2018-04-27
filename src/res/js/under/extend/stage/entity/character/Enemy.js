@@ -26,4 +26,21 @@ class Enemy extends Character { // eslint-disable-line  no-unused-vars
         this.setHP(1);
         this.directionX = 1;
     }
+
+    /**
+     * Render entity
+     * @abstract
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {
+        if (this.animation != null) {
+            // TODO: Should be separate
+            if (Util.onGround(this)) {
+                this.animation.init();
+            }
+        }
+        super.render(ctx, shiftX, shiftY);
+    }
 }

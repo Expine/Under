@@ -42,7 +42,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     init() {
         this.stageManager = new StackStageManager();
         this.stageManager.setStageParser(new UnderStageParser());
-        this.stageManager.pushStage(`recruitStart`);
+        this.stageManager.pushStage(`recruit`);
 
         // set player
         this.player = this.stageManager.getStage().getEntities().filter((it) => it instanceof Player)[0];

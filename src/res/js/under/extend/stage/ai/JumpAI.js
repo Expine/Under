@@ -18,7 +18,30 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.jumpPower = 360;
+        this.jumpPower = 500;
+
+        /**
+         * On ground counter
+         * @protected
+         * @type {number}
+         */
+        this.onGroundCount = 0;
+    }
+
+    /**
+     * Update AI
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        if (Util.onGround(this.entity)) {
+            this.onGroundCount += dt / 1000;
+        } else {
+            this.onGroundCount -= dt / 1000;
+            if (this.onGroundCount < 0) {
+                this.onGroundCount = 0;
+            }
+        }
     }
 
     /**
@@ -29,7 +52,7 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // judge
-        if (Util.onGround(this.entity)) {
+        if (this.onGroundCount > 1) {
             // reset and jump
             this.entity.body.enforce(0, -this.jumpPower * this.entity.material.mass * 1000 / dt);
         }

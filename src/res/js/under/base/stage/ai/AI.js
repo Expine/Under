@@ -32,17 +32,17 @@ class AI { // eslint-disable-line  no-unused-vars
     init() {}
 
     /**
+     * Update AI
+     * @abstract
+     * @param {number} dt Delta time
+     */
+    update(dt) {}
+
+    /**
      * Apply AI and decide action
      * @abstract
      * @param {number} dt Delta time
      * @return {boolean} Whether decided on action
      */
     apply(dt) {}
-
-    /**
-     * Update AI
-     * @abstract
-     * @param {number} dt Delta time
-     */
-    update(dt) {}
 }

@@ -561,8 +561,7 @@
                     }]
                 }
             }
-        },
-        {
+        }, {
             "type": "Enemy",
             "file": "enemy.png",
             "id": 1,
@@ -593,19 +592,18 @@
             "ai": [{
                 "type": "EnemyAI"
             }]
-        },
-        {
+        }, {
             "type": "Enemy",
-            "file": "enemy.png",
+            "file": "poyo.png",
             "id": 2,
-            "width": 64,
-            "height": 64,
+            "width": 32,
+            "height": 32,
             "collider": {
                 "type": "RoundRectangle",
                 "startX": 0,
-                "startY": 32,
-                "width": 64,
-                "height": 32,
+                "startY": 5,
+                "width": 32,
+                "height": 26,
                 "cut": 5
             },
             "body": {
@@ -624,9 +622,36 @@
             },
             "ai": [{
                 "type": "JumpAI"
-            }]
-        },
-        {
+            }],
+            "anime": {
+                "file": "poyo.png",
+                "animation": [{
+                    "loop": false,
+                    "list": [{
+                            "srcX": 0,
+                            "srcY": 0,
+                            "srcW": 16,
+                            "srcH": 16,
+                            "delta": 200
+                        },
+                        {
+                            "srcX": 16,
+                            "srcY": 0,
+                            "srcW": 16,
+                            "srcH": 16,
+                            "delta": 200
+                        },
+                        {
+                            "srcX": 32,
+                            "srcY": 0,
+                            "srcW": 16,
+                            "srcH": 16,
+                            "delta": 200
+                        }
+                    ]
+                }]
+            }
+        }, {
             "type": "Enemy",
             "file": "enemy.png",
             "id": 3,
@@ -657,8 +682,7 @@
             "ai": [{
                 "type": "EnemyAI"
             }]
-        },
-        {
+        }, {
             "type": "Obstacle",
             "file": "box.png",
             "id": 4,

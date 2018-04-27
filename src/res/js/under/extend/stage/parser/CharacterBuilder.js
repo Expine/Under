@@ -57,7 +57,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {JSON} ai AI information json data
      * @return {AI} AI
      */
-    makeAI(ai, animation) {
+    makeAI(ai) {
         switch (ai.type) {
             case `EnemyAI`:
                 return new EnemyAI();
@@ -175,8 +175,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 }
             }
         }
-        if (json.animation !== undefined && BaseUtil.implementsOf(base, IAnimationable)) {
-            base.setAnimation(this.makeAnimation(json.animation));
+        if (json.anime !== undefined && BaseUtil.implementsOf(base, IAnimationable)) {
+            base.setAnimation(this.makeAnimation(json.anime));
         }
         return base;
     }

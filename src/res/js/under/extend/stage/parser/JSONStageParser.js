@@ -76,6 +76,8 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
             ret = new InvariantBackMap(this.loadMapImage(map.file));
         } else if (map.type == `Movement`) {
             ret = new MovementMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height, map.rx, map.ry);
+        } else if (map.type == `Area`) {
+            ret = new AreaMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height, map.areaW, map.areaH);
         } else if (map.type == `Fixed`) {
             ret = new FixedBackMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height);
         }
