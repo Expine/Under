@@ -82,8 +82,6 @@ class AreaMap extends Map { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        let sx = (this.areaWidth - this.width) / this.areaWidth;
-        let sy = (this.areaHeight - this.height) / this.areaHeight;
         let x = -shiftX - this.x;
         let y = -shiftY - this.y;
         if (x <= 0) {

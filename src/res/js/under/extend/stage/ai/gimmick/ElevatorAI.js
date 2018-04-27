@@ -17,21 +17,61 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.maxVelocityY = 100;
+        this.maxVelocity = 100;
         /**
          * Force applied when moving
          * @protected
          * @type {number}
          */
         this.movePower = 100;
+
+        /**
+         * Whether player is on it or not
+         * @protected
+         * @type {boolean}
+         */
+        this.onPlayer = false;
+        /**
+         * Whether it moves or not
+         * @protected
+         * @type {boolean}
+         */
+        this.isMoving = false;
+        /**
+         * Counter for not on player
+         * @protected
+         * @type {number}
+         */
+        this.notOnPlayercount = 0;
+
+        /**
+         * Elevator floor
+         * @protected
+         * @type {number}
+         */
+        this.floor = -1;
+        /**
+         * Elevator x position list
+         * @protected
+         * @type {Array<number>}
+         */
+        this.elevatorXList = [];
+        /**
+         * Elevator y position list
+         * @protected
+         * @type {Array<number>}
+         */
+        this.elevatorYList = [];
     }
 
     /**
-     * Initialize AI
-     * @override
+     * Add elevator position
+     * @param {number} x Elevator x position
+     * @param {number} y Elevator y position
      */
-    init() {
-        this.entity.directionY = -1;
+    addPosition(x, y) {
+        this.elevatorXList.push(x);
+        this.elevatorYList.push(y);
     }
 
     /**
@@ -41,18 +81,48 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
+        let localCheck = false;
         // check on ground
         for (let it of this.entity.collider.collisions) {
             let you = Util.getCollidedEntity(this.entity, it);
-            if (you instanceof ImmutableEntity) {
-                if (it.ny * this.entity.directionY > 0) {
-                    this.entity.directionY *= -1;
-                    break;
+            if (BaseUtil.implementsOf(you, IPlayable)) {
+                if (!this.isMoving && !this.onPlayer) {
+                    // move next floor
+                    this.floor = (this.floor + 1) % this.elevatorXList.length;
+                    this.isMoving = true;
+                    this.notOnPlayercount = 0;
                 }
+                localCheck = true;
+                break;
             }
         }
-        if (Math.abs(this.entity.body.velocityY) < this.maxVelocityY) {
-            this.entity.body.enforce(0, this.entity.directionY * this.movePower * this.entity.material.mass);
+        if (!localCheck) {
+            this.notOnPlayercount += dt / 1000;
+        }
+        if (localCheck || (this.onPlayer && this.notOnPlayercount > 0.5)) {
+            this.onPlayer = localCheck;
+        }
+        if (this.isMoving) {
+            let dx = this.elevatorXList[this.floor] - this.entity.x;
+            let dy = this.elevatorYList[this.floor] - this.entity.y;
+            if (dx * this.entity.directionX < 0) {
+                dx = 0;
+            }
+            if (dy * this.entity.directionY < 0) {
+                dy = 0;
+            }
+            if (dx == 0 && dy == 0) {
+                this.isMoving = false;
+                this.entity.body.setNextAddVelocity(-this.entity.body.velocityX, -this.entity.body.velocityY);
+                this.entity.directionX = 0;
+                this.entity.directionY = 0;
+                return true;
+            }
+            this.entity.directionX = Math.sign(dx);
+            this.entity.directionY = Math.sign(dy);
+            let fx = Math.abs(this.entity.body.velocityX) < this.maxVelocity ? Math.sign(dx) * this.movePower * this.entity.material.mass : 0;
+            let fy = Math.abs(this.entity.body.velocityY) < this.maxVelocity ? Math.sign(dy) * this.movePower * this.entity.material.mass : 0;
+            this.entity.body.enforce(fx, fy);
         }
         return true;
     }

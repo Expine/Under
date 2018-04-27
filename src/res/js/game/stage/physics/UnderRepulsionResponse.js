@@ -66,7 +66,7 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
         let vdy1 = 0;
         let vdx2 = 0;
         let vdy2 = 0;
-        if (b2 !== undefined && (ny < 1 || b1.velocityX * b2.velocityX + b1.velocityY * b2.velocityY < 0)) {
+        if (b2 !== undefined) {
             let dot1 = b1.velocityX * nx + b1.velocityY * ny;
             let dot2 = b2.velocityX * nx + b2.velocityY * ny;
             let v1x = dot1 * nx;
@@ -88,30 +88,36 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
                     e1.deltaMove(n1x, n1y);
                     e2.deltaMove(n2x, n2y);
                 }
+                // TODO: Push back problem
+                // player -> mutable -> immutable
+                // 1. mutable -> immutable is very fast(mutable is light) and push back later so player did not collided immutable
+                // 2. mutable -> immutable push back then player -> mutable push back so mutable is over immutable
+                // Solve
+                // 1. collision data priority - Either one is immutable -> high priority (lower one is high priority (for gravity))
                 /*
-            if (dot2 > 0 || e1 instanceof AutonomyEntitiy) {
-                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e1.deltaMove(n1x, n1y);
-                    }
-                } else if (e2 instanceof AutonomyEntitiy) {
-                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e2.deltaMove(n2x, n2y);
-                    }
-                } else if (v1 > v2) {
-                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e1.deltaMove(n1x, n1y);
-                    }
-                } else if (v2 < v1) {
-                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e2.deltaMove(n2x, n2y);
-                    }
-                } else {
-                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        e1.deltaMove(n1x, n1y);
-                        e2.deltaMove(n2x, n2y);
-                    }
-                }
-                */
+                 if (dot2 > 0 || e1 instanceof AutonomyEntitiy) {
+                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                         e1.deltaMove(n1x, n1y);
+                     }
+                 } else if (e2 instanceof AutonomyEntitiy) {
+                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                         e2.deltaMove(n2x, n2y);
+                     }
+                 } else if (v1 > v2) {
+                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                         e1.deltaMove(n1x, n1y);
+                     }
+                 } else if (v2 < v1) {
+                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                         e2.deltaMove(n2x, n2y);
+                     }
+                 } else {
+                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                         e1.deltaMove(n1x, n1y);
+                         e2.deltaMove(n2x, n2y);
+                     }
+                 }
+                 */
             }
             // check impossible collision
             if (Math.abs(v1) < Math.abs(v2) && dot2 >= 0) {
@@ -136,8 +142,8 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             }
             // repulsion
             let e = e2.material.e;
-            vdx1 = -v1x * (1 + e) / 2;
-            vdy1 = -v1y * (1 + e) / 2;
+            vdx1 = -v1x * (1 + e);
+            vdy1 = -v1y * (1 + e);
         }
 
         // friction
