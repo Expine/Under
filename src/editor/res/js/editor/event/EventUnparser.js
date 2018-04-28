@@ -44,6 +44,19 @@ class EventUnparser { // eslint-disable-line  no-unused-vars
             ret.y = event.y;
             ret.sentence = event.sentence;
             ret.size = event.size;
+        } else if (event instanceof AutoInputEvent) {
+            ret.type = `auto`;
+            ret.orders = [];
+            for (let it of event.orders) {
+                ret.orders.push(it);
+            }
+        } else if (event instanceof ControlEntityEvent) {
+            ret.type = `control`;
+            ret.target = event.target;
+            ret.vx = event.vx;
+            ret.vy = event.vy;
+            ret.fx = event.fx;
+            ret.fy = event.fy;
         } else if (event instanceof SequentialEvent) {
             ret.type = `sequential`;
             ret.events = [];

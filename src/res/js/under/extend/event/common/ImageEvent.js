@@ -53,6 +53,7 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
         this.op.next();
     }
 
+    // TODO: Should be abstracted
     /**
      * Get event's unique name
      * @return {string} Unique name of event (return null if it is unnecessary)

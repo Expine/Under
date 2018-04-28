@@ -64,7 +64,7 @@ class Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Set camera
-     * @param {Camera} map Camera
+     * @param {Camera} camera Camera
      */
     setCamera(camera) {
         this.camera = camera;
@@ -84,6 +84,14 @@ class Stage { // eslint-disable-line  no-unused-vars
      */
     getPhysicalWorld() {
         return this.physic;
+    }
+
+    /**
+     * Get camera
+     * @return {Camera} Camera of stage
+     */
+    getCamera() {
+        return this.camera;
     }
 
     /**

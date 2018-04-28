@@ -78,25 +78,27 @@ class AreaMap extends Map { // eslint-disable-line  no-unused-vars
      * Render map
      * @override
      * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
+     * @param {number} screenWidth Scren width
+     * @param {number} screenWidth Scren height
      */
-    render(ctx, shiftX = 0, shiftY = 0) {
+    render(ctx, shiftX, shiftY, screenWidth, screenHeight) {
         let x = -shiftX - this.x;
         let y = -shiftY - this.y;
         if (x <= 0) {
             x = this.x + shiftX;
-        } else if (this.areaWidth - Screen.it.width <= -shiftX - this.x) {
+        } else if (this.areaWidth - screenWidth <= -shiftX - this.x) {
             x = this.x + shiftX - this.width + this.areaWidth;
         } else {
-            x = -(Screen.it.width - this.width) / (this.areaWidth - Screen.it.width) * (shiftX + this.x);
+            x = -(screenWidth - this.width) / (this.areaWidth - screenWidth) * (shiftX + this.x);
         }
         if (y <= 0) {
             y = this.y + shiftY;
-        } else if (this.areaHeight - Screen.it.height <= -shiftY - this.y) {
+        } else if (this.areaHeight - screenHeight <= -shiftY - this.y) {
             y = this.y + shiftY - this.height + this.areaHeight;
         } else {
-            y = -(Screen.it.height - this.height) / (this.areaHeight - Screen.it.height) * (shiftY + this.y);
+            y = -(screenHeight - this.height) / (this.areaHeight - screenHeight) * (shiftY + this.y);
         }
         ctx.drawImage(this.backID, x, y, this.width, this.height);
     }

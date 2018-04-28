@@ -141,7 +141,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} shiftY Shift y position
      */
     renderMap(ctx, shiftX, shiftY) {
-        this.map.render(ctx, shiftX + this.camera.cameraX, this.camera.baseY + this.camera.cameraY);
+        this.map.render(ctx, shiftX + this.camera.cameraX, this.camera.baseY + this.camera.cameraY, this.camera.screenWidth, this.camera.screenHeight);
     }
 
     /**

@@ -55,6 +55,8 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
                 ret.setForce(event.fx, event.fy);
             }
             return ret;
+        } else if (event.type == `camera`) {
+            return new CameraEvent(event.name, event.x, event.y);
         } else if (event.type == `sequential`) {
             let ret = new SequentialEvent();
             for (let it of event.events) {

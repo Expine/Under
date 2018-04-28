@@ -36,7 +36,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     /**
      * Set camera
      * @override
-     * @param {Camera} map Camera
+     * @param {Camera} camera Camera
      */
     setCamera(camera) {
         this.stage.setCamera(camera);
@@ -49,6 +49,14 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      */
     setPhysicalWorld(physic) {
         this.stage.setPhysicalWorld(physic);
+    }
+
+    /**
+     * Get camera
+     * @return {Camera} Camera of stage
+     */
+    getCamera() {
+        return this.stage.getCamera();
     }
 
     /**

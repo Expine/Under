@@ -86,7 +86,18 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @return {Array<GameEvent>} Running events that has name
      */
     getRunningEventsByName(name) {
-        return this.op.getRunningEventsByName(name);
+        let ret = this.op.getRunningEventsByName(name);
+        for (let it of this.updatingEvents) {
+            if (name == it.getName() && ret.indexOf(it) == -1) {
+                ret.push(it);
+            }
+        }
+        for (let it of this.renderingEvents) {
+            if (name == it.getName() && ret.indexOf(it) == -1) {
+                ret.push(it);
+            }
+        }
+        return ret;
     }
 
     /**
