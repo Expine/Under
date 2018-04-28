@@ -17,13 +17,13 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.maxVelocity = 100;
+        this.maxVelocity = 200;
         /**
          * Force applied when moving
          * @protected
          * @type {number}
          */
-        this.movePower = 100;
+        this.movePower = 200;
 
         /**
          * Whether player is on it or not
@@ -107,15 +107,16 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
             let dy = this.elevatorYList[this.floor] - this.entity.y;
             if (dx * this.entity.directionX < 0) {
                 dx = 0;
+                this.entity.directionX = 0;
+                this.entity.body.setNextAddVelocity(-this.entity.body.velocityX, 0);
             }
             if (dy * this.entity.directionY < 0) {
                 dy = 0;
+                this.entity.directionY = 0;
+                this.entity.body.setNextAddVelocity(0, -this.entity.body.velocityY);
             }
             if (dx == 0 && dy == 0) {
                 this.isMoving = false;
-                this.entity.body.setNextAddVelocity(-this.entity.body.velocityX, -this.entity.body.velocityY);
-                this.entity.directionX = 0;
-                this.entity.directionY = 0;
                 return true;
             }
             this.entity.directionX = Math.sign(dx);
