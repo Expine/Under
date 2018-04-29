@@ -74,6 +74,8 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
         if (this.op != null) {
             this.op.next();
         }
+        this.showCount = 0;
+        this.ended = false;
     }
 
     /**

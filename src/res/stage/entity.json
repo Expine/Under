@@ -778,6 +778,103 @@
             "ai": [{
                 "type": "ElevatorAI"
             }]
+        },
+        {
+            "type": "Door",
+            "file": "door.png",
+            "id": 8,
+            "width": 128,
+            "height": 128,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 128,
+                "height": 128
+            },
+            "anime": {
+                "file": "door.png",
+                "animation": [{
+                    "loop": false,
+                    "list": [{
+                            "srcX": 0,
+                            "srcY": 0,
+                            "srcW": 64,
+                            "srcH": 64,
+                            "delta": 200
+                        },
+                        {
+                            "srcX": 64,
+                            "srcY": 0,
+                            "srcW": 64,
+                            "srcH": 64,
+                            "delta": 200
+                        },
+                        {
+                            "srcX": 128,
+                            "srcY": 0,
+                            "srcW": 64,
+                            "srcH": 64,
+                            "delta": 200
+                        },
+                        {
+                            "srcX": 192,
+                            "srcY": 0,
+                            "srcW": 64,
+                            "srcH": 64,
+                            "delta": 200
+                        }
+                    ]
+                }]
+            }
+        },
+        {
+            "type": "Sign",
+            "file": "sign.png",
+            "id": 9,
+            "width": 32,
+            "height": 32,
+            "collider": {
+                "type": "Rectangle",
+                "startX": -31,
+                "startY": -50,
+                "width": 94,
+                "height": 80
+            },
+            "sign": {
+                "file": "sign.png",
+                "x": 0,
+                "y": 0,
+                "width": 32,
+                "height": 32
+            }
+        },
+        {
+            "type": "Door",
+            "file": "floorDoor.png",
+            "id": 10,
+            "width": 64,
+            "height": 64,
+            "collider": {
+                "type": "Rectangle",
+                "startX": 0,
+                "startY": 0,
+                "width": 64,
+                "height": 64
+            },
+            "anime": {
+                "file": "floorDoor.png",
+                "animation": [{
+                    "loop": false,
+                    "list": [{
+                        "srcX": 0,
+                        "srcY": 0,
+                        "srcW": 32,
+                        "srcH": 32,
+                        "delta": 200
+                    }]
+                }]
+            }
         }
     ]
 }
