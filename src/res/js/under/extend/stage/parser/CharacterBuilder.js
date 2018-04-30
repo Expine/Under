@@ -121,7 +121,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 ret = new Obstacle();
                 break;
             case `Door`:
-                ret = new DoorObject(deploy.stage, deploy.replace === undefined ? deploy.replace : false);
+                ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
                 collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
                 collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
                 ret.setCollider(collider);

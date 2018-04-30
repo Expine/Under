@@ -8,10 +8,8 @@ class Camera { // eslint-disable-line  no-unused-vars
     /**
      * Camera Constructor
      * @constructor
-     * @param {number} screenWidth Camera screen width
-     * @param {number} screenHeight Camera screen height
      */
-    constructor(screenWidth, screenHeight) {
+    constructor() {
         /**
          * Camera x position
          * @type {number}
@@ -37,11 +35,21 @@ class Camera { // eslint-disable-line  no-unused-vars
          * Camera screen width
          * @type {number}
          */
-        this.screenWidth = screenWidth;
+        this.screenWidth = 0;
         /**
          * Camera screen height
          * @type {number}
          */
+        this.screenHeight = 0;
+    }
+
+    /**
+     * Set screen size
+     * @param {number} screenWidth Camera screen width
+     * @param {number} screenHeight Camera screen height
+     */
+    setScreenSize(screenWidth, screenHeight) {
+        this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
     }
 

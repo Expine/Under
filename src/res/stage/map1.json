@@ -8,7 +8,11 @@
             "file": "back.png"
         }]
     },
-    "camera": "Center",
+    "camera": {
+        "type": "center",
+        "moving": true,
+        "cliping": true
+    },
     "tiles": "tile.json",
     "entities": "entity.json",
     "layers": [

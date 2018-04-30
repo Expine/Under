@@ -12,10 +12,11 @@ class DoorObject extends ImagedEntity /* , IAnimationable */ { // eslint-disable
     /**
      * Influential event object constructor
      * @constructor
-     * @param {string} transition Transition stage name
-     * @param {boolean} isReplace Whether stage is replaced or not
+     * @param {string} [transition=null] Transition stage name
+     * @param {boolean} [isReplace=false] Whether stage is replaced or not
+     * @param {number} [popNumber=0] Number of applying pop
      */
-    constructor(transition, isReplace) {
+    constructor(transition = null, isReplace = false, popNumber = 0) {
         super();
 
         /**
@@ -43,6 +44,12 @@ class DoorObject extends ImagedEntity /* , IAnimationable */ { // eslint-disable
          * @type {boolean}
          */
         this.isReplace = isReplace;
+        /**
+         * Number of applying pop
+         * @protected
+         * @type {number}
+         */
+        this.popNumber = popNumber;
 
         /**
          * Door collider for
@@ -91,11 +98,17 @@ class DoorObject extends ImagedEntity /* , IAnimationable */ { // eslint-disable
             if (this.doorAnimation.isEnded()) {
                 // transition
                 Input.key.setInputEnable(true);
-                if (this.isReplace) {
-                    StageManager.it.replaceStage(this.transition);
-                } else {
-                    StageManager.it.pushStage(this.transition);
+                for (let i = 0; i < this.popNumber; ++i) {
+                    StageManager.it.popStage();
                 }
+                if (this.transition != null) {
+                    if (this.isReplace) {
+                        StageManager.it.replaceStage(this.transition);
+                    } else {
+                        StageManager.it.pushStage(this.transition);
+                    }
+                }
+                this.isTransitioning = false;
             }
             return;
         }

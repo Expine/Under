@@ -23,7 +23,11 @@
             "areaH": 600
         }]
     },
-    "camera": "Center",
+    "camera": {
+        "type": "center",
+        "moving": true,
+        "cliping": true
+    },
     "tiles": "tile.json",
     "entities": "entity.json",
     "layers": [
@@ -1794,11 +1798,6 @@
         }]
     ],
     "deploy": [{
-        "id": 0,
-        "x": 160,
-        "y": 448,
-        "z": 2
-    }, {
         "id": 9,
         "x": 384,
         "y": 448,
@@ -1812,7 +1811,12 @@
         "id": 10,
         "x": 448,
         "y": 416,
-        "stage": "map1",
+        "stage": "oop",
         "replace": false
+    }, {
+        "id": 0,
+        "x": 160,
+        "y": 448,
+        "z": 2
     }]
 }
