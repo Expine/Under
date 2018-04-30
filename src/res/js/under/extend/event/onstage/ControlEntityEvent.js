@@ -2,23 +2,17 @@
  * Control entity event
  * - Updates and renders event
  * - Controls the stage
+ * - Stores stage instance
  * - ### Controls entity
  * @classdesc Control entity event to control entity
  */
-class ControlEntityEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
+class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     /**
      * Control entity event constructor
      * @constructor
      */
     constructor() {
         super();
-
-        /**
-         * Stage for constrol
-         * @protected
-         * @type {Stage}
-         */
-        this.stage = null;
 
         /**
          * Target entity
@@ -57,14 +51,6 @@ class ControlEntityEvent extends GameEvent /* , IStageEvent */ { // eslint-disab
          * @type {number}
          */
         this.fy = 0;
-    }
-
-    /**
-     * Set stage
-     * @param {Stage} stage Stage to set
-     */
-    setStage(stage) {
-        this.stage = stage;
     }
 
     /**

@@ -2,33 +2,11 @@
  * Wait key event
  * - Updates and renders event
  * - Controls the stage
+ * - Stores stage instance
  * - ### Waits to input key
  * @classdesc Wait key event to wait to input key
  */
-class WaitKeyEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
-    /**
-     * Wait key event constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-
-        /**
-         * Stage for constrol
-         * @protected
-         * @type {Stage}
-         */
-        this.stage = null;
-    }
-
-    /**
-     * Set stage
-     * @param {Stage} stage Stage to set
-     */
-    setStage(stage) {
-        this.stage = stage;
-    }
-
+class WaitKeyEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     /**
      * Initialize event
      * @override

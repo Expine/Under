@@ -9,11 +9,13 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * Image event constructor
      * @constructor
      * @param {string} name Image unique name
+     * @param {number} imageID Image ID for rendering
      * @param {number} x Image x position
      * @param {number} y Image y position
-     * @param {number} imageID Image ID for rendering
+     * @param {number} width Image width
+     * @param {number} height Image height
      */
-    constructor(name, x, y, imageID) {
+    constructor(name, imageID, x, y, width, height) {
         super();
 
         /**
@@ -41,6 +43,19 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.imageID = imageID;
+
+        /**
+         * Image width
+         * @protected
+         * @type {number}
+         */
+        this.width = width;
+        /**
+         * Image height
+         * @protected
+         * @type {number}
+         */
+        this.height = height;
     }
 
     /**
@@ -68,6 +83,6 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         super.render(ctx);
-        ctx.drawImage(this.imageID, this.x, this.y);
+        ctx.drawImage(this.imageID, this.x, this.y, this.width, this.height);
     }
 }

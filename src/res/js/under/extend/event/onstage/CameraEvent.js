@@ -2,10 +2,11 @@
  * Camera event
  * - Updates and renders event
  * - Controls the stage
+ * - Stores stage instance
  * - ### Moves camera
  * @classdesc Camera event to move camera
  */
-class CameraEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
+class CameraEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     /**
      * Camera event constructor
      * @constructor
@@ -35,13 +36,6 @@ class CameraEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line
          */
         this.toY = y;
 
-        /**
-         * Stage for constrol
-         * @protected
-         * @type {Stage}
-         */
-        this.stage = null;
-
         // TODO: Shoud be abstracted
         /**
          * Event camera
@@ -49,14 +43,6 @@ class CameraEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line
          * @type {EventCamera}
          */
         this.camera = null;
-    }
-
-    /**
-     * Set stage
-     * @param {Stage} stage Stage to set
-     */
-    setStage(stage) {
-        this.stage = stage;
     }
 
     /**

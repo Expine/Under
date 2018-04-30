@@ -28,7 +28,7 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
         } else if (event.type == `waitkey`) {
             return new WaitKeyEvent();
         } else if (event.type == `image`) {
-            return new ImageEvent(event.name, event.x, event.y, this.loadEventImage(event.file));
+            return new ImageEvent(event.name, this.loadEventImage(event.file), event.x, event.y, event.width, event.height);
         } else if (event.type == `delete`) {
             return new DeleteEvent(event.name);
         } else if (event.type == `delay`) {

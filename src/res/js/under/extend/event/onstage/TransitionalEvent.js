@@ -2,10 +2,11 @@
  * Transitional event
  * - Updates and renders event
  * - Controls the stage
+ * - Stores stage instance
  * - ### Transitions the stage
  * @classdesc Transitional event to transition the stage
  */
-class TransitionalEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
+class TransitionalEvent extends StageEvent { // eslint-disable-line  no-unused-vars
     /**
      * Transitional event constructor
      * @constructor
@@ -14,13 +15,6 @@ class TransitionalEvent extends GameEvent /* , IStageEvent */ { // eslint-disabl
      */
     constructor(stageName, isReplace) {
         super();
-
-        /**
-         * Stage for constrol
-         * @protected
-         * @type {Stage}
-         */
-        this.stage = null;
 
         /**
          * Stage name
@@ -34,14 +28,6 @@ class TransitionalEvent extends GameEvent /* , IStageEvent */ { // eslint-disabl
          * @type {boolean}
          */
         this.isReplace = isReplace;
-    }
-
-    /**
-     * Set stage
-     * @param {Stage} stage Stage to set
-     */
-    setStage(stage) {
-        this.stage = stage;
     }
 
     /**
