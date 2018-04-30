@@ -42,7 +42,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     init() {
         this.stageManager = new StackStageManager();
         this.stageManager.setStageParser(new UnderStageParser());
-        this.stageManager.pushStage(`developer`);
+        this.stageManager.pushStage(`recruitStart`);
 
         // set player
         this.player = this.stageManager.getStage().getEntities().filter((it) => it instanceof Player)[0];
@@ -50,6 +50,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
         // initialize layer
         this.layers.length = 0;
         this.layers.push(new UILayer(this.player));
+        this.gameover = false;
     }
 
     /**
@@ -58,7 +59,14 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
+        // set player
+        this.player = this.stageManager.getStage().getEntities().filter((it) => it instanceof Player)[0];
+
         // gameover
+        if (this.player.y > this.stageManager.getStage().stageHeight) {
+            // TODO: Should get stage height by interface
+            this.player.setHP(0);
+        }
         if (this.player.getHP() <= 0 && !this.gameover) {
             this.layers.push(new GameoverLayer());
             this.gameover = true;

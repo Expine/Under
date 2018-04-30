@@ -41,9 +41,9 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
     execute(event) {
         event.setEventOperator(this);
         this.events.push(event);
-        if (this.updatingEvents.length == 0) {
-            this.next();
-        }
+        // if (this.updatingEvents.length == 0) {
+        this.next();
+        // }
     }
 
     /**
@@ -114,12 +114,12 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
     getRunningEventsByName(name) {
         let ret = [];
         for (let it of this.updatingEvents) {
-            if (name == it.getName() && ret.indexOf(it) == -1) {
+            if (name == it.getName()) {
                 ret.push(it);
             }
         }
         for (let it of this.renderingEvents) {
-            if (name == it.getName() && ret.indexOf(it) == -1) {
+            if (name == it.getName()) {
                 ret.push(it);
             }
         }

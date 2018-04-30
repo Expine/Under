@@ -281,11 +281,11 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
         super.render(ctx, shiftX, shiftY);
         // ctx.fillRect(this.x + shiftX, this.y + shiftY, this.width, this.height, `red`, 1);
         if (this.post !== null) {
-            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.post.getHookX() + shiftX, this.post.getHookY() + shiftY, `red`, 2);
+            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.post.getHookX() + shiftX, this.post.getHookY() + shiftY, `#FFCC66`, 4);
         } else {
             let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
             let y = this.owner.y - this.generatedY;
-            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, `red`, 2);
+            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, `#FFCC66`, 4);
         }
     }
 }
