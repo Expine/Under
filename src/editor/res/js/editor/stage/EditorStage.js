@@ -136,7 +136,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         let index = this.stage.getEntities().indexOf(entity);
         if (index >= 0) {
             this.entitiesID.splice(index, 1);
-            }
+        }
         super.removeEntity(entity);
     }
 
@@ -230,7 +230,8 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 this.restore();
             } else {
                 this.preCamera = this.stage.camera;
-                this.stage.camera = new CenterCamera(this.stage.camera.screenWidth, this.stage.camera.screenHeight);
+                // TODO: Should be abstracted
+                this.stage.camera = this.preCamera.baseCamera;
                 this.getSaveData();
             }
             this.playMode = !this.playMode;
