@@ -21,7 +21,7 @@ class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars
                 let id = setInterval(() => {
                     let music = instance.music.getMusic(musicID);
                     if (music !== null) {
-                        this.play(musicID, loop);
+                        this._play(musicID, loop);
                         clearInterval(id);
                     }
                 }, 1000 / 60);
