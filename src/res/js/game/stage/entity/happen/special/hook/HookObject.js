@@ -138,7 +138,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
      * @protected
      */
     makeChild(vx, vy) {
-        if (this.post === null && this.restLength > 0 && !this.isHooked) {
+        if ((this.isHead() || this.previous) !== null && this.post === null && this.restLength > 0 && !this.isHooked) {
             if (this.restLength - 15 <= 0) {
                 this.connectPlayer();
                 return;
@@ -225,7 +225,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
                 it.changeState(`released`);
             }
         }
-        if (this.post === null) {
+        if ((this.isHead() || this.previous) !== null && this.post === null) {
             this.connectPlayer();
         }
     }

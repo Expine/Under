@@ -93,8 +93,8 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             let index = this.sortedEntity.findIndex((it) => {
                 return entity.z < it.z;
             });
-            if (index >= 1) {
-                this.sortedEntity.splice(index - 1, 0, entity);
+            if (index >= 0) {
+                this.sortedEntity.splice(index, 0, entity);
             } else {
                 this.sortedEntity.push(entity);
             }
@@ -127,8 +127,14 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         if (entity instanceof InfluentialEntity) {
             this.physic.removeEntity(entity);
         }
-        this.entities.splice(this.entities.indexOf(entity), 1);
-        this.sortedEntity.splice(this.sortedEntity.indexOf(entity), 1);
+        let index = this.entities.indexOf(entity);
+        if (index >= 0) {
+            this.entities.splice(index, 1);
+        }
+        index = this.sortedEntity.indexOf(entity);
+        if (index >= 0) {
+            this.sortedEntity.splice(index, 1);
+        }
     }
 
     /**
