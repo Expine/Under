@@ -60,22 +60,6 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Make underlying tile object
-     * @protected
-     * @param {JSON} deploy Entity deploy json data
-     * @param {JSON} tile Tile information json data
-     * @return {InfluentialEntity} Underlying tile object
-     */
-    makeTileBase(deploy, tile) {
-        let ret = new TileObject();
-        ret.setPosition(deploy.x, deploy.y, deploy.z);
-        ret.setSize(tile.width, tile.height);
-        ret.setTileArea(tile.x, tile.y, tile.width, tile.height);
-        ret.setImage(this.loadTileImage(tile.file));
-        return ret;
-    }
-
-    /**
      * Make animation
      * @protected
      * @param {JSON} anime Animation json data
@@ -98,6 +82,22 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Make underlying tile object
+     * @protected
+     * @param {JSON} deploy Entity deploy json data
+     * @param {JSON} tile Tile information json data
+     * @return {InfluentialEntity} Underlying tile object
+     */
+    makeTileBase(deploy, tile) {
+        let ret = new TileObject();
+        ret.setPosition(deploy.x, deploy.y, deploy.z);
+        ret.setSize(tile.width, tile.height);
+        ret.setTileArea(tile.x, tile.y, tile.width, tile.height);
+        ret.setImage(this.loadTileImage(tile.file));
+        return ret;
+    }
+
+    /**
      * Build physical parameter from json data
      * @protected
      * @param {Entity} base Base entity
@@ -105,12 +105,16 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildPhysical(base, deploy, json) {
-        let collider = this.makeCollider(json.collider);
+        let colliderData = deploy.collider !== undefined ? deploy.collider : json.collider;
+        let materialData = deploy.material !== undefined ? deploy.material : json.material;
+        // set collider
+        let collider = this.makeCollider(colliderData);
         if (collider != null) {
-            collider.setAABB(this.makeAABB(json.collider));
+            collider.setAABB(this.makeAABB(colliderData));
         }
         base.setCollider(collider);
-        base.setMaterial(this.makeMaterial(json.material));
+        // set material
+        base.setMaterial(this.makeMaterial(materialData));
     }
 
     /**

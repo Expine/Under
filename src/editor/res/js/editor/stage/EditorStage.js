@@ -161,28 +161,28 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         let data = {};
         data.width = this.stage.stageWidth;
         data.height = this.stage.stageHeight;
-        data.map = MapUnparser.unparse(this.stage.map);
-        // TODO: Should I save camera?
-        data.camera = `Center`;
+        data.map = (new MapUnparser()).unparse(this.stage.map);
+        data.camera = (new CameraUnparser()).unparse(this.stage.camera.baseCamera);
         data.tiles = this.tileInfo.tiles;
         data.entities = this.entityInfo.entities;
         data.layers = [];
         data.layers.push([]);
         data.deploy = [];
         let entities = this.getEntities();
+        let unparser = new EntityUnparser();
         for (let i = 0; i < entities.length; ++i) {
             let it = entities[i];
-            let entity = {};
-            entity.id = this.entitiesID[i];
-            entity.x = it.x;
-            entity.y = it.y;
+            let id = this.entitiesID[i];
+            let original = it instanceof TileObject ? this.tileInfo[id] : this.entityInfo[id];
+            let entity = unparser.unparse(it, original);
+            // unparse event
             if (BaseUtil.implementsOf(it, IEventEntity)) {
                 entity.event = EventUnparser.unparse(it.getEvent());
             }
+            // set
             if (it instanceof TileObject) {
                 data.layers[0].push(entity);
             } else {
-                entity.z = it.z;
                 data.deploy.push(entity);
             }
         }

@@ -30,14 +30,6 @@ class SequentialMap extends Map { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Get back image ID
-     * @return {number} Back image ID
-     */
-    getBackID() {
-        return this.maps.length > 0 ? this.maps[this.maps.length - 1] : -1;
-    }
-
-    /**
      * Render map
      * @override
      * @param {Context} ctx Canvas context

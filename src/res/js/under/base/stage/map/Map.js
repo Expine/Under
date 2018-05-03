@@ -6,13 +6,6 @@
  */
 class Map { // eslint-disable-line  no-unused-vars
     /**
-     * Get back image ID
-     * @abstract
-     * @return {number} Back image ID
-     */
-    getBackID() {}
-
-    /**
      * Update map
      * @abstract
      * @param {number} dt delta time

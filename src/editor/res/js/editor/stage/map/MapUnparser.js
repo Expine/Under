@@ -9,7 +9,7 @@ class MapUnparser { // eslint-disable-line  no-unused-vars
      * Load map resource path
      * @param {number} id Map image ID
      */
-    static loadPath(id) {
+    loadPath(id) {
         return ResourceManager.image.getPath(id).replace(`back/`, ``);
     }
 
@@ -18,27 +18,38 @@ class MapUnparser { // eslint-disable-line  no-unused-vars
      * @param {Map} map Map to unparse
      * @return {JSON} Json data
      */
-    static unparse(map) {
+    unparse(map) {
         let ret = {};
         if (map instanceof SequentialMap) {
             ret.type = `Sequential`;
             ret.backs = [];
             for (let it of map.maps) {
-                ret.backs.push(MapUnparser.unparse(it));
+                ret.backs.push(this.unparse(it));
             }
         } else if (map instanceof InvariantBackMap) {
             ret.type = `Invariant`;
-            ret.file = MapUnparser.loadPath(map.getBackID());
+            ret.file = this.loadPath(map.backID);
         } else if (map instanceof MovementMap) {
             ret.type = `Movement`;
-            ret.file = MapUnparser.loadPath(map.getBackID());
+            ret.file = this.loadPath(map.backID);
+            ret.x = map.x;
+            ret.y = map.y;
             ret.width = map.width;
             ret.height = map.height;
             ret.rx = map.speedRatioX;
             ret.ry = map.speedRatioY;
+        } else if (map instanceof AreaMap) {
+            ret.type = `Area`;
+            ret.file = this.loadPath(map.backID);
+            ret.x = map.x;
+            ret.y = map.y;
+            ret.width = map.width;
+            ret.height = map.height;
+            ret.areaW = map.areaHeight;
+            ret.areaH = map.areaHeight;
         } else if (map instanceof FixedBackMap) {
             ret.type = `Fixed`;
-            ret.file = MapUnparser.loadPath(map.getBackID());
+            ret.file = this.loadPath(map.backID);
             ret.x = map.x;
             ret.y = map.y;
             ret.width = map.width;
