@@ -47,13 +47,13 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.screenDiffX = screenWidth - Screen.it.width;
+        this.screenDiffX = screenWidth - GameScreen.it.width;
         /**
          * Difference from actual screen height
          * @protected
          * @type {number}
          */
-        this.screenDiffY = screenHeight - Screen.it.height;
+        this.screenDiffY = screenHeight - GameScreen.it.height;
 
         // set size
         this.setScreenSize(screenWidth, screenHeight);
@@ -83,8 +83,8 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
             this.cameraY = y;
         }
 
-        this.screenWidth = Screen.it.width + this.screenDiffX;
-        this.screenHeight = Screen.it.height + this.screenDiffY;
+        this.screenWidth = GameScreen.it.width + this.screenDiffX;
+        this.screenHeight = GameScreen.it.height + this.screenDiffY;
         this.baseCamera.setScreenSize(this.screenWidth, this.screenHeight);
 
         if (this.cameraX < this.screenWidth - width) {

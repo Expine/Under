@@ -13,7 +13,7 @@ class Input { // eslint-disable-line  no-unused-vars
         /**
          * Screen instance for getting screen ratio
          * @protected
-         * @type {Screen}
+         * @type {GameScreen}
          */
         this.screen = null;
 
@@ -24,7 +24,7 @@ class Input { // eslint-disable-line  no-unused-vars
 
     /**
      * Set screen instance for getting screen ratio and setting inut target
-     * @param {Screen} screen
+     * @param {GameScreen} screen
      */
     setScreen(screen) {
         this.screen = screen;

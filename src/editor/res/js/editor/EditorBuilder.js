@@ -11,7 +11,7 @@ class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unus
      * Make screen system
      * @override
      * @protected
-     * @return {Screen} Screen system
+     * @return {GameScreen} Screen system
      */
     makeScreen() {
         return new FitableScreen(800, 850);

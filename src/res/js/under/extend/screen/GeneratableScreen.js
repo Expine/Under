@@ -3,10 +3,10 @@
  * - Indicates the rendering target and input target
  * - ### It can generate a canvas automatically
  * - ### Both Input and rendering target is canvas
- * @implements {Screen}
+ * @implements {GameScreen}
  * @classdesc Generatable screen to generate a canvas automatically
  */
-class GeneratableScreen extends Screen { // eslint-disable-line  no-unused-vars
+class GeneratableScreen extends GameScreen { // eslint-disable-line  no-unused-vars
     /**
      * Generatable screen constructor
      * @constructor

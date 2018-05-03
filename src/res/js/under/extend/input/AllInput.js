@@ -44,7 +44,7 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
     /**
      * Set screen instance for getting screen ratio and setting inut target
      * @override
-     * @param {Screen} screen
+     * @param {GameScreen} screen
      */
     setScreen(screen) {
         super.setScreen(screen);

@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Screen indicating the rendering and input target
  */
-class Screen { // eslint-disable-line  no-unused-vars
+class GameScreen { // eslint-disable-line  no-unused-vars
     /**
      * Screen constructor
      * @constructor
@@ -29,7 +29,7 @@ class Screen { // eslint-disable-line  no-unused-vars
         this.height = height;
 
         // set singleton
-        Screen.it = this;
+        GameScreen.it = this;
     }
 
     /**
@@ -56,6 +56,6 @@ class Screen { // eslint-disable-line  no-unused-vars
 /**
  * Instance for singleton
  * @static
- * @type {Screen}
+ * @type {GameScreen}
  */
-Screen.it = null;
+GameScreen.it = null;

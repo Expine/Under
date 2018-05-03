@@ -30,7 +30,7 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * Make screen system
      * @override
      * @protected
-     * @return {Screen} Screen system
+     * @return {GameScreen} Screen system
      */
     makeScreen() {
         return new ScalableScreen();

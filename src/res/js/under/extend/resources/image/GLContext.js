@@ -8,7 +8,7 @@
 class GLContext extends Context { // eslint-disable-line  no-unused-vars
     /**
      * Set screen
-     * @param {Screen} screen Screen system
+     * @param {GameScreen} screen Screen system
      */
     setScreen(screen) {
         super.setScreen(screen);

@@ -17,7 +17,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
          * @protected
          * @type {EditorStage}
          */
-        this.stage = (new EditorStageParser()).parse(`src/res/stage/map1.json`, Screen.it.width, Screen.it.height - 250);
+        this.stage = (new EditorStageParser()).parse(`src/res/stage/map1.json`, GameScreen.it.width, GameScreen.it.height - 250);
         this.stage.init();
 
         /**
@@ -48,8 +48,8 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
      */
     update(dt) {
         // set position and size
-        this.chipLayer.setPosition(20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
-        this.entityLayer.setPosition(Screen.it.width / 2 + 20, Screen.it.height - 230, Screen.it.width / 2 - 40, 210);
+        this.chipLayer.setPosition(20, GameScreen.it.height - 230, GameScreen.it.width / 2 - 40, 210);
+        this.entityLayer.setPosition(GameScreen.it.width / 2 + 20, GameScreen.it.height - 230, GameScreen.it.width / 2 - 40, 210);
 
         // update
         super.update(dt);
@@ -85,7 +85,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
     render(ctx) {
         this.stage.render(ctx);
         EventManager.it.render(ctx);
-        ctx.fillRect(0, Screen.it.height - 250, Screen.it.width, 250, `blue`);
+        ctx.fillRect(0, GameScreen.it.height - 250, GameScreen.it.width, 250, `blue`);
         super.render(ctx);
     }
 }

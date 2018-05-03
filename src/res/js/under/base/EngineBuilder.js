@@ -25,7 +25,7 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
      * Make screen system
      * @abstract
      * @protected
-     * @return {Screen} Screen system
+     * @return {GameScreen} Screen system
      */
     makeScreen() {}
 

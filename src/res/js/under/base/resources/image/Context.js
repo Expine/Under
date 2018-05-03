@@ -13,7 +13,7 @@ class Context { // eslint-disable-line  no-unused-vars
         /**
          * Screen for rendering
          * @protected
-         * @type {Screen}
+         * @type {GameScreen}
          */
         this.screen = null;
 
@@ -27,7 +27,7 @@ class Context { // eslint-disable-line  no-unused-vars
 
     /**
      * Set screen
-     * @param {Screen} screen Screen system
+     * @param {GameScreen} screen Screen system
      */
     setScreen(screen) {
         this.screen = screen;

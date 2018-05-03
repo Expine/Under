@@ -21,7 +21,7 @@ class Engine { // eslint-disable-line  no-unused-vars
         /**
          * Screen system
          * @protected
-         * @type {Screen}
+         * @type {GameScreen}
          */
         this.screen = null;
         /**
@@ -66,7 +66,7 @@ class Engine { // eslint-disable-line  no-unused-vars
 
     /**
      * Set screen system
-     * @param {Screen} screen Screen system
+     * @param {GameScreen} screen Screen system
      */
     setScreen(screen) {
         this.screen = screen;
