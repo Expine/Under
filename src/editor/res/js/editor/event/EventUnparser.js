@@ -31,8 +31,6 @@ class EventUnparser { // eslint-disable-line  no-unused-vars
             ret.delay = event.delay;
         } else if (event instanceof StageStopEvent) {
             ret.type = `stop`;
-        } else if (event instanceof StageRestoreEvent) {
-            ret.type = `restore`;
         } else if (event instanceof TransitionalEvent) {
             ret.type = `transition`;
             ret.stage = event.stage;

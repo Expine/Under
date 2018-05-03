@@ -34,9 +34,7 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
         } else if (event.type == `delay`) {
             return new DelayEvent(event.delay);
         } else if (event.type == `stop`) {
-            return new StageStopEvent();
-        } else if (event.type == `restore`) {
-            return new StageRestoreEvente();
+            return new StageStopEvent(event.name);
         } else if (event.type == `transition`) {
             return new TransitionalEvent(event.stage, event.replace);
         } else if (event.type == `auto`) {

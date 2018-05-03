@@ -52,11 +52,14 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
      * @param {GameEvent} event Target vent
      */
     unregister(event) {
-        for (let list of [this.events, this.runningEvents]) {
-            let index = list.indexOf(event);
-            if (index >= 0) {
-                list.splice(index, 1);
-            }
+        let index = this.events.indexOf(event);
+        if (index >= 0) {
+            this.events.splice(index, 1);
+        }
+        index = this.runningEvents.indexOf(event);
+        if (index >= 0) {
+            this.runningEvents.splice(index, 1);
+            event.destruct();
         }
     }
 
@@ -71,6 +74,15 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
             this.runningEvents.push(event);
             event.init();
         }
+    }
+
+    /**
+     * Delete event
+     * @override
+     * @param {GameEvent} event Target event
+     */
+    delete(event) {
+        this.unregister(event);
     }
 
     /**

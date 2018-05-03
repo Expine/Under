@@ -59,9 +59,6 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        // set player
-        this.player = this.stageManager.getStage().getEntities().filter((it) = it instanceof Player)[0];
-
         // gameover
         if (this.player.y > this.stageManager.getStage().stageHeight) {
             // TODO: Should get stage height by interface

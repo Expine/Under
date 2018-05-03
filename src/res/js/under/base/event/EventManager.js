@@ -45,7 +45,7 @@ class EventManager { // eslint-disable-line  no-unused-vars
         let removes = [];
         for (let it of this.getRunningEvents()) {
             if (it.update(dt)) {
-                removes.add(it);
+                removes.push(it);
             }
         }
         this.removeEvents(removes);

@@ -29,7 +29,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
          * @private
          * @type {string}
          */
-        this.fontName_ = `PixelMplus10`;
+        this.fontName_ = `Arial`;
 
         /**
          * Color of the line

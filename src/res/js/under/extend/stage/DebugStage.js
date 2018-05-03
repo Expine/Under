@@ -104,12 +104,29 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Remove entity from stage immediately
+     * @abstract
+     * @param {Entity} entity Entity object
+     */
+    removeEntityImmediately(entity) {
+        this.stage.removeEntityImmediately(entity);
+    }
+
+    /**
      * Get all entities
      * @override
      * @return {Array<Entity>} All entities
      */
     getEntities() {
         return this.stage.getEntities();
+    }
+
+    /**
+     * Initialize stage
+     * @override
+     */
+    init() {
+        this.stage.init();
     }
 
     /**

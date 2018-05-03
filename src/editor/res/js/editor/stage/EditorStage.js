@@ -141,6 +141,19 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Remove entity from stage immediately
+     * @abstract
+     * @param {Entity} entity Entity object
+     */
+    removeEntityImmediately(entity) {
+        let index = this.stage.getEntities().indexOf(entity);
+        if (index >= 0) {
+            this.entitiesID.splice(index, 1);
+        }
+        super.removeEntityImmediately(entity);
+    }
+
+    /**
      * Get json data for saving
      * @return {JSON} Json data for saving
      */
@@ -187,7 +200,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         let entities = this.getEntities();
         for (let i = entities.length - 1; i >= 0; --i) {
             if (!(entities[i] instanceof TileObject)) {
-                this.removeEntity(entities[i]);
+                this.removeEntityImmediately(entities[i]);
             }
         }
         for (let it of save.deploy) {
@@ -316,13 +329,14 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
                         if (!(entity instanceof TileObject)) {
-                            this.removeEntity(entity);
+                            this.removeEntityImmediately(entity);
                         }
                     }
                 }
                 let deploy = {
                     x: x,
                     y: y,
+                    z: 0,
                 };
                 this.addEntity(new UnderCharacterBuilder().build(deploy, this.entityInfo[entityID]));
                 this.addEntityID(entityID);
@@ -331,13 +345,14 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
                         if (entity instanceof TileObject) {
-                            this.removeEntity(entity);
+                            this.removeEntityImmediately(entity);
                         }
                     }
                 }
                 let deploy = {
                     x: x,
                     y: y,
+                    z: 0,
                 };
                 this.addEntity(new UnderTileBuilder().build(deploy, this.tileInfo[tileID]));
                 this.addEntityID(tileID);
@@ -345,7 +360,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
                 // remove
                 for (let entity of this.getEntities()) {
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        this.removeEntity(entity);
+                        this.removeEntityImmediately(entity);
                     }
                 }
             }

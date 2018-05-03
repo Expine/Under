@@ -28,7 +28,9 @@ class StackStageManager extends StageManager { // eslint-disable-line  no-unused
      * @param {string} stage Stage name
      */
     pushStage(stage) {
-        this.stageStack.push(this.parser.parse(`src/res/stage/${stage}.json`, Screen.it.width, Screen.it.height));
+        let ins = this.parser.parse(`src/res/stage/${stage}.json`, Screen.it.width, Screen.it.height);
+        ins.init();
+        this.stageStack.push(ins);
     }
 
     /**
@@ -40,7 +42,9 @@ class StackStageManager extends StageManager { // eslint-disable-line  no-unused
         if (this.stageStack.length == 0) {
             this.pushStage(stage);
         } else {
-            this.stageStack[this.stageStack.length - 1] = this.parser.parse(`src/res/stage/${stage}.json`, Screen.it.width, Screen.it.height);
+            let ins = this.parser.parse(`src/res/stage/${stage}.json`, Screen.it.width, Screen.it.height);
+            ins.init();
+            this.stageStack[this.stageStack.length - 1] = ins;
         }
     }
 

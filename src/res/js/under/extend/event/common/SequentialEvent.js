@@ -46,6 +46,23 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
     }
 
     /**
+     * Delete event
+     * @override
+     * @param {GameEvent} event Target event
+     */
+    delete(event) {
+        let index = this.events.indexOf(event);
+        if (index >= 0) {
+            this.events.splice(index, 1);
+        }
+        index = this.runningEvents.indexOf(event);
+        if (index >= 0) {
+            this.runningEvents.splice(index, 1);
+            event.destruct();
+        }
+    }
+
+    /**
      * Get currently running event
      * @abstract
      * @return {Array<GameEvent>} Currently running events
@@ -95,8 +112,8 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
     update(dt) {
         let removes = [];
         for (let it of this.runningEvents) {
-            if (!it.update(dt)) {
-                removes.add(it);
+            if (it.update(dt)) {
+                removes.push(it);
             }
         }
         for (let it of removes) {

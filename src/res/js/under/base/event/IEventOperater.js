@@ -12,6 +12,13 @@ class IEventOperator extends Interface { // eslint-disable-line  no-unused-vars
     next() {}
 
     /**
+     * Delete event
+     * @abstract
+     * @param {GameEvent} event Target event
+     */
+    delete(event) {}
+
+    /**
      * Get currently running event
      * @abstract
      * @return {Array<GameEvent>} Currently running events

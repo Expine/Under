@@ -203,6 +203,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
      * @override
      */
     hooked() {
+        this.isHooked = true;
         if (this.post !== null) {
             this.post.hooked();
         } else {
@@ -212,7 +213,6 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
             this.destroy();
             return;
         }
-        this.isHooked = true;
     }
 
     /**

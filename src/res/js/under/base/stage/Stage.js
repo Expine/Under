@@ -127,6 +127,13 @@ class Stage { // eslint-disable-line  no-unused-vars
     removeEntity(entity) {}
 
     /**
+     * Remove entity from stage immediately
+     * @abstract
+     * @param {Entity} entity Entity object
+     */
+    removeEntityImmediately(entity) {}
+
+    /**
      * Get all entities
      * @abstract
      * @return {Array<Entity>} All entities
@@ -156,6 +163,12 @@ class Stage { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     updateCamera(dt) {}
+
+    /**
+     * Initialize stage
+     * @abstract
+     */
+    init() {}
 
     /**
      * Update stage

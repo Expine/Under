@@ -29,13 +29,19 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
          * @type {Array<Entity>}
          */
         this.entities = [];
+        /**
+         * Sorted entity for rendering
+         * @protected
+         * @type {Array<Entity>}
+         */
+        this.sortedEntity = [];
 
         /**
-         * Entity layers
+         * List of entity that will be removed
          * @protected
-         * @type {Array}
+         * @type {Array<Entity>}
          */
-        this.layers = [];
+        this.removeList = [];
 
         /**
          * Playable instance for camera
@@ -43,6 +49,24 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
          * @type {IPlayable}
          */
         this.player = null;
+
+        /**
+         * Whehter initialize is ended or not
+         * @protected
+         * @type {boolean}
+         */
+        this.inited = false;
+    }
+
+    /**
+     * Initialize stage
+     * @override
+     */
+    init() {
+        this.inited = true;
+        this.sortedEntity = Object.assign([], this.entities).sort((a, b) => {
+            return a.z < b.z ? -1 : a.z > b.z ? 1 : 0;
+        });
     }
 
     /**
@@ -65,6 +89,16 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         this.entities.push(entity);
         // initialize entity
         super.addEntity(entity);
+        if (this.inited) {
+            let index = this.sortedEntity.findIndex((it) => {
+                return entity.z < it.z;
+            });
+            if (index >= 1) {
+                this.sortedEntity.splice(index - 1, 0, entity);
+            } else {
+                this.sortedEntity.push(entity);
+            }
+        }
     }
 
     /**
@@ -73,6 +107,15 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {Entity} entity Entity object
      */
     removeEntity(entity) {
+        this.removeList.push(entity);
+    }
+
+    /**
+     * Remove entity from stage immediately
+     * @abstract
+     * @param {Entity} entity Entity object
+     */
+    removeEntityImmediately(entity) {
         // remove player
         if (entity === this.player) {
             this.player = null;
@@ -85,6 +128,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             this.physic.removeEntity(entity);
         }
         this.entities.splice(this.entities.indexOf(entity), 1);
+        this.sortedEntity.splice(this.sortedEntity.indexOf(entity), 1);
     }
 
     /**
@@ -106,6 +150,11 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         for (let it of this.entities) {
             it.update(dt);
         }
+        // remove entity
+        for (let entity of this.removeList) {
+            this.removeEntityImmediately(entity);
+        }
+        this.removeList.length = 0;
     }
 
     /**
@@ -157,11 +206,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         let startY = -this.camera.cameraY;
         let endX = startX + this.camera.screenWidth;
         let endY = startY + this.camera.screenHeight;
-        // sort
-        let sortedList = Object.assign([], this.entities).sort((a, b) => {
-            return a.z < b.z ? -1 : a.z > b.z ? 1 : 0;
-        });
-        for (let it of sortedList) {
+        for (let it of this.sortedEntity) {
             if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
                 it.render(ctx, this.camera.baseX - startX, this.camera.baseY - startY);
             }
