@@ -1,10 +1,15 @@
 /**
  * Queue event manager
  * - Manages update and rendering event
+ * - Controls event
+ * - Registers event
  * - ### Uses the queue to manage events
+ * @extends {EventManager}
+ * @implements {IEventRegister}
+ * @implements {IEventOperator}
  * @classdesc Queue event manager to use the queue to manage events
  */
-class QueueEventManager extends EventManager { // eslint-disable-line  no-unused-vars
+class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator */ { // eslint-disable-line  no-unused-vars
     /**
      * Queue event manager constructor
      * @constructor
@@ -20,45 +25,39 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
         this.events = [];
 
         /**
-         * Updating events list
+         * List of running events
          * @protected
          * @type {Array<GameEvent>}
          */
-        this.updatingEvents = [];
-        /**
-         * Rendering events list
-         * @protected
-         * @type {Array<GameEvent>}
-         */
-        this.renderingEvents = [];
+        this.runningEvents = [];
     }
 
     /**
-     * Execute event
+     * Register event
      * @override
-     * @param {GameEvent} event Event
+     * @param {GameEvent} event Target vent
      */
-    execute(event) {
+    register(event) {
         event.setEventOperator(this);
         this.events.push(event);
-        // if (this.updatingEvents.length == 0) {
-        this.next();
-        // }
+        // if event is first event, execute it
+        if (this.events.length == 1) {
+            this.next();
+        }
     }
 
     /**
-     * Clear event
+     * Unregister event
      * @override
+     * @param {GameEvent} event Target vent
      */
-    clear() {
-        for (let list of [this.events, this.updatingEvents, this.renderingEvents]) {
-            for (let it of list) {
-                it.destruct();
+    unregister(event) {
+        for (let list of [this.events, this.runningEvents]) {
+            let index = list.indexOf(event);
+            if (index >= 0) {
+                list.splice(index, 1);
             }
         }
-        this.events.length = 0;
-        this.updatingEvents.length = 0;
-        this.renderingEvents.length = 0;
     }
 
     /**
@@ -69,80 +68,41 @@ class QueueEventManager extends EventManager { // eslint-disable-line  no-unused
         let event = this.events[0];
         if (event !== undefined) {
             this.events.splice(0, 1);
-            this.updatingEvents.push(event);
-            this.renderingEvents.push(event);
+            this.runningEvents.push(event);
             event.init();
         }
     }
 
     /**
-     * Stop event update
+     * Get currently running event
      * @override
-     * @param {GameEvent} event Target event
+     * @return {Array<GameEvent>} Currently running events
      */
-    stopUpdate(event) {
-        let index = this.updatingEvents.indexOf(event);
-        if (index != -1) {
-            this.updatingEvents.splice(index, 1);
-            if (this.renderingEvents.indexOf(event) == -1) {
-                event.destruct();
-            }
-        }
+    getRunningEvents() {
+        return this.runningEvents;
     }
 
     /**
-     * Stop event rendering
+     * Clear all events
      * @override
-     * @param {GameEvent} event Target event
      */
-    stopRender(event) {
-        let index = this.renderingEvents.indexOf(event);
-        if (index != -1) {
-            this.renderingEvents.splice(index, 1);
-            if (this.updatingEvents.indexOf(event) == -1) {
-                event.destruct();
+    clear() {
+        for (let list of [this.events, this.runningEvents]) {
+            for (let it of list) {
+                it.destruct();
             }
         }
+        this.events.length = 0;
+        this.runningEvents.length = 0;
     }
 
     /**
-     * Get running events by name
-     * @override
-     * @param {name} Event name
-     * @return {Array<GameEvent>} Running events that has name
+     * Remove events from event manager
+     * @param {Array<GameEvent>} removes List of event for removing
      */
-    getRunningEventsByName(name) {
-        let ret = [];
-        for (let it of this.updatingEvents) {
-            if (name == it.getName()) {
-                ret.push(it);
-            }
+    removeEvents(removes) {
+        for (let it of removes) {
+            this.unregister(it);
         }
-        for (let it of this.renderingEvents) {
-            if (name == it.getName()) {
-                ret.push(it);
-            }
-        }
-        return ret;
-    }
-
-    /**
-     * Get currently updating event
-     * @override
-     * @protected
-     * @return {Array<GameEvent>} Updating events
-     */
-    getUpdatingEvents() {
-        return this.updatingEvents;
-    }
-
-    /**
-     * Get currently rendering event
-     * @override
-     * @protected
-     * @return {Array<GameEvent>} Rendering events
-     */
-    getRenderingEvents() {
-        return this.renderingEvents;
     }
 }

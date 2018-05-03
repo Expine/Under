@@ -1,10 +1,12 @@
 /**
  * Image event
  * - Updates and renders event
+ * - Identified by name
  * - ### Renders the image
+ * @extends {NamedEvent}
  * @classdesc Image event to render the image
  */
-class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
+class ImageEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
     /**
      * Image event constructor
      * @constructor
@@ -16,14 +18,7 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @param {number} height Image height
      */
     constructor(name, imageID, x, y, width, height) {
-        super();
-
-        /**
-         * Image unique name
-         * @protected
-         * @type {string}
-         */
-        this.name = name;
+        super(name);
 
         /**
          * Image x position
@@ -64,17 +59,17 @@ class ImageEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      */
     init() {
         super.init();
-        this.op.stopUpdate(this);
         this.op.next();
     }
 
-    // TODO: Should be abstracted
     /**
-     * Get event's unique name
-     * @return {string} Unique name of event (return null if it is unnecessary)
+     * Update event
+     * @override
+     * @param {number} dt Delta time
+     * @return {boolean} Whether update is endped or not
      */
-    getName() {
-        return this.name;
+    update(dt) {
+        return false;
     }
 
     /**

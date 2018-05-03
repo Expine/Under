@@ -2,6 +2,7 @@
  * Link event
  * - Updates and renders event
  * - ### Link other page
+ * @extends {GameEvent}
  * @classdesc Link event to link other page
  */
 class LinkEvent extends GameEvent { // eslint-disable-line  no-unused-vars
@@ -26,8 +27,6 @@ class LinkEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        this.op.stopUpdate(this);
-        this.op.stopRender(this);
         this.op.next();
         Input.it.clear();
         window.open(this.url, `_blank`);

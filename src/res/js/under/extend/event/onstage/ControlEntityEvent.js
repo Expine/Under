@@ -4,6 +4,7 @@
  * - Controls the stage
  * - Stores stage instance
  * - ### Controls entity
+ * @extends {StageEvent}
  * @classdesc Control entity event to control entity
  */
 class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-vars
@@ -99,8 +100,6 @@ class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-
                 this.target.body.enforce(this.fx, this.fy);
             }
         }
-        this.op.stopUpdate(this);
-        this.op.stopRender(this);
         this.op.next();
     }
 }

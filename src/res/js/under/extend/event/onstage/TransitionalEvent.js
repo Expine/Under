@@ -4,6 +4,7 @@
  * - Controls the stage
  * - Stores stage instance
  * - ### Transitions the stage
+ * @extends {StageEvent}
  * @classdesc Transitional event to transition the stage
  */
 class TransitionalEvent extends StageEvent { // eslint-disable-line  no-unused-vars
@@ -40,8 +41,6 @@ class TransitionalEvent extends StageEvent { // eslint-disable-line  no-unused-v
         } else {
             StageManager.it.pushStage(this.stageName);
         }
-        this.op.stopUpdate(this);
-        this.op.stopRender(this);
         this.op.next();
     }
 }

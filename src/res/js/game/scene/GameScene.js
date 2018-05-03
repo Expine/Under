@@ -42,7 +42,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     init() {
         this.stageManager = new StackStageManager();
         this.stageManager.setStageParser(new UnderStageParser());
-        this.stageManager.pushStage(`recruitStart`);
+        this.stageManager.pushStage(`map1`);
 
         // set player
         this.player = this.stageManager.getStage().getEntities().filter((it) => it instanceof Player)[0];
@@ -60,7 +60,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         // set player
-        this.player = this.stageManager.getStage().getEntities().filter((it) => it instanceof Player)[0];
+        this.player = this.stageManager.getStage().getEntities().filter((it) = it instanceof Player)[0];
 
         // gameover
         if (this.player.y > this.stageManager.getStage().stageHeight) {
@@ -84,7 +84,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
         }
 
         // update event
-        EventManager.exec.update(dt);
+        EventManager.it.update(dt);
     }
 
     /**
@@ -95,6 +95,6 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
     render(ctx) {
         this.stageManager.render(ctx);
         super.render(ctx);
-        EventManager.exec.render(ctx);
+        EventManager.it.render(ctx);
     }
 }

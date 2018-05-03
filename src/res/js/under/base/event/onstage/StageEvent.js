@@ -3,6 +3,8 @@
  * - Updates and renders event
  * - Controls the stage
  * - ### Stores stage instance
+ * @extends {GameEvent}
+ * @implements {IStageEvent}
  * @classdesc Stage event to store stage instance
  */
 class StageEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
@@ -23,6 +25,7 @@ class StageEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line 
 
     /**
      * Set stage
+     * @override
      * @param {Stage} stage Stage to set
      */
     setStage(stage) {

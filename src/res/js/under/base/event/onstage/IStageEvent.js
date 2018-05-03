@@ -7,6 +7,7 @@
 class IStageEvent extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Set stage
+     * @abstract
      * @param {Stage} stage Stage to set
      */
     setStage(stage) {}

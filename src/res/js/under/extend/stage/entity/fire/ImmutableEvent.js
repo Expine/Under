@@ -71,7 +71,7 @@ class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line 
         if (BaseUtil.implementsOf(this.event, IStageEvent)) {
             this.event.setStage(this.stage);
         }
-        EventManager.exec.execute(this.event);
+        EventManager.register.register(this.event);
     }
 
     /**

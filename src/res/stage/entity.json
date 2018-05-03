@@ -875,38 +875,6 @@
                     }]
                 }]
             }
-        },
-        {
-            "type": "Enemy",
-            "file": "bigboss.png",
-            "id": 11,
-            "width": 512,
-            "height": 512,
-            "collider": {
-                "type": "RoundRectangle",
-                "startX": 70,
-                "startY": 0,
-                "width": 390,
-                "height": 512,
-                "cut": 5
-            },
-            "body": {
-                "type": "MaxAdopt",
-                "material": {
-                    "type": "Immutable",
-                    "k": 0.5,
-                    "frictionX": 1.0,
-                    "frictionY": 0.0
-                }
-            },
-            "material": {
-                "mass": 1000,
-                "elasticity": 0.1,
-                "mu": 0.95
-            },
-            "ai": [{
-                "type": "EnemyAI"
-            }]
         }
     ]
 }

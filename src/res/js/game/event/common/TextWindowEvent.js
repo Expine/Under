@@ -1,28 +1,23 @@
 /**
  * Text window event
  * - Updates and renders event
+ * - Identified by name
  * - ### Render text and window
+ * @extends {NamedEvent}
  * @classdesc Text window event to render text and window
  */
-class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
+class TextWindowEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
     /**
      * Text window event constructor
      * @constructor
-     * @param {string} name Text unique name
+     * @param {string} name Identified name
      * @param {number} x Text x position
      * @param {number} y Text y position
      * @param {string} sentence Talking sentence
      * @param {number} [size=-1] Font size
      */
     constructor(name, x, y, sentence, size = -1) {
-        super();
-
-        /**
-         * Text unique name
-         * @protected
-         * @type {string}
-         */
-        this.name = name;
+        super(name);
 
         /**
          * Text x position
@@ -71,27 +66,23 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        if (this.op != null) {
-            this.op.next();
-        }
         this.showCount = 0;
         this.ended = false;
+        this.op.next();
     }
 
     /**
      * Update event
      * @override
      * @param {number} dt Delta time
+     * @return {boolean} Whether update is endped or not
      */
     update(dt) {
         if (this.ended) {
             this.showCount -= dt / 200;
             if (this.showCount < 0) {
                 this.showCount = 0;
-                if (this.op != null) {
-                    this.op.stopUpdate(this);
-                    this.op.stopRender(this);
-                }
+                return true;
             }
         } else {
             this.showCount += dt / 1000;
@@ -102,6 +93,7 @@ class TextWindowEvent extends GameEvent { // eslint-disable-line  no-unused-vars
                 this.ended = true;
             }
         }
+        return false;
     }
 
     /**

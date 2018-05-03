@@ -4,6 +4,7 @@
  * - Controls the stage
  * - Stores stage instance
  * - ### Changes camera type
+ * @extends {StageEvent}
  * @classdesc Camera change event to change camera type
  */
 class CameraChangeEvent extends StageEvent { // eslint-disable-line  no-unused-vars
@@ -55,8 +56,6 @@ class CameraChangeEvent extends StageEvent { // eslint-disable-line  no-unused-v
         }
         camera.setScreenSize(old.screenWidth, old.screenHeight);
         this.stage.setCamera(camera);
-        this.op.stopUpdate(this);
-        this.op.stopRender(this);
         this.op.next();
     }
 }

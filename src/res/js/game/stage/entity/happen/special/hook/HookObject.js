@@ -236,9 +236,6 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
      * @return {boolean} Whether it was removed
      */
     tryRemove() {
-        if (this.post == null) {
-            console.log(this);
-        }
         if (this.post instanceof HookPlayer) {
             this.destroy();
             return true;

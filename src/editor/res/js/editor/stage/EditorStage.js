@@ -198,7 +198,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
             this.addEntity(chara);
             this.addEntityID(it.id);
         }
-        EventManager.exec.clear();
+        EventManager.it.clear();
     }
 
     /**

@@ -155,6 +155,40 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     }
 
     /**
+     * Build phsical body from json data
+     * @protected
+     * @param {Entity} base Base entity
+     * @param {JSON} deploy Entity deploy json data
+     * @param {JSON} json Character json data
+     */
+    buildBody(base, deploy, json) {
+        base.setRigidBody(this.makeBody(json.body));
+        if (base.body != null) {
+            base.body.setMaterial(this.makeBodyMaterial(json.body.material));
+        }
+    }
+
+    /**
+     * Build AI from json data
+     * @protected
+     * @param {Entity} base Base entity
+     * @param {JSON} deploy Entity deploy json data
+     * @param {JSON} json Character json data
+     */
+    buildAI(base, deploy, json) {
+        if (json.ai === undefined) {
+            return;
+        }
+        for (let ai of json.ai) {
+            let attach = this.makeAI(ai, deploy !== undefined ? deploy.ai : undefined);
+            if (attach != null) {
+                this.processAI(attach, json.state);
+                base.addAI(attach);
+            }
+        }
+    }
+
+    /**
      * Build character from json data
      * @override
      * @param {JSON} deploy Entity deploy json data
@@ -163,28 +197,15 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     build(deploy, json) {
         let base = this.makeEntityBase(deploy, json);
+        // set physical parameter
         if (base instanceof InfluentialEntity) {
-            let collider = this.makeCollider(json.collider);
-            if (collider != null) {
-                collider.setAABB(this.makeAABB(json.collider));
-            }
-            base.setCollider(collider);
-            base.setMaterial(this.makeMaterial(json.material));
+            this.buildPhysical(base, deploy, json);
         }
         if (base instanceof MutableEntity) {
-            base.setRigidBody(this.makeBody(json.body));
-            if (base.body != null) {
-                base.body.setMaterial(this.makeBodyMaterial(json.body.material));
-            }
+            this.buildBody(base, deploy, json);
         }
-        if (json.ai !== undefined && base instanceof AutonomyEntitiy) {
-            for (let ai of json.ai) {
-                let attach = this.makeAI(ai, deploy !== undefined ? deploy.ai : undefined);
-                if (attach != null) {
-                    this.processAI(attach, json.state);
-                    base.addAI(attach);
-                }
-            }
+        if (base instanceof AutonomyEntitiy) {
+            this.buildAI(base, deploy, json);
         }
         if (json.anime !== undefined && BaseUtil.implementsOf(base, IAnimationable)) {
             base.setAnimation(this.makeAnimation(json.anime));

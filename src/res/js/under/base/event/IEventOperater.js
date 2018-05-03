@@ -12,24 +12,9 @@ class IEventOperator extends Interface { // eslint-disable-line  no-unused-vars
     next() {}
 
     /**
-     * Stop event update
+     * Get currently running event
      * @abstract
-     * @param {GameEvent} event Target event
+     * @return {Array<GameEvent>} Currently running events
      */
-    stopUpdate(event) {}
-
-    /**
-     * Stop event rendering
-     * @abstract
-     * @param {GameEvent} event Target event
-     */
-    stopRender(event) {}
-
-    /**
-     * Get running events by name
-     * @abstract
-     * @param {name} Event name
-     * @return {Array<GameEvent>} Running events that has name
-     */
-    getRunningEventsByName(name) {}
+    getRunningEvents() {}
 }

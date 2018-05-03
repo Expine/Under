@@ -2,6 +2,7 @@
  * Auto input event
  * - Updates and renders event
  * - ### Inputs automatically
+ * @extends {GameEvent}
  * @classdesc Auto input event to wait to input automatically
  */
 class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
@@ -85,6 +86,7 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * Update event
      * @override
      * @param {number} dt Delta time
+     * @return {boolean} Whether update is endped or not
      */
     update(dt) {
         Input.it.unpress(Input.key.up());
@@ -94,7 +96,7 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
         while (true) {
             if (this.wait > 0) {
                 this.wait -= dt / 1000;
-                return;
+                return false;
             }
             if (this.orderIndex >= this.orders.length) {
                 break;
@@ -113,19 +115,19 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
             } else if (order == `up`) {
                 Input.it.press(Input.key.up());
                 ++this.orderIndex;
-                return;
+                return false;
             } else if (order == `right`) {
                 Input.it.press(Input.key.right());
                 ++this.orderIndex;
-                return;
+                return false;
             } else if (order == `left`) {
                 Input.it.press(Input.key.left());
                 ++this.orderIndex;
-                return;
+                return false;
             } else if (order == `down`) {
                 Input.it.press(Input.key.down());
                 ++this.orderIndex;
-                return;
+                return false;
             } else if (order.endsWith(`wait`)) {
                 this.wait = parseFloat(order.replace(`wait`));
                 ++this.orderIndex;
@@ -134,8 +136,7 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
             ++this.orderIndex;
         }
         // next
-        this.op.stopUpdate(this);
-        this.op.stopRender(this);
         this.op.next();
+        return true;
     }
 }

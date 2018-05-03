@@ -1,28 +1,24 @@
 /**
  * Camera event
  * - Updates and renders event
+ * - Identified by name
  * - Controls the stage
- * - Stores stage instance
  * - ### Moves camera
+ * @extends {NamedEvent}
+ * @implements {IStageEvent}
  * @classdesc Camera event to move camera
  */
-class CameraEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class CameraEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
     /**
      * Camera event constructor
      * @constructor
-     * @param {string} name Camera unique name
+     * @param {string} name Identified name
      * @param {number} x Camera x position to move
      * @param {number} y Camera y position to move
      */
     constructor(name, x, y) {
-        super();
+        super(name);
 
-        /**
-         * Camera unique name
-         * @protected
-         * @type {string}
-         */
-        this.name = name;
         /**
          * Camera x position to move
          * @protected
@@ -43,6 +39,21 @@ class CameraEvent extends StageEvent { // eslint-disable-line  no-unused-vars
          * @type {EventCamera}
          */
         this.camera = null;
+
+        /**
+         * Stage for constrol
+         * @protected
+         * @type {Stage}
+         */
+        this.stage = null;
+    }
+
+    /**
+     * Set stage
+     * @param {Stage} stage Stage to set
+     */
+    setStage(stage) {
+        this.stage = stage;
     }
 
     /**
@@ -54,7 +65,6 @@ class CameraEvent extends StageEvent { // eslint-disable-line  no-unused-vars
         this.camera.setToPosition(this.toX, this.toY);
         this.camera.setDelegate(this.stage.getCamera());
         this.stage.setCamera(this.camera);
-        this.op.stopRender(this);
         this.op.next();
     }
 
@@ -66,12 +76,13 @@ class CameraEvent extends StageEvent { // eslint-disable-line  no-unused-vars
         this.stage.setCamera(this.camera.getDelegate());
     }
 
-    // TODO: Should be abstracted
     /**
-     * Get event's unique name
-     * @return {string} Unique name of event (return null if it is unnecessary)
+     * Update event
+     * @override
+     * @param {number} dt Delta time
+     * @return {boolean} Whether update is endped or not
      */
-    getName() {
-        return this.name;
+    update(dt) {
+        return false;
     }
 }

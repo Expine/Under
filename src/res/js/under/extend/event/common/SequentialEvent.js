@@ -3,6 +3,8 @@
  * - Updates and renders event
  * - Controls event
  * - ### Executes events continuously
+ * @extends {GameEvent}
+ * @implements {IEventOperator}
  * @classdesc Seuqential event to execute events continuously
  */
 class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable-line  no-unused-vars
@@ -19,18 +21,13 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
          * @type {Array<GameEvent>}
          */
         this.events = [];
+
         /**
-         * Updating events list
+         * List of running events
          * @protected
          * @type {Array<GameEvent>}
          */
-        this.updatingEvents = [];
-        /**
-         * Rendering events list
-         * @protected
-         * @type {Array<GameEvent>}
-         */
-        this.renderingEvents = [];
+        this.runningEvents = [];
     }
 
     /**
@@ -41,8 +38,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
         let event = this.events[0];
         if (event !== undefined) {
             this.events.splice(0, 1);
-            this.updatingEvents.push(event);
-            this.renderingEvents.push(event);
+            this.runningEvents.push(event);
             event.init();
         } else {
             this.op.next();
@@ -50,54 +46,12 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
     }
 
     /**
-     * Stop event update
-     * @override
-     * @param {GameEvent} event Target event
+     * Get currently running event
+     * @abstract
+     * @return {Array<GameEvent>} Currently running events
      */
-    stopUpdate(event) {
-        let index = this.updatingEvents.indexOf(event);
-        if (index != -1) {
-            this.updatingEvents.splice(index, 1);
-            if (this.renderingEvents.indexOf(event) == -1) {
-                event.destruct();
-            }
-        }
-    }
-
-    /**
-     * Stop event rendering
-     * @override
-     * @param {GameEvent} event Target event
-     */
-    stopRender(event) {
-        let index = this.renderingEvents.indexOf(event);
-        if (index != -1) {
-            this.renderingEvents.splice(index, 1);
-            if (this.updatingEvents.indexOf(event) == -1) {
-                event.destruct();
-            }
-        }
-    }
-
-    /**
-     * Get running events by name
-     * @override
-     * @param {name} Event name
-     * @return {Array<GameEvent>} Running events that has name
-     */
-    getRunningEventsByName(name) {
-        let ret = this.op.getRunningEventsByName(name);
-        for (let it of this.updatingEvents) {
-            if (name == it.getName() && ret.indexOf(it) == -1) {
-                ret.push(it);
-            }
-        }
-        for (let it of this.renderingEvents) {
-            if (name == it.getName() && ret.indexOf(it) == -1) {
-                ret.push(it);
-            }
-        }
-        return ret;
+    getRunningEvents() {
+        return this.runningEvents;
     }
 
     /**
@@ -125,7 +79,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @override
      */
     destruct() {
-        for (let list of [this.events, this.updatingEvents, this.renderingEvents]) {
+        for (let list of [this.events, this.runningEvents]) {
             for (let it of list) {
                 it.destruct();
             }
@@ -136,14 +90,22 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * Update event
      * @override
      * @param {number} dt Delta time
+     * @return {boolean} Whether update is endped or not
      */
     update(dt) {
-        for (let it of this.updatingEvents) {
-            it.update(dt);
+        let removes = [];
+        for (let it of this.runningEvents) {
+            if (!it.update(dt)) {
+                removes.add(it);
+            }
         }
-        if (this.events.length == 0 && this.updatingEvents.length == 0) {
-            this.op.stopUpdate(this);
+        for (let it of removes) {
+            let index = this.runningEvents.indexOf(it);
+            if (index >= 0) {
+                this.runningEvents.splice(index, 1);
+            }
         }
+        return this.runningEvents.length == 0 && this.events.length == 0;
     }
 
     /**
@@ -152,11 +114,8 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        for (let it of this.renderingEvents) {
+        for (let it of this.runningEvents) {
             it.render(ctx);
-        }
-        if (this.events.length == 0 && this.renderingEvents.length == 0) {
-            this.op.stopRender(this);
         }
     }
 }

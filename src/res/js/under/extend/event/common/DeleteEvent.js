@@ -2,6 +2,7 @@
  * Delete event
  * - Updates and renders event
  * - ### Deletes other event
+ * @extends {GameEvent}
  * @classdesc Delete event to delete other event
  */
 class DeleteEvent extends GameEvent { // eslint-disable-line  no-unused-vars
@@ -27,12 +28,13 @@ class DeleteEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      */
     init() {
         super.init();
-        for (let it of this.op.getRunningEventsByName(this.name)) {
-            this.op.stopUpdate(it);
-            this.op.stopRender(it);
+        for (let it of this.op.getRunningEvents()) {
+            if (it instanceof NamedEvent) {
+                if (it.getName() == this.name) {
+                    EventManager.register.unregister(it);
+                }
+            }
         }
-        this.op.stopUpdate(this);
-        this.op.stopRender(this);
         this.op.next();
     }
 }

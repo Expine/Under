@@ -59,6 +59,7 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
      * Update event
      * @override
      * @param {number} dt Delta time
+     * @return {boolean} Whether update is endped or not
      */
     update(dt) {
         // count up talking
@@ -72,14 +73,14 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
 
         if (Input.it.isPress(Input.key.yes())) {
             if (this.talked) {
-                this.op.stopUpdate(this);
-                this.op.stopRender(this);
                 this.op.next();
+                return true;
             } else {
                 this.talkCount = this.sentence.length;
                 this.talked = true;
             }
         }
+        return false;
     }
 
     /**

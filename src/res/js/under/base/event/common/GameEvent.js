@@ -27,14 +27,6 @@ class GameEvent { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Get event's unique name
-     * @return {string} Unique name of event (return null if it is unnecessary)
-     */
-    getName() {
-        return null;
-    }
-
-    /**
      * Initialize event
      * @abstract
      */
@@ -50,8 +42,11 @@ class GameEvent { // eslint-disable-line  no-unused-vars
      * Update event
      * @abstract
      * @param {number} dt Delta time
+     * @return {boolean} Whether update is endped or not
      */
-    update(dt) {}
+    update(dt) {
+        return true;
+    }
 
     /**
      * Render event

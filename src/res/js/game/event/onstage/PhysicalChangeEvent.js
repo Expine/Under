@@ -4,6 +4,7 @@
  * - Controls the stage
  * - Stores stage instance
  * - ### Changes physical type
+ * @extends {StageEvent}
  * @classdesc Physical change event to change physical type
  */
 class PhysicalChangeEvent extends StageEvent { // eslint-disable-line  no-unused-vars
@@ -29,8 +30,6 @@ class PhysicalChangeEvent extends StageEvent { // eslint-disable-line  no-unused
      */
     init() {
         this.stage.getPhysicalWorld().setResponse(this.response);
-        this.op.stopUpdate(this);
-        this.op.stopRender(this);
         this.op.next();
     }
 }

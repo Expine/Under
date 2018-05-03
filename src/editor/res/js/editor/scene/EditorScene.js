@@ -17,7 +17,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
          * @protected
          * @type {EditorStage}
          */
-        this.stage = (new EditorStageParser()).parse(`src/res/stage/developer.json`, Screen.it.width, Screen.it.height - 250);
+        this.stage = (new EditorStageParser()).parse(`src/res/stage/map1.json`, Screen.it.width, Screen.it.height - 250);
 
         /**
          * Chip layer
@@ -55,7 +55,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         this.stage.update(dt);
 
         // update event
-        EventManager.exec.update(dt);
+        EventManager.it.update(dt);
 
         // save
         if (Input.it.isPress(Input.key.a() + 18)) {
@@ -83,7 +83,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
      */
     render(ctx) {
         this.stage.render(ctx);
-        EventManager.exec.render(ctx);
+        EventManager.it.render(ctx);
         ctx.fillRect(0, Screen.it.height - 250, Screen.it.width, 250, `blue`);
         super.render(ctx);
     }

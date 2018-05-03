@@ -98,6 +98,22 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Build physical parameter from json data
+     * @protected
+     * @param {Entity} base Base entity
+     * @param {JSON} deploy Entity deploy json data
+     * @param {JSON} json Character json data
+     */
+    buildPhysical(base, deploy, json) {
+        let collider = this.makeCollider(json.collider);
+        if (collider != null) {
+            collider.setAABB(this.makeAABB(json.collider));
+        }
+        base.setCollider(collider);
+        base.setMaterial(this.makeMaterial(json.material));
+    }
+
+    /**
      * Build tile from json data
      * @override
      * @param {JSON} deploy Entity deploy json data
@@ -106,14 +122,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      */
     build(deploy, json) {
         let base = this.makeTileBase(deploy, json);
-        // set collider
-        let collider = this.makeCollider(json.collider);
-        if (collider != null) {
-            collider.setAABB(this.makeAABB(json.collider));
-        }
-        base.setCollider(collider);
-        // set material
-        base.setMaterial(this.makeMaterial(json.material));
+        this.buildPhysical(base, deploy, json);
         return base;
     }
 }

@@ -5,6 +5,8 @@
  * - Executes events continuously
  * - ### Controls the stage
  * - ### It can set stage element
+ * @extends {SequentialEvent}
+ * @implements {IStageEvent}
  * @classdesc Seuqential stage event to control stage
  */
 class SequentialStageEvent extends SequentialEvent /* IStageEvent */ { // eslint-disable-line  no-unused-vars
