@@ -39,11 +39,11 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
             this.uiAnimation.setLoop(i % 2 == 0);
             if (i != 5) {
                 for (let j = 0; j < 4; ++j) {
-                    this.uiAnimation.addAnimation(new AnimationElement(uiImage, 32 * j, 32 * i, 32, 32, i % 2 == 0 ? 300 : 200));
+                    this.uiAnimation.addAnimation(new TileImage(uiImage, 64, 64, 32 * j, 32 * i, 32, 32), i % 2 == 0 ? 300 : 200);
                 }
             } else {
                 for (let j = 0; j < 8; ++j) {
-                    this.uiAnimation.addAnimation(new AnimationElement(uiImage, 32 * (j % 4), 32 * (i + Math.floor(j / 4)), 32, 32, 200));
+                    this.uiAnimation.addAnimation(new TileImage(uiImage, 64, 64, 32 * (j % 4), 32 * (i + Math.floor(j / 4)), 32, 32), 200);
                 }
             }
         }
@@ -76,6 +76,6 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        this.uiAnimation.render(ctx, 10, 530, 64, 64);
+        this.uiAnimation.render(ctx, 10, 530);
     }
 }

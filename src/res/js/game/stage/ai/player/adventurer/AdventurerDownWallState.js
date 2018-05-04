@@ -1,7 +1,7 @@
 /**
  * State of adventurer down wall
  * - Determines the operation by AI according to the state and renders based on state
- * - ### Initialize state image
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving

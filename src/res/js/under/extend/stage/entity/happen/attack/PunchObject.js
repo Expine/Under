@@ -36,10 +36,10 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
         // set base data
         let imageID = ResourceManager.image.load(`chara/attack.png`);
         let anime = new SingleAnimation();
-        anime.addAnimation(new AnimationElement(imageID, 0, 0, 32, 32, 100));
-        anime.addAnimation(new AnimationElement(imageID, 32, 0, 32, 32, 100));
-        anime.addAnimation(new AnimationElement(imageID, 64, 0, 32, 32, 100));
-        anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
+        anime.addAnimation(new TileImage(imageID, this.width, this.height, 0, 0, 32, 32), 100);
+        anime.addAnimation(new TileImage(imageID, this.width, this.height, 32, 0, 32, 32), 100);
+        anime.addAnimation(new TileImage(imageID, this.width, this.height, 64, 0, 32, 32), 100);
+        anime.addAnimation(new TileImage(imageID, this.width, this.height, 96, 0, 32, 32), 100);
         anime.setSize(this.width, this.height);
         this.setImage(anime);
         this.setMaterial(new ImmutableMaterial());

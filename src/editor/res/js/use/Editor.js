@@ -9,7 +9,6 @@
 {let script = document.createElement('script');script.src='src/res/js/under/base/event/EventManager.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/event/onstage/StageEvent.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/input/Input.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/base/resources/image/AnimationElement.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/resources/image/Context.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/resources/image/GameImage.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/resources/music/Music.js';document.head.appendChild(script);script.onload = function() 
@@ -251,7 +250,6 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerWalkState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/editor/res/js/editor/EditorMain.js';document.head.appendChild(script);script.onload = function() 
 {};
-};
 };
 };
 };

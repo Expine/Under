@@ -147,12 +147,13 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     /**
      * Add animation
      * @override
-     * @param {AnimationElement} element Animation element
+     * @param {GameImage} image Animation element
+     * @param {number} delta Animation delta time
      */
-    addAnimation(element) {
+    addAnimation(image, delta) {
         let anime = this.getAnimation();
         if (anime !== undefined) {
-            anime.addAnimation(element);
+            anime.addAnimation(image, delta);
         }
     }
 
@@ -196,14 +197,11 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @param {Context} ctx Canvas context
      * @param {number} x Image x position
      * @param {number} y Image y position
-     * @param {number} width Image width
-     * @param {number} height Image height
-     * @param {number} [imageID=-1] ID of the image to be replaced (-1:not replacing)
      */
-    render(ctx, x, y, width, height, imageID = -1) {
+    render(ctx, x, y) {
         let anime = this.getAnimation();
         if (anime !== undefined) {
-            anime.render(ctx, x, y, width, height, imageID);
+            anime.render(ctx, x, y);
         }
     }
 }

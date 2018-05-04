@@ -1,6 +1,6 @@
 /**
  * Resource manager
- * - ### Resources Abstraction of resource management
+ * - ### Resources abstraction of resource management
  * @interface
  * @classdesc Resource manager that indicatas abstraction of resource management
  */
@@ -20,7 +20,8 @@ class ResourceManager { // eslint-disable-line  no-unused-vars
         // set singleton
         if (BaseUtil.implementsOf(this, IImageManager)) {
             ResourceManager.image = this;
-        } else if (BaseUtil.implementsOf(this, IMusicManager)) {
+        }
+        if (BaseUtil.implementsOf(this, IMusicManager)) {
             ResourceManager.music = this;
         }
     }

@@ -32,14 +32,14 @@ class Music { // eslint-disable-line  no-unused-vars
     /**
      * Sound the SE
      * @abstract
-     * @param {number} musicID SE Music id
+     * @param {Object} musicID SE Music id
      */
     playSE(musicID) {}
 
     /**
      * Sound the BGM
      * @abstract
-     * @param {number} musicID BGM Music id
+     * @param {Object} musicID BGM Music id
      */
     playBGM(musicID) {}
 

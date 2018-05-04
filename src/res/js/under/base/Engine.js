@@ -37,12 +37,6 @@ class Engine { // eslint-disable-line  no-unused-vars
          */
         this.manager = null;
         /**
-         * Event manager
-         * @protected
-         * @type {EventManager}
-         */
-        this.events = null;
-        /**
          * Music system
          * @protected
          * @type {Music}
@@ -54,6 +48,12 @@ class Engine { // eslint-disable-line  no-unused-vars
          * @type {Timer}
          */
         this.timer = null;
+        /**
+         * Event manager
+         * @protected
+         * @type {EventManager}
+         */
+        this.events = null;
     }
 
     /**
@@ -89,14 +89,6 @@ class Engine { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set event manager
-     * @param {EventManager} events Event manager
-     */
-    setEventManager(events) {
-        this.events = events;
-    }
-
-    /**
      * Set music systm
      * @param {Music} music Music system
      */
@@ -110,6 +102,14 @@ class Engine { // eslint-disable-line  no-unused-vars
      */
     setTimer(timer) {
         this.timer = timer;
+    }
+
+    /**
+     * Set event manager
+     * @param {EventManager} events Event manager
+     */
+    setEventManager(events) {
+        this.events = events;
     }
 
     /**

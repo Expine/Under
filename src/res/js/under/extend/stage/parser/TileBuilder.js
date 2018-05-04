@@ -35,7 +35,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
                     let id = this.loadImage(image.file);
                     base.setSize(image.width, image.height);
                     for (let it of image.animation) {
-                        base.addAnimation(new AnimationElement(id, it.x, it.y, it.width, it.height, it.delta));
+                        base.addAnimation(new TileImage(id, image.width, image.height, it.x, it.y, it.width, it.height), it.delta);
                     }
                     return base;
                 }
@@ -48,7 +48,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
                         base.setAnimation(new SingleAnimation(anime.loop));
                         base.setSize(image.width, image.height);
                         for (let it of anime.animation) {
-                            base.addAnimation(new AnimationElement(id, it.x, it.y, it.width, it.height, it.delta));
+                            base.addAnimation(new TileImage(id, image.width, image.height, it.x, it.y, it.width, it.height), it.delta);
                         }
                     }
                     return base;

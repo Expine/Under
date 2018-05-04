@@ -5,39 +5,42 @@ package under {
         abstract EngineBuilder {
             {abstract} #makeEngine() : Engine
             {abstract} #makeInput() : Input
-            {abstract} #makeScreen() : Screen
+            {abstract} #makeScreen() : GameScreen
             {abstract} #makeContext() : Context
             {abstract} #makeImageManager() : IImageManager
             {abstract} #makeMusic() : Music
             {abstract} #makeMusicManager() : IMusicManager
             {abstract} #makeTimer() : Timer
             {abstract} #makeSceneManager() : SceneManager
+            {abstract} #makeEventManager() : EventManager
             +build() : Engine
         }
         abstract Engine {
             #input : Input
-            #screen : Screen
-            #manager : SceneManager
+            #screen : GameScreen
             #context : Context
+            #manager : SceneManager
             #music : Music
             #timer : Timer
+            #events : EventManager
+            {static} +debug : bool
             +setInput(input)
             +setScreen(screen)
             +setContext(context)
             +setSceneManager(manager)
             +setMusic(music)
             +setTimer(timer)
+            +setEventManager(events)
             +execute(scene)
-            {static} +debug : bool
             {abstract} #main()
         }
 
         package input {
             abstract Input {
+                #screen : GameScreen
                 {static} +it : IInput /' Singleton '/
                 {static} +key : IKey /' Singleton '/
                 {static} +mouse : IMouse /' Singleton '/
-                #screen : Screen
                 +setScreen(screen)
                 {abstract} +init()
                 {abstract} +update()
@@ -45,7 +48,11 @@ package under {
             }
 
             interface IInput {
+                {abstract} +setInputEnable(enable)
                 {abstract} +blockInput(code)
+                {abstract} +unblockInput(code)
+                {abstract} +press(code)
+                {abstract} +unpress(code)
                 {abstract} +isPress(code) : bool
                 {abstract} +isPressed(code) : bool
             }
@@ -72,12 +79,12 @@ package under {
         }
 
         package screen {
-            abstract Screen {
-                +Screen(width, height) : Screen
-                {static} +it : Screen /' Singleton '/
+            abstract GameScreen {
+                +constructor(width, height)
                 +gameSize : number
                 +width : number
                 +height : number
+                {static} +it : Screen /' Singleton '/
                 {abstract} +init()
                 {abstract} +getTarget() : Element
                 {abstract} +getCanvas() : Canvas
@@ -86,7 +93,7 @@ package under {
 
         package resources {
             abstract ResourceManager {
-                ResrouceManager(root) : ResrouceManager
+                constructor(root)
                 #root : string
                 {static} +image : ResrouceManager
                 {static} +music : ResrouceManager
@@ -106,8 +113,8 @@ package under {
 
             package music {
                 abstract Music {
-                    {static} +it : Music /' Singleton '/
                     #music : IMusicManager
+                    {static} +it : Music /' Singleton '/
                     +setMusicManager(musicManager)
                     {abstract} +playSE(musicID)
                     {abstract} +playBGM(musicID)
@@ -119,16 +126,22 @@ package under {
 
             package image {
                 abstract Context {
-                    #screen : Screen
+                    #screen : GameScreen
                     #image : IImageManager
                     +setScreen(screen)
-                    {abstract} +setImageManager(imageManager)
+                    +setImageManager(imageManager)
+                    {abstract} +init()
+                    {abstract} +preRendering()
+                    {abstract} +postRendering()
                     {abstract} +setFontColorByame(colorName)
                     {abstract} +setFontColorByRGB(r,g,b)
                     {abstract} +setFontSize(size)
+                    {abstract} +getFontSuze()
                     {abstract} +setFontName(fontName)
-                    {abstract} +preRendering()
-                    {abstract} +postRendering()
+                    {abstract} +setLineColorByName(colorName)
+                    {abstract} +setLineColorByRGB(r,g,b)
+                    {abstract} +setLineWidth(width)
+                    {abstract} +measureText(text,size,font)
                     {abstract} +fillText(text,x,y,anchorX,anchorY,size,color,font)
                     {abstract} +strokeLine(sx,sy,ex,ey,color,lineWidth)
                     {abstract} +strokeCircle(x,y,radius,startAngle,endAngle,anticlockwise,color,lineWidth)
@@ -222,7 +235,7 @@ package under {
     }
 }
 
-EngineBuilder --> Engine : Generate
+EngineBuilder --> Engine : Initialize
 Engine "1"*-- "1" Screen : Own
 Engine "1"*-- "1" Input : Own
 Engine "1"*-- "1" SceneManager : Own

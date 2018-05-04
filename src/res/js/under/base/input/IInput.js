@@ -1,9 +1,8 @@
 /**
  * Input interface
- * - ### It can get input state
- * - ### It can make input blocked
+ * - ### It can get input state and meddle input system
  * @interface
- * @classdesc Input interface that can get input state and make input blocked
+ * @classdesc Input interface that can get input state and meddle input system
  */
 class IInput extends Interface { // eslint-disable-line  no-unused-vars
     /**

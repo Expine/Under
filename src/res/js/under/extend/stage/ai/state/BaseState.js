@@ -7,7 +7,6 @@
  * @classdesc Base state to initialize state image
  */
 class BaseState extends State { // eslint-disable-line  no-unused-vars
-
     /**
      * Initialize
      * @override

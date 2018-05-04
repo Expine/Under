@@ -18,9 +18,15 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
         /**
          * List of animation element
          * @protected
-         * @type {Array<AnimationElement>}
+         * @type {Array<GameImage>}
          */
         this.animation = [];
+        /**
+         * List of animation delta number
+         * @protected
+         * @type {Array<number>}
+         */
+        this.deltas = [];
 
         /**
          * Animation counter
@@ -62,19 +68,6 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
          * @type {number}
          */
         this.imageID = -1;
-
-        /**
-         * Image width
-         * @protected
-         * @type {number}
-         */
-        this.width = 0;
-        /**
-         * Image height
-         * @protected
-         * @type {number}
-         */
-        this.height = 0;
     }
 
     /**
@@ -84,8 +77,9 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      * @param {number} height Image height
      */
     setSize(width, height) {
-        this.width = width;
-        this.height = height;
+        for (let it of this.animation) {
+            it.setSize(width, height);
+        }
     }
 
     /**
@@ -94,7 +88,9 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      * @param {number} imageID Image ID
      */
     setImageID(imageID) {
-        this.imageID = imageID;
+        for (let it of this.animation) {
+            it.setImageID(imageID);
+        }
     }
 
     /**
@@ -145,10 +141,12 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
     /**
      * Add animation
      * @override
-     * @param {AnimationElement} element Animation element
+     * @param {GameImage} image Animation element
+     * @param {number} delta Animation delta time
      */
-    addAnimation(element) {
-        this.animation.push(element);
+    addAnimation(image, delta) {
+        this.animation.push(image);
+        this.deltas.push(delta);
     }
 
     /**
@@ -177,9 +175,10 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
             return;
         }
         let element = this.animation[this.runningAnimation];
+        let delta = this.deltas[this.runningAnimation];
         this.animationCount += dt;
-        while (element !== undefined && this.animationCount >= element.delta) {
-            this.animationCount -= element.delta;
+        while (element !== undefined && this.animationCount >= delta) {
+            this.animationCount -= delta;
             if (++this.runningAnimation >= this.animation.length) {
                 this.ended = true;
                 if (this.loop) {
@@ -189,6 +188,7 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
                 }
             }
             element = this.animation[this.runningAnimation];
+            delta = this.deltas[this.runningAnimation];
         }
     }
 
@@ -201,8 +201,7 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      */
     render(ctx, x, y) {
         if (this.animation.length > 0) {
-            let it = this.animation[this.runningAnimation];
-            ctx.drawImage(this.imageID != -1 ? this.imageID : it.imageID, x, y, this.width, this.height, it.srcX, it.srcY, it.srcW, it.srcH);
+            this.animation[this.runningAnimation].render(ctx, x, y);
         }
     }
 }

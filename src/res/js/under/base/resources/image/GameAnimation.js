@@ -38,9 +38,10 @@ class GameAnimation extends GameImage { // eslint-disable-line  no-unused-vars
     /**
      * Add animation
      * @abstract
-     * @param {AnimationElement} elment Animation element
+     * @param {GameImage} image Animation element
+     * @param {number} delta Animation delta time
      */
-    addAnimation(elment) {}
+    addAnimation(image, delta) {}
 
     /**
      * Pause animation

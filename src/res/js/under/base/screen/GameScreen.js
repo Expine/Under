@@ -1,12 +1,12 @@
 /**
- * Screen
+ * Game Screen
  * - ### Indicates the rendering target and input target
  * @interface
- * @classdesc Screen indicating the rendering and input target
+ * @classdesc Game Screen indicating the rendering and input target
  */
 class GameScreen { // eslint-disable-line  no-unused-vars
     /**
-     * Screen constructor
+     * Game Screen constructor
      * @constructor
      * @param {number} width Screen width
      * @param {number} height Screen height

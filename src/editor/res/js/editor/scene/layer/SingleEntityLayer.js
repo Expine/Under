@@ -28,16 +28,18 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
          * @type {GameAnimation}
          */
         this.animation = new SingleAnimation();
-        if (info.anime === undefined) {
+        if (info.image.type == `single`) {
             let file = ResourceManager.image.load(`chara/${info.image.file}`);
-            if (file !== undefined) {
-                this.animation.addAnimation(new AnimationElement(file, 0, 0, 32, 32, 200));
+            this.animation.addAnimation(new TileImage(file, info.image.width, info.image.height, 0, 0, 32, 32), 200);
+        } else if (info.image.type == `anime`) {
+            let file = ResourceManager.image.load(`chara/${info.image.file}`);
+            for (let it of info.image.animation) {
+                this.animation.addAnimation(new TileImage(file, info.image.width, info.image.height, it.x, it.y, it.width, it.height), it.delta);
             }
-        } else {
-            let file = ResourceManager.image.load(`chara/${info.anime.file}`);
-            let animes = info.anime.animation[0].list;
-            for (let anime of animes) {
-                this.animation.addAnimation(new AnimationElement(file, anime.srcX, anime.srcY, anime.srcW, anime.srcH, anime.delta));
+        } else if (info.image.type == `multianime`) {
+            let file = ResourceManager.image.load(`chara/${info.image.file}`);
+            for (let it of info.image.animations[0].animation) {
+                this.animation.addAnimation(new TileImage(file, info.image.width, info.image.height, it.x, it.y, it.width, it.height), it.delta);
             }
         }
 
@@ -114,7 +116,7 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        this.animation.render(ctx, this.x - this.clipX, this.y - this.clipY, this.width, this.height);
+        this.animation.render(ctx, this.x - this.clipX, this.y - this.clipY);
         if (this.selectEntity != null) {
             ctx.strokeRect(this.x - this.clipX, this.y - this.clipY, this.width, this.height, `red`);
         }

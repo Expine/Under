@@ -48,6 +48,18 @@ class Context { // eslint-disable-line  no-unused-vars
     init() {}
 
     /**
+     * Function to be executed before drawing
+     * @abstract
+     */
+    preRendering() {}
+
+    /**
+     * Function to be executed after drawing
+     * @abstract
+     */
+    postRendering() {}
+
+    /**
      * Set the color of text
      * @abstract
      * @param {string} colorName Color name
@@ -108,16 +120,14 @@ class Context { // eslint-disable-line  no-unused-vars
     setLineWidth(width) {}
 
     /**
-     * Function to be executed before drawing
+     * Get rendering text width
      * @abstract
+     * @param {string} text Rendering text
+     * @param {number} size Font size
+     * @param {string} font Font name
+     * @return {number} Text width
      */
-    preRendering() {}
-
-    /**
-     * Function to be executed after drawing
-     * @abstract
-     */
-    postRendering() {}
+    measureText(text, size, font) {}
 
     /**
      * Render text
@@ -132,16 +142,6 @@ class Context { // eslint-disable-line  no-unused-vars
      * @param {string} font Font name
      */
     fillText(text, x, y, anchorX, anchorY, size, color, font) {}
-
-    /**
-     * Get rendering text width
-     * @abstract
-     * @param {string} text Rendering text
-     * @param {number} size Font size
-     * @param {string} font Font name
-     * @return {number} Text width
-     */
-    measureText(text, size, font) {}
 
     /**
      * Rendering line
@@ -196,7 +196,7 @@ class Context { // eslint-disable-line  no-unused-vars
     /**
      * Rendering image
      * @abstract
-     * @param {number} imageID Image ID
+     * @param {Object} imageID Image ID
      * @param {number} x Image x position
      * @param {number} y Image y position
      * @param {number} width Image width

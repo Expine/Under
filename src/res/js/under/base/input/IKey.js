@@ -2,9 +2,9 @@
  * Key interface
  * - It can get input state
  * - It can make input blocked
- * - ### Get key code
+ * - ### Gets key code
  * @interface
- * @implements {IInput}
+ * @extends {IInput}
  * @classdesc Key interface to get key code
  */
 class IKey extends IInput { // eslint-disable-line  no-unused-vars
