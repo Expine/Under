@@ -1,8 +1,7 @@
 /**
  * Normal fall state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving
@@ -31,7 +30,7 @@ class NormalFallState extends UnderMovableState { // eslint-disable-line  no-unu
     apply(dt) {
         // move
         this.moveByInput(dt);
-        if (this.stateAnimation.isEnded() && !this.stateAnimation.isLoop()) {
+        if (Util.canEnd(this.entity.getImage())) {
             this.ai.changeState(`falling`);
         }
         if (Util.onGround(this.entity)) {

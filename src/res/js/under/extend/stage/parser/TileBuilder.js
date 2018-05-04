@@ -7,13 +7,55 @@
  */
 class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     /**
-     * Load tile image
+     * Load image
      * @protected
-     * @param {string} path Tile image path
-     * @return {number} Tile image ID
+     * @param {string} path Image file name
+     * @return {number} Image ID
      */
-    loadTileImage(path) {
+    loadImage(path) {
         return ResourceManager.image.load(`tile/${path}`);
+    }
+
+    /**
+     * Make image
+     * @protected
+     * @param {JSON} image Entity information json data
+     * @return {GameImage} Image
+     */
+    makeImage(image) {
+        let id = this.loadImage(image.file);
+        switch (image.type) {
+            case `tile`:
+                return new TileImage(id, image.width, image.height, image.x, image.y, image.width, image.height);
+            case `single`:
+                return new SingleImage(id, image.width, image.height);
+            case `anime`:
+                {
+                    let base = new SingleAnimation(image.loop);
+                    let id = this.loadImage(image.file);
+                    base.setSize(image.width, image.height);
+                    for (let it of image.animation) {
+                        base.addAnimation(new AnimationElement(id, it.x, it.y, it.width, it.height, it.delta));
+                    }
+                    return base;
+                }
+            case `multianime`:
+                {
+                    let base = new MultiNamedAnimation();
+                    let id = this.loadImage(image.file);
+                    for (let anime of image.animations) {
+                        base.setName(anime.name);
+                        base.setAnimation(new SingleAnimation(anime.loop));
+                        base.setSize(image.width, image.height);
+                        for (let it of anime.animation) {
+                            base.addAnimation(new AnimationElement(id, it.x, it.y, it.width, it.height, it.delta));
+                        }
+                    }
+                    return base;
+                }
+            default:
+                return null;
+        }
     }
 
     /**
@@ -30,8 +72,11 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
                 return new CircleCollider(ret.radius, ret.shiftX, ret.shiftY);
             case `RoundRectangle`:
                 return new RoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut);
+            default:
+                return null;
         }
     }
+
     /**
      * Make AABB
      * @protected
@@ -60,28 +105,6 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Make animation
-     * @protected
-     * @param {JSON} anime Animation json data
-     * @return {NamedAnimation} Animation
-     */
-    makeAnimation(anime) {
-        let base = anime.animation.length == 1 ? new SingleAnimation() : new MultiNamedAnimation();
-        let id = ResourceManager.image.load(`chara/${anime.file}`);
-        for (let it of anime.animation) {
-            if (base instanceof MultiAnimation) {
-                base.setName(`${it.direction.x}-${it.direction.y}`).setAnimation(new SingleAnimation(it.loop));
-            } else if (it.loop !== undefined) {
-                base.setLoop(it.loop);
-            }
-            for (let e of it.list) {
-                base.addAnimation(new AnimationElement(id, e.srcX, e.srcY, e.srcW, e.srcH, e.delta));
-            }
-        }
-        return base;
-    }
-
-    /**
      * Make underlying tile object
      * @protected
      * @param {JSON} deploy Entity deploy json data
@@ -89,12 +112,22 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {InfluentialEntity} Underlying tile object
      */
     makeTileBase(deploy, tile) {
-        let ret = new TileObject();
-        ret.setPosition(deploy.x, deploy.y, deploy.z);
-        ret.setSize(tile.width, tile.height);
-        ret.setTileArea(tile.x, tile.y, tile.width, tile.height);
-        ret.setImage(this.loadTileImage(tile.file));
-        return ret;
+        return new TileObject();
+    }
+
+    /**
+     * Build base data from json data
+     * @param {Entity} base Base entity
+     * @param {JSON} deploy Entity deploy json data
+     * @param {JSON} json Character json data
+     */
+    buildBase(base, deploy, json) {
+        base.setPosition(deploy.x, deploy.y, deploy.z);
+        base.setSize(json.width, json.height);
+        if (base instanceof ImagedEntity) {
+            let image = deploy.image !== undefined ? deploy.image : json.image;
+            base.setImage(this.makeImage(image));
+        }
     }
 
     /**
@@ -126,6 +159,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      */
     build(deploy, json) {
         let base = this.makeTileBase(deploy, json);
+        this.buildBase(base, deploy, json);
         this.buildPhysical(base, deploy, json);
         return base;
     }

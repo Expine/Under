@@ -36,43 +36,15 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @return {AI} AI
      */
     makeAI(ai, deploy) {
-        let ret = null;
         switch (ai.type) {
             case `CommonBaseStateAI`:
-                ret = new CommonBaseStateAI();
+                return new CommonBaseStateAI();
                 break;
             case `NormalBaseStateAI`:
-                ret = new NormalBaseStateAI();
+                return new NormalBaseStateAI();
                 break;
             default:
-                ret = super.makeAI(ai, deploy);
-                break;
-        }
-        return ret;
-    }
-
-    /**
-     * Process AI
-     * @override
-     * @protected
-     * @param {AI} ai Target AI
-     * @param {JSON} animation AI animation json data
-     * @return {AI} Processed AI
-     */
-    processAI(ai, animation) {
-        if (ai instanceof StateAI) {
-            for (let name in animation) {
-                if (animation.hasOwnProperty(name)) {
-                    let target = ai.getStateByID(name);
-                    if (target === undefined) {
-                        target = new NormalNoneState();
-                        ai.setState(target, name);
-                    }
-                    if (BaseUtil.implementsOf(target, IAnimationable)) {
-                        target.setAnimation(this.makeAnimation(animation[name]));
-                    }
-                }
-            }
+                return super.makeAI(ai, deploy);
         }
     }
 
@@ -85,34 +57,27 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(deploy, entity) {
-        let ret = null;
-        let collider = null;
         switch (entity.type) {
             case `Player`:
-                ret = new UnderPlayer();
-                break;
+                return new UnderPlayer();
             case `Sign`:
-                let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
-                if (signData.file !== undefined) {
-                    return super.makeEntityBase(deploy, entity);
-                } else {
-                    ret = new TextSignObject();
+                {
+                    let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
+                    let ret = null;
+                    if (signData.file !== undefined) {
+                        return super.makeEntityBase(deploy, entity);
+                    } else {
+                        ret = new TextSignObject();
+                    }
+                    let collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
+                    collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                    ret.setCollider(collider);
+                    ret.setSign(signData.x, signData.y, signData.size, signData.text);
+                    return ret;
                 }
-                collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
-                collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
-                ret.setCollider(collider);
-                ret.setSign(signData.x, signData.y, signData.size, signData.text);
                 break;
             default:
                 return super.makeEntityBase(deploy, entity);
         }
-        if (ret != null) {
-            ret.setPosition(deploy.x, deploy.y, deploy.z);
-            ret.setSize(entity.width, entity.height);
-            if (ret instanceof ImagedEntity) {
-                ret.setImage(this.loadCharaImage(entity.file));
-            }
-        }
-        return ret;
     }
 }

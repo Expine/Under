@@ -1,8 +1,7 @@
 /**
  * Propeller jump state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving
@@ -45,7 +44,9 @@ class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line 
      * @override
      */
     init() {
-        this.stateAnimation.restore();
+        if (this.entity.getImage() instanceof GameAnimation) {
+            this.entity.getImage().restore();
+        }
         this.underCount = 0;
         let aabb = this.entity.collider.getAABB();
         this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.propellerDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
@@ -58,8 +59,8 @@ class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line 
      */
     update(dt) {
         super.update(dt);
-        if (this.stateAnimation !== null) {
-            this.stateAnimation.update(dt * 4);
+        if (this.entity.getImage() !== null) {
+            this.entity.getImage().update(dt * 3);
         }
     }
 

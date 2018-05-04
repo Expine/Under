@@ -63,6 +63,11 @@ class Entity { // eslint-disable-line  no-unused-vars
         this.z = z;
     }
 
+    /**
+     * Set entity size
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     */
     setSize(width, height) {
         this.width = width;
         this.height = height;

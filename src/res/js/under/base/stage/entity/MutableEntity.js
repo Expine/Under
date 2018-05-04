@@ -40,8 +40,10 @@ class MutableEntity extends InfluentialEntity { // eslint-disable-line  no-unuse
     setRigidBody(body) {
         this.body = body;
         // initialize
-        body.setEntity(this);
-        body.init();
+        if (this.body != null) {
+            body.setEntity(this);
+            body.init();
+        }
     }
 
     /**

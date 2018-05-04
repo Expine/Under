@@ -1,8 +1,7 @@
 /**
  * Normal punch state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - ### About to attack
  * @implements {UnderPlayerState}
@@ -57,7 +56,7 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        if (!this.stateAnimation.isEnded() && this.stateAnimation.getAnimationCount() < this.threshold) {
+        if (!Util.canEnd(this.entity.getImage()) && this.entity.getImage().getAnimationCount() < this.threshold) {
             return;
         }
         if (!this.attacked) {
@@ -65,7 +64,7 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
             this.attacked = true;
         }
         // change state
-        if (this.stateAnimation.isEnded()) {
+        if (Util.canEnd(this.entity.getImage())) {
             // punch
             if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);

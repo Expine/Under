@@ -1,8 +1,7 @@
 {
     "entities": [{
-            "type": "Player",
-            "file": "player.png",
             "id": 0,
+            "type": "Player",
             "width": 64,
             "height": 64,
             "collider": {
@@ -37,534 +36,101 @@
                     "type": "NormalBaseStateAI"
                 }
             ],
-            "state": {
-                "stationary": {
-                    "file": "player.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 0,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 300
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 0,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 300
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 0,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 300
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 0,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 300
-                            }
-                        ]
-                    }]
-                },
-                "walk": {
-                    "file": "player.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 32,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 32,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 32,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 32,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "jump": {
-                    "file": "player.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "walkjump": {
-                    "file": "player.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 64,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "jumping": {
-                    "file": "player.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 96,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 96,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 96,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 96,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "fall": {
-                    "file": "player.png",
-                    "animation": [{
+            "image": {
+                "type": "multianime",
+                "file": "player.png",
+                "width": 64,
+                "height": 64,
+                "animations": [{
+                        "x": 0,
+                        "y": 0,
+                        "width": 32,
+                        "height": 32,
+                        "delta": 200,
+                        "serial": true,
+                        "names": [
+                            ["stationary"],
+                            ["walk"],
+                            ["jump", "walkjump"],
+                            ["jumping"],
+                            ["fall"],
+                            ["falling"],
+                            ["grab"],
+                            ["grabwalk"],
+                            ["gameover"],
+                            ["attack", "hook"],
+                            ["pray", "downwall"]
+                        ],
+                        "loops": [
+                            [true],
+                            [true],
+                            [false, false],
+                            [true],
+                            [false],
+                            [true],
+                            [false],
+                            [true],
+                            [false],
+                            [false, false],
+                            [false, false, true]
+                        ],
+                        "deltas": [
+                            [300],
+                            [200],
+                            [200, 200],
+                            [200],
+                            [200],
+                            [200],
+                            [100],
+                            [200],
+                            [200],
+                            [200, 200],
+                            [200, 200, 200]
+                        ],
+                        "number": 4,
+                        "horizontal": 4,
+                        "vertical": 11
+                    },
+                    {
+                        "name": "roll",
                         "loop": false,
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 128,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 128,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 128,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 128,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "falling": {
-                    "file": "player.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 160,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 160,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 160,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 160,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "grab": {
-                    "file": "player.png",
-                    "animation": [{
+                        "animation": [{
+                            "x": 0,
+                            "y": 320,
+                            "width": 32,
+                            "height": 32,
+                            "delta": 200,
+                            "serial": true,
+                            "horizontal": 2,
+                            "vertical": 1
+                        }]
+                    },
+                    {
+                        "name": "rolling",
                         "loop": false,
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 192,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 100
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 192,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 100
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 192,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 100
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 192,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 100
-                            }
-                        ]
-                    }]
-                },
-                "grabwalk": {
-                    "file": "player.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 224,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 224,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 224,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 224,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "gameover": {
-                    "file": "player.png",
-                    "animation": [{
-                        "loop": false,
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 256,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 256,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 256,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 256,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "attack": {
-                    "file": "player.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 288,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 288,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 288,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 288,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 50
-                            }
-                        ]
-                    }]
-                },
-                "pray": {
-                    "file": "player.png",
-                    "animation": [{
-                        "loop": false,
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "roll": {
-                    "file": "wild.png",
-                    "animation": [{
-                        "loop": false,
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "rolling": {
-                    "file": "wild.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 64,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 100
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 100
-                            }
-                        ]
-                    }]
-                },
-                "hook": {
-                    "file": "adventurer.png",
-                    "animation": [{
-                        "loop": false,
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 288,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 288,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 288,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 288,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                },
-                "downwall": {
-                    "file": "adventurer.png",
-                    "animation": [{
-                        "list": [{
-                                "srcX": 0,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 32,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 64,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            },
-                            {
-                                "srcX": 96,
-                                "srcY": 320,
-                                "srcW": 32,
-                                "srcH": 32,
-                                "delta": 200
-                            }
-                        ]
-                    }]
-                }
+                        "animation": [{
+                            "x": 64,
+                            "y": 320,
+                            "width": 32,
+                            "height": 32,
+                            "delta": 200,
+                            "serial": true,
+                            "horizontal": 2,
+                            "vertical": 1
+                        }]
+                    }
+                ]
             }
-        }, {
-            "type": "Enemy",
-            "file": "enemy.png",
+        },
+        {
             "id": 1,
+            "type": "Enemy",
+            "image": {
+                "type": "single",
+                "file": "enemy.png",
+                "width": 64,
+                "height": 64
+            },
             "width": 64,
             "height": 64,
             "collider": {
@@ -575,15 +141,6 @@
                 "height": 32,
                 "cut": 5
             },
-            "body": {
-                "type": "MaxAdopt",
-                "material": {
-                    "type": "Immutable",
-                    "k": 0.5,
-                    "frictionX": 1.0,
-                    "frictionY": 0.0
-                }
-            },
             "material": {
                 "mass": 20,
                 "elasticity": 0.1,
@@ -592,10 +149,27 @@
             "ai": [{
                 "type": "EnemyAI"
             }]
-        }, {
-            "type": "Enemy",
-            "file": "poyo.png",
+        },
+        {
             "id": 2,
+            "type": "Enemy",
+            "image": {
+                "type": "anime",
+                "file": "poyo.png",
+                "width": 32,
+                "height": 32,
+                "loop": false,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16,
+                    "delta": 200,
+                    "serial": true,
+                    "horizontal": 3,
+                    "vertical": 1
+                }]
+            },
             "width": 32,
             "height": 32,
             "collider": {
@@ -606,15 +180,6 @@
                 "height": 26,
                 "cut": 5
             },
-            "body": {
-                "type": "MaxAdopt",
-                "material": {
-                    "type": "Immutable",
-                    "k": 0.5,
-                    "frictionX": 1.0,
-                    "frictionY": 0.0
-                }
-            },
             "material": {
                 "mass": 20,
                 "elasticity": 0.1,
@@ -622,39 +187,17 @@
             },
             "ai": [{
                 "type": "JumpAI"
-            }],
-            "anime": {
-                "file": "poyo.png",
-                "animation": [{
-                    "loop": false,
-                    "list": [{
-                            "srcX": 0,
-                            "srcY": 0,
-                            "srcW": 16,
-                            "srcH": 16,
-                            "delta": 200
-                        },
-                        {
-                            "srcX": 16,
-                            "srcY": 0,
-                            "srcW": 16,
-                            "srcH": 16,
-                            "delta": 200
-                        },
-                        {
-                            "srcX": 32,
-                            "srcY": 0,
-                            "srcW": 16,
-                            "srcH": 16,
-                            "delta": 200
-                        }
-                    ]
-                }]
-            }
-        }, {
-            "type": "Enemy",
-            "file": "enemy.png",
+            }]
+        },
+        {
             "id": 3,
+            "type": "Enemy",
+            "image": {
+                "type": "single",
+                "file": "enemy.png",
+                "width": 256,
+                "height": 64
+            },
             "width": 256,
             "height": 64,
             "collider": {
@@ -665,15 +208,6 @@
                 "height": 32,
                 "cut": 5
             },
-            "body": {
-                "type": "MaxAdopt",
-                "material": {
-                    "type": "Immutable",
-                    "k": 0.5,
-                    "frictionX": 1.0,
-                    "frictionY": 0.0
-                }
-            },
             "material": {
                 "mass": 1000,
                 "elasticity": 0.1,
@@ -682,10 +216,16 @@
             "ai": [{
                 "type": "EnemyAI"
             }]
-        }, {
-            "type": "Obstacle",
-            "file": "box.png",
+        },
+        {
             "id": 4,
+            "type": "Obstacle",
+            "image": {
+                "type": "single",
+                "file": "box.png",
+                "width": 32,
+                "height": 32
+            },
             "width": 32,
             "height": 32,
             "collider": {
@@ -696,15 +236,6 @@
                 "height": 30,
                 "cut": 3
             },
-            "body": {
-                "type": "MaxAdopt",
-                "material": {
-                    "type": "Immutable",
-                    "k": 0.5,
-                    "frictionX": 1.0,
-                    "frictionY": 0.0
-                }
-            },
             "material": {
                 "mass": 1,
                 "elasticity": 0.1,
@@ -712,23 +243,26 @@
             }
         },
         {
-            "type": "Event",
-            "file": "event.png",
             "id": 5,
-            "width": 32,
-            "height": 32,
-            "collider": {
-                "type": "Rectangle",
-                "startX": 0,
-                "startY": 0,
+            "type": "Event",
+            "image": {
+                "type": "single",
+                "file": "event.png",
                 "width": 32,
                 "height": 32
-            }
+            },
+            "width": 32,
+            "height": 32
         },
         {
-            "type": "Sign",
-            "file": "sign.png",
             "id": 6,
+            "type": "Sign",
+            "image": {
+                "type": "single",
+                "file": "sign.png",
+                "width": 64,
+                "height": 64
+            },
             "width": 64,
             "height": 64,
             "collider": {
@@ -747,9 +281,14 @@
             }
         },
         {
-            "type": "Elevator",
-            "file": "elevator.png",
             "id": 7,
+            "type": "Elevator",
+            "image": {
+                "type": "single",
+                "file": "elevator.png",
+                "width": 192,
+                "height": 32
+            },
             "width": 192,
             "height": 32,
             "collider": {
@@ -780,58 +319,37 @@
             }]
         },
         {
-            "type": "Door",
-            "file": "door.png",
             "id": 8,
-            "width": 128,
-            "height": 128,
-            "collider": {
-                "type": "Rectangle",
-                "startX": 0,
-                "startY": 0,
-                "width": 128,
-                "height": 128
-            },
-            "anime": {
+            "type": "Door",
+            "image": {
+                "type": "anime",
                 "file": "door.png",
+                "width": 128,
+                "height": 128,
+                "loop": false,
                 "animation": [{
-                    "loop": false,
-                    "list": [{
-                            "srcX": 0,
-                            "srcY": 0,
-                            "srcW": 64,
-                            "srcH": 64,
-                            "delta": 200
-                        },
-                        {
-                            "srcX": 64,
-                            "srcY": 0,
-                            "srcW": 64,
-                            "srcH": 64,
-                            "delta": 200
-                        },
-                        {
-                            "srcX": 128,
-                            "srcY": 0,
-                            "srcW": 64,
-                            "srcH": 64,
-                            "delta": 200
-                        },
-                        {
-                            "srcX": 192,
-                            "srcY": 0,
-                            "srcW": 64,
-                            "srcH": 64,
-                            "delta": 200
-                        }
-                    ]
+                    "x": 0,
+                    "y": 0,
+                    "width": 64,
+                    "height": 64,
+                    "delta": 200,
+                    "serial": true,
+                    "horizontal": 4,
+                    "vertical": 1
                 }]
-            }
+            },
+            "width": 128,
+            "height": 128
         },
         {
-            "type": "Sign",
-            "file": "sign.png",
             "id": 9,
+            "type": "Sign",
+            "image": {
+                "type": "single",
+                "file": "sign.png",
+                "width": 32,
+                "height": 32
+            },
             "width": 32,
             "height": 32,
             "collider": {
@@ -850,31 +368,24 @@
             }
         },
         {
-            "type": "Door",
-            "file": "floorDoor.png",
             "id": 10,
-            "width": 64,
-            "height": 64,
-            "collider": {
-                "type": "Rectangle",
-                "startX": 0,
-                "startY": 0,
-                "width": 64,
-                "height": 64
-            },
-            "anime": {
+            "type": "Door",
+            "image": {
+                "type": "anime",
                 "file": "floorDoor.png",
+                "width": 64,
+                "height": 64,
+                "loop": false,
                 "animation": [{
-                    "loop": false,
-                    "list": [{
-                        "srcX": 0,
-                        "srcY": 0,
-                        "srcW": 32,
-                        "srcH": 32,
-                        "delta": 200
-                    }]
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 200
                 }]
-            }
+            },
+            "width": 64,
+            "height": 64
         }
     ]
 }

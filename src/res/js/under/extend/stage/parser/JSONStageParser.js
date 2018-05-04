@@ -66,22 +66,24 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Map} Map instance for base of parsing
      */
     makeMap(map) {
-        let ret = null;
-        if (map.type == `Sequential`) {
-            ret = new SequentialMap();
-            for (let back of map.backs) {
-                ret.addMap(this.makeMap(back));
-            }
-        } else if (map.type == `Invariant`) {
-            ret = new InvariantBackMap(this.loadMapImage(map.file));
-        } else if (map.type == `Movement`) {
-            ret = new MovementMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height, map.rx, map.ry);
-        } else if (map.type == `Area`) {
-            ret = new AreaMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height, map.areaW, map.areaH);
-        } else if (map.type == `Fixed`) {
-            ret = new FixedBackMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height);
+        switch (map.type) {
+            case `Sequential`:
+                let ret = new SequentialMap();
+                for (let back of map.backs) {
+                    ret.addMap(this.makeMap(back));
+                }
+                return ret;
+            case `Invariant`:
+                return new InvariantBackMap(this.loadMapImage(map.file));
+            case `Movement`:
+                return new MovementMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height, map.rx, map.ry);
+            case `Area`:
+                return new AreaMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height, map.areaW, map.areaH);
+            case `Fixed`:
+                return new FixedBackMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height);
+            default:
+                return null;
         }
-        return ret;
     }
 
     /**
@@ -114,7 +116,11 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
     makeBaseWorld(world) {
-        return Engine.debug ? new DebugWorld(new SplitWorld(world.width, world.height)) : new SplitWorld(world.width, world.height);
+        let ret = new SplitWorld(world.width, world.height);
+        if (Engine.debug) {
+            ret = new DebugWorld(ret);
+        }
+        return ret;
     }
 
     /**
@@ -162,6 +168,184 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         base.addEntity(chara);
     }
 
+    /**
+     * Build tile information
+     * @param {JSON} tileInfo Tile informmation for building
+     * @param {JSON} tiles Tile information from file
+     */
+    buildTileInfo(tileInfo, tiles) {
+        // set default info
+        let defaultCollider = {
+            type: `Rectangle`,
+            startX: 0,
+            startY: 0,
+            width: 0,
+            height: 0,
+        };
+        let defaultMaterial = {
+            mass: 10,
+            elasticity: 0.1,
+            mu: 0.65,
+        };
+        for (let tile of tiles.tiles) {
+            for (let chip of tile.chips) {
+                // set default collider
+                if (chip.collider === undefined) {
+                    chip.collider = JSON.parse(JSON.stringify(defaultCollider));
+                    chip.collider.width = chip.width;
+                    chip.collider.height = chip.height;
+                }
+                // set default material
+                if (chip.material === undefined) {
+                    chip.material = JSON.parse(JSON.stringify(defaultMaterial));
+                }
+                // check serial
+                if (chip.serial) {
+                    let id = chip.id;
+                    let x = chip.image.x;
+                    let y = chip.image.y;
+                    for (let cy = 0; cy < chip.vertical; ++cy) {
+                        for (let cx = 0; cx < chip.horizontal; ++cx) {
+                            let data = JSON.parse(JSON.stringify(chip));
+                            data.id = id;
+                            data.image.file = tile.file;
+                            data.image.x = x + cx * chip.image.width;
+                            data.image.y = y + cy * chip.image.height;
+                            tileInfo[id] = data;
+                            ++id;
+                        }
+                    }
+                } else {
+                    tileInfo[chip.id] = chip;
+                    tileInfo[chip.id].file = tile.file;
+                }
+            }
+        }
+    }
+
+    /**
+     * Build entity information
+     * @param {JSON} entityInfo Entity informmation for building
+     * @param {JSON} entities Entity information from file
+     */
+    buildEntityInfo(entityInfo, entities) {
+        // set default info
+        let defaultCollider = {
+            type: `Rectangle`,
+            startX: 0,
+            startY: 0,
+            width: 0,
+            height: 0,
+        };
+        let defaultMaterial = {
+            mass: 10,
+            elasticity: 0.1,
+            mu: 0.65,
+        };
+        let defaultBBody = {
+            type: `MaxAdopt`,
+            material: {
+                type: `Immutable`,
+                k: 0.5,
+                frictionX: 1.0,
+                frictionY: 0.0,
+            },
+        };
+        for (let entity of entities.entities) {
+            // set default collider
+            if (entity.collider === undefined) {
+                entity.collider = JSON.parse(JSON.stringify(defaultCollider));
+                entity.collider.width = entity.width;
+                entity.collider.height = entity.height;
+            }
+            // set default material
+            if (entity.material === undefined) {
+                entity.material = JSON.parse(JSON.stringify(defaultMaterial));
+            }
+            // set default body
+            if (entity.body === undefined) {
+                entity.body = JSON.parse(JSON.stringify(defaultBBody));
+            }
+            // check serial
+            if (entity.image !== undefined && entity.image.type == `anime`) {
+                let animation = [];
+                for (let it of entity.image.animation) {
+                    if (it.serial) {
+                        for (let cy = 0; cy < it.vertical; ++cy) {
+                            for (let cx = 0; cx < it.horizontal; ++cx) {
+                                let data = JSON.parse(JSON.stringify(it));
+                                data.x = it.x + cx * it.width;
+                                data.y = it.y + cy * it.height;
+                                animation.push(data);
+                            }
+                        }
+                    } else {
+                        animation.push(it);
+                    }
+                }
+                entity.image.animation = animation;
+            }
+            // check multi serial
+            if (entity.image !== undefined && entity.image.type == `multianime`) {
+                let animations = [];
+                for (let it of entity.image.animations) {
+                    if (it.serial && it.names !== undefined) {
+                        let index = 0;
+                        let number = 0;
+                        let animation = [];
+                        for (let cy = 0; cy < it.vertical; ++cy) {
+                            for (let cx = 0; cx < it.horizontal; ++cx) {
+                                let data = {};
+                                data.x = it.x + cx * it.width;
+                                data.y = it.y + cy * it.height;
+                                data.width = it.width;
+                                data.height = it.height;
+                                data.delta = it.delta;
+                                animation.push(data);
+                                if (++number == it.number) {
+                                    for (let i = 0; i < it.names[index].length; ++i) {
+                                        let item = {};
+                                        item.name = it.names[index][i];
+                                        item.loop = it.loops[index][i];
+                                        if (it.deltas !== undefined) {
+                                            for (let anime of animation) {
+                                                anime.delta = it.deltas[index][i];
+                                            }
+                                        }
+                                        item.animation = JSON.parse(JSON.stringify(animation));
+                                        animations.push(item);
+                                    }
+                                    animation.length = [];
+                                    number = 0;
+                                    index++;
+                                }
+                            }
+                        }
+                    } else {
+                        let animation = [];
+                        for (let e of it.animation) {
+                            if (e.serial) {
+                                for (let cy = 0; cy < e.vertical; ++cy) {
+                                    for (let cx = 0; cx < e.horizontal; ++cx) {
+                                        let data = JSON.parse(JSON.stringify(e));
+                                        data.x = e.x + cx * e.width;
+                                        data.y = e.y + cy * e.height;
+                                        animation.push(data);
+                                    }
+                                }
+                            } else {
+                                animation.push(e);
+                            }
+                        }
+                        it.animation = animation;
+                        animations.push(it);
+                    }
+                }
+                entity.image.animations = animations;
+            }
+            entityInfo[entity.id] = entity;
+        }
+    }
 
     /**
      * Parset file to stage
@@ -179,18 +363,11 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         // make tile information
         stage.tileInfo = {};
         stage.tileInfo.tiles = stage.tiles;
-        for (let tile of tiles.tiles) {
-            for (let chip of tile.chips) {
-                stage.tileInfo[chip.id] = chip;
-                stage.tileInfo[chip.id].file = tile.file;
-            }
-        }
+        this.buildTileInfo(stage.tileInfo, tiles);
         // make entity information
         stage.entityInfo = {};
         stage.entityInfo.entities = stage.entities;
-        for (let entity of entities.entities) {
-            stage.entityInfo[entity.id] = entity;
-        }
+        this.buildEntityInfo(stage.entityInfo, entities);
 
         // make stage
         let base = this.makeBaseStage(stage);

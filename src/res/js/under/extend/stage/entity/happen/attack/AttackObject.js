@@ -8,7 +8,6 @@
  * - Manages AI by list
  * - Generated and owned by someone
  * - Object that can be destroyed
- * - Enable to set animation
  * - Object caused by special actions
  * - ### Object indicating attack that have lifespan
  * @interface
@@ -57,9 +56,6 @@ class AttackObject extends SpecialObject { // eslint-disable-line  no-unused-var
         if (this.lifespan < 0) {
             this.destroy();
             return;
-        }
-        if (this.animation != null) {
-            this.animation.update(dt);
         }
         super.update(dt);
         this.updateAttack(dt);

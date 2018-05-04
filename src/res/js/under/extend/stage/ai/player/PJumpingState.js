@@ -1,8 +1,7 @@
 /**
  * Player jump state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - ### Decides actions while jumping
  * @implements {BaseState}
  * @classdesc Player jump state to decide actions while jumping

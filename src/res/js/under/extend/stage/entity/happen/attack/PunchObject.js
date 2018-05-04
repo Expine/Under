@@ -8,7 +8,7 @@
  * - Manages AI by list
  * - Generated and owned by someone
  * - Object that can be destroyed
- * - Enable to set animation
+
  * - Object indicating attack that have lifespan
  * - ### If it is collided and collided entity implements damagable interface, damage it
  * - ### Implements attack object resources
@@ -40,7 +40,8 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
         anime.addAnimation(new AnimationElement(imageID, 32, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 64, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
-        this.setAnimation(anime);
+        anime.setSize(this.width, this.height);
+        this.setImage(anime);
         this.setMaterial(new ImmutableMaterial());
         let col = new RectangleCollider(0, 0, this.width, this.height);
         col.setAABB(new SimpleAABB());

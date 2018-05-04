@@ -2,13 +2,11 @@
  * Immutable event object
  * - Object present on the stage that has coordinate and size
  * - Has image ID
- * - Enable to set animation
  * - ### Show sign
  * @implements {ImagedEntity}
- * @implements {IAnimationable}
  * @classdesc Immutable event object to show sign
  */
-class DoorObject extends ImagedEntity /* , IAnimationable */ { // eslint-disable-line  no-unused-vars
+class DoorObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
     /**
      * Influential event object constructor
      * @constructor
@@ -19,12 +17,6 @@ class DoorObject extends ImagedEntity /* , IAnimationable */ { // eslint-disable
     constructor(transition = null, isReplace = false, popNumber = 0) {
         super();
 
-        /**
-         * Set door animation
-         * @protected
-         * @param {Animation}
-         */
-        this.doorAnimation = null;
         /**
          * Whether transition is executing now or not
          * @protected
@@ -60,15 +52,6 @@ class DoorObject extends ImagedEntity /* , IAnimationable */ { // eslint-disable
     }
 
     /**
-     * Set animation
-     * @override
-     * @param {Animation} animation Animation
-     */
-    setAnimation(animation) {
-        this.doorAnimation = animation;
-    }
-
-    /**
      * Set collider
      * @override
      * @param {Collider} collider collider
@@ -94,8 +77,8 @@ class DoorObject extends ImagedEntity /* , IAnimationable */ { // eslint-disable
     update(dt) {
         // opening
         if (this.isTransitioning) {
-            this.doorAnimation.update(dt);
-            if (this.doorAnimation.isEnded()) {
+            super.update(dt);
+            if (!(this.image instanceof GameAnimation) || this.image.isEnded()) {
                 // transition
                 Input.key.setInputEnable(true);
                 for (let i = 0; i < this.popNumber; ++i) {
@@ -132,14 +115,10 @@ class DoorObject extends ImagedEntity /* , IAnimationable */ { // eslint-disable
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.doorAnimation != null) {
-            this.doorAnimation.render(ctx, this.x + shiftX, this.y + shiftY, this.width, this.height);
+        super.render(ctx, shiftX, shiftY);
 
-            if (Engine.debug) {
-                this.doorCollider.render(ctx, this.x + shiftX, this.y + shiftY);
-            }
-        } else {
-            super.render(ctx, shiftX, shiftY);
+        if (Engine.debug) {
+            this.doorCollider.render(ctx, this.x + shiftX, this.y + shiftY);
         }
     }
 }

@@ -1,8 +1,7 @@
 /**
  * Normal grab state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving
@@ -48,10 +47,16 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @override
      */
     init() {
-        this.stateAnimation.restore();
+        // set image
+        let image = this.entity.getImage();
+        if (image instanceof NamedAnimation) {
+            image.setName(this.ai.getStateID());
+        }
+        if (image instanceof GameAnimation) {
+            image.restore();
+        }
         this.underCount = 0;
-        let aabb = this.entity.collider.getAABB();
-        this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+        this.grabCollider();
     }
 
     /**
@@ -70,7 +75,78 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * Type changed function
      * @protected
      */
-    changed() {}
+    changed() {
+        this.restoreCollider();
+    }
+
+    /**
+     * Change collider for grab action
+     * @protected
+     */
+    grabCollider() {
+        let aabb = this.entity.collider.getAABB();
+        this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+    }
+
+    /**
+     * Restore collider information
+     * @protected
+     */
+    restoreCollider() {
+        let aabb = this.entity.collider.getAABB();
+        this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+    }
+
+    /**
+     * Judged whether or not the state continues
+     * @protected
+     * @return {boolean} Whether or not the state continues
+     */
+    judgeContinue() {
+        if (++this.underCount <= 5) {
+            return true;
+        }
+
+        // check collision
+        let check = this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).some((it) => {
+            return it.e2.collider.isResponse(this.entity) && it.ny < -0.5;
+        });
+        if (check) {
+            return true;
+        }
+
+        // restore
+        this.entity.image.init();
+        this.restoreCollider();
+        this.transitionUsualState();
+        return false;
+    }
+
+    /**
+     * Walk whle grab state
+     * @protected
+     * @param {number} dt Delta time
+     */
+    grabWalk(dt) {
+        let moved = this.moveByInput(dt);
+        if (moved) {
+            if (this.entity.getImage() instanceof GameAnimation) {
+                this.entity.getImage().restore();
+            }
+            // TODO: Is there a better way to do it?
+            if (this.ai.getStateID() == `grab`) {
+                this.entity.image.init();
+            }
+            if (this.ai.changeState(`grabwalk`)) {
+                // restore
+                this.restoreCollider();
+            }
+        } else {
+            if (this.entity.getImage() instanceof GameAnimation) {
+                this.entity.getImage().pause();
+            }
+        }
+    }
 
     /**
      * Apply AI and decide action
@@ -79,66 +155,22 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
+        let image = this.entity.getImage();
+        let canGrabAction = (!(image instanceof GameAnimation) || (image.isEnded() || image.isLoop()));
         // judge
         if (!Util.onGround(this.entity) || !Input.it.isPressed(Input.key.down())) {
-            if (++this.underCount > 5) {
-                // restore
-                let aabb = this.entity.collider.getAABB();
-                this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
-                // check collision
-                let check = false;
-                for (let it of this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider)) {
-                    if (it.e2.collider.isResponse(this.entity) && it.ny < -0.5) {
-                        check = true;
-                    }
-                }
-                if (!check) {
-                    if (this.entity.body.isFixX) {
-                        this.ai.changeState(`stationary`);
-                    } else {
-                        this.ai.changeState(`walk`);
-                    }
-                    this.stateAnimation.init();
-                    return;
-                } else {
-                    // restore
-                    let aabb = this.entity.collider.getAABB();
-                    this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
-                }
+            if (!this.judgeContinue()) {
+                return true;
             }
         } else {
             this.underCount = 0;
         }
-        if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity)) {
-            // input
-            let vx = 0;
-            // walk
-            if (Input.it.isPressed(Input.key.left())) {
-                vx += -1;
-            }
-            if (Input.it.isPressed(Input.key.right())) {
-                vx += 1;
-            }
-            if (vx != 0) {
-                this.stateAnimation.restore();
-                this.entity.directionX = vx;
-                if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
-                    this.entity.body.enforce(vx * this.movePowerX * this.entity.material.mass / dt, 0);
-                }
-                if (this.ai.changeState(`grabwalk`)) {
-                    // restore
-                    let aabb = this.entity.collider.getAABB();
-                    this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
-                    this.stateAnimation.init();
-                }
-            } else {
-                this.stateAnimation.pause();
-            }
+        // move
+        if (canGrabAction && Util.onGround(this.entity)) {
+            this.grabWalk(dt);
         }
-        if ((this.stateAnimation.isEnded() || this.stateAnimation.isLoop()) && Util.onGround(this.entity)) {
-            // restore
-            let aabb = this.entity.collider.getAABB();
-            this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
+        // grab action
+        if (canGrabAction && Util.onGround(this.entity)) {
             // change
             let ground = Util.getUnderEntity(this.entity);
             if (BaseUtil.implementsOf(ground, ITerrain)) {
@@ -147,8 +179,6 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
                     return true;
                 }
             }
-            aabb = this.entity.collider.getAABB();
-            this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
         }
         return true;
     }

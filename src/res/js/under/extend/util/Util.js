@@ -94,4 +94,13 @@ class Util { // eslint-disable-line  no-unused-vars
         ctx.drawImage(id, x + imageWidth, y + height - imageHeight, width - imageWidth * 2, imageHeight, imageWidth, imageHeight * 2, imageWidth, imageHeight);
         ctx.drawImage(id, x + width - imageWidth, y + height - imageHeight, imageWidth, imageHeight, imageWidth * 2, imageHeight * 2, imageWidth, imageHeight);
     }
+
+    /**
+     * Whether it is not animation or animation is ended
+     * @param {GameImage} image Target image
+     * @return {boolean} Whether it is not animation or animation is ended
+     */
+    static canEnd(image) {
+        return !(image instanceof GameAnimation) || image.isEnded();
+    }
 }

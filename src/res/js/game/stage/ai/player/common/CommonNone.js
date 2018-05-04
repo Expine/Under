@@ -1,8 +1,7 @@
 /**
  * Common none state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - ### Does nothing but transfer gameover only if entity is died

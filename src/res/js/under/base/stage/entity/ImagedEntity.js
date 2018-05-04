@@ -17,15 +17,70 @@ class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
         /**
          * Image ID
          * @protected
-         * @type {number}
+         * @type {GameImage}
          */
-        this.imageID = -1;
+        this.image = null;
     }
     /**
-     * Set image ID
-     * @param {number} imageID Image ID
+     * Set image
+     * @param {GameImage} image Image
      */
-    setImage(imageID) {
-        this.imageID = imageID;
+    setImage(image) {
+        this.image = image;
+    }
+
+    /**
+     * Get image
+     * @param {GameImage} image Image
+     */
+    getImage(image) {
+        return this.image;
+    }
+
+    /**
+     * Set entity size
+     * @override
+     * @param {number} width Entity width
+     * @param {number} height Entity height
+     */
+    setSize(width, height) {
+        super.setSize(width, height);
+        if (this.image != null) {
+            this.image.setSize(width, height);
+        }
+    }
+
+    /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        if (this.image != null) {
+            this.image.init();
+        }
+    }
+
+    /**
+     * Update entty
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        if (this.image != null) {
+            this.image.update(dt);
+        }
+    }
+
+    /**
+     * Render entity
+     * @override
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {
+        if (this.image != null) {
+            this.image.render(ctx, this.x + shiftX, this.y + shiftY);
+        }
     }
 }

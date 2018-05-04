@@ -1,8 +1,7 @@
 /**
  * Wild roll state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving
@@ -38,7 +37,7 @@ class WildRollState extends UnderMovableState { // eslint-disable-line  no-unuse
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        if (this.stateAnimation.isEnded()) {
+        if (Util.canEnd(this.entity.getImage())) {
             // big jump
             this.entity.body.enforce(this.movePowerX * this.entity.material.mass * this.entity.directionX / dt, -this.movePowerY * this.entity.material.mass / dt);
             this.ai.changeState(`rolling`);

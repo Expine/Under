@@ -1,8 +1,7 @@
 /**
  * Wild rolling state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - ### Stops rolling after landing
@@ -20,11 +19,7 @@ class WildRollingState extends UnderPlayerState { // eslint-disable-line  no-unu
         // change state
         if (Util.onGround(this.entity)) {
             this.entity.body.setNextAddVelocity(-this.entity.body.velocityX, 0);
-            if (this.entity.body.isFixX) {
-                this.ai.changeState(`stationary`);
-            } else {
-                this.ai.changeState(`walk`);
-            }
+            this.transitionUsualState();
         }
         return true;
     }

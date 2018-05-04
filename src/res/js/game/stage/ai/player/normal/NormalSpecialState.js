@@ -1,8 +1,7 @@
 /**
  * Normal special state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - ### Does special action
  * @implements {UnderPlayerState}
@@ -18,11 +17,7 @@ class NormalSpecialState extends UnderPlayerState { // eslint-disable-line  no-u
     apply(dt) {
         if (!Input.it.isPressed(Input.key.sub())) {
             // change state
-            if (this.entity.body.isFixX) {
-                this.ai.changeState(`stationary`);
-            } else {
-                this.ai.changeState(`walk`);
-            }
+            this.transitionUsualState();
         }
         return true;
     }

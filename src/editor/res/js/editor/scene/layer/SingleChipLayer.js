@@ -102,7 +102,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
         for (let id in this.tileInfo) {
             if (this.tileInfo.hasOwnProperty(id)) {
                 let tile = this.tileInfo[id];
-                if (tile.x <= x && x < tile.x + tile.width && tile.y <= y && y < tile.y + tile.height) {
+                if (tile.image.x <= x && x < tile.image.x + tile.image.width && tile.image.y <= y && y < tile.image.y + tile.image.height) {
                     this.selectTile = tile;
                     break;
                 }
@@ -121,10 +121,10 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
     render(ctx) {
         super.render(ctx);
         if (this.selectTile != null) {
-            ctx.strokeRect(this.selectTile.x + this.x + this.clipX, this.selectTile.y + this.y - this.clipY, this.selectTile.width, this.selectTile.height, `red`);
+            ctx.strokeRect(this.selectTile.image.x + this.x + this.clipX, this.selectTile.image.y + this.y - this.clipY, this.selectTile.image.width, this.selectTile.image.height, `red`);
         }
         if (this.selectedTile != null) {
-            ctx.strokeRect(this.selectedTile.x + this.x + this.clipX, this.selectedTile.y + this.y - this.clipY, this.selectedTile.width, this.selectedTile.height, `white`);
+            ctx.strokeRect(this.selectedTile.image.x + this.x + this.clipX, this.selectedTile.image.y + this.y - this.clipY, this.selectedTile.image.width, this.selectedTile.image.height, `white`);
         }
     }
 }

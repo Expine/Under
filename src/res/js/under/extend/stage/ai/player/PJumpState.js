@@ -1,8 +1,7 @@
 /**
  * Player jump state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - ### Prepares for jumping
  * @implements {BaseState}
  * @classdesc Player jump state to prepare for jumping
@@ -85,7 +84,7 @@ class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars
         } else {
             this.inAirCount = 0;
         }
-        if (this.stateAnimation.isEnded() && this.inAirCount == 0) {
+        if (Util.canEnd(this.enttiy.image) && this.inAirCount == 0) {
             // reset and jump
             this.entity.body.setNextAddVelocity(this.reservedVelocityX * 0.8 - this.entity.body.velocityX, -this.entity.body.velocityY);
             this.entity.body.enforce(0, -this.jumpPower * this.entity.material.mass * 1000 / dt * (this.jumpPressedTime + this.jumpDeltaTime) / 2 / this.jumpDeltaTime);

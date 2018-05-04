@@ -8,7 +8,7 @@
  * - Manages AI by list
  * - Generated and owned by someone
  * - Object that can be destroyed
- * - Enable to set animation
+
  * - Object caused by special actions
  * - It can get hook position and change state
  * - Implements hook and automatically generates post hook object
@@ -52,7 +52,8 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         anime.addAnimation(new AnimationElement(imageID, 32, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 64, 0, 32, 32, 100));
         anime.addAnimation(new AnimationElement(imageID, 96, 0, 32, 32, 100));
-        this.setAnimation(anime);
+        anime.setSize(this.width, this.height);
+        this.setImage(anime);
         let collider = new ExcludedRoundRectangleCollider((22 - 0) * this.width / 32, 0, 10 * this.width / 32, 10 * this.height / 32, 2, 0);
         collider.setAABB(new DirectionalAABB());
         this.setCollider(collider);
@@ -110,6 +111,18 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         return true;
     }
 
+
+    /**
+     * Update entty
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        super.update(dt);
+        // TODO: Maybe include image
+        this.image.setSize(this.width * this.directionX, -this.height * (this.directionY == 0 ? 1 : this.directionY));
+    }
+
     /**
      * Render entity
      * @override
@@ -118,12 +131,6 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        let width = this.width;
-        let height = this.height;
-        this.width *= (this.directionX == 0 ? 1 : this.directionX);
-        this.height *= -(this.directionY == 0 ? 1 : this.directionY);
         super.render(ctx, shiftX, shiftY);
-        this.width = width;
-        this.height = height;
     }
 }

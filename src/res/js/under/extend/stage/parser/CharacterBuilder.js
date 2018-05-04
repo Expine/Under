@@ -8,12 +8,13 @@
  */
 class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-vars
     /**
-     * Load character image
+     * Load image
+     * @override
      * @protected
-     * @param {string} path Character image path
-     * @return {number} Character image ID
+     * @param {string} path Image file name
+     * @return {number} Image ID
      */
-    loadCharaImage(path) {
+    loadImage(path) {
         return ResourceManager.image.load(`chara/${path}`);
     }
 
@@ -82,25 +83,6 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     }
 
     /**
-     * Process AI
-     * @protected
-     * @param {AI} ai Target AI
-     * @param {JSON} animation AI animation json data
-     */
-    processAI(ai, animation) {
-        if (ai instanceof StateAI) {
-            for (let name in animation) {
-                if (animation.hasOwnProperty(name)) {
-                    let target = ai.getStateByName(name);
-                    if (BaseUtil.implementsOf(target, IAnimationable)) {
-                        target.setAnimaton(this.makeAnimation(animation[name]));
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Make underlying entity
      * @protected
      * @param {JSON} deploy Entity deploy json data
@@ -108,50 +90,47 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {InfluentialEntity} Underlying entity
      */
     makeEntityBase(deploy, entity) {
-        let ret = null;
-        let collider = null;
         switch (entity.type) {
             case `Player`:
-                ret = new Player();
+                return new Player();
                 break;
             case `Enemy`:
-                ret = new Enemy();
+                return new Enemy();
                 break;
             case `Obstacle`:
-                ret = new Obstacle();
+                return new Obstacle();
                 break;
             case `Door`:
-                ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
-                collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
-                collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
-                ret.setCollider(collider);
-                break;
+                {
+                    let ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
+                    let collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
+                    collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                    ret.setCollider(collider);
+                    return ret;
+                }
             case `Sign`:
-                ret = new SignObject();
-                collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
-                collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
-                ret.setCollider(collider);
-                let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
-                ret.setSign(signData.x, signData.y, signData.width, signData.height, this.loadCharaImage(signData.file));
-                break;
+                {
+                    let ret = new SignObject();
+                    let collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
+                    collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                    ret.setCollider(collider);
+                    let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
+                    ret.setSign(signData.x, signData.y, signData.width, signData.height, this.loadCharaImage(signData.file));
+                    return ret;
+                }
             case `Elevator`:
-                ret = new Elevator();
-                break;
+                return new Elevator();
             case `Event`:
-                ret = new ImmutableEvent();
-                collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
-                collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
-                ret.setCollider(collider);
-                break;
+                {
+                    let ret = new ImmutableEvent();
+                    let collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
+                    collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                    ret.setCollider(collider);
+                    return ret;
+                }
+            default:
+                return null;
         }
-        if (ret != null) {
-            ret.setPosition(deploy.x, deploy.y, deploy.z);
-            ret.setSize(entity.width, entity.height);
-            if (ret instanceof ImagedEntity) {
-                ret.setImage(this.loadCharaImage(entity.file));
-            }
-        }
-        return ret;
     }
 
     /**
@@ -180,11 +159,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             return;
         }
         for (let ai of json.ai) {
-            let attach = this.makeAI(ai, deploy !== undefined ? deploy.ai : undefined);
-            if (attach != null) {
-                this.processAI(attach, json.state);
-                base.addAI(attach);
-            }
+            base.addAI(this.makeAI(ai, deploy.ai));
         }
     }
 
@@ -197,6 +172,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     build(deploy, json) {
         let base = this.makeEntityBase(deploy, json);
+        this.buildBase(base, deploy, json);
         // set physical parameter
         if (base instanceof InfluentialEntity) {
             this.buildPhysical(base, deploy, json);
@@ -206,9 +182,6 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         }
         if (base instanceof AutonomyEntitiy) {
             this.buildAI(base, deploy, json);
-        }
-        if (json.anime !== undefined && BaseUtil.implementsOf(base, IAnimationable)) {
-            base.setAnimation(this.makeAnimation(json.anime));
         }
         return base;
     }

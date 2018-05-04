@@ -1,8 +1,7 @@
 /**
  * Wild claw state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - About to attack
  * - ### Attacks by claw

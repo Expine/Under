@@ -1,8 +1,7 @@
 /**
  * Normal jump state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Sets the power to be applied and the magnification of the elapsed speed of the preparation time
  * - ### Prepares for jumping
@@ -115,8 +114,9 @@ class NormalJumpState extends UnderPlayerState /* , IPrepareState */ { // eslint
      * @param {number} dt Delta time
      */
     update(dt) {
-        if (this.stateAnimation !== null) {
-            this.stateAnimation.update(dt * this.animationMagnification);
+        let image = this.entity.getImage();
+        if (image !== null) {
+            image.update(dt * (this.animationMagnification - 1));
         }
     }
 
@@ -141,8 +141,9 @@ class NormalJumpState extends UnderPlayerState /* , IPrepareState */ { // eslint
         } else {
             this.inAirCount = 0;
         }
-        if (this.stateAnimation.isEnded() && this.inAirCount == 0) {
+        if (Util.canEnd(this.entity.getImage()) && this.inAirCount == 0) {
             // reset and jump
+            this.entity.getImage().init();
             this.entity.body.setNextAddVelocity(this.reservedVelocityX * 0.8 - this.entity.body.velocityX, -this.entity.body.velocityY);
             this.entity.body.enforce(0, -this.jumpPower * this.entity.material.mass * 1000 / dt * (this.jumpPressedTime + this.jumpDeltaTime) / 2 / this.jumpDeltaTime);
             this.ai.changeState(`jumping`);

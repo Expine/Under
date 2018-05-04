@@ -8,7 +8,6 @@
  * - Manages AI by list
  * - Object that can be destroyed
  * - Object that can be damaged
- * - Enable to set animation
  * - Implements damagable and animationable
  * - ### Entity operated as the enemy
  * @implements {Character}
@@ -28,19 +27,15 @@ class Enemy extends Character { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Render entity
-     * @abstract
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
+     * Update entty
+     * @override
+     * @param {number} dt Delta time
      */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.animation != null) {
-            // TODO: Should be separate
-            if (Util.onGround(this)) {
-                this.animation.init();
-            }
+    update(dt) {
+        super.update(dt);
+        // TODO: Should need ?
+        if (this.image != null && Util.onGround(this)) {
+            this.image.init();
         }
-        super.render(ctx, shiftX, shiftY);
     }
 }

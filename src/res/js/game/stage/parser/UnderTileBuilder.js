@@ -30,16 +30,12 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @override
      * @protected
      * @param {JSON} deploy Entity deploy json data
-     * @param {JSON} tile Tile information json data
+     * @param {JSON} json Tile information json data
      * @return {InfluentialEntity} Underlying tile object
      */
-    makeTileBase(deploy, tile) {
+    makeTileBase(deploy, json) {
         let ret = new UnderTileObject();
-        ret.setPosition(deploy.x, deploy.y, deploy.z);
-        ret.setSize(tile.width, tile.height);
-        ret.setTileArea(tile.x, tile.y, tile.width, tile.height);
-        ret.setImage(this.loadTileImage(tile.file));
-        ret.setTerrainID(tile.terrain);
+        ret.setTerrainID(json.terrain);
         return ret;
     }
 }

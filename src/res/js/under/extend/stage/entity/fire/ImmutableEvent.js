@@ -88,6 +88,7 @@ class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line 
      * @param {number} dt Delta time
      */
     update(dt) {
+        super.update(dt);
         let localCollided = false;
         for (let it of this.stage.getPhysicalWorld().getCollisionData(this.eventCollider)) {
             let you = Util.getCollidedEntity(this, it);
@@ -110,6 +111,7 @@ class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line 
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
+        super.render(ctx, shiftX, shiftY);
         if (Engine.debug) {
             this.eventCollider.render(ctx, shiftX, shiftY);
         }

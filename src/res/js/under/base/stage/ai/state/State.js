@@ -21,6 +21,12 @@ class State { // eslint-disable-line  no-unused-vars
          * @type {StateAI}
          */
         this.ai = null;
+
+        /**
+         * Whether it can render or not
+         * @type {boolean}
+         */
+        this.canRendering = false;
     }
 
     /**

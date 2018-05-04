@@ -1,8 +1,7 @@
 /**
  * Adventurer hook state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - ### It can generate and release hook
@@ -41,7 +40,7 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
      */
     apply(dt) {
         // generate hook
-        if (this.stateAnimation.isEnded()) {
+        if (Util.canEnd(this.entity.getImage())) {
             let hook = new HookHead(4, 400, 300);
             hook.setPosition(this.entity.x + this.entity.width / 2, this.entity.y + this.entity.height / 2, this.entity.z - 1);
             hook.setSize(32, 32);

@@ -1,8 +1,7 @@
 /**
  * Player punch state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - ### About to attack
  * @implements {BaseState}
  * @classdesc Player punch state that about to attack
@@ -46,7 +45,7 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        if (!this.stateAnimation.isEnded() && this.stateAnimation.getAnimationCount() < this.threshold) {
+        if (!Util.canEnd(this.entity.getImage()) && this.entity.getImage().getAnimationCount() < this.threshold) {
             return;
         }
         if (!this.attacked) {
@@ -54,7 +53,7 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
             this.attacked = true;
         }
         // change state
-        if (this.stateAnimation.isEnded()) {
+        if (Util.canEnd(this.entity.getImage())) {
             // punch
             if (this.entity.body.isFixX) {
                 this.ai.changeState(`stationary`);

@@ -127,6 +127,7 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
         }
         // show
         if (this.isShowSign && this.currentHeight < this.height) {
+            super.update(dt);
             this.currentHeight += dt / 1000 * this.speed;
             if (this.currentHeight > this.height) {
                 this.currentHeight = this.height;
@@ -134,11 +135,13 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
         }
         // hide
         if (!this.isShowSign && this.currentHeight > 0) {
+            super.update(dt);
             this.currentHeight -= dt / 1000 * this.speed * 3;
             if (this.currentHeight < 0) {
                 this.currentHeight = 0;
             }
         }
+        this.image.setSize(this.width, this.currentHeight);
     }
 
     /**
@@ -149,9 +152,7 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.imageID != -1) {
-            ctx.drawImage(this.imageID, this.x + shiftX, this.y + shiftY + this.height - this.currentHeight, this.width, this.currentHeight);
-        }
+        super.render(ctx, shiftX, shiftY);
         if (this.isShowSign && this.currentHeight == this.height) {
             if (this.signID != -1) {
                 ctx.drawImage(this.signID, this.x + shiftX + this.signX, this.y + shiftY - 100 + this.signY, this.signWidth, this.signHeight);

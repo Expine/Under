@@ -20,10 +20,10 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
         let imageIDs = {};
         for (let it in tileInfo) {
             if (tileInfo.hasOwnProperty(it) && !isNaN(it)) {
-                let fileName = tileInfo[it].file;
+                let fileName = tileInfo[it].image.file;
                 if (tileInfos[fileName] === undefined) {
                     tileInfos[fileName] = {};
-                    imageIDs[fileName] = ResourceManager.image.load(`tile/${tileInfo[it].file}`);
+                    imageIDs[fileName] = ResourceManager.image.load(`tile/${fileName}`);
                 }
                 tileInfos[fileName][it] = tileInfo[it];
             }

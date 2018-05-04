@@ -49,6 +49,7 @@ class AutonomyEntitiy extends MutableEntity { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     update(dt) {
+        super.update(dt);
         this.updateAI(dt);
         this.applyAI(dt);
     }

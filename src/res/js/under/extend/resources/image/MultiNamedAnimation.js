@@ -18,9 +18,49 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
         /**
          * Dictionary of animation by string
          * @protected
-         * @type {Object<string, Animation>}
+         * @type {Object<string, GameAnimation>}
          */
         this.animation = {};
+
+        /**
+         * Running animation name
+         * @protected
+         * @type {string}
+         */
+        this.name = null;
+    }
+
+    /**
+     * Set image size
+     * @override
+     * @param {number} width Image width
+     * @param {number} height Image height
+     */
+    setSize(width, height) {
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.setSize(width, height);
+        }
+    }
+
+    /**
+     * Set image ID
+     * @override
+     * @param {number} imageID Image ID
+     */
+    setImageID(imageID) {
+        // TODO: Change all is not used
+        for (let it in this.animation) {
+            if (this.animation.hasOwnProperty(it)) {
+                this.animation[it].setImageID(imageID);
+            }
+        }
+        /*
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.setImageID(imageID);
+        }
+        */
     }
 
     /**
@@ -28,7 +68,10 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @override
      */
     init() {
-        this.animation[this.name].init();
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.init();
+        }
     }
 
     /**
@@ -38,11 +81,6 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @return {NamedAnimation} This instance
      */
     setName(name) {
-        /**
-         * Running animation name
-         * @protected
-         * @type {string}
-         */
         this.name = name;
         return this;
     }
@@ -50,7 +88,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     /**
      * Get animation from animations
      * @override
-     * @return {Animation} animation
+     * @return {GameAnimation} animation
      */
     getAnimation() {
         return this.animation[this.name];
@@ -59,7 +97,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     /**
      * Set animation into animations
      * @override
-     * @param {Animation} animation
+     * @param {GameAnimation} animation
      */
     setAnimation(animation) {
         this.animation[this.name] = animation;
@@ -71,7 +109,10 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @param {boolean} loop Whether to loop or not
      */
     setLoop(loop) {
-        this.animation[this.name].setLoop(loop);
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.setLoop(loop);
+        }
     }
 
     /**
@@ -80,7 +121,8 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @return {boolean} Whether to loop or not
      */
     isLoop() {
-        return this.animation[this.name].isLoop();
+        let anime = this.getAnimation();
+        return anime !== undefined && anime.isLoop();
     }
 
     /**
@@ -89,7 +131,8 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @return {boolean} Whether the animation has ended or not
      */
     isEnded() {
-        return this.animation[this.name].isEnded();
+        let anime = this.getAnimation();
+        return anime !== undefined && anime.isEnded();
     }
 
     /**
@@ -97,7 +140,8 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @return {number} Animation count
      */
     getAnimationCount() {
-        return this.animation[this.name].getAnimationCount();
+        let anime = this.getAnimation();
+        return anime !== undefined ? anime.getAnimationCount() : 0;
     }
 
     /**
@@ -106,7 +150,10 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @param {AnimationElement} element Animation element
      */
     addAnimation(element) {
-        this.animation[this.name].addAnimation(element);
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.addAnimation(element);
+        }
     }
 
     /**
@@ -114,7 +161,10 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @override
      */
     pause() {
-        this.animation[this.name].pause();
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.pause();
+        }
     }
 
     /**
@@ -122,7 +172,10 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @override
      */
     restore() {
-        this.animation[this.name].restore();
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.restore();
+        }
     }
 
     /**
@@ -131,7 +184,10 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @param {number} dt
      */
     update(dt) {
-        this.animation[this.name].update(dt);
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.update(dt);
+        }
     }
 
     /**
@@ -145,6 +201,9 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @param {number} [imageID=-1] ID of the image to be replaced (-1:not replacing)
      */
     render(ctx, x, y, width, height, imageID = -1) {
-        this.animation[this.name].render(ctx, x, y, width, height, imageID);
+        let anime = this.getAnimation();
+        if (anime !== undefined) {
+            anime.render(ctx, x, y, width, height, imageID);
+        }
     }
 }

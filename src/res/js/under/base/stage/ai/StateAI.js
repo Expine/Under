@@ -15,20 +15,19 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
     getState() {}
 
     /**
+     * Get currently state ID
+     * @abstract
+     * @return {Object} Currently state ID
+     */
+    getStateID() {}
+
+    /**
      * Set state by ID
      * @abstract
      * @param {State} state State
      * @param {Object} id State ID
      */
     setState(state, id) {}
-
-    /**
-     * Get state by ID
-     * @abstract
-     * @param {Object} id State ID
-     * @return {State} State of AI
-     */
-    getStateByID(id) {}
 
     /**
      * Change state
@@ -61,17 +60,5 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         return this.getState() != null && this.getState().apply(dt);
-    }
-
-    /**
-     * Render entity by this state
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.getState() != null) {
-            this.getState().render(ctx, shiftX, shiftY);
-        }
     }
 }

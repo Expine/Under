@@ -1,8 +1,7 @@
 /**
  * Normal jumping state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving
@@ -35,11 +34,7 @@ class NormalJumpingState extends UnderMovableState { // eslint-disable-line  no-
             this.ai.changeState(`fall`);
         }
         if (Util.onGround(this.entity)) {
-            if (this.entity.body.isFixX) {
-                this.ai.changeState(`stationary`);
-            } else {
-                this.ai.changeState(`walk`);
-            }
+            this.transitionUsualState();
         }
         return true;
     }

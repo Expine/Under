@@ -1,8 +1,7 @@
 /**
  * Player walk state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - ### Walks, jumps, and attacks
  * @implements {BaseState}
  * @classdesc Player walk state to walk, jump and attack

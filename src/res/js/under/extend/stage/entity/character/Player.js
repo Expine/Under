@@ -8,7 +8,6 @@
  * - Manages AI by list
  * - Object that can be destroyed
  * - Object that can be damaged
- * - Enable to set animation
  * - Implements damagable and animationable
  * - Entity that manages AI according to state and rendering by it
  * - Player function interface
@@ -77,6 +76,8 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
         if (this.invincible <= 0) {
             this.invincible = 0;
         }
+        // TODO: Maybe include image
+        this.image.setSize(this.width * this.directionX, this.height * (this.directionY == 0 ? 1 : this.directionY));
         super.update(dt);
     }
 

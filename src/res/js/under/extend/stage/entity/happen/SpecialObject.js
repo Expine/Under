@@ -8,71 +8,17 @@
  * - Manages AI by list
  * - Generated and owned by someone
  * - Object that can be destroyed
- * - Enable to set animation
  * - ### Object caused by special actions
  * @implements {PossessedObject}
  * @implements {IBreakable}
- * @implements {IAnimationable}
  * @classdesc Special object caused by special actions
  */
-class SpecialObject extends PossessedObject /* , IBreakable, IAnimationable */ { // eslint-disable-line  no-unused-vars
-    /**
-     * Special object constructor
-     * @constructor
-     */
-    constructor() {
-        super();
-
-        /**
-         * Animation for rendering
-         * @protected
-         * @type {Animation}
-         */
-        this.animation = null;
-    }
-
+class SpecialObject extends PossessedObject /* , IBreakable */ { // eslint-disable-line  no-unused-vars
     /**
      * Destroy object
      * @override
      */
     destroy() {
         this.stage.removeEntity(this);
-    }
-
-    /**
-     * Set animation
-     * @override
-     * @param {Animation} animation Animation
-     */
-    setAnimation(animation) {
-        this.animation = animation;
-    }
-
-
-    /**
-     * Update object
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        if (this.animation != null) {
-            this.animation.update(dt);
-        }
-        super.update(dt);
-    }
-
-    /**
-     * Render entity
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.animation == null) {
-            super.render(ctx, shiftX, shiftY);
-        } else {
-            this.animation.render(ctx, this.x + shiftX, this.y + shiftY, this.width, this.height);
-        }
     }
 }

@@ -1,8 +1,7 @@
 /**
  * Adventurer grab state
  * - Determines the operation by AI according to the state and renders based on state
- * - Enable to set animation
- * - Base state for rendering state animation
+ * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving
@@ -19,6 +18,8 @@ class AdventurerGrabState extends NormalGrabState { // eslint-disable-line  no-u
      * @protected
      */
     changed() {
+        super.changed();
+
         // auto release
         let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
         for (let it of hooks) {

@@ -3,20 +3,21 @@
  * - Manages animation
  * - ### Manages multiple animations
  * @interface
+ * @extends {GameAnimation}
  * @classdesc Multi animation to manage multiple animations
  */
-class MultiAnimation extends Animation { // eslint-disable-line  no-unused-vars
+class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-vars
     /**
      * Get animation from animations
      * @abstract
-     * @return {Animation} animation
+     * @return {GameAnimation} animation
      */
     getAnimation() {}
 
     /**
      * Set animation into animations
      * @abstract
-     * @param {Animation} animation
+     * @param {GameAnimation} animation
      */
     setAnimation(animation) {}
 }

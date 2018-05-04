@@ -1,11 +1,12 @@
 /**
  * Single Animation
+ * - Renders image
  * - Manages animation
  * - ### Runs single animation
- * @implements {Animation}
+ * @implements {GameAnimation}
  * @classdesc Animation to run single animation
  */
-class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
+class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-vars
     /**
      * Single animation constructor
      * @constructor
@@ -55,6 +56,45 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
          * @type {boolean}
          */
         this.paused = false;
+        /**
+         * Image ID
+         * @protected
+         * @type {number}
+         */
+        this.imageID = -1;
+
+        /**
+         * Image width
+         * @protected
+         * @type {number}
+         */
+        this.width = 0;
+        /**
+         * Image height
+         * @protected
+         * @type {number}
+         */
+        this.height = 0;
+    }
+
+    /**
+     * Set image size
+     * @override
+     * @param {number} width Image width
+     * @param {number} height Image height
+     */
+    setSize(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    /**
+     * Set image ID
+     * @override
+     * @param {number} imageID Image ID
+     */
+    setImageID(imageID) {
+        this.imageID = imageID;
     }
 
     /**
@@ -158,14 +198,11 @@ class SingleAnimation extends Animation { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      * @param {number} x Image x position
      * @param {number} y Image y position
-     * @param {number} width Image width
-     * @param {number} height Image height
-     * @param {number} [imageID=-1] ID of the image to be replaced (-1:not replacing)
      */
-    render(ctx, x, y, width, height, imageID = -1) {
+    render(ctx, x, y) {
         if (this.animation.length > 0) {
             let it = this.animation[this.runningAnimation];
-            ctx.drawImage(imageID == -1 ? it.imageID : imageID, x, y, width, height, it.srcX, it.srcY, it.srcW, it.srcH);
+            ctx.drawImage(this.imageID != -1 ? this.imageID : it.imageID, x, y, this.width, this.height, it.srcX, it.srcY, it.srcW, it.srcH);
         }
     }
 }
