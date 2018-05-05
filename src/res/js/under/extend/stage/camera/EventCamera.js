@@ -52,7 +52,8 @@ class EventCamera extends Camera { // eslint-disable-line  no-unused-vars
 
     /**
      * Set movement position
-     * @param {number}
+     * @param {number} x Movement x position
+     * @param {number} y Movement y position
      */
     setToPosition(x, y) {
         this.toX = x;

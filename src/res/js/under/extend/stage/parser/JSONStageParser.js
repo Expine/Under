@@ -105,6 +105,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         if (camera.moving) {
             ret = new MovingCamera(ret);
         }
+        if (camera.force) {
+            ret = new ForceMoveCamera(ret, camera.force.x, camera.force.y, camera.force.speed);
+        }
         ret.setScreenSize(width, height);
         return ret;
     }
@@ -112,11 +115,23 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     /**
      * Make base phisical world for parsing stage
      * @protected
+     * @param {JSON} stage Stage json data
      * @param {JSON} world World json data
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
-    makeBaseWorld(world) {
-        let ret = new SplitWorld(world.width, world.height);
+    makeBaseWorld(stage, world) {
+        let ret = null;
+        switch (world.type) {
+            case `split`:
+                ret = new SplitWorld(stage.width, stage.height);
+                break;
+            case `gravity`:
+                ret = new GravityWorld(stage.width, stage.height);
+                for (let it of world.gravity) {
+                    ret.addGravity(it.x, it.y, it.delta);
+                }
+                break;
+        }
         if (Engine.debug) {
             ret = new DebugWorld(ret);
         }
@@ -373,7 +388,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         let base = this.makeBaseStage(stage);
         base.setMap(this.makeMap(stage.map));
         base.setCamera(this.makeBaseCamera(stage.camera, width, height));
-        base.setPhysicalWorld(this.makeBaseWorld(stage));
+        base.setPhysicalWorld(this.makeBaseWorld(stage, stage.world));
         base.getPhysicalWorld().setResponse(this.makePhysicalResponse());
         let layerIndex = 0;
         // make tile

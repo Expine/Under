@@ -54,6 +54,13 @@ class Camera { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Update camera
+     * @abstract
+     * @param {number} dt Delta time
+     */
+    update(dt) {}
+
+    /**
      * Set camera position
      * @abstract
      * @param {number} x Base x position

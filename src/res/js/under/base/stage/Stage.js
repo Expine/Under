@@ -203,6 +203,16 @@ class Stage { // eslint-disable-line  no-unused-vars
     renderEntity(ctx, shiftX, shiftY) {}
 
     /**
+     * Render world in stage
+     * @abstract
+     * @protected
+     * @param {Context} ctx Canvas context
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
+     */
+    renderWorld(ctx, shiftX, shiftY) {}
+
+    /**
      * Render stage
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
@@ -213,5 +223,6 @@ class Stage { // eslint-disable-line  no-unused-vars
         shiftY += this.camera.baseY;
         this.renderMap(ctx, shiftX, shiftY);
         this.renderEntity(ctx, shiftX, shiftY);
+        this.renderWorld(ctx, shiftX, shiftY);
     }
 }

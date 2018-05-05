@@ -128,6 +128,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                     ret.setCollider(collider);
                     return ret;
                 }
+            case `Vanish`:
+                return new VanishTileObject(deploy.show, deploy.hide);
             default:
                 return null;
         }

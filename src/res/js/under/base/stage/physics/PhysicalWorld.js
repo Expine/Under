@@ -134,4 +134,13 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
         this.updateCollision(dt);
         this.updateResponse(dt);
     }
+
+    /**
+     * Render world
+     * @abstract
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {}
 }

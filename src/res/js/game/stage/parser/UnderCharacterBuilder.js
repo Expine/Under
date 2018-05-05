@@ -39,10 +39,14 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
         switch (ai.type) {
             case `CommonBaseStateAI`:
                 return new CommonBaseStateAI();
-                break;
             case `NormalBaseStateAI`:
                 return new NormalBaseStateAI();
-                break;
+            case `WildBaseStateAI`:
+                return new WildBaseStateAI();
+            case `AdventurerBaseStateAI`:
+                return new AdventurerBaseStateAI();
+            case `PropellerBaseStateAI`:
+                return new PropellerBaseStateAI();
             default:
                 return super.makeAI(ai, deploy);
         }

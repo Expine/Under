@@ -180,6 +180,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt Delta time
      */
     updateCamera(dt) {
+        this.camera.update(dt);
         if (this.player != null) {
             let x = this.player.getCameraX();
             let y = this.player.getCameraY();
@@ -196,7 +197,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} shiftY Shift y position
      */
     renderMap(ctx, shiftX, shiftY) {
-        this.map.render(ctx, shiftX + this.camera.cameraX, this.camera.baseY + this.camera.cameraY, this.camera.screenWidth, this.camera.screenHeight);
+        this.map.render(ctx, shiftX + this.camera.cameraX, shiftY + this.camera.cameraY, this.camera.screenWidth, this.camera.screenHeight);
     }
 
     /**
@@ -217,5 +218,17 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
                 it.render(ctx, this.camera.baseX - startX, this.camera.baseY - startY);
             }
         }
+    }
+
+    /**
+     * Render world in stage
+     * @abstract
+     * @protected
+     * @param {Context} ctx Canvas context
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
+     */
+    renderWorld(ctx, shiftX, shiftY) {
+        this.physic.render(ctx, shiftX, shiftY);
     }
 }

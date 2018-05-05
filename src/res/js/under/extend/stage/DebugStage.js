@@ -220,6 +220,18 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Render world in stage
+     * @abstract
+     * @protected
+     * @param {Context} ctx Canvas context
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
+     */
+    renderWorld(ctx, shiftX, shiftY) {
+        this.stage.renderWorld(ctx, shiftX, shiftY);
+    }
+
+    /**
      * Render stage
      * @override
      * @param {Context} ctx Canvas context
