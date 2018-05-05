@@ -126,9 +126,9 @@ class SelectionLayer extends Layer /* , ISelection */ { // eslint-disable-line  
     update(dt) {
         let x = Input.mouse.getMouseX();
         let y = Input.mouse.getMouseY();
-        if (this.x <= x && x < this.x + this.width && this.y <= y && y < this.y + this.height && Input.it.isPressed(Input.mouse.mRight())) {
+        if (this.x <= x && x < this.x + this.width && this.y <= y && y < this.y + this.height && Input.mouse.isPressed(Input.mouse.mRight())) {
             // block
-            Input.it.blockInput(Input.mouse.mRight());
+            Input.mouse.blockInput(Input.mouse.mRight());
             // get width and height
             let width = this.getImageWidth();
             let height = this.getImageHeight();

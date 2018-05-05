@@ -16,6 +16,7 @@ class Method { // eslint-disable-line  no-unused-vars
         this.name = name;
         /**
          * Method arguments length
+         * @type {number}
          */
         this.length = length;
     }

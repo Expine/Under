@@ -57,10 +57,10 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
     apply(dt) {
         // input
         let vx = 0;
-        if (Input.it.isPressed(Input.key.left()) && this.directionX == -1) {
+        if (Input.key.isPressed(Input.key.left()) && this.directionX == -1) {
             vx += -1;
         }
-        if (Input.it.isPressed(Input.key.right()) && this.directionX == 1) {
+        if (Input.key.isPressed(Input.key.right()) && this.directionX == 1) {
             vx += 1;
         }
         if (vx != 0) {
@@ -76,7 +76,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
             }
             return true;
         }
-        if (Input.it.isPress(Input.key.sub())) {
+        if (Input.key.isPress(Input.key.sub())) {
             // check already
             let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {

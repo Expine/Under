@@ -128,7 +128,7 @@ class NormalJumpState extends UnderPlayerState /* , IPrepareState */ { // eslint
      */
     apply(dt) {
         this.entity.body.setNextAddVelocity(-this.entity.body.velocityX / 11, 0);
-        if (Input.it.isPressed(Input.key.up())) {
+        if (Input.key.isPressed(Input.key.up())) {
             this.jumpPressedTime += 1;
         }
         this.jumpDeltaTime += 1;

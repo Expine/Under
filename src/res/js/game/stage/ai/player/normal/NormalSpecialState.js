@@ -15,7 +15,7 @@ class NormalSpecialState extends UnderPlayerState { // eslint-disable-line  no-u
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        if (!Input.it.isPressed(Input.key.sub())) {
+        if (!Input.key.isPressed(Input.key.sub())) {
             // change state
             this.transitionUsualState();
         }

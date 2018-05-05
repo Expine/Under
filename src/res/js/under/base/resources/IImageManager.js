@@ -1,10 +1,12 @@
 /**
  * Image manager interface
+ * - Resources abstraction of resource management
  * - ### It can be acquired information as an image
  * @interface
+ * @extends {IResouceManager}
  * @classdesc Image manager interface that can be acquired information as image
  */
-class IImageManager extends Interface { // eslint-disable-line  no-unused-vars
+class IImageManager extends IResouceManager { // eslint-disable-line  no-unused-vars
     /**
      * Get image width
      * @abstract

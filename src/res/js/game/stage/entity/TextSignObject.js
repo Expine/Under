@@ -71,12 +71,12 @@ class TextSignObject extends SignObject { // eslint-disable-line  no-unused-vars
             this.textWindow.init();
         }
         if (this.isShowSign) {
-            Input.it.blockInput(Input.key.sub());
+            Input.key.blockInput(Input.key.sub());
             this.textWindow.update(dt);
-            Input.it.unblockInput(Input.key.sub());
+            Input.key.unblockInput(Input.key.sub());
         }
         if (!this.isShowSign && this.isExec) {
-            Input.it.unblockInput(Input.key.sub());
+            Input.key.unblockInput(Input.key.sub());
         }
         this.isExec = this.isShowSign;
     }

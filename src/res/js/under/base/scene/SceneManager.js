@@ -24,7 +24,6 @@ class SceneManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Push scene instance for running it
-     * @abstract
      * @param {Scene} scene Scene instance for running it
      */
     pushScene(scene) {
@@ -39,10 +38,12 @@ class SceneManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Replace currently scene by new scene
-     * @abstract
      * @param {Scene} scene Scene instance for replacing currently scene
      */
-    replaceScene(scene) {}
+    replaceScene(scene) {
+        this.popScene();
+        this.pushScene(scene);
+    }
 
     /**
      * Update scene

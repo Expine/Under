@@ -78,28 +78,28 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
-                this.image.setImageID(ResourceManager.image.load(`chara/wild.png`));
+                this.image.setAllImageID(ResourceManager.image.load(`chara/wild.png`));
                 if (this.body.material.frictionY != 0) {
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
                 }
                 break;
             case 1:
                 ai = new NormalBaseStateAI();
-                this.image.setImageID(ResourceManager.image.load(`chara/player.png`));
+                this.image.setAllImageID(ResourceManager.image.load(`chara/player.png`));
                 if (this.body.material.frictionY != 0) {
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
                 }
                 break;
             case 2:
                 ai = new AdventurerBaseStateAI();
-                this.image.setImageID(ResourceManager.image.load(`chara/adventurer.png`));
+                this.image.setAllImageID(ResourceManager.image.load(`chara/adventurer.png`));
                 if (this.body.material.frictionY != 2) {
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 2));
                 }
                 break;
             case 3:
                 ai = new PropellerBaseStateAI();
-                this.image.setImageID(ResourceManager.image.load(`chara/propeller.png`));
+                this.image.setAllImageID(ResourceManager.image.load(`chara/propeller.png`));
                 if (this.body.material.frictionY != 0) {
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
                 }

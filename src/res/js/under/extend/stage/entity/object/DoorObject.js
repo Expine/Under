@@ -96,7 +96,7 @@ class DoorObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
             return;
         }
         // open
-        if (Input.it.isPress(Input.key.up())) {
+        if (Input.key.isPress(Input.key.up())) {
             for (let it of this.stage.getPhysicalWorld().getCollisionData(this.doorCollider)) {
                 let you = Util.getCollidedEntity(this, it);
                 if (BaseUtil.implementsOf(you, IPlayable) && Util.onGround(you)) {

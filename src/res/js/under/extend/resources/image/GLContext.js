@@ -21,52 +21,6 @@ class GLContext extends Context { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set the color of text
-     * @param {string} colorName Color name
-     */
-    setFontColorByName(colorName) {}
-
-    /**
-     * Set the color of text
-     * @param {number} r Red component   (0 <= r <= 255)
-     * @param {number} g Green component (0 <= g <= 255)
-     * @param {number} b Blue component  (0 <= b <= 255)
-     */
-    setFontColorByRGB(r, g, b) {}
-
-    /**
-     * Set the size of text
-     * @param {number} size Size of text
-     */
-    setFontSize(size) {}
-
-    /**
-     * Set the name of font
-     * @param {string} name Name of font
-     */
-    setFontName(name) {}
-
-    /**
-     * Set the color of line
-     * @param {string} colorName Color name
-     */
-    setLineColorByName(colorName) {}
-
-    /**
-     * Set the color of line
-     * @param {number} r Red component   (0 <= r <= 255)
-     * @param {number} g Green component (0 <= g <= 255)
-     * @param {number} b Blue component  (0 <= b <= 255)
-     */
-    setLineColorByRGB(r, g, b) {}
-
-    /**
-     * Set width of line
-     * @param {number} width Line width
-     */
-    setLineWidth(width) {}
-
-    /**
      * Function to be executed before drawing
      */
     preRendering() {}

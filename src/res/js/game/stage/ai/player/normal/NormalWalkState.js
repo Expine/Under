@@ -51,16 +51,16 @@ class NormalWalkState extends UnderMovableState { // eslint-disable-line  no-unu
             this.ai.changeState(`stationary`);
         }
         if (Util.onGround(this.entity)) {
-            if (Input.it.isPressed(Input.key.down())) {
+            if (Input.key.isPressed(Input.key.down())) {
                 this.ai.changeState(`grab`);
             }
-            if (Input.it.isPressed(Input.key.up())) {
+            if (Input.key.isPressed(Input.key.up())) {
                 this.ai.changeState(`walkjump`);
             }
-            if (Input.it.isPress(Input.key.yes())) {
+            if (Input.key.isPress(Input.key.yes())) {
                 this.ai.changeState(`attack`);
             }
-            if (Input.it.isPress(Input.key.sub())) {
+            if (Input.key.isPress(Input.key.sub())) {
                 this.ai.changeState(`special`);
             }
             this.fallCount = 0;

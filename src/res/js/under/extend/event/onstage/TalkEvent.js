@@ -71,7 +71,7 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
             }
         }
 
-        if (Input.it.isPress(Input.key.yes())) {
+        if (Input.key.isPress(Input.key.yes())) {
             if (this.talked) {
                 this.op.next();
                 return true;

@@ -46,14 +46,4 @@ class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused
     popScene() {
         this.scenes.pop();
     }
-
-    /**
-     * Replace currently scene by new scene
-     * @override
-     * @param {Scene} scene Scene instance for replacing currently scene
-     */
-    replaceScene(scene) {
-        this.scenes.length = 0;
-        this.pushScene(scene);
-    }
 }

@@ -237,7 +237,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         // switch test play
-        if (Input.it.isPress(Input.key.a() + 15)) {
+        if (Input.key.isPress(Input.key.a() + 15)) {
             if (this.playMode) {
                 this.stage.camera = this.preCamera;
                 this.restore();
@@ -252,19 +252,19 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
 
         // test play
         if (this.playMode) {
-            if (Input.it.isPress(Input.key.a() + 5)) {
+            if (Input.key.isPress(Input.key.a() + 5)) {
                 if (this.debugMode) {
                     this.debugMode = false;
                 } else {
                     this.debugMode = true;
                 }
             }
-            if (!this.debugMode || (Input.it.isPress(Input.key.a()) || Input.it.isPressed(Input.key.a() + 1))) {
-                super.update(Input.it.isPressed(Input.key.a() + 8) ? dt * 10 : dt);
+            if (!this.debugMode || (Input.key.isPress(Input.key.a()) || Input.key.isPressed(Input.key.a() + 1))) {
+                super.update(Input.key.isPressed(Input.key.a() + 8) ? dt * 10 : dt);
             }
         } else {
             // move camera to end
-            if (Input.it.isPress(Input.key.a() + 4)) {
+            if (Input.key.isPress(Input.key.a() + 4)) {
                 for (let it of this.getEntities()) {
                     if (it instanceof Player) {
                         this.stage.camera.setCameraPosition(-it.x + GameScreen.it.width / 2, -it.y + GameScreen.it.height / 2, this.stageWidth, this.stageHeight);
@@ -273,16 +273,16 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
             }
 
             // move camera
-            if (Input.it.isPress(Input.key.right())) {
+            if (Input.key.isPress(Input.key.right())) {
                 this.stage.camera.setCameraPosition(this.stage.camera.cameraX - this.stage.camera.screenWidth / 2, this.stage.camera.cameraY, this.stageWidth, this.stageHeight);
             }
-            if (Input.it.isPress(Input.key.left())) {
+            if (Input.key.isPress(Input.key.left())) {
                 this.stage.camera.setCameraPosition(this.stage.camera.cameraX + this.stage.camera.screenWidth / 2, this.stage.camera.cameraY, this.stageWidth, this.stageHeight);
             }
-            if (Input.it.isPress(Input.key.up())) {
+            if (Input.key.isPress(Input.key.up())) {
                 this.stage.camera.setCameraPosition(this.stage.camera.cameraX, this.stage.camera.cameraY + this.stage.camera.screenHeight / 2, this.stageWidth, this.stageHeight);
             }
-            if (Input.it.isPress(Input.key.down())) {
+            if (Input.key.isPress(Input.key.down())) {
                 this.stage.camera.setCameraPosition(this.stage.camera.cameraX, this.stage.camera.cameraY - this.stage.camera.screenHeight / 2, this.stageWidth, this.stageHeight);
             }
 
@@ -305,7 +305,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         }
 
         // syrunge
-        if (this.selectedX >= 0 && Input.it.isPressed(Input.mouse.mRight())) {
+        if (this.selectedX >= 0 && Input.mouse.isPressed(Input.mouse.mRight())) {
             if (this.entitySelection.getSelected() < 0) {
                 let entities = this.getEntities();
                 for (let i = 0; i < entities.length; ++i) {
@@ -321,7 +321,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         }
 
         // place tile
-        if (this.selectedX >= 0 && Input.it.isPressed(Input.mouse.mLeft())) {
+        if (this.selectedX >= 0 && Input.mouse.isPressed(Input.mouse.mLeft())) {
             let tileID = this.tileSelection.getSelected();
             let entityID = this.entitySelection.getSelected();
             if (entityID >= 0) {

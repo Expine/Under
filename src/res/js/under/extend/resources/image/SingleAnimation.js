@@ -104,15 +104,6 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
     }
 
     /**
-     * Set whether to loop or not
-     * @override
-     * @param {boolean} loop Whether to loop or not
-     */
-    setLoop(loop) {
-        this.loop = loop;
-    }
-
-    /**
      * Whether to loop or not
      * @override
      * @return {boolean} Whether to loop or not

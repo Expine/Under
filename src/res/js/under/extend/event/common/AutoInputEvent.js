@@ -67,7 +67,7 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        Input.it.setInputEnable(false);
+        Input.key.setInputEnable(false);
         this.orderIndex = 0;
         this.wait = 0;
         this.loopNumber = 0;
@@ -79,7 +79,7 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @override
      */
     destruct() {
-        Input.it.setInputEnable(true);
+        Input.key.setInputEnable(true);
     }
 
     /**
@@ -89,10 +89,10 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether update is endped or not
      */
     update(dt) {
-        Input.it.unpress(Input.key.up());
-        Input.it.unpress(Input.key.right());
-        Input.it.unpress(Input.key.left());
-        Input.it.unpress(Input.key.down());
+        Input.key.unpress(Input.key.up());
+        Input.key.unpress(Input.key.right());
+        Input.key.unpress(Input.key.left());
+        Input.key.unpress(Input.key.down());
         while (true) {
             if (this.wait > 0) {
                 this.wait -= dt / 1000;
@@ -113,19 +113,19 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
                     this.loopIndex = this.orderIndex + 1;
                 }
             } else if (order == `up`) {
-                Input.it.press(Input.key.up());
+                Input.key.press(Input.key.up());
                 ++this.orderIndex;
                 return false;
             } else if (order == `right`) {
-                Input.it.press(Input.key.right());
+                Input.key.press(Input.key.right());
                 ++this.orderIndex;
                 return false;
             } else if (order == `left`) {
-                Input.it.press(Input.key.left());
+                Input.key.press(Input.key.left());
                 ++this.orderIndex;
                 return false;
             } else if (order == `down`) {
-                Input.it.press(Input.key.down());
+                Input.key.press(Input.key.down());
                 ++this.orderIndex;
                 return false;
             } else if (order.endsWith(`wait`)) {

@@ -129,7 +129,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
         }
         // if they are all uncheck and one of them currently is selected
         if (maxID == -1 && id >= 0) {
-            if (Input.it.isPress(Input.mouse.mLeft())) {
+            if (Input.mouse.isPress(Input.mouse.mLeft())) {
                 let x = Input.mouse.getMouseX() - this.x;
                 let y = Input.mouse.getMouseY() - this.y;
                 // check if it is outside the layer

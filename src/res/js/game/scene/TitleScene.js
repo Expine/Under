@@ -25,7 +25,7 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        if (Input.it.isPress(Input.key.yes())) {
+        if (Input.key.isPress(Input.key.yes())) {
             SceneManager.it.replaceScene(new GameScene());
         }
     }

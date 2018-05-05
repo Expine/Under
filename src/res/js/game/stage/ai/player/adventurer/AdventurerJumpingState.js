@@ -20,7 +20,7 @@ class AdventurerJumpingState extends NormalJumpingState { // eslint-disable-line
      */
     apply(dt) {
         // drag hook
-        if (Input.it.isPressed(Input.key.up())) {
+        if (Input.key.isPressed(Input.key.up())) {
             for (let it of this.entity.collider.collisions) {
                 let you = Util.getCollidedEntity(this.entity, it);
                 if (BaseUtil.implementsOf(you, IHook) && !you.isHead() && you.getActor() === this.entity) {

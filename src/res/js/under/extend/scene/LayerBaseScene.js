@@ -22,6 +22,15 @@ class LayerBaseScene extends Scene { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Add layer
+     * @param {Layer} layer Added layer
+     */
+    addLayer(layer) {
+        this.layers.push(layer);
+        layer.init();
+    }
+
+    /**
      * Update scene
      * @override
      * @param {number} dt Delta time

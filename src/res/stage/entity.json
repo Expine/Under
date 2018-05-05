@@ -99,7 +99,7 @@
                             "y": 320,
                             "width": 32,
                             "height": 32,
-                            "delta": 200,
+                            "delta": 150,
                             "serial": true,
                             "horizontal": 2,
                             "vertical": 1
@@ -107,13 +107,13 @@
                     },
                     {
                         "name": "rolling",
-                        "loop": false,
+                        "loop": true,
                         "animation": [{
                             "x": 64,
                             "y": 320,
                             "width": 32,
                             "height": 32,
-                            "delta": 200,
+                            "delta": 100,
                             "serial": true,
                             "horizontal": 2,
                             "vertical": 1

@@ -68,11 +68,11 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
      */
     setCameraPosition(x, y, width, height) {
         if (x > 0 && y > 0) {
-            if (Input.it.isPress(Input.mouse.mRight())) {
+            if (Input.mouse.isPress(Input.mouse.mRight())) {
                 this.moveStartX = Input.mouse.getMouseX();
                 this.moveStartY = Input.mouse.getMouseY();
                 this.moving = true;
-            } else if (this.moving && Input.it.isPressed(Input.mouse.mRight())) {
+            } else if (this.moving && Input.mouse.isPressed(Input.mouse.mRight())) {
                 this.cameraX += Input.mouse.getMouseX() - this.moveStartX;
                 this.cameraY += Input.mouse.getMouseY() - this.moveStartY;
                 this.moveStartX = Input.mouse.getMouseX();

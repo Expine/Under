@@ -6,6 +6,12 @@
  */
 class Layer { // eslint-disable-line  no-unused-vars
     /**
+     * Initialize scene
+     * @abstract
+     */
+    init() {}
+
+    /**
      * Update layer
      * @abstract
      * @param {number} dt Delta time

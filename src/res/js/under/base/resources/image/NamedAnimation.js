@@ -1,5 +1,6 @@
 /**
  * Named animation
+ * - Renders image
  * - Manages animation
  * - Manages multiple animations
  * - ### Manages animation by name
@@ -12,7 +13,6 @@ class NamedAnimation extends MultiAnimation { // eslint-disable-line  no-unused-
      * Set animation name
      * @abstract
      * @param {string} name Animation name
-     * @return {NamedAnimation} This instance
      */
     setName(name) {}
 }

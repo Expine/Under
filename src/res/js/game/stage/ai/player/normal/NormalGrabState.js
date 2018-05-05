@@ -158,7 +158,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
         let image = this.entity.getImage();
         let canGrabAction = (!(image instanceof GameAnimation) || (image.isEnded() || image.isLoop()));
         // judge
-        if (!Util.onGround(this.entity) || !Input.it.isPressed(Input.key.down())) {
+        if (!Util.onGround(this.entity) || !Input.key.isPressed(Input.key.down())) {
             if (!this.judgeContinue()) {
                 return true;
             }

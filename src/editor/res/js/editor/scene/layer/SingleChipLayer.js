@@ -108,7 +108,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
                 }
             }
         }
-        if (Input.it.isPress(Input.mouse.mLeft())) {
+        if (Input.mouse.isPress(Input.mouse.mLeft())) {
             this.selectedTile = this.selectTile;
         }
     }

@@ -8,13 +8,6 @@
  */
 class GameAnimation extends GameImage { // eslint-disable-line  no-unused-vars
     /**
-     * Set whether to loop or not
-     * @abstract
-     * @param {boolean} loop Whether to loop or not
-     */
-    setLoop(loop) {}
-
-    /**
      * Whether to loop or not
      * @abstract
      * @return {boolean} Whether to loop or not

@@ -33,9 +33,9 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
          */
         this.entityLayer = new EntityLayer(this.stage.getEntityInfo());
 
-        this.layers.push(this.chipLayer);
-        this.layers.push(this.entityLayer);
-        this.layers.push(new DebugLayer(this.stage));
+        this.addLayer(this.chipLayer);
+        this.addLayer(this.entityLayer);
+        this.addLayer(new DebugLayer(this.stage));
         this.stage.setTileSelection(this.chipLayer);
         this.stage.setEntitySelection(this.entityLayer);
     }
@@ -59,20 +59,20 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         EventManager.it.update(dt);
 
         // save
-        if (Input.it.isPress(Input.key.a() + 18)) {
+        if (Input.key.isPress(Input.key.a() + 18)) {
             this.stage.getSaveData();
             console.log(this.stage.saveData);
         }
-        if (Input.it.isPress(Input.key.a() + 19)) {
+        if (Input.key.isPress(Input.key.a() + 19)) {
             console.log(JSON.stringify(this.chipLayer.getSaveData()));
         }
         // change debug mode
-        if (Input.it.isPress(Input.key.a() + 3)) {
+        if (Input.key.isPress(Input.key.a() + 3)) {
             Engine.debug = !Engine.debug;
         }
 
         // change debug mode
-        if (Input.it.isPress(Input.key.a() + 6)) {
+        if (Input.key.isPress(Input.key.a() + 6)) {
             ResourceManager.image.reload();
         }
     }

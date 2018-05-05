@@ -49,7 +49,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
 
         // initialize layer
         this.layers.length = 0;
-        this.layers.push(new UILayer(this.player));
+        this.addLayer(new UILayer(this.player));
         this.gameover = false;
     }
 
@@ -65,7 +65,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
             this.player.setHP(0);
         }
         if (this.player.getHP() <= 0 && !this.gameover) {
-            this.layers.push(new GameoverLayer());
+            this.addLayer(new GameoverLayer());
             this.gameover = true;
         }
 
@@ -73,9 +73,9 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
         super.update(dt);
         if (this.gameover) {
             // retry
-            if (Input.it.isPress(Input.key.yes())) {
+            if (Input.key.isPress(Input.key.yes())) {
                 this.init();
-            } else if (Input.it.isPress(Input.key.no())) {
+            } else if (Input.key.isPress(Input.key.no())) {
                 SceneManager.it.replaceScene(new TitleScene());
             }
         }

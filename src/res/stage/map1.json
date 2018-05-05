@@ -13,6 +13,9 @@
         "cliping": true,
         "type": "center"
     },
+    "world": {
+        "type": "split"
+    },
     "tiles": "tile.json",
     "entities": "entity.json",
     "layers": [

@@ -60,66 +60,6 @@ class Context { // eslint-disable-line  no-unused-vars
     postRendering() {}
 
     /**
-     * Set the color of text
-     * @abstract
-     * @param {string} colorName Color name
-     */
-    setFontColorByName(colorName) {}
-
-    /**
-     * Set the color of text
-     * @abstract
-     * @param {number} r Red component   (0 <= r <= 255)
-     * @param {number} g Green component (0 <= g <= 255)
-     * @param {number} b Blue component  (0 <= b <= 255)
-     */
-    setFontColorByRGB(r, g, b) {}
-
-    /**
-     * Set the size of text
-     * @abstract
-     * @param {number} size Size of text
-     */
-    setFontSize(size) {}
-
-    /**
-     * Get the size of font
-     * @abstract
-     * @return {number} Size of text
-     */
-    getFontSize() {}
-
-    /**
-     * Set the name of font
-     * @abstract
-     * @param {string} name Name of font
-     */
-    setFontName(name) {}
-
-    /**
-     * Set the color of line
-     * @abstract
-     * @param {string} colorName Color name
-     */
-    setLineColorByName(colorName) {}
-
-    /**
-     * Set the color of line
-     * @abstract
-     * @param {number} r Red component   (0 <= r <= 255)
-     * @param {number} g Green component (0 <= g <= 255)
-     * @param {number} b Blue component  (0 <= b <= 255)
-     */
-    setLineColorByRGB(r, g, b) {}
-
-    /**
-     * Set width of line
-     * @abstract
-     * @param {number} width Line width
-     */
-    setLineWidth(width) {}
-
-    /**
      * Get rendering text width
      * @abstract
      * @param {string} text Rendering text

@@ -29,6 +29,7 @@ class BaseUtil { // eslint-disable-line  no-unused-vars
 
 /**
  * Singleton interface list
+ * @protected
  * @type {Object<string, Interface>}
  */
 BaseUtil.interfaces = {};

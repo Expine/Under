@@ -61,20 +61,6 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         for (var i = 0; i < 10; ++i) {
             this.record.push({});
         }
-
-        /**
-         * Timers for registering time
-         * @protected
-         * @type {Object<string, Array<number>>}
-         */
-        this.timers = {};
-
-        /**
-         * Timer values
-         * @protected
-         * @type {Object<string, number>}
-         */
-        this.timerVals = {};
     }
     /**
      * Update layer
@@ -87,13 +73,6 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         it.collisions = this.stage.getPhysicalWorld().getCollisionSize();
         it.playerCollisions = this.player.collider.collisions.length;
         // check timer
-        for (let name of Timer.it.getRegisteredNames()) {
-            let time = Timer.it.getTimer(name);
-            if (this.timers[name] === undefined) {
-                this.timers[name] = [];
-            }
-            this.timers[name].push(time);
-        }
         if (++this.count >= this.record.length) {
             // update all data
             this.deltaTime = 0;
@@ -105,13 +84,6 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
                 this.playerCollisions = Math.max(this.playerCollisions, v.playerCollisions);
             }
             this.count = 0;
-            for (let name of Timer.it.getRegisteredNames()) {
-                this.timerVals[name] = 0;
-                for (let time of this.timers[name]) {
-                    this.timerVals[name] = Math.max(this.timerVals[name], time);
-                }
-                this.timers[name].length = 0;
-            }
         }
     }
 
@@ -122,16 +94,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         // timer
-        {
-            let x = 0;
-            let y = 0;
-            for (let name in this.timerVals) {
-                if (this.timerVals.hasOwnProperty(name)) {
-                    ctx.fillText(`${name} : ${this.timerVals[name]} msec`, x, y, 0.0, 0.0, 20, `white`);
-                    y += 30;
-                }
-            }
-        }
+        Timer.it.render(ctx, 0, 0);
 
         // TODO: May be create debug information data class
         ctx.fillText(`${this.deltaTime} msec`, GameScreen.it.width, 0, 1.0, 0.0, 20, `white`);

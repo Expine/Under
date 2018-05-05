@@ -1,0 +1,122 @@
+@startuml GameBaseBaseResource
+
+package under {
+    package base {
+        package resources {
+            abstract ResourceManager {
+                constructor(root)
+                #root : string
+                {static} +image : IImageManager
+                {static} +music : IMusicManager
+            }
+            interface IResourceManager {
+                {abstract} +load(filePath) : Object
+                {abstract} +unload(id)
+                {abstract} +reload
+                {abstract} +getPath(id) : string
+            }
+            interface IImageManager {
+                {abstract} +getWidth(id) : number
+                {abstract} +getHeight(id) : number
+                {abstract} +getImage(id) : Image
+            }
+            interface IMusicManager {
+                {abstract} +getMusic(id) : BufferSource
+            }
+
+            package music {
+                abstract Music {
+                    #music : IMusicManager
+                    {static} +it : Music /' Singleton '/
+                    +setMusicManager(musicManager)
+                    {abstract} +playSE(musicID)
+                    {abstract} +playBGM(musicID)
+                    {abstract} +pauseBGM()
+                    {abstract} +resumeBGM()
+                    {abstract} +stopBGM()
+                }
+            }
+
+            package image {
+                abstract Context {
+                    #screen : GameScreen
+                    #image : IImageManager
+                    +setScreen(screen)
+                    +setImageManager(imageManager)
+                    {abstract} +init()
+                    {abstract} +preRendering()
+                    {abstract} +postRendering()
+                    {abstract} +measureText(text,size,font)
+                    {abstract} +fillText(text,x,y,anchorX,anchorY,size,color,font)
+                    {abstract} +strokeLine(sx,sy,ex,ey,color,lineWidth)
+                    {abstract} +strokeCircle(x,y,radius,startAngle,endAngle,anticlockwise,color,lineWidth)
+                    {abstract} +strokeRect(x,y,width,height,color,lineWidth)
+                    {abstract} +fillRect(x,y,width,height,color,lineWidth)
+                    {abstract} +drawImage(imageID,x,y,width,height,srcX,srcY,srcW,srcH)
+                }
+
+                abstract GameImage {
+                    {abstract} +setSize(width,height)
+                    {abstract} +setImageID(imageID)
+                    {abstract} +init()
+                    {abstract} +update(dt)
+                    {abstract} +render(ctx,x,y)
+                }
+
+                abstract GameAnimation {
+                    {abstract} +isLoop() : bool
+                    {abstract} +isEnded() : bool
+                    {abstract} +getAnimationCount() : number
+                    {abstract} +addAnimation(image,delta)
+                    {abstract} +pause()
+                    {abstract} +restore()
+                }
+                abstract MultiAnimation {
+                    {abstract} +getAnimation() : Animation
+                    {abstract} +setAnimation(animation)
+                    {abstract} +setAllSize(width,height)
+                    {abstract} +setAllImageID(imageID)
+                    +setSize(width,height) <<override>>
+                    +setImageID(imageID) <<override>>
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx,x,y) <<override>>
+                    +isLoop() : bool <<override>>
+                    +isEnded() : bool <<override>>
+                    +getAnimationCount() : number <<override>>
+                    +addAnimation(image,delta) <<override>>
+                    +pause() <<override>>
+                    +restore() <<override>>
+                }
+                abstract NamedAnimation {
+                    {abstract} +setName(name)
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package screen {
+            abstract GameScreen
+        }
+    }
+}
+
+Context --> GameScreen : Rendering target
+
+Context --> IImageManager : Get resource
+Music --> IMusicManager : Get resource
+ResourceManager --> IImageManager : Singleton
+ResourceManager --> IMusicManager : Singleton
+
+IResourceManager <|-- ResourceManager
+IResourceManager <|-- IImageManager
+IResourceManager <|-- IMusicManager
+
+GameImage <|-- GameAnimation
+GameAnimation <|-- MultiAnimation
+MultiAnimation <|-- NamedAnimation
+
+@enduml

@@ -39,7 +39,7 @@ class EditorWorld extends DebugWorld { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         // w key
-        if (Input.it.isPress(Input.key.a() + 22)) {
+        if (Input.key.isPress(Input.key.a() + 22)) {
             let world;
             if (this.world instanceof SplitWorld) {
                 world = new SequentialWorld(this.gravity / 10000);

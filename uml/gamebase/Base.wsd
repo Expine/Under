@@ -38,7 +38,6 @@ package under {
         package input {
             abstract Input {
                 #screen : GameScreen
-                {static} +it : IInput /' Singleton '/
                 {static} +key : IKey /' Singleton '/
                 {static} +mouse : IMouse /' Singleton '/
                 +setScreen(screen)
@@ -91,104 +90,15 @@ package under {
             }
         }
 
-        package resources {
-            abstract ResourceManager {
-                constructor(root)
-                #root : string
-                {static} +image : ResrouceManager
-                {static} +music : ResrouceManager
-                {abstract} +load(filePath) : Object
-                {abstract} +unload(id)
-                {abstract} +reload
-                {abstract} +getPath(id) : string
-            }
-            interface IImageManager {
-                {abstract} +getWidth(id) : number
-                {abstract} +getHeight(id) : number
-                {abstract} +getImage(id) : Image
-            }
-            interface IMusicManager {
-                {abstract} +getMusic(id) : BufferSource
-            }
-
-            package music {
-                abstract Music {
-                    #music : IMusicManager
-                    {static} +it : Music /' Singleton '/
-                    +setMusicManager(musicManager)
-                    {abstract} +playSE(musicID)
-                    {abstract} +playBGM(musicID)
-                    {abstract} +pauseBGM()
-                    {abstract} +resumeBGM()
-                    {abstract} +stopBGM()
-                }
-            }
-
-            package image {
-                abstract Context {
-                    #screen : GameScreen
-                    #image : IImageManager
-                    +setScreen(screen)
-                    +setImageManager(imageManager)
-                    {abstract} +init()
-                    {abstract} +preRendering()
-                    {abstract} +postRendering()
-                    {abstract} +setFontColorByame(colorName)
-                    {abstract} +setFontColorByRGB(r,g,b)
-                    {abstract} +setFontSize(size)
-                    {abstract} +getFontSuze()
-                    {abstract} +setFontName(fontName)
-                    {abstract} +setLineColorByName(colorName)
-                    {abstract} +setLineColorByRGB(r,g,b)
-                    {abstract} +setLineWidth(width)
-                    {abstract} +measureText(text,size,font)
-                    {abstract} +fillText(text,x,y,anchorX,anchorY,size,color,font)
-                    {abstract} +strokeLine(sx,sy,ex,ey,color,lineWidth)
-                    {abstract} +strokeCircle(x,y,radius,startAngle,endAngle,anticlockwise,color,lineWidth)
-                    {abstract} +strokeRect(x,y,width,height,color,lineWidth)
-                    {abstract} +fillRect(x,y,width,height,color,lineWidth)
-                    {abstract} +drawImage(imageID,x,y,width,height,srcX,srcY,srcW,srcH)
-                }
-
-                abstract Animation {
-                    {abstract} +init()
-                    {abstract} +setLoop(loop)
-                    {abstract} +isLoop() : bool
-                    {abstract} +isEnded() : bool
-                    {abstract} +getAnimationCount() : number
-                    {abstract} +addAnimation(element)
-                    {abstract} +pause()
-                    {abstract} +restore()
-                    {abstract} +update(dt)
-                    {abstract} +render(ctx,x,y,width,height,imageID)
-                }
-                abstract MultiAnimation {
-                    {abstract} +getAnimation() : Animation
-                    {abstract} +setAnimation(animation)
-                }
-                abstract NamedAnimation {
-                    {abstract} +setName(name) : NamedAnimation
-                }
-                class AnimationElement {
-                    +imageID : number
-                    +srcX : number
-                    +srcY : number
-                    +srcW : number
-                    +srcH : number
-                    +delta : number
-                }
-            }
-        }
-
         package scene {
             abstract SceneManager {
                 {static} +it : SceneManager /' Singleton '/
-                {abstract} +getScene() : Scene
-                {abstract} +pushScene(scene)
+                {abstract} #getScene() : Scene
+                +pushScene(scene)
                 {abstract} +popScene()
-                {abstract} +replaceScene(scene)
-                {abstract} +update(dt)
-                {abstract} +render(ctx)
+                +replaceScene(scene)
+                +update(dt)
+                +render(ctx)
             }
             abstract Scene {
                 {abstract} +init()
@@ -198,6 +108,7 @@ package under {
 
             package layer {
                 abstract Layer {
+                    {abstract} +init()
                     {abstract} +update(dt)
                     {abstract} +render(ctx)
                 }
@@ -208,21 +119,26 @@ package under {
             abstract Timer {
                 {static} +it : Timer /' Singleton '/
                 #deltaTime : number
-                {abstract} +init()
-                {abstract} +update(dt)
                 {abstract} +startTimer(name)
                 {abstract} +stopTimer(name)
                 {abstract} +getTimer(name) : number
-                {abstract} +getRegisteredNames() : Array<string>
+                {abstract} +init()
+                +update(dt)
+                {abstract} +render(ctx,x,y)
             }
         }
 
         package util {
             class BaseUtil {
+                {static} #interfaces : Object<string,Interface>
                 {static} +implementsOf(instance,i) : bool
+                {static} +getClassName(instance) : string
             }
             class Interface {
-                -methods_ : Array<Method>
+                -_methods : Array<Method>
+                -_getters : Array<string>
+                -_setters : Array<string>
+                #addMethodsAutomatically()
                 #addMethod(method)
                 +validate(instance) : bool
             }
@@ -235,36 +151,44 @@ package under {
     }
 }
 
-EngineBuilder --> Engine : Initialize
-Engine "1"*-- "1" Screen : Own
+package under {
+    package base {
+        package resource {
+            package music {
+                abstract Music
+            }
+            package image {
+                abstract Context
+            }
+        }
+
+        package event {
+            abstract EventManager
+        }
+    }
+}
+
+EngineBuilder ..> Engine : Initialize
+EngineBuilder ..> Context : Set image
+EngineBuilder ..> Music : Set music
 Engine "1"*-- "1" Input : Own
-Engine "1"*-- "1" SceneManager : Own
+Engine "1"*-- "1" GameScreen : Own
 Engine "1"*-- "1" Context : Own
+Engine "1"*-- "1" SceneManager : Own
 Engine "1"*-- "1" Music : Own
+Engine "1"*-- "1" Timer : Own
+Engine "1"*-- "1" EventManager : Own
 
-Input .> Screen : Input target
-Context .> Screen : Rendering target
+Input --> GameScreen : Input target
 
-Input ..> IInput : Singleton
-Input ..> IKey : Singleton
-Input ..> IMouse : Singleton
+Input --> IKey : Singleton
+Input --> IMouse : Singleton
 
-Context ..> IImageManager : Get resource
-Music ..> IMusicManager : Get resource
-IImageManager <.. ResourceManager : Set singleton
-IMusicManager <.. ResourceManager : Set singleton
+SceneManager ..> Scene : Initialize
 
-SceneManager "1"*--"*" Scene : Should own
-Scene "1" o--"*" Layer : May own
-
-Animation "1"*--"*"AnimationElement : Should own
+Interface ..> Method : Use
 
 IInput <|-- IKey
 IInput <|-- IMouse
-
-Animation <|-- MultiAnimation
-MultiAnimation <|-- NamedAnimation
-
-Interface ..> Method : Use
 
 @enduml

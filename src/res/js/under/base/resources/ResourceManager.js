@@ -1,10 +1,12 @@
 /**
  * Resource manager
- * - ### Resources abstraction of resource management
+ * - Resources abstraction of resource management
+ * - ### Manages resource and root path
  * @interface
- * @classdesc Resource manager that indicatas abstraction of resource management
+ * @implements {IResourceManager}
+ * @classdesc Resource manager to manage resource and root path
  */
-class ResourceManager { // eslint-disable-line  no-unused-vars
+class ResourceManager /* , IResourceManager */ { // eslint-disable-line  no-unused-vars
     /**
      * Resource manager constructor
      * @param {string} root Resource root path
@@ -59,12 +61,12 @@ class ResourceManager { // eslint-disable-line  no-unused-vars
 /**
  * Image resource manager instance for singleton
  * @static
- * @type {ResourceManager}
+ * @type {IImageManager}
  */
 ResourceManager.image = null;
 /**
  * Music resource manager instance for singleton
  * @static
- * @type {ResourceManager}
+ * @type {IMusicManager}
  */
 ResourceManager.music = null;

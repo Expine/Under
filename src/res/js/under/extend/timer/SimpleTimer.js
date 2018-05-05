@@ -64,17 +64,18 @@ class SimpleTimer extends Timer { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Get name of registered timer
+     * Render timer
      * @override
-     * @return {Array<string>}
+     * @param {Context} ctx Canvas context
+     * @param {number} x Timer x position
+     * @param {number} y Timer y position
      */
-    getRegisteredNames() {
-        let names = [];
+    render(ctx, x, y) {
         for (let name in this.namedTimer) {
             if (this.namedTimer.hasOwnProperty(name)) {
-                names.push(name);
+                ctx.fillText(`${name} : ${this.getTimer(name)} msec`, x, y, 0.0, 0.0, 20, `white`);
+                y += 30;
             }
         }
-        return names;
     }
 }

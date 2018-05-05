@@ -21,10 +21,10 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
     apply(dt) {
         // down wall check
         let vx = 0;
-        if (Input.it.isPressed(Input.key.left())) {
+        if (Input.key.isPressed(Input.key.left())) {
             vx += -1;
         }
-        if (Input.it.isPressed(Input.key.right())) {
+        if (Input.key.isPressed(Input.key.right())) {
             vx += 1;
         }
         // down wall
@@ -38,7 +38,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
             }
         }
         // drag hook
-        if (Input.it.isPressed(Input.key.up())) {
+        if (Input.key.isPressed(Input.key.up())) {
             for (let it of this.entity.collider.collisions) {
                 let you = Util.getCollidedEntity(this.entity, it);
                 if (BaseUtil.implementsOf(you, IHook) && !you.isHead() && you.getActor() === this.entity) {
@@ -49,7 +49,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
             }
         }
         // release hook
-        if (Input.it.isPress(Input.key.sub())) {
+        if (Input.key.isPress(Input.key.sub())) {
             let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {
                 for (let it of hooks) {

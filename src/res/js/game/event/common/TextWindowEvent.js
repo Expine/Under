@@ -89,7 +89,7 @@ class TextWindowEvent extends NamedEvent { // eslint-disable-line  no-unused-var
             if (this.showCount > 1) {
                 this.showCount = 1;
             }
-            if (this.showCount == 1 && Input.it.isPressed(Input.key.yes())) {
+            if (this.showCount == 1 && Input.key.isPressed(Input.key.yes())) {
                 this.ended = true;
             }
         }

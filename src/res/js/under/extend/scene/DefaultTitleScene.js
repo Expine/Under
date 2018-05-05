@@ -34,7 +34,7 @@ class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         // update circle angle and radius
-        if (Input.it.isPressed(Input.mouse.mLeft())) {
+        if (Input.mouse.isPressed(Input.mouse.mLeft())) {
             this.r_ += dt / 20;
             this.angle_ = this.angle_ + Math.PI / 10 * dt / 20;
         } else {
@@ -57,8 +57,9 @@ class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
         let sample = `Sample`;
         ctx.fillText(sample, 400, 300, 0.5);
 
+        // TODO: Use method
         // render when enter pressed
-        if (Input.it.isPressed(13)) {
+        if (Input.key.isPressed(13)) {
             ctx.fillText(`Enter pressed`, 400, 400, 0.5, 0, 30, `red`);
         }
 

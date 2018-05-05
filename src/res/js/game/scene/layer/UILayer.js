@@ -35,8 +35,8 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
         this.uiAnimation = new MultiNamedAnimation();
         let uiImage = ResourceManager.image.load(`ui/hp.png`);
         for (let i = 0; i < 6; ++i) {
-            this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`).setAnimation(new SingleAnimation());
-            this.uiAnimation.setLoop(i % 2 == 0);
+            this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`);
+            this.uiAnimation.setAnimation(new SingleAnimation(i % 2 == 0));
             if (i != 5) {
                 for (let j = 0; j < 4; ++j) {
                     this.uiAnimation.addAnimation(new TileImage(uiImage, 64, 64, 32 * j, 32 * i, 32, 32), i % 2 == 0 ? 300 : 200);
@@ -65,7 +65,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
             this.uiAnimation.setName(`${this.playerHP}-${this.playerHP}`);
             this.uiAnimation.init();
         }
-        // animation
+        // animationS
         this.animationCount += dt;
         this.uiAnimation.update(dt);
     }

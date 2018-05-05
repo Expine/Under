@@ -17,7 +17,6 @@ class Input { // eslint-disable-line  no-unused-vars
          */
         this.screen = null;
 
-        Input.it = BaseUtil.implementsOf(this, IInput) ? this : null;
         Input.key = BaseUtil.implementsOf(this, IKey) ? this : null;
         Input.mouse = BaseUtil.implementsOf(this, IMouse) ? this : null;
     }
@@ -50,12 +49,6 @@ class Input { // eslint-disable-line  no-unused-vars
     clear() {}
 }
 
-/**
- * Input singleton instance
- * @static
- * @type {IInput}
- */
-Input.it = null;
 /**
  * Key input instance
  * @static

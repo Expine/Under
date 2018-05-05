@@ -20,20 +20,6 @@ class Timer { // eslint-disable-line  no-unused-vars
         // set singleton
         Timer.it = this;
     }
-    /**
-     * Initialize timer
-     * @abstract
-     */
-    init() {}
-
-    /**
-     * Update timer
-     * @abstract
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        this.deltaTime = dt;
-    }
 
     /**
      * Start to measure timer by name
@@ -58,11 +44,27 @@ class Timer { // eslint-disable-line  no-unused-vars
     getTimer(name) {}
 
     /**
-     * Get name of registered timer
+     * Initialize timer
      * @abstract
-     * @return {Array<string>} List of name of registered timer
      */
-    getRegisteredNames() {}
+    init() {}
+
+    /**
+     * Update timer
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        this.deltaTime = dt;
+    }
+
+    /**
+     * Render timer
+     * @abstract
+     * @param {Context} ctx Canvas context
+     * @param {number} x Timer x position
+     * @param {number} y Timer y position
+     */
+    render(ctx, x, y) {}
 }
 
 /**
