@@ -2,20 +2,28 @@
 
 package editor {
     class EditorMain
-    class EditorBuilder
+    class EditorBuilder {
+        #makeEngine() : Engine <<override>>
+        #makeInput() : Input <<override>>
+        #makeScreen() : GameScreen <<override>>
+        #makeContext() : Context <<override>>
+    }
 
     package ed_context {
-        class EditorContext
+        class EditorContext {
+            +preRendering() <<override>>
+        }
     }
 }
 
 package under {
     package extend {
-        abstract UnderEngineBuilder
+        class UnderEngineBuilder
         package ex_context {
             class JSContext
         }
         package ex_screen {
+            class DetectiveScreen
             class FitableScreen
         }
         package ex_input {
@@ -23,6 +31,9 @@ package under {
             class KeyInput
             class MouseInput
         }
+    }
+    package debug {
+        class UnderDebugEngine
     }
 }
 
@@ -32,15 +43,17 @@ package editor {
     }
 }
 
-EditorBuilder <.. EditorMain : "Execute"
-EditorScene <.. EditorMain : "Generate"
-FitableScreen <.. EditorBuilder : "Generate"
-EditorContext <.. EditorBuilder : "Generate"
-AllInput <.. EditorBuilder : "Generate"
-KeyInput <.. EditorBuilder : "Generate"
-MouseInput <.. EditorBuilder : "Generate"
+EditorBuilder <.. EditorMain : Generate and build, Execute
+EditorScene <.. EditorMain : Generate
+UnderDebugEngine <.. EditorBuilder : Generate
+DetectiveScreen <.. EditorBuilder : Generate
+FitableScreen <.. EditorBuilder : Generate
+EditorContext <.. EditorBuilder : Generate
+AllInput <.. EditorBuilder : Generate
+KeyInput <.. EditorBuilder : Generate
+MouseInput <.. EditorBuilder : Generate
 
-UnderEngineBuilder <|... EditorBuilder
+UnderEngineBuilder <|--- EditorBuilder
 JSContext <|-- EditorContext
 
 @enduml
