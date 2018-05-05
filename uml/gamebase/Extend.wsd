@@ -2,111 +2,136 @@
 
 package under {
     package extend {
-        class UnderEngineBuilder
-        class UnderEngine {
-            #oldTime : number
-            -render_ : lambda
-            #update()
-            #render()
-        }
-        class UnderDebugEngine
-
         package ex_input {
             abstract StateInputManager {
                 #inputState : Array<number>
-                #blocked : Array<bool>
+                #blocked : Array<boolean>
                 #STATE: Enum<number>
                 #target : Element
+                #enable : boolean
+                +init() <<override>>
+                +update() <<override>>
+                +clear() <<override>>
+                +setInputEnable(enable) <<override>>
+                +blockInput(code) <<override>>
+                +unblockInput(code) <<override>>
+                +press(code) <<override>>
+                +unpress(code) <<override>>
+                +isPress(code) : boolean <<override>>
+                +isPressed(code) : boolean <<override>>
             }
             class KeyInput {
-                {abstract} #onKeyDown(keyEvent)
-                {abstract} #onKeyUp(keyEvent)
+                +init() <<override>>
+                +a() : number <<override>>
+                +zero() : number <<override>>
+                +right() : number <<override>>
+                +left() : number <<override>>
+                +up() : number <<override>>
+                +down() : number <<override>>
+                +yes() : number <<override>>
+                +no() : number <<override>>
+                +sub() : number <<override>>
+                #onKeyDown(keyEvent)
+                #onKeyUp(keyEvent)
             }
-            class PreventKeyInput
+            class PreventKeyInput {
+                #prevent(e)
+                #onKeyDown(keyEvent) <<override>>
+                #onKeyUp(keyEvent) <<override>>
+            }
             class MouseInput {
-                #mouseX_
-                #mouseY_
-                {abstract} #onMouseMove(mouseEvent)
-                {abstract} #onMouseDown(mouseEvent)
-                {abstract} #onMouseUp(mouseEvent)
+                #mouseX : number
+                #mouseY : number
+                +init() <<override>>
+                +mRight() : number <<override>
+                +mLeft() : number <<override>
+                +mCenter() : number <<override>
+                +getMouseX() : number <<override>
+                +getMouseY() : number <<override>
+                #onMouseMove(mouseEvent)
+                #onMouseDown(mouseEvent)
+                #onMouseUp(mouseEvent)
 
             }
             class AllInput {
+                +constructor(key,mouse)
                 #keyDelegate : IKey
                 #mouseDelegate : IMouse
                 #mousBaseCode : number
+                +init() <<override>>
+                +update() <<override>>
+                +clear() <<override>>
+                +setInputEnable(enable) <<override>>
+                +blockInput(code) <<override>>
+                +unblockInput(code) <<override>>
+                +press(code) <<override>>
+                +unpress(code) <<override>>
+                +isPress(code) : boolean <<override>>
+                +isPressed(code) : boolean <<override>>
+                +a() : number <<override>>
+                +zero() : number <<override>>
+                +right() : number <<override>>
+                +left() : number <<override>>
+                +up() : number <<override>>
+                +down() : number <<override>>
+                +yes() : number <<override>>
+                +no() : number <<override>>
+                +sub() : number <<override>>
+                +mRight() : number <<override>
+                +mLeft() : number <<override>
+                +mCenter() : number <<override>
+                +getMouseX() : number <<override>
+                +getMouseY() : number <<override>
             }
         }
         package ex_screen {
-            class GeneratableScreen {
-                +GeneratableScreen(width,height) : GeneratableScreen
+            abstract CanvasScreen {
+                +constructor(width,height)
                 #canvas : Canvas
+                +getTarget() : Element <<override>>
+                +getCanvas() : Canvas <<override>>
             }
-            class ScalableScreen
-            class FitableScreen
-        }
-
-        package ex_resource {
-            abstract CachedArrayManager {
-                #resources : Array<Object>
-                #caches : Dictionary<string, Object>
-                #loadResource(filePath) : Object
+            class DetectiveScreen {
+                +init() <<override>>
             }
-            class CachedImage
-            class CachedMusic {
-                #context : AudioContext
+            class GeneratableScreen {
+                +init() <<override>>
             }
-            package ex_music {
-                class BufferSourceMusic {
-                    -music_ : Array<BufferSource>
-                    -bgmList_ : Array<number>
-                    -context_ : AudioContext
-                }
+            abstract DelegateScreen {
+                +constructor(delegate)
+                #delegate : GameScreen
+                +init() <<override>>
+                +getTarget() : Element <<override>>
+                +getCanvas() : Canvas <<override>>
             }
-
-            package ex_image {
-                class JSContext {
-                    -fontColor_ : string
-                    -fontSize_ : number
-                    -fontName_ : string
-                    -lineColor_ : string
-                    -lineWidth_ : number
-                    -ctx_ : CanvasRenderingContext2D
-                }
-                class GLContext {
-                    -gl_ : WebGLRenderingContext
-                }
-                class SingleAnimation {
-                    #animation : Array<AnimationElement>
-                    #animationCount : number
-                    #runningAnimarion : number
-                    #loop : bool
-                    #ended : bool
-                    #paused : bool
-                }
-                class MultiNamedAnimation {
-                    #name : string
-                    #animation : Dictionary<string, Animation>
-                }
+            class ScalableScreen {
+                +init() <<override>>
             }
-
+            class FitableScreen {
+                +init() <<override>>
+            }
         }
 
         package ex_timer {
             class SimpleTimer {
-                #initTime : number
                 #namedTimer : Dictionary<string. number>
                 #namedStartTimer : Dictionary<string. number>
+                +startTimer(name) <<override>>
+                +stopTimer(name) <<override>>
+                +getTimer(name) : number <<override>>
+                +render(ctx,x,y) <<override>>
             }
         }
 
         package ex_util {
             class Util {
-                {static} +onGround(entity) : bool
-                {static} +getUnderEntity(entity) : Entity
-                {static} +getSideEntity(entity) : Entity
-                {static} +getCollidedEntity(self, data) : Entity
+                {static} +onGround(entity) : boolean
+                {static} +getUnderEntity(entity) : InfluentialEntity
+                {static} +getSideEntity(entity) : InfluentialEntity
+                {static} +getCollidedEntity(self, data) : InfluentialEntity
                 {static} +loadFile(filePath) : string
+                {static} +renderWindow(ctx,id,x,y,width,height)
+                {static} +canEnd(image) : boolean
             }
         }
     }
@@ -114,87 +139,46 @@ package under {
 
 package under {
     package base {
-        abstract EngineBuilder
-        abstract Engine
         package input {
             abstract Input
             interface IInput
             interface IKey
             interface IMouse
         }
-        package screen {
-            abstract Screen
-        }
         package resource {
-            abstract ResourceManager
-            interface IImageManager
-            interface IMusicManager
-            package music {
-                abstract Music
-            }
             package image {
                 abstract Context
-                abstract Animation
-                abstract NamedAnimation
             }
         }
-
         package timer {
             abstract Timer
         }
-    }
-    package extend {
-        package ex_scene {
-            class StackSceneManager
+        package screen {
+            abstract Screen
         }
     }
 }
 
-UnderEngine <.. UnderEngineBuilder  : Generate
-UnderDebugEngine <.. UnderEngineBuilder  : Generate
-AllInput <.. UnderEngineBuilder  : Generate
-KeyInput <.. UnderEngineBuilder  : Generate
-MouseInput <.. UnderEngineBuilder  : Generate
-ScalableScreen <.. UnderEngineBuilder  : Generate
-JSContext <.. UnderEngineBuilder  : Generate
-CachedImage <.. UnderEngineBuilder  : Generate
-CachedMusic <.. UnderEngineBuilder  : Generate
-BufferSourceMusic <.. UnderEngineBuilder  : Generate
-StackSceneManager <.. UnderEngineBuilder  : Generate
-
-Animation "*"--"1" MultiNamedAnimation : Own
-
-GeneratableScreen <|-- ScalableScreen
-GeneratableScreen <|-- FitableScreen
-
-EngineBuilder <|.... UnderEngineBuilder
-Engine <|.. UnderEngine
-UnderEngine <|-- UnderDebugEngine
+Context <.. SimpleTimer : Render text
+Context <.. Util : Render window
 
 Input <|.. AllInput
 IKey <|.. AllInput
 IMouse <|.. AllInput
-Input <|-- StateInputManager
-IInput <|-- StateInputManager
-StateInputManager <|.. KeyInput
+Input <|.. StateInputManager
+IInput <|.. StateInputManager
+StateInputManager <|-- KeyInput
 IKey <|.. KeyInput
 KeyInput <|-- PreventKeyInput
 StateInputManager <|.. MouseInput
 IMouse <|.. MouseInput
 
-Screen <|.. GeneratableScreen
-
-Context <|.. JSContext
-Context <|.. GLContext
-Music <|.. BufferSourceMusic
-ResourceManager <|.. CachedArrayManager
-CachedArrayManager <|.. CachedImage
-IImageManager <|.. CachedImage
-CachedArrayManager <|.. CachedMusic
-IMusicManager <|.. CachedMusic
-
-Animation <|.. SingleAnimation
-NamedAnimation <|.. MultiNamedAnimation
+Screen <|-- CanvasScreen
+Screen <|.. DelegateScreen
+CanvasScreen <|.. DetectiveScreen
+CanvasScreen <|.. GeneratableScreen
+DelegateScreen <|-- ScalableScreen
+DelegateScreen <|-- FitableScreen
 
 Timer <|.. SimpleTimer
 

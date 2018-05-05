@@ -4,7 +4,7 @@
  * - It can get input state
  * - It can make input blocked
  * - ### Registers input state by input event
- * @implements {Input}
+ * @extends {Input}
  * @classdesc State input manager to regiter input state by input event
  */
 class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  no-unused-vars
@@ -25,7 +25,7 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
         /**
          * Whether input is blocked or not
          * @protected
-         * @type {Array<bool>}
+         * @type {Array<boolean>}
          */
         this.blocked = [];
 

@@ -4,7 +4,7 @@
  * - ### Manage resources by array
  * - ### Resources are cached by file path
  * @interface
- * @implements {ResourceManager}
+ * @extends {ResourceManager}
  * @classdesc Cached array manager to manage resources by array and cached by file path
  */
 class CachedArrayManager extends ResourceManager { // eslint-disable-line  no-unused-vars
@@ -43,7 +43,7 @@ class CachedArrayManager extends ResourceManager { // eslint-disable-line  no-un
      * Load resource and return ID
      * @override
      * @param {string} filePath Resource file path
-     * @return {Object} Resource ID
+     * @return {number} Resource ID
      */
     load(filePath) {
         // append root

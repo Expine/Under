@@ -110,6 +110,7 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
 
     /**
      * Remove events from event manager
+     * @protected
      * @param {Array<GameEvent>} removes List of event for removing
      */
     removeEvents(removes) {

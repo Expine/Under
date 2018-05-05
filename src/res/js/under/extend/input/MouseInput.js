@@ -7,7 +7,7 @@
  * - Get mouse code
  * - Get mouse position
  * - ### Manages mouse input event and register state
- * @implements {StateInputManager}
+ * @extends {StateInputManager}
  * @classdesc Mouse input to manage mouse input event and register state
  */
 class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-line  no-unused-vars
@@ -30,31 +30,6 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
          * @type {number}
          */
         this.mouseY = 0;
-    }
-
-    /**
-     * Get mouse right code
-     * @override
-     * @return {number} Mouse right code
-     */
-    mRight() {
-        return 2;
-    }
-    /**
-     * Get mouse left code
-     * @override
-     * @return {number} Mouse left code
-     */
-    mLeft() {
-        return 0;
-    }
-    /**
-     * Get mouse center code
-     * @override
-     * @return {number} Mouse center code
-     */
-    mCenter() {
-        return 1;
     }
 
     /**
@@ -92,6 +67,31 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
         document.oncontextmenu = function() {
             return false;
         };
+    }
+
+    /**
+     * Get mouse right code
+     * @override
+     * @return {number} Mouse right code
+     */
+    mRight() {
+        return 2;
+    }
+    /**
+     * Get mouse left code
+     * @override
+     * @return {number} Mouse left code
+     */
+    mLeft() {
+        return 0;
+    }
+    /**
+     * Get mouse center code
+     * @override
+     * @return {number} Mouse center code
+     */
+    mCenter() {
+        return 1;
     }
 
     /**

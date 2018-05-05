@@ -67,6 +67,10 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/scene/layer/GameoverLayer.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/scene/LayerBaseScene.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/scene/StackSceneManager.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/screen/CanvasScreen.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/screen/DelegateScreen.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/screen/DetectiveScreen.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/extend/screen/FitableScreen.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/screen/GeneratableScreen.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/screen/ScalableScreen.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/ai/attack/AttackObjectAI.js';document.head.appendChild(script);script.onload = function() 
@@ -162,12 +166,12 @@
 {let script = document.createElement('script');script.src='src/res/js/under/base/stage/entity/interface/IBreakable.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/stage/entity/interface/IDamagable.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/base/stage/entity/interface/IPlayable.js';document.head.appendChild(script);script.onload = function() 
+{let script = document.createElement('script');script.src='src/res/js/under/debug/UnderDebugEngine.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/input/KeyInput.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/input/MouseInput.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/input/PreventKeyInput.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/resources/image/MultiNamedAnimation.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/resources/image/SingleAnimation.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/screen/FitableScreen.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/ai/EnemyAI.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/ai/player/PGameoverState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/ai/player/PJumpingState.js';document.head.appendChild(script);script.onload = function() 
@@ -188,7 +192,6 @@
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/body/JointBody.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/under/extend/stage/physics/collider/DirectionalAABB.js';document.head.appendChild(script);script.onload = function() 
-{let script = document.createElement('script');script.src='src/res/js/under/extend/UnderDebugEngine.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/common/CommonBaseStateAI.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/UnderPlayerState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/UnderStateAI.js';document.head.appendChild(script);script.onload = function() 
@@ -237,6 +240,9 @@
 {let script = document.createElement('script');script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerWalkState.js';document.head.appendChild(script);script.onload = function() 
 {let script = document.createElement('script');script.src='src/res/js/game/Main.js';document.head.appendChild(script);script.onload = function() 
 {};
+};
+};
+};
 };
 };
 };

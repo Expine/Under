@@ -8,13 +8,23 @@
  */
 class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unused-vars
     /**
+     * Make game engine
+     * @override
+     * @protected
+     * @return {Engine} Game engine
+     */
+    makeEngine() {
+        return new UnderDebugEngine();
+    }
+
+    /**
      * Make screen system
      * @override
      * @protected
      * @return {GameScreen} Screen system
      */
     makeScreen() {
-        return new FitableScreen(800, 850);
+        return new FitableScreen(new DetectiveScreen(800, 850));
     }
 
     /**

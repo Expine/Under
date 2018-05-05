@@ -12,7 +12,6 @@ package under {
             {abstract} #makeMusicManager() : IMusicManager
             {abstract} #makeTimer() : Timer
             {abstract} #makeSceneManager() : SceneManager
-            {abstract} #makeEventManager() : EventManager
             +build() : Engine
         }
         abstract Engine {
@@ -22,7 +21,6 @@ package under {
             #manager : SceneManager
             #music : Music
             #timer : Timer
-            #events : EventManager
             {static} +debug : bool
             +setInput(input)
             +setScreen(screen)
@@ -30,7 +28,6 @@ package under {
             +setSceneManager(manager)
             +setMusic(music)
             +setTimer(timer)
-            +setEventManager(events)
             +execute(scene)
             {abstract} #main()
         }
@@ -43,10 +40,10 @@ package under {
                 +setScreen(screen)
                 {abstract} +init()
                 {abstract} +update()
-                {abstract} #clear()
             }
 
             interface IInput {
+                {abstract} +clear()
                 {abstract} +setInputEnable(enable)
                 {abstract} +blockInput(code)
                 {abstract} +unblockInput(code)

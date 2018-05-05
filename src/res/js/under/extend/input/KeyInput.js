@@ -6,7 +6,8 @@
  * - Registers input state by input event
  * - Get key code
  * - ### Manages key input event and register state
- * @implements {StateInputManager}
+ * @extends {StateInputManager}
+ * @implements {IKey}
  * @classdesc Key input to manage key input event and register state
  */
 class KeyInput extends StateInputManager /* , IKey */ { // eslint-disable-line  no-unused-vars

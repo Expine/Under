@@ -14,13 +14,6 @@ class SimpleTimer extends Timer { // eslint-disable-line  no-unused-vars
         super();
 
         /**
-         * Start time
-         * @protected
-         * @type {number}
-         */
-        this.initTime = +(new Date());
-
-        /**
          * Named timer for measuring time
          * @protected
          * @type {Object<string, number>}

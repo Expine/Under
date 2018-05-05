@@ -6,6 +6,12 @@
  */
 class IInput extends Interface { // eslint-disable-line  no-unused-vars
     /**
+     * Clear input state
+     * @abstract
+     */
+    clear() {}
+
+    /**
      * Set inpt enable
      * @abstract
      * @param {boolean} enable Input enable

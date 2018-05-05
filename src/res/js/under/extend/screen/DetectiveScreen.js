@@ -1,21 +1,19 @@
 /**
- * Generatable screen
+ * Detective screen
  * - Indicates the rendering target and input target
  * - Both input and rendering target is canvas
- * - ### It can generate a canvas automatically
+ * - ### It can detect canvas
  * @extends {CanvasScreen}
- * @classdesc Generatable screen to generate a canvas automatically
+ * @classdesc Detective screen to detect canvas
  */
-class GeneratableScreen extends CanvasScreen { // eslint-disable-line  no-unused-vars
+class DetectiveScreen extends CanvasScreen { // eslint-disable-line  no-unused-vars
     /**
      * Initialize screen
      * @override
      */
     init() {
-        // generate canvas
-        this.canvas = document.createElement(`canvas`);
-        // set canvas
-        document.body.appendChild(this.canvas);
+        // detect canvas
+        this.canvas = document.querySelector(`canvas`);
 
         // generate style
         let style = document.createElement(`style`);

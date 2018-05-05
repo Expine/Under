@@ -4,16 +4,17 @@
  * - Manage resources by array
  * - Resources are cached by file path
  * - It can be acquired information as an image
- * @implements {CachedArrayManager}
+ * - ### Manages image resources
+ * @extends {CachedArrayManager}
  * @implements {IImageManager}
- * @classdesc Cached image that can be acquire as an image
+ * @classdesc Cached image to manage image resources
  */
 class CachedImage extends CachedArrayManager /* , IImageManager */ { // eslint-disable-line  no-unused-vars
     /**
      * Load resource and return it
      * @override
      * @param {string} filePath Resource file path
-     * @return {Object} Resource
+     * @return {Image} Resource
      */
     loadResource(filePath) {
         let image = new Image();

@@ -48,12 +48,6 @@ class Engine { // eslint-disable-line  no-unused-vars
          * @type {Timer}
          */
         this.timer = null;
-        /**
-         * Event manager
-         * @protected
-         * @type {EventManager}
-         */
-        this.events = null;
     }
 
     /**
@@ -102,14 +96,6 @@ class Engine { // eslint-disable-line  no-unused-vars
      */
     setTimer(timer) {
         this.timer = timer;
-    }
-
-    /**
-     * Set event manager
-     * @param {EventManager} events Event manager
-     */
-    setEventManager(events) {
-        this.events = events;
     }
 
     /**

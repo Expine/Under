@@ -2,7 +2,7 @@
  * JavaScript context
  * - Controls rendering to the screen
  * - ### Renders by using HTML5 API
- * @implements {Context}
+ * @extends {Context}
  * @classdesc JavaScript context for rendering by using HTML5 API
  */
 class JSContext extends Context { // eslint-disable-line  no-unused-vars
@@ -17,39 +17,39 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
          * @private
          * @type {string}
          */
-        this.fontColor_ = `black`;
+        this._fontColor = `black`;
         /**
          * Size of the text
          * @private
          * @type {number}
          */
-        this.fontSize_ = 50;
+        this._fontSize = 50;
         /**
          * Font name of the text
          * @private
          * @type {string}
          */
-        this.fontName_ = `Arial`;
+        this._fontName = `Arial`;
 
         /**
          * Color of the line
          * @private
          * @type {string}
          */
-        this.lineColor_ = `red`;
+        this._lineColor = `red`;
         /**
          * Size of the line
          * @private
          * @type {number}
          */
-        this.lineWidth_ = 1;
+        this._lineWidth = 1;
 
         /**
          * Canvas context for rendering
-         * @private
+         * @protected
          * @type {CanvasRenderingContext2D}
          */
-        this.ctx_ = null;
+        this.ctx = null;
     }
 
     /**
@@ -57,7 +57,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        this.ctx_ = this.screen.getCanvas().getContext(`2d`);
+        this.ctx = this.screen.getCanvas().getContext(`2d`);
     }
 
     /**
@@ -65,14 +65,18 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @override
      */
     preRendering() {
-        this.ctx_.mozImageSmoothingEnabled = false;
-        this.ctx_.webkitImageSmoothingEnabled = false;
-        this.ctx_.msImageSmoothingEnabled = false;
-        this.ctx_.imageSmoothingEnabled = false;
-        this.ctx_.save();
-        this.ctx_.scale(this.screen.gameSize, this.screen.gameSize);
-        this.ctx_.fillStyle = `black`;
-        this.ctx_.fillRect(0, 0, this.screen.width, this.screen.height);
+        // ignore antialiasing
+        this.ctx.mozImageSmoothingEnabled = false;
+        this.ctx.webkitImageSmoothingEnabled = false;
+        this.ctx.msImageSmoothingEnabled = false;
+        this.ctx.imageSmoothingEnabled = false;
+        // save state
+        this.ctx.save();
+        // scale rendering size
+        this.ctx.scale(this.screen.gameSize, this.screen.gameSize);
+        // render background
+        this.ctx.fillStyle = `black`;
+        this.ctx.fillRect(0, 0, this.screen.width, this.screen.height);
     }
 
     /**
@@ -80,7 +84,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @override
      */
     postRendering() {
-        this.ctx_.restore();
+        this.ctx.restore();
     }
 
     /**
@@ -95,10 +99,10 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {string} [color=fontColor] Font color
      * @param {string} [font=fontName] Font name
      */
-    fillText(text, x, y, anchorX = 0, anchorY = 0, size = this.fontSize_, color = this.fontColor_, font = this.fontName_) {
-        this.ctx_.font = size + `px ` + font;
-        this.ctx_.fillStyle = color;
-        this.ctx_.fillText(text, x - anchorX * this.ctx_.measureText(text).width, y + (1 - anchorY) * size);
+    fillText(text, x, y, anchorX = 0, anchorY = 0, size = this._fontSize, color = this._fontColor, font = this._fontName) {
+        this.ctx.font = size + `px ` + font;
+        this.ctx.fillStyle = color;
+        this.ctx.fillText(text, x - anchorX * this.ctx.measureText(text).width, y + (1 - anchorY) * size);
     }
 
     /**
@@ -109,9 +113,9 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {string} [font=fontName] Font name
      * @return {number} Text width
      */
-    measureText(text, size = this.fontSize_, font = this.fontName_) {
-        this.ctx_.font = size + `px ` + font;
-        return this.ctx_.measureText(text).width;
+    measureText(text, size = this._fontSize, font = this._fontName) {
+        this.ctx.font = size + `px ` + font;
+        return this.ctx.measureText(text).width;
     }
 
     /**
@@ -123,14 +127,14 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {string} color Color name of line
      * @param {number} lineWidth Line width
      */
-    strokeLine(sx, sy, ex, ey, color = this.lineColor_, lineWidth = this.lineWidth_) {
-        this.ctx_.strokeStyle = color;
-        this.ctx_.lineWidth = lineWidth;
-        this.ctx_.beginPath();
-        this.ctx_.moveTo(sx, sy);
-        this.ctx_.lineTo(ex, ey);
-        this.ctx_.stroke();
-        this.ctx_.closePath();
+    strokeLine(sx, sy, ex, ey, color = this._lineColor, lineWidth = this._lineWidth) {
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = lineWidth;
+        this.ctx.beginPath();
+        this.ctx.moveTo(sx, sy);
+        this.ctx.lineTo(ex, ey);
+        this.ctx.stroke();
+        this.ctx.closePath();
     }
 
     /**
@@ -144,13 +148,13 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {string} color Color name of circle
      * @param {number} lineWidth Line of circle width
      */
-    strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise, color = this.lineColor_, lineWidth = this.lineWidth_) {
-        this.ctx_.strokeStyle = color;
-        this.ctx_.lineWidth = lineWidth;
-        this.ctx_.beginPath();
-        this.ctx_.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-        this.ctx_.stroke();
-        this.ctx_.closePath();
+    strokeCircle(x, y, radius, startAngle, endAngle, anticlockwise, color = this._lineColor, lineWidth = this._lineWidth) {
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = lineWidth;
+        this.ctx.beginPath();
+        this.ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+        this.ctx.stroke();
+        this.ctx.closePath();
     }
 
     /**
@@ -162,10 +166,10 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {string} color Color name of rectangle
      * @param {number} lineWidth Line of rectangle width
      */
-    strokeRect(x, y, width, height, color = this.lineColor_, lineWidth = this.lineWidth_) {
-        this.ctx_.strokeStyle = color;
-        this.ctx_.lineWidth = lineWidth;
-        this.ctx_.strokeRect(x, y, width, height);
+    strokeRect(x, y, width, height, color = this._lineColor, lineWidth = this._lineWidth) {
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = lineWidth;
+        this.ctx.strokeRect(x, y, width, height);
     }
 
     /**
@@ -178,10 +182,10 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {string} color Color name of rectangle
      * @param {number} lineWidth Line of rectangle width
      */
-    fillRect(x, y, width, height, color = this.lineColor_, lineWidth = this.lineWidth_) {
-        this.ctx_.fillStyle = color;
-        this.ctx_.lineWidth = lineWidth;
-        this.ctx_.fillRect(x, y, width, height);
+    fillRect(x, y, width, height, color = this._lineColor, lineWidth = this._lineWidth) {
+        this.ctx.fillStyle = color;
+        this.ctx.lineWidth = lineWidth;
+        this.ctx.fillRect(x, y, width, height);
     }
 
     /**
@@ -201,31 +205,31 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
         x = Math.round(x);
         y = Math.round(y);
         if (width === undefined) {
-            this.ctx_.drawImage(image, x, y);
+            this.ctx.drawImage(image, x, y);
             return;
         }
         width = Math.round(width);
         height = Math.round(height);
-        this.ctx_.save();
+        this.ctx.save();
         if (width < 0) {
             width = -width;
             x = -x - width;
-            this.ctx_.scale(-1, 1);
+            this.ctx.scale(-1, 1);
         }
         if (height < 0) {
             height = -height;
             y = -y - height;
-            this.ctx_.scale(1, -1);
+            this.ctx.scale(1, -1);
         }
         if (srcX === undefined) {
-            this.ctx_.drawImage(image, x, y, width, height);
+            this.ctx.drawImage(image, x, y, width, height);
         } else {
             srcX = Math.round(srcX);
             srcY = Math.round(srcY);
             srcW = Math.round(srcW);
             srcH = Math.round(srcH);
-            this.ctx_.drawImage(image, srcX, srcY, srcW, srcH, x, y, width, height);
+            this.ctx.drawImage(image, srcX, srcY, srcW, srcH, x, y, width, height);
         }
-        this.ctx_.restore();
+        this.ctx.restore();
     }
 }

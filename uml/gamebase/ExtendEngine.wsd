@@ -1,0 +1,96 @@
+@startuml GameBaseExtendEngine
+
+package under {
+    package extend {
+        class UnderEngineBuilder {
+            #makeEngine() : Engine <<override>>
+            #makeInput() : Input <<override>>
+            #makeScreen() : GameScreen <<override>>
+            #makeContext() : Context <<override>>
+            #makeImageManager() : IImageManager <<override>>
+            #makeMusic() : Music <<override>>
+            #makeMusicManager() : IMusicManager <<override>>
+            #makeTimer() : Timer <<override>>
+            #makeSceneManager() : SceneManager <<override>>
+        }
+        class UnderEngine {
+            #oldTime : number
+            -_loop : lambda
+            #update()
+            #render()
+            #main() <<override>>
+        }
+    }
+}
+
+package under {
+    package base {
+        abstract EngineBuilder
+        abstract Engine
+        package input {
+            abstract Input
+        }
+        package resource {
+            package image {
+                abstract Context
+            }
+        }
+        package scene {
+            abstract SceneManager
+        }
+        package timer {
+            abstract Timer
+        }
+    }
+    package extend {
+        class UnderEngine
+        package ex_input {
+            class KeyInput
+            class MouseInput
+            class AllInput
+        }
+        package ex_screen {
+            class ScalableScreen
+            class DetectiveScreen
+        }
+        package ex_resource {
+            class CachedImage
+            class CachedMusic
+            package ex_music {
+                class BufferSourceMusic
+            }
+            package ex_image {
+                class JSContext
+            }
+        }
+        package ex_timer {
+            class SimpleTimer
+        }
+        package ex_scene {
+            class StackSceneManager
+        }
+    }
+}
+
+UnderEngineBuilder ..> UnderEngine : Generate
+UnderEngineBuilder ..> AllInput  : Generate
+UnderEngineBuilder ..> KeyInput  : Generate
+UnderEngineBuilder ..> MouseInput  : Generate
+UnderEngineBuilder ..> ScalableScreen  : Generate
+UnderEngineBuilder ..> DetectiveScreen  : Generate
+UnderEngineBuilder ..> JSContext  : Generate
+UnderEngineBuilder ..> CachedImage  : Generate
+UnderEngineBuilder ..> BufferSourceMusic  : Generate
+UnderEngineBuilder ..> CachedMusic  : Generate
+UnderEngineBuilder ..> SimpleTimer  : Generate
+UnderEngineBuilder ..> StackSceneManager  : Generate
+
+Timer <.. UnderEngine : Update
+Input <.. UnderEngine : Update
+SceneManager <.. UnderEngine : Update and render
+Context <.. UnderEngine : Render
+
+EngineBuilder <|.. UnderEngineBuilder
+Engine <|.. UnderEngine
+
+@enduml

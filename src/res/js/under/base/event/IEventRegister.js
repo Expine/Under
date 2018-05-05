@@ -18,4 +18,10 @@ class IEventRegister extends Interface { // eslint-disable-line  no-unused-vars
      * @param {GameEvent} event Target event
      */
     unregister(event) {}
+
+    /**
+     * Clear all events
+     * @abstract
+     */
+    clear() {}
 }

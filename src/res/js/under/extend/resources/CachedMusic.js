@@ -1,12 +1,13 @@
 /**
- * Cached Music
+ * Cached music
  * - Resources Abstraction of resource management
  * - Manage resources by array
  * - Resources are cached by file path
  * - It can be acquired information as an music
- * @implements {CachedArrayManager}
+ * - ### Manages music resources
+ * @extends {CachedArrayManager}
  * @implements {IMusicManager}
- * @classdesc Cached Music that can be acquire as an image
+ * @classdesc Cached music to manage music resources
  */
 class CachedMusic extends CachedArrayManager /* , IMusicManager */ { // eslint-disable-line  no-unused-vars
     /**

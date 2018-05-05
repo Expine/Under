@@ -3,7 +3,7 @@
  * - Renders image
  * - Manages animation
  * - ### Runs single animation
- * @implements {GameAnimation}
+ * @extends {GameAnimation}
  * @classdesc Animation to run single animation
  */
 class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-vars
@@ -62,12 +62,6 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
          * @type {boolean}
          */
         this.paused = false;
-        /**
-         * Image ID
-         * @protected
-         * @type {number}
-         */
-        this.imageID = -1;
     }
 
     /**
@@ -101,6 +95,49 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
         this.animationCount = 0;
         this.runningAnimation = 0;
         this.ended = false;
+    }
+
+    /**
+     * Update animation
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        // check
+        if (this.paused || this.animation.length == 0) {
+            return;
+        }
+        if (!this.isLoop() && this.isEnded()) {
+            return;
+        }
+        // update animation
+        let delta = this.deltas[this.runningAnimation];
+        this.animationCount += dt;
+        while (this.animationCount >= delta) {
+            this.animationCount -= delta;
+            if (++this.runningAnimation >= this.animation.length) {
+                this.ended = true;
+                if (this.isLoop()) {
+                    this.runningAnimation = 0;
+                } else {
+                    this.runningAnimation--;
+                }
+            }
+            delta = this.deltas[this.runningAnimation];
+        }
+    }
+
+    /**
+     * Render animation
+     * @override
+     * @param {Context} ctx Canvas context
+     * @param {number} x Image x position
+     * @param {number} y Image y position
+     */
+    render(ctx, x, y) {
+        if (this.animation.length > 0) {
+            this.animation[this.runningAnimation].render(ctx, x, y);
+        }
     }
 
     /**
@@ -154,45 +191,5 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      */
     restore() {
         this.paused = false;
-    }
-
-    /**
-     * Update animation
-     * @override
-     * @param {number} dt
-     */
-    update(dt) {
-        if (this.paused) {
-            return;
-        }
-        let element = this.animation[this.runningAnimation];
-        let delta = this.deltas[this.runningAnimation];
-        this.animationCount += dt;
-        while (element !== undefined && this.animationCount >= delta) {
-            this.animationCount -= delta;
-            if (++this.runningAnimation >= this.animation.length) {
-                this.ended = true;
-                if (this.loop) {
-                    this.runningAnimation = 0;
-                } else {
-                    this.runningAnimation = this.animation.length - 1;
-                }
-            }
-            element = this.animation[this.runningAnimation];
-            delta = this.deltas[this.runningAnimation];
-        }
-    }
-
-    /**
-     * Render animation
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} x Image x position
-     * @param {number} y Image y position
-     */
-    render(ctx, x, y) {
-        if (this.animation.length > 0) {
-            this.animation[this.runningAnimation].render(ctx, x, y);
-        }
     }
 }

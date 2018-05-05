@@ -12,6 +12,7 @@
 class PreventKeyInput extends KeyInput { // eslint-disable-line  no-unused-vars
     /**
      * Prevent key event if it's key code is used
+     * @protected
      * @param {KeyBoardEvent} e Key event
      */
     prevent(e) {

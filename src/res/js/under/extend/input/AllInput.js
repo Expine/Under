@@ -6,7 +6,9 @@
  * - Get mouse position
  * - ### Manages all input and delegate it
  * @interface
- * @implements {Input}
+ * @extends {Input}
+ * @implements {IKey}
+ * @implements {IMouse}
  * @classdesc All input to manage all input and delegate it
  */
 class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-unused-vars
@@ -79,20 +81,6 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
         }
         if (this.mouseDelegate instanceof Input) {
             this.mouseDelegate.update();
-        }
-    }
-
-    /**
-     * Clear input state
-     * @override
-     * @protected
-     */
-    clear() {
-        if (this.keyDelegate instanceof Input) {
-            this.keyDelegate.clear();
-        }
-        if (this.mouseDelegate instanceof Input) {
-            this.mouseDelegate.clear();
         }
     }
 
@@ -212,6 +200,15 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
      */
     getMouseY() {
         return this.mouseDelegate.getMouseY();
+    }
+
+    /**
+     * Clear input state
+     * @override
+     */
+    clear() {
+        this.keyDelegate.clear();
+        this.mouseDelegate.clear();
     }
 
     /**

@@ -1,0 +1,150 @@
+@startuml GameBaseExtendResource
+
+package under {
+    package extend {
+        package ex_resource {
+            abstract CachedArrayManager {
+                #resources : Array<Object>
+                #caches : Object<string, Object>
+                {abstract} #loadResource(filePath) : Object
+                +load(filePath) : number <<override>>
+                +unload(id) <<override>>
+                +reload <<override>>
+                +getPath(id) : string <<override>>
+            }
+            class CachedImage {
+                #loadResource(filePath) : Image <<override>>
+                +getWidth(id) : number <<override>>
+                +getHeight(id) : number <<override>>
+                +getImage(id) : Image <<override>>
+            }
+            class CachedMusic {
+                #context : AudioContext
+                #loadResource(filePath) : Object <<override>>
+                +getMusic(id) : BufferSource <<override>>
+            }
+            package ex_music {
+                class BufferSourceMusic {
+                    -music_ : Array<BufferSource>
+                    -bgmList_ : Array<number>
+                    -context_ : AudioContext
+                }
+            }
+
+            package ex_image {
+                class JSContext {
+                    -_fontColor : string
+                    -_fontSize : number
+                    -_fontName : string
+                    -_lineColor : string
+                    -_lineWidth : number
+                    #ctx : CanvasRenderingContext2D
+                    +init() <<override>>
+                    +preRendering() <<override>>
+                    +postRendering() <<override>>
+                    +measureText(text,size,font) <<override>>
+                    +fillText(text,x,y,anchorX,anchorY,size,color,font) <<override>>
+                    +strokeLine(sx,sy,ex,ey,color,lineWidth) <<override>>
+                    +strokeCircle(x,y,radius,startAngle,endAngle,anticlockwise,color,lineWidth) <<override>>
+                    +strokeRect(x,y,width,height,color,lineWidth) <<override>>
+                    +fillRect(x,y,width,height,color,lineWidth) <<override>>
+                    +drawImage(imageID,x,y,width,height,srcX,srcY,srcW,srcH) <<override>>
+                }
+                class GLContext {
+                    -gl_ : WebGLRenderingContext
+                }
+                class SingleImage {
+                    #imageID : number
+                    #width : number
+                    #height : number
+                    +setSize(width,height) <<override>>
+                    +setImageID(imageID) <<override>>
+                    +render(ctx,x,y) <<override>>
+                }
+                class TileImage {
+                    #srcX : number
+                    #srcY : number
+                    #srcW : number
+                    #srcH : number
+                    +render(ctx,x,y) <<override>>
+                }
+                class SingleAnimation {
+                    #animation : Array<GameImage>
+                    #deltas : Array<number>
+                    #animationCount : number
+                    #runningAnimarion : number
+                    #loop : boolean
+                    #ended : boolean
+                    #paused : boolean
+                    +setSize(width,height) <<override>>
+                    +setImageID(imageID) <<override>>
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx,x,y) <<override>>
+                    +isLoop() : boolean <<override>>
+                    +isEnded() : boolean <<override>>
+                    +getAnimationCount() : number <<override>>
+                    +addAnimation(image,delta) <<override>>
+                    +pause() <<override>>
+                    +restore() <<override>>
+                }
+                class MultiNamedAnimation {
+                    #animation : Dictionary<string, Animation>
+                    #name : string
+                    +getAnimation() : Animation <<override>
+                    +setAnimation(animation) <<override>
+                    +setAllSize(width,height) <<override>
+                    +setAllImageID(imageID) <<override>
+                    +setName(name) <<override>
+                }
+            }
+
+        }
+    }
+}
+
+package under {
+    package base {
+        package screen {
+            abstract GameScreen
+        }
+        package resource {
+            abstract ResourceManager
+            interface IImageManager
+            interface IMusicManager
+            package music {
+                abstract Music
+            }
+            package image {
+                abstract Context
+                abstract GameImage
+                abstract GameAnimation
+                abstract NamedAnimation
+            }
+        }
+    }
+}
+
+GameScreen <.. JSContext : Get canvas and info
+IImageManager <.. JSContext : Get image
+Context <.. SingleImage : Render image
+Context <.. TileImage : Render image
+GameImage <.. SingleAnimation : Set and render
+GameAnimation <.. MultiNamedAnimation : Set
+
+Context <|.. JSContext
+Context <|.. GLContext
+Music <|.. BufferSourceMusic
+
+ResourceManager <|.. CachedArrayManager
+CachedArrayManager <|.. CachedImage
+IImageManager <|.. CachedImage
+CachedArrayManager <|.. CachedMusic
+IMusicManager <|.. CachedMusic
+
+GameImage <|.. SingleImage
+SingleImage <|- TileImage
+GameAnimation <|.. SingleAnimation
+NamedAnimation <|.. MultiNamedAnimation
+
+@enduml

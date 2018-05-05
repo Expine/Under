@@ -2,7 +2,9 @@
 
 package game {
     class Main
-    class MainBuilder
+    class MainBuilder {
+        #makeInput() : Input <<override>>
+    }
 }
 
 package under {
@@ -21,7 +23,7 @@ package game {
 }
 
 
-Main ..> MainBuilder : Generate
+Main ..> MainBuilder : Generate and build, execute
 Main ..> TitleScene : Generate
 MainBuilder ..> PreventKeyInput : Generate
 

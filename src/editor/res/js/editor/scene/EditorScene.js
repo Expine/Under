@@ -21,6 +21,13 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         this.stage.init();
 
         /**
+         * Event manager
+         * @protected
+         * @type {EventManager}
+         */
+        this.eventManager = new QueueEventManager();
+
+        /**
          * Chip layer
          * @protected
          * @type {SelectionLayer}
@@ -56,7 +63,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
         this.stage.update(dt);
 
         // update event
-        EventManager.it.update(dt);
+        this.eventManager.update(dt);
 
         // save
         if (Input.key.isPress(Input.key.a() + 18)) {
@@ -84,7 +91,7 @@ class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-var
      */
     render(ctx) {
         this.stage.render(ctx);
-        EventManager.it.render(ctx);
+        this.eventManager.render(ctx);
         ctx.fillRect(0, GameScreen.it.height - 250, GameScreen.it.width, 250, `blue`);
         super.render(ctx);
     }

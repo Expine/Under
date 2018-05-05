@@ -4,7 +4,7 @@
  * - Manages each piece of game information
  * - Fires update and rendering processing respectively
  * - ### Executes the main loop by requestAnimationFrame
- * @implements {Engine}
+ * @extends {Engine}
  * @classdesc Under engine to execute main loop by requestAnimationFrame
  */
 class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
@@ -23,10 +23,10 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
 
         /**
          * Rendering lambda function
-         * @protected
+         * @private
          * @type {lambda}
          */
-        this.loop = null;
+        this._loop = null;
     }
 
     /**
@@ -60,11 +60,11 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
     main() {
         // start main loop
         this.oldTime = +new Date();
-        this.loop = (_) => {
-            requestAnimationFrame(this.loop);
+        this._loop = (_) => {
+            requestAnimationFrame(this._loop);
             this.update();
             this.render();
         };
-        requestAnimationFrame(this.loop);
+        requestAnimationFrame(this._loop);
     }
 }

@@ -40,13 +40,6 @@ class Input { // eslint-disable-line  no-unused-vars
      * @abstract
      */
     update() {}
-
-    /**
-     * Clear input state
-     * @abstract
-     * @protected
-     */
-    clear() {}
 }
 
 /**

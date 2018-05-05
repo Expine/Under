@@ -2,7 +2,7 @@
  * Under engine builder
  * - Performs initial construction of the game engine
  * - ### Generates all necessary instances
- * @implements {EngineBuilder}
+ * @extends {EngineBuilder}
  * @classdesc Under engine builder to perform initial construction of the game engine
  */
 class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unused-vars
@@ -13,7 +13,7 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * @return {Engine} Game engine
      */
     makeEngine() {
-        return Engine.debug ? new UnderDebugEngine() : new UnderEngine();
+        return new UnderEngine();
     }
 
     /**
@@ -33,7 +33,7 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      * @return {GameScreen} Screen system
      */
     makeScreen() {
-        return new ScalableScreen();
+        return new ScalableScreen(new DetectiveScreen());
     }
 
     /**
@@ -94,15 +94,5 @@ class UnderEngineBuilder extends EngineBuilder { // eslint-disable-line  no-unus
      */
     makeSceneManager() {
         return new StackSceneManager();
-    }
-
-    /**
-     * Make event manager
-     * @override
-     * @protected
-     * @return {EventManager} Event manager
-     */
-    makeEventManager() {
-        return new QueueEventManager();
     }
 }

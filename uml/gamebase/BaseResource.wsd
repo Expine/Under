@@ -81,8 +81,8 @@ package under {
                     +init() <<override>>
                     +update(dt) <<override>>
                     +render(ctx,x,y) <<override>>
-                    +isLoop() : bool <<override>>
-                    +isEnded() : bool <<override>>
+                    +isLoop() : boolean <<override>>
+                    +isEnded() : boolean <<override>>
                     +getAnimationCount() : number <<override>>
                     +addAnimation(image,delta) <<override>>
                     +pause() <<override>>
@@ -104,10 +104,10 @@ package under {
     }
 }
 
-Context --> GameScreen : Rendering target
+Context "1"*-- "1" GameScreen : Own
 
-Context --> IImageManager : Get resource
-Music --> IMusicManager : Get resource
+Context "1"*-- "1" IImageManager : Own
+Music "1"*-- "1" IMusicManager : Own
 ResourceManager --> IImageManager : Singleton
 ResourceManager --> IMusicManager : Singleton
 
@@ -116,7 +116,7 @@ IResourceManager <|-- IImageManager
 IResourceManager <|-- IMusicManager
 
 GameImage <|-- GameAnimation
-GameAnimation <|-- MultiAnimation
+GameAnimation <|.. MultiAnimation
 MultiAnimation <|-- NamedAnimation
 
 @enduml

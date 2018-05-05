@@ -13,7 +13,7 @@ class EditorContext extends JSContext { // eslint-disable-line  no-unused-vars
      */
     preRendering() {
         super.preRendering();
-        this.ctx_.fillStyle = `gray`;
-        this.ctx_.fillRect(0, 0, this.screen.width, this.screen.height);
+        this.ctx.fillStyle = `gray`;
+        this.ctx.fillRect(0, 0, this.screen.width, this.screen.height);
     }
 }

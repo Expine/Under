@@ -11,27 +11,15 @@ class EventManager { // eslint-disable-line  no-unused-vars
      */
     constructor() {
         // set singleton
-        EventManager.it = this;
         if (BaseUtil.implementsOf(this, IEventRegister)) {
-            EventManager.register = this;
+            EventManager.it = this;
         }
     }
 
     /**
-     * Get currently running event
-     * @abstract
-     * @return {Array<GameEvent>} Currently running events
-     */
-    getRunningEvents() {}
-
-    /**
-     * Clear all events
-     * @abstract
-     */
-    clear() {}
-
-    /**
      * Remove events from event manager
+     * @abstract
+     * @protected
      * @param {Array<GameEvent>} removes List of event for removing
      */
     removeEvents(removes) {}
@@ -65,12 +53,6 @@ class EventManager { // eslint-disable-line  no-unused-vars
 
 /**
  * Instance for singleton
- * @type {EventManager}
- */
-EventManager.it = null;
-
-/**
- * Instance for singleton
  * @type {IEventRegister}
  */
-EventManager.register = null;
+EventManager.it = null;
