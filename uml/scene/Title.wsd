@@ -3,15 +3,36 @@
 package game {
     package ga_scene {
         class TitleScene {
-            -title_ : number
+            -_title : GameImage
+            +init() <<override>>
+            +update(dt) <<override>>
+            +render(ctx) <<override>>
         }
     }
 }
 
 package under {
     package base {
+        package input {
+            abstract IKey
+        }
+        package resource {
+            interface IIMageManager
+            package image {
+                abstract GameImage
+            }
+        }
         package scene {
+            abstract SceneManager
             abstract Scene
+        }
+    }
+
+    package extend {
+        package ex_resource {
+            package ex_image {
+                class SingleImage
+            }
         }
     }
 }
@@ -22,8 +43,13 @@ package game {
     }
 }
 
+SingleImage <..TitleScene : Generate
+IIMageManager <.. TitleScene : Load
+IKey <.. TitleScene : Get key
+SceneManager <.. TitleScene : Replcae
+GameImage <.. TitleScene : Render
 TitleScene ..> GameScene : Generate
 
-TitleScene ..|> Scene
+Scene <|.. TitleScene
 
 @enduml

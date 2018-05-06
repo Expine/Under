@@ -67,6 +67,15 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
     }
 
     /**
+     * Judge whether game over or not
+     * @abstract
+     * @return {boolean} whether game over or not
+     */
+    isGameover() {
+        return this.getHP() <= 0 || this.stage.getStageHeight() < this.y;
+    }
+
+    /**
      * Update object
      * @override
      * @param {number} dt Delta time

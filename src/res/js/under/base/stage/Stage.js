@@ -120,6 +120,22 @@ class Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get stage width
+     * @return {number} Stage width
+     */
+    getStageWidth() {
+        return this.stageWidth;
+    }
+
+    /**
+     * Get stage height
+     * @return {number} Stage height
+     */
+    getStageHeight() {
+        return this.stageHeight;
+    }
+
+    /**
      * Remove entity from stage
      * @abstract
      * @param {Entity} entity Entity object

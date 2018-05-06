@@ -18,4 +18,11 @@ class IPlayable extends Interface { // eslint-disable-line  no-unused-vars
      * @return {number} y position for camera
      */
     getCameraY() {}
+
+    /**
+     * Judge whether game over or not
+     * @abstract
+     * @return {boolean} whether game over or not
+     */
+    isGameover() {}
 }

@@ -10,8 +10,8 @@ class SingleImage extends GameImage { // eslint-disable-line  no-unused-vars
      * SIngle image constructor
      * @constructor
      * @param {number} imageID Image ID
-     * @param {number} width Image width
-     * @param {number} height Image height
+     * @param {number} [width = undefined] Image width
+     * @param {number} [height = undefined] Image height
      */
     constructor(imageID, width, height) {
         super();

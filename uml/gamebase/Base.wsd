@@ -102,6 +102,12 @@ package under {
                 {abstract} +update(dt)
                 {abstract} +render(ctx)
             }
+            abstract LayeredScene {
+                +addLayer(layer)
+                {abstract} #getLayers() : Array<Layer>
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
+            }
 
             package layer {
                 abstract Layer {
@@ -187,5 +193,7 @@ Interface ..> Method : Use
 
 IInput <|-- IKey
 IInput <|-- IMouse
+
+Scene <|.. LayeredScene
 
 @enduml

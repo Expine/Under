@@ -1,12 +1,13 @@
 /**
  * Game Scene
  * - Controls updating and rendering
+ * - It consists of layers
  * - Basic form of a scene composed of layers
  * - ### Render stage and control gameover
- * @extends {LayerBaseScene}
+ * @extends {BaseLayeredScene}
  * @classdesc Game scene to render stage and control gameover
  */
-class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
+class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-vars
     /**
      * Game scene
      */
@@ -30,7 +31,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
         /**
          * Game player
          * @protected
-         * @type {Player}
+         * @type {IPlayable}
          */
         this.player = null;
 
@@ -54,11 +55,11 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
         this.eventManager = new QueueEventManager();
 
         // set player
-        this.player = this.stageManager.getStage().getEntities().filter((it) => it instanceof Player)[0];
+        this.player = this.stageManager.getStage().getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable));
 
         // initialize layer
         this.layers.length = 0;
-        this.addLayer(new UILayer(this.player));
+        this.addLayer(new UILayer(this.stageManager.getStage()));
         this.gameover = false;
     }
 
@@ -69,11 +70,7 @@ class GameScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         // gameover
-        if (this.player.y > this.stageManager.getStage().stageHeight) {
-            // TODO: Should get stage height by interface
-            this.player.setHP(0);
-        }
-        if (this.player.getHP() <= 0 && !this.gameover) {
+        if (this.player.isGameover() && !this.gameover) {
             this.addLayer(new GameoverLayer());
             this.gameover = true;
         }

@@ -1,12 +1,13 @@
 /**
  * Editor scene
  * - Controls updating and rendering
+ * - It consists of layers
  * - Basic form of a scene composed of layers
  * - ### Makes stage
- * @extends {LayerBaseScene}
+ * @extends {BaseLayeredScene}
  * @classdesc Editor scene to make stage
  */
-class EditorScene extends LayerBaseScene { // eslint-disable-line  no-unused-vars
+class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-vars
     /**
      * Initialize scene
      * @override

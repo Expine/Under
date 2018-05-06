@@ -4,28 +4,27 @@ package under {
     package extend {
         package ex_scene {
             class StackSceneManager {
-                -scenes_ : Array<Scene>
+                #scenes : Array<Scene>
+                #getScene() : Scene <<override>>
+                +pushScene(scene) <<override>>
+                +popScene() <<override>>
             }
-            class LayerBaseScene {
+            class BaseLayeredScene {
                 #layers : Array<Layer>
+                +addLayer(layer) <<override>>
+                #getLayers() : Array<Layer> <<override>>
             }
             class DefaultTitleScene {
                 -r_ : number
                 -angle_ : number
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
             }
 
             package ex_layer {
-                class GameoverLayer
-                class DebugLayer {
-                    #deltaTime : number
-                    #collisions : number
-                    #playerCollisions : number
-                    #stage : Stage
-                    #player : Entity
-                    #count : number
-                    #recode : Array<Object>
-                    #timers : Dictionary<string, Array<number>>
-                    #timerVals : Dictionary<string, number>
+                class GameoverLayer {
+                    +update(dt) <<override>>
+                    +render(ctx) <<override>>
                 }
             }
         }
@@ -34,8 +33,18 @@ package under {
 
 package under {
     package base {
+        package input {
+            abstract IKey
+            abstract IMouse
+        }
+        package resource {
+            package image {
+                abstract Context
+            }
+        }
         package scene {
             abstract Scene
+            abstract LayeredScene
             abstract SceneManager
             package layer {
                 abstract Layer
@@ -44,10 +53,14 @@ package under {
     }
 }
 
+Context <.. DefaultTitleScene : Render
+IKey <.. DefaultTitleScene : Get key
+IMouse <.. DefaultTitleScene : Get mouse
+Context <.. GameoverLayer : Render text
+
 SceneManager <|.. StackSceneManager
-Scene <|.. LayerBaseScene
+LayeredScene <|.. BaseLayeredScene
 Scene <|.. DefaultTitleScene
 Layer <|.. GameoverLayer
-Layer <|.. DebugLayer
 
 @enduml

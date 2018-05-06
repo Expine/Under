@@ -2,37 +2,54 @@
  * UI layer
  * - Performs drawing processing collectively
  * - ### Display UI
- * @implements {Layer}
+ * @extends {Layer}
  * @classdesc UI layer to display UI
  */
 class UILayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * UI layer constructor
      * @constructor
-     * @param {Player} player Player instance
+     * @param {Stage} stage Stage instance
      */
-    constructor(player) {
+    constructor(stage) {
         super();
         /**
-         * Player instance
+         * Stage instance
          * @protected
-         * @type {Player}
+         * @type {Stage}
          */
-        this.player = player;
+        this.stage = stage;
+        /**
+         * Damagable player instance
+         * @protected
+         * @type {IDamagable}
+         */
+        this.player = null;
         /**
          * Player hit point
          * @protected
          * @type {number}
          */
-        this.playerHP = player.getHP();
+        this.playerHP = 0;
 
-        // Load UI image
         /**
          * UI Image
          * @protected
-         * @type {MultiNamedAnimation}
+         * @type {NamedAnimation}
          */
         this.uiAnimation = new MultiNamedAnimation();
+    }
+
+    /**
+     * Initialize scene
+     * @override
+     */
+    init() {
+        // find player
+        this.player = this.stage.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable) && BaseUtil.implementsOf(it, IDamagable));
+        this.playerHP = this.player.getHP();
+
+        // load animation
         let uiImage = ResourceManager.image.load(`ui/hp.png`);
         for (let i = 0; i < 6; ++i) {
             this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`);
@@ -48,7 +65,9 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
             }
         }
         this.uiAnimation.setName(`${this.player.getHP()}-${this.player.getHP()}`);
+        this.uiAnimation.init();
     }
+
     /**
      * Update layer
      * @override
@@ -58,15 +77,16 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
         // Check hp change
         let diff = this.playerHP - this.player.getHP();
         if (diff != 0 && (this.uiAnimation.isEnded() || this.uiAnimation.isLoop())) {
+            // decreasing animation
             this.uiAnimation.setName(`${this.playerHP}-${this.playerHP - Math.sign(diff)}`);
             this.uiAnimation.init();
             this.playerHP = this.playerHP - Math.sign(diff);
         } else if (this.playerHP > 0 && diff == 0 && (this.uiAnimation.isEnded() && !this.uiAnimation.isLoop())) {
+            // transition to normal animation
             this.uiAnimation.setName(`${this.playerHP}-${this.playerHP}`);
             this.uiAnimation.init();
         }
-        // animationS
-        this.animationCount += dt;
+        // animation
         this.uiAnimation.update(dt);
     }
 

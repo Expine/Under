@@ -2,21 +2,31 @@
  * Title Scene
  * - Controls updating and rendering
  * - ### Display title image
- * @implements {Scene}
+ * @extends {Scene}
  * @classdesc Title scene to display title image
  */
 class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
+    /**
+     * Title scene constructor
+     * @constructor
+     */
+    constructor() {
+        super();
+
+        /**
+         * Title image id
+         * @private
+         * @type {GameImage}
+         */
+        this._title = null;
+    }
+
     /**
      * Initialize scene
      * @override
      */
     init() {
-        /**
-         * Title image id
-         * @private
-         * @type {number}
-         */
-        this.title_ = ResourceManager.image.load(`ui/title.png`);
+        this._title = new SingleImage(ResourceManager.image.load(`ui/title.png`), 370, 120);
     }
 
     /**
@@ -36,6 +46,6 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        ctx.drawImage(this.title_, 215, 240, 370, 120);
+        this._title.render(ctx, 215, 240);
     }
 }

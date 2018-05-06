@@ -3,46 +3,78 @@
 package game {
     package ga_layer {
         class UILayer {
-            #player : Player
+            #stage : Stage
+            #player : IDamagable
             #playerHP : number
-            #animationCount : number
-            #animationFrame : number
-            #animationState : number
-            #uiImage : number
+            #uiAnimation : NamedAnimation
+            +init() <<override>>
+            +update(dt) <<override>>
+            +render(ctx) <<override>>
         }
     }
     package ga_scene {
         class GameScene {
-            #stage : Stage
-            #player : Player
-            #gameover : bool
+            #stageManager : StageManager
+            #eventManager : EventManager
+            #player : IPlayable
+            #gameover : boolean
+            +init() <<override>>
+            +update(dt) <<override>>
+            +render(ctx) <<override>>
         }
     }
 }
 
 package under {
     package base {
+        package event {
+            abstract EventManager
+        }
+        package input {
+            abstract IKey
+        }
+        package resource {
+            interface IIMageManager
+            package image {
+                abstract NamedAnimation
+            }
+        }
         package scene {
+            abstract SceneManager
             package layer {
                 abstract Layer
+            }
+        }
+        package stage {
+            abstract StageManager
+            abstract Stage
+            package entity {
+                package interface {
+                    interface IPlayable
+                }
             }
         }
     }
 
     package extend {
-        package ex_context {
-            class MultiNamedAnimation
+        package ex_event {
+            class QueueEventManager
+        }
+        package ex_resource {
+            package ex_image {
+                class TileImage
+                class SingleAnimation
+                class MultiNamedAnimation
+            }
         }
         package ex_scene {
-            class LayerBaseScene
+            class BaseLayeredScene
             package ex_layer {
                 class GameoverLayer
             }
         }
         package ex_stage {
-            package ex_entity {
-                class Player
-            }
+            class StackStageManager
         }
     }
 }
@@ -56,15 +88,27 @@ package game {
     }
 }
 
-GameScene ..> UnderStageParser : Generate
-GameScene ..> UILayer : Generate
-GameScene ..> GameoverLayer : Generate
-GameScene ..> Player : Pass to another class, transtate gameover state
-GameScene ..> TitleScene : Generate
+UnderStageParser <.. GameScene  : Generate
+StackStageManager <.. GameScene : Generate
+QueueEventManager <.. GameScene : Generate
+UILayer <.. GameScene  : Generate
+GameoverLayer <.. GameScene  : Generate
+TitleScene <.. GameScene  : Generate
+IPlayable <.. GameScene  : Judge gameover
+StageManager <.. GameScene : Update and render, get stage
+Stage <.. GameScene : Get player
+EventManager <.. GameScene : Update and render
+IKey <.. GameScene : Get key
+SceneManager <.. GameScene : Replcae
 
-UILayer ..> MultiNamedAnimation : Use
+Stage <.. UILayer : Get player
+IIMageManager <.. UILayer : Load
+MultiNamedAnimation <.. UILayer : Generate
+SingleAnimation <.. UILayer : Generate
+TileImage <.. UILayer : Generate
+NamedAnimation <.. UILayer : Configure and update, render
 
-GameScene --|> LayerBaseScene
-UILayer ..|> Layer
+BaseLayeredScene <|-- GameScene
+Layer <|-- UILayer
 
 @enduml
