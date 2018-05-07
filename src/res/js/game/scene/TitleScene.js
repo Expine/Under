@@ -27,6 +27,7 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
      */
     init() {
         this._title = new SingleImage(ResourceManager.image.load(`ui/title.png`), 370, 120);
+        this._title.init();
     }
 
     /**
@@ -35,6 +36,7 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
+        this._title.update(dt);
         if (Input.key.isPress(Input.key.yes())) {
             SceneManager.it.replaceScene(new GameScene());
         }

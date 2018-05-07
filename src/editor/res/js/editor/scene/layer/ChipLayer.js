@@ -1,80 +1,59 @@
 /**
  * Chip layer
  * - Performs drawing processing collectively
+ * - It can manage layers by tab
+ * - Shows name and it can tap name tab
  * - Selects something and set selected
- * - Selects something
+ * - It can save data
  * - ### Selects chips
- * @implements {SelectionLayer}
+ * @extends {NamedTabbedLayer}
  * @classdesc Chip layer to select chips
  */
-class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
+class ChipLayer extends NamedTabbedLayer /* , ISelection, IEditorSave */ { // eslint-disable-line  no-unused-vars
     /**
      * Chip layer constructor
      * @constructor
-     * @param {Object<number, JSON>} tileInfo Tile inforamtion json data
      */
-    constructor(tileInfo) {
-        super(-1);
+    constructor() {
+        super();
 
-        let tileInfos = {};
-        let imageIDs = {};
-        for (let it in tileInfo) {
-            if (tileInfo.hasOwnProperty(it) && !isNaN(it)) {
-                let fileName = tileInfo[it].image.file;
-                if (tileInfos[fileName] === undefined) {
-                    tileInfos[fileName] = {};
-                    imageIDs[fileName] = ResourceManager.image.load(`tile/${fileName}`);
-                }
-                tileInfos[fileName][it] = tileInfo[it];
-            }
-        }
+        /**
+         * Tile information
+         * @protected
+         * @type {Object<number, JSON>}
+         */
+        this.tileInfo = null;
 
+        /**
+         * List of chip layer
+         * @protected
+         * @type {Array<SelectionLayer>}
+         */
         this.chipLayers = [];
-        this.names = [];
+        /**
+         * Selected item
+         * @protected
+         * @type {ISelection}
+         */
+        this.selected = null;
+    }
 
-        for (let it in tileInfos) {
-            if (tileInfos.hasOwnProperty(it)) {
-                this.names.push(it);
-                this.chipLayers.push(new SingleChipLayer(tileInfos[it], imageIDs[it]));
+    /**
+     * Set information for selection
+     * @override
+     * @param {JSON} info Selection information
+     */
+    setSelectionInfo(info) {
+        this.tileInfo = {};
+        for (let it in info) {
+            if (info.hasOwnProperty(it) && !isNaN(it)) {
+                let fileName = info[it].image.file;
+                if (this.tileInfo[fileName] === undefined) {
+                    this.tileInfo[fileName] = {};
+                }
+                this.tileInfo[fileName][it] = info[it];
             }
         }
-
-
-        this.tabX = 0;
-        this.tabY = -20;
-        this.tabWidth = 70;
-        this.tabHeight = 20;
-        this.tabPadding = 10;
-
-        this.selectedChipLayer = 0;
-    }
-
-    /**
-     * Get json data for saving
-     * @return {JSON} Json data for saving
-     */
-    getSaveData() {
-        let data = {};
-        data.tiles = [];
-        for (let i = 0; i < this.chipLayers.length; ++i) {
-            let tile = {};
-            tile.file = this.names[i];
-            tile.chips = this.chipLayers[i].getSaveData();
-            data.tiles.push(tile);
-        }
-        return data;
-    }
-
-    /**
-     * Set Selection layer position
-     * @param {number} x Chip layer x position
-     * @param {number} y Chip layer y position
-     * @param {number} width Chip layer width
-     * @param {number} height Chip layer height
-     */
-    setPosition(x, y, width, height) {
-        super.setPosition(x, y, width, height);
-        this.chipLayers[this.selectedChipLayer].setPosition(x, y, width, height);
     }
 
     /**
@@ -83,7 +62,7 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
      * @return {number} Selected tile ID (return -1 if not selected)
      */
     getSelected() {
-        return this.chipLayers[this.selectedChipLayer].getSelected();
+        return this.chipLayers[this.currentlyTabIndex].getSelected();
     }
 
     /**
@@ -95,54 +74,42 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
         for (let i = 0; i < this.chipLayers.length; ++i) {
             this.chipLayers[i].setSelected(id);
             if (this.chipLayers[i].getSelected() != -1) {
-                this.selectedChipLayer = i;
+                this.currentlyTabIndex = i;
             }
         }
     }
 
     /**
-     * Get selection image width
+     * Get json data for saving
      * @override
-     * @return {number} Selection image width
+     * @return {JSON} Json data for saving
      */
-    getImageWidth() {
-        return this.chipLayers[this.selectedChipLayer].getImageWidth();
-    }
-
-    /**
-     * Get selection image height
-     * @override
-     * @return {number} Selection image height
-     */
-    getImageHeight() {
-        return this.chipLayers[this.selectedChipLayer].getImageHeight();
-    }
-
-    /**
-     * Update layer
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        super.update(dt);
-        for (let it of this.chipLayers) {
-            it.clipX = this.clipX;
-            it.clipY = this.clipY;
+    getSaveData() {
+        let data = {};
+        data.tiles = [];
+        for (let i = 0; i < this.chipLayers.length; ++i) {
+            let tile = {};
+            tile.file = this.tabNames[i];
+            tile.chips = this.chipLayers[i].getSaveData();
+            data.tiles.push(tile);
         }
-        // switch tab
-        let x = Input.mouse.getMouseX() - this.x;
-        let y = Input.mouse.getMouseY() - this.y;
-        if (Input.mouse.isPress(Input.mouse.mLeft())) {
-            for (let i = 0; i < this.chipLayers.length; ++i) {
-                let sx = this.x + this.tabX + (this.tabWidth + this.tabPadding) * i;
-                if (sx < x && x < sx + this.tabWidth && this.tabY < y && y < this.tabY + this.tabHeight) {
-                    this.selectedChipLayer = i;
-                    return;
-                }
+        return data;
+    }
+
+    /**
+     * Initialize layer
+     * @override
+     */
+    init() {
+        for (let it in this.tileInfo) {
+            if (this.tileInfo.hasOwnProperty(it)) {
+                // create layer
+                let layer = new SingleChipLayer(it);
+                layer.setSelectionInfo(this.tileInfo[it]);
+                this.chipLayers.push(layer);
+                this.addTabWithName(new DragScrollLayer(layer), it);
             }
         }
-        // save currently id
-        this.chipLayers[this.selectedChipLayer].update(dt);
     }
 
     /**
@@ -152,11 +119,6 @@ class ChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         ctx.fillRect(this.x, this.y, this.width, this.height, `green`);
-        for (let i = 0; i < this.chipLayers.length; ++i) {
-            ctx.fillRect(this.x + this.tabX + (this.tabWidth + this.tabPadding) * i, this.y + this.tabY, 70, 15, `white`);
-            ctx.fillText(`${this.names[i]}`, this.x + this.tabX + (this.tabWidth + this.tabPadding) * (i + 0.4), this.y + this.tabY + this.tabHeight / 2.7, 0.5, 0.5, 12, `black`);
-        }
         super.render(ctx);
-        this.chipLayers[this.selectedChipLayer].render(ctx);
     }
 }

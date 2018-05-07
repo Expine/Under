@@ -19,6 +19,6 @@ class GameoverLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        ctx.fillText(`Gameover`, 400, 300, 0.5, 0.5, 100, `red`);
+        ctx.fillText(`Gameover`, this.x + this.width / 2, this.y + this.height / 2, 0.5, 0.5, 100, `red`);
     }
 }

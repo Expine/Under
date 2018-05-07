@@ -103,4 +103,18 @@ class Util { // eslint-disable-line  no-unused-vars
     static canEnd(image) {
         return !(image instanceof GameAnimation) || image.isEnded();
     }
+
+    /**
+     * Remove element from list if element exists
+     * @param {Array<?>} list Tartget list
+     * @param {?} element Target  element
+     * @return {number} Index of element if it exists
+     */
+    static removeIfExists(list, element) {
+        let index = list.indexOf(element);
+        if (index >= 0) {
+            list.splice(index, 1);
+        }
+        return index;
+    }
 }

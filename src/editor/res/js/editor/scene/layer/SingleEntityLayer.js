@@ -1,47 +1,34 @@
 /**
  * Single entity layer
  * - Performs drawing processing collectively
+ * - Clips area when rendering
  * - Selects something and set selected
+ * - It can save data
  * - Selects something
  * - ### Selects a entity
- * @implements {SelectionLayer}
+ * @extends {SelectionLayer}
  * @classdesc Entity layer to select a entity
  */
 class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
     /**
      * Single entity layer constructor
      * @constructor
-     * @param {JSON} info Entity inforamtion json data
      */
-    constructor(info) {
-        super(-1);
+    constructor() {
+        super();
 
         /**
          * Entity information json data
          * @protected
          * @type {JSON}
          */
-        this.entity = info;
+        this.entityData = null;
 
         /**
          * Entity animation
-         * @type {GameAnimation}
+         * @type {IClipImage}
          */
-        this.animation = new SingleAnimation();
-        if (info.image.type == `single`) {
-            let file = ResourceManager.image.load(`chara/${info.image.file}`);
-            this.animation.addAnimation(new TileImage(file, info.image.width, info.image.height, 0, 0, 32, 32), 200);
-        } else if (info.image.type == `anime`) {
-            let file = ResourceManager.image.load(`chara/${info.image.file}`);
-            for (let it of info.image.animation) {
-                this.animation.addAnimation(new TileImage(file, info.image.width, info.image.height, it.x, it.y, it.width, it.height), it.delta);
-            }
-        } else if (info.image.type == `multianime`) {
-            let file = ResourceManager.image.load(`chara/${info.image.file}`);
-            for (let it of info.image.animations[0].animation) {
-                this.animation.addAnimation(new TileImage(file, info.image.width, info.image.height, it.x, it.y, it.width, it.height), it.delta);
-            }
-        }
+        this.animation = null;
 
         /**
          * Selection entity
@@ -59,6 +46,15 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
     }
 
     /**
+     * Set information for selection
+     * @override
+     * @param {JSON} info Selection information
+     */
+    setSelectionInfo(info) {
+        this.entityData = info;
+    }
+
+    /**
      * Get selected entity ID
      * @override
      * @return {number} Selected entity ID (return -1 if not selected)
@@ -73,22 +69,35 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
      * @param {number} id Entity ID (if not selected, -1)
      */
     setSelected(id) {
-        this.selectedEntity = id < 0 ? null : this.entity;
+        this.selectedEntity = id == this.entityData.id ? this.entityData : null;
     }
 
     /**
-     * Set Selection layer position
+     * Initialize layer
      * @override
-     * @param {number} x Chip layer x position
-     * @param {number} y Chip layer y position
-     * @param {number} width Chip layer width
-     * @param {number} height Chip layer height
      */
-    setPosition(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = this.entity.width;
-        this.height = this.entity.height;
+    init() {
+        // set size
+        this.setSize(this.entityData.width, this.entityData.height);
+
+        // load animation
+        let file = ResourceManager.image.load(`chara/${this.entityData.image.file}`);
+        if (this.entityData.image.type == `single`) {
+            this.animation = new SingleClipImage(file, this.entityData.image.width, this.entityData.image.height);
+        } else if (this.entityData.image.type == `anime`) {
+            let animation = new SingleClipAnimation();
+            for (let it of this.entityData.image.animation) {
+                animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
+            }
+            this.animation = animation;
+        } else if (this.entityData.image.type == `multianime`) {
+            let animation = new SingleClipAnimation();
+            for (let it of this.entityData.image.animations[0].animation) {
+                animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
+            }
+            this.animation = animation;
+        }
+        this.animation.init();
     }
 
     /**
@@ -99,11 +108,17 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
     update(dt) {
         this.animation.update(dt);
         this.selectEntity = null;
-        let x = Input.mouse.getMouseX() - this.x + this.clipX;
-        let y = Input.mouse.getMouseY() - this.y + this.clipY;
+        let x = Input.mouse.getMouseX();
+        let y = Input.mouse.getMouseY();
+        // check cliping
+        if (x < this.clipX || this.clipX + this.clipWidth < x || y < this.clipY || this.clipY + this.clipHeight < y) {
+            return;
+        }
+        x -= this.x;
+        y -= this.y;
         // check layer
         if (0 <= x && x < this.width && 0 <= y && y < this.height) {
-            this.selectEntity = this.entity;
+            this.selectEntity = this.entityData;
         }
         if (Input.mouse.isPress(Input.mouse.mLeft())) {
             this.selectedEntity = this.selectEntity;
@@ -116,12 +131,15 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        this.animation.render(ctx, this.x - this.clipX, this.y - this.clipY);
+        if (this.x + this.width < this.clipX || this.clipX + this.clipWidth < this.x || this.y + this.height < this.clipY || this.clipY + this.clipHeight < this.y) {
+            return;
+        }
+        this.animation.clipingRender(ctx, this.x, this.y, this.clipX, this.clipY, this.clipWidth, this.clipHeight);
         if (this.selectEntity != null) {
-            ctx.strokeRect(this.x - this.clipX, this.y - this.clipY, this.width, this.height, `red`);
+            ctx.strokeRect(this.x, this.y, this.width, this.height, `red`);
         }
         if (this.selectedEntity != null) {
-            ctx.strokeRect(this.x - this.clipX, this.y - this.clipY, this.width, this.height, `white`);
+            ctx.strokeRect(this.x, this.y, this.width, this.height, `white`);
         }
     }
 }

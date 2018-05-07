@@ -11,8 +11,11 @@ package under {
             }
             class BaseLayeredScene {
                 #layers : Array<Layer>
+                #sortedLayers : Array<Layer>
                 +addLayer(layer) <<override>>
+                +removeLayer(layer) <<override>>
                 #getLayers() : Array<Layer> <<override>>
+                +render(ctx) <<override>>
             }
             class DefaultTitleScene {
                 -r_ : number
@@ -23,6 +26,59 @@ package under {
 
             package ex_layer {
                 class GameoverLayer {
+                    +update(dt) <<override>>
+                    +render(ctx) <<override>>
+                }
+                class FloatLayer {
+                    +constructor(delegate)
+                    #delegate : Layer
+                    +setPosition(x,y,z) <<override>>
+                    +setSize(width,heightC) <<override>>
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx) <<override>>
+                }
+                class ScrollLayer {
+                    +constructor(delegate)
+                    #delegate : Layer
+                    #scrollX : number
+                    #scrollY : number
+                    +scroll(x,y)
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx) <<override>>
+                }
+                class DragScrollLayer {
+                    +constructor(delegate)
+                    #oldMouseX : number
+                    #oldMouseY : number
+                    #scrolling : boolean
+                    +update(dt) <<override>>
+                }
+                abstract TabbedLayer {
+                    +setPosition(x,y,z) <<override>>
+                    +setSize(width,heightC) <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx) <<override>>
+                    +addTab(layer)
+                    {abstract} +removeTab(layer)
+                    {abstract} +getTab() : Layer
+                    {abstract} +getTabs() : Array<Layer>
+                }
+                class NamedTabbedLayer {
+                    #tabNames : Array<string>
+                    #tabLayers : Array<Layer>
+                    #currentlyTabIndex : number
+                    #tabX : number
+                    #tabY : number
+                    #tabWidth : number
+                    #tabHeight : number
+                    #tabPadding : number
+                    +addTabWithName(layer,name)
+                    +addTab(layer) <<override>>
+                    +removeTab(layer) <<override>>
+                    +getTab() : Layer <<override>>
+                    +getTabs() : Array<Layer> <<override>>
                     +update(dt) <<override>>
                     +render(ctx) <<override>>
                 }
@@ -48,6 +104,7 @@ package under {
             abstract SceneManager
             package layer {
                 abstract Layer
+                abstract ClipLayer
             }
         }
     }
@@ -58,9 +115,17 @@ IKey <.. DefaultTitleScene : Get key
 IMouse <.. DefaultTitleScene : Get mouse
 Context <.. GameoverLayer : Render text
 
+ClipLayer <.. ScrollLayer : Cliping
+
 SceneManager <|.. StackSceneManager
 LayeredScene <|.. BaseLayeredScene
 Scene <|.. DefaultTitleScene
+
 Layer <|.. GameoverLayer
+Layer <|.. FloatLayer
+Layer <|.. ScrollLayer
+Layer <|.. TabbedLayer
+ScrollLayer <|-- DragScrollLayer
+TabbedLayer <|.. NamedTabbedLayer
 
 @enduml

@@ -96,6 +96,6 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        this.uiAnimation.render(ctx, 10, 530);
+        this.uiAnimation.render(ctx, this.x + 10, this.y + 530);
     }
 }

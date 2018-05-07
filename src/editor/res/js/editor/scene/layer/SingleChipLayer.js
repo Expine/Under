@@ -1,27 +1,41 @@
 /**
  * Single chip layer
  * - Performs drawing processing collectively
+ * - Clips area when rendering
  * - Selects something and set selected
+ * - It can save data
  * - Selects something
  * - ### Selects chip
- * @implements {SelectionLayer}
+ * @extends {ClipLayer}
  * @classdesc Single chip layer to select chip
  */
 class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
     /**
      * Single chip layer constructor
      * @constructor
-     * @param {Object<number, JSON>} tileInfo Tile inforamtion json data
-     * @param {number} imageID Image ID
+     * @param {string} fileName Chip file path
      */
-    constructor(tileInfo, imageID) {
-        super(imageID);
+    constructor(fileName) {
+        super();
         /**
          * Tile inforamtion json data
          * @protected
          * @type {Object<number, JSON>}
          */
-        this.tileInfo = tileInfo;
+        this.tileInfo = null;
+
+        /**
+         * Chip file path
+         * @protected
+         * @type {string}
+         */
+        this.fileName = fileName;
+        /**
+         * Tile image
+         * @protected
+         * @type {IClipImage}
+         */
+        this.tileImage = null;
 
         /**
          * Selection tile
@@ -29,7 +43,6 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
          * @type {JSON}
          */
         this.selectTile = null;
-
         /**
          * Selected tile
          * @protected
@@ -39,25 +52,12 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
     }
 
     /**
-     * Get json data for saving
-     * @return {JSON} Json data for saving
+     * Set information for selection
+     * @override
+     * @param {JSON} info Selection information
      */
-    getSaveData() {
-        let data = [];
-        let list = [];
-        // sort
-        for (let it in this.tileInfo) {
-            if (this.tileInfo.hasOwnProperty(it) && !isNaN(it)) {
-                list.push(parseInt(it));
-            }
-        }
-        list = list.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
-        for (let it of list) {
-            let info = Object.assign({}, this.tileInfo[`${it}`]);
-            delete info.file;
-            data.push(info);
-        }
-        return data;
+    setSelectionInfo(info) {
+        this.tileInfo = info;
     }
 
     /**
@@ -82,6 +82,37 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
     }
 
     /**
+     * Get json data for saving
+     * @override
+     * @return {JSON} Json data for saving
+     */
+    getSaveData() {
+        let data = [];
+        let list = [];
+        // sort
+        for (let it in this.tileInfo) {
+            if (this.tileInfo.hasOwnProperty(it) && !isNaN(it)) {
+                list.push(parseInt(it));
+            }
+        }
+        list = list.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+        for (let it of list) {
+            data.push(this.tileInfo[it]);
+        }
+        return data;
+    }
+
+    /**
+     * Initialize layer
+     * @override
+     */
+    init() {
+        super.init();
+        this.tileImage = new SingleClipImage(ResourceManager.image.load(`tile/${this.fileName}`));
+        this.tileImage.init();
+    }
+
+    /**
      * Update layer
      * @override
      * @param {number} dt Delta time
@@ -89,16 +120,19 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
     update(dt) {
         super.update(dt);
 
+        this.tileImage.update(dt);
         // tile selection
         this.selectTile = null;
-        let x = Input.mouse.getMouseX() - this.x;
-        let y = Input.mouse.getMouseY() - this.y;
+        let x = Input.mouse.getMouseX();
+        let y = Input.mouse.getMouseY();
+        this.width = this.tileImage.getWidth();
+        this.height = this.tileImage.getHeight();
         // check layer
-        if (0 > x || x >= this.width || 0 > y || y >= this.height) {
+        if (x < this.clipX || this.clipX + this.clipWidth < x || y < this.clipY || this.clipY + this.clipHeight < y) {
             return;
         }
-        x += this.clipX;
-        y += this.clipY;
+        x -= this.x;
+        y -= this.y;
         for (let id in this.tileInfo) {
             if (this.tileInfo.hasOwnProperty(id)) {
                 let tile = this.tileInfo[id];
@@ -119,12 +153,12 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        super.render(ctx);
+        this.tileImage.clipingRender(ctx, this.x, this.y, this.clipX, this.clipY, this.clipWidth, this.clipHeight);
         if (this.selectTile != null) {
-            ctx.strokeRect(this.selectTile.image.x + this.x + this.clipX, this.selectTile.image.y + this.y - this.clipY, this.selectTile.image.width, this.selectTile.image.height, `red`);
+            ctx.strokeRect(this.selectTile.image.x + this.x, this.selectTile.image.y + this.y, this.selectTile.image.width, this.selectTile.image.height, `red`);
         }
         if (this.selectedTile != null) {
-            ctx.strokeRect(this.selectedTile.image.x + this.x + this.clipX, this.selectedTile.image.y + this.y - this.clipY, this.selectedTile.image.width, this.selectedTile.image.height, `white`);
+            ctx.strokeRect(this.selectedTile.image.x + this.x, this.selectedTile.image.y + this.y, this.selectedTile.image.width, this.selectedTile.image.height, `white`);
         }
     }
 }

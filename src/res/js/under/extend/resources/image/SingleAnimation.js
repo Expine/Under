@@ -1,10 +1,10 @@
 /**
- * Single Animation
+ * Single animation
  * - Renders image
  * - Manages animation
  * - ### Runs single animation
  * @extends {GameAnimation}
- * @classdesc Animation to run single animation
+ * @classdesc Single animation to run single animation
  */
 class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-vars
     /**
@@ -85,6 +85,24 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
         for (let it of this.animation) {
             it.setImageID(imageID);
         }
+    }
+
+    /**
+     * Get image width
+     * @override
+     * @return {number} Imag width
+     */
+    getWidth() {
+        return this.animation.length == 0 ? 0 : this.animation[this.runningAnimation].getWidth();
+    }
+
+    /**
+     * Get image height
+     * @override
+     * @return {number} Imag height
+     */
+    getHeight() {
+        return this.animation.length == 0 ? 0 : this.animation[this.runningAnimation].getHeight();
     }
 
     /**

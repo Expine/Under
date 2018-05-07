@@ -19,6 +19,19 @@ class StageManager { // eslint-disable-line  no-unused-vars
          * @type {StageParser}
          */
         this.parser = null;
+
+        /**
+         * Stage width
+         * @protected
+         * @type {number}
+         */
+        this.width = 0;
+        /**
+         * Stage height
+         * @protected
+         * @type {number}
+         */
+        this.height = 0;
     }
 
     /**
@@ -30,18 +43,28 @@ class StageManager { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set stage size
+     * @param {number} width Stage width
+     * @param {number} height Stage height
+     */
+    setStageSize(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    /**
      * Push stage to list
      * @abstract
-     * @param {string} stage Stage name
+     * @param {string} stageName Stage name
      */
-    pushStage(stage) {}
+    pushStage(stageName) {}
 
     /**
      * Replace currently stage
      * @abstract
-     * @param {string} stage Stage name
+     * @param {string} stageName Stage name
      */
-    replaceStage(stage) {}
+    replaceStage(stageName) {}
 
     /**
      * Pop stage from list

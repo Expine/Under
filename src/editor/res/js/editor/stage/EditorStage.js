@@ -6,11 +6,12 @@
  * - Dividingly manages entities according to type
  * - Do not update immutable objects
  * - Executes debug process
+ * - It can save data
  * - ### Enable to put, remove and replace entity
  * @extends {DebugStage}
  * @classdesc Editor stage that can put, remove and replace entity
  */
-class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
+class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
     /**
      * Editor stage constructor
      * @constructor
@@ -49,12 +50,12 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
 
         /**
          * Selection of the tile to be placed
-         * @type {Selection}
+         * @type {ISelection}
          */
         this.tileSelection = null;
         /**
          * Selection of the entity to be placed
-         * @type {Selection}
+         * @type {ISelection}
          */
         this.entitySelection = null;
 
@@ -87,6 +88,18 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Initialize stage
+     * @override
+     */
+    init() {
+        super.init();
+        let player = this.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable));
+        if (player) {
+            this.getCamera().setCameraPosition(-player.getCameraX(), -player.getCameraY(), this.stageWidth, this.stageHeight);
+        }
+    }
+
+    /**
      * Add entity to stage
      * @override
      * @param {Entity} entity Entity object
@@ -95,11 +108,6 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
         super.addEntity(entity);
         // onece update
         entity.update(30);
-        /*
-        if (entity instanceof Player) {
-            // this.stage.camera.setCameraPosition(-entity.x + GameScreen.it.width / 2, -entity.y + GameScreen.it.height / 2, this.stageWidth, this.stageHeight);
-        }
-        */
     }
 
 
@@ -109,22 +117,6 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
      */
     addEntityID(id) {
         this.entitiesID.push(id);
-    }
-
-    /**
-     * Get tile information
-     * @return {Object<number, JSON>} Tile information json data
-     */
-    getTileInfo() {
-        return this.tileInfo;
-    }
-
-    /**
-     * Get entity information
-     * @return {Object<number, JSON>} Entity information json data
-     */
-    getEntityInfo() {
-        return this.entityInfo;
     }
 
     /**
@@ -155,6 +147,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
 
     /**
      * Get json data for saving
+     * @override
      * @return {JSON} Json data for saving
      */
     getSaveData() {
@@ -220,6 +213,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
      */
     setTileSelection(selection) {
         this.tileSelection = selection;
+        this.tileSelection.setSelectionInfo(this.tileInfo);
     }
 
     /**
@@ -228,6 +222,7 @@ class EditorStage extends DebugStage { // eslint-disable-line  no-unused-vars
      */
     setEntitySelection(selection) {
         this.entitySelection = selection;
+        this.entitySelection.setSelectionInfo(this.entityInfo);
     }
 
     /**

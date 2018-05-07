@@ -39,6 +39,9 @@ package under {
                 abstract NamedAnimation
             }
         }
+        package screen {
+            abstract GameScreen
+        }
         package scene {
             abstract SceneManager
             package layer {
@@ -100,6 +103,7 @@ Stage <.. GameScene : Get player
 EventManager <.. GameScene : Update and render
 IKey <.. GameScene : Get key
 SceneManager <.. GameScene : Replcae
+GameScreen <..GameScene : Get size
 
 Stage <.. UILayer : Get player
 IIMageManager <.. UILayer : Load

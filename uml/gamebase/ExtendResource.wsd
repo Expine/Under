@@ -59,6 +59,9 @@ package under {
                     #height : number
                     +setSize(width,height) <<override>>
                     +setImageID(imageID) <<override>>
+                    +getWidth() : number <<override>>
+                    +getHeight() : number <<override>>
+                    +update(dt) <<override>>
                     +render(ctx,x,y) <<override>>
                 }
                 class TileImage {

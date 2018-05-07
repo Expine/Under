@@ -7,7 +7,7 @@
  */
 class SingleImage extends GameImage { // eslint-disable-line  no-unused-vars
     /**
-     * SIngle image constructor
+     * Single image constructor
      * @constructor
      * @param {number} imageID Image ID
      * @param {number} [width = undefined] Image width
@@ -55,6 +55,44 @@ class SingleImage extends GameImage { // eslint-disable-line  no-unused-vars
      */
     setImageID(imageID) {
         this.imageID = imageID;
+    }
+
+    /**
+     * Get image width
+     * @override
+     * @return {number} Imag width
+     */
+    getWidth() {
+        return this.width;
+    }
+
+    /**
+     * Get image height
+     * @override
+     * @return {number} Imag height
+     */
+    getHeight() {
+        return this.height;
+    }
+
+    /**
+     * Update image
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        if (this.width === undefined) {
+            let width = ResourceManager.image.getWidth(this.imageID);
+            if (width > 0) {
+                this.width = width;
+            }
+        }
+        if (this.height === undefined) {
+            let height = ResourceManager.image.getHeight(this.imageID);
+            if (height > 0) {
+                this.height = height;
+            }
+        }
     }
 
     /**

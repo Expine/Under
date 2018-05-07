@@ -20,6 +20,13 @@ class BaseLayeredScene extends LayeredScene { // eslint-disable-line  no-unused-
          * @type {Array<Layer>}
          */
         this.layers = [];
+
+        /**
+         * Sorted layers by z order
+         * @protected
+         * @type {Array<Layer>}
+         */
+        this.sortedLayers = [];
     }
 
     /**
@@ -30,6 +37,32 @@ class BaseLayeredScene extends LayeredScene { // eslint-disable-line  no-unused-
     addLayer(layer) {
         this.layers.push(layer);
         super.addLayer(layer);
+
+        // sort
+        let index = this.sortedLayers.findIndex((it) => {
+            return layer.z < it.z;
+        });
+        if (index >= 0) {
+            this.sortedLayers.splice(index, 0, layer);
+        } else {
+            this.sortedLayers.push(layer);
+        }
+    }
+
+    /**
+     * Remove layer
+     * @abstract
+     * @param {Layer} layer Removed layer
+     */
+    removeLayer(layer) {
+        let index = this.layers.indexOf(layer);
+        if (index >= 0) {
+            this.layers.splice(index, 1);
+        }
+        index = this.sortedLayers.indexOf(layer);
+        if (index >= 0) {
+            this.sortedLayers.splice(index, 1);
+        }
     }
 
     /**
@@ -40,5 +73,17 @@ class BaseLayeredScene extends LayeredScene { // eslint-disable-line  no-unused-
      */
     getLayers() {
         return this.layers;
+    }
+
+
+    /**
+     * Render scene
+     * @override
+     * @param {Context} ctx Canvas context
+     */
+    render(ctx) {
+        for (let layer of this.sortedLayers) {
+            layer.render(ctx);
+        }
     }
 }

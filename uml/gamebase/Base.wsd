@@ -104,6 +104,8 @@ package under {
             }
             abstract LayeredScene {
                 +addLayer(layer)
+                {abstract} +removeLayer(layer)
+                +clearLayer()
                 {abstract} #getLayers() : Array<Layer>
                 +update(dt) <<override>>
                 +render(ctx) <<override>>
@@ -111,9 +113,23 @@ package under {
 
             package layer {
                 abstract Layer {
+                    +x : number
+                    +y : number
+                    +z : number
+                    #width : number
+                    #height : number
+                    +setPosition(x,y,z)
+                    +setSize(width,heightC)
                     {abstract} +init()
                     {abstract} +update(dt)
                     {abstract} +render(ctx)
+                }
+                abstract ClipLayer {
+                    #clipX : number
+                    #clipY : number
+                    #clipWidth : number
+                    #clipHeight : number
+                    +clip(clipX,clipY,clipWidth,clipHeight)
                 }
             }
         }
@@ -195,5 +211,6 @@ IInput <|-- IKey
 IInput <|-- IMouse
 
 Scene <|.. LayeredScene
+Layer <|-- ClipLayer
 
 @enduml

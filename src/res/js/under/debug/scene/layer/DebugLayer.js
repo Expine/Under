@@ -94,19 +94,19 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         // timer
-        Timer.it.render(ctx, 0, 0);
+        Timer.it.render(ctx, this.x, this.y);
 
         // TODO: May be create debug information data class
-        ctx.fillText(`${this.deltaTime} msec`, GameScreen.it.width, 0, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`${this.collisions} collision`, GameScreen.it.width, 30, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`${this.playerCollisions} P collision`, GameScreen.it.width, 60, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`${BaseUtil.getClassName(this.stage.getPhysicalWorld() instanceof DebugWorld ? this.stage.getPhysicalWorld().world : this.stage.getPhysicalWorld() )}-${BaseUtil.getClassName(this.stage.getPhysicalWorld().getResponse())}`, GameScreen.it.width, 90, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`(${Math.floor(this.player.x)}, ${Math.floor(this.player.y)})`, GameScreen.it.width, 120, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`(${Math.floor(this.player.body.velocityX)}, ${Math.floor(this.player.body.velocityY)})`, GameScreen.it.width, 150, 1.0, 0.0, 20, `white`);
-        ctx.fillText(`(${Math.floor(this.player.body.accelerationX)},${Math.floor(this.player.body.accelerationY)})`, GameScreen.it.width, 180, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`${this.deltaTime} msec`, this.width, this.y, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`${this.collisions} collision`, this.width, this.y + 30, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`${this.playerCollisions} P collision`, this.width, this.y + 60, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`${BaseUtil.getClassName(this.stage.getPhysicalWorld() instanceof DebugWorld ? this.stage.getPhysicalWorld().world : this.stage.getPhysicalWorld() )}-${BaseUtil.getClassName(this.stage.getPhysicalWorld().getResponse())}`, this.width, this.y + 90, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`(${Math.floor(this.player.x)}, ${Math.floor(this.player.y)})`, this.width, this.y + 120, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`(${Math.floor(this.player.body.velocityX)}, ${Math.floor(this.player.body.velocityY)})`, this.width, this.y + 150, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`(${Math.floor(this.player.body.accelerationX)},${Math.floor(this.player.body.accelerationY)})`, this.width, this.y + 180, 1.0, 0.0, 20, `white`);
         if (this.player.state != null) {
-            ctx.fillText(BaseUtil.getClassName(this.player.state), GameScreen.it.width, 210, 1.0, 0.0, 20, `white`);
+            ctx.fillText(BaseUtil.getClassName(this.player.state), this.width, this.y + 210, 1.0, 0.0, 20, `white`);
         }
-        ctx.fillText(`M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`, GameScreen.it.width, 240, 1.0, 0.0, 20, `white`);
+        ctx.fillText(`M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`, this.width, this.y + 240, 1.0, 0.0, 20, `white`);
     }
 }

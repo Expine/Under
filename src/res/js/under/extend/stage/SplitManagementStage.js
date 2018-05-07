@@ -89,6 +89,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         this.entities.push(entity);
         // initialize entity
         super.addEntity(entity);
+        // sort
         if (this.inited) {
             let index = this.sortedEntity.findIndex((it) => {
                 return entity.z < it.z;

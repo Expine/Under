@@ -15,6 +15,22 @@ class LayeredScene extends Scene { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Remove layer
+     * @abstract
+     * @param {Layer} layer Removed layer
+     */
+    removeLayer(layer) {}
+
+    /**
+     * Clear all layer
+     */
+    clearLayer() {
+        for (let it of this.getLayers().reverse()) {
+            this.removeLayer(it);
+        }
+    }
+
+    /**
      * Get list pf layers
      * @abstract
      * @protected

@@ -43,6 +43,7 @@ class CommonNoneState extends UnderPlayerState { // eslint-disable-line  no-unus
     apply(dt) {
         if (this.damagedTarget.getHP() <= 0) {
             this.ai.changeState(`gameover`);
+            return true;
         }
         return false;
     }

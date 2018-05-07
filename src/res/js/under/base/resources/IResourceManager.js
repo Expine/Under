@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Resource manager interface that indicatas abstraction of resource management
  */
-class IResouceManager extends Interface { // eslint-disable-line  no-unused-vars
+class IResourceManager extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Load resource and return ID
      * @abstract

@@ -45,7 +45,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      */
     setSize(width, height) {
         let anime = this.getAnimation();
-        if (anime !== undefined) {
+        if (anime !== null) {
             anime.setSize(width, height);
         }
     }
@@ -57,9 +57,29 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      */
     setImageID(imageID) {
         let anime = this.getAnimation();
-        if (anime !== undefined) {
+        if (anime !== null) {
             anime.setImageID(imageID);
         }
+    }
+
+    /**
+     * Get image width
+     * @override
+     * @return {number} Imag width
+     */
+    getWidth() {
+        let anime = this.getAnimation();
+        return anime !== null ? anime.getWidth() : 0;
+    }
+
+    /**
+     * Get image height
+     * @override
+     * @return {number} Imag height
+     */
+    getHeight() {
+        let anime = this.getAnimation();
+        return anime !== null ? anime.getHeight() : 0;
     }
 
     /**

@@ -1,25 +1,10 @@
 /**
- * Game image
- * - ### Renders image
+ * Clip image interface
+ * - ### Clips area when rendering
  * @interface
- * @classdesc Game image to render image
+ * @classdesc Clip image interface to clip area when rendering
  */
-class GameImage { // eslint-disable-line  no-unused-vars
-    /**
-     * Set image size
-     * @abstract
-     * @param {number} width Image width
-     * @param {number} height Image height
-     */
-    setSize(width, height) {}
-
-    /**
-     * Set image ID
-     * @abstract
-     * @param {number} imageID Image ID
-     */
-    setImageID(imageID) {}
-
+class IClipImage extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Get image width
      * @abstract
@@ -48,11 +33,15 @@ class GameImage { // eslint-disable-line  no-unused-vars
     update(dt) {}
 
     /**
-     * Render image
+     * Render image by cliping
      * @abstract
      * @param {Context} ctx Canvas context
      * @param {number} x Image x position
      * @param {number} y Image y position
+     * @param {number} clipX Cliping x position
+     * @param {number} clipY Cliping y position
+     * @param {number} clipWidth Cliping width
+     * @param {number} clipWidth Cliping height
      */
-    render(ctx, x, y) {}
+    clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight) {}
 }

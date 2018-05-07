@@ -9,43 +9,86 @@
  */
 class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-vars
     /**
-     * Initialize scene
-     * @override
+     * Editor scene constructor
+     * @constructor
      */
-    init() {
+    constructor() {
+        super();
+
         /**
          * Stage instance
          * @protected
-         * @type {EditorStage}
+         * @type {StageManager}
          */
-        this.stage = (new EditorStageParser()).parse(`src/res/stage/map1.json`, GameScreen.it.width, GameScreen.it.height - 250);
-        this.stage.init();
-
+        this.stageManager = null;
         /**
          * Event manager
          * @protected
          * @type {EventManager}
          */
+        this.eventManager = null;
+
+        /**
+         * Chip save data
+         * @protected
+         * @type {IEditorSave}
+         */
+        this.chipData = null;
+        /**
+         * Entity save data
+         * @protected
+         * @type {IEditorSave}
+         */
+        this.entityData = null;
+
+        /**
+         * Save target
+         * @protected
+         * @type {IEditorSave}
+         */
+        this.saveTarget = null;
+    }
+    /**
+     * Initialize scene
+     * @override
+     */
+    init() {
+        // set stage manager
+        let manager = new EditorStageManager();
+        manager.setStageParser(new EditorStageParser());
+        manager.setStageSize(GameScreen.it.width, GameScreen.it.height - 250);
+        manager.pushStage(`map1`);
+        this.stageManager = manager;
+        this.saveTarget = manager;
+
+        // make event manager
         this.eventManager = new QueueEventManager();
 
-        /**
-         * Chip layer
-         * @protected
-         * @type {SelectionLayer}
-         */
-        this.chipLayer = new ChipLayer(this.stage.getTileInfo());
-        /**
-         * Entity layer
-         * @protected
-         * @type {SelectionLayer}
-         */
-        this.entityLayer = new EntityLayer(this.stage.getEntityInfo());
+        // make layer
+        let chipLayer = new ChipLayer();
+        let entityLayer = new EntityLayer();
+        this.chipData = chipLayer;
+        this.entityData = entityLayer;
 
-        this.addLayer(this.chipLayer);
-        this.addLayer(this.entityLayer);
-        this.addLayer(new DebugLayer(this.stage));
-        this.stage.setTileSelection(this.chipLayer);
-        this.stage.setEntitySelection(this.entityLayer);
+        let chip = new FloatLayer(chipLayer);
+        let entity = new FloatLayer(new DragScrollLayer(entityLayer));
+        // TODO: Should abstract
+        this.stageManager.getStage().setTileSelection(chipLayer);
+        this.stageManager.getStage().setEntitySelection(entityLayer);
+
+        this.addLayer(chip);
+        this.addLayer(entity);
+        this.addLayer(new DebugLayer(this.stageManager.getStage()));
+
+        // set initiali position
+        chip.setPosition(20, GameScreen.it.height - 230, 0);
+        chip.setSize(GameScreen.it.width / 2 - 40, 210);
+        entity.setPosition(GameScreen.it.width / 2 + 20, GameScreen.it.height - 230, 0);
+        entity.setSize(GameScreen.it.width / 2 - 40, 210);
+        chipLayer.setPosition(20, GameScreen.it.height - 230, 0);
+        chipLayer.setSize(GameScreen.it.width / 2 - 40, 210);
+        entityLayer.setPosition(GameScreen.it.width / 2 + 20, GameScreen.it.height - 230, 0);
+        entityLayer.setSize(GameScreen.it.width / 2 - 40, 210);
     }
 
 
@@ -55,31 +98,27 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
      * @param {number} dt Delta time
      */
     update(dt) {
-        // set position and size
-        this.chipLayer.setPosition(20, GameScreen.it.height - 230, GameScreen.it.width / 2 - 40, 210);
-        this.entityLayer.setPosition(GameScreen.it.width / 2 + 20, GameScreen.it.height - 230, GameScreen.it.width / 2 - 40, 210);
-
         // update
         super.update(dt);
-        this.stage.update(dt);
 
+        // update stage
+        this.stageManager.update(dt);
         // update event
         this.eventManager.update(dt);
 
         // save
         if (Input.key.isPress(Input.key.a() + 18)) {
-            this.stage.getSaveData();
-            console.log(this.stage.saveData);
+            console.log(JSON.stringify(this.saveTarget.getSaveData()));
         }
         if (Input.key.isPress(Input.key.a() + 19)) {
-            console.log(JSON.stringify(this.chipLayer.getSaveData()));
+            console.log(JSON.stringify(this.chipData.getSaveData()));
         }
         // change debug mode
         if (Input.key.isPress(Input.key.a() + 3)) {
             Engine.debug = !Engine.debug;
         }
 
-        // change debug mode
+        // reload images
         if (Input.key.isPress(Input.key.a() + 6)) {
             ResourceManager.image.reload();
         }
@@ -91,7 +130,7 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        this.stage.render(ctx);
+        this.stageManager.render(ctx);
         this.eventManager.render(ctx);
         ctx.fillRect(0, GameScreen.it.height - 250, GameScreen.it.width, 250, `blue`);
         super.render(ctx);

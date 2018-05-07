@@ -58,6 +58,8 @@ package under {
                 abstract GameImage {
                     {abstract} +setSize(width,height)
                     {abstract} +setImageID(imageID)
+                    {abstract} +getWidth() : number
+                    {abstract} +getHeight() : number
                     {abstract} +init()
                     {abstract} +update(dt)
                     {abstract} +render(ctx,x,y)
@@ -78,6 +80,8 @@ package under {
                     {abstract} +setAllImageID(imageID)
                     +setSize(width,height) <<override>>
                     +setImageID(imageID) <<override>>
+                    +getWidth() : number <<override>>
+                    +getHeight() : number <<override>>
                     +init() <<override>>
                     +update(dt) <<override>>
                     +render(ctx,x,y) <<override>>

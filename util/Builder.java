@@ -7,6 +7,7 @@ public class Builder {
     private static ArrayList<String> includedClass = new ArrayList<String>();
     private static ArrayList<File> remainFiles = new ArrayList<File>();
     private static ArrayList<String> excludeDirectories = new ArrayList<String>();
+    private static ArrayList<String> classNameList = new ArrayList<String>();
     public static void main(String[] args) {
         String text = "";
         if(args.length < 3)
@@ -44,7 +45,15 @@ public class Builder {
                         br.close();
                     } else if(args[0].equals("Document") ) {
                         String name = file.getPath().replace("..\\", "").replace("\\", "/");
-                        text += "{let script = document.createElement('script');script.src='" + name + "';document.head.appendChild(script);script.onload = function() " + "\n";
+                        String className = getClass(file);
+                        classNameList.add(className);
+                        String extendClass = getExtendClass(file);
+                        if(extendClass == null) {
+                            text += "{let script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);}\r\n";
+                        } else {
+                            extendClass = "typeof " + extendClass + " !== `undefined`";
+                            text += "{let id = setInterval(function() {\r\n    if (" + extendClass + ") {\r\n        clearInterval(id); let script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);\r\n    }\r\n}, 1);}\r\n";
+                        }
                         fileCount++;
                     }
                 } else {
@@ -60,14 +69,17 @@ public class Builder {
                     }
                 } else if(args[0].equals("Document") ) {
                     String name = file.getPath().replace("..\\", "").replace("\\", "/");
-                    text += "{let script = document.createElement('script');script.src='" + name + "';document.head.appendChild(script);script.onload = function() " + "\n";
+                    ArrayList<String> checkList = getNewClasses(file);
+                    String news = "";
+                    for(int i = 0; i < classNameList.size(); ++i) {
+                        if(i != 0) {
+                            news += " &&\r\n        ";
+                        }
+                        news += "typeof " + classNameList.get(i) + " !== `undefined`";
+                    }
+                    text += "{let id = setInterval(function() {\r\n    if (" + news + ") {\r\n        clearInterval(id); let script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);\r\n    }\r\n}, 1);}\r\n";
                     fileCount++;
                 }
-            }
-            if(args[0].equals("Document") ) {
-                text += "{};" + "\n";
-                for(int i = 0; i < fileCount; ++i)
-                    text += "};" + "\n";
             }
             bw.write(text);
             bw.close();
@@ -106,6 +118,71 @@ public class Builder {
         }
         br.close();
         return true;
+    }
+
+    private static ArrayList<String> getNewClasses(File file) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        ArrayList<String> checkList = new ArrayList<String>();
+        String line = "";
+        while((line = br.readLine()) != null) {
+            if(line.contains("new ") && (line.indexOf("*") == -1 || line.indexOf("*") > line.indexOf("new"))) {
+                String[] words = line.split(" ");
+                for(int i = 0; i < words.length; i++) {
+                    if(words[i].contains("new")) {
+                        if(i + 1 < words.length) {
+                            String register = words[i + 1];
+                            if(register.indexOf("(") != -1) {
+                                register  = register.substring(0, register.indexOf("("));
+                            }
+                            checkList.add(register);
+                        }
+                    }
+                }
+            }
+        }
+        br.close();
+        return checkList;
+    }
+
+
+    private static String getClass(File file) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        String line = "";
+        while((line = br.readLine()) != null) {
+            if(line.contains("class ") && (line.indexOf("*") == -1 || line.indexOf("*") > line.indexOf("class"))) {
+                String[] words = line.split(" ");
+                for(int i = 0; i < words.length; i++) {
+                    if(words[i].equals("class")) {
+                        if(i + 1 < words.length) {
+                            br.close();
+                            return words[i + 1];
+                        }
+                    }
+                }
+            }
+        }
+        br.close();
+        return null;
+    }
+
+    private static String getExtendClass(File file) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        String line = "";
+        while((line = br.readLine()) != null) {
+            if(line.contains("class ") && line.contains("extends ") && (line.indexOf("*") == -1 || line.indexOf("*") > line.indexOf("class"))) {
+                String[] words = line.split(" ");
+                for(int i = 0; i < words.length; i++) {
+                    if(words[i].equals("extends")) {
+                        if(i + 1 < words.length) {
+                            br.close();
+                            return words[i + 1];
+                        }
+                    }
+                }
+            }
+        }
+        br.close();
+        return null;
     }
 
     private static boolean isCanInclude(File file) throws IOException{

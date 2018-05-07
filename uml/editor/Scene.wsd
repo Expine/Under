@@ -3,40 +3,70 @@
 package editor {
     package ed_scene {
         class EditorScene {
-            #stage : EditorStage
-            #chipLayer : ChipLayer
+            #stageManager : StageManager
+            #eventManager : EventManager
+            #chipData : IEditorSave
+            #entityData : IEditorSave
+            #saveTarget : IEditorSave
+            +init() <<override>>
+            +update(dt) <<override>>
+            +render(ctx) <<override>>
         }
         package ed_layer {
-            abstract SelectionLayer {
-                +SelectionLayer(imageID) : SlectionLayer
-                #imaeID : number
-                #x : number
-                #y : number
-                #width : number
-                #height : number
-                #setPosition(x,y,width,height)
-                #getSelectedTile() : number
-                #setSelectedTile(id)
-            }
+            abstract SelectionLayer
             class ChipLayer {
-                #tileInfo : Dictionary<number, json>
-                #selectTile : json
-                #selectedTile : json
+                #tileInfo : Object<string, Object<number, JSON>>
+                #chipLayers : Array<SelectionLayer>
+                #selected : ISelection
+                +setSelectionInfo(info) <<override>>
+                +getSelected() : number <<override>>
+                +setSelected(id) <<override>>
+                +getSaveData() : JSON <<override>>
+                +init() <<override>>
+                +render(ctx) <<override>>
             }
             class EntityLayer {
-                #entityLayers : Array<SingleEntityLayer>
+                #entityInfo : Object<number, JSON>
+                #entityLayers : Array<SelectionLayer>
+                +setSelectionInfo(info) <<override>>
+                +getSelected() : number <<override>>
+                +setSelected(id) <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
+            }
+            class SingleChipLayer {
+                +constructor(fileName)
+                #tileInfo : Object<number, JSON>
+                #fileName : string
+                #tileImage : IClipImage
+                #selectTile : JSON
+                #selectedTile : JSON
+                +setSelectionInfo(info) <<override>>
+                +getSelected() : number <<override>>
+                +setSelected(id) <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
             }
             class SingleEntityLayer {
-                #entity : json
-                #animation : animation
-                #selectEntity : json
-                #selectedEntity : json
+                #entityData : JSON
+                #animation : IClipImage
+                #selectEntity : JSON
+                #selectedEntity : JSON
+                +setSelectionInfo(info) <<override>>
+                +getSelected() : number <<override>>
+                +setSelected(id) <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
             }
         }
     }
 
     package util {
-        abstract Selection {
+        interface ISelection {
+            {abstract} +setSelectionInfo(info)
             {abstract} +getSelected() : number
             {abstract} +setSelected(id)
         }
@@ -45,48 +75,116 @@ package editor {
 
 package under {
     package base {
-        package context {
-            class AnimationElement
+        package event {
+            abstract EventManager
+        }
+        package input {
+            interface IKey
+            interface IMouse
+        }
+        package resource {
+            package image {
+                abstract Context
+                interface IImageManager
+                interface IClipImage
+            }
+        }
+        package screen {
+            abstract GameScreen
         }
         package scene {
             package layer {
                 abstract Layer
+                abstract ClipLayer
             }
+        }
+        package stage {
+            abstract StageManager
         }
     }
     package extend {
-        package ex_context {
-            class SingleAnimation
+        package ex_event {
+            class QueueEventManager
+        }
+        package ex_resource {
+            package ex_image {
+                class SingleClipImage
+                class TileClipImage
+                class SingleClipAnimation
+            }
         }
         package ex_scene {
-            class LayerBaseScene
+            package ex_layer {
+                class FloatLayer
+                class DragScrollLayer
+                class NamedTabbedLayer
+            }
+            class BaseLayeredScene
+        }
+    }
+    package debug {
+        package de_scene {
+            package de_layer {
+                class DebugLayer
+            }
         }
     }
 }
 
 package editor {
     package ed_stage {
-        class EditorStage
+        class EditorStageManager
+        interface IEditorSave
         package ed_parser {
             class EditorStageParser
         }
     }
 }
 
-EditorStageParser <.. EditorScene : "Parse"
-ChipLayer <.. EditorScene : "Select chip"
-EntityLayer <.. EditorScene : "Select entity"
-EditorStage <.. EditorScene : "Set chip"
+EditorStageManager <.. EditorScene : Generate
+EditorStageParser <.. EditorScene : Generate
+QueueEventManager <.. EditorScene : Generate
+ChipLayer <.. EditorScene : Generate
+EntityLayer <.. EditorScene : Generate entity
+FloatLayer <.. EditorScene : Generate
+DragScrollLayer <.. EditorScene : Generate
+DebugLayer <.. EditorScene : Generate
+GameScreen <.. EditorScene : Get size
+IKey <.. EditorScene : Get key
+StageManager <.. EditorScene : Init and update, render
+EventManager <.. EditorScene : Update and render
+IEditorSave <.. EditorScene : Save
+IImageManager <.. EditorScene : Reload
+Context <.. EditorScene : Render
 
-EntityLayer "1" o-- "*" SingleEntityLayer : "Manage"
+SelectionLayer "*" --o "1" ChipLayer  : Select and save
+SingleChipLayer <.. ChipLayer : Generate and init
+DragScrollLayer <.. ChipLayer : Generate
+Context <.. ChipLayer : Render
 
-SingleAnimation <...... SingleEntityLayer : "Generate"
-AnimationElement <...... SingleEntityLayer : "Generate"
+SelectionLayer "*" --o "1" EntityLayer  : Manege
+SingleEntityLayer <.. EntityLayer : Generate and init
+Context <.. EntityLayer : Render
 
-LayerBaseScene <|-- EditorScene
-Layer <|-- SelectionLayer
-Selection <|.. SelectionLayer
-SelectionLayer <|.. ChipLayer
+SingleClipImage <.. SingleChipLayer : Generate
+IClipImage <.. SingleChipLayer : Update and render
+IMouse <.. SingleChipLayer : Get mouse
+IImageManager <.. SingleChipLayer : Load
+Context <.. SingleChipLayer : Render
+
+SingleClipImage <.. SingleEntityLayer : Generate
+TileClipImage <.. SingleEntityLayer : Generate
+SingleClipAnimation <.. SingleEntityLayer : Generate
+IClipImage <.. SingleEntityLayer : Update and render
+IMouse <.. SingleEntityLayer : Get mouse
+
+BaseLayeredScene <|-- EditorScene
+ClipLayer <|-- SelectionLayer
+ISelection <|.. SelectionLayer
+IEditorSave <|.. SelectionLayer
+NamedTabbedLayer <|-- ChipLayer
+ISelection <|.. ChipLayer
+IEditorSave <|.. ChipLayer
 SelectionLayer <|.. EntityLayer
 SelectionLayer <|.. SingleEntityLayer
 

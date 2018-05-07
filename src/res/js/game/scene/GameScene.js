@@ -50,6 +50,7 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
     init() {
         this.stageManager = new StackStageManager();
         this.stageManager.setStageParser(new UnderStageParser());
+        this.stageManager.setStageSize(GameScreen.it.width, GameScreen.it.height);
         this.stageManager.pushStage(`map1`);
 
         this.eventManager = new QueueEventManager();
@@ -58,8 +59,11 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
         this.player = this.stageManager.getStage().getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable));
 
         // initialize layer
-        this.layers.length = 0;
-        this.addLayer(new UILayer(this.stageManager.getStage()));
+        this.clearLayer();
+        let ui = new UILayer(this.stageManager.getStage());
+        ui.setPosition(0, 0);
+        ui.setSize(GameScreen.it.width, GameScreen.it.height);
+        this.addLayer(ui);
         this.gameover = false;
     }
 
@@ -71,7 +75,10 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
     update(dt) {
         // gameover
         if (this.player.isGameover() && !this.gameover) {
-            this.addLayer(new GameoverLayer());
+            let layer = new GameoverLayer();
+            layer.setPosition(0, 0, 1);
+            layer.setSize(GameScreen.it.width, GameScreen.it.height);
+            this.addLayer(layer);
             this.gameover = true;
         }
 
