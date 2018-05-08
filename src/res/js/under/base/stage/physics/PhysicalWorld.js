@@ -139,8 +139,8 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
      * Render world
      * @abstract
      * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
      */
-    render(ctx, shiftX = 0, shiftY = 0) {}
+    render(ctx, shiftX, shiftY) {}
 }

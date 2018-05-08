@@ -5,16 +5,21 @@ package under {
         package ex_stage {
             package ex_parser {
                 class JSONStageParser {
-                    +JSONStageParser(tile,chara) : JSONStageParser
+                    +constructor(tile,chara,event)
                     #tileBuilder : EntityBuilder
                     #charaBuilder : EntityBuilder
+                    #eventBuilder : EventBuilder
+                    #loadBackgroundImage(path) : number
                     #makeBaseStage(stage) : Stage
-                    #makeBaseMap(map) : Map
-                    #makeMapElement(map,back) : Map
+                    #makeBackground(back) : Background
                     #makeBaseCamera(camera,width,height) : Camera
-                    #makeBaseWorld() : PhysicalWorld
-                    #addTile(base,chip,tileInfo)
-                    #addEntity(base,entity,entityInfo)
+                    #makeBaseWorld(stage,world) : PhysicalWorld
+                    #makePhysicalResponse() : CollisionResponse
+                    #makeTile(base,chip,tileInfo) : Entity
+                    #makeEntity(base,entity,entityInfo) : Entity
+                    #buildTileInfo(tileInfo,tiles)
+                    #buildEntityInfo(entityInfo:entities)
+                    +parse(filePath,width,height) : Stage <<override>>
                 }
             }
         }
@@ -23,30 +28,53 @@ package under {
 
 package under {
     package base {
+        package resource {
+            package image {
+                interface IImageManager
+            }
+        }
         package stage {
+            abstract Stage
+            package entity {
+                package interface {
+                    interface IEventEntity
+                }
+            }
             package parser {
                 abstract StageParser
+            }
+            package physics {
+                abstract PhysicalWorld
             }
         }
     }
     package extend {
+        package ex_event {
+            class SimpleEventBuilder
+        }
         package ex_stage {
             class SplitManagementStage
-            class DebugStage
             package ex_parser {
                 class TileBuilder
                 class CharacterBuilder
             }
             package ex_camera {
-                class MovingCenterCamera
+                class CenterCamera
+                class ClipCamera
+                class MovingCamera
+                class ForceMoveCamera
             }
-            package ex_map {
-                class InvariantBackMap
-                class SequentialMap
+            package ex_back {
+                class SequentialBackground
+                class InvariantBackground
+                class MovementBackground
+                class AreaBackground
+                class FixedBackground
             }
             package ex_physics {
                 class SequentialWorld
-                class DebugWorld
+                class SplitWorld
+                class GravityWorld
                 class RepulsionResponse
             }
         }
@@ -54,17 +82,28 @@ package under {
     }
 }
 
-JSONStageParser ..> SplitManagementStage : Generate
-JSONStageParser ..> DebugStage : Generate
-JSONStageParser ..> MovingCenterCamera : Generate
-JSONStageParser ..> SequentialMap : Generate
-JSONStageParser ..> InvariantBackMap : Generate
-JSONStageParser ..> SequentialWorld : Generate
-JSONStageParser ..> DebugWorld : Generate
-JSONStageParser ..> RepulsionResponse : Generate
+JSONStageParser .> SplitManagementStage : Generate
+JSONStageParser ...> SequentialBackground : Generate
+JSONStageParser ...> InvariantBackground : Generate
+JSONStageParser ...> MovementBackground : Generate
+JSONStageParser ...> AreaBackground : Generate
+JSONStageParser ...> FixedBackground : Generate
+JSONStageParser ....> CenterCamera : Generate
+JSONStageParser ....> ClipCamera : Generate
+JSONStageParser ....> MovingCamera : Generate
+JSONStageParser ....> ForceMoveCamera : Generate
+JSONStageParser .....> SequentialWorld : Generate
+JSONStageParser .....> SplitWorld : Generate
+JSONStageParser .....> GravityWorld : Generate and init
+JSONStageParser .....> RepulsionResponse : Generate
+IImageManager <..  JSONStageParser: Load
+Stage <..  JSONStageParser: Initialize
+PhysicalWorld <..  JSONStageParser: Initialize
+IEventEntity <.. JSONStageParser : Set
 
-JSONStageParser ..> TileBuilder : "Default"
-JSONStageParser ..> CharacterBuilder : "Default"
+JSONStageParser ..> TileBuilder : Default
+JSONStageParser ..> CharacterBuilder : Default
+JSONStageParser ..> SimpleEventBuilder : Default
 
 StageParser <|.. JSONStageParser
 

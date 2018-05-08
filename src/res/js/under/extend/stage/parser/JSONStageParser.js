@@ -8,9 +8,9 @@
 class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-vars
     /**
      * JSON Stage parser constructor
-     * @param {EntityBuilder} tile Tile builder instance
-     * @param {EntityBuilder} chara Character builder instance
-     * @param {EventBuilder} event Event builder instance
+     * @param {EntityBuilder} [tile = TileBuilder] Tile builder instance
+     * @param {EntityBuilder} [chara = CharacterBuilder] Character builder instance
+     * @param {EventBuilder} [event = EventBuilder] Event builder instance
      */
     constructor(tile = new TileBuilder(), chara = new CharacterBuilder(), event = new SimpleEventBuilder()) {
         super();
@@ -36,12 +36,12 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     }
 
     /**
-     * Load map image
+     * Load background image
      * @protected
-     * @param {string} path Map image path
-     * @return {number} Map image ID
+     * @param {string} path Background image path
+     * @return {number} Background image ID
      */
-    loadMapImage(path) {
+    loadBackgroundImage(path) {
         return ResourceManager.image.load(`back/${path}`);
     }
 
@@ -53,34 +53,31 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      */
     makeBaseStage(stage) {
         let ret = new SplitManagementStage(stage.width, stage.height);
-        if (Engine.debug) {
-            ret = new DebugStage(ret);
-        }
         return ret;
     }
 
     /**
-     * Make map for parsing stage
+     * Make background for parsing stage
      * @protected
-     * @param {JSON} map Map json data
-     * @return {Map} Map instance for base of parsing
+     * @param {JSON} back Background json data
+     * @return {Background} Background instance for base of parsing
      */
-    makeMap(map) {
-        switch (map.type) {
+    makeBackground(back) {
+        switch (back.type) {
             case `Sequential`:
-                let ret = new SequentialMap();
-                for (let back of map.backs) {
-                    ret.addMap(this.makeMap(back));
+                let ret = new SequentialBackground();
+                for (let it of back.backs) {
+                    ret.addBackground(this.makeBackground(it));
                 }
                 return ret;
             case `Invariant`:
-                return new InvariantBackMap(this.loadMapImage(map.file));
+                return new InvariantBackground(this.loadBackgroundImage(back.file));
             case `Movement`:
-                return new MovementMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height, map.rx, map.ry);
+                return new MovementBackground(this.loadBackgroundImage(back.file), back.x, back.y, back.width, back.height, back.rx, back.ry);
             case `Area`:
-                return new AreaMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height, map.areaW, map.areaH);
+                return new AreaBackground(this.loadBackgroundImage(back.file), back.x, back.y, back.width, back.height, back.areaW, back.areaH);
             case `Fixed`:
-                return new FixedBackMap(this.loadMapImage(map.file), map.x, map.y, map.width, map.height);
+                return new FixedBackBackground(this.loadBackgroundImage(back.file), back.x, back.y, back.width, back.height);
             default:
                 return null;
         }
@@ -120,22 +117,22 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
     makeBaseWorld(stage, world) {
-        let ret = null;
         switch (world.type) {
+            case `sequential`:
+                return new SequentialWorld();
             case `split`:
-                ret = new SplitWorld(stage.width, stage.height);
-                break;
+                return new SplitWorld(stage.width, stage.height);
             case `gravity`:
-                ret = new GravityWorld(stage.width, stage.height);
-                for (let it of world.gravity) {
-                    ret.addGravity(it.x, it.y, it.delta);
+                {
+                    let ret = new GravityWorld(stage.width, stage.height);
+                    for (let it of world.gravity) {
+                        ret.addGravity(it.x, it.y, it.delta);
+                    }
+                    return ret;
                 }
-                break;
+            default:
+                return null;
         }
-        if (Engine.debug) {
-            ret = new DebugWorld(ret);
-        }
-        return ret;
     }
 
     /**
@@ -148,39 +145,31 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     }
 
     /**
-     * Add tile by chip data
-     * @param {Stage} base Base stage
-     * @param {number} layer Layer index
+     * Make tile by chip data
      * @param {JSON} chip Chip json data
      * @param {JSON} tileInfo Tile information json data
+     * @return {Entity} Tile instance
      */
-    addTile(base, layer, chip, tileInfo) {
-        if (chip.z === undefined) {
-            chip.z = layer;
-        }
+    makeTile(chip, tileInfo) {
         let tile = this.tileBuilder.build(chip, tileInfo[chip.id]);
         if (BaseUtil.implementsOf(tile, IEventEntity)) {
             tile.setEvent(this.eventBuilder(chip.event));
         }
-        base.addEntity(tile);
+        return tile;
     }
 
     /**
-     * Add entity by layer data
-     * @param {Stage} base Base stage
-     * @param {number} layer Layer index
+     * Make entity by layer data
      * @param {JSON} entity Entity json data
      * @param {JSON} entityInfo Entity information json data
+     * @return {Entity} Entity instance
      */
-    addEntity(base, layer, entity, entityInfo) {
-        if (entity.z === undefined) {
-            entity.z = layer;
-        }
+    makeEntity(entity, entityInfo) {
         let chara = this.characterBuilder.build(entity, entityInfo[entity.id]);
         if (BaseUtil.implementsOf(chara, IEventEntity)) {
             chara.setEvent(this.eventBuilder.build(entity.event));
         }
-        base.addEntity(chara);
+        return chara;
     }
 
     /**
@@ -386,7 +375,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
 
         // make stage
         let base = this.makeBaseStage(stage);
-        base.setMap(this.makeMap(stage.map));
+        base.setBackground(this.makeBackground(stage.background));
         base.setCamera(this.makeBaseCamera(stage.camera, width, height));
         base.setPhysicalWorld(this.makeBaseWorld(stage, stage.world));
         base.getPhysicalWorld().setResponse(this.makePhysicalResponse());
@@ -394,13 +383,19 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         // make tile
         for (let layer of stage.layers) {
             for (let chip of layer) {
-                this.addTile(base, layerIndex, chip, stage.tileInfo);
+                if (chip.z === undefined) {
+                    chip.z = layerIndex;
+                }
+                base.addEntity(this.makeTile(chip, stage.tileInfo));
             }
             layerIndex += 1;
         }
         // make entity
         for (let entity of stage.deploy) {
-            this.addEntity(base, layerIndex, entity, stage.entityInfo);
+            if (entity.z === undefined) {
+                entity.z = layerIndex;
+            }
+            base.addEntity(this.makeEntity(entity, stage.entityInfo));
         }
         return base;
     }

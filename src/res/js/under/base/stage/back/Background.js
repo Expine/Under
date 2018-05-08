@@ -1,19 +1,19 @@
 /**
- * Map
+ * Background
  * - ### Renders and update backgrdoun image
  * @interface
- * @classdesc Map to render and update background image
+ * @classdesc Background to render and update background image
  */
-class Map { // eslint-disable-line  no-unused-vars
+class Background { // eslint-disable-line  no-unused-vars
     /**
-     * Update map
+     * Update background
      * @abstract
      * @param {number} dt delta time
      */
     update(dt) {}
 
     /**
-     * Render map
+     * Render background
      * @abstract
      * @param {Context} ctx Canvas context
      * @param {number} shiftX Shift x position

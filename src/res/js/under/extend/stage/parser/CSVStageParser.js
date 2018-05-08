@@ -18,13 +18,13 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
     }
 
     /**
-     * Make base map for parsing stage
+     * Make base background for parsing stage
      * @protected
      * @param {number} imageID Background image id
-     * @return {Map} Map instance for base of parsing
+     * @return {Background} Background instance for base of parsing
      */
-    makeBaseMap(imageID) {
-        return new InvariantBackMap(imageID);
+    makeBaseBackground(imageID) {
+        return new InvariantBackground(imageID);
     }
 
     /**
@@ -99,7 +99,7 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
 
         // set base
         let stage = this.makeBaseStage(stageWidth * tileWidth, stageHeight * tileHeight);
-        stage.setMap(this.makeBaseMap(backID));
+        stage.setBackground(this.makeBaseBackground(backID));
         stage.setCamera(this.makeBaseCamera(width, height));
         stage.setPhysicalWorld(this.makeBaseWorld());
         // set tile

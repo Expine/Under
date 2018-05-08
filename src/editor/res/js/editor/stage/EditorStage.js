@@ -154,7 +154,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
         let data = {};
         data.width = this.stage.stageWidth;
         data.height = this.stage.stageHeight;
-        data.map = (new MapUnparser()).unparse(this.stage.map);
+        data.background = (new BackgroundUnparser()).unparse(this.stage.back);
         data.camera = (new CameraUnparser()).unparse(this.stage.camera.baseCamera);
         data.tiles = this.tileInfo.tiles;
         data.entities = this.entityInfo.entities;
@@ -292,7 +292,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
         let y = Math.floor((Input.mouse.getMouseY() - this.stage.camera.baseY - this.stage.camera.cameraY) / 32) * 32;
         // check camera position
         if (x + 32 >= -this.stage.camera.cameraX && x < this.stage.camera.screenWidth - this.stage.camera.cameraX && y + 32 >= -this.stage.camera.cameraY && y < this.stage.camera.screenHeight - this.stage.camera.cameraY) {
-            // check map position
+            // check background position
             if (0 <= x && x <= this.stageWidth && 0 <= y && y <= this.stageHeight) {
                 this.selectedX = x + this.stage.camera.cameraX;
                 this.selectedY = y + this.stage.camera.cameraY;

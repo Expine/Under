@@ -1,0 +1,90 @@
+@startuml ParserBuilder
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_parser {
+                class TileBuilder {
+                    #loadImage(path) : number
+                    #makeImage(image) : GameImage
+                    #makeCollider(collider) : Collider
+                    #makeAABB(collider) : AABB
+                    #makeMaterial(material) : Material
+                    #makeTileBase(delpoy, tile) : Entity
+                    #buildBase(base,deploy,json)
+                    #buildImage(base,deploy,json)
+                    #buildPhysical(base,deploy,json)
+                    +build(deploy,json) : Entity <<override>>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                interface IImageManager
+            }
+        }
+        package stage {
+            package entity {
+                abstract Entity
+                abstract ImagedEntity
+                abstract InfluentialEntity
+            }
+            package parser {
+                abstract EntityBuilder
+            }
+        }
+    }
+    package extend {
+        package ex_resource {
+            package ex_image {
+                class TileImage
+                class SingleImage
+                class SingleAnimation
+                class MultiNamedAnimation
+            }
+        }
+        package ex_stage {
+            package ex_physics {
+                package ex_collider {
+                    class CircleCollider
+                    class RectangleCollider
+                    class RoundRectangleCollider
+                    class SimpleAABB
+                    class DirectionalAABB
+                }
+                package ex_material {
+                    class ImmutableMaterial
+                }
+                package ex_entity {
+                    class TileObject
+                }
+            }
+        }
+
+    }
+}
+
+TileBuilder ..> TileImage : Generate
+TileBuilder ..> SingleImage : Generate
+TileBuilder ..> SingleAnimation : Generate
+TileBuilder ..> MultiNamedAnimation : Generate
+TileBuilder ..> RectangleCollider : Generate
+TileBuilder ..> CircleCollider : Generate
+TileBuilder ..> RoundRectangleCollider : Generate
+TileBuilder ..> SimpleAABB : Generate
+TileBuilder ..> DirectionalAABB : Generate
+TileBuilder ..> ImmutableMaterial : Generate
+TileBuilder ..> TileObject : Generate
+IImageManager <.. TileBuilder : Load
+Entity <.. TileBuilder : Set
+ImagedEntity <.. TileBuilder : Set
+InfluentialEntity <.. TileBuilder : Set
+
+EntityBuilder <|.. TileBuilder
+
+@enduml

@@ -87,19 +87,16 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @protected
      * @param {JSON} deploy Entity deploy json data
      * @param {JSON} entity Entity information json data
-     * @return {InfluentialEntity} Underlying entity
+     * @return {Entity} Underlying entity
      */
     makeEntityBase(deploy, entity) {
         switch (entity.type) {
             case `Player`:
                 return new Player();
-                break;
             case `Enemy`:
                 return new Enemy();
-                break;
             case `Obstacle`:
                 return new Obstacle();
-                break;
             case `Door`:
                 {
                     let ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
@@ -138,7 +135,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     /**
      * Build phsical body from json data
      * @protected
-     * @param {Entity} base Base entity
+     * @param {MutableEntity} base Base entity
      * @param {JSON} deploy Entity deploy json data
      * @param {JSON} json Character json data
      */
@@ -152,7 +149,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     /**
      * Build AI from json data
      * @protected
-     * @param {Entity} base Base entity
+     * @param {AutonomyEntitiy} base Base entity
      * @param {JSON} deploy Entity deploy json data
      * @param {JSON} json Character json data
      */
@@ -175,7 +172,9 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     build(deploy, json) {
         let base = this.makeEntityBase(deploy, json);
         this.buildBase(base, deploy, json);
-        // set physical parameter
+        if (base instanceof ImagedEntity) {
+            this.buildImage(base, deploy, json);
+        }
         if (base instanceof InfluentialEntity) {
             this.buildPhysical(base, deploy, json);
         }

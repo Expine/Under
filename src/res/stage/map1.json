@@ -1,7 +1,7 @@
 {
     "width": 12800,
     "height": 4800,
-    "map": {
+    "background": {
         "type": "Sequential",
         "backs": [{
             "type": "Invariant",

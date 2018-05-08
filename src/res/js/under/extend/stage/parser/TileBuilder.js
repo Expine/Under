@@ -109,7 +109,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @protected
      * @param {JSON} deploy Entity deploy json data
      * @param {JSON} tile Tile information json data
-     * @return {InfluentialEntity} Underlying tile object
+     * @return {Entity} Underlying tile object
      */
     makeTileBase(deploy, tile) {
         return new TileObject();
@@ -124,16 +124,23 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     buildBase(base, deploy, json) {
         base.setPosition(deploy.x, deploy.y, deploy.z);
         base.setSize(json.width, json.height);
-        if (base instanceof ImagedEntity) {
-            let image = deploy.image !== undefined ? deploy.image : json.image;
-            base.setImage(this.makeImage(image));
-        }
+    }
+
+    /**
+     * Build image data from json data
+     * @param {ImagedEntity} base Base entity
+     * @param {JSON} deploy Entity deploy json data
+     * @param {JSON} json Character json data
+     */
+    buildImage(base, deploy, json) {
+        let image = deploy.image !== undefined ? deploy.image : json.image;
+        base.setImage(this.makeImage(image));
     }
 
     /**
      * Build physical parameter from json data
      * @protected
-     * @param {Entity} base Base entity
+     * @param {InfluentialEntity} base Base entity
      * @param {JSON} deploy Entity deploy json data
      * @param {JSON} json Character json data
      */
@@ -160,7 +167,12 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     build(deploy, json) {
         let base = this.makeTileBase(deploy, json);
         this.buildBase(base, deploy, json);
-        this.buildPhysical(base, deploy, json);
+        if (base instanceof ImagedEntity) {
+            this.buildImage(base, deploy, json);
+        }
+        if (base instanceof InfluentialEntity) {
+            this.buildPhysical(base, deploy, json);
+        }
         return base;
     }
 }

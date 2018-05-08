@@ -1,3 +1,4 @@
+// TODO: Make the selection system more uniform
 /**
  * Selection layer
  * - Performs drawing processing collectively

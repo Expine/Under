@@ -1,7 +1,7 @@
 {
     "width": 4000,
     "height": 600,
-    "map": {
+    "background": {
         "type": "Sequential",
         "backs": [{
             "type": "Area",

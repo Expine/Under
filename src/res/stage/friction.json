@@ -1,5 +1,5 @@
 {
-    "map": {
+    "background": {
         "backs": [{
             "type": "Invariant",
             "file": "back.png"

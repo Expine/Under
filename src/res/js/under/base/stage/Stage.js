@@ -35,11 +35,11 @@ class Stage { // eslint-disable-line  no-unused-vars
         this.enable = true;
 
         /**
-         * Stage map element
+         * Stage background element
          * @protected
-         * @type {Map}
+         * @type {Background}
          */
-        this.map = null;
+        this.back = null;
         /**
          * Stage camera element
          * @protected
@@ -55,11 +55,11 @@ class Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set map manager
-     * @param {Map} map Map manager
+     * Set background manager
+     * @param {Background} back Background manager
      */
-    setMap(map) {
-        this.map = map;
+    setBackground(back) {
+        this.back = back;
     }
 
     /**
@@ -95,15 +95,6 @@ class Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Add entity to stage
-     * @param {Entity} entity Entity object
-     */
-    addEntity(entity) {
-        entity.setStage(this);
-        entity.init();
-    }
-
-    /**
      * Set whether to update the stage or not
      * @param {boolean} enable Whether to update the stage or not
      */
@@ -133,6 +124,15 @@ class Stage { // eslint-disable-line  no-unused-vars
      */
     getStageHeight() {
         return this.stageHeight;
+    }
+
+    /**
+     * Add entity to stage
+     * @param {Entity} entity Entity object
+     */
+    addEntity(entity) {
+        entity.setStage(this);
+        entity.init();
     }
 
     /**
@@ -199,14 +199,14 @@ class Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Render map in stage
+     * Render background in stage
      * @abstract
      * @protected
      * @param {Context} ctx Canvas context
      * @param {number} shiftX Shift x position
      * @param {number} shiftY Shift y position
      */
-    renderMap(ctx, shiftX, shiftY) {}
+    renderBackground(ctx, shiftX, shiftY) {}
 
     /**
      * Render entities in stage
@@ -237,7 +237,7 @@ class Stage { // eslint-disable-line  no-unused-vars
     render(ctx, shiftX = 0, shiftY = 0) {
         shiftX += this.camera.baseX;
         shiftY += this.camera.baseY;
-        this.renderMap(ctx, shiftX, shiftY);
+        this.renderBackground(ctx, shiftX, shiftY);
         this.renderEntity(ctx, shiftX, shiftY);
         this.renderWorld(ctx, shiftX, shiftY);
     }

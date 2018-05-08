@@ -190,15 +190,15 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     }
 
     /**
-     * Render map in stage
+     * Render background in stage
      * @override
      * @protected
      * @param {Context} ctx Canvas context
      * @param {number} shiftX Shift x position
      * @param {number} shiftY Shift y position
      */
-    renderMap(ctx, shiftX, shiftY) {
-        this.map.render(ctx, shiftX + this.camera.cameraX, shiftY + this.camera.cameraY, this.camera.screenWidth, this.camera.screenHeight);
+    renderBackground(ctx, shiftX, shiftY) {
+        this.back.render(ctx, shiftX + this.camera.cameraX, shiftY + this.camera.cameraY, this.camera.screenWidth, this.camera.screenHeight);
     }
 
     /**

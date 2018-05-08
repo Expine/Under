@@ -1,0 +1,103 @@
+@startuml ParserBuilder
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_parser {
+                class CharacterBuilder {
+                    #loadImage(path) : number <<override>
+                    #makeBody(body) : RigidBody
+                    #makeBodyMaterial(material) : RigidBodyMaterial
+                    #makeAI(ai, deploy) : AI
+                    #makeEntityBase(deploy, entity) : Entity
+                    #buildBody(base,deploy,json)
+                    #buildAI(base,deploy,json)
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                interface IImageManager
+            }
+        }
+        package stage {
+            package entity {
+                abstract MutableEntity
+                abstract AutonomyEntity
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_parser {
+                class TileBuilder
+            }
+            package ex_physics {
+                package ex_body {
+                    class ImmutableRigidMaterial
+                    class MaxAdoptBody
+                    class PreciseBody
+                    class PlayerBody
+                }
+            }
+            package ex_entity {
+                package ex_character {
+                    class Player
+                    class Enemy
+                }
+                package ex_fire {
+                    class ImmutableEvent
+                }
+                package ex_gimmick {
+                    class Elevator
+                    class VanishTileObject
+                }
+                package ex_object {
+                    class DoorObject
+                    class SignObject
+                }
+                class Obstacle
+            }
+            package ex_ai {
+                class EnemyAI
+                class StraightAI
+                class JumpAI
+                class ElevatorAI
+                class PlayerGameOverStateAI
+                class PlayerBaseStateAI
+            }
+        }
+
+    }
+}
+
+CharacterBuilder ....> MaxAdoptBody : Generate
+CharacterBuilder ....> PreciseBody : Generate
+CharacterBuilder ....> PlayerBody : Generate
+CharacterBuilder ....> ImmutableRigidMaterial : Generate
+CharacterBuilder ...> EnemyAI : Generate
+CharacterBuilder ...> StraightAI : Generate
+CharacterBuilder ...> JumpAI : Generate
+CharacterBuilder ...> ElevatorAI : Generate
+CharacterBuilder ...> PlayerGameOverStateAI : Generate
+CharacterBuilder ...> PlayerBaseStateAI : Generate
+CharacterBuilder ..> Player : Generate
+CharacterBuilder ..> Enemy : Generate
+CharacterBuilder ..> Obstacle : Generate
+CharacterBuilder ..> DoorObject : Generate
+CharacterBuilder ..> SignObject : Generate
+CharacterBuilder ..> Elevator : Generate
+CharacterBuilder ..> ImmutableEvent : Generate
+CharacterBuilder ..> VanishTileObject : Generate
+IImageManager <... CharacterBuilder : Load
+MutableEntity <... CharacterBuilder : Set
+AutonomyEntity <... CharacterBuilder : Set
+
+TileBuilder <|-- CharacterBuilder
+
+@enduml

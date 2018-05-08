@@ -4,25 +4,34 @@ package under {
     package base {
         package stage {
             abstract Stage {
+                +constructor(stageWidth,stageHeight)
                 #stageWidth : number
                 #stageHeight : number
-                #map : Map
+                #enable : boolean
+                #back : Background
                 #camera : Camera
                 #physic : PhysicalWorld
-                #enable : bool
-                +setMap(map)
+                +setBackground(back)
                 +setCamera(camera)
                 +setPhysicalWorld(physic)
                 +getPhysicalWorld() : PhysicalWorld
+                +getCamera() : Camera
                 +setEnable(enable)
-                {abstract} +addEntity(entity)
+                +getEnable() : boolean
+                +getStageWidth() : number
+                +getStageHeight() : number
+                +addEntity(entity)
                 {abstract} +removeEntity(entity)
+                {abstract} +removeEntityImmediately(entity)
+                {abstract} +getEntities() : Array<Entity>
                 {abstract} #updateEntity(dt)
                 {abstract} #updatePhysics(dt)
                 {abstract} #updateCemera(dt)
+                {abstract} +init()
                 +update(dt)
-                {abstract} #renderMap(ctx,shiftX,shiftY)
+                {abstract} #renderBackground(ctx,shiftX,shiftY)
                 {abstract} #renderEntity(ctx,shiftX,shiftY)
+                {abstract} #renderWorld(ctx,shiftX,shiftY)
                 +render(ctx,shiftX,shiftY)
             }
             package parser {
@@ -30,46 +39,50 @@ package under {
                     {abstract} +parse(filePath,width,height) : Stage
                 }
                 abstract EntityBuilder {
-                    {abstract} +build(x,y,json) : Entity
+                    {abstract} +build(deploy,json) : Entity
                 }
             }
-            package map {
-                abstract Map {
-                    {abstract} +getBackID() : number
+            package back {
+                abstract Background {
                     {abstract} +update(dt)
-                    {abstract} +render(ctx,shiftX,shiftY)
+                    {abstract} +render(ctx,shiftX,shiftY,screenWidth,screenHeight)
                 }
             }
             package camera {
                 abstract Camera {
-                    +Camera(screenWidth,screenHeight) : Camera
+                    +constructor(screenWidth,screenHeight) : Camera
                     +cameraX : number
                     +cameraY : number
                     +baseX : number
                     +baseY : number
                     +screenWidth : number
                     +screenHeight : number
-                    +setCameraPosition(x,y,width,height)
+                    +setScreenSize(screenWidth,screenHeight)
+                    {abstract} +update(dt)
+                    {abstract} +setCameraPosition(x,y,width,height)
                 }
             }
             package physics {
                 abstract PhysicalWorld {
-                    +PhysicalWorld(gravity) : PhysicalWorld
+                    +constructor(gravity) : PhysicalWorld
                     #gravity : number
                     #response : CollisionResponse
                     +setResponse(response)
-                    {abstract} +addActor(actor)
                     {abstract} +addEntity(entity)
                     {abstract} +removeEntity(entity)
                     {abstract} +getCollisionData(entity) : Array<CollisionData>
+                    {abstract} +getCollisionSize() : number
                     {abstract} #updateExternalForce(dt)
+                    {abstract} #prepareBody(dt)
                     {abstract} #updateBody(dt)
+                    {abstract} #updateBodyCleanup(dt)
                     {abstract} #updateCollision(dt)
                     {abstract} #updateResponse(dt)
                     +update(dt)
+                    {abstract} +render(ctx,shiftX,shiftY)
                 }
                 abstract CollisionResponse {
-                    +collisionResponse(data,dt)
+                    {abstract} +collisionResponse(data,dt)
                 }
             }
         }
@@ -81,17 +94,18 @@ package under {
         package stage {
             package entity {
                 abstract Entity
+                abstract InfluentialEntity
             }
         }
     }
 }
 
 StageParser --> Stage : Should generate
-Stage "1" *-- "1" Map : Own
-Stage "1" *-- "1" Camera : Own
+Stage "1" *-- "1" Background : Own
+Stage "1" *-- "1" Camera : Own and get
 Stage "1" *-- "1" PhysicalWorld : Own
-Stage "1" *-- "*" Entity : Should own
-PhysicalWorld "1"*--"*" Entity : Should own
+Stage "1" *-- "*" Entity : Should own(init)
+PhysicalWorld "1"*--"*" InfluentialEntity : Should own
 PhysicalWorld "1"*--"1" CollisionResponse : Own
 
 @enduml

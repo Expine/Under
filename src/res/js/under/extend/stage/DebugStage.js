@@ -25,12 +25,12 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set map manager
+     * Set background manager
      * @override
-     * @param {Map} map Map manager
+     * @param {Background} back Background manager
      */
-    setMap(map) {
-        this.stage.setMap(map);
+    setBackground(back) {
+        this.stage.setBackground(back);
     }
 
     /**
@@ -164,17 +164,17 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Render map in stage
+     * Render background in stage
      * @override
      * @protected
      * @param {Context} ctx Canvas context
      * @param {number} shiftX Shift x position
      * @param {number} shiftY Shift y position
      */
-    renderMap(ctx, shiftX, shiftY) {
-        Timer.it.startTimer(`renderMap`);
-        this.stage.renderMap(ctx, shiftX, shiftY);
-        Timer.it.stopTimer(`renderMap`);
+    renderBackground(ctx, shiftX, shiftY) {
+        Timer.it.startTimer(`renderBackground`);
+        this.stage.renderBackground(ctx, shiftX, shiftY);
+        Timer.it.stopTimer(`renderBackground`);
     }
 
     /**
@@ -241,7 +241,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     render(ctx, shiftX = 0, shiftY = 0) {
         shiftX += this.stage.camera.baseX;
         shiftY += this.stage.camera.baseY;
-        this.renderMap(ctx, shiftX, shiftY);
+        this.renderBackground(ctx, shiftX, shiftY);
         this.renderEntity(ctx, shiftX, shiftY);
     }
 }

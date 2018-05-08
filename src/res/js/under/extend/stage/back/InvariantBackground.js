@@ -1,13 +1,13 @@
 /**
- * Invariant back map
+ * Invariant background
  * - Renders and update backgrdoun image
- * - ### Map where the background does not move
- * @implements {Map}
- * @classdesc Invariant back map where the background does not move
+ * - ### Background where the background does not move
+ * @implements {Background}
+ * @classdesc Invariant background where the background does not move
  */
-class InvariantBackMap extends Map { // eslint-disable-line  no-unused-vars
+class InvariantBackground extends Background { // eslint-disable-line  no-unused-vars
     /**
-     * Invariant back map constructor
+     * Invariant background constructor
      * @constructor
      * @param {number} backID Background image id
      */
@@ -23,7 +23,7 @@ class InvariantBackMap extends Map { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Render map
+     * Render background
      * @override
      * @param {Context} ctx Canvas context
      * @param {number} shiftX Shift x position

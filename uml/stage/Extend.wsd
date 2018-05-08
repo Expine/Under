@@ -8,12 +8,12 @@ package under {
                 #player : Playable
             }
             class DebugStage
-            package ex_map {
-                class SequentialMap {
-                    #maps : Array<Map>
+            package ex_back {
+                class SequentialBackground {
+                    #backs : Array<Background>
                 }
-                class InvariantBackMap {
-                    +InvariantBackMap(imageID)
+                class InvariantBackground {
+                    +constructor(imageID)
                     #backID : number
                 }
             }
@@ -41,8 +41,8 @@ package under {
     package base {
         package stage {
             abstract Stage
-            package map {
-                abstract Map
+            package back {
+                abstract Background
             }
             package camera {
                 abstract Camera
@@ -66,8 +66,8 @@ Stage <|.. SplitManagementStage
 SplitManagementStage <|-- DebugStage
 Camera <|.. CenterCamera
 CenterCamera <|-- MovingCenterCamera
-Map <|.. SequentialMap
-Map <|.. InvariantBackMap
+Background <|.. SequentialBackground
+Background <|.. InvariantBackground
 PhysicalWorld <|.. SequentialWorld
 CollisionResponse <|.. ImpulseBasedResponse
 CollisionResponse <|.. RepulsionResponse

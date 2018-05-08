@@ -10,9 +10,9 @@
 class UnderStageParser extends JSONStageParser { // eslint-disable-line  no-unused-vars
     /**
      * Under Stage parser constructor
-     * @param {EntityBuilder} tile Tile builder instance
-     * @param {EntityBuilder} chara Character builder instance
-     * @param {EventBuilder} event Event builder instance
+     * @param {EntityBuilder} [tile = UnderTileBuilder] Tile builder instance
+     * @param {EntityBuilder} [chara = UnderCharacterBuilder] Character builder instance
+     * @param {EventBuilder} [event = UnderEventBuilder] Event builder instance
      */
     constructor(tile = new UnderTileBuilder(), chara = new UnderCharacterBuilder(), event = new UnderEventBuilder()) {
         super(tile, chara, event);

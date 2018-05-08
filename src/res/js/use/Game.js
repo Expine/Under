@@ -28,6 +28,7 @@
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/ai/StateAI.js'; document.head.appendChild(script);
     }
 }, 1);}
+{let script = document.createElement('script'); script.src='src/res/js/under/base/stage/back/Background.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/camera/Camera.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/Entity.js'; document.head.appendChild(script);}
 {let id = setInterval(function() {
@@ -45,7 +46,6 @@
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/MutableEntity.js'; document.head.appendChild(script);
     }
 }, 1);}
-{let script = document.createElement('script'); script.src='src/res/js/under/base/stage/map/Map.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/EntityBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/EventBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/StageParser.js'; document.head.appendChild(script);}
@@ -284,6 +284,31 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof Background !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/AreaBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Background !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/FixedBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Background !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/InvariantBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Background !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/MovementBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Background !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/SequentialBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof Camera !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/camera/CenterCamera.js'; document.head.appendChild(script);
     }
@@ -319,11 +344,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Interface !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/fire/IEventEntity.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof Entity !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/fire/ImmutableEvent.js'; document.head.appendChild(script);
     }
@@ -341,31 +361,6 @@
 {let id = setInterval(function() {
     if (typeof MutableEntity !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/Obstacle.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof Map !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/map/AreaMap.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof Map !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/map/FixedMap.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof Map !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/map/InvariantBackMap.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof Map !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/map/MovementMap.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof Map !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/map/SequentialMap.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -711,6 +706,11 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IEventEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IPlayable.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -850,11 +850,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof TileObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/VanishTileObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof TileBuilder !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/CharacterBuilder.js'; document.head.appendChild(script);
     }
@@ -952,6 +947,11 @@
 {let id = setInterval(function() {
     if (typeof StateCharacter !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/character/Player.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof TileObject !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/gimmick/VanishTileObject.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1128,12 +1128,12 @@
         typeof AI !== `undefined` &&
         typeof State !== `undefined` &&
         typeof StateAI !== `undefined` &&
+        typeof Background !== `undefined` &&
         typeof Camera !== `undefined` &&
         typeof Entity !== `undefined` &&
         typeof ImagedEntity !== `undefined` &&
         typeof InfluentialEntity !== `undefined` &&
         typeof MutableEntity !== `undefined` &&
-        typeof Map !== `undefined` &&
         typeof EntityBuilder !== `undefined` &&
         typeof EventBuilder !== `undefined` &&
         typeof StageParser !== `undefined` &&
@@ -1195,6 +1195,11 @@
         typeof PlayerGameoverStateAI !== `undefined` &&
         typeof BaseState !== `undefined` &&
         typeof StraightAI !== `undefined` &&
+        typeof AreaBackground !== `undefined` &&
+        typeof FixedBackground !== `undefined` &&
+        typeof InvariantBackground !== `undefined` &&
+        typeof MovementBackground !== `undefined` &&
+        typeof SequentialBackground !== `undefined` &&
         typeof CenterCamera !== `undefined` &&
         typeof ClipCamera !== `undefined` &&
         typeof EventCamera !== `undefined` &&
@@ -1202,16 +1207,10 @@
         typeof ForceMoveCamera !== `undefined` &&
         typeof MovingCamera !== `undefined` &&
         typeof DebugStage !== `undefined` &&
-        typeof IEventEntity !== `undefined` &&
         typeof ImmutableEvent !== `undefined` &&
         typeof DoorObject !== `undefined` &&
         typeof SignObject !== `undefined` &&
         typeof Obstacle !== `undefined` &&
-        typeof AreaMap !== `undefined` &&
-        typeof FixedBackMap !== `undefined` &&
-        typeof InvariantBackMap !== `undefined` &&
-        typeof MovementMap !== `undefined` &&
-        typeof SequentialMap !== `undefined` &&
         typeof CSVStageParser !== `undefined` &&
         typeof JSONStageParser !== `undefined` &&
         typeof SimpleEventBuilder !== `undefined` &&
@@ -1281,6 +1280,7 @@
         typeof ImmutableEntity !== `undefined` &&
         typeof IBreakable !== `undefined` &&
         typeof IDamagable !== `undefined` &&
+        typeof IEventEntity !== `undefined` &&
         typeof IPlayable !== `undefined` &&
         typeof UnderDebugEngine !== `undefined` &&
         typeof KeyInput !== `undefined` &&
@@ -1309,7 +1309,6 @@
         typeof PossessedObject !== `undefined` &&
         typeof SpecialObject !== `undefined` &&
         typeof TileObject !== `undefined` &&
-        typeof VanishTileObject !== `undefined` &&
         typeof CharacterBuilder !== `undefined` &&
         typeof JointBody !== `undefined` &&
         typeof PlayerBody !== `undefined` &&
@@ -1330,6 +1329,7 @@
         typeof IImageManager !== `undefined` &&
         typeof IMusicManager !== `undefined` &&
         typeof Player !== `undefined` &&
+        typeof VanishTileObject !== `undefined` &&
         typeof AttackObject !== `undefined` &&
         typeof PunchObject !== `undefined` &&
         typeof AdventurerHookState !== `undefined` &&

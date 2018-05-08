@@ -1,13 +1,13 @@
 /**
- * Movement map
+ * Movement background
  * - Renders and update backgrdoun image
  * - ### Renders certain area
- * @implements {Map}
- * @classdesc Movement map to render certain area
+ * @implements {Background}
+ * @classdesc Movement background to render certain area
  */
-class AreaMap extends Map { // eslint-disable-line  no-unused-vars
+class AreaBackground extends Background { // eslint-disable-line  no-unused-vars
     /**
-     * Movement map constructor
+     * Movement background constructor
      * @constructor
      * @param {number} backID Background image id
      * @param {number} x Background x position
@@ -66,7 +66,7 @@ class AreaMap extends Map { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Render map
+     * Render background
      * @override
      * @param {Context} ctx Canvas context
      * @param {number} shiftX Shift x position

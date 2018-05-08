@@ -20,13 +20,6 @@ package editor {
             +restore()
         }
 
-        package ed_map {
-            class EditorMap {
-                +getSaveData() : json
-            }
-            class EditorInvariantMap
-        }
-
         package ed_parser {
             class EditorStageParser
         }
@@ -53,9 +46,9 @@ package under {
     package extend {
         package ex_stage {
             class SplitManagemenetStage
-            package ex_map {
-                class SequentialMap
-                class InvariantMap
+            package ex_back {
+                class SequentialBackground
+                class InvariantBackground
             }
         }
     }

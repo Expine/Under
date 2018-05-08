@@ -5,7 +5,7 @@ package under {
         package ex_stage {
             class CSVStageParser {
                 #makeBaseStage() : Stage
-                #makeBaseMap(imageID,width,height) : Map
+                #makeBaseBackground(imageID,width,height) : Background
                 #makeBaseCamera(width,height) : Camera
                 #makeBaseWorld() : PhysicalWorld
                 #makeTileobject(verticalId,horizontalId,tileWidth,tileHeight,x,y,width,height,imageID) : TileObject
@@ -26,8 +26,8 @@ package under {
             package ex_camera {
                 class CenterCamera
             }
-            package ex_map {
-                class InvariantBackMap
+            package ex_back {
+                class InvariantBackground
             }
             package ex_physics {
                 class SequentialWorld
@@ -48,7 +48,7 @@ package under {
 
 CSVStageParser ...> SplitManagementStage : Generate
 CSVStageParser ...> CenterCamera : Generate
-CSVStageParser ...> InvariantBackMap : Generate
+CSVStageParser ...> InvariantBackground : Generate
 CSVStageParser ...> SequentialWorld : Generate
 CSVStageParser ...> RepulsionResponse : Generate
 CSVStageParser ...> TileObject : Generate
