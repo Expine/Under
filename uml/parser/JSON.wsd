@@ -13,7 +13,7 @@ package under {
                     #makeBackgroundImage(image) : GameImage
                     #makeBaseStage(stage) : Stage
                     #makeBackground(back) : Background
-                    #makeBaseCamera(camera,width,height) : Camera
+                    #makeBaseCamera(camera) : Camera
                     #makeBaseWorld(stage,world) : PhysicalWorld
                     #makePhysicalResponse() : CollisionResponse
                     #makeTile(base,chip,tileInfo) : Entity
@@ -36,6 +36,9 @@ package under {
         }
         package stage {
             abstract Stage
+            package camera {
+                abstract Camera
+            }
             package entity {
                 package interface {
                     interface IEventEntity
@@ -102,6 +105,7 @@ IImageManager <..  JSONStageParser: Load
 Stage <..  JSONStageParser: Initialize
 PhysicalWorld <..  JSONStageParser: Initialize
 IEventEntity <.. JSONStageParser : Set
+Camera <.. JSONStageParser : Init
 
 JSONStageParser ..> TileBuilder : Default
 JSONStageParser ..> CharacterBuilder : Default

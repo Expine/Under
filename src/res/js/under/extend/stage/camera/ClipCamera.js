@@ -33,32 +33,43 @@ class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Update camera
+     * Set camera max size
      * @override
-     * @param {number} dt Delta time
+     * @param {number} maxWidth Camera max width
+     * @param {number} maxHeight Cmera max height
      */
-    update(dt) {
-        this.baseCamera.update(dt);
+    setMaxSize(maxWidth, maxHeight) {
+        super.setMaxSize(maxWidth, maxHeight);
+        this.baseCamera.setMaxSize(maxWidth, maxHeight);
     }
 
     /**
-     * Set camera position
+     * Initialize camera
+     * @override
+     * @param {number} x First camera x position
+     * @param {number} y First camera y position
+     */
+    init(x, y) {
+        this.baseCamera.init(x, y);
+        this.update(x, y, 0);
+    }
+
+    /**
+     * Update camera
+     * @override
      * @param {number} x Base x position
      * @param {number} y Base y position
-     * @param {number} width Camera max width
-     * @param {number} height Camera max height
+     * @param {number} dt Delta time
      */
-    setCameraPosition(x, y, width, height) {
+    update(x, y, dt) {
         // set position
-        this.baseCamera.setCameraPosition(x, y, width, height);
+        this.baseCamera.update(x, y, dt);
         this.cameraX = this.baseCamera.cameraX;
         this.cameraY = this.baseCamera.cameraY;
-        this.screenWidth = this.baseCamera.screenWidth;
-        this.screenHeight = this.baseCamera.screenHeight;
 
         // cliping
-        if (this.cameraX < this.screenWidth - width) {
-            this.cameraX = this.screenWidth - width;
+        if (this.cameraX < this.screenWidth - this.maxWidth) {
+            this.cameraX = this.screenWidth - this.maxWidth;
         }
         if (this.cameraX > 0) {
             this.cameraX = 0;
@@ -66,10 +77,10 @@ class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars
         if (this.cameraY > 0) {
             this.cameraY = 0;
         }
-        if (this.cameraY < this.screenHeight - height) {
-            this.cameraY = this.screenHeight - height;
+        if (this.cameraY < this.screenHeight - this.maxHeight) {
+            this.cameraY = this.screenHeight - this.maxHeight;
         }
-        // restore
+        // apply
         this.baseCamera.cameraX = this.cameraX;
         this.baseCamera.cameraY = this.cameraY;
     }

@@ -99,11 +99,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * Make base camera for parsing stage
      * @protected
      * @param {JSON} camera Camera json data
-     * @param {number} width Camera width
-     * @param {number} height Camera height
      * @return {Camera} Camera instance for base of parsing
      */
-    makeBaseCamera(camera, width, height) {
+    makeBaseCamera(camera) {
         let ret = null;
         if (camera.type == `center`) {
             ret = new CenterCamera();
@@ -117,7 +115,6 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         if (camera.force) {
             ret = new ForceMoveCamera(ret, camera.force.x, camera.force.y, camera.force.speed);
         }
-        ret.setScreenSize(width, height);
         return ret;
     }
 
@@ -388,7 +385,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         // make stage
         let base = this.makeBaseStage(stage);
         base.setBackground(this.makeBackground(stage.background));
-        base.setCamera(this.makeBaseCamera(stage.camera, width, height));
+        base.setCamera(this.makeBaseCamera(stage.camera));
+        base.getCamera().setScreenSize(width, height);
+        base.getCamera().setMaxSize(base.getStageWidth(), base.getStageHeight());
         base.setPhysicalWorld(this.makeBaseWorld(stage, stage.world));
         base.getPhysicalWorld().setResponse(this.makePhysicalResponse());
         let layerIndex = 0;

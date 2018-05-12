@@ -44,8 +44,8 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @param {number} height Camera height
      * @return {Camera} Camera instance for base of parsing
      */
-    makeBaseCamera(camera, width, height) {
-        return new EditorCamera(super.makeBaseCamera(camera, width, height), width, height);
+    makeBaseCamera(camera) {
+        return new EditorCamera(super.makeBaseCamera(camera));
     }
 
     /**

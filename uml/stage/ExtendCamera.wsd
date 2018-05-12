@@ -4,27 +4,31 @@ package under {
         package ex_stage {
             package ex_camera {
                 class CenterCamera {
-                    +setCameraPosition(x,y,width,height) <<override>>
+                    +init(x,y) <<override>>
+                    +update(x.y,dt) <<override>>
                 }
                 class FixCamera {
                     +constructor(x,y)
                     #fixX : number
                     #fixY : number
-                    +setCameraPosition(x,y,width,height) <<override>>
+                    +init(x,y) <<override>>
+                    +update(x.y,dt) <<override>>
                 }
                 class MovingCamera {
                     +constructor(baseCamera)
                     #baseCamera : Camera
                     +setScreenSize(screenWidth,screenHeight) <<override>>
-                    +update(dt) <<override>>
-                    +setCameraPosition(x,y,width,height) <<override>>
+                    +setMaxSize(maxWidth,maxHeight) <<override>>
+                    +init(x,y) <<override>>
+                    +update(x.y,dt) <<override>>
                 }
                 class ClipCamera {
                     +constructor(baseCamera)
                     #baseCamera : Camera
                     +setScreenSize(screenWidth,screenHeight) <<override>>
-                    +update(dt) <<override>>
-                    +setCameraPosition(x,y,width,height) <<override>>
+                    +setMaxSize(maxWidth,maxHeight) <<override>>
+                    +init(x,y) <<override>>
+                    +update(x.y,dt) <<override>>
                 }
                 class ForceMoveCamera {
                     +constructor(baseCamera,x,y,speed)
@@ -35,8 +39,9 @@ package under {
                     #nextX : number
                     #nextY : number
                     +setScreenSize(screenWidth,screenHeight) <<override>>
-                    +update(dt) <<override>>
-                    +setCameraPosition(x,y,width,height) <<override>>
+                    +setMaxSize(maxWidth,maxHeight) <<override>>
+                    +init(x,y) <<override>>
+                    +update(x.y,dt) <<override>>
                 }
                 class EventCamera {
                     +constructor()
@@ -44,8 +49,9 @@ package under {
                     +setDelegate(camera)
                     +getDelegate() : Camera
                     +setScreenSize(screenWidth,screenHeight) <<override>>
-                    +update(dt) <<override>>
-                    +setCameraPosition(x,y,width,height) <<override>>
+                    +setMaxSize(maxWidth,maxHeight) <<override>>
+                    +init(x,y) <<override>>
+                    +update(x.y,dt) <<override>>
                 }
             }
 

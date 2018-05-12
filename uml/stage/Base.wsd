@@ -73,9 +73,12 @@ package under {
                     +baseY : number
                     +screenWidth : number
                     +screenHeight : number
+                    +maxWidth : number
+                    +maxHeight : number
                     +setScreenSize(screenWidth,screenHeight)
-                    {abstract} +update(dt)
-                    {abstract} +setCameraPosition(x,y,width,height)
+                    +setMaxSize(maxWidth,maxHeight)
+                    {abstract} +init(x,y)
+                    {abstract} +update(x.y,dt)
                 }
             }
             package physics {

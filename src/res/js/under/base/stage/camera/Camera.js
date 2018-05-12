@@ -41,6 +41,19 @@ class Camera { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.screenHeight = 0;
+
+        /**
+         * Camera max width
+         * @protected
+         * @type {number}
+         */
+        this.maxWidth = 0;
+        /**
+         * Camera max height
+         * @protected
+         * @type {number}
+         */
+        this.maxHeight = 0;
     }
 
     /**
@@ -54,19 +67,29 @@ class Camera { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Update camera
-     * @abstract
-     * @param {number} dt Delta time
+     * Set camera max size
+     * @param {number} maxWidth Camera max width
+     * @param {number} maxHeight Cmera max height
      */
-    update(dt) {}
+    setMaxSize(maxWidth, maxHeight) {
+        this.maxWidth = maxWidth;
+        this.maxHeight = maxHeight;
+    }
 
     /**
-     * Set camera position
+     * Initialize camera
+     * @abstract
+     * @param {number} x First camera x position
+     * @param {number} y First camera y position
+     */
+    init(x, y) {}
+
+    /**
+     * Update camera
      * @abstract
      * @param {number} x Base x position
      * @param {number} y Base y position
-     * @param {number} width Camera max width
-     * @param {number} height Camera max height
+     * @param {number} dt Delta time
      */
-    setCameraPosition(x, y, width, height) {}
+    update(x, y, dt) {}
 }

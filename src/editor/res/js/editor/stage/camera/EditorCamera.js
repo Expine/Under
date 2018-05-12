@@ -10,10 +10,8 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
      * Editor camera Constructor
      * @constructor
      * @param {Camera} baseCamera Base camera for delegation
-     * @param {number} screenWidth camera screen width
-     * @param {number} screenHeight camera screen height
      */
-    constructor(baseCamera, screenWidth, screenHeight) {
+    constructor(baseCamera) {
         super();
 
         /**
@@ -47,16 +45,26 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.screenDiffX = screenWidth - GameScreen.it.width;
+        this.screenDiffX = 0;
         /**
          * Difference from actual screen height
          * @protected
          * @type {number}
          */
-        this.screenDiffY = screenHeight - GameScreen.it.height;
+        this.screenDiffY = 0;
+    }
 
-        // set size
-        this.setScreenSize(screenWidth, screenHeight);
+    /**
+     * Set screen size
+     * @override
+     * @param {number} screenWidth Camera screen width
+     * @param {number} screenHeight Camera screen height
+     */
+    setScreenSize(screenWidth, screenHeight) {
+        super.setScreenSize(screenWidth, screenHeight);
+
+        this.screenDiffX = screenWidth - GameScreen.it.width;
+        this.screenDiffY = screenHeight - GameScreen.it.height;
     }
 
     /**

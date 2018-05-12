@@ -61,6 +61,12 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         this.sortedEntity = Object.assign([], this.entities).sort((a, b) => {
             return a.z < b.z ? -1 : a.z > b.z ? 1 : 0;
         });
+
+        if (this.player != null) {
+            let x = this.player.getCameraX();
+            let y = this.player.getCameraY();
+            this.camera.init(x, y);
+        }
     }
 
     /**
@@ -177,11 +183,10 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt Delta time
      */
     updateCamera(dt) {
-        this.camera.update(dt);
         if (this.player != null) {
             let x = this.player.getCameraX();
             let y = this.player.getCameraY();
-            this.camera.setCameraPosition(x, y, this.stageWidth, this.stageHeight);
+            this.camera.update(x, y, dt);
         }
     }
 

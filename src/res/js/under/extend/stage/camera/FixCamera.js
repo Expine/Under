@@ -28,14 +28,25 @@ class FixCamera extends Camera { // eslint-disable-line  no-unused-vars
          */
         this.fixY = y;
     }
+
     /**
-     * Set camera position
+     * Initialize camera
+     * @override
+     * @param {number} x First camera x position
+     * @param {number} y First camera y position
+     */
+    init(x, y) {
+        this.update(x, y, 0);
+    }
+
+    /**
+     * Update camera
+     * @override
      * @param {number} x Base x position
      * @param {number} y Base y position
-     * @param {number} width Camera max width
-     * @param {number} height Camera max height
+     * @param {number} dt Delta time
      */
-    setCameraPosition(x, y, width, height) {
+    update(x, y, dt) {
         this.cameraY = -this.fixX;
         this.cameraY = -this.fixY;
     }

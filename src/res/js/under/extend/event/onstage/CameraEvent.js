@@ -63,6 +63,7 @@ class CameraEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-lin
     init() {
         this.camera = new EventCamera();
         this.camera.setToPosition(this.toX, this.toY);
+        this.camera.setScreenSize(this.stage.getCamera().screenWidth, this.stage.getCamera().screenHeight);
         this.camera.setDelegate(this.stage.getCamera());
         this.stage.setCamera(this.camera);
         this.op.next();

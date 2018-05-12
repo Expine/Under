@@ -74,15 +74,43 @@ class ForceMoveCamera extends Camera { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set camera max size
+     * @override
+     * @param {number} maxWidth Camera max width
+     * @param {number} maxHeight Cmera max height
+     */
+    setMaxSize(maxWidth, maxHeight) {
+        super.setMaxSize(maxWidth, maxHeight);
+        this.baseCamera.setMaxSize(maxWidth, maxHeight);
+    }
+
+    /**
+     * Initialize camera
+     * @override
+     * @param {number} x First camera x position
+     * @param {number} y First camera y position
+     */
+    init(x, y) {
+        this.baseCamera.init(x, y);
+        this.cameraX = this.baseCamera.cameraX;
+        this.cameraY = this.baseCamera.cameraY;
+        this.nextX = this.cameraY;
+        this.nextY = this.cameraX;
+    }
+
+    /**
      * Update camera
      * @override
+     * @param {number} x Base x position
+     * @param {number} y Base y position
      * @param {number} dt Delta time
      */
-    update(dt) {
-        // initialize
-        if (this.cameraX == null && this.cameraY == null) {
-            return;
-        }
+    update(x, y, dt) {
+        this.baseCamera.update(this.nextX, this.nextY, dt);
+        this.cameraX = this.baseCamera.cameraX;
+        this.cameraY = this.baseCamera.cameraY;
+
+        // update next position
         let nx = this.nextX;
         let ny = this.nextY;
         if (this.nextX != this.toX) {
@@ -97,29 +125,5 @@ class ForceMoveCamera extends Camera { // eslint-disable-line  no-unused-vars
         if (Math.sign(this.toY - ny) * Math.sign(this.toY - this.nextY) < 0) {
             this.nextY = this.toY;
         }
-    }
-
-    /**
-     * Set camera position
-     * @param {number} x Base x position
-     * @param {number} y Base y position
-     * @param {number} width Camera max width
-     * @param {number} height Camera max height
-     */
-    setCameraPosition(x, y, width, height) {
-        // initialize
-        if (this.cameraX == null && this.cameraY == null) {
-            this.cameraX = x;
-            this.cameraY = y;
-            this.nextX = x;
-            this.nextY = y;
-            this.baseCamera.cameraX = x;
-            this.baseCamera.cameraY = y;
-        }
-        this.baseCamera.setCameraPosition(this.nextX, this.nextY, width, height);
-        this.cameraX = this.baseCamera.cameraX;
-        this.cameraY = this.baseCamera.cameraY;
-        this.screenWidth = this.baseCamera.screenWidth;
-        this.screenHeight = this.baseCamera.screenHeight;
     }
 }
