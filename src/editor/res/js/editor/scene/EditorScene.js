@@ -67,6 +67,7 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
         // make layer
         let chipLayer = new ChipLayer();
         let entityLayer = new EntityLayer();
+        let debug = new DebugLayer(this.stageManager.getStage());
         this.chipData = chipLayer;
         this.entityData = entityLayer;
 
@@ -78,9 +79,10 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
 
         this.addLayer(chip);
         this.addLayer(entity);
-        this.addLayer(new DebugLayer(this.stageManager.getStage()));
+        this.addLayer(debug);
 
         // set initiali position
+        debug.setSize(GameScreen.it.width, GameScreen.it.height);
         chip.setPosition(20, GameScreen.it.height - 230, 0);
         chip.setSize(GameScreen.it.width / 2 - 40, 210);
         entity.setPosition(GameScreen.it.width / 2 + 20, GameScreen.it.height - 230, 0);

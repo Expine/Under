@@ -14,11 +14,17 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
      * @param {number} stageWidth Stage width (pixel)
      * @param {number} stageHeight Stage height (pixel)
      * @param {number} [gravity=9.8] gravity of the world
+     * @param {number} [splitNumber=128] One unit of division
      */
-    constructor(stageWidth, stageHeight, gravity = 9.8) {
+    constructor(stageWidth, stageHeight, gravity = 9.8, splitNumber = 128) {
         super(gravity);
 
-        this.splitNumber = 128;
+        /**
+         * One unit of division
+         * @protected
+         * @type {number}
+         */
+        this.splitNumber = splitNumber;
 
         /**
          * Stage width (area)
@@ -33,6 +39,11 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
          */
         this.stageHeight = Math.floor(stageHeight / this.splitNumber) + ((stageHeight % this.splitNumber == 0) ? 0 : 1);
 
+        /**
+         * List of list of entities that exist in each division unit
+         * @protected
+         * @type {Array<Array<InfluentialEntity>>}
+         */
         this.notActorsMap = [];
 
         // initialize
@@ -106,45 +117,46 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
         if (collider === null) {
             return ret;
         }
-        let data = new CollisionData();
-        for (let it of this.actors) {
-            let itCollider = it.collider;
-            if (itCollider === null || it === collider.entity) {
-                continue;
-            }
-            if (collider.isCollisionRoughly(itCollider) && collider.isCollision(itCollider, data)) {
-                ret.push(data);
-                data = new CollisionData();
-            }
-        }
+        // check region
         let sx = Math.floor(collider.aabb.startX / this.splitNumber);
         let sy = Math.floor(collider.aabb.startY / this.splitNumber);
         let ex = Math.floor(collider.aabb.endX / this.splitNumber);
         let ey = Math.floor(collider.aabb.endY / this.splitNumber);
-        if (sx < 0 || sy < 0 || ex >= this.stageWidth || ey >= this.stageHeight) {
+        if (ex < 0 || ey < 0 || sx >= this.stageWidth || sy >= this.stageHeight) {
             return ret;
+        }
+        if (sx < 0) {
+            sx = 0;
+        }
+        if (sy < 0) {
+            sy = 0;
+        }
+        let collidedList = [];
+        let data = new LowerPriorityData();
+        for (let it of this.actors) {
+            let itCollider = it.collider;
+            if (itCollider === null || it === collider.entity || !itCollider.enable) {
+                continue;
+            }
+            if (collider.isCollisionRoughly(itCollider) && collider.isCollision(itCollider, data)) {
+                ret.push(data);
+                data = new LowerPriorityData();
+            }
         }
         for (let y = sy; y <= ey; ++y) {
             for (let x = sx; x <= ex; ++x) {
                 for (let it of this.notActorsMap[x + this.stageWidth * y]) {
                     let itCollider = it.collider;
-                    if (itCollider === null || it === collider.entity) {
+                    if (itCollider === null || !itCollider.enable) {
+                        continue;
+                    }
+                    if (collidedList.indexOf(it) != -1) {
                         continue;
                     }
                     if (collider.isCollisionRoughly(itCollider) && collider.isCollision(itCollider, data)) {
-                        let same = false;
-                        for (let j = 0; j < ret.length; ++j) {
-                            let col = this.collisions[j];
-                            if ((col.e1 === collider.entity && col.e2 === it) || (col.e2 === collider.entity && col.e1 === it)) {
-                                same = true;
-                                break;
-                            }
-                        }
-                        if (same) {
-                            continue;
-                        }
+                        collidedList.push(it);
                         ret.push(data);
-                        data = new CollisionData();
+                        data = new LowerPriorityData();
                     }
                 }
             }
@@ -159,53 +171,11 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
      * @param {number} dt Delta time
      */
     updateCollision(dt) {
-        // collision initialize
-        for (let j = 0; j < this.collisionSize; ++j) {
-            this.collisions[j].py = -1000000000;
-        }
-        this.collisionSize = 0;
-        for (let it of this.entities) {
-            if (it.collider !== null) {
-                it.collider.init();
-            }
-        }
-
         // collision detection
         for (let i = 0; i < this.actors.length; ++i) {
             let target = this.actors[i];
             let targetCollider = target.collider;
-            if (targetCollider === null) {
-                continue;
-            }
-            for (let j = i + 1; j < this.actors.length; ++j) {
-                let it = this.actors[j];
-                let itCollider = it.collider;
-                if (itCollider === null || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
-                    continue;
-                }
-                let same = false;
-                for (let j = 0; j < this.collisionSize; ++j) {
-                    let data = this.collisions[j];
-                    if ((data.e1 === target && data.e2 === it) || (data.e2 === target && data.e1 === it)) {
-                        same = true;
-                        break;
-                    }
-                }
-                if (same) {
-                    this.collisions[this.collisionSize].py = -1000000000;
-                    continue;
-                }
-                // add collision data
-                targetCollider.addCollision(this.collisions[this.collisionSize]);
-                itCollider.addCollision(this.collisions[this.collisionSize]);
-                if (++this.collisionSize >= this.collisions.length) {
-                    this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
-                }
-            }
-        }
-        for (let target of this.actors) {
-            let targetCollider = target.collider;
-            if (targetCollider === null) {
+            if (targetCollider === null || !targetCollider.enable) {
                 continue;
             }
             let sx = Math.floor(targetCollider.aabb.startX / this.splitNumber);
@@ -221,30 +191,33 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
             if (sy < 0) {
                 sy = 0;
             }
+            let collidedList = [];
+            for (let j = i + 1; j < this.actors.length; ++j) {
+                let it = this.actors[j];
+                let itCollider = it.collider;
+                if (itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                    continue;
+                }
+                // add collision data
+                targetCollider.addCollision(this.collisions[this.collisionSize]);
+                itCollider.addCollision(this.collisions[this.collisionSize]);
+                if (++this.collisionSize >= this.collisions.length) {
+                    this.collisions.push(new LowerPriorityData());
+                }
+            }
             for (let y = sy; y <= ey; ++y) {
                 for (let x = sx; x <= ex; ++x) {
                     for (let it of this.notActorsMap[x + this.stageWidth * y]) {
                         let itCollider = it.collider;
-                        if (itCollider === null || it === target || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
-                            continue;
-                        }
-                        let same = false;
-                        for (let j = 0; j < this.collisionSize; ++j) {
-                            let data = this.collisions[j];
-                            if ((data.e1 === target && data.e2 === it) || (data.e2 === target && data.e1 === it)) {
-                                same = true;
-                                break;
-                            }
-                        }
-                        if (same) {
-                            this.collisions[this.collisionSize].py = -1000000000;
+                        if (itCollider === null || !itCollider.enable || collidedList.indexOf(it) != -1 || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
                             continue;
                         }
                         // add collision data
+                        collidedList.push(it);
                         targetCollider.addCollision(this.collisions[this.collisionSize]);
                         itCollider.addCollision(this.collisions[this.collisionSize]);
                         if (++this.collisionSize >= this.collisions.length) {
-                            this.collisions.push(new CollisionData(null, null, 0, 0, 0, -1000000000, 0));
+                            this.collisions.push(new LowerPriorityData());
                         }
                     }
                 }

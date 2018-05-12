@@ -1,0 +1,48 @@
+@startuml ParserBuilder
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_parser {
+                class BaseImageBuilder {
+                    +build(root,image) : GameImage <<override>>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                interface IImageManager
+            }
+        }
+        package stage {
+            package parser {
+                abstract ImageBuilder
+            }
+        }
+    }
+    package extend {
+        package ex_resource {
+            package ex_image {
+                class TileImage
+                class SingleImage
+                class SingleAnimation
+                class MultiNamedAnimation
+            }
+        }
+    }
+}
+
+BaseImageBuilder ..> TileImage : Generate
+BaseImageBuilder ..> SingleImage : Generate
+BaseImageBuilder ..> SingleAnimation : Generate
+BaseImageBuilder ..> MultiNamedAnimation : Generate
+IImageManager <.. BaseImageBuilder : Load
+
+ImageBuilder <|.. BaseImageBuilder
+
+@enduml

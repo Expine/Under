@@ -8,14 +8,14 @@
  */
 class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-vars
     /**
-     * Load image
+     * Make image
      * @override
      * @protected
-     * @param {string} path Image file name
-     * @return {number} Image ID
+     * @param {JSON} image Entity information json data
+     * @return {GameImage} Image
      */
-    loadImage(path) {
-        return ResourceManager.image.load(`chara/${path}`);
+    makeImage(image) {
+        return this.imageBuilder.build(`chara`, image);
     }
 
     /**

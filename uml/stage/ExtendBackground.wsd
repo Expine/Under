@@ -1,0 +1,76 @@
+@startuml StageExtendBackground
+package under {
+    package extend {
+        package ex_stage {
+            package ex_back {
+                class SequentialBackground {
+                    #backs : Array<Background>
+                    +addBackground(back)
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx,shiftX,shiftY,screenWidth,screenHeight) <<override>>
+                }
+                abstract ImageBackground {
+                    +constructor(backImage)
+                    #backImage : GameImage
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                }
+                class InvariantBackground {
+                    +render(ctx,shiftX,shiftY,screenWidth,screenHeight) <<override>>
+                }
+                class FixedBackground {
+                    +constructor(backImage,x,y)
+                    #x : number
+                    #y : number
+                    +render(ctx,shiftX,shiftY,screenWidth,screenHeight) <<override>>
+                }
+                class MovementBackground {
+                    +constructor(backImage,x,y,speedRatioX,speedRatioY)
+                    #x : number
+                    #y : number
+                    #speedRatioX : number
+                    #speedRatioY : number
+                    +render(ctx,shiftX,shiftY,screenWidth,screenHeight) <<override>>
+                }
+                class AreaBackground {
+                    +constructor(backImage,x,y,areaWidth,areaHeight)
+                    #x : number
+                    #y : number
+                    #areaWidth : number
+                    #areaHeight : number
+                    +render(ctx,shiftX,shiftY,screenWidth,screenHeight) <<override>>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                abstract GameImage
+            }
+        }
+        package stage {
+            package back {
+                abstract Background
+            }
+        }
+    }
+}
+
+GameImage <.. ImageBackground : Init and update, render
+GameImage <.. InvariantBackground : Render
+GameImage <.. FixedBackground : Render
+GameImage <.. MovementBackground : Render
+GameImage <.. AreaBackground : Render
+
+Background <|.. SequentialBackground
+Background <|-- ImageBackground
+ImageBackground <|.. InvariantBackground
+ImageBackground <|.. FixedBackground
+ImageBackground <|.. MovementBackground
+ImageBackground <|.. AreaBackground
+@enduml

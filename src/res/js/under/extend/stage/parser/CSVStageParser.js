@@ -2,7 +2,7 @@
  * CSV stage parser
  * - Generates a stage from a file
  * - ### Parses CSV file
- * @implements {StageParser}
+ * @extends {StageParser}
  * @classdesc CSV stage parser to parse CSV file
  */
 class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-vars

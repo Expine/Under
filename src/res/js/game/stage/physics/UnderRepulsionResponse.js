@@ -12,53 +12,41 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
      */
     collisionResponse(data, dt) {
         // set data
-        let e1 = data.e1;
-        let e2 = data.e2;
+        let e1 = data.colliding;
+        let e2 = data.collided;
         let b1 = e1.body;
-        let b2 = e2.body;
+        let b2 = null;
         let nx = data.nx;
         let ny = data.ny;
         let d = data.depth;
-        // e1 is the colliding side
-        if (b1 === undefined || (b1.velocityX * nx + b1.velocityY * ny <= 0)) {
-            data.nx = -data.nx;
-            data.ny = -data.ny;
-            nx = -nx;
-            ny = -ny;
-            if (b2 === undefined || (b2.velocityX * nx + b2.velocityY * ny <= 0)) {
-                data.nx = -data.nx;
-                data.ny = -data.ny;
-                nx = -nx;
-                ny = -ny;
-                let nm1 = (e2.material.mass) / (e1.material.mass + e2.material.mass) * d / 10;
+        // only push back if not actively colliding
+        if (b1.velocityX * nx + b1.velocityY * ny <= 0) {
+            if (d < 1.0e-4) {
+                return;
+            }
+            if (e2 instanceof MutableEntity) {
+                let nm1 = d / 5;
                 let n1x = -nx * nm1;
                 let n1y = -ny * nm1;
-                let nm2 = (e1.material.mass) / (e1.material.mass + e2.material.mass) * d / 10;
+                let nm2 = d / 100;
                 let n2x = nx * nm2;
                 let n2y = ny * nm2;
                 // push back
-                if (d > 1.0e-4) {
-                    let i = 0;
-                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        if (b1 !== undefined) {
-                            e1.deltaMove(n1x, n1y);
-                        }
-                        if (b2 !== undefined) {
-                            e2.deltaMove(n2x, n2y);
-                        }
-                    }
+                let i = 0;
+                while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                    e1.deltaMove(n1x, n1y);
+                    e2.deltaMove(n2x, n2y);
                 }
-                return;
             } else {
-                let swt = e1;
-                e1 = e2;
-                e2 = swt;
-                data.e1 = e1;
-                data.e2 = e2;
-                swt = b1;
-                b1 = b2;
-                b2 = swt;
+                // push back
+                let i = 0;
+                let n1x = -nx * d / 10;
+                let n1y = -ny * d / 10;
+                while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                    e1.deltaMove(n1x, n1y);
+                }
             }
+            return;
         }
 
         // replusion calculate
@@ -66,7 +54,8 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
         let vdy1 = 0;
         let vdx2 = 0;
         let vdy2 = 0;
-        if (b2 !== undefined) {
+        if (e2 instanceof MutableEntity) {
+            b2 = e2.body;
             let dot1 = b1.velocityX * nx + b1.velocityY * ny;
             let dot2 = b2.velocityX * nx + b2.velocityY * ny;
             let v1x = dot1 * nx;
@@ -78,12 +67,12 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                let nm1 = (e2.material.mass) / (e1.material.mass + e2.material.mass) * d / 10;
+                let nm1 = d / 5;
                 let n1x = -nx * nm1;
                 let n1y = -ny * nm1;
-                let nm2 = (e1.material.mass) / (e1.material.mass + e2.material.mass) * d / 10;
-                let n2x = nx * nm2;
-                let n2y = ny * nm2;
+                let nm2 = d / 100;
+                let n2x = b2.isFixX ? 0 : nx * nm2;
+                let n2y = b2.isFixY ? 0 : ny * nm2;
                 while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                     e1.deltaMove(n1x, n1y);
                     e2.deltaMove(n2x, n2y);
@@ -156,8 +145,8 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             let p = Math.sqrt(px * px + py * py);
             let dvx = 0;
             let dvy = 0;
-            let ovx = (b2 === undefined || b2.isFixX || b2.diffX * b2.velocityX < 0) ? b1.velocityX : b1.diffX - b2.diffX;
-            let ovy = (b2 === undefined || b2.isFixY || b2.diffY * b2.velocityY < 0) ? b1.velocityY : b1.diffY - b2.diffY;
+            let ovx = (b2 === null || b2.isFixX || b2.diffX * b2.velocityX < 0) ? b1.velocityX : b1.diffX - b2.diffX;
+            let ovy = (b2 === null || b2.isFixY || b2.diffY * b2.velocityY < 0) ? b1.velocityY : b1.diffY - b2.diffY;
             let dot = Math.sign(ovx * -ny + ovy * nx);
             dvx = dot * -ny * p * mu * dt / 1000;
             dvy = dot * nx * p * mu * dt / 1000;
@@ -170,7 +159,7 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
             vdx1 -= dvx * b1.material.frictionX;
             // Apply only to down wall
             vdy1 -= dvy < 0 ? 0 : dvy * b1.material.frictionY;
-        } else if (b2 !== undefined) {
+        } else if (b2 !== null) {
             // e2 on e1
             let mu = e1.material.mu;
             let dotp = b2.accelerationX * nx + b2.accelerationY * ny;
@@ -196,7 +185,7 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
         }
 
         b1.setNextAddVelocity(vdx1, vdy1);
-        if (b2 !== undefined) {
+        if (b2 !== null) {
             b2.setNextAddVelocity(vdx2, vdy2);
         }
     }

@@ -13,7 +13,7 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {JSON} collider Collider information json data
      * @return {Collider} Collider
      */
-    makeBaseCollider(collider) {
+    makeCollider(collider) {
         if (collider !== undefined && collider.excluded) {
             switch (collider.type) {
                 case `Rectangle`:
@@ -22,7 +22,7 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                     return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
             }
         }
-        return super.makeBaseCollider(collider);
+        return super.makeCollider(collider);
     }
 
     /**
@@ -31,7 +31,7 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @protected
      * @param {JSON} deploy Entity deploy json data
      * @param {JSON} json Tile information json data
-     * @return {InfluentialEntity} Underlying tile object
+     * @return {Entity} Underlying tile object
      */
     makeTileBase(deploy, json) {
         let ret = new UnderTileObject();

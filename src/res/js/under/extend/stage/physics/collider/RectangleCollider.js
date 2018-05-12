@@ -71,38 +71,38 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
             let ey = this.aabb.startY - collider.aabb.endY;
             if (0 < sx && ex < 0 && 0 < sy && ey < 0) {
                 if (data !== undefined) {
+                    let me = this.entity;
+                    let you = collider.entity;
                     let nx = Math.abs(sx) < Math.abs(ex) ? sx : ex;
                     let ny = Math.abs(sy) < Math.abs(ey) ? sy : ey;
-                    if (this.entity.body !== undefined && Math.abs(Math.abs(nx) - Math.abs(ny)) < 1) {
-                        if (nx * this.entity.body.velocityX <= 0) {
-                            nx = this.endX - this.startX + 1;
-                        }
-                        if (ny * this.entity.body.velocityY <= 0) {
-                            ny = this.endY - this.startY + 1;
-                        }
-                        if (Math.abs(nx) > this.endX - this.startX && Math.abs(ny) > this.endY - this.startY) {
-                            return false;
-                        }
+                    let depth = 0;
+                    if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
+                        let swap = me;
+                        me = you;
+                        you = swap;
+                        nx = -nx;
+                        ny = -ny;
+                    } else if (!me instanceof MutableEntity) {
+                        console.log(`Error: Colliding entity should be mutable`);
                     }
-                    let nlen = 0;
+                    if (me.body.velocityX * nx <= 0) {
+                        nx = Math.abs(ny) + 1;
+                    }
+                    if (me.body.velocityY * ny <= 0) {
+                        ny = Math.abs(nx) + 1;
+                    }
                     if (Math.abs(nx) < Math.abs(ny)) {
-                        nlen = Math.abs(nx);
+                        depth = Math.abs(nx);
                         nx = Math.sign(nx);
                         ny = 0;
                     } else {
-                        nlen = Math.abs(ny);
+                        depth = Math.abs(ny);
                         nx = 0;
                         ny = Math.sign(ny);
                     }
-                    data.e1 = this.entity;
-                    data.e2 = collider.entity;
-                    data.nx = nx;
-                    data.ny = ny;
-                    let base = (this.aabb.endX - this.aabb.startX + collider.aabb.endX - collider.aabb.startX);
-                    data.px = (this.aabb.startX + this.aabb.endX) / 2 * (this.aabb.endX - this.aabb.startX) / base + (collider.aabb.startX + collider.aabb.endX) / 2 * (collider.aabb.endX - collider.aabb.startX) / base;
-                    base = (this.aabb.endY - this.aabb.startY + collider.aabb.endY - collider.aabb.startY);
-                    data.py = (this.aabb.startY + this.aabb.endY) / 2 * (this.aabb.endY - this.aabb.startY) / base + (collider.aabb.startY + collider.aabb.endY) / 2 * (collider.aabb.endY - collider.aabb.startY) / base;
-                    data.depth = nlen;
+                    let px = me.x + nx * depth;
+                    let py = me.y + ny * depth;
+                    data.register(me, you, nx, ny, px, py, depth);
                 }
                 return true;
             }
@@ -152,7 +152,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
         let me = 0;
         let you = 0;
         for (let it of this.collisions) {
-            if (it.e1 === this.entity) {
+            if (it.colliding === this.entity) {
                 me += 1;
             } else {
                 you += 1;
@@ -164,16 +164,15 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
         }
         // vector
         for (let it of this.collisions) {
-            if (it.e2 === this.entity) {
+            if (it.collided === this.entity) {
                 continue;
             }
-            var hueVal = it.e1.imageID + (it.e2.imageID << 5);
             ctx.strokeLine(
                 this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
                 this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
-                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
-                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
-                hueVal);
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.colliding === this.entity ? 1 : -1),
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.colliding === this.entity ? 1 : -1),
+                `red`);
         }
     }
 }

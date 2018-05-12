@@ -60,6 +60,7 @@ class Stage { // eslint-disable-line  no-unused-vars
      */
     setBackground(back) {
         this.back = back;
+        this.back.init();
     }
 
     /**
@@ -173,6 +174,14 @@ class Stage { // eslint-disable-line  no-unused-vars
     updatePhysics(dt) {}
 
     /**
+     * Update background
+     * @abstract
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateBackground(dt) {}
+
+    /**
      * Update camera
      * @abstract
      * @protected
@@ -195,6 +204,7 @@ class Stage { // eslint-disable-line  no-unused-vars
             this.updateEntity(dt);
             this.updatePhysics(dt);
         }
+        this.updateBackground(dt);
         this.updateCamera(dt);
     }
 

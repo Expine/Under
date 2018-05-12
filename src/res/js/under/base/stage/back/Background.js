@@ -6,6 +6,12 @@
  */
 class Background { // eslint-disable-line  no-unused-vars
     /**
+     * Initialize background
+     * @abstract
+     */
+    init() {}
+
+    /**
      * Update background
      * @abstract
      * @param {number} dt delta time

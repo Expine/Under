@@ -1,31 +1,23 @@
 /**
  * Movement background
  * - Renders and update backgrdoun image
+ * - Manages image as background
  * - ### Renders certain area
- * @implements {Background}
+ * @extends {ImageBackground}
  * @classdesc Movement background to render certain area
  */
-class AreaBackground extends Background { // eslint-disable-line  no-unused-vars
+class AreaBackground extends ImageBackground { // eslint-disable-line  no-unused-vars
     /**
      * Movement background constructor
      * @constructor
-     * @param {number} backID Background image id
+     * @param {GameImage} backImage Background image
      * @param {number} x Background x position
      * @param {number} y Background x position
-     * @param {number} width Background width
-     * @param {number} height Background height
      * @param {number} areaWidth Renderign area width
      * @param {number} areaHeight Rendering area height
      */
-    constructor(backID, x, y, width, height, areaWidth, areaHeight) {
-        super();
-
-        /**
-         * Background image id
-         * @protected
-         * @type {number}
-         */
-        this.backID = backID;
+    constructor(backImage, x, y, areaWidth, areaHeight) {
+        super(backImage);
 
         /**
          * Background x position
@@ -39,18 +31,6 @@ class AreaBackground extends Background { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.y = y;
-        /**
-         * Background width
-         * @protected
-         * @type {number}
-         */
-        this.width = width;
-        /**
-         * Background height
-         * @protected
-         * @type {number}
-         */
-        this.height = height;
         /**
          * Renderign area width
          * @protected
@@ -77,20 +57,22 @@ class AreaBackground extends Background { // eslint-disable-line  no-unused-vars
     render(ctx, shiftX, shiftY, screenWidth, screenHeight) {
         let x = -shiftX - this.x;
         let y = -shiftY - this.y;
+        let width = this.backImage.getWidth();
+        let height = this.backImage.getHeight();
         if (x <= 0) {
             x = this.x + shiftX;
         } else if (this.areaWidth - screenWidth <= -shiftX - this.x) {
-            x = this.x + shiftX - this.width + this.areaWidth;
+            x = this.x + shiftX - width + this.areaWidth;
         } else {
-            x = -(screenWidth - this.width) / (this.areaWidth - screenWidth) * (shiftX + this.x);
+            x = -(screenWidth - width) / (this.areaWidth - screenWidth) * (shiftX + this.x);
         }
         if (y <= 0) {
             y = this.y + shiftY;
         } else if (this.areaHeight - screenHeight <= -shiftY - this.y) {
-            y = this.y + shiftY - this.height + this.areaHeight;
+            y = this.y + shiftY - height + this.areaHeight;
         } else {
-            y = -(screenHeight - this.height) / (this.areaHeight - screenHeight) * (shiftY + this.y);
+            y = -(screenHeight - height) / (this.areaHeight - screenHeight) * (shiftY + this.y);
         }
-        ctx.drawImage(this.backID, x, y, this.width, this.height);
+        this.backImage.render(ctx, x, y);
     }
 }

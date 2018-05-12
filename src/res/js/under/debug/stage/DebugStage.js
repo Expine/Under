@@ -154,6 +154,16 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Update background
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateBackground(dt) {
+        this.stage.updateBackground(dt);
+    }
+
+    /**
      * Update camera
      * @override
      * @protected

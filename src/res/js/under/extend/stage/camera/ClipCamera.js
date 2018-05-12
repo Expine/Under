@@ -33,6 +33,15 @@ class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Update camera
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        this.baseCamera.update(dt);
+    }
+
+    /**
      * Set camera position
      * @param {number} x Base x position
      * @param {number} y Base y position

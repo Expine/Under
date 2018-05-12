@@ -5,7 +5,6 @@ package under {
         package ex_stage {
             package ex_parser {
                 class TileBuilder {
-                    #loadImage(path) : number
                     #makeImage(image) : GameImage
                     #makeCollider(collider) : Collider
                     #makeAABB(collider) : AABB
@@ -23,11 +22,6 @@ package under {
 
 package under {
     package base {
-        package resource {
-            package image {
-                interface IImageManager
-            }
-        }
         package stage {
             package entity {
                 abstract Entity
@@ -36,18 +30,11 @@ package under {
             }
             package parser {
                 abstract EntityBuilder
+                abstract ImageBuilder
             }
         }
     }
     package extend {
-        package ex_resource {
-            package ex_image {
-                class TileImage
-                class SingleImage
-                class SingleAnimation
-                class MultiNamedAnimation
-            }
-        }
         package ex_stage {
             package ex_physics {
                 package ex_collider {
@@ -69,10 +56,6 @@ package under {
     }
 }
 
-TileBuilder ..> TileImage : Generate
-TileBuilder ..> SingleImage : Generate
-TileBuilder ..> SingleAnimation : Generate
-TileBuilder ..> MultiNamedAnimation : Generate
 TileBuilder ..> RectangleCollider : Generate
 TileBuilder ..> CircleCollider : Generate
 TileBuilder ..> RoundRectangleCollider : Generate
@@ -80,10 +63,10 @@ TileBuilder ..> SimpleAABB : Generate
 TileBuilder ..> DirectionalAABB : Generate
 TileBuilder ..> ImmutableMaterial : Generate
 TileBuilder ..> TileObject : Generate
-IImageManager <.. TileBuilder : Load
 Entity <.. TileBuilder : Set
 ImagedEntity <.. TileBuilder : Set
 InfluentialEntity <.. TileBuilder : Set
+ImageBuilder <.. TileBuilder : Build
 
 EntityBuilder <|.. TileBuilder
 

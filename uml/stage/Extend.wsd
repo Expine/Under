@@ -2,36 +2,31 @@
 package under {
     package extend {
         package ex_stage {
+            class StackStageManager {
+                #stageStack : Array<Stage>
+                +pushStage(stageName) <<override>>
+                +popStage() : Stage <<override>>
+                +getStage() : STage <<override>>
+            }
             class SplitManagementStage {
-                #mutables : Array<MutableObject>
+                +constructor(stageWidth,stageHeight)
                 #entities : Array<Entity>
+                #sortedEntity : Array<Entity>
+                #removeList : Array<Entity>
                 #player : Playable
-            }
-            class DebugStage
-            package ex_back {
-                class SequentialBackground {
-                    #backs : Array<Background>
-                }
-                class InvariantBackground {
-                    +constructor(imageID)
-                    #backID : number
-                }
-            }
-            package ex_camera {
-                class CenterCamera
-                class MovingCenterCamera
-            }
-
-            package ex_physics {
-                class SequentialWorld {
-                    #collisions : Array<CollisionData>
-                    #collisionSize : number
-                    #actors : Array<Entity>
-                    #notActors : Array<Entity>
-                    #entities : Array<Entity>
-                }
-                class ImpulseBasedResponse
-                class RepulsionResponse
+                #inited : boolean
+                +init() <<override>>
+                +addEntity(entity) <<override>>
+                +removeEntity(entity) <<override>>
+                +removeEntityImmediately(entity) <<override>>
+                +getEntities() : Array<Entity> <<override>>
+                #updateEntity(dt) <<override>>
+                #updatePhysics(dt) <<override>>
+                #updateBackground(dt) <<override>>
+                #updateCemera(dt) <<override>>
+                #renderBackground(ctx,shiftX,shiftY) <<override>>
+                #renderEntity(ctx,shiftX,shiftY) <<override>>
+                #renderWorld(ctx,shiftX,shiftY) <<override>>
             }
         }
     }
@@ -41,6 +36,10 @@ package under {
     package base {
         package stage {
             abstract Stage
+            abstract StageManager
+            package parser {
+                abstract StageParser
+            }
             package back {
                 abstract Background
             }
@@ -49,27 +48,27 @@ package under {
             }
             package physics {
                 abstract PhysicalWorld
-                abstract CollisionResponse
-                package collider {
-                    class CollisionData
+            }
+            package entity {
+                package interface {
+                    interface IPlayable
                 }
+                abstract Entity
+                abstract InfluentialEntity
             }
         }
     }
 }
 
-CollisionData <.. ImpulseBasedResponse : Collision response
-CollisionData <.. RepulsionResponse : Collision response
-CollisionData "1"--o "*"SequentialWorld : Pool
+StageParser <.. StackStageManager : Parse
+Entity "*" ..o "1" SplitManagementStage : Own and init, update, render
+IPlayable <.. SplitManagementStage : Get camera
+InfluentialEntity <.. SplitManagementStage : Pass
+Camera <.. SplitManagementStage : Set
+Background <.. SplitManagementStage : Render
+PhysicalWorld <.. SplitManagementStage : Set and update
 
+StageManager <|.. StackStageManager
 Stage <|.. SplitManagementStage
-SplitManagementStage <|-- DebugStage
-Camera <|.. CenterCamera
-CenterCamera <|-- MovingCenterCamera
-Background <|.. SequentialBackground
-Background <|.. InvariantBackground
-PhysicalWorld <|.. SequentialWorld
-CollisionResponse <|.. ImpulseBasedResponse
-CollisionResponse <|.. RepulsionResponse
 
 @enduml

@@ -121,6 +121,15 @@ package under {
                 +getTimer(name) : number <<override>>
                 +render(ctx,x,y) <<override>>
             }
+            class RecordedTimer {
+                #elapsedTime : number
+                #recordedTime : Object<string, Array<number>>
+                #maxTime : Object<string, number>
+                #minTime : Object<string, number>
+                #meanTime : Object<string, number>
+                +update(dt) <<override>>
+                +render(ctx,x,y) <<override>>
+            }
         }
 
         package ex_util {

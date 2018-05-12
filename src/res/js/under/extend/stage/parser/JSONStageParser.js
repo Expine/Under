@@ -2,7 +2,7 @@
  * JSON stage parser
  * - Generates a stage from a file
  * - ### Parses JSON file
- * @implements {StageParser}
+ * @extends {StageParser}
  * @classdesc JSON stage parser to parse JSON file
  */
 class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-vars
@@ -11,8 +11,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @param {EntityBuilder} [tile = TileBuilder] Tile builder instance
      * @param {EntityBuilder} [chara = CharacterBuilder] Character builder instance
      * @param {EventBuilder} [event = EventBuilder] Event builder instance
+     * @param {ImageBuilder} [image = BaseImageBuilder] Event builder instance
      */
-    constructor(tile = new TileBuilder(), chara = new CharacterBuilder(), event = new SimpleEventBuilder()) {
+    constructor(tile = new TileBuilder(), chara = new CharacterBuilder(), event = new SimpleEventBuilder(), image = new BaseImageBuilder()) {
         super();
         /**
          * Tile builder instance
@@ -33,16 +34,27 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
          * @type {EventBuilder}
          */
         this.eventBuilder = event;
+
+        /**
+         * Image builder instance
+         * @protected
+         * @type {ImageBuilder}
+         */
+        this.imageBuilder = image;
+
+        // initialize
+        this.tileBuilder.setImageBuilder(image);
+        this.characterBuilder.setImageBuilder(image);
     }
 
     /**
-     * Load background image
+     * Make background image
      * @protected
-     * @param {string} path Background image path
-     * @return {number} Background image ID
+     * @param {JSON} image Background image json data
+     * @return {GameImage} Background image
      */
-    loadBackgroundImage(path) {
-        return ResourceManager.image.load(`back/${path}`);
+    makeBackgroundImage(image) {
+        return this.imageBuilder.build(`back`, image);
     }
 
     /**
@@ -71,13 +83,13 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
                 }
                 return ret;
             case `Invariant`:
-                return new InvariantBackground(this.loadBackgroundImage(back.file));
+                return new InvariantBackground(this.makeBackgroundImage(back.image));
             case `Movement`:
-                return new MovementBackground(this.loadBackgroundImage(back.file), back.x, back.y, back.width, back.height, back.rx, back.ry);
+                return new MovementBackground(this.makeBackgroundImage(back.image), back.x, back.y, back.rx, back.ry);
             case `Area`:
-                return new AreaBackground(this.loadBackgroundImage(back.file), back.x, back.y, back.width, back.height, back.areaW, back.areaH);
+                return new AreaBackground(this.makeBackgroundImage(back.image), back.x, back.y, back.width, back.height);
             case `Fixed`:
-                return new FixedBackBackground(this.loadBackgroundImage(back.file), back.x, back.y, back.width, back.height);
+                return new FixedBackBackground(this.makeBackgroundImage(back.image), back.x, back.y);
             default:
                 return null;
         }

@@ -1,0 +1,73 @@
+@startuml StageExtendCamera
+package under {
+    package extend {
+        package ex_stage {
+            package ex_camera {
+                class CenterCamera {
+                    +setCameraPosition(x,y,width,height) <<override>>
+                }
+                class FixCamera {
+                    +constructor(x,y)
+                    #fixX : number
+                    #fixY : number
+                    +setCameraPosition(x,y,width,height) <<override>>
+                }
+                class MovingCamera {
+                    +constructor(baseCamera)
+                    #baseCamera : Camera
+                    +setScreenSize(screenWidth,screenHeight) <<override>>
+                    +update(dt) <<override>>
+                    +setCameraPosition(x,y,width,height) <<override>>
+                }
+                class ClipCamera {
+                    +constructor(baseCamera)
+                    #baseCamera : Camera
+                    +setScreenSize(screenWidth,screenHeight) <<override>>
+                    +update(dt) <<override>>
+                    +setCameraPosition(x,y,width,height) <<override>>
+                }
+                class ForceMoveCamera {
+                    +constructor(baseCamera,x,y,speed)
+                    #baseCamera : Camera
+                    #toX : number
+                    #toY : number
+                    #speed : number
+                    #nextX : number
+                    #nextY : number
+                    +setScreenSize(screenWidth,screenHeight) <<override>>
+                    +update(dt) <<override>>
+                    +setCameraPosition(x,y,width,height) <<override>>
+                }
+                class EventCamera {
+                    +constructor()
+                    #delegate : Camera
+                    +setDelegate(camera)
+                    +getDelegate() : Camera
+                    +setScreenSize(screenWidth,screenHeight) <<override>>
+                    +update(dt) <<override>>
+                    +setCameraPosition(x,y,width,height) <<override>>
+                }
+            }
+
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package camera {
+                abstract Camera
+            }
+        }
+    }
+}
+
+Camera <|.. CenterCamera
+Camera <|.. FixCamera
+Camera <|.. MovingCamera
+Camera <|.. ClipCamera
+Camera <|.. ForceMoveCamera
+Camera <|.. EventCamera
+
+@enduml

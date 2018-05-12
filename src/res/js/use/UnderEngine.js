@@ -12,6 +12,7 @@
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/event/onstage/StageEvent.js'; document.head.appendChild(script);
     }
 }, 1);}
+{let script = document.createElement('script'); script.src='src/res/js/under/base/event/parser/EventBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/input/Input.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/resources/image/Context.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/resources/image/GameImage.js'; document.head.appendChild(script);}
@@ -47,7 +48,7 @@
     }
 }, 1);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/EntityBuilder.js'; document.head.appendChild(script);}
-{let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/EventBuilder.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/ImageBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/StageParser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/physics/body/RigidBody.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/physics/body/RigidMaterial.js'; document.head.appendChild(script);}
@@ -66,6 +67,16 @@
 {let id = setInterval(function() {
     if (typeof Layer !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/scene/layer/DebugLayer.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Stage !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/stage/DebugStage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof PhysicalWorld !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/stage/physics/DebugWorld.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -126,6 +137,11 @@
 {let id = setInterval(function() {
     if (typeof StageEvent !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/onstage/WaitKeyEvent.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof EventBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/parser/SimpleEventBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -285,21 +301,16 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Background !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/AreaBackground.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/ImageBackground.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Background !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/FixedBackground.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof Background !== `undefined`) {
+    if (typeof ImageBackground !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/InvariantBackground.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Background !== `undefined`) {
+    if (typeof ImageBackground !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/MovementBackground.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -339,11 +350,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Stage !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/DebugStage.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof Entity !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/fire/ImmutableEvent.js'; document.head.appendChild(script);
     }
@@ -364,6 +370,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof ImageBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/BaseImageBuilder.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof StageParser !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/CSVStageParser.js'; document.head.appendChild(script);
     }
@@ -371,11 +382,6 @@
 {let id = setInterval(function() {
     if (typeof StageParser !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/JSONStageParser.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof EventBuilder !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/SimpleEventBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -409,6 +415,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof CollisionData !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/LowerPriorityData.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof Collider !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/RectangleCollider.js'; document.head.appendChild(script);
     }
@@ -421,11 +432,6 @@
 {let id = setInterval(function() {
     if (typeof AABB !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/SimpleAABB.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof PhysicalWorld !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/DebugWorld.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -675,6 +681,16 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof ImageBackground !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/AreaBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof ImageBackground !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/FixedBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof AutonomyEntitiy !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/AIListedObject.js'; document.head.appendChild(script);
     }
@@ -732,6 +748,11 @@
 {let id = setInterval(function() {
     if (typeof SimpleAABB !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/DirectionalAABB.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof SimpleTimer !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/timer/RecordedTimer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {

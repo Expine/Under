@@ -96,13 +96,13 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
             if (d > this.length) {
                 let l = d - this.length;
                 for (let it of this.entity.collider.collisions) {
-                    if ((it.e1 === this.entity && it.nx * dx > 0) || (it.e2 === this.entity && it.nx * dx < 0)) {
+                    if ((it.colliding === this.entity && it.nx * dx > 0) || (it.collided === this.entity && it.nx * dx < 0)) {
                         if (this.length < Math.abs(dx)) {
                             dy = dy * d / l + Math.sign(dy);
                         }
                         dx = 0;
                     }
-                    if ((it.e1 === this.entity && it.ny * dy > 0) || (it.e2 === this.entity && it.ny * dy < 0)) {
+                    if ((it.colliding === this.entity && it.ny * dy > 0) || (it.collided === this.entity && it.ny * dy < 0)) {
                         if (this.length < Math.abs(dy)) {
                             dx = dx * d / l + Math.sign(dx);
                         }

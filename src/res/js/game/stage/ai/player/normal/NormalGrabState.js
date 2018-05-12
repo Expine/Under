@@ -109,7 +109,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
 
         // check collision
         let check = this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).some((it) => {
-            return it.e2.collider.isResponse(this.entity) && it.ny < -0.5;
+            return it.collided.collider.isResponse(this.entity) && it.ny < -0.5;
         });
         if (check) {
             return true;

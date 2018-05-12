@@ -121,13 +121,23 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Initialize collision state
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    initCollision(dt) {
+        Timer.it.startTimer(`collide`);
+        this.world.initCollision(dt);
+    }
+
+    /**
      * Update collisions
      * @override
      * @protected
      * @param {number} dt Delta time
      */
     updateCollision(dt) {
-        Timer.it.startTimer(`collide`);
         this.world.updateCollision(dt);
         Timer.it.stopTimer(`collide`);
     }
@@ -142,5 +152,15 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
         Timer.it.startTimer(`response`);
         this.world.updateResponse(dt);
         Timer.it.stopTimer(`response`);
+    }
+
+    /**
+     * Cleanup all information
+     * @abstract
+     * @protected
+     * @param {number} dt Delta time
+     */
+    cleanup(dt) {
+        this.world.cleanup();
     }
 }

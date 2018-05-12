@@ -2,20 +2,10 @@
  * Tile builder
  * - Generates entity from json data
  * - ### Generate tile from json data
- * @implements {EntityBuilder}
+ * @extends {EntityBuilder}
  * @classdesc Tile builder to generate tile from json data
  */
 class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
-    /**
-     * Load image
-     * @protected
-     * @param {string} path Image file name
-     * @return {number} Image ID
-     */
-    loadImage(path) {
-        return ResourceManager.image.load(`tile/${path}`);
-    }
-
     /**
      * Make image
      * @protected
@@ -23,39 +13,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {GameImage} Image
      */
     makeImage(image) {
-        let id = this.loadImage(image.file);
-        switch (image.type) {
-            case `tile`:
-                return new TileImage(id, image.width, image.height, image.x, image.y, image.width, image.height);
-            case `single`:
-                return new SingleImage(id, image.width, image.height);
-            case `anime`:
-                {
-                    let base = new SingleAnimation(image.loop);
-                    let id = this.loadImage(image.file);
-                    base.setSize(image.width, image.height);
-                    for (let it of image.animation) {
-                        base.addAnimation(new TileImage(id, image.width, image.height, it.x, it.y, it.width, it.height), it.delta);
-                    }
-                    return base;
-                }
-            case `multianime`:
-                {
-                    let base = new MultiNamedAnimation();
-                    let id = this.loadImage(image.file);
-                    for (let anime of image.animations) {
-                        base.setName(anime.name);
-                        base.setAnimation(new SingleAnimation(anime.loop));
-                        base.setSize(image.width, image.height);
-                        for (let it of anime.animation) {
-                            base.addAnimation(new TileImage(id, image.width, image.height, it.x, it.y, it.width, it.height), it.delta);
-                        }
-                    }
-                    return base;
-                }
-            default:
-                return null;
-        }
+        return this.imageBuilder.build(`tile`, image);
     }
 
     /**

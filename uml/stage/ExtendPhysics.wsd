@@ -1,0 +1,110 @@
+@startuml StageExtend
+package under {
+    package extend {
+        package ex_stage {
+            package ex_physics {
+                class SequentialWorld {
+                    +constructor(gravity)
+                    #collisions : Array<CollisionData>
+                    #collisionSize : number
+                    #actors : Array<MutableEntity>
+                    #notActors : Array<InfluentialEntity>
+                    #entities : Array<Entity>
+                    +addEntity(entity) <<override>>
+                    +removeEntity(entity) <<override>>
+                    +getCollisionData(entity) : Array<CollisionData> <<override>>
+                    +getCollisionSize() : number <<override>>
+                    #updateExternalForce(dt) <<override>>
+                    #prepareBody(dt) <<override>>
+                    #updateBody(dt) <<override>>
+                    #updateBodyCleanup(dt) <<override>>
+                    #updateCollision(dt) <<override>>
+                    #updateResponse(dt) <<override>>
+                }
+                class SplitWorld {
+                    +constructor(stageWidth,stgeHeight,gravity,splitNumber)
+                    #splitNumber : number
+                    #stageWidth : number
+                    #stageHeight : number
+                    #notActorsMap : Array<Array<InfluentialEntity>>
+                    +addEntity(entity) <<override>>
+                    +removeEntity(entity) <<override>>
+                    +getCollisionData(entity) : Array<CollisionData> <<override>>
+                    #updateCollision(dt) <<override>>
+                }
+                class ImpulseBasedResponse {
+                    +collisionResponse(data,dt) <<override>>
+                }
+                class RepulsionResponse {
+                    +collisionResponse(data,dt) <<override>>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package physics {
+                abstract PhysicalWorld
+                abstract CollisionResponse
+                package material {
+                    abstract Material
+                }
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+                package body {
+                    abstract RigidBody
+                }
+            }
+            package entity {
+                abstract InfluentialEntity
+                abstract MutableEntity
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_physics {
+                package ex_collider {
+                    class LowerPriorityData
+                }
+            }
+        }
+    }
+}
+
+InfluentialEntity <.. SequentialWorld : Collide
+MutableEntity <.. SequentialWorld : Update body
+CollisionData <.. SequentialWorld : Pass and calc
+Collider <.. SequentialWorld : Judge
+RigidBody <.. SequentialWorld : Enforce and update
+CollisionResponse <.. SequentialWorld : Response
+LowerPriorityData <.. SequentialWorld : Generate
+
+Collider <.. SplitWorld : Judge
+LowerPriorityData <.. SplitWorld : Generate
+
+RigidBody <.. ImpulseBasedResponse : Get and enforce
+Material <.. ImpulseBasedResponse : Get
+Collider <.. ImpulseBasedResponse : Get
+InfluentialEntity <.. ImpulseBasedResponse : Get
+MutableEntity <.. ImpulseBasedResponse : Get
+CollisionData <.. ImpulseBasedResponse : Get
+
+RigidBody <.. RepulsionResponse : Get and enforce
+Material <.. RepulsionResponse : Get
+Collider <.. RepulsionResponse : Get
+InfluentialEntity <.. RepulsionResponse : Get
+CollisionData <.. RepulsionResponse : Get
+MutableEntity <.. RepulsionResponse : Get
+
+PhysicalWorld <|.. SequentialWorld
+SequentialWorld <|-- SplitWorld
+CollisionResponse <|.. ImpulseBasedResponse
+CollisionResponse <|.. RepulsionResponse
+
+@enduml

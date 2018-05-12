@@ -80,18 +80,24 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
             let r = this.radius + collider.radius;
             if (nx * nx + ny * ny < r * r) {
                 if (data !== undefined) {
-                    if (this.entity.body !== undefined && (this.entity.body.velocityX * nx + this.entity.body.velocityY * ny < 0)) {
-                        return false;
-                    }
+                    let me = this.entity;
+                    let you = collider.entity;
                     let nlen = Math.sqrt(nx * nx + ny * ny);
-                    data.e1 = this.entity;
-                    data.e2 = collider.entity;
-                    data.nx = nx / nlen;
-                    data.ny = ny / nlen;
-                    data.depth = collider.radius + this.radius - nlen;
-                    if (!this.collisions.includes(data)) {
-                        this.collisions.push(data);
+                    nx = nx / nlen;
+                    ny = ny / nlen;
+                    let px = this.centerX + this.radius * nx;
+                    let py = this.centerY + this.radius * ny;
+                    let depth = r - nlen;
+                    if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
+                        let swap = me;
+                        me = you;
+                        you = swap;
+                        nx = -nx;
+                        ny = -ny;
+                    } else if (!me instanceof MutableEntity) {
+                        console.log(`Error: Colliding entity should be mutable`);
                     }
+                    data.register(me, you, nx, ny, px, py, depth);
                 }
                 return true;
             }
@@ -142,7 +148,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
         let me = 0;
         let you = 0;
         for (let it of this.collisions) {
-            if (it.e1 === this.entity) {
+            if (it.colliding === this.entity) {
                 me += 1;
             } else {
                 you += 1;
@@ -157,13 +163,12 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
             if (it.e2 === this.entity) {
                 continue;
             }
-            var hueVal = it.e1.imageID + (it.e2.imageID << 5);
             ctx.strokeLine(
                 this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
                 this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
-                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
-                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
-                hueVal);
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.colliding === this.entity ? 1 : -1),
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.colliding === this.entity ? 1 : -1),
+                `red`);
         }
     }
 }

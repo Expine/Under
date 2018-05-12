@@ -3,6 +3,20 @@
 package under {
     package base {
         package stage {
+            abstract StageManager {
+                {static} +it : StageManager
+                #parser : StageParser
+                #width : number
+                #height : number
+                +setStageParser(parser)
+                +setStageSize(width,height)
+                {abstract} +pushStage(stageName)
+                +replaceStage(stageName)
+                {abstract} +popStage() : Stage
+                {abstract} +getStage() : STage
+                +update(dt)
+                +render(ctx,shiftX,shiftY)
+            }
             abstract Stage {
                 +constructor(stageWidth,stageHeight)
                 #stageWidth : number
@@ -26,6 +40,7 @@ package under {
                 {abstract} +getEntities() : Array<Entity>
                 {abstract} #updateEntity(dt)
                 {abstract} #updatePhysics(dt)
+                {abstract} #updateBackground(dt)
                 {abstract} #updateCemera(dt)
                 {abstract} +init()
                 +update(dt)
@@ -44,6 +59,7 @@ package under {
             }
             package back {
                 abstract Background {
+                    {abstract} +init()
                     {abstract} +update(dt)
                     {abstract} +render(ctx,shiftX,shiftY,screenWidth,screenHeight)
                 }

@@ -37,7 +37,7 @@ class Collider { // eslint-disable-line  no-unused-vars
         /**
          * Entity attaching this
          * @protected
-         * @type {Entity}
+         * @type {InfluentialEntity}
          */
         this.entity = null;
 

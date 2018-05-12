@@ -12,6 +12,7 @@
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/event/onstage/StageEvent.js'; document.head.appendChild(script);
     }
 }, 1);}
+{let script = document.createElement('script'); script.src='src/res/js/under/base/event/parser/EventBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/input/Input.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/resources/image/Context.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/resources/image/GameImage.js'; document.head.appendChild(script);}
@@ -47,7 +48,7 @@
     }
 }, 1);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/EntityBuilder.js'; document.head.appendChild(script);}
-{let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/EventBuilder.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/ImageBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/StageParser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/physics/body/RigidBody.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/physics/body/RigidMaterial.js'; document.head.appendChild(script);}
@@ -66,6 +67,16 @@
 {let id = setInterval(function() {
     if (typeof Layer !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/scene/layer/DebugLayer.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Stage !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/stage/DebugStage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof PhysicalWorld !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/stage/physics/DebugWorld.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -126,6 +137,11 @@
 {let id = setInterval(function() {
     if (typeof StageEvent !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/onstage/WaitKeyEvent.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof EventBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/parser/SimpleEventBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -285,21 +301,16 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Background !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/AreaBackground.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/ImageBackground.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Background !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/FixedBackground.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof Background !== `undefined`) {
+    if (typeof ImageBackground !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/InvariantBackground.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Background !== `undefined`) {
+    if (typeof ImageBackground !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/MovementBackground.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -339,11 +350,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Stage !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/DebugStage.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof Entity !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/fire/ImmutableEvent.js'; document.head.appendChild(script);
     }
@@ -364,6 +370,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof ImageBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/BaseImageBuilder.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof StageParser !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/CSVStageParser.js'; document.head.appendChild(script);
     }
@@ -371,11 +382,6 @@
 {let id = setInterval(function() {
     if (typeof StageParser !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/JSONStageParser.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof EventBuilder !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/SimpleEventBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -409,6 +415,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof CollisionData !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/LowerPriorityData.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof Collider !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/RectangleCollider.js'; document.head.appendChild(script);
     }
@@ -421,11 +432,6 @@
 {let id = setInterval(function() {
     if (typeof AABB !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/SimpleAABB.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof PhysicalWorld !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/DebugWorld.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -810,6 +816,16 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof ImageBackground !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/AreaBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof ImageBackground !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/FixedBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof AutonomyEntitiy !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/AIListedObject.js'; document.head.appendChild(script);
     }
@@ -867,6 +883,11 @@
 {let id = setInterval(function() {
     if (typeof SimpleAABB !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/DirectionalAABB.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof SimpleTimer !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/timer/RecordedTimer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1116,6 +1137,7 @@
         typeof NamedEvent !== `undefined` &&
         typeof EventManager !== `undefined` &&
         typeof StageEvent !== `undefined` &&
+        typeof EventBuilder !== `undefined` &&
         typeof Input !== `undefined` &&
         typeof Context !== `undefined` &&
         typeof GameImage !== `undefined` &&
@@ -1135,7 +1157,7 @@
         typeof InfluentialEntity !== `undefined` &&
         typeof MutableEntity !== `undefined` &&
         typeof EntityBuilder !== `undefined` &&
-        typeof EventBuilder !== `undefined` &&
+        typeof ImageBuilder !== `undefined` &&
         typeof StageParser !== `undefined` &&
         typeof RigidBody !== `undefined` &&
         typeof RigidMaterial !== `undefined` &&
@@ -1152,6 +1174,8 @@
         typeof Interface !== `undefined` &&
         typeof Method !== `undefined` &&
         typeof DebugLayer !== `undefined` &&
+        typeof DebugStage !== `undefined` &&
+        typeof DebugWorld !== `undefined` &&
         typeof AutoInputEvent !== `undefined` &&
         typeof DelayEvent !== `undefined` &&
         typeof DeleteEvent !== `undefined` &&
@@ -1164,6 +1188,7 @@
         typeof TalkEvent !== `undefined` &&
         typeof TransitionalEvent !== `undefined` &&
         typeof WaitKeyEvent !== `undefined` &&
+        typeof SimpleEventBuilder !== `undefined` &&
         typeof QueueEventManager !== `undefined` &&
         typeof AllInput !== `undefined` &&
         typeof StateInputManager !== `undefined` &&
@@ -1195,8 +1220,7 @@
         typeof PlayerGameoverStateAI !== `undefined` &&
         typeof BaseState !== `undefined` &&
         typeof StraightAI !== `undefined` &&
-        typeof AreaBackground !== `undefined` &&
-        typeof FixedBackground !== `undefined` &&
+        typeof ImageBackground !== `undefined` &&
         typeof InvariantBackground !== `undefined` &&
         typeof MovementBackground !== `undefined` &&
         typeof SequentialBackground !== `undefined` &&
@@ -1206,24 +1230,23 @@
         typeof FixCamera !== `undefined` &&
         typeof ForceMoveCamera !== `undefined` &&
         typeof MovingCamera !== `undefined` &&
-        typeof DebugStage !== `undefined` &&
         typeof ImmutableEvent !== `undefined` &&
         typeof DoorObject !== `undefined` &&
         typeof SignObject !== `undefined` &&
         typeof Obstacle !== `undefined` &&
+        typeof BaseImageBuilder !== `undefined` &&
         typeof CSVStageParser !== `undefined` &&
         typeof JSONStageParser !== `undefined` &&
-        typeof SimpleEventBuilder !== `undefined` &&
         typeof TileBuilder !== `undefined` &&
         typeof IJoint !== `undefined` &&
         typeof ImmutableRigidMaterial !== `undefined` &&
         typeof MaxAdoptBody !== `undefined` &&
         typeof PreciseBody !== `undefined` &&
         typeof CircleCollider !== `undefined` &&
+        typeof LowerPriorityData !== `undefined` &&
         typeof RectangleCollider !== `undefined` &&
         typeof RoundRectangleCollider !== `undefined` &&
         typeof SimpleAABB !== `undefined` &&
-        typeof DebugWorld !== `undefined` &&
         typeof ImpulseBasedResponse !== `undefined` &&
         typeof ImmutableMaterial !== `undefined` &&
         typeof RepulsionResponse !== `undefined` &&
@@ -1301,6 +1324,8 @@
         typeof PPunchState !== `undefined` &&
         typeof PStationaryState !== `undefined` &&
         typeof PWalkState !== `undefined` &&
+        typeof AreaBackground !== `undefined` &&
+        typeof FixedBackground !== `undefined` &&
         typeof AIListedObject !== `undefined` &&
         typeof Character !== `undefined` &&
         typeof Enemy !== `undefined` &&
@@ -1313,6 +1338,7 @@
         typeof JointBody !== `undefined` &&
         typeof PlayerBody !== `undefined` &&
         typeof DirectionalAABB !== `undefined` &&
+        typeof RecordedTimer !== `undefined` &&
         typeof GameScene !== `undefined` &&
         typeof CommonBaseStateAI !== `undefined` &&
         typeof UnderPlayerState !== `undefined` &&

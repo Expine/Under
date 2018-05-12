@@ -1,27 +1,12 @@
 /**
  * Invariant background
  * - Renders and update backgrdoun image
+ * - Manages image as background
  * - ### Background where the background does not move
- * @implements {Background}
+ * @extends {ImageBackground}
  * @classdesc Invariant background where the background does not move
  */
-class InvariantBackground extends Background { // eslint-disable-line  no-unused-vars
-    /**
-     * Invariant background constructor
-     * @constructor
-     * @param {number} backID Background image id
-     */
-    constructor(backID) {
-        super();
-
-        /**
-         * Background image id
-         * @protected
-         * @type {number}
-         */
-        this.backID = backID;
-    }
-
+class InvariantBackground extends ImageBackground { // eslint-disable-line  no-unused-vars
     /**
      * Render background
      * @override
@@ -32,6 +17,6 @@ class InvariantBackground extends Background { // eslint-disable-line  no-unused
      * @param {number} screenWidth Scren height
      */
     render(ctx, shiftX, shiftY, screenWidth, screenHeight) {
-        ctx.drawImage(this.backID, 0, 0);
+        this.backImage.render(ctx, 0, 0);
     }
 }

@@ -1,29 +1,21 @@
 /**
  * Fixed background
  * - Renders and update backgrdoun image
+ * - Manages image as background
  * - ### Background that is fixed to certain coordinates
- * @implements {Background}
+ * @extends {ImageBackground}
  * @classdesc Fixed background that is fixed to certain coordinates
  */
-class FixedBackground extends Background { // eslint-disable-line  no-unused-vars
+class FixedBackground extends ImageBackground { // eslint-disable-line  no-unused-vars
     /**
      * Fixed background constructor
      * @constructor
-     * @param {number} backID Background image id
+     * @param {GameImage} backImage Background image
      * @param {number} x Background x position
      * @param {number} y Background x position
-     * @param {number} width Background width
-     * @param {number} height Background height
      */
-    constructor(backID, x, y, width, height) {
-        super();
-
-        /**
-         * Background image id
-         * @protected
-         * @type {number}
-         */
-        this.backID = backID;
+    constructor(backImage, x, y) {
+        super(backImage);
 
         /**
          * Background x position
@@ -37,18 +29,6 @@ class FixedBackground extends Background { // eslint-disable-line  no-unused-var
          * @type {number}
          */
         this.y = y;
-        /**
-         * Background width
-         * @protected
-         * @type {number}
-         */
-        this.width = width;
-        /**
-         * Background height
-         * @protected
-         * @type {number}
-         */
-        this.height = height;
     }
 
     /**
@@ -61,6 +41,6 @@ class FixedBackground extends Background { // eslint-disable-line  no-unused-var
      * @param {number} screenWidth Scren height
      */
     render(ctx, shiftX, shiftY, screenWidth, screenHeight) {
-        ctx.drawImage(this.backID, this.x + shiftX, this.y + shiftY, this.width, this.height);
+        this.backImage.render(ctx, this.x + shiftX, this.y + shiftY);
     }
 }

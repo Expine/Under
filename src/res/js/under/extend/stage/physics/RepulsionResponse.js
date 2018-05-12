@@ -11,43 +11,39 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
      * @param {number} dt delta time
      */
     collisionResponse(data, dt) {
-        let e1 = data.e1;
-        let e2 = data.e2;
+        let e1 = data.colliding;
+        let e2 = data.collided;
         let b1 = e1.body;
-        let b2 = e2.body;
         let nx = data.nx;
         let ny = data.ny;
         let d = data.depth;
-        // e1 is the colliding side
-        if (b1 === undefined || (b1.velocityX * nx + b1.velocityY * ny <= 0)) {
-            nx = -nx;
-            ny = -ny;
-            if (b2 === undefined || (b2.velocityX * nx + b2.velocityY * ny <= 0)) {
-                nx = -nx;
-                ny = -ny;
-                // push back
-                if (d > 1.0e-4) {
-                    let i = 0;
+        // push back if not actively colliding
+        if (b1.velocityX * nx + b1.velocityY * ny <= 0) {
+            // push back
+            if (d > 1.0e-4) {
+                let i = 0;
+                let p1x = -nx * d / 10;
+                let p1y = -ny * d / 10;
+                if (e2 instanceof MutableEntity) {
+                    let b2 = e2.body;
+                    let p2x = nx * d / 10;
+                    let p2y = ny * d / 10;
                     while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
-                        if (b1 !== undefined) {
-                            e1.deltaMove(-nx * d / 10, -ny * d / 10);
-                        }
+                        e1.deltaMove(p1x, p1y);
                         if (b2 !== undefined) {
-                            e2.deltaMove(nx * d / 10, ny * d / 10);
+                            e2.deltaMove(p2x, p2y);
                         }
                     }
+                } else {
+                    while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
+                        e1.deltaMove(p1x, p1y);
+                    }
                 }
-                return;
-            } else {
-                let swt = e1;
-                e1 = e2;
-                e2 = swt;
-                swt = b1;
-                b1 = b2;
-                b2 = swt;
             }
+            return;
         }
-        if (b2 !== undefined && (ny < 1 || b1.velocityX * b2.velocityX + b1.velocityY * b2.velocityY < 0)) {
+        if (e2 instanceof MutableEntity && (ny < 1 || b1.velocityX * e2.body.velocityX + b1.velocityY * e2.body.velocityY < 0)) {
+            let b2 = e2.body;
             let dot1 = b1.velocityX * nx + b1.velocityY * ny;
             let dot2 = b2.velocityX * nx + b2.velocityY * ny;
             let v1x = dot1 * nx;

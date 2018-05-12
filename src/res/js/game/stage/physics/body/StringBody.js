@@ -223,7 +223,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             if (this.enableList[i]) {
                 let data = world.getCollisionData(it.entity.collider);
                 for (let col of data) {
-                    if (!col.e1.collider.isResponse(col.e2.collider) || !col.e2.collider.isResponse(col.e1.collider)) {
+                    if (!col.colliding.collider.isResponse(col.collided.collider) || !col.collided.collider.isResponse(col.colliding.collider)) {
                         continue;
                     }
                     // push back
@@ -298,7 +298,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                     // check collision
                     let data = world.getCollisionData(it.entity.collider);
                     for (let col of data) {
-                        if (!col.e1.collider.isResponse(col.e2.collider) || !col.e2.collider.isResponse(col.e1.collider)) {
+                        if (!col.colliding.collider.isResponse(col.collided.collider) || !col.collided.collider.isResponse(col.colliding.collider)) {
                             continue;
                         }
                         // push back
@@ -338,8 +338,8 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         }
         // update collision data
         for (let it of this.collisions) {
-            it.e1.collider.addCollision(it);
-            it.e2.collider.addCollision(it);
+            it.colliding.collider.addCollision(it);
+            it.collided.collider.addCollision(it);
         }
     }
 

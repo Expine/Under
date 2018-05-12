@@ -36,7 +36,7 @@ class FixCamera extends Camera { // eslint-disable-line  no-unused-vars
      * @param {number} height Camera max height
      */
     setCameraPosition(x, y, width, height) {
-        this.cameraY = this.fixX;
-        this.cameraY = this.fixY;
+        this.cameraY = -this.fixX;
+        this.cameraY = -this.fixY;
     }
 }

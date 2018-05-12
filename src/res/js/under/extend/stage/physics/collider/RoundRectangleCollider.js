@@ -42,7 +42,9 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             let cutCY = 0;
             let nx = 0;
             let ny = 0;
-            let d = Math.max(this.endX - this.startX, this.endY - this.startY, collider.aabb.endX - collider.aabb.startX, collider.aabb.endY - collider.aabb.startY) + 1;
+            let d = Number.MAX_SAFE_INTEGER;
+            let collided = false;
+
 
             let sx = this.aabb.endX - cutX - collider.aabb.startX - cutCX;
             let ex = this.aabb.startX + cutX - collider.aabb.endX + cutCX;
@@ -53,6 +55,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 d = Math.abs(len);
                 nx = 0;
                 ny = Math.sign(len);
+                collided = true;
             }
 
             sx = this.aabb.endX - cutX - collider.aabb.startX;
@@ -64,6 +67,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 d = Math.abs(len);
                 nx = Math.sign(len);
                 ny = 0;
+                collided = true;
             }
 
             sx = this.aabb.endX - collider.aabb.startX - cutCX;
@@ -75,6 +79,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 d = Math.abs(len);
                 nx = Math.sign(len);
                 ny = 0;
+                collided = true;
             }
 
             sx = this.aabb.endX - collider.aabb.startX;
@@ -86,19 +91,25 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 d = Math.abs(len);
                 nx = Math.sign(len);
                 ny = 0;
+                collided = true;
             }
 
-            if (d < Math.max(this.endX - this.startX, this.endY - this.startY, collider.aabb.endX - collider.aabb.startX, collider.aabb.endY - collider.aabb.startY)) {
+            if (collided) {
                 if (data !== undefined) {
-                    data.e1 = this.entity;
-                    data.e2 = collider.entity;
-                    data.nx = nx;
-                    data.ny = ny;
-                    let base = (this.aabb.endX - this.aabb.startX + collider.aabb.endX - collider.aabb.startX);
-                    data.px = (this.aabb.startX + this.aabb.endX) / 2 * (this.aabb.endX - this.aabb.startX) / base + (collider.aabb.startX + collider.aabb.endX) / 2 * (collider.aabb.endX - collider.aabb.startX) / base;
-                    base = (this.aabb.endY - this.aabb.startY + collider.aabb.endY - collider.aabb.startY);
-                    data.py = (this.aabb.startY + this.aabb.endY) / 2 * (this.aabb.endY - this.aabb.startY) / base + (collider.aabb.startY + collider.aabb.endY) / 2 * (collider.aabb.endY - collider.aabb.startY) / base;
-                    data.depth = d;
+                    let me = this.entity;
+                    let you = collider.entity;
+                    if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
+                        let swap = me;
+                        me = you;
+                        you = swap;
+                        nx = -nx;
+                        ny = -ny;
+                    } else if (!me instanceof MutableEntity) {
+                        console.log(`Error: Colliding entity should be mutable`);
+                    }
+                    let px = me.x + nx * d;
+                    let py = me.y + ny * d;
+                    data.register(me, you, nx, ny, px, py, d);
                 }
                 return true;
             }
@@ -107,7 +118,8 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             let cutY = this.cut;
             let nx = 0;
             let ny = 0;
-            let d = Math.max(this.endX - this.startX, this.endY - this.startY, collider.aabb.endX - collider.aabb.startX, collider.aabb.endY - collider.aabb.startY) + 1;
+            let d = Number.MAX_SAFE_INTEGER;
+            let collided = false;
 
             let sx = this.aabb.endX - cutX - collider.aabb.startX;
             let ex = this.aabb.startX + cutX - collider.aabb.endX;
@@ -118,6 +130,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 d = Math.abs(len);
                 nx = 0;
                 ny = Math.sign(len);
+                collided = true;
             }
 
             sx = this.aabb.endX - collider.aabb.startX;
@@ -129,19 +142,25 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 d = Math.abs(len);
                 nx = Math.sign(len);
                 ny = 0;
+                collided = true;
             }
 
-            if (d < Math.max(this.endX - this.startX, this.endY - this.startY, collider.aabb.endX - collider.aabb.startX, collider.aabb.endY - collider.aabb.startY)) {
+            if (collided) {
                 if (data !== undefined) {
-                    data.e1 = this.entity;
-                    data.e2 = collider.entity;
-                    data.nx = nx;
-                    data.ny = ny;
-                    let base = (this.aabb.endX - this.aabb.startX + collider.aabb.endX - collider.aabb.startX);
-                    data.px = (this.aabb.startX + this.aabb.endX) / 2 * (this.aabb.endX - this.aabb.startX) / base + (collider.aabb.startX + collider.aabb.endX) / 2 * (collider.aabb.endX - collider.aabb.startX) / base;
-                    base = (this.aabb.endY - this.aabb.startY + collider.aabb.endY - collider.aabb.startY);
-                    data.py = (this.aabb.startY + this.aabb.endY) / 2 * (this.aabb.endY - this.aabb.startY) / base + (collider.aabb.startY + collider.aabb.endY) / 2 * (collider.aabb.endY - collider.aabb.startY) / base;
-                    data.depth = d;
+                    let me = this.entity;
+                    let you = collider.entity;
+                    if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
+                        let swap = me;
+                        me = you;
+                        you = swap;
+                        nx = -nx;
+                        ny = -ny;
+                    } else if (!me instanceof MutableEntity) {
+                        console.log(`Error: Colliding entity should be mutable`);
+                    }
+                    let px = me.x + nx * d;
+                    let py = me.y + ny * d;
+                    data.register(me, you, nx, ny, px, py, d);
                 }
                 return true;
             }
@@ -169,7 +188,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
         let me = 0;
         let you = 0;
         for (let it of this.collisions) {
-            if (it.e1 === this.entity) {
+            if (it.colliding === this.entity) {
                 me += 1;
             } else {
                 you += 1;
@@ -181,16 +200,15 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
         }
         // vector
         for (let it of this.collisions) {
-            if (it.e2 === this.entity) {
+            if (it.collided === this.entity) {
                 continue;
             }
-            var hueVal = it.e1.imageID + (it.e2.imageID << 5);
             ctx.strokeLine(
                 this.aabb.startX + shiftX + (this.endX - this.startX) / 2,
                 this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
-                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.e1 === this.entity ? 1 : -1),
-                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.e1 === this.entity ? 1 : -1),
-                hueVal);
+                this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.colliding === this.entity ? 1 : -1),
+                this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.colliding === this.entity ? 1 : -1),
+                `red`);
         }
     }
 }

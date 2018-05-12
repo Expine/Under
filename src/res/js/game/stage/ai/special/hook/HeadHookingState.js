@@ -66,11 +66,11 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         }
         // check collisions
         for (let it of this.entity.collider.collisions) {
-            if (it.e1 !== this.entity && it.e2 !== this.entity) {
+            if (it.colliding !== this.entity && it.collided !== this.entity) {
                 continue;
             }
             let dot = it.nx * this.entity.directionX + it.ny * this.entity.directionY;
-            if ((it.e1 === this.entity && dot > 0) || (it.e2 === this.entity && dot < 0)) {
+            if ((it.colliding === this.entity && dot > 0) || (it.collided === this.entity && dot < 0)) {
                 let you = Util.getCollidedEntity(this.entity, it);
                 if (!you.collider.isResponse(this.entity)) {
                     continue;

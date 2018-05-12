@@ -190,6 +190,8 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
         let save = JSON.parse(this.saveData);
         let charaBuilder = new UnderCharacterBuilder();
         let eventBuilder = new UnderEventBuilder();
+        let imageBuilder = new BaseImageBuilder();
+        charaBuilder.setImageBuilder(imageBuilder);
         let entities = this.getEntities();
         for (let i = entities.length - 1; i >= 0; --i) {
             if (!(entities[i] instanceof TileObject)) {
@@ -333,7 +335,9 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
                     y: y,
                     z: 0,
                 };
-                this.addEntity(new UnderCharacterBuilder().build(deploy, this.entityInfo[entityID]));
+                let builder = new UnderCharacterBuilder();
+                builder.setImageBuilder(new BaseImageBuilder());
+                this.addEntity(builder.build(deploy, this.entityInfo[entityID]));
                 this.addEntityID(entityID);
             } else if (tileID >= 0) {
                 // remove
@@ -349,7 +353,9 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
                     y: y,
                     z: 0,
                 };
-                this.addEntity(new UnderTileBuilder().build(deploy, this.tileInfo[tileID]));
+                let builder = new UnderTileBuilder();
+                builder.setImageBuilder(new BaseImageBuilder());
+                this.addEntity(builder.build(deploy, this.tileInfo[tileID]));
                 this.addEntityID(tileID);
             } else {
                 // remove

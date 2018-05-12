@@ -5,7 +5,7 @@
  * - Manages stage element such as entity
  * - ### Dividingly manages entities according to type
  * - ### Do not update immutable objects
- * @implements {Stage}
+ * @extends {Stage}
  * @classdesc Split management stage to manage entities according to type dividingly
  */
 class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-vars
@@ -17,12 +17,6 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     constructor(stageWidth, stageHeight) {
         super(stageWidth, stageHeight);
-        /**
-         * Mutable entity list for updating and phisical operation
-         * @protected
-         * @type {Array<MutableEntity>}
-         */
-        this.mutables = [];
         /**
          * All entity list
          * @protected
@@ -79,10 +73,6 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         if (this.player == null && BaseUtil.implementsOf(entity, IPlayable)) {
             this.player = entity;
         }
-        // set mutables
-        if (entity instanceof MutableEntity) {
-            this.mutables.push(entity);
-        }
         if (entity instanceof InfluentialEntity) {
             this.physic.addEntity(entity);
         }
@@ -120,10 +110,6 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         // remove player
         if (entity === this.player) {
             this.player = null;
-        }
-        // remove mutables
-        if (entity instanceof MutableEntity) {
-            this.mutables.splice(this.mutables.indexOf(entity), 1);
         }
         if (entity instanceof InfluentialEntity) {
             this.physic.removeEntity(entity);
@@ -171,7 +157,17 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt Delta time
      */
     updatePhysics(dt) {
-        this.physic.update(dt, this.mutables, this.entities);
+        this.physic.update(dt);
+    }
+
+    /**
+     * Update background
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateBackground(dt) {
+        this.back.update(dt);
     }
 
     /**

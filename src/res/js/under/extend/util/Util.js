@@ -19,7 +19,7 @@ class Util { // eslint-disable-line  no-unused-vars
      */
     static getUnderEntity(entity) {
         let data = entity.collider.collisions.find((it) => {
-            return ((it.e1 === entity && it.ny > 0) || (it.e2 === entity && it.ny < 0)) && it.e1.collider.isResponse(it.e2.collider) && it.e2.collider.isResponse(it.e1.collider);
+            return ((it.colliding === entity && it.ny > 0) || (it.collided === entity && it.ny < 0)) && it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider);
         });
         return data === undefined ? null : this.getCollidedEntity(entity, data);
     }
@@ -36,7 +36,7 @@ class Util { // eslint-disable-line  no-unused-vars
                 continue;
             }
             let dot = entity.body.velocityX * it.nx + entity.body.velocityY * it.ny;
-            if ((it.e1 === entity && dot > 0) || (it.e2 === entity && dot < 0)) {
+            if ((it.colliding === entity && dot > 0) || (it.collided === entity && dot < 0)) {
                 return this.getCollidedEntity(entity, it);
             }
         }
@@ -50,7 +50,7 @@ class Util { // eslint-disable-line  no-unused-vars
      * @return {Entity} Collided entity
      */
     static getCollidedEntity(self, data) {
-        return data.e1 === self ? data.e2 : data.e1;
+        return data.colliding === self ? data.collided : data.colliding;
     }
 
     /**

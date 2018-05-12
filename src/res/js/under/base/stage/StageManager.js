@@ -61,10 +61,12 @@ class StageManager { // eslint-disable-line  no-unused-vars
 
     /**
      * Replace currently stage
-     * @abstract
      * @param {string} stageName Stage name
      */
-    replaceStage(stageName) {}
+    replaceStage(stageName) {
+        this.popStage();
+        this.pushStage(stageName);
+    }
 
     /**
      * Pop stage from list

@@ -3,13 +3,25 @@
 package game {
     package ga_stage {
         package ga_parser {
-            class UnderStageParser
-            class UnderTileBuilder
-            class UnderCharacterBuilder
+            class UnderStageParser {
+                +constructor(tile,chara,event)
+                +makePhysicalResponse() : CollisionResponse <<override>>
+            }
+            class UnderTileBuilder {
+                +makeCollider(collider) : Collider <<override>>
+                +makeTileBase(deploy,json) : Entity <<override>>
+            }
+            class UnderCharacterBuilder {
+                +makeCollider(collider) : Collider <<override>>
+                +makeAI(ai,deploy) : AI <<override>>
+                +makeEntityBase(deploy,entity) : Entity <<override>>
+            }
         }
 
         package ga_physics {
-            class UnderRepulsionResponse
+            class UnderRepulsionResponse {
+                +collisionResponse(data,dt) <<override>>
+            }
         }
     }
 }
@@ -20,6 +32,12 @@ package game {
             class UnderTileObject
             class UnderPlayer
         }
+        package ga_physics {
+            package ga_collider {
+                class ExcludedRectangleCollider
+                class ExcludedRoundRectangleCollider
+            }
+        }
     }
 }
 
@@ -27,7 +45,21 @@ package under {
     package base {
         package stage {
             package physics {
-                class CollisionResponse
+                abstract CollisionResponse
+                package body {
+                    abstract RigidBody
+                }
+                package material {
+                    abstract Material
+                }
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+                package entity {
+                    abstract InfluentialEntity
+                    abstract MutableEntity
+                }
             }
         }
     }
@@ -42,11 +74,24 @@ package under {
     }
 }
 
-UnderStageParser ..> UnderTileBuilder : "Default"
-UnderStageParser ..> UnderCharacterBuilder : "Default"
-UnderStageParser ..> UnderRepulsionResponse : "Generate"
-UnderTileBuilder ..> UnderTileObject : Generate
+UnderStageParser ..> UnderTileBuilder : Default
+UnderStageParser ..> UnderCharacterBuilder : Default
+UnderStageParser ..> UnderRepulsionResponse : Generate
+
+UnderTileBuilder ..> UnderTileObject : Generate and init
+UnderTileBuilder ..> ExcludedRectangleCollider : Generate
+UnderTileBuilder ..> ExcludedRoundRectangleCollider : Generate
+
 UnderCharacterBuilder ..> UnderPlayer : Generate
+UnderCharacterBuilder ..> ExcludedRectangleCollider : Generate
+UnderCharacterBuilder ..> ExcludedRoundRectangleCollider : Generate
+
+RigidBody <.. UnderRepulsionResponse : Get and enforce
+Material <.. UnderRepulsionResponse : Get
+Collider <.. UnderRepulsionResponse : Get
+InfluentialEntity <.. UnderRepulsionResponse : Get
+MutableEntity <.. UnderRepulsionResponse : Get
+CollisionData <.. UnderRepulsionResponse : Get
 
 JSONStageParser <|-- UnderStageParser
 TileBuilder <|-- UnderTileBuilder

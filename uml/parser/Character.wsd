@@ -5,7 +5,7 @@ package under {
         package ex_stage {
             package ex_parser {
                 class CharacterBuilder {
-                    #loadImage(path) : number <<override>
+                    #makeImage(image) : GameImage <<override>>
                     #makeBody(body) : RigidBody
                     #makeBodyMaterial(material) : RigidBodyMaterial
                     #makeAI(ai, deploy) : AI
@@ -20,12 +20,10 @@ package under {
 
 package under {
     package base {
-        package resource {
-            package image {
-                interface IImageManager
-            }
-        }
         package stage {
+            package parser {
+                abstract ImageBuilder
+            }
             package entity {
                 abstract MutableEntity
                 abstract AutonomyEntity
@@ -94,9 +92,9 @@ CharacterBuilder ..> SignObject : Generate
 CharacterBuilder ..> Elevator : Generate
 CharacterBuilder ..> ImmutableEvent : Generate
 CharacterBuilder ..> VanishTileObject : Generate
-IImageManager <... CharacterBuilder : Load
 MutableEntity <... CharacterBuilder : Set
 AutonomyEntity <... CharacterBuilder : Set
+ImageBuilder <... CharacterBuilder : Build
 
 TileBuilder <|-- CharacterBuilder
 

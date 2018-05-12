@@ -46,4 +46,14 @@ class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unus
     makeContext() {
         return new EditorContext();
     }
+
+    /**
+     * Make timer
+     * @override
+     * @protected
+     * @return {Timer} Timer
+     */
+    makeTimer() {
+        return new RecordedTimer();
+    }
 }

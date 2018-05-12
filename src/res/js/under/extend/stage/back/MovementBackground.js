@@ -1,31 +1,23 @@
 /**
  * Movement background
  * - Renders and update backgrdoun image
+ * - Manages image as background
  * - ### Moves relatively
- * @implements {Background}
+ * @extends {ImageBackground}
  * @classdesc Movement background to move relatively
  */
-class MovementBackground extends Background { // eslint-disable-line  no-unused-vars
+class MovementBackground extends ImageBackground { // eslint-disable-line  no-unused-vars
     /**
      * Movement background constructor
      * @constructor
-     * @param {number} backID Background image id
+     * @param {GameImage} backImage Background image
      * @param {number} x Background x position
      * @param {number} y Background x position
-     * @param {number} width Background width
-     * @param {number} height Background height
      * @param {number} speedRatioX Ratio of speed of x velocity
      * @param {number} speedRatioY Ratio of speed of y velocity
      */
-    constructor(backID, x, y, width, height, speedRatioX, speedRatioY) {
-        super();
-
-        /**
-         * Background image id
-         * @protected
-         * @type {number}
-         */
-        this.backID = backID;
+    constructor(backImage, x, y, speedRatioX, speedRatioY) {
+        super(backImage);
 
         /**
          * Background x position
@@ -39,18 +31,6 @@ class MovementBackground extends Background { // eslint-disable-line  no-unused-
          * @type {number}
          */
         this.y = y;
-        /**
-         * Background width
-         * @protected
-         * @type {number}
-         */
-        this.width = width;
-        /**
-         * Background height
-         * @protected
-         * @type {number}
-         */
-        this.height = height;
         /**
          * Ratio of speed of x velocity
          * @protected
@@ -75,6 +55,6 @@ class MovementBackground extends Background { // eslint-disable-line  no-unused-
      * @param {number} screenWidth Scren height
      */
     render(ctx, shiftX, shiftY, screenWidth, screenHeight) {
-        ctx.drawImage(this.backID, this.x + shiftX * this.speedRatioX, this.y + shiftY * this.speedRatioY, this.width, this.height);
+        this.backImage.render(ctx, this.x + shiftX * this.speedRatioX, this.y + shiftY * this.speedRatioY);
     }
 }

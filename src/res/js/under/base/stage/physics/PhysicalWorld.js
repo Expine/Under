@@ -105,6 +105,14 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     updateBodyCleanup(dt) {}
 
     /**
+     * Initialize collision state
+     * @abstract
+     * @protected
+     * @param {number} dt Delta time
+     */
+    initCollision(dt) {}
+
+    /**
      * Update collisions
      * @abstract
      * @protected
@@ -121,6 +129,14 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     updateResponse(dt) {}
 
     /**
+     * Cleanup all information
+     * @abstract
+     * @protected
+     * @param {number} dt Delta time
+     */
+    cleanup(dt) {}
+
+    /**
      * Update physical world
      * @abstract
      * @protected
@@ -131,6 +147,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
         this.prepareBody(dt);
         this.updateBody(dt);
         this.updateBodyCleanup(dt);
+        this.initCollision(dt);
         this.updateCollision(dt);
         this.updateResponse(dt);
     }
