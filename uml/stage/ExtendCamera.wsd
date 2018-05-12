@@ -29,6 +29,7 @@ package under {
                     +setMaxSize(maxWidth,maxHeight) <<override>>
                     +init(x,y) <<override>>
                     +update(x.y,dt) <<override>>
+                    #clip()
                 }
                 class ForceMoveCamera {
                     +constructor(baseCamera,x,y,speed)

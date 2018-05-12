@@ -62,19 +62,43 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
      */
     setScreenSize(screenWidth, screenHeight) {
         super.setScreenSize(screenWidth, screenHeight);
+        this.baseCamera.setScreenSize(screenWidth, screenHeight);
 
         this.screenDiffX = screenWidth - GameScreen.it.width;
         this.screenDiffY = screenHeight - GameScreen.it.height;
     }
 
     /**
-     * Set camera position
-     * @param {number} x base x position
-     * @param {number} y base y position
-     * @param {number} width camera max width
-     * @param {number} height camera max height
+     * Set camera max size
+     * @override
+     * @param {number} maxWidth Camera max width
+     * @param {number} maxHeight Cmera max height
      */
-    setCameraPosition(x, y, width, height) {
+    setMaxSize(maxWidth, maxHeight) {
+        super.setMaxSize(maxWidth, maxHeight);
+        this.baseCamera.setMaxSize(maxWidth, maxHeight);
+    }
+
+    /**
+     * Initialize camera
+     * @override
+     * @param {number} x First camera x position
+     * @param {number} y First camera y position
+     */
+    init(x, y) {
+        this.baseCamera.init(x, y);
+        this.cameraX = this.baseCamera.cameraX;
+        this.cameraY = this.baseCamera.cameraY;
+    }
+
+    /**
+     * Update camera
+     * @override
+     * @param {number} x Base x position
+     * @param {number} y Base y position
+     * @param {number} dt Delta time
+     */
+    update(x, y, dt) {
         if (x > 0 && y > 0) {
             if (Input.mouse.isPress(Input.mouse.mRight())) {
                 this.moveStartX = Input.mouse.getMouseX();
@@ -89,23 +113,6 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
         } else {
             this.cameraX = x;
             this.cameraY = y;
-        }
-
-        this.screenWidth = GameScreen.it.width + this.screenDiffX;
-        this.screenHeight = GameScreen.it.height + this.screenDiffY;
-        this.baseCamera.setScreenSize(this.screenWidth, this.screenHeight);
-
-        if (this.cameraX < this.screenWidth - width) {
-            this.cameraX = this.screenWidth - width;
-        }
-        if (this.cameraX > 0) {
-            this.cameraX = 0;
-        }
-        if (this.cameraY > 0) {
-            this.cameraY = 0;
-        }
-        if (this.cameraY < this.screenHeight - height) {
-            this.cameraY = this.screenHeight - height;
         }
     }
 }

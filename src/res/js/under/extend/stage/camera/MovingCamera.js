@@ -52,7 +52,6 @@ class MovingCamera extends Camera { // eslint-disable-line  no-unused-vars
      * @param {number} y First camera y position
      */
     init(x, y) {
-        super.init(x, y);
         this.baseCamera.init(x, y);
         this.cameraX = this.baseCamera.cameraX;
         this.cameraY = this.baseCamera.cameraY;

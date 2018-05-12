@@ -88,18 +88,6 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
     }
 
     /**
-     * Initialize stage
-     * @override
-     */
-    init() {
-        super.init();
-        let player = this.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable));
-        if (player) {
-            this.getCamera().setCameraPosition(-player.getCameraX(), -player.getCameraY(), this.stageWidth, this.stageHeight);
-        }
-    }
-
-    /**
      * Add entity to stage
      * @override
      * @param {Entity} entity Entity object
@@ -264,27 +252,27 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
             if (Input.key.isPress(Input.key.a() + 4)) {
                 for (let it of this.getEntities()) {
                     if (it instanceof Player) {
-                        this.stage.camera.setCameraPosition(-it.x + GameScreen.it.width / 2, -it.y + GameScreen.it.height / 2, this.stageWidth, this.stageHeight);
+                        this.stage.camera.update(-it.x + GameScreen.it.width / 2, -it.y + GameScreen.it.height / 2, dt);
                     }
                 }
             }
 
             // move camera
             if (Input.key.isPress(Input.key.right())) {
-                this.stage.camera.setCameraPosition(this.stage.camera.cameraX - this.stage.camera.screenWidth / 2, this.stage.camera.cameraY, this.stageWidth, this.stageHeight);
+                this.stage.camera.update(this.stage.camera.cameraX - this.stage.camera.screenWidth / 2, this.stage.camera.cameraY, dt);
             }
             if (Input.key.isPress(Input.key.left())) {
-                this.stage.camera.setCameraPosition(this.stage.camera.cameraX + this.stage.camera.screenWidth / 2, this.stage.camera.cameraY, this.stageWidth, this.stageHeight);
+                this.stage.camera.update(this.stage.camera.cameraX + this.stage.camera.screenWidth / 2, this.stage.camera.cameraY, dt);
             }
             if (Input.key.isPress(Input.key.up())) {
-                this.stage.camera.setCameraPosition(this.stage.camera.cameraX, this.stage.camera.cameraY + this.stage.camera.screenHeight / 2, this.stageWidth, this.stageHeight);
+                this.stage.camera.update(this.stage.camera.cameraX, this.stage.camera.cameraY + this.stage.camera.screenHeight / 2, dt);
             }
             if (Input.key.isPress(Input.key.down())) {
-                this.stage.camera.setCameraPosition(this.stage.camera.cameraX, this.stage.camera.cameraY - this.stage.camera.screenHeight / 2, this.stageWidth, this.stageHeight);
+                this.stage.camera.update(this.stage.camera.cameraX, this.stage.camera.cameraY - this.stage.camera.screenHeight / 2, dt);
             }
 
             // update camera
-            this.stage.camera.setCameraPosition(1, 1, this.stageWidth, this.stageHeight);
+            this.stage.camera.update(1, 1, dt);
         }
 
         // update selected area

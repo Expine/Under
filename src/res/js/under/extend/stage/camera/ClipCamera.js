@@ -51,7 +51,7 @@ class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars
      */
     init(x, y) {
         this.baseCamera.init(x, y);
-        this.update(x, y, 0);
+        this.clip();
     }
 
     /**
@@ -64,6 +64,14 @@ class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars
     update(x, y, dt) {
         // set position
         this.baseCamera.update(x, y, dt);
+        this.clip();
+    }
+
+    /**
+     * Clip camera position
+     * @protected
+     */
+    clip() {
         this.cameraX = this.baseCamera.cameraX;
         this.cameraY = this.baseCamera.cameraY;
 
