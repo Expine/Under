@@ -4,7 +4,7 @@
  * - Initialize state image
  * - Basic information can be transferred to another state
  * - ### The state in which the player got over game
- * @implements {UnderPlayerState}
+ * @extends {UnderPlayerState}
  * @classdesc Common gameover state in which the player got over game
  */
 class CommonGameoverState extends UnderPlayerState { // eslint-disable-line  no-unused-vars

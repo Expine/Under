@@ -2,7 +2,7 @@
  * Straight AI
  * - Determines the behavior of an entity
  * - ### AI to go straight ahead and reverses direction if it hit something
- * @implements {AI}
+ * @extends {AI}
  * @classdesc Straight AI to go straight ahead and reverses direction if it hit something
  */
 class StraightAI extends AI { // eslint-disable-line  no-unused-vars

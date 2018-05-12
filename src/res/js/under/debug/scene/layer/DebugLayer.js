@@ -2,7 +2,7 @@
  * Debug layer
  * - Performs drawing processing collectively
  * - ### Renders information necessary for debugging
- * @implements {Layer}
+ * @extends {Layer}
  * @classdesc Debug layer to render information necessary for debugging
  */
 class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars

@@ -3,7 +3,7 @@
  * - Determines the operation by AI according to the state and renders based on state
  * - Initialize state image
  * - ### Moves, jumps, and attacks
- * @implements {BaseState}
+ * @extends {BaseState}
  * @classdesc Stationary state to move, jump, and attack
  */
 class PStationaryState extends BaseState { // eslint-disable-line  no-unused-vars

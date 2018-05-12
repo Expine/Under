@@ -66,8 +66,8 @@ package under {
                 }
 
                 abstract GameAnimation {
-                    {abstract} +isLoop() : bool
-                    {abstract} +isEnded() : bool
+                    {abstract} +isLoop() : boolean
+                    {abstract} +isEnded() : boolean
                     {abstract} +getAnimationCount() : number
                     {abstract} +addAnimation(image,delta)
                     {abstract} +pause()

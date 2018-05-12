@@ -12,7 +12,7 @@
  * - Object indicating attack that have lifespan
  * - ### If it is collided and collided entity implements damagable interface, damage it
  * - ### Implements attack object resources
- * @implements {AttackObject}
+ * @extends {AttackObject}
  * @classdesc Punch object that damages entity If it is collided to entity and entity implements damagable interface
  */
 class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars

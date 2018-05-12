@@ -3,7 +3,7 @@
  * - Control to play music as BGM or SE
  * - ### Playback as buffer source
  * - ### If music is not loaded, it will be played later
- * @implements {Music}
+ * @extends {Music}
  * @classdesc Buffer source music to play sound by buffer source
  */
 class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars

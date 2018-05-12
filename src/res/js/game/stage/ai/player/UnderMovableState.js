@@ -6,7 +6,7 @@
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving
  * - ### Enable to set velocity and power
- * @implements {UnderPlayerState}
+ * @extends {UnderPlayerState}
  * @implements {IMovableState}
  * @classdesc Under movable state to enable to set velocity and power
  */

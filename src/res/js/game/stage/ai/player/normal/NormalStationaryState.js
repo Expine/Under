@@ -7,7 +7,7 @@
  * - Sets max velocity and move power for moving
  * - Enable to set velocity and power
  * - ### To walk, jump, grab, attack, special and fall
- * @implements {UnderMovableState}
+ * @extends {UnderMovableState}
  * @classdesc Normal stationary state to walk, jump, grab, attack, special and fall
  */
 class NormalStationaryState extends UnderMovableState { // eslint-disable-line  no-unused-vars

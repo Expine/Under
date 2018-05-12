@@ -4,7 +4,7 @@
  * - Initialize state image
  * - Basic information can be transferred to another state
  * - ### Render entity by entity own image ID for change type
- * @implements {TransferableState}
+ * @extends {TransferableState}
  * @classdesc Under player state to render entity by entity own image ID
  */
 class UnderPlayerState extends TransferableState { // eslint-disable-line  no-unused-vars

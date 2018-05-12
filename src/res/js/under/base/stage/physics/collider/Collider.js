@@ -37,7 +37,7 @@ class Collider { // eslint-disable-line  no-unused-vars
         /**
          * Entity attaching this
          * @protected
-         * @type {InfluentialEntity}
+         * @type {Entity}
          */
         this.entity = null;
 
@@ -77,14 +77,6 @@ class Collider { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Add collision information
-     * @param {CollisionData} collision Collision information to be added
-     */
-    addCollision(collision) {
-        this.collisions.push(collision);
-    }
-
-    /**
      * Set collider AABB
      * @param {AABB} aabb Axis Aligned Bounding Box
      */
@@ -98,6 +90,14 @@ class Collider { // eslint-disable-line  no-unused-vars
      */
     getAABB() {
         return this.aabb;
+    }
+
+    /**
+     * Add collision information
+     * @param {CollisionData} collision Collision information to be added
+     */
+    addCollision(collision) {
+        this.collisions.push(collision);
     }
 
     /**

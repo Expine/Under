@@ -3,7 +3,7 @@
  * - Determines the operation by AI according to the state and renders based on state
  * - Initialize state image
  * - ### Prepares for jumping
- * @implements {BaseState}
+ * @extends {BaseState}
  * @classdesc Player jump state to prepare for jumping
  */
 class PJumpState extends BaseState { // eslint-disable-line  no-unused-vars

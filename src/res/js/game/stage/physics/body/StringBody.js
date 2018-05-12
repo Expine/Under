@@ -3,7 +3,7 @@
  * - Update entity by physical quantity
  * - It can add or remove rigid body
  * - ### Connects all rigid bodies and processes them all together
- * @implements {RigidBody}
+ * @extends {RigidBody}
  * @classdesc String body to connect all rigid bodies and process them all together
  */
 class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-unused-vars

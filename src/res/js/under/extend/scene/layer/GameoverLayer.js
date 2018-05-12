@@ -2,7 +2,7 @@
  * Gameover layer
  * - Performs drawing processing collectively
  * - ### Display gameover
- * @implements {Layer}
+ * @extends {Layer}
  * @classdesc Gameover layer to display gamover
  */
 class GameoverLayer extends Layer { // eslint-disable-line  no-unused-vars

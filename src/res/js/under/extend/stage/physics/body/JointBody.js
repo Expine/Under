@@ -3,7 +3,7 @@
  * - Update entity by physical quantity
  * - Adopt the maximum for adding to the next speed
  * - ### Fits within a certain length range of some object
- * @implements {MaxAdoptBody}
+ * @extends {MaxAdoptBody}
  * @classdesc Joint body to fit within a certain length range of some object
  */
 class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars

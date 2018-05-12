@@ -2,7 +2,7 @@
  * Layered scene
  * - Controls updating and rendering
  * - ### It consists of layers
- * @implements {Scene}
+ * @extends {Scene}
  * @classdesc Layered scene that consists of layers
  */
 class LayeredScene extends Scene { // eslint-disable-line  no-unused-vars

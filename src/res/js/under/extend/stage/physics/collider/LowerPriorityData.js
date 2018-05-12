@@ -18,19 +18,17 @@ class LowerPriorityData extends CollisionData { // eslint-disable-line  no-unuse
      * @override
      */
     init() {
+        super.init();
         this.py = -1000000000;
-        this.priority = null;
     }
 
     /**
      * Calculate descending priority
      * @override
+     * @protected
      * @return {number} Priority
      */
     calcPriority() {
-        if (this.priority != null) {
-            return this.priority;
-        }
-        return this.priority = this.py;
+        return this.py;
     }
 }

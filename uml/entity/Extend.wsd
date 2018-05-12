@@ -3,21 +3,26 @@ package under {
     package extend {
         package ex_stage {
             package ex_entity {
-                class TileObject {
-                    #srcX : number
-                    #srcY : number
-                    #srcW : number
-                    #srcH : number
-                }
+                class TileObject
                 class Obstacle
-                class SingleAIObject {
+                class AIListedObject {
                     #ai : Array<AI>
+                    +addAI(ai,priotiy) <<override>>
+                    +removeAI(ai) <<override>>
+                    +updateAI(dt) <<override>>
+                    +applyAI(dt) <<override>>
                 }
                 class Character {
                     #hp : number
+                    +setHP(hp)
+                    +getHP() : number <<override>>
+                    +damage() : number <<override>>
+                    +destroy() <<override>>
                 }
                 class StateCharacter {
                     #state : State
+                    +applyAI(dt) <<override>>
+                    +render(ctx,shiftX,shiftY) <<override>>
                 }
                 class Enemy
                 class Player {
@@ -27,7 +32,7 @@ package under {
                 package ex_attack {
                     abstract AttackObject {
                         #lifespan : number
-                        {abstract} #judgeCollision : bool
+                        {abstract} #judgeCollision : boolean
                     }
                     class PunchObject
                 }
@@ -38,30 +43,39 @@ package under {
 
 package under {
     package base {
+        package ai {
+            abstract AI
+        }
         package stage {
+            abstract Stage
             package entity {
                 abstract ImmutableObject
                 abstract MutableObject
                 abstract AutonomyObject
-                abstract Damagable
-                abstract Breakable
-                abstract Playable
+                package interface {
+                    interface IDamagable
+                    interface IBreakable
+                    interface IPlayable
+                }
             }
         }
     }
 }
 
+AI <.. AIListedObject : Update and apply
+Stage <.. Character : Destroy
+
 ImmutableObject <|.. TileObject
 MutableObject <|.. Obstacle
-AutonomyObject <|.. SingleAIObject
+AutonomyObject <|.. AIListedObject
 
-SingleAIObject <|-- Character
-Damagable <|.. Character
+AIListedObject <|-- Character
+IDamagable <|.. Character
 Character <|-- StateCharacter
 StateCharacter <|-- Player
 Playable <|.. Player
 Character <|-- Enemy
-SingleAIObject <|-- AttackObject
+AIListedObject <|-- AttackObject
 Breakable <|.. AttackObject
 AttackObject <|.. PunchObject
 

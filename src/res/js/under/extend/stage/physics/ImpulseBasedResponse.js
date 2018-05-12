@@ -1,7 +1,7 @@
 /**
  * Impulse based collision response
  * Performs collision response by impulse based method
- * @implements {CollisionResponse}
+ * @extends {CollisionResponse}
  * @classdesc Collision response to performs collision response by impulse based method
  */
 class ImpulseBasedResponse extends CollisionResponse { // eslint-disable-line  no-unused-vars

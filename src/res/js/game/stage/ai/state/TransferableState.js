@@ -4,7 +4,7 @@
  * - Enable to set animation
  * - Initialize state image
  * - ### Basic information can be transferred to another state
- * @implements {BaseState}
+ * @extends {BaseState}
  * @classdesc Transferable state to transfer information to another state
  */
 class TransferableState extends BaseState { // eslint-disable-line  no-unused-vars

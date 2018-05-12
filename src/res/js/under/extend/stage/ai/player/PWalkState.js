@@ -3,7 +3,7 @@
  * - Determines the operation by AI according to the state and renders based on state
  * - Initialize state image
  * - ### Walks, jumps, and attacks
- * @implements {BaseState}
+ * @extends {BaseState}
  * @classdesc Player walk state to walk, jump and attack
  */
 class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars

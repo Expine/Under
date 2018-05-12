@@ -13,7 +13,7 @@
  * - It can get hook position and change state
  * - Implements hook and automatically generates post hook object
  * - ### Implements as rectangle
- * @implements {HookObject}
+ * @extends {HookObject}
  * @classdesc Hook child object to implement as rectangle
  */
 class HookChild extends HookObject { // eslint-disable-line  no-unused-vars

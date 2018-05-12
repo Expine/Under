@@ -3,7 +3,7 @@
  * - Object information
  * - If the object has a Collider, it must be held
  * - ### Manages it as immutable information
- * @implements {Material}
+ * @extends {Material}
  * @classdesc Default material to manage it as immutable information
  */
 class ImmutableMaterial extends Material { // eslint-disable-line  no-unused-vars

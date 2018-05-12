@@ -9,7 +9,7 @@
  * - Generated and owned by someone
  * - Object that can be destroyed
  * - ### Object caused by special actions
- * @implements {PossessedObject}
+ * @extends {PossessedObject}
  * @implements {IBreakable}
  * @classdesc Special object caused by special actions
  */

@@ -3,7 +3,7 @@
  * - Performs a physical operation
  * - Registers entities and apply a physical operation
  * - ### Measure time for debugging by delegation
- * @implements {PhysicalWorld}
+ * @extends {PhysicalWorld}
  * @classdesc Debug world to measure time for debugging by delegation
  */
 class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars

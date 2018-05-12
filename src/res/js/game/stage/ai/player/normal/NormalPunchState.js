@@ -4,7 +4,7 @@
  * - Initialize state image
  * - Basic information can be transferred to another state
  * - ### About to attack
- * @implements {UnderPlayerState}
+ * @extends {UnderPlayerState}
  * @classdesc Normal punch state that about to attack
  */
 class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unused-vars

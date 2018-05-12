@@ -2,7 +2,7 @@
  * Max adopt body
  * - Update entity by physical quantity
  * - ### Adopt the maximum for adding to the next speed
- * @implements {RigidBody}
+ * @extends {RigidBody}
  * @classdesc Max adopt body to adopt the maximum for adding to the next speed
  */
 class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars

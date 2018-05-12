@@ -11,7 +11,7 @@ package editor {
             #tileSelection : Selection
             #entitySelection : Selection
             #saveData : string
-            #playMode : bool
+            #playMode : boolean
             #entitiesID : Array<number>
             +getTileInfo() : Dictionary<number, json>
             +getEntityInfo() : Dictionary<number, json>
@@ -25,7 +25,7 @@ package editor {
         }
         package ed_camera {
             class EditorCamera {
-                #moving : bool
+                #moving : boolean
                 #moveStartX : number
                 #moveStartY : number
                 #screenDiffX : number

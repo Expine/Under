@@ -2,7 +2,7 @@
  * Hooking state
  * - Determines the operation by AI according to the state and renders based on state
  * - ### Hook condition before collision to create post hook
- * @implements {State}
+ * @extends {State}
  * @classdesc Hooking state before collision to create post hook
  */
 class HookingState extends State { // eslint-disable-line  no-unused-vars

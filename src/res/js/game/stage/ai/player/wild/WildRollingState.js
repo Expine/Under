@@ -5,7 +5,7 @@
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - ### Stops rolling after landing
- * @implements {UnderPlayerState}
+ * @extends {UnderPlayerState}
  * @classdesc Wild rolling state to stop rolling after landing
  */
 class WildRollingState extends UnderPlayerState { // eslint-disable-line  no-unused-vars

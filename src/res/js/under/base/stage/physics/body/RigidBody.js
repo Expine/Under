@@ -111,19 +111,6 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Initialize body
-     * @abstract
-     */
-    init() {}
-
-    /**
-     * Prepare for updagte
-     * @abstract
-     * @param {number} dt delta time
-     */
-    prepare(dt) {}
-
-    /**
      * Set the value added to the next speed vector
      * @abstract
      * @param {number} vx X component of the velocity vector to be added
@@ -138,6 +125,19 @@ class RigidBody { // eslint-disable-line  no-unused-vars
      * @param {number} forceY Force in y direction
      */
     enforce(forceX, forceY) {}
+
+    /**
+     * Initialize body
+     * @abstract
+     */
+    init() {}
+
+    /**
+     * Prepare for updagte
+     * @abstract
+     * @param {number} dt delta time
+     */
+    prepare(dt) {}
 
     /**
      * Update rigid body information
@@ -162,7 +162,6 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Update by rigid body
-     * @abstract
      * @param {number} dt delta time
      */
     update(dt) {

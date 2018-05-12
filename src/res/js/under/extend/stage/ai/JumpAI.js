@@ -2,7 +2,7 @@
  * Jump AI
  * - Determines the behavior of an entity
  * - ### Jumps
- * @implements {AI}
+ * @extends {AI}
  * @classdesc Jump AI to jump
  */
 class JumpAI extends AI { // eslint-disable-line  no-unused-vars

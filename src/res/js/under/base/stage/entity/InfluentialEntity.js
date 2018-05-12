@@ -4,7 +4,7 @@
  * - Has image ID
  * - ### It can be collided because it has material and collider
  * @interface
- * @implements {ImagedEntity}
+ * @extends {ImagedEntity}
  * @classdesc Influential entity that can be collided because it has material and collider
  */
 class InfluentialEntity extends ImagedEntity { // eslint-disable-line  no-unused-vars
@@ -28,6 +28,14 @@ class InfluentialEntity extends ImagedEntity { // eslint-disable-line  no-unused
     }
 
     /**
+     * Set material
+     * @param {Material} material Material information
+     */
+    setMaterial(material) {
+        this.material = material;
+    }
+
+    /**
      * Set collider
      * @param {Collider} collider Entity collider
      */
@@ -36,13 +44,5 @@ class InfluentialEntity extends ImagedEntity { // eslint-disable-line  no-unused
         // initialize
         collider.setEntity(this);
         collider.init();
-    }
-
-    /**
-     * Set material
-     * @param {Material} material Material information
-     */
-    setMaterial(material) {
-        this.material = material;
     }
 }

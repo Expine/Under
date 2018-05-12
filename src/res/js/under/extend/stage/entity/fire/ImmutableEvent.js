@@ -2,7 +2,7 @@
  * Immutable event object
  * - Object present on the stage that has coordinate and size
  * - ### Fire event
- * @implements {Entity}
+ * @extends {Entity}
  * @classdesc Immutable event object to fire event
  */
 class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line  no-unused-vars

@@ -2,7 +2,7 @@
  * Enemy AI
  * - Determines the behavior of an entity
  * - ### Damages to the collided opponent
- * @implements {StraightAI}
+ * @extends {StraightAI}
  * @classdesc Enemy AI to damage to the conflicting opponent
  */
 class EnemyAI extends StraightAI { // eslint-disable-line  no-unused-vars

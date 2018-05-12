@@ -3,7 +3,7 @@
  * - Determines the operation by AI according to the state and renders based on state
  * - ### Initialize state image
  * @interface
- * @implements {State}
+ * @extends {State}
  * @classdesc Base state to initialize state image
  */
 class BaseState extends State { // eslint-disable-line  no-unused-vars

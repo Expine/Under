@@ -4,7 +4,7 @@
  * - Initialize state image
  * - Basic information can be transferred to another state
  * - ### It is only for holding information that does nothing
- * @implements {UnderPlayerState}
+ * @extends {UnderPlayerState}
  * @classdesc Normal none state that is only for holding information that does nothing
  */
 class NormalNoneState extends UnderPlayerState { // eslint-disable-line  no-unused-vars

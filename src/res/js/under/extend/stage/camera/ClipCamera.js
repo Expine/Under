@@ -2,7 +2,7 @@
  * Clip camera
  * - Calculates the area to rendering
  * - ### Cliping camera position by stage size
- * @implements {Camera}
+ * @extends {Camera}
  * @classdesc Clip camera for cliping camera position by stage size
  */
 class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars

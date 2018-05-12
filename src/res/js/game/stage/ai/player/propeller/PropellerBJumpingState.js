@@ -7,7 +7,7 @@
  * - Sets max velocity and move power for moving
  * - Enable to set velocity and power
  * - ### It not transitate falling and can fly
- * @implements {UnderMovableState}
+ * @extends {UnderMovableState}
  * @classdesc Propeller jump state that can fly
  */
 class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line  no-unused-vars

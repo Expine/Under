@@ -2,7 +2,7 @@
  * Hook released state
  * - Determines the operation by AI according to the state and renders based on state
  * - ### Hook condition after released
- * @implements {State}
+ * @extends {State}
  * @classdesc Hook released state after released
  */
 class HookReleasedState extends State { // eslint-disable-line  no-unused-vars

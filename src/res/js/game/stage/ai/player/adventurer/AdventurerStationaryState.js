@@ -8,7 +8,7 @@
  * - Enable to set velocity and power
  * - To walk, jump, grab, attack, special and fall
  * - ### It can drag hook
- * @implements {NormalStationaryState}
+ * @extends {NormalStationaryState}
  * @classdesc Adventurer stationary state that can drag hook
  */
 class AdventurerStationaryState extends NormalStationaryState { // eslint-disable-line  no-unused-vars

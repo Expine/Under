@@ -12,7 +12,7 @@
  * - Entity that manages AI according to state and rendering by it
  * - Player function interface
  * - ### Entity operated by the player
- * @implements {StateCharacter}
+ * @extends {StateCharacter}
  * @implements {IPlayable}
  * @classdesc Player to be operate by the player
  */

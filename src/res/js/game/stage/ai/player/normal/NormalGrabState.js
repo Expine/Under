@@ -7,7 +7,7 @@
  * - Sets max velocity and move power for moving
  * - Enable to set velocity and power
  * - ### Manages grabed behavior
- * @implements {UnderMovableState}
+ * @extends {UnderMovableState}
  * @classdesc Normal grab state to manage grabed behavior
  */
 class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unused-vars

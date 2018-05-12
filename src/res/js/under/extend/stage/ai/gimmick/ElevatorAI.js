@@ -1,7 +1,7 @@
 /**
  * Elevator AI
  * - Determines the behavior of an entity
- * @implements {AI}
+ * @extends {AI}
  * @classdesc Elevator AI to go straight ahead and reverses direction if it hit something
  */
 class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars

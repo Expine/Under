@@ -5,7 +5,7 @@
  * - It can be collided because it has material and collider
  * - It is not fixed and can be moved
  * - ### Obstacle on the stage that renders simply
- * @implements {MutableEntity}
+ * @extends {MutableEntity}
  * @classdesc Obstacle that renderes simply
  */
 class Obstacle extends MutableEntity { // eslint-disable-line  no-unused-vars

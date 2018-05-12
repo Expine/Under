@@ -21,7 +21,7 @@ package under {
             #manager : SceneManager
             #music : Music
             #timer : Timer
-            {static} +debug : bool
+            {static} +debug : boolean
             +setInput(input)
             +setScreen(screen)
             +setContext(context)
@@ -49,8 +49,8 @@ package under {
                 {abstract} +unblockInput(code)
                 {abstract} +press(code)
                 {abstract} +unpress(code)
-                {abstract} +isPress(code) : bool
-                {abstract} +isPressed(code) : bool
+                {abstract} +isPress(code) : boolean
+                {abstract} +isPressed(code) : boolean
             }
 
             interface IKey {
@@ -150,7 +150,7 @@ package under {
         package util {
             class BaseUtil {
                 {static} #interfaces : Object<string,Interface>
-                {static} +implementsOf(instance,i) : bool
+                {static} +implementsOf(instance,i) : boolean
                 {static} +getClassName(instance) : string
             }
             class Interface {
@@ -159,7 +159,7 @@ package under {
                 -_setters : Array<string>
                 #addMethodsAutomatically()
                 #addMethod(method)
-                +validate(instance) : bool
+                +validate(instance) : boolean
             }
             class Method {
                 +Method(name,number) : Method

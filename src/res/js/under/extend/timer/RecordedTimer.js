@@ -2,7 +2,7 @@
  * Simple Timer
  * - Measure the time
  * - ### Measure time by Date
- * @implements {Timer}
+ * @extends {Timer}
  * @classdesc Simple TImer to measure time by Date
  */
 class RecordedTimer extends SimpleTimer { // eslint-disable-line  no-unused-vars
@@ -64,8 +64,8 @@ class RecordedTimer extends SimpleTimer { // eslint-disable-line  no-unused-vars
 
         // register
         this.elapsedTime += dt;
-        if (this.elapsedTime > 3000) {
-            this.elapsedTime -= 3000;
+        if (this.elapsedTime > 1000) {
+            this.elapsedTime -= 1000;
             for (let it in this.recordedTime) {
                 if (this.recordedTime.hasOwnProperty(it)) {
                     this.maxTime[it] = 0;

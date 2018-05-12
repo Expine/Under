@@ -4,7 +4,7 @@
  * - Initialize state image
  * - Basic information can be transferred to another state
  * - ### Does special action
- * @implements {UnderPlayerState}
+ * @extends {UnderPlayerState}
  * @classdesc Normal special state to do special action
  */
 class NormalSpecialState extends UnderPlayerState { // eslint-disable-line  no-unused-vars

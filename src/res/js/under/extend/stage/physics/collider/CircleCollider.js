@@ -2,7 +2,7 @@
  * Circle collider
  * - Store collider data for judgeing collision
  * - ### Makes a collision judgment considered to be circular
- * @implements {Collider}
+ * @extends {Collider}
  * @classdesc Circle collider to make a collision judgment considered to be circular
  */
 class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
@@ -94,8 +94,8 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
                         you = swap;
                         nx = -nx;
                         ny = -ny;
-                    } else if (!me instanceof MutableEntity) {
-                        console.log(`Error: Colliding entity should be mutable`);
+                    } else if (!me instanceof MutableEntity || !you instanceof InfluentialEntity) {
+                        console.log(`Error: Colliding entity should be mutable and collided entity should be influential`);
                     }
                     data.register(me, you, nx, ny, px, py, depth);
                 }

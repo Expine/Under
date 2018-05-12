@@ -2,7 +2,7 @@
  * Head Hook released state
  * - Determines the operation by AI according to the state and renders based on state
  * - ### Hook condition after released
- * @implements {HookReleasedState}
+ * @extends {HookReleasedState}
  * @classdesc Head Hook released state after released
  */
 class HeadHookReleasedState extends HookReleasedState { // eslint-disable-line  no-unused-vars

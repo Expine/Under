@@ -2,7 +2,7 @@
  * Attack object AI
  * - Determines the behavior of an entity
  * - ### AI that is attached to attack object
- * @implements {AI}
+ * @extends {AI}
  * @classdesc Attack object AI that is attached to attack object
  */
 class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars

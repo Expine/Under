@@ -3,7 +3,7 @@
  * - Object present on the stage that has coordinate and size
  * - Has image ID
  * - ### Show sign
- * @implements {ImagedEntity}
+ * @extendss {ImagedEntity}
  * @classdesc Immutable event object to show sign
  */
 class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars

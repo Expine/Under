@@ -7,7 +7,7 @@
  * - Sets max velocity and move power for moving
  * - Enable to set velocity and power
  * - ### Prepares rolling action
- * @implements {UnderMovableState}
+ * @extends {UnderMovableState}
  * @classdesc Wild roll state to prepare rolling action
  */
 class WildRollState extends UnderMovableState { // eslint-disable-line  no-unused-vars

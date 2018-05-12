@@ -9,7 +9,7 @@
  * - Object that can be destroyed
  * - Object that can be damaged
  * - ### Implements damagable and animationable
- * @implements {AIListedObject}
+ * @extends {AIListedObject}
  * @implements {IDamagable}
  * @classdesc Character that implements damagable and animationable
  */

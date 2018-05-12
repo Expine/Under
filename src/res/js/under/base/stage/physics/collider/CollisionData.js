@@ -1,6 +1,7 @@
 /**
  * Collision data
  * - ### Data obtained by collision detection
+ * @interface
  * @classdesc Collision data obtained by collision detection
  */
 class CollisionData { // eslint-disable-line  no-unused-vars
@@ -41,7 +42,6 @@ class CollisionData { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.depth = depth;
-        // TODO: Is a collision point necessary?
         /**
          * Collision x point
          * @type {number}
@@ -55,9 +55,17 @@ class CollisionData { // eslint-disable-line  no-unused-vars
 
         /**
          * Descending priority
+         * @protected
          * @type {number}
          */
-        this.priority = 0;
+        this.priorityVal = 0;
+    }
+
+    get priority() {
+        if (this.priorityVal === null) {
+            this.priorityVal = this.calcPriority();
+        }
+        return this.priorityVal;
     }
 
     /**
@@ -82,13 +90,15 @@ class CollisionData { // eslint-disable-line  no-unused-vars
 
     /**
      * Initialize collision data
-     * @abstract
      */
-    init() {}
+    init() {
+        this.priorityVal = null;
+    }
 
     /**
      * Calculate descending priority
      * @abstract
+     * @protected
      * @return {number} Priority
      */
     calcPriority() {}

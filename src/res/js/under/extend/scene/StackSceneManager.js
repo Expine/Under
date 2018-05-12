@@ -2,7 +2,7 @@
  * Stack scene manager
  * - Manages transitions of scenes, ie additions and deletions
  * - ### Uses the stack to manage scenes
- * @implements {SceneManager}
+ * @extends {SceneManager}
  * @classdesc Stack scene manager using the stack to manage scenes
  */
 class StackSceneManager extends SceneManager { // eslint-disable-line  no-unused-vars

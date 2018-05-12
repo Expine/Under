@@ -3,7 +3,7 @@
  * - Uses for rough collision determination
  * - Decides from 4 vertices
  * - ### Considers the direction
- * @implements {SimpleAABB}
+ * @extends {SimpleAABB}
  * @classdesc Directional Axis Aligned Bounding Box to consider the direction
  */
 class DirectionalAABB extends SimpleAABB { // eslint-disable-line  no-unused-vars

@@ -4,7 +4,7 @@
  * - Determines by state
  * - Manages state by name
  * - ### Basic information can be transferred to another state AI
- * @implements {NamedStateAI}
+ * @extends {NamedStateAI}
  * @classdesc Transferable state AI to transfer information to another state AI
  */
 class TransferableStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars

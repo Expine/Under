@@ -4,7 +4,7 @@
  * - Has image ID
  * - It can be collided because it has material and collider
  * - ### It is not fixed and can be moved
- * @implements {InfluentialEntity}
+ * @extends {InfluentialEntity}
  * @classdesc Mmutable entity that is not fixed and can be moved
  */
 class MutableEntity extends InfluentialEntity { // eslint-disable-line  no-unused-vars

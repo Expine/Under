@@ -2,7 +2,7 @@
  * Fix camera
  * - Calculates the area to rendering
  * - ### Fixes certain position
- * @implements {Camera}
+ * @extends {Camera}
  * @classdesc Fix camera to fix certain position
  */
 class FixCamera extends Camera { // eslint-disable-line  no-unused-vars

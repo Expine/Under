@@ -3,7 +3,7 @@
  * - Controls updating and rendering
  * - ### Default title scene example
  * - ### Sample of mouse processing, input processing and drawing processing
- * @implements {Scene}
+ * @extends {Scene}
  * @classdesc Default title scene indicating sample scene
  */
 class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars

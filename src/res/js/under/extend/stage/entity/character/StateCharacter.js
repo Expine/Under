@@ -10,7 +10,7 @@
  * - Object that can be damaged
  * - Implements damagable and animationable
  * - ### Entity that manages AI according to state and rendering by it
- * @implements {Character}
+ * @extends {Character}
  * @classdesc State character that manages AI according to state and rendering by it
  */
 class StateCharacter extends Character { // eslint-disable-line  no-unused-vars
@@ -27,16 +27,6 @@ class StateCharacter extends Character { // eslint-disable-line  no-unused-vars
          * @type {State}
          */
         this.state = null;
-    }
-
-    /**
-     * Add AI system
-     * @override
-     * @param {AI} ai AI to control this
-     * @param {number} [priority=-1] Priority of AI. If it is a positive number count from the front, if it is a negative number count from the back
-     */
-    addAI(ai, priority = -1) {
-        super.addAI(ai, priority);
     }
 
     /**

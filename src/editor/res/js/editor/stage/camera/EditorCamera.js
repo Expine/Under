@@ -2,7 +2,7 @@
  * Editor camera
  * - Calculates the area to rendering
  * - ### Moves by right clicked and dragging
- * @implements {Camera}
+ * @extends {Camera}
  * @classdesc Editor camera to move by right clicked and dragging
  */
 class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars

@@ -5,7 +5,7 @@
  * - Basic information can be transferred to another state
  * - Sets the power to be applied and the magnification of the elapsed speed of the preparation time
  * - ### Prepares for jumping
- * @implements {UnderPlayerState}
+ * @extends {UnderPlayerState}
  * @implements {IPrepareState}
  * @classdesc Normal jump state to prepare for jumping
  */

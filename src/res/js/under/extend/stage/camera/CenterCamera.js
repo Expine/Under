@@ -2,7 +2,7 @@
  * Center camera
  * - Calculates the area to rendering
  * - ### Centering at the indicated coordinates
- * @implements {Camera}
+ * @extends {Camera}
  * @classdesc Center camera for centering at the indicated coodinates
  */
 class CenterCamera extends Camera { // eslint-disable-line  no-unused-vars

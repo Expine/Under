@@ -13,7 +13,7 @@
  * - It can get hook position and change state
  * - Implements hook and automatically generates post hook object
  * - ### Player's representation so it does not exists on stage
- * @implements {HookObject}
+ * @extends {HookObject}
  * @classdesc Hook player object that player's representation so it does not exists on stage
  */
 class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars

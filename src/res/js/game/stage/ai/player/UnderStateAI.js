@@ -5,7 +5,7 @@
  * - Manages state by name
  * - Basic information can be transferred to another state AI
  * - ### Changes special state by alias
- * @implements {TransferableStateAI}
+ * @extends {TransferableStateAI}
  * @classdesc Under state AI to change special state by alias
  */
 class UnderStateAI extends TransferableStateAI { // eslint-disable-line  no-unused-vars

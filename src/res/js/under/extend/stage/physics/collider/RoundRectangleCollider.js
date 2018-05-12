@@ -3,7 +3,7 @@
  * - Store collider data for judgeing collision
  * - Makes a collision judgment considered to be rectangle
  * - ### Makes a collision judgment considered to be rectangle taken a horn
- * @implements {Collider}
+ * @extends {Collider}
  * @classdesc Round rectangle collider to make a collision judgment considered to be rectangle taken a horn
  */
 class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line  no-unused-vars
@@ -104,7 +104,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                         you = swap;
                         nx = -nx;
                         ny = -ny;
-                    } else if (!me instanceof MutableEntity) {
+                    } else if (!me instanceof MutableEntity || !you instanceof InfluentialEntity) {
                         console.log(`Error: Colliding entity should be mutable`);
                     }
                     let px = me.x + nx * d;
@@ -155,8 +155,8 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                         you = swap;
                         nx = -nx;
                         ny = -ny;
-                    } else if (!me instanceof MutableEntity) {
-                        console.log(`Error: Colliding entity should be mutable`);
+                    } else if (!me instanceof MutableEntity || !you instanceof InfluentialEntity) {
+                        console.log(`Error: Colliding entity should be mutable and collided entity should be influential`);
                     }
                     let px = me.x + nx * d;
                     let py = me.y + ny * d;

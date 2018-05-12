@@ -7,7 +7,7 @@
  * - It can move by AI
  * - Manages AI by list
  * - ### Generated and owned by someone
- * @implements {AIListedObject}
+ * @extends {AIListedObject}
  * @classdesc Possessed object that is generated and owned by someone
  */
 class PossessedObject extends AIListedObject { // eslint-disable-line  no-unused-vars

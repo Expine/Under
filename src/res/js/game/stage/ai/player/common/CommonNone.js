@@ -5,7 +5,7 @@
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - ### Does nothing but transfer gameover only if entity is died
- * @implements {UnderPlayerState}
+ * @extends {UnderPlayerState}
  * @classdesc Common none state to do nothing but transfer gameover only if entity is died
  */
 class CommonNoneState extends UnderPlayerState { // eslint-disable-line  no-unused-vars

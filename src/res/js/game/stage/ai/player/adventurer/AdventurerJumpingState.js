@@ -8,7 +8,7 @@
  * - Enable to set velocity and power
  * - To fall, walk and stop
  * - ### It can drag hook
- * @implements {NormalJumpingState}
+ * @extends {NormalJumpingState}
  * @classdesc Adventurer jump state that can drag hook
  */
 class AdventurerJumpingState extends NormalJumpingState { // eslint-disable-line  no-unused-vars

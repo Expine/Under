@@ -2,7 +2,7 @@
 /**
  * Context for rendering by WebGL
  * Renders by using WebGL
- * @implements {Context}
+ * @extends {Context}
  * @classdesc Context for rendering by WebGL
  */
 class GLContext extends Context { // eslint-disable-line  no-unused-vars

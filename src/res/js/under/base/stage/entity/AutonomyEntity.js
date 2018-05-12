@@ -6,7 +6,7 @@
  * - It is not fixed and can be moved
  * - ### It can move by AI
  * @interface
- * @implements {MutableEntity}
+ * @extends {MutableEntity}
  * @classdesc Autonomy entity to move by AI
  */
 class AutonomyEntitiy extends MutableEntity { // eslint-disable-line  no-unused-vars

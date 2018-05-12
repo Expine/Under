@@ -3,7 +3,7 @@
  * - Performs a physical operation
  * - Registers entities and apply a physical operation
  * - ### Continually perform collision processing
- * @implements {PhysicalWorld}
+ * @extends {PhysicalWorld}
  * @classdesc Sequential world to perform collision processing continually
  */
 class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
@@ -257,9 +257,8 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     updateResponse(dt) {
         // collision response
-        let sorted = this.collisions.sort((a, b) => a.calcPriority() > b.calcPriority() ? -1 : a.calcPriority() < b.calcPriority() ? 1 : 0);
         for (let j = 0; j < this.collisionSize; ++j) {
-            let it = sorted[j];
+            let it = this.collisions[j];
             if (it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider)) {
                 this.response.collisionResponse(it, dt);
             }

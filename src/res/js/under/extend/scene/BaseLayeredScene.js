@@ -3,7 +3,7 @@
  * - Controls updating and rendering
  * - It consists of layers
  * - ### Basic form of a scene composed of layers
- * @implements {LayeredScene}
+ * @extends {LayeredScene}
  * @classdesc Layer base scene composed of layers
  */
 class BaseLayeredScene extends LayeredScene { // eslint-disable-line  no-unused-vars

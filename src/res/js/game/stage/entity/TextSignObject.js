@@ -4,7 +4,7 @@
  * - Has image ID
  * - Show sign
  * - ### Show sign text
- * @implements {SignObject}
+ * @extends {SignObject}
  * @classdesc Immutable event object to show sign text
  */
 class TextSignObject extends SignObject { // eslint-disable-line  no-unused-vars

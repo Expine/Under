@@ -5,7 +5,7 @@
  * - Registers entities and apply a physical operation
  * - Continually perform collision processing
  * - ### Manages not actor by split area
- * @implements {SplitWorld}
+ * @extends {SplitWorld}
  * @classdesc Gravity world to manage not actor by split area
  */
 class VariableGravityWorld extends SplitWorld { // eslint-disable-line  no-unused-vars

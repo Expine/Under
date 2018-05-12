@@ -6,7 +6,7 @@
  * - It is not fixed and can be moved
  * - It can move by AI
  * - Manages AI by list
- * @implements {AIListedObject}
+ * @extends {AIListedObject}
  * @classdesc Elevator
  */
 class Elevator extends AIListedObject { // eslint-disable-line  no-unused-vars

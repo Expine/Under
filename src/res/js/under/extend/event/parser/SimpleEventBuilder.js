@@ -2,7 +2,7 @@
  * Event builder
  * - Generates event from json data
  * - ### Generate simple event
- * @implements {EventBuilder}
+ * @extends {EventBuilder}
  * @classdesc Event builder to generate simple event
  */
 class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unused-vars

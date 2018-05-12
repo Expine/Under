@@ -10,7 +10,7 @@ package game {
                 +terrainID : number
             }
             abstract UnderPlayable {
-                +changeType(id) : bool
+                +changeType(id) : boolean
             }
             abstract Terrainable {
                 +getTerrainID() : number

@@ -3,7 +3,7 @@
  * - Determines the operation by AI according to the state and renders based on state
  * - Initialize state image
  * - ### About to attack
- * @implements {BaseState}
+ * @extends {BaseState}
  * @classdesc Player punch state that about to attack
  */
 class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars

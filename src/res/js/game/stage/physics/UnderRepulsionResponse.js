@@ -1,7 +1,7 @@
 /**
  * Replusion collision response
  * Performs collision response by replusion
- * @implements {CollisionResponse}
+ * @extends {CollisionResponse}
  * @classdesc Collision response to performs collision response by replusion
  */
 class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line  no-unused-vars

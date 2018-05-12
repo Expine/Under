@@ -6,7 +6,7 @@
  * - Render entity by entity own image ID for change type
  * - Sets max velocity and move power for moving
  * - Enable to set velocity and power
- * @implements {UnderMovableState}
+ * @extends {UnderMovableState}
  * @classdesc State of adventurer down wall
  */
 class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line  no-unused-vars

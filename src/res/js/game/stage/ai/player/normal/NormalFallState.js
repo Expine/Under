@@ -7,7 +7,7 @@
  * - Sets max velocity and move power for moving
  * - Enable to set velocity and power
  * - ### To falling, walk and stop
- * @implements {UnderMovableState}
+ * @extends {UnderMovableState}
  * @classdesc Normal fall state to falling, walk and stop
  */
 class NormalFallState extends UnderMovableState { // eslint-disable-line  no-unused-vars

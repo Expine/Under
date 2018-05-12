@@ -2,7 +2,7 @@
  * Hooked state
  * - Determines the operation by AI according to the state and renders based on state
  * - ### Hook condision after hooked
- * @implements {State}
+ * @extends {State}
  * @classdesc Hooked state after hooked
  */
 class HookedState extends State { // eslint-disable-line  no-unused-vars

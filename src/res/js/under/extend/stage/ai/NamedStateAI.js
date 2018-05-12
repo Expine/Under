@@ -3,7 +3,7 @@
  * - Determines the behavior of an entity
  * - Determines by state
  * - ### Manages state by name
- * @implements {StateAI}
+ * @extends {StateAI}
  * @classdesc Named state AI to manage state by name
  */
 class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars

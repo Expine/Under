@@ -4,44 +4,70 @@ package under {
         package stage {
             package entity {
                 abstract Entity {
-                    +Entity(x,y,width,height,imageID)
                     +x : number
                     +y : number
+                    +z : number
                     +width : number
                     +height : number
-                    #imageID : number
-                    +directionX : number
-                    +directionY : number
                     +stage : Stage
-                    +collider : Collider
-                    +material : Material
                     +setStage(stage)
-                    +setCollider(collider)
-                    +setMaterial(material)
+                    +setPosition(x,y,z)
+                    +setSize(width,height)
                     {abstract} +init()
                     {abstract} +update(dt)
                     {abstract} +render(ctx,shiftX,shiftY)
                 }
-                abstract ImmutableObject {
+                abstract ImagedEntity {
+                    #image : GameImage
+                    +setImage(image)
+                    +getImage() : Image
+                    +setSize(width,height) <<override>>
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx,shiftX,shiftY) <<override>>
+                }
+                abstract InfluentialEntity {
+                    +material : Material
+                    +collider : Collider
+                    +setMaterial(material)
+                    +setCollider(collider)
+                }
+                abstract ImmutableEntity {
 
                 }
-                abstract MutableObject {
+                abstract MutableEntity {
                     +body : RigidBody
+                    +directionX : number
+                    +directionY : number
                     +setRigidBody(body)
                     +deltaMove(dx,dy)
                 }
-                abstract AutonomyObject {
-                    {abstract} +addAI(ai,priotiy)
+                abstract AutonomyEntity {
+                    +addAI(ai,priotiy)
                     {abstract} +removeAI(ai)
+                    {abstract} +updateAI(dt)
+                    {abstract} +applyAI(dt)
+                    +update(dt) <<override>>
                 }
 
-                abstract Breakable {
-                    {abstract} +destroy()
-                }
-
-                abstract Damagable {
-                    {abstract} +getHP() : number
-                    {abstract} +damage(damage)
+                package interface {
+                    interface IBreakable {
+                        {abstract} +destroy()
+                    }
+                    interface IDamagable {
+                        {abstract} +getHP() : number
+                        {abstract} +damage(damage)
+                    }
+                    interface IPlayable {
+                        {abstract} +getCameraX() : number
+                        {abstract} +getCameraY() : number
+                        {abstract} +isGameOver() : boolean
+                    }
+                    interface IEventEntity {
+                        {abstract} +setEvent(event)
+                        {abstract} +getEvent() : GameEvent
+                        {abstract} +fire()
+                    }
                 }
             }
             package physics {
@@ -49,98 +75,118 @@ package under {
                     abstract Collider {
                         #aabb : AABB
                         +collisions : Array<CollisionData>
-                        +isResponse : bool
-                        +enable : bool
+                        +response : boolean
+                        +enable : boolean
                         #entity : Entity
+                        #cleared : boolean
                         +init()
+                        +clear()
                         +setEntity(entity)
-                        +addCollision(collision)
+                        +setAABB(aabb)
                         +getAABB() : AABB
-                        {abstract} +isInCollider(x,y) : bool
+                        +addCollision(collision)
+                        +isResponse(collider) : boolean
+                        {abstract} +isInCollider(x,y) : boolean
                         {abstract} +isCollision(collider,data)
                         +isCollisionRoughly(collider)
-                        +fixBound(startX,startY,endX,endY)
-                        {abstract} +fixBound(aabb)
+                        {abstract} +fixBound(startX,startY,endX,endY)
                         {abstract} +update()
                         {abstract} +render(ctx,shiftX,shiftY)
                     }
-                    class AABB {
-                        +startX : number
-                        +startY : number
-                        +endX : number
-                        +endY : number
+                    abstract AABB {
+                        +startX() : number <<getter>>
+                        +startY() : number <<getter>>
+                        +endX() : number <<getter>>
+                        +endY() : number <<getter>>
+                        +update(startX,startY,endX,endY,entity)
                     }
-                    class CollisionData {
-                        +CollisionData(e1,e2,nx,ny,depth) : CollisionData
-                        +e1 : Entity
-                        +e2 : Entity
+                    abstract CollisionData {
+                        +CollisionData(colliding,collided,nx,ny,px,pydepth) : CollisionData
+                        +colliding : MutableEntity
+                        +collided : InfluentialEntity
                         +nx : number
                         +ny : number
                         +px : number
                         +py : number
                         +depth : number
+                        #priorityVal : number
+                        +priority() : number <<getter>>
+                        +register(colliding,collided,nx,ny,px,pydepth)
+                        +init()
+                        {abstract} #calcPriority() : number
                     }
                 }
                 package material {
                     abstract Material {
-                        +Material() : Material
-                        {abstract} +mass : number
-                        {abstract} +e : number
-                        {abstract} +mu : number
+                        {abstract} +mass() : number <<getter>>
+                        {abstract} +e() : number <<getter>>
+                        {abstract} +mu() : number <<getter>>
                     }
                 }
                 package body {
                     abstract RigidBody {
-                        +velocityX : number
-                        +velocityY : number
-                        +accelerationX : number
-                        +accelerationY : number
                         +diffX : number
                         +diffY : number
-                        +isFix : bool
-                        #entity : Entity
+                        +isFixX : boolean
+                        +isFixY : boolean
+                        +enable : boolean
+                        #entity : MutableEntity
                         +material : RigidMaterial
+                        +velocityX() : number <<getter>>
+                        +velocityY() : number <<getter>>
+                        +accelerationX() : number <<getter>>
+                        +accelerationY() : number <<getter>>
                         +setEntity(entity)
-                        {abstract} +init()
+                        +setMaterial(material)
+                        +reset()
                         {abstract} +setNextAddVelocity(vx,vy)
                         {abstract} +enforce(forceX, forceY)
+                        {abstract} +init()
+                        {abstract} +prepare(dt)
                         {abstract} #updateInfor(dt)
                         {abstract} #updateVeocity(dt)
                         {abstract} #updateEntity(dt)
                         +update(dt)
+                        {abstract} +cleanup(dt)
                     }
                     abstract RigidMaterial {
                         +velocityX : number
                         +velocityY : number
                         +accelerationX : number
                         +accelerationY : number
-                        {abstract} +k : number
-                        {abstract} +frictionX : number
-                        {abstract} +frictionY : number
+                        +reset()
+                        {abstract} +k() : number <<getter>>
+                        {abstract} +frictionX() : number <<getter>>
+                        {abstract} +frictionY() : number <<getter>>
+                        {abstract} +gravityScale() : number <<getter>>
                     }
                 }
             }
             package ai {
                 abstract AI {
-                    #entity : AutonomyObject
+                    #entity : AutonomyEntity
                     +setEntity(entity)
                     {abstract} +init()
-                    {abstract} +apply(dt) : bool
                     {abstract} +update(dt)
+                    {abstract} +apply(dt) : boolean
                 }
                 abstract StateAI {
                     {abstract} +getState() : State
-                    {abstract} +getStateByName(name) : State
-                    {abstract} +changeState(state)
+                    {abstract} +getStateID() : Object
+                    {abstract} +setState(state,id)
+                    +changeState(id)
+                    +update(dt) <<override>>
+                    +apply(dt) : boolean <<override>>
                 }
                 abstract State {
-                    #entity : AutonomyObject
+                    #entity : AutonomyEntity
                     #ai : StateAI
+                    #canRendering : boolean
                     +setEntity(entity)
                     +setAI(ai)
                     {abstract} +init()
-                    {abstract} +apply(dt) : bool
                     {abstract} +update(dt)
+                    {abstract} +apply(dt) : boolean
                     {abstract} +render(ctx.shiftX,shiftY)
                 }
             }
@@ -148,25 +194,46 @@ package under {
     }
 }
 
-Entity <|-- ImmutableObject
-Entity <|-- MutableObject
-MutableObject <|-- AutonomyObject
+package under {
+    package base {
+        package resource {
+            package image {
+                abstract GameImage
+            }
+        }
+        package stage {
+            abstract Stage
+        }
+    }
+}
 
-Entity "1" o--"1" Collider : Initialize and own
-Entity "1" o--"1" Material ::Own
-Collider ..> Entity : Own
-MutableObject "1"*--"1" RigidBody : Initialize and own
-RigidBody .> MutableObject : Own
-RigidBody "1" o--"1" RigidMaterial : Own
+Stage <-- Entity : Own
+GameImage <. ImagedEntity : Init, update and render
+material "1" ..o "1" InfluentialEntity : Own
+Collider <. InfluentialEntity : Init
+Collider <.. MutableEntity : Update
+RigidBody <. MutableEntity : Init
+AI <.. AutonomyEntity : Init
 
-AutonomyObject "1"*--"*" AI : Should own
+Entity <-- Collider : Own
+Collider ..> AABB : Get
+Collider "1" o.. "*" CollisionData : Own
+RigidBody "1" o.. "1" RigidMaterial : Get and reset
+RigidBody --> MutableEntity : Own
+
+StateAI ..> State : Init
+AutonomyEntity <-- AI : Own
+StateAI <-- State : Own
+AutonomyEntity <-- State : Own
+
+Entity <|-- ImagedEntity
+ImagedEntity <|-- InfluentialEntity
+InfluentialEntity <|-- ImmutableEntity
+InfluentialEntity <|-- MutableEntity
+MutableEntity <|-- AutonomyEntity
+
+IBreakable <|-- IDamagable
+
 AI <|-- StateAI
-AI ..> AutonomyObject : Own
-StateAI "1"*--"*" State : Should own
-State ..> StateAI : Own
-State ..> AutonomyObject : Own
-
-Collider "1" o-- "*" CollisionData : Keep collision data
-Collider "1" *-- "1" AABB : Set up AABB / wrapper
 
 @enduml

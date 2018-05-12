@@ -2,7 +2,7 @@
  * Axis Aligned Bounding Box
  * - Uses for rough collision determination
  * - ### Decides from 4 vertices
- * @implements {AABB}
+ * @extends {AABB}
  * @classdesc Simple Axis Aligned Bounding Box to decide from 4 vertices
  */
 class SimpleAABB extends AABB { // eslint-disable-line  no-unused-vars

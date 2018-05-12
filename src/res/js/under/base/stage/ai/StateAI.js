@@ -3,7 +3,7 @@
  * - Determines the behavior of an entity
  * - ### Determines by state
  * @interface
- * @implements {AI}
+ * @extends {AI}
  * @classdesc State AI to determine by state
  */
 class StateAI extends AI { // eslint-disable-line  no-unused-vars
@@ -31,7 +31,6 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
 
     /**
      * Change state
-     * @abstract
      * @param {Object} id ID of state to change
      * @return {boolean} Whether change state or not
      */

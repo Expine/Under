@@ -13,7 +13,7 @@
  * - It can get hook position and change state
  * - ### Implements hook and automatically generates post hook object
  * @interface
- * @implements {SpecialObject}
+ * @extends {SpecialObject}
  * @implements {IHook}
  * @classdesc Hook object to implement hook and automatically generate post hook object
  */

@@ -4,7 +4,7 @@
  * - Registers entities and apply a physical operation
  * - Measure time for debugging by delegation
  * - ### Changes world type
- * @implements {DebugWorld}
+ * @extends {DebugWorld}
  * @classdesc Editor world to chane world type
  */
 class EditorWorld extends DebugWorld { // eslint-disable-line  no-unused-vars

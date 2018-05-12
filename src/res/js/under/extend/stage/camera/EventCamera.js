@@ -2,7 +2,7 @@
  * Event camera
  * - Calculates the area to rendering
  * - ### For using by event
- * @implements {Camera}
+ * @extends {Camera}
  * @classdesc Event camera to use by event
  */
 class EventCamera extends Camera { // eslint-disable-line  no-unused-vars

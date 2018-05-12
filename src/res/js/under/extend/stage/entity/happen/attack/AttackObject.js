@@ -11,7 +11,7 @@
  * - Object caused by special actions
  * - ### Object indicating attack that have lifespan
  * @interface
- * @implements {SpecialObject}
+ * @extends {SpecialObject}
  * @classdesc Attack object indicating attack that have lifespan
  */
 class AttackObject extends SpecialObject { // eslint-disable-line  no-unused-vars

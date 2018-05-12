@@ -4,7 +4,7 @@
  * - Registers entities and apply a physical operation
  * - Continually perform collision processing
  * - ### Manages not actor by split area
- * @implements {SequentialWorld}
+ * @extends {SequentialWorld}
  * @classdesc Split world to manage not actor by split area
  */
 class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-vars

@@ -3,7 +3,7 @@
  * - Object present on the stage that has coordinate and size
  * - ### Has image ID
  * @interface
- * @implements {Entity}
+ * @extends {Entity}
  * @classdesc Imaged entity to have image ID
  */
 class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
@@ -31,9 +31,9 @@ class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
 
     /**
      * Get image
-     * @param {GameImage} image Image
+     * @return {GameImage} Image
      */
-    getImage(image) {
+    getImage() {
         return this.image;
     }
 

@@ -13,7 +13,7 @@
  * - It can get hook position and change state
  * - Implements hook and automatically generates post hook object
  * - ### Implements as head
- * @implements {HookObject}
+ * @extends {HookObject}
  * @classdesc Hook head object to implement as head
  */
 class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
