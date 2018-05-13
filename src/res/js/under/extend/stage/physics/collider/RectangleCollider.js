@@ -85,11 +85,13 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
                     } else if (!me instanceof MutableEntity || !you instanceof InfluentialEntity) {
                         console.log(`Error: Colliding entity should be mutable and collided entity should be influential`);
                     }
-                    if (me.body.velocityX * nx <= 0) {
-                        nx = Math.abs(ny) + 1;
-                    }
-                    if (me.body.velocityY * ny <= 0) {
-                        ny = Math.abs(nx) + 1;
+                    if (me.body !== null && Math.abs(Math.abs(nx) - Math.abs(ny)) < 1) {
+                        if (me.body.velocityX * nx <= 0) {
+                            nx = Math.abs(ny) + 1;
+                        }
+                        if (me.body.velocityY * ny <= 0) {
+                            ny = Math.abs(nx) + 1;
+                        }
                     }
                     if (Math.abs(nx) < Math.abs(ny)) {
                         depth = Math.abs(nx);
