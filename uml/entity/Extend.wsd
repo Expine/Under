@@ -12,29 +12,62 @@ package under {
                     +updateAI(dt) <<override>>
                     +applyAI(dt) <<override>>
                 }
-                class Character {
-                    #hp : number
-                    +setHP(hp)
-                    +getHP() : number <<override>>
-                    +damage() : number <<override>>
-                    +destroy() <<override>>
-                }
-                class StateCharacter {
-                    #state : State
-                    +applyAI(dt) <<override>>
-                    +render(ctx,shiftX,shiftY) <<override>>
-                }
-                class Enemy
-                class Player {
-                    -invincible_ : number
-                }
-
-                package ex_attack {
-                    abstract AttackObject {
-                        #lifespan : number
-                        {abstract} #judgeCollision : boolean
+                package ex_character {
+                    class Character {
+                        #hp : number
+                        +setHP(hp)
+                        +getHP() : number <<override>>
+                        +damage() : number <<override>>
+                        +destroy() <<override>>
                     }
-                    class PunchObject
+                    class StateCharacter {
+                        #state : State
+                        +applyAI(dt) <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
+                    class Enemy
+                    class Player {
+                        #invincible : number
+                        +damage(damage) <<override>>
+                        +getCameraX() : number <<override>>
+                        +getCameraY() : number <<override>>
+                        +isGameover() : boolean <<override>>
+                        +update(dt) <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
+                }
+                package ex_fire {
+                    class ImmutableEvent {
+                        #event : GameEvent
+                        #collided : boolean
+                        #eventCollider : Collider
+                        +setEvent(event) <<override>>
+                        +getEvent() : GameEvent <<override>>
+                        +fire() <<override>>
+                        +getCollider() : Collider <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                    }
+                }
+                package ex_happen {
+                    package ex_attack {
+                        abstract AttackObject {
+                            +constructor(lifespan)
+                            #lifespan : number
+                            +destroy() <<override>>
+                            +update(dt) <<override>>
+                        }
+                        class PunchObject {
+                            +init() <<override>>
+                        }
+                    }
+                    class PossesedObject {
+                        #owner : Entity
+                        +setOwner(owner)
+                    }
+                }
+                package ex_object {
+
                 }
             }
         }
@@ -45,10 +78,15 @@ package under {
     package base {
         package ai {
             abstract AI
+            abstract StateAI
+            package state {
+                abstract State
+            }
         }
         package stage {
             abstract Stage
             package entity {
+                abstract Entity
                 abstract ImmutableObject
                 abstract MutableObject
                 abstract AutonomyObject
@@ -56,6 +94,8 @@ package under {
                     interface IDamagable
                     interface IBreakable
                     interface IPlayable
+                    interface IEventEntity
+                    interface IColliderable
                 }
             }
         }
@@ -64,6 +104,18 @@ package under {
 
 AI <.. AIListedObject : Update and apply
 Stage <.. Character : Destroy
+StateAI <.. StateCharacter : Get state
+State <.. StateCharacter : Render
+
+SingleAnimation <.. PunchObject : Generate
+TileImage <.. PunchObject : Generate
+ImmutableMaterial <.. PunchObject : Generate
+RectangleCollider <.. PunchObject : Generate
+SimpleAABB <.. PunchObject : Generate
+MaxAdoptBody <.. PunchObject : Generate
+ImmutableRigidMaterial <.. PunchObject : Generate
+AttackObjectAI <.. PunchObject : Generate
+IImageManager <.. PunchObject : Load
 
 ImmutableObject <|.. TileObject
 MutableObject <|.. Obstacle
@@ -73,10 +125,16 @@ AIListedObject <|-- Character
 IDamagable <|.. Character
 Character <|-- StateCharacter
 StateCharacter <|-- Player
-Playable <|.. Player
+IPlayable <|.. Player
 Character <|-- Enemy
-AIListedObject <|-- AttackObject
-Breakable <|.. AttackObject
+
+Entity <|.. ImmutableEvent
+IEventEntity <|.. ImmutableEvent
+IColliderable <|.. ImmutableEvent
+
+AIListedObject <|-- PossesedObject
+PossesedObject <|-- AttackObject
+IBreakable <|.. AttackObject
 AttackObject <|.. PunchObject
 
 

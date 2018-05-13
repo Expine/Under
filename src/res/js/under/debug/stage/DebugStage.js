@@ -223,6 +223,11 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
                                 ctx.fillText(`F((${it.body.isFixX}, ${it.body.isFixY}) - (${Math.floor(it.body.diffX)}, ${Math.floor(it.body.diffY)}))`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`);
                             }
                         }
+                    } else if (BaseUtil.implementsOf(it, IColliderable)) {
+                        it.getCollider().render(ctx, his.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
+                        if (it.getCollider().isInCollider(mx, my)) {
+                            ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
+                        }
                     }
                 }
             }

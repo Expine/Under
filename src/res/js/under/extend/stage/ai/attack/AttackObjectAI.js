@@ -46,6 +46,14 @@ class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
         this.entity.deltaMove(this.actor.x - this.preActorx, this.actor.y - this.preActory);
         this.preActorx = this.actor.x;
         this.preActory = this.actor.y;
+
+        // If damageable object is collided, damage
+        for (let it of this.entity.collider.collisions) {
+            let entity = Util.getCollidedEntity(this.actor, it);
+            if (this.actor !== entity && BaseUtil.implementsOf(entity, IDamagable)) {
+                entity.damage(1);
+            }
+        }
         return true;
     }
 }

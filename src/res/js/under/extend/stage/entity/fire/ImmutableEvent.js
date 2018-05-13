@@ -5,7 +5,7 @@
  * @extends {Entity}
  * @classdesc Immutable event object to fire event
  */
-class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line  no-unused-vars
+class ImmutableEvent extends Entity /* IEventEntity, IColliderable */ { // eslint-disable-line  no-unused-vars
     /**
      * Influential event object constructor
      * @constructor
@@ -16,7 +16,7 @@ class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line 
         /**
          * Event for firing
          * @protected
-         * @type {StageEvent}
+         * @type {GameEvent}
          */
         this.event = null;
 
@@ -33,16 +33,6 @@ class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line 
          * @type {Collider}
          */
         this.eventCollider = null;
-    }
-
-    /**
-     * Set collider
-     * @override
-     * @param {Collider} collider collider
-     */
-    setCollider(collider) {
-        this.eventCollider = collider;
-        this.eventCollider.setEntity(this);
     }
 
     /**
@@ -75,6 +65,15 @@ class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line 
     }
 
     /**
+     * Get collider
+     * @override
+     * @return {Collider} Collider that object has
+     */
+    getCollider() {
+        return this.eventCollider;
+    }
+
+    /**
      * Initialize entity
      * @override
      */
@@ -101,19 +100,5 @@ class ImmutableEvent extends Entity /* IEventEntity */ { // eslint-disable-line 
             }
         }
         this.collided = localCollided;
-    }
-
-    /**
-     * Render entity
-     * @abstract
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        super.render(ctx, shiftX, shiftY);
-        if (Engine.debug) {
-            this.eventCollider.render(ctx, shiftX, shiftY);
-        }
     }
 }

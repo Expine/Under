@@ -270,6 +270,16 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof State !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/vanish/ShowState.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof State !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/vanish/VanishState.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof AI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/JumpAI.js'; document.head.appendChild(script);
     }
@@ -571,6 +581,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IColliderable.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof IBreakable !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IDamagable.js'; document.head.appendChild(script);
     }
@@ -651,6 +666,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof NamedStateAI !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/vanish/VanishStateAI.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof BaseState !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/player/PGameoverState.js'; document.head.appendChild(script);
     }
@@ -712,17 +732,7 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof AIListedObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/gimmick/Elevator.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof AIListedObject !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/PossessedObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof PossessedObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/SpecialObject.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -771,12 +781,7 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof TileObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/gimmick/VanishTileObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof SpecialObject !== `undefined`) {
+    if (typeof PossessedObject !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
     }
 }, 1);}

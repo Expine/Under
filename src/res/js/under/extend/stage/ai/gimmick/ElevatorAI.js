@@ -8,41 +8,24 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
     /**
      * Elevator AI Constructor
      * @constructor
+     * @param {number} maxVelocity Maximum speed velocity
+     * @param {number} movePower Force applied when moving
      */
-    constructor() {
+    constructor(maxVelocity, movePower) {
         super();
 
         /**
-         * Maximum speed vector
+         * Maximum speed velocity
          * @protected
          * @type {number}
          */
-        this.maxVelocity = 200;
+        this.maxVelocity = maxVelocity;
         /**
          * Force applied when moving
          * @protected
          * @type {number}
          */
-        this.movePower = 200;
-
-        /**
-         * Whether player is on it or not
-         * @protected
-         * @type {boolean}
-         */
-        this.onPlayer = false;
-        /**
-         * Whether it moves or not
-         * @protected
-         * @type {boolean}
-         */
-        this.isMoving = false;
-        /**
-         * Counter for not on player
-         * @protected
-         * @type {number}
-         */
-        this.notOnPlayercount = 0;
+        this.movePower = movePower;
 
         /**
          * Elevator floor
@@ -62,6 +45,25 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
          * @type {Array<number>}
          */
         this.elevatorYList = [];
+
+        /**
+         * Whether player is on it or not
+         * @protected
+         * @type {boolean}
+         */
+        this.onPlayer = false;
+        /**
+         * Whether it moves or not
+         * @protected
+         * @type {boolean}
+         */
+        this.isMoving = false;
+        /**
+         * Counter for not on player
+         * @protected
+         * @type {number}
+         */
+        this.notOnPlayercount = 0;
     }
 
     /**
@@ -72,6 +74,22 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
     addPosition(x, y) {
         this.elevatorXList.push(x);
         this.elevatorYList.push(y);
+    }
+
+    /**
+     * Initialize AI
+     * @override
+     */
+    init() {
+        // apply relative position
+        let x = this.entity.x;
+        let y = this.entity.y;
+        for (let i = 0; i < this.elevatorXList.length; ++i) {
+            x += this.elevatorXList[i];
+            y += this.elevatorYList[i];
+            this.elevatorXList[i] = x;
+            this.elevatorYList[i] = y;
+        }
     }
 
     /**

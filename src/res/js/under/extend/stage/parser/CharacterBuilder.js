@@ -68,11 +68,23 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             case `JumpAI`:
                 return new JumpAI();
             case `ElevatorAI`:
-                let ret = new ElevatorAI();
-                for (let it of deploy.floors) {
-                    ret.addPosition(it.x, it.y);
+                {
+                    let v = (deploy === undefined || deploy.velocity === undefined) ? ai.velocity : deploy.velocity;
+                    let p = (deploy === undefined || deploy.power === undefined) ? ai.power : deploy.power;
+                    let floors = (deploy === undefined || deploy.floors === undefined) ? ai.floors : deploy.floors;
+                    let ret = new ElevatorAI(v, p);
+                    for (let it of floors) {
+                        ret.addPosition(it.x, it.y);
+                    }
+                    return ret;
                 }
-                return ret;
+            case `VanishStateAI`:
+                {
+                    let hide = (deploy === undefined || deploy.hide === undefined) ? ai.hide : deploy.hide;
+                    let show = (deploy === undefined || deploy.show === undefined) ? ai.show : deploy.show;
+                    let interval = (deploy === undefined || deploy.interval === undefined) ? ai.interval : deploy.interval;
+                    return new VanishStateAI(hide, show, interval);
+                }
             case `PlayerGameoverStateAI`:
                 return new PlayerGameoverStateAI();
             case `PlayerBaseStateAI`:
@@ -91,6 +103,12 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     makeEntityBase(deploy, entity) {
         switch (entity.type) {
+            case `AIObject`:
+                return new AIListedObject();
+            case `Character`:
+                return new Character();
+            case `StateCharacter`:
+                return new StateCharacter();
             case `Player`:
                 return new Player();
             case `Enemy`:
@@ -115,8 +133,6 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                     ret.setSign(signData.x, signData.y, signData.width, signData.height, this.loadCharaImage(signData.file));
                     return ret;
                 }
-            case `Elevator`:
-                return new Elevator();
             case `Event`:
                 {
                     let ret = new ImmutableEvent();

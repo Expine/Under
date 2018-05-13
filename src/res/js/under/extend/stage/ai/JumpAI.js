@@ -35,6 +35,7 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         if (Util.onGround(this.entity)) {
+            this.entity.getImage().init();
             this.onGroundCount += dt / 1000;
         } else {
             this.onGroundCount -= dt / 1000;

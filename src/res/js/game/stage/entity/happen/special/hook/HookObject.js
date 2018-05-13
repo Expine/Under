@@ -8,16 +8,15 @@
  * - Manages AI by list
  * - Generated and owned by someone
  * - Object that can be destroyed
-
- * - Object caused by special actions
  * - It can get hook position and change state
  * - ### Implements hook and automatically generates post hook object
  * @interface
- * @extends {SpecialObject}
+ * @extends {PossessedObject}
+ * @implements {IBreakable}
  * @implements {IHook}
  * @classdesc Hook object to implement hook and automatically generate post hook object
  */
-class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  no-unused-vars
+class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-disable-line  no-unused-vars
     /**
      * Hook object constructor
      * @constructor
@@ -255,7 +254,7 @@ class HookObject extends SpecialObject /* , IHook */ { // eslint-disable-line  n
         this.previous = null;
         this.post = null;
         this.string.removeBody(this.body);
-        super.destroy();
+        this.stage.removeEntity(this);
     }
 
     /**

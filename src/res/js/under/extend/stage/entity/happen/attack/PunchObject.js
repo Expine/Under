@@ -8,7 +8,6 @@
  * - Manages AI by list
  * - Generated and owned by someone
  * - Object that can be destroyed
-
  * - Object indicating attack that have lifespan
  * - ### If it is collided and collided entity implements damagable interface, damage it
  * - ### Implements attack object resources
@@ -21,10 +20,7 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        super();
-
-        // initialize
-        this.setLifeSpan(400);
+        super(400);
     }
 
     /**
@@ -32,6 +28,7 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
+        super.init();
         // TODO: Should be into a text file
         // set base data
         let imageID = ResourceManager.image.load(`chara/attack.png`);
@@ -45,45 +42,12 @@ class PunchObject extends AttackObject { // eslint-disable-line  no-unused-vars
         this.setMaterial(new ImmutableMaterial());
         let col = new RectangleCollider(0, 0, this.width, this.height);
         col.setAABB(new SimpleAABB());
+        col.response = false;
         this.setCollider(col);
         let body = new MaxAdoptBody();
+        body.enable = false;
         body.setMaterial(new ImmutableRigidMaterial());
         this.setRigidBody(body);
         this.addAI(new AttackObjectAI(this.owner));
-    }
-
-    /**
-     * Set collider
-     * @override
-     * @param {Collider} collider collider
-     */
-    setCollider(collider) {
-        super.setCollider(collider);
-        collider.response = false;
-    }
-
-    /**
-     * Set rigid body
-     * @param {RigidBody} body rigid body
-     */
-    setRigidBody(body) {
-        super.setRigidBody(body);
-        body.enable = false;
-    }
-
-    /**
-     * Update attack after update it
-     * @override
-     * @protected
-     * @param {number} dt Delta time
-     */
-    updateAttack(dt) {
-        // If damageable object is collided, damage
-        for (let it of this.collider.collisions) {
-            let entity = Util.getCollidedEntity(this.owner, it);
-            if (this.owner !== entity && BaseUtil.implementsOf(entity, IDamagable)) {
-                entity.damage(1);
-            }
-        }
     }
 }

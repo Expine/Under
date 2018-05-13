@@ -282,7 +282,7 @@
         },
         {
             "id": 7,
-            "type": "Elevator",
+            "type": "AIObject",
             "image": {
                 "type": "single",
                 "file": "elevator.png",
@@ -294,7 +294,7 @@
             "collider": {
                 "type": "RoundRectangle",
                 "startX": 6,
-                "startY": 8,
+                "startY": 4,
                 "width": 180,
                 "height": 24,
                 "cut": 5
@@ -315,7 +315,16 @@
                 "mu": 0.6
             },
             "ai": [{
-                "type": "ElevatorAI"
+                "type": "ElevatorAI",
+                "velocity": 200,
+                "power": 200,
+                "floors": [{
+                    "x": 0,
+                    "y": -128
+                }, {
+                    "x": 0,
+                    "y": 128
+                }]
             }]
         },
         {
@@ -386,6 +395,39 @@
             },
             "width": 64,
             "height": 64
+        },
+        {
+            "id": 11,
+            "type": "StateCharacter",
+            "image": {
+                "type": "single",
+                "file": "box.png",
+                "width": 32,
+                "height": 32
+            },
+            "width": 32,
+            "height": 32,
+            "body": {
+                "type": "MaxAdopt",
+                "material": {
+                    "type": "Immutable",
+                    "k": 0.5,
+                    "frictionX": 1.0,
+                    "frictionY": 0.0,
+                    "g": 0.0
+                }
+            },
+            "material": {
+                "mass": 10000000,
+                "elasticity": 0.1,
+                "mu": 0.6
+            },
+            "ai": [{
+                "type": "VanishStateAI",
+                "hide": 1,
+                "show": 2,
+                "interval": 1
+            }]
         }
     ]
 }

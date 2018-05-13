@@ -8,8 +8,6 @@
  * - Manages AI by list
  * - Generated and owned by someone
  * - Object that can be destroyed
-
- * - Object caused by special actions
  * - It can get hook position and change state
  * - Implements hook and automatically generates post hook object
  * - ### Implements as head

@@ -68,6 +68,9 @@ package under {
                         {abstract} +getEvent() : GameEvent
                         {abstract} +fire()
                     }
+                    interface IColliderable {
+                        {abstract} +getCollider() : Collider
+                    }
                 }
             }
             package physics {

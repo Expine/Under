@@ -274,6 +274,16 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof State !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/vanish/ShowState.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof State !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/vanish/VanishState.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof AI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/JumpAI.js'; document.head.appendChild(script);
     }
@@ -755,6 +765,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IColliderable.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof IBreakable !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IDamagable.js'; document.head.appendChild(script);
     }
@@ -835,6 +850,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof NamedStateAI !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/vanish/VanishStateAI.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof BaseState !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/player/PGameoverState.js'; document.head.appendChild(script);
     }
@@ -896,17 +916,7 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof AIListedObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/gimmick/Elevator.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof AIListedObject !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/PossessedObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof PossessedObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/SpecialObject.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1010,7 +1020,7 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof SpecialObject !== `undefined`) {
+    if (typeof PossessedObject !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/entity/happen/special/hook/HookObject.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -1050,12 +1060,7 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof TileObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/gimmick/VanishTileObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof SpecialObject !== `undefined`) {
+    if (typeof PossessedObject !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -1302,6 +1307,8 @@
         typeof ScalableScreen !== `undefined` &&
         typeof AttackObjectAI !== `undefined` &&
         typeof ElevatorAI !== `undefined` &&
+        typeof ShowState !== `undefined` &&
+        typeof VanishState !== `undefined` &&
         typeof JumpAI !== `undefined` &&
         typeof NamedStateAI !== `undefined` &&
         typeof PlayerBaseStateAI !== `undefined` &&
@@ -1399,6 +1406,7 @@
         typeof AutonomyEntitiy !== `undefined` &&
         typeof ImmutableEntity !== `undefined` &&
         typeof IBreakable !== `undefined` &&
+        typeof IColliderable !== `undefined` &&
         typeof IDamagable !== `undefined` &&
         typeof IEventEntity !== `undefined` &&
         typeof IPlayable !== `undefined` &&
@@ -1415,6 +1423,7 @@
         typeof DragScrollLayer !== `undefined` &&
         typeof NamedTabbedLayer !== `undefined` &&
         typeof EnemyAI !== `undefined` &&
+        typeof VanishStateAI !== `undefined` &&
         typeof PGameoverState !== `undefined` &&
         typeof PJumpingState !== `undefined` &&
         typeof PJumpState !== `undefined` &&
@@ -1427,9 +1436,7 @@
         typeof Character !== `undefined` &&
         typeof Enemy !== `undefined` &&
         typeof StateCharacter !== `undefined` &&
-        typeof Elevator !== `undefined` &&
         typeof PossessedObject !== `undefined` &&
-        typeof SpecialObject !== `undefined` &&
         typeof TileObject !== `undefined` &&
         typeof CharacterBuilder !== `undefined` &&
         typeof JointBody !== `undefined` &&
@@ -1458,7 +1465,6 @@
         typeof IImageManager !== `undefined` &&
         typeof IMusicManager !== `undefined` &&
         typeof Player !== `undefined` &&
-        typeof VanishTileObject !== `undefined` &&
         typeof AttackObject !== `undefined` &&
         typeof PunchObject !== `undefined` &&
         typeof EntityLayer !== `undefined` &&

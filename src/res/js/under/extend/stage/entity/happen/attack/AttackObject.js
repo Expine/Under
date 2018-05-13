@@ -8,18 +8,19 @@
  * - Manages AI by list
  * - Generated and owned by someone
  * - Object that can be destroyed
- * - Object caused by special actions
  * - ### Object indicating attack that have lifespan
  * @interface
- * @extends {SpecialObject}
+ * @extends {PossessedObject}
+ * @implements {IBreakable}
  * @classdesc Attack object indicating attack that have lifespan
  */
-class AttackObject extends SpecialObject { // eslint-disable-line  no-unused-vars
+class AttackObject extends PossessedObject /* , IBreakable */ { // eslint-disable-line  no-unused-vars
     /**
      * Attack object constructor
      * @constructor
+     * @param {number} lifespan Lifespan of attack object
      */
-    constructor() {
+    constructor(lifespan) {
         super();
 
         /**
@@ -27,24 +28,16 @@ class AttackObject extends SpecialObject { // eslint-disable-line  no-unused-var
          * @protected
          * @type {number}
          */
-        this.lifespan = 0;
-    }
-
-    /**
-     * Set lifespal
-     * @param {number} lifespan Lifespan of attack object
-     */
-    setLifeSpan(lifespan) {
         this.lifespan = lifespan;
     }
 
     /**
-     * Update attack after update it
-     * @abstract
-     * @protected
-     * @param {number} dt Delta time
+     * Destroy object
+     * @override
      */
-    updateAttack(dt) {}
+    destroy() {
+        this.stage.removeEntity(this);
+    }
 
     /**
      * Update object
@@ -58,6 +51,5 @@ class AttackObject extends SpecialObject { // eslint-disable-line  no-unused-var
             return;
         }
         super.update(dt);
-        this.updateAttack(dt);
     }
 }

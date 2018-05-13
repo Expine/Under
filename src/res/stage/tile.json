@@ -3,7 +3,7 @@
         "file": "tile.png",
         "chips": [{
             "id": 0,
-            "terrain": 3,
+            "terrain": 0,
             "image": {
                 "type": "tile",
                 "x": 0,

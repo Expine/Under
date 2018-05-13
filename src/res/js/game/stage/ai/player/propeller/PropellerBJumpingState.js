@@ -44,6 +44,7 @@ class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line 
      * @override
      */
     init() {
+        super.init();
         if (this.entity.getImage() instanceof GameAnimation) {
             this.entity.getImage().restore();
         }

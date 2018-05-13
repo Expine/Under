@@ -25,17 +25,4 @@ class Enemy extends Character { // eslint-disable-line  no-unused-vars
         this.setHP(1);
         this.directionX = 1;
     }
-
-    /**
-     * Update entty
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        super.update(dt);
-        // TODO: Should need ?
-        if (this.image != null && Util.onGround(this)) {
-            this.image.init();
-        }
-    }
 }

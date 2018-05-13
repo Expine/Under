@@ -51,21 +51,25 @@ package under {
                 package ex_fire {
                     class ImmutableEvent
                 }
-                package ex_gimmick {
-                    class Elevator
-                    class VanishTileObject
-                }
                 package ex_object {
                     class DoorObject
                     class SignObject
                 }
+                class AIListedObject
+                class Character
+                class StateCharacter
                 class Obstacle
             }
             package ex_ai {
                 class EnemyAI
                 class StraightAI
+                package gimmick {
+                    class ElevatorAI
+                    package ex_vanish {
+                        class VanishStateAI
+                    }
+                }
                 class JumpAI
-                class ElevatorAI
                 class PlayerGameOverStateAI
                 class PlayerBaseStateAI
             }
@@ -82,16 +86,18 @@ CharacterBuilder ...> EnemyAI : Generate
 CharacterBuilder ...> StraightAI : Generate
 CharacterBuilder ...> JumpAI : Generate
 CharacterBuilder ...> ElevatorAI : Generate
+CharacterBuilder ...> VanishStateAI : Generate
 CharacterBuilder ...> PlayerGameOverStateAI : Generate
 CharacterBuilder ...> PlayerBaseStateAI : Generate
+CharacterBuilder ..> AIListedObject : Generate
+CharacterBuilder ..> Character : Generate
+CharacterBuilder ..> StateCharacter : Generate
 CharacterBuilder ..> Player : Generate
 CharacterBuilder ..> Enemy : Generate
 CharacterBuilder ..> Obstacle : Generate
 CharacterBuilder ..> DoorObject : Generate
 CharacterBuilder ..> SignObject : Generate
-CharacterBuilder ..> Elevator : Generate
 CharacterBuilder ..> ImmutableEvent : Generate
-CharacterBuilder ..> VanishTileObject : Generate
 MutableEntity <... CharacterBuilder : Set
 AutonomyEntity <... CharacterBuilder : Set
 ImageBuilder <... CharacterBuilder : Build
