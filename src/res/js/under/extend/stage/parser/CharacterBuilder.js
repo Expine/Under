@@ -130,7 +130,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                     collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
                     ret.setCollider(collider);
                     let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
-                    ret.setSign(signData.x, signData.y, signData.width, signData.height, this.loadCharaImage(signData.file));
+                    ret.setSign(this.imageBuilder.build(`event`, signData.image), signData.x, signData.y);
                     return ret;
                 }
             case `Event`:
@@ -158,6 +158,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     buildBody(base, deploy, json) {
         base.setRigidBody(this.makeBody(json.body));
         if (base.body != null) {
+            base.body.enable = json.body.enable === undefined ? true : json.body.enable;
             base.body.setMaterial(this.makeBodyMaterial(json.body.material));
         }
     }

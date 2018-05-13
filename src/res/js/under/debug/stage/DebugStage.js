@@ -255,7 +255,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
                             }
                         }
                     } else if (BaseUtil.implementsOf(it, IColliderable)) {
-                        it.getCollider().render(ctx, his.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
+                        it.getCollider().render(ctx, this.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
                         if (it.getCollider().isInCollider(mx, my)) {
                             ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
                         }

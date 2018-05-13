@@ -67,6 +67,7 @@ package under {
         package ex_stage {
             package ex_parser {
                 class JSONStageParser
+                class JSONEntityFactory
                 class TileBuilder
                 class CharacterBuilder
             }
@@ -74,9 +75,10 @@ package under {
     }
 }
 
-UnderStageParser ..> UnderTileBuilder : Default
-UnderStageParser ..> UnderCharacterBuilder : Default
+UnderStageParser ..> UnderTileBuilder : Set
+UnderStageParser ..> UnderCharacterBuilder : Set
 UnderStageParser ..> UnderRepulsionResponse : Generate
+JSONEntityFactory <.. UnderStageParser : Generate
 
 UnderTileBuilder ..> UnderTileObject : Generate and init
 UnderTileBuilder ..> ExcludedRectangleCollider : Generate

@@ -1,0 +1,66 @@
+@startuml ParserFactory
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_parser {
+                class JSONEntityFactory {
+                    +constructor(tile,chara,event,image)
+                    #tileBulder : EntityBuilder
+                    #characterBuilder : EntityBuilder
+                    #eventBuilder : EventBuilder
+                    #imageBuilder : ImageBuilder
+                    #tileInfo : JSON
+                    #entityInfo : JSON
+                    +addEntityInfo(entityInfo)
+                    +addTileInfo(tileInfo)
+                    #buildEntityInfo(entityInfo)
+                    #buildTileInfo(tileInfo)
+                    +createEntity(id,deploy) <<override>>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package event {
+            package eparser {
+                abstract EventBuilder
+            }
+        }
+        package stage {
+            package parser {
+                abstract EntityFactory
+                abstract EntityBuilder
+            }
+        }
+    }
+    package extend {
+        package ex_event {
+            package ex_eparser {
+                class SimpleEventBuilder
+            }
+        }
+        package ex_stage {
+            package ex_parser {
+                class TileBuilder
+                class CharacterBuilder
+                class BaseImageBuilder
+            }
+        }
+    }
+}
+
+EntityBuilder <.. JSONEntityFactory : Create entity
+EventBuilder <.. JSONEntityFactory : Create event
+
+JSONEntityFactory ..> TileBuilder : Default
+JSONEntityFactory ..> CharacterBuilder : Default
+JSONEntityFactory ..> SimpleEventBuilder : Default
+JSONEntityFactory ..> BaseImageBuilder : Default
+
+EntityFactory <|.. JSONEntityFactory
+
+@enduml

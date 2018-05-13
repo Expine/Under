@@ -2,11 +2,13 @@
  * Immutable event object
  * - Object present on the stage that has coordinate and size
  * - Has image ID
+ * - Object that has collide
  * - ### Show sign
  * @extends {ImagedEntity}
+ * @implements {IColliderable}
  * @classdesc Immutable event object to show sign
  */
-class DoorObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
+class DoorObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-line  no-unused-vars
     /**
      * Influential event object constructor
      * @constructor
@@ -16,13 +18,6 @@ class DoorObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
      */
     constructor(transition = null, isReplace = false, popNumber = 0) {
         super();
-
-        /**
-         * Whether transition is executing now or not
-         * @protected
-         * @type {boolean}
-         */
-        this.isTransitioning = false;
 
         /**
          * Transition stage name
@@ -49,11 +44,17 @@ class DoorObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
          * @type {Collider}
          */
         this.doorCollider = null;
+
+        /**
+         * Whether transition is executing now or not
+         * @protected
+         * @type {boolean}
+         */
+        this.isTransitioning = false;
     }
 
     /**
      * Set collider
-     * @override
      * @param {Collider} collider collider
      */
     setCollider(collider) {
@@ -62,10 +63,20 @@ class DoorObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get collider
+     * @override
+     * @return {Collider} Collider that object has
+     */
+    getCollider() {
+        return this.doorCollider;
+    }
+
+    /**
      * Initialize entity
      * @override
      */
     init() {
+        super.init();
         this.doorCollider.init();
     }
 
@@ -78,7 +89,7 @@ class DoorObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
         // opening
         if (this.isTransitioning) {
             super.update(dt);
-            if (!(this.image instanceof GameAnimation) || this.image.isEnded()) {
+            if (Util.canEnd(this.image)) {
                 // transition
                 Input.key.setInputEnable(true);
                 for (let i = 0; i < this.popNumber; ++i) {
@@ -104,21 +115,6 @@ class DoorObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
                     Input.key.setInputEnable(false);
                 }
             }
-        }
-    }
-
-    /**
-     * Render entity
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        super.render(ctx, shiftX, shiftY);
-
-        if (Engine.debug) {
-            this.doorCollider.render(ctx, this.x + shiftX, this.y + shiftY);
         }
     }
 }

@@ -2,11 +2,13 @@
  * Immutable event object
  * - Object present on the stage that has coordinate and size
  * - Has image ID
+ * - Object that has collide
  * - ### Show sign
- * @extendss {ImagedEntity}
+ * @extends {ImagedEntity}
+ * @implements {IColliderable}
  * @classdesc Immutable event object to show sign
  */
-class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
+class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-line  no-unused-vars
     /**
      * Influential event object constructor
      * @constructor
@@ -15,12 +17,11 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
         super();
 
         /**
-         * Sign image ID for rendering
+         * Sign image
          * @protected
-         * @type {number}
+         * @type {GameImage}
          */
-        this.signID = -1;
-
+        this.signImage = null;
         /**
          * Sign realative x position
          * @protected
@@ -33,18 +34,6 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.signY = 0;
-        /**
-         * Sign width
-         * @protected
-         * @type {number}
-         */
-        this.signWidth = 0;
-        /**
-         * Sign height
-         * @protected
-         * @type {number}
-         */
-        this.signHeight = 0;
 
         /**
          * Sign collider for
@@ -77,23 +66,18 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
 
     /**
      * Set sign information
+     * @param {GameImage} signImage Sign image
      * @param {number} x Sign relative x position
      * @param {number} y Sign relative y position
-     * @param {number} width Sign width
-     * @param {number} height Sign height
-     * @param {number} imageID Sign image ID
      */
-    setSign(x, y, width, height, imageID) {
+    setSign(signImage, x, y) {
+        this.signImage = signImage;
         this.signX = x;
         this.signY = y;
-        this.signWidth = width;
-        this.signHeight = height;
-        this.signID = imageID;
     }
 
     /**
      * Set collider
-     * @override
      * @param {Collider} collider collider
      */
     setCollider(collider) {
@@ -102,10 +86,22 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get collider
+     * @override
+     * @return {Collider} Collider that object has
+     */
+    getCollider() {
+        return this.signCollider;
+    }
+
+    /**
      * Initialize entity
      * @override
      */
     init() {
+        if (this.signImage !== null) {
+            this.signImage.init();
+        }
         this.isShowSign = false;
         this.currentHeight = 0;
         this.signCollider.init();
@@ -138,8 +134,12 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
             super.update(dt);
             this.currentHeight -= dt / 1000 * this.speed * 3;
             if (this.currentHeight < 0) {
+                this.signImage.init();
                 this.currentHeight = 0;
             }
+        }
+        if (this.signImage !== null && this.isShowSign && this.current == this.height) {
+            this.signImage.update(dt);
         }
         this.image.setSize(this.width, this.currentHeight);
     }
@@ -152,14 +152,11 @@ class SignObject extends ImagedEntity { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        super.render(ctx, shiftX, shiftY);
+        super.render(ctx, shiftX, shiftY + this.height - this.currentHeight);
         if (this.isShowSign && this.currentHeight == this.height) {
-            if (this.signID != -1) {
-                ctx.drawImage(this.signID, this.x + shiftX + this.signX, this.y + shiftY - 100 + this.signY, this.signWidth, this.signHeight);
+            if (this.signIma !== null) {
+                this.signImage.render(ctx, this.x + shiftX + this.signX, this.y + shiftY + this.signY);
             }
-        }
-        if (Engine.debug) {
-            this.signCollider.render(ctx, shiftX, shiftY);
         }
     }
 }

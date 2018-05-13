@@ -9,7 +9,6 @@
  * - Generated and owned by someone
  * - Object that can be destroyed
  * - ### Object indicating attack that have lifespan
- * @interface
  * @extends {PossessedObject}
  * @implements {IBreakable}
  * @classdesc Attack object indicating attack that have lifespan

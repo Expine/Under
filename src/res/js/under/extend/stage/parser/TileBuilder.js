@@ -110,6 +110,8 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
         // set collider
         let collider = this.makeCollider(colliderData);
         if (collider != null) {
+            collider.enable = json.collider.enable === undefined ? true : json.collider.enable;
+            collider.response = json.collider.response === undefined ? true : json.collider.response;
             collider.setAABB(this.makeAABB(colliderData));
         }
         base.setCollider(collider);

@@ -51,14 +51,11 @@ package under {
                 }
                 package ex_happen {
                     package ex_attack {
-                        abstract AttackObject {
+                        class AttackObject {
                             +constructor(lifespan)
                             #lifespan : number
                             +destroy() <<override>>
                             +update(dt) <<override>>
-                        }
-                        class PunchObject {
-                            +init() <<override>>
                         }
                     }
                     class PossesedObject {
@@ -67,7 +64,32 @@ package under {
                     }
                 }
                 package ex_object {
-
+                    class DoorObject {
+                        #transtion : string
+                        #isReplace : boolean
+                        #popNumber : number
+                        #doorCollider : Collider
+                        #isTransitioning : boolean
+                        +setCollider(collider)
+                        +getCollider() : Collider <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                    }
+                    class SignObject {
+                        #signImage : GameImage
+                        #signX : number
+                        #signY : number
+                        #signCollider : Collider
+                        #isShowSign : boolean
+                        #currentHeight : number
+                        #speed : number
+                        +setSign(signImage,x,y)
+                        +setCollider(collider)
+                        +getCollider() : Collider <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
                 }
             }
         }
@@ -87,6 +109,7 @@ package under {
             abstract Stage
             package entity {
                 abstract Entity
+                abstract ImagedEntity
                 abstract ImmutableObject
                 abstract MutableObject
                 abstract AutonomyObject
@@ -107,16 +130,6 @@ Stage <.. Character : Destroy
 StateAI <.. StateCharacter : Get state
 State <.. StateCharacter : Render
 
-SingleAnimation <.. PunchObject : Generate
-TileImage <.. PunchObject : Generate
-ImmutableMaterial <.. PunchObject : Generate
-RectangleCollider <.. PunchObject : Generate
-SimpleAABB <.. PunchObject : Generate
-MaxAdoptBody <.. PunchObject : Generate
-ImmutableRigidMaterial <.. PunchObject : Generate
-AttackObjectAI <.. PunchObject : Generate
-IImageManager <.. PunchObject : Load
-
 ImmutableObject <|.. TileObject
 MutableObject <|.. Obstacle
 AutonomyObject <|.. AIListedObject
@@ -135,7 +148,10 @@ IColliderable <|.. ImmutableEvent
 AIListedObject <|-- PossesedObject
 PossesedObject <|-- AttackObject
 IBreakable <|.. AttackObject
-AttackObject <|.. PunchObject
 
+ImagedEntity <|.. DoorObject
+IColliderable <|.. DoorObject
+ImagedEntity <|.. SignObject
+IColliderable <|.. SignObject
 
 @enduml

@@ -1,11 +1,15 @@
 /**
  * Immutable event object
  * - Object present on the stage that has coordinate and size
+ * - It can hold event and fire it
+ * - Object that has collide
  * - ### Fire event
  * @extends {Entity}
+ * @implements {IEventEntity}
+ * @implements {IColliderable}
  * @classdesc Immutable event object to fire event
  */
-class ImmutableEvent extends Entity /* IEventEntity, IColliderable */ { // eslint-disable-line  no-unused-vars
+class ImmutableEvent extends Entity /* , IEventEntity, IColliderable */ { // eslint-disable-line  no-unused-vars
     /**
      * Influential event object constructor
      * @constructor
@@ -62,6 +66,15 @@ class ImmutableEvent extends Entity /* IEventEntity, IColliderable */ { // eslin
             this.event.setStage(this.stage);
         }
         EventManager.it.register(this.event);
+    }
+
+    /**
+     * Set collider
+     * @param {Collider} collider collider
+     */
+    setCollider(collider) {
+        this.eventCollider = collider;
+        this.eventCollider.setEntity(this);
     }
 
     /**

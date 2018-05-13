@@ -992,11 +992,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof AttackObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/PunchObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof UnderPlayerState !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerHookState.js'; document.head.appendChild(script);
     }
@@ -1371,7 +1366,6 @@
         typeof IMusicManager !== `undefined` &&
         typeof Player !== `undefined` &&
         typeof AttackObject !== `undefined` &&
-        typeof PunchObject !== `undefined` &&
         typeof AdventurerHookState !== `undefined` &&
         typeof CommonGameoverState !== `undefined` &&
         typeof CommonNoneState !== `undefined` &&

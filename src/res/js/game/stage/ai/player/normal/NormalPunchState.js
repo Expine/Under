@@ -40,7 +40,6 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
         let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
         punch.setPosition(x, this.entity.y + 27, this.entity.z + 1);
         punch.setSize(32, 32);
-        punch.setOwner(this.entity);
         return punch;
     }
 
@@ -60,7 +59,11 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
             return;
         }
         if (!this.attacked) {
-            this.makeAttackObject();
+            let attack = this.makeAttackObject();
+            if (attack instanceof PossessedObject) {
+                attack.setOwner(this.entity);
+                attack.addAI(new AttackObjectAI(this.entity));
+            }
             this.attacked = true;
         }
         // change state

@@ -1,4 +1,4 @@
-@startuml ParserBuilder
+@startuml ParserTile
 
 package under {
     package extend {

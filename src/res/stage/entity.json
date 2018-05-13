@@ -273,11 +273,14 @@
                 "height": 160
             },
             "sign": {
-                "file": "sign.png",
                 "x": 0,
-                "y": 0,
-                "width": 64,
-                "height": 64
+                "y": -100,
+                "image": {
+                    "type": "single",
+                    "file": "actor.png",
+                    "width": 96,
+                    "height": 96
+                }
             }
         },
         {
@@ -369,11 +372,14 @@
                 "height": 80
             },
             "sign": {
-                "file": "sign.png",
                 "x": 0,
                 "y": 0,
-                "width": 32,
-                "height": 32
+                "image": {
+                    "type": "single",
+                    "file": "actor.png",
+                    "width": 96,
+                    "height": 96
+                }
             }
         },
         {

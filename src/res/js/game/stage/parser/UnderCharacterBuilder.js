@@ -68,7 +68,7 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
                 {
                     let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
                     let ret = null;
-                    if (signData.file !== undefined) {
+                    if (signData.image !== undefined) {
                         return super.makeEntityBase(deploy, entity);
                     } else {
                         ret = new TextSignObject();

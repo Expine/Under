@@ -25,16 +25,20 @@ package under {
                 #back : Background
                 #camera : Camera
                 #physic : PhysicalWorld
+                #factory : EntityFactory
                 +setBackground(back)
                 +setCamera(camera)
                 +setPhysicalWorld(physic)
+                +setFactory(factory)
                 +getPhysicalWorld() : PhysicalWorld
                 +getCamera() : Camera
+                #getFactory() : EntityFactory
                 +setEnable(enable)
                 +getEnable() : boolean
                 +getStageWidth() : number
                 +getStageHeight() : number
                 +addEntity(entity)
+                +addEntityByID(id,deploy)
                 {abstract} +removeEntity(entity)
                 {abstract} #removeEntityImmediately(entity)
                 {abstract} +getEntities() : Array<Entity>
@@ -55,6 +59,12 @@ package under {
                 }
                 abstract EntityBuilder {
                     {abstract} +build(deploy,json) : Entity
+                }
+                abstract ImageBuilder {
+                    {abstract} +build(root,image) : GameImage
+                }
+                abstract EntityFactory {
+                    {abstract} +createEntity(id,deploy): Entity
                 }
             }
             package back {
@@ -119,11 +129,11 @@ package under {
     }
 }
 
-StageParser --> Stage : Should generate
 Stage "1" *-- "1" Background : Own
 Stage "1" *-- "1" Camera : Own and get
 Stage "1" *-- "1" PhysicalWorld : Own
 Stage "1" *-- "*" Entity : Should own(init)
+Stage "1" *-- "1" EntityFactory : Create entity
 PhysicalWorld "1"*--"*" InfluentialEntity : Should own
 PhysicalWorld "1"*--"1" CollisionResponse : Own
 

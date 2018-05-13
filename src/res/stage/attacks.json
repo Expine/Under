@@ -22,8 +22,17 @@
         },
         "width": 32,
         "height": 32,
+        "collider": {
+            "type": "Rectangle",
+            "response": false,
+            "startX": 0,
+            "startY": 0,
+            "width": 32,
+            "height": 32
+        },
         "body": {
             "type": "MaxAdopt",
+            "enable": false,
             "material": {
                 "type": "Immutable",
                 "k": 0.5,
@@ -31,12 +40,6 @@
                 "frictionY": 0.0,
                 "g": 0.0
             }
-        },
-        "ai": [{
-            "type": "VanishStateAI",
-            "hide": 1,
-            "show": 2,
-            "interval": 1
-        }]
+        }
     }]
 }

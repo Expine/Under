@@ -1,4 +1,4 @@
-@startuml ParserBuilder
+@startuml ParserImage
 
 package under {
     package extend {

@@ -1071,11 +1071,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof AttackObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/PunchObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof SelectionLayer !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/scene/layer/EntityLayer.js'; document.head.appendChild(script);
     }
@@ -1474,7 +1469,6 @@
         typeof IMusicManager !== `undefined` &&
         typeof Player !== `undefined` &&
         typeof AttackObject !== `undefined` &&
-        typeof PunchObject !== `undefined` &&
         typeof EntityLayer !== `undefined` &&
         typeof AdventurerHookState !== `undefined` &&
         typeof CommonGameoverState !== `undefined` &&
