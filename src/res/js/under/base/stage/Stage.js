@@ -52,6 +52,13 @@ class Stage { // eslint-disable-line  no-unused-vars
          * @type {PhysicalWorld}
          */
         this.physic = null;
+
+        /**
+         * Entity factory
+         * @protected
+         * @type {EntityFactory}
+         */
+        this.factory = null;
     }
 
     /**
@@ -80,6 +87,14 @@ class Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set entity factory
+     * @param {EntityFactory} factory Entity factory
+     */
+    setFactory(factory) {
+        this.factory = factory;
+    }
+
+    /**
      * Get physical world
      * @return {PhysicalWorld} Physical world
      */
@@ -93,6 +108,15 @@ class Stage { // eslint-disable-line  no-unused-vars
      */
     getCamera() {
         return this.camera;
+    }
+
+    /**
+     * Get factory
+     * @protected
+     * @return {EntityFactory} Entity factory
+     */
+    getFactory() {
+        return this.factory;
     }
 
     /**
@@ -128,6 +152,18 @@ class Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Add entity to stage by ID
+     * @param {Object} id Added entity ID
+     * @param {JSON} deploy Deploy json data
+     * @return {Entity} Added entity
+     */
+    addEntityByID(id, deploy) {
+        let ret = this.getFactory().createEntity(id, deploy);
+        this.addEntity(ret);
+        return ret;
+    }
+
+    /**
      * Add entity to stage
      * @param {Entity} entity Entity object
      */
@@ -146,6 +182,7 @@ class Stage { // eslint-disable-line  no-unused-vars
     /**
      * Remove entity from stage immediately
      * @abstract
+     * @protected
      * @param {Entity} entity Entity object
      */
     removeEntityImmediately(entity) {}

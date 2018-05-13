@@ -58,27 +58,4 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     makeBaseWorld(stage, world) {
         return new EditorWorld(super.makeBaseWorld(stage, world), stage.width, stage.height);
     }
-
-    /**
-     * Add tile by chip data
-     * @param {JSON} chip Chip json data
-     * @param {JSON} tileInfo Tile information json data
-     * @return {Entity} Tile instance
-     */
-    makeTile(chip, tileInfo) {
-        this.editorStage.addEntityID(chip.id);
-        return super.makeTile(chip, tileInfo);
-    }
-
-    /**
-     * Add entity by layer data
-     * @override
-     * @param {JSON} entity Entity json data
-     * @param {JSON} entityInfo Entity information json data
-     * @return {Entity} Entity instance
-     */
-    makeEntity(entity, entityInfo) {
-        this.editorStage.addEntityID(entity.id);
-        return super.makeEntity(entity, entityInfo);
-    }
 }

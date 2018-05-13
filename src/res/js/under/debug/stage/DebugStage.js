@@ -52,6 +52,15 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Set entity factory
+     * @override
+     * @param {EntityFactory} factory Entity factory
+     */
+    setFactory(factory) {
+        this.stage.setFactory(factory);
+    }
+
+    /**
      * Get camera
      * @return {Camera} Camera of stage
      */
@@ -69,6 +78,16 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get factory
+     * @override
+     * @return {EntityFactory} Entity factory
+     */
+    getFactory() {
+        return this.stage.getFactory();
+    }
+
+
+    /**
      * Set whether to update the stage or not
      * @param {boolean} enable Whether to update the stage or not
      */
@@ -83,6 +102,17 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      */
     getEnable() {
         return this.stage.getEnable();
+    }
+
+    /**
+     * Add enttiy to stage by ID
+     * @override
+     * @param {Object} id Added entity ID
+     * @param {JSON} deploy Deploy json data
+     * @return {Entity} Added entity
+     */
+    addEntityByID(id, deploy) {
+        return this.stage.addEntityByID(id, deploy);
     }
 
     /**
@@ -106,6 +136,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     /**
      * Remove entity from stage immediately
      * @abstract
+     * @protected
      * @param {Entity} entity Entity object
      */
     removeEntityImmediately(entity) {

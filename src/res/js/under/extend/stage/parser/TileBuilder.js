@@ -80,7 +80,9 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildBase(base, deploy, json) {
-        base.setPosition(deploy.x, deploy.y, deploy.z);
+        if (deploy !== undefined) {
+            base.setPosition(deploy.x, deploy.y, deploy.z);
+        }
         base.setSize(json.width, json.height);
     }
 
@@ -91,7 +93,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildImage(base, deploy, json) {
-        let image = deploy.image !== undefined ? deploy.image : json.image;
+        let image = (deploy !== undefined && deploy.image !== undefined) ? deploy.image : json.image;
         base.setImage(this.makeImage(image));
     }
 
@@ -103,8 +105,8 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildPhysical(base, deploy, json) {
-        let colliderData = deploy.collider !== undefined ? deploy.collider : json.collider;
-        let materialData = deploy.material !== undefined ? deploy.material : json.material;
+        let colliderData = (deploy !== undefined && deploy.collider !== undefined) ? deploy.collider : json.collider;
+        let materialData = (deploy !== undefined && deploy.material !== undefined) ? deploy.material : json.material;
         // set collider
         let collider = this.makeCollider(colliderData);
         if (collider != null) {

@@ -36,7 +36,7 @@ package under {
                 +getStageHeight() : number
                 +addEntity(entity)
                 {abstract} +removeEntity(entity)
-                {abstract} +removeEntityImmediately(entity)
+                {abstract} #removeEntityImmediately(entity)
                 {abstract} +getEntities() : Array<Entity>
                 {abstract} #updateEntity(dt)
                 {abstract} #updatePhysics(dt)

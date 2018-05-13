@@ -18,7 +18,7 @@ package under {
                 +init() <<override>>
                 +addEntity(entity) <<override>>
                 +removeEntity(entity) <<override>>
-                +removeEntityImmediately(entity) <<override>>
+                #removeEntityImmediately(entity) <<override>>
                 +getEntities() : Array<Entity> <<override>>
                 #updateEntity(dt) <<override>>
                 #updatePhysics(dt) <<override>>

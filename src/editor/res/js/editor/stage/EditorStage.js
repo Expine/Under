@@ -16,24 +16,24 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
      * Editor stage constructor
      * @constructor
      * @param {Stage} stage Original stage for delegation
-     * @param {Object<number, JSON>} tileInfo Tile information json data
-     * @param {Object<number, JSON>} entityInfo Entity information json data
+     * @param {string} tileFile Tile information json file
+     * @param {string} entityFile Entity information json file
      */
-    constructor(stage, tileInfo, entityInfo) {
+    constructor(stage, tileFile, entityFile) {
         super(stage);
 
         /**
-         * Tile information json data
+         * Tile information json file
          * @protected
          * @type {Object<number, JSON>}
          */
-        this.tileInfo = tileInfo;
+        this.tileFile = tileFile;
         /**
-         * Entity information json data
+         * Entity information json file
          * @protected
          * @type {Object<number, JSON>}
          */
-        this.entityInfo = entityInfo;
+        this.entityFile = entityFile;
 
         /**
          * Selected x position
@@ -88,6 +88,18 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
     }
 
     /**
+     * Add enttiy to stage by ID
+     * @override
+     * @param {Object} id Added entity ID
+     * @param {JSON} deploy Deploy json data
+     * @return {Entity} Added entity
+     */
+    addEntityByID(id, deploy) {
+        this.entitiesID.push(id);
+        return super.addEntityByID(id, deploy);
+    }
+
+    /**
      * Add entity to stage
      * @override
      * @param {Entity} entity Entity object
@@ -97,16 +109,6 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
         // onece update
         entity.update(30);
     }
-
-
-    /**
-     * Registers entity ID
-     * @param {number} id Entity ID for registering
-     */
-    addEntityID(id) {
-        this.entitiesID.push(id);
-    }
-
     /**
      * Remove entity from stage
      * @override
@@ -123,6 +125,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
     /**
      * Remove entity from stage immediately
      * @abstract
+     * @protected
      * @param {Entity} entity Entity object
      */
     removeEntityImmediately(entity) {
@@ -144,8 +147,8 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
         data.height = this.stage.stageHeight;
         data.background = (new BackgroundUnparser()).unparse(this.stage.back);
         data.camera = (new CameraUnparser()).unparse(this.stage.camera.baseCamera);
-        data.tiles = this.tileInfo.tiles;
-        data.entities = this.entityInfo.entities;
+        data.tiles = this.tileFile;
+        data.entities = this.entityFile;
         data.layers = [];
         data.layers.push([]);
         data.deploy = [];
@@ -154,7 +157,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
         for (let i = 0; i < entities.length; ++i) {
             let it = entities[i];
             let id = this.entitiesID[i];
-            let original = it instanceof TileObject ? this.tileInfo[id] : this.entityInfo[id];
+            let original = it instanceof TileObject ? this.getFactory().tileInfo[id] : this.getFactory().entityInfo[id];
             let entity = unparser.unparse(it, original);
             // unparse event
             if (BaseUtil.implementsOf(it, IEventEntity)) {
@@ -176,10 +179,6 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
      */
     restore() {
         let save = JSON.parse(this.saveData);
-        let charaBuilder = new UnderCharacterBuilder();
-        let eventBuilder = new UnderEventBuilder();
-        let imageBuilder = new BaseImageBuilder();
-        charaBuilder.setImageBuilder(imageBuilder);
         let entities = this.getEntities();
         for (let i = entities.length - 1; i >= 0; --i) {
             if (!(entities[i] instanceof TileObject)) {
@@ -187,12 +186,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
             }
         }
         for (let it of save.deploy) {
-            let chara = charaBuilder.build(it, this.entityInfo[it.id]);
-            if (BaseUtil.implementsOf(chara, IEventEntity)) {
-                chara.setEvent(eventBuilder.build(it.event));
-            }
-            this.addEntity(chara);
-            this.addEntityID(it.id);
+            this.addEntityByID(it.id, it);
         }
         EventManager.it.clear();
     }
@@ -203,7 +197,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
      */
     setTileSelection(selection) {
         this.tileSelection = selection;
-        this.tileSelection.setSelectionInfo(this.tileInfo);
+        this.tileSelection.setSelectionInfo(this.getFactory().tileInfo);
     }
 
     /**
@@ -212,7 +206,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
      */
     setEntitySelection(selection) {
         this.entitySelection = selection;
-        this.entitySelection.setSelectionInfo(this.entityInfo);
+        this.entitySelection.setSelectionInfo(this.getFactory().entityInfo);
     }
 
     /**
@@ -323,10 +317,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
                     y: y,
                     z: 0,
                 };
-                let builder = new UnderCharacterBuilder();
-                builder.setImageBuilder(new BaseImageBuilder());
-                this.addEntity(builder.build(deploy, this.entityInfo[entityID]));
-                this.addEntityID(entityID);
+                this.addEntityByID(entityID, deploy);
             } else if (tileID >= 0) {
                 // remove
                 for (let entity of this.getEntities()) {
@@ -341,10 +332,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
                     y: y,
                     z: 0,
                 };
-                let builder = new UnderTileBuilder();
-                builder.setImageBuilder(new BaseImageBuilder());
-                this.addEntity(builder.build(deploy, this.tileInfo[tileID]));
-                this.addEntityID(tileID);
+                this.addEntityByID(tileID, deploy);
             } else {
                 // remove
                 for (let entity of this.getEntities()) {
@@ -371,11 +359,11 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
             let width = 32;
             let height = 32;
             if (entityID >= 0) {
-                width = this.entityInfo[entityID].width;
-                height = this.entityInfo[entityID].height;
+                width = this.getFactory().entityInfo[entityID].width;
+                height = this.getFactory().entityInfo[entityID].height;
             } else if (tileID >= 0) {
-                width = this.tileInfo[tileID].width;
-                height = this.tileInfo[tileID].height;
+                width = this.getFactory().tileInfo[tileID].width;
+                height = this.getFactory().tileInfo[tileID].height;
             }
             ctx.strokeRect(this.selectedX, this.selectedY, width, height, `white`);
         }

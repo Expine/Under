@@ -141,8 +141,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                     ret.setCollider(collider);
                     return ret;
                 }
-            case `Vanish`:
-                return new VanishTileObject(deploy.show, deploy.hide);
+            case `Attack`:
+                return new AttackObject((deploy === undefined || deploy.life === undefined) ? entity.lifespan : deploy.lifespan);
             default:
                 return null;
         }
@@ -174,7 +174,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             return;
         }
         for (let ai of json.ai) {
-            base.addAI(this.makeAI(ai, deploy.ai));
+            base.addAI(this.makeAI(ai, deploy !== undefined ? deploy.ai : undefined));
         }
     }
 

@@ -110,6 +110,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     /**
      * Remove entity from stage immediately
      * @abstract
+     * @protected
      * @param {Entity} entity Entity object
      */
     removeEntityImmediately(entity) {

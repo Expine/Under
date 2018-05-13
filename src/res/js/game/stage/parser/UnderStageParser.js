@@ -9,17 +9,26 @@
  */
 class UnderStageParser extends JSONStageParser { // eslint-disable-line  no-unused-vars
     /**
-     * Under Stage parser constructor
-     * @param {EntityBuilder} [tile = UnderTileBuilder] Tile builder instance
-     * @param {EntityBuilder} [chara = UnderCharacterBuilder] Character builder instance
-     * @param {EventBuilder} [event = UnderEventBuilder] Event builder instance
+     * Make entity factory
+     * @override
+     * @protected
+     * @param {JSON} stage Stage json data
+     * @return {EntityFactory} Entity factory
      */
-    constructor(tile = new UnderTileBuilder(), chara = new UnderCharacterBuilder(), event = new UnderEventBuilder()) {
-        super(tile, chara, event);
+    makeEntityFactory(stage) {
+        let ret = new JSONEntityFactory(new UnderTileBuilder(), new UnderCharacterBuilder(), new UnderEventBuilder());
+        for (let it of stage.tiles) {
+            ret.addTileInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
+        }
+        for (let it of stage.entities) {
+            ret.addEntityInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
+        }
+        return ret;
     }
 
     /**
      * Make physical response
+     * @override
      * @protected
      * @return {CollisionResponse} Physical response
      */

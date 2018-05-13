@@ -1,0 +1,42 @@
+{
+    "entities": [{
+        "id": 200000,
+        "type": "Attack",
+        "lifespan": 400,
+        "image": {
+            "type": "anime",
+            "file": "attack.png",
+            "width": 32,
+            "height": 32,
+            "loop": false,
+            "animation": [{
+                "x": 0,
+                "y": 0,
+                "width": 32,
+                "height": 32,
+                "delta": 100,
+                "serial": true,
+                "horizontal": 4,
+                "vertical": 1
+            }]
+        },
+        "width": 32,
+        "height": 32,
+        "body": {
+            "type": "MaxAdopt",
+            "material": {
+                "type": "Immutable",
+                "k": 0.5,
+                "frictionX": 1.0,
+                "frictionY": 0.0,
+                "g": 0.0
+            }
+        },
+        "ai": [{
+            "type": "VanishStateAI",
+            "hide": 1,
+            "show": 2,
+            "interval": 1
+        }]
+    }]
+}

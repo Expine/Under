@@ -48,6 +48,7 @@
     }
 }, 1);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/EntityBuilder.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/EntityFactory.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/ImageBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/parser/StageParser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/physics/body/RigidBody.js'; document.head.appendChild(script);}
@@ -387,6 +388,11 @@
 {let id = setInterval(function() {
     if (typeof StageParser !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/CSVStageParser.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof EntityFactory !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/JSONEntityFactory.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {

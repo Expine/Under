@@ -1,6 +1,6 @@
 {
     "entities": [{
-            "id": 0,
+            "id": 100000,
             "type": "Player",
             "width": 64,
             "height": 64,
@@ -123,7 +123,7 @@
             }
         },
         {
-            "id": 1,
+            "id": 100001,
             "type": "Enemy",
             "image": {
                 "type": "single",
@@ -151,7 +151,7 @@
             }]
         },
         {
-            "id": 2,
+            "id": 100002,
             "type": "Enemy",
             "image": {
                 "type": "anime",
@@ -190,7 +190,7 @@
             }]
         },
         {
-            "id": 3,
+            "id": 100003,
             "type": "Enemy",
             "image": {
                 "type": "single",
@@ -218,7 +218,7 @@
             }]
         },
         {
-            "id": 4,
+            "id": 100004,
             "type": "Obstacle",
             "image": {
                 "type": "single",
@@ -243,7 +243,7 @@
             }
         },
         {
-            "id": 5,
+            "id": 100005,
             "type": "Event",
             "image": {
                 "type": "single",
@@ -255,7 +255,7 @@
             "height": 32
         },
         {
-            "id": 6,
+            "id": 100006,
             "type": "Sign",
             "image": {
                 "type": "single",
@@ -281,7 +281,7 @@
             }
         },
         {
-            "id": 7,
+            "id": 100007,
             "type": "AIObject",
             "image": {
                 "type": "single",
@@ -328,7 +328,7 @@
             }]
         },
         {
-            "id": 8,
+            "id": 100008,
             "type": "Door",
             "image": {
                 "type": "anime",
@@ -351,7 +351,7 @@
             "height": 128
         },
         {
-            "id": 9,
+            "id": 100009,
             "type": "Sign",
             "image": {
                 "type": "single",
@@ -377,7 +377,7 @@
             }
         },
         {
-            "id": 10,
+            "id": 100010,
             "type": "Door",
             "image": {
                 "type": "anime",
@@ -397,7 +397,7 @@
             "height": 64
         },
         {
-            "id": 11,
+            "id": 100011,
             "type": "StateCharacter",
             "image": {
                 "type": "single",

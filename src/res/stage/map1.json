@@ -21,8 +21,8 @@
     "world": {
         "type": "split"
     },
-    "tiles": "tile.json",
-    "entities": "entity.json",
+    "tiles": ["tile.json"],
+    "entities": ["entity.json", "attacks.json"],
     "layers": [
         [{
             "id": 1,
@@ -15863,17 +15863,17 @@
         }]
     ],
     "deploy": [{
-        "id": 2,
+        "id": 100002,
         "x": 928,
         "y": 4608,
         "z": 1
     }, {
-        "id": 1,
+        "id": 100001,
         "x": 2400,
         "y": 4512,
         "z": 1
     }, {
-        "id": 0,
+        "id": 100000,
         "x": 64,
         "y": 4640,
         "z": 2
