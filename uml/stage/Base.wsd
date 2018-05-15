@@ -38,7 +38,7 @@ package under {
                 +getStageWidth() : number
                 +getStageHeight() : number
                 +addEntity(entity)
-                +addEntityByID(id,deploy)
+                +addEntityByID(id,deploy,init)
                 {abstract} +removeEntity(entity)
                 {abstract} #removeEntityImmediately(entity)
                 {abstract} +getEntities() : Array<Entity>

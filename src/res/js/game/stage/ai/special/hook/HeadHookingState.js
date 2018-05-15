@@ -11,25 +11,9 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
      * Head hooking state constructor
      * @constructor
      * @param {IHook} hook Hook for getting hook information
-     * @param {IString} string String for getting string information
-     * @param {RigidBody} body Original body of hook head
      */
-    constructor(hook, string, body) {
+    constructor(hook) {
         super(hook);
-
-        /**
-         * String for getting string information
-         * @protected
-         * @type {IString}
-         */
-        this.string = string;
-
-        /**
-         * Original body of hook head
-         * @protected
-         * @type {RigidBody}
-         */
-        this.body = body;
 
         /**
          * Count during descent
@@ -53,7 +37,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
         this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
         // auto release
-        if (vy > 0 && this.descentCount++ == 3) {
+        if (vy > 0 && this.descentCount++ == 5) {
             let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {
                 for (let it of hooks) {
@@ -66,13 +50,10 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         }
         // check collisions
         for (let it of this.entity.collider.collisions) {
-            if (it.colliding !== this.entity && it.collided !== this.entity) {
-                continue;
-            }
             let dot = it.nx * this.entity.directionX + it.ny * this.entity.directionY;
             if ((it.colliding === this.entity && dot > 0) || (it.collided === this.entity && dot < 0)) {
                 let you = Util.getCollidedEntity(this.entity, it);
-                if (!you.collider.isResponse(this.entity)) {
+                if (!you.collider.isResponse(this.entity.collider) || !this.entity.collider.isResponse(you.collider)) {
                     continue;
                 }
                 if (BaseUtil.implementsOf(you, IHook) && you.getActor() === this.hook.getActor()) {
@@ -82,12 +63,23 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
                 let count = 0;
                 let dx = Math.sign(this.entity.body.velocityX);
                 let dy = Math.sign(this.entity.body.velocityY);
+                // TODO: Should be jointed
                 while (this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).length == 0 && ++count < 8) {
+                    let reached = false;
+                    for (let data of this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider)) {
+                        let you = Util.getCollidedEntity(this.entity, data);
+                        if (you.collider.isResponse(this.entity.collider) && this.entity.collider.isResponse(you.collider)) {
+                            reached = true;
+                            break;
+                        }
+                    }
+                    if (reached) {
+                        break;
+                    }
                     this.entity.deltaMove(dx, dy);
                 }
                 // hook
                 this.entity.hooked();
-                this.body.enable = false;
                 this.ai.changeState(`hooked`);
                 break;
             }

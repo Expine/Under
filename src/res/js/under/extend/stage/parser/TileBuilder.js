@@ -94,7 +94,9 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      */
     buildImage(base, deploy, json) {
         let image = (deploy !== undefined && deploy.image !== undefined) ? deploy.image : json.image;
-        base.setImage(this.makeImage(image));
+        if (image !== undefined) {
+            base.setImage(this.makeImage(image));
+        }
     }
 
     /**

@@ -16,27 +16,9 @@
  */
 class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
     /**
-     * Initialize entity
-     * @override
-     */
-    init() {
-        super.init();
-        // set base data
-        let collider = new ExcludedRectangleCollider(0, 0, this.width, this.height, 0, 2);
-        collider.setAABB(new SimpleAABB());
-        this.setCollider(collider);
-        this.setMaterial(new ImmutableMaterial(0.1, 0.0, 0.0));
-        this.setRigidBody(new PreciseBody());
-        this.body.setMaterial(new ImmutableRigidMaterial());
-        this.addAI(new HookStateAI(this));
-
-        this.x -= (this.getHookX() - this.x);
-        this.y -= (this.getHookY() - this.y);
-    }
-
-    /**
      * Hook center x position
      * @override
+     * @protected
      * @return {number} Hook center x position
      */
     getHookX() {
@@ -46,9 +28,22 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Hook center x position
      * @override
+     * @protected
      * @return {number} Hook center x position
      */
     getHookY() {
         return this.y + this.height / 2;
+    }
+
+    /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        super.init();
+        this.addAI(new HookStateAI(this));
+
+        this.x -= (this.getHookX() - this.x);
+        this.y -= (this.getHookY() - this.y);
     }
 }

@@ -16,7 +16,7 @@ class UnderTileObject extends TileObject /* , ITerrain */ { // eslint-disable-li
      * Under tile object constructor
      * @constructor
      */
-    constructor() {
+    constructor(terrainID) {
         super();
 
         /**
@@ -24,14 +24,6 @@ class UnderTileObject extends TileObject /* , ITerrain */ { // eslint-disable-li
          * @protected
          * @type {number}
          */
-        this.terrainID = -1;
-    }
-
-    /**
-     * Set terrain ID
-     * @param {number} terrainID Terrain ID
-     */
-    setTerrainID(terrainID) {
         this.terrainID = terrainID;
     }
 

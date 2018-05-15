@@ -2,37 +2,100 @@
 package game {
     package ga_stage {
         package ga_entity {
-            class UnderPlayer {
-                #aiType : AI
-                +changeType(ground)
-            }
             class UnderTileObject {
                 +terrainID : number
             }
-            abstract UnderPlayable {
-                +changeType(id) : boolean
+            package ga_character {
+                class UnderPlayer {
+                    #aiType : TransferableStateAI
+                    #preTerrain : number
+                    +addAI(ai,priority) MMoverride>>
+                    +changeType(id) : boolean <<override>>
+                }
             }
-            abstract Terrainable {
-                +getTerrainID() : number
+            package ga_object {
+                class TextSignObject {
+                    #signText : string
+                    #size : number
+                    #isExec : boolean
+                    +setSign(x, y, size, text)
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx,shiftX,shiftY) <<override>>
+                }
+            }
+            package ga_interface {
+                interface ITerrain {
+                    {abstract} +getTerrainID() : number
+                }
+                interface IUnderPlayable {
+                    {abstract} +changeType(id) : boolean
+                }
             }
         }
     }
 }
 
 package under {
+    package base {
+        package resource {
+            package image {
+                interface IImageManager
+            }
+        }
+    }
     package extend {
         package ex_stage {
             package ex_entity {
                 class TileObject
                 class Player
+                package ex_object {
+                    class SignObject
+                }
+            }
+            package ex_physics {
+                package ex_body {
+                    class ImmutableRigidMaterial
+                }
+            }
+        }
+    }
+}
+package game {
+    package ga_stage {
+        package ga_ai {
+            abstract TransferableStateAI
+            package ga_player {
+                package ga_normal {
+                    class NormalBaseStateAI
+                }
+                package ga_wild {
+                    class WildBaseStateAI
+                }
+                package ga_adventurer {
+                    class AdventurerBaseStateAI
+                }
+                package ga_propeller {
+                    class PropellerBaseStateAI
+                }
             }
         }
     }
 }
 
-Player <|---- UnderPlayer
-UnderPlayable <|.. UnderPlayer
-TileObject <|---- UnderTileObject
-Terrainable <|.. UnderTileObject
+UnderPlayer ..> WildBaseStateAI : Generate
+UnderPlayer ..> NormalBaseStateAI : Generate
+UnderPlayer ..> AdventurerBaseStateAI : Generate
+UnderPlayer ..> PropellerBaseStateAI : Generate
+UnderPlayer ..> ImmutableRigidMaterial : Generate
+UnderPlayer ..> TransferableStateAI : Transfer
+IImageManager <.. UnderPlayer : Load
+
+Player <|-- UnderPlayer
+UnderPlayer ..|> IUnderPlayable
+TileObject <|-- UnderTileObject
+UnderTileObject ..|> ITerrain
+
+SignObject <|-- TextSignObject
 
 @enduml

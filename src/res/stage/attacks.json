@@ -41,5 +41,132 @@
                 "g": 0.0
             }
         }
+    }, {
+        "id": 200001,
+        "type": "Attack",
+        "lifespan": 400,
+        "image": {
+            "type": "anime",
+            "file": "attack.png",
+            "width": 64,
+            "height": 64,
+            "loop": false,
+            "animation": [{
+                "x": 0,
+                "y": 0,
+                "width": 32,
+                "height": 32,
+                "delta": 100,
+                "serial": true,
+                "horizontal": 4,
+                "vertical": 1
+            }]
+        },
+        "width": 64,
+        "height": 64,
+        "collider": {
+            "type": "Rectangle",
+            "response": false,
+            "startX": 0,
+            "startY": 0,
+            "width": 64,
+            "height": 64
+        },
+        "body": {
+            "type": "MaxAdopt",
+            "enable": false,
+            "material": {
+                "type": "Immutable",
+                "k": 0.5,
+                "frictionX": 1.0,
+                "frictionY": 0.0,
+                "g": 0.0
+            }
+        }
+    }, {
+        "id": 200010,
+        "type": "HookHead",
+        "max": 400,
+        "hook": 300,
+        "child": 200011,
+        "image": {
+            "type": "anime",
+            "file": "hook.png",
+            "width": 32,
+            "height": 32,
+            "animation": [{
+                "x": 0,
+                "y": 0,
+                "width": 32,
+                "height": 32,
+                "delta": 100,
+                "serial": true,
+                "horizontal": 4,
+                "vertical": 1
+            }]
+        },
+        "width": 32,
+        "height": 32,
+        "collider": {
+            "type": "RoundRectangle",
+            "excluded": true,
+            "directional": true,
+            "id": 0,
+            "startX": 22,
+            "startY": 0,
+            "width": 10,
+            "height": 10,
+            "cut": 2
+        },
+        "material": {
+            "mass": 1,
+            "elasticity": 0,
+            "mu": 0
+        },
+        "body": {
+            "type": "String",
+            "x": 16,
+            "y": 16,
+            "length": 4,
+            "k": 60,
+            "count": 400,
+            "body": {
+                "type": "Precise"
+            },
+            "material": {
+                "type": "Immutable",
+                "k": 0.5,
+                "frictionX": 1.0,
+                "frictionY": 0.0
+            }
+        }
+    }, {
+        "id": 200011,
+        "type": "HookChild",
+        "width": 4,
+        "height": 4,
+        "collider": {
+            "type": "Rectangle",
+            "excluded": true,
+            "id": 0,
+            "startX": 0,
+            "startY": 0,
+            "width": 4,
+            "height": 4
+        },
+        "material": {
+            "mass": 0.1,
+            "elasticity": 0,
+            "mu": 0
+        },
+        "body": {
+            "type": "Precise",
+            "material": {
+                "type": "Immutable",
+                "k": 0.5,
+                "frictionX": 1.0,
+                "frictionY": 0.0
+            }
+        }
     }]
 }

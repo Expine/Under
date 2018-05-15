@@ -1,0 +1,149 @@
+@startuml EntityGameHook
+package game {
+    package ga_stage {
+        package ga_entity {
+            package ga_happen {
+                package ga_special {
+                    package ga_hook {
+                        interface IHook {
+                            {abstract} +getActor() : Entity
+                            {abstract} +createPost()
+                            {abstract} +hooked()
+                            {abstract} +release()
+                            {abstract} +tryRemove() : boolean
+                            {abstract} +isHead() : boolean
+                        }
+                        abstract HookObject {
+                            +constructor(restLength,hookedLength,previous,string)
+                            #owner : MutableEntity
+                            #previous : HookObject
+                            #post : HookObject
+                            #string : IString
+                            #restLength : number
+                            #hookedLength : number
+                            #childID : number
+                            #generatedX : number
+                            #generatedY : number
+                            #isHooked : boolean
+                            {abstract} +getHookX() : number
+                            {abstract} +getHookY() : number
+                            #setHookInfo(previous,string,restLength,hookedLength,childID)
+                            #connectPlayer()
+                            #makeChild(vx, vy)
+                            +getActor() : Entity <<override>>
+                            +createPost() <<override>>
+                            +hooked() <<override>>
+                            +release() <<override>>
+                            +tryRemove() : boolean <<override>>
+                            +isHead() : boolean
+                            +setOwner(owner) <<override>>
+                            +destroy() <<override>>
+                            +init() <<override>>
+                            +render(ctx,shiftX,shiftY) <<override>>
+                        }
+                        class HookHead {
+                            +constructor(restLength,hookedLength,childID)
+                            #originalBody : RigidBody
+                            +getHookX() <<override>>
+                            +getHookY() <<override>>
+                            +hooked() <override>>
+                            +release() <<override>>
+                            +isHead() : boolean <<override>>
+                            +init() <<override>>
+                            +update(dt) <<override>>
+                        }
+                        class HookChild {
+                            +getHookX() <<override>>
+                            +getHookY() <<override>>
+                            +init() <<override>>
+                        }
+                        class HookPlayer {
+                            +getHookX() <<override>>
+                            +getHookY() <<override>>
+                            +hooked() <<override>>
+                            +release() <<override>>
+                            +destroy() <<override>>
+                            +init() <<override>>
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                interface IImageManager
+                abstract Context
+                abstract GameImage
+            }
+        }
+        package stage {
+            abstract Stage
+            package entity {
+                abstract MutableEntity
+                package interfce {
+                    interface IBreakable
+                }
+            }
+            package physics {
+                package body {
+                    abstract RigidBody
+                }
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                package ex_happen {
+                    class PosessedObject
+                }
+            }
+        }
+    }
+}
+package game {
+    package ga_stage {
+        package ga_ai {
+            package ga_aspecial {
+                package ga_ahook {
+                    class HookStateAI
+                    class HeadHookStateAI
+                }
+            }
+        }
+        package ga_physics {
+            package ga_body {
+                interface IString
+                class StringBody
+            }
+        }
+    }
+}
+
+MutableEntity <.. HookObject : Get
+HookObject ..> IString: Get and manage body
+HookObject ..> HookPlayer : Generate
+Context <.. HookObject : Render
+Stage <.. HookObject : Add and remove
+
+HookHead ..> HeadHookStateAI : Generate
+GameImage <... HookHead : Resize
+HookObject ..> IString : Set
+HookHead ..> StringBody : Get original
+RigidBody <... HookHead : Enable
+
+HookChild ..> HookStateAI : Generate
+
+PosessedObject <|.. HookObject
+IBreakable <|.. HookObject
+IHook <|. HookObject
+HookObject <|.. HookHead
+HookObject <|.. HookChild
+HookObject <|.. HookPlayer
+
+@enduml

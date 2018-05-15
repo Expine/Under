@@ -25,7 +25,7 @@ class TextSignObject extends SignObject { // eslint-disable-line  no-unused-vars
         /**
          * Sign text size
          * @protected
-         * @type {string}
+         * @type {number}
          */
         this.size = 0;
 
@@ -45,8 +45,7 @@ class TextSignObject extends SignObject { // eslint-disable-line  no-unused-vars
      * @param {string} text Sign text
      */
     setSign(x, y, size, text) {
-        this.signX = x;
-        this.signY = y;
+        super.setSign(null, x, y);
         this.size = size;
         this.signText = text;
     }

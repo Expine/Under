@@ -14,8 +14,10 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      * @param {number} jointingX Jointing x position
      * @param {number} jointingY Jointing y position
      * @param {number} length Jointing length
+     * @param {number} k String power
+     * @param {number} count String loop count
      */
-    constructor(body, jointingX, jointingY, length) {
+    constructor(body, jointingX, jointingY, length, k, count) {
         super();
 
         /**
@@ -63,6 +65,19 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
          * @type {Array<CollisionData>}
          */
         this.collisions = [];
+
+        /**
+         * String power
+         * @protected
+         * @type {number}
+         */
+        this.k = k;
+        /**
+         * String loop count
+         * @protected
+         * @type {number}
+         */
+        this.count = count;
 
         // initialize
         this.jointingList.push(body);
@@ -183,7 +198,6 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         const listLength = this.jointingLengthList.length;
         const milisec = dt / 1000;
         const milisec2 = milisec * milisec;
-        const k = 60;
         const elim = 1;
         // generate element
         let world = this.entity.stage.getPhysicalWorld();
@@ -250,9 +264,8 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             willYList[0][i] = willYList[1][i];
         }
         // repeat move
-        const COUNT = 400;
         let isLoop = true;
-        for (let count = 0; count < COUNT && isLoop; count += listLength) {
+        for (let count = 0; count < this.count && isLoop; count += listLength) {
             isLoop = false;
             for (let i = 0; i < listLength - 1; ++i) {
                 // check length
@@ -267,7 +280,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                 let m1 = this.jointingList[i].entity.material.mass;
                 let m2 = this.jointingList[i + 1].entity.material.mass;
                 let d = Math.sqrt(d2);
-                let power = (d - length) * k;
+                let power = (d - length) * this.k;
                 let px = power * dx / d;
                 let py = power * dy / d;
                 // move by power
@@ -394,14 +407,5 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             this.jointingLengthList.splice(index, 1);
             this.enableList.splice(index, 1);
         }
-    }
-
-    /**
-     * Get collision data by each string element
-     * @override
-     * @return {Array<CollisionData>} collision data by each string element
-     */
-    getCollisions() {
-        return this.collisions;
     }
 }

@@ -62,44 +62,37 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
      */
     changeType(id) {
         // initialize
-        if (this.aiType == null) {
-            for (let it of this.ai) {
-                if (it instanceof PlayerBaseStateAI) {
-                    this.aiType = it;
-                    break;
-                }
-            }
-        }
         if (this.preTerrain == id) {
             return false;
         }
         // set type
         let ai = null;
+        let fileName = ``;
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
-                this.image.setAllImageID(ResourceManager.image.load(`chara/wild.png`));
+                fileName = `wild.png`;
                 if (this.body.material.frictionY != 0) {
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
                 }
                 break;
             case 1:
                 ai = new NormalBaseStateAI();
-                this.image.setAllImageID(ResourceManager.image.load(`chara/player.png`));
+                fileName = `player.png`;
                 if (this.body.material.frictionY != 0) {
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
                 }
                 break;
             case 2:
                 ai = new AdventurerBaseStateAI();
-                this.image.setAllImageID(ResourceManager.image.load(`chara/adventurer.png`));
+                fileName = `adventurer.png`;
                 if (this.body.material.frictionY != 2) {
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 2));
                 }
                 break;
             case 3:
                 ai = new PropellerBaseStateAI();
-                this.image.setAllImageID(ResourceManager.image.load(`chara/propeller.png`));
+                fileName = `propeller.png`;
                 if (this.body.material.frictionY != 0) {
                     this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
                 }
@@ -108,6 +101,9 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
         // inspect whether it changes
         if (ai == null || this.aiType.constructor == ai.constructor) {
             return false;
+        }
+        if (this.image instanceof MultiAnimation) {
+            this.image.setAllImageID(ResourceManager.image.load(`chara/${fileName}`));
         }
         // remove currently AI
         this.aiType.transfer(ai);

@@ -13,20 +13,6 @@ class IHook extends Interface { // eslint-disable-line  no-unused-vars
     getActor() {}
 
     /**
-     * Hook center x position
-     * @abstract
-     * @return {number} Hook center x position
-     */
-    getHookX() {}
-
-    /**
-     * Hook center x position
-     * @abstract
-     * @return {number} Hook center x position
-     */
-    getHookY() {}
-
-    /**
      * Create post hook (Do not create it if it already exists)
      * @abstract
      */

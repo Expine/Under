@@ -155,10 +155,14 @@ class Stage { // eslint-disable-line  no-unused-vars
      * Add entity to stage by ID
      * @param {Object} id Added entity ID
      * @param {JSON} deploy Deploy json data
+     * @param {Function<((Entity) => void)>} init Initialize function
      * @return {Entity} Added entity
      */
-    addEntityByID(id, deploy) {
+    addEntityByID(id, deploy, init) {
         let ret = this.getFactory().createEntity(id, deploy);
+        if (init !== undefined) {
+            init(ret);
+        }
         this.addEntity(ret);
         return ret;
     }

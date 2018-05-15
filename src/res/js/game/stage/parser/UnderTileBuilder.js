@@ -34,8 +34,6 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {Entity} Underlying tile object
      */
     makeTileBase(deploy, json) {
-        let ret = new UnderTileObject();
-        ret.setTerrainID(json.terrain);
-        return ret;
+        return new UnderTileObject(json.terrain);
     }
 }

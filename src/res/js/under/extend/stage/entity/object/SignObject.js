@@ -152,11 +152,10 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
+        // TODO: the signboard stand up by animation?
         super.render(ctx, shiftX, shiftY + this.height - this.currentHeight);
-        if (this.isShowSign && this.currentHeight == this.height) {
-            if (this.signIma !== null) {
-                this.signImage.render(ctx, this.x + shiftX + this.signX, this.y + shiftY + this.signY);
-            }
+        if (this.signImage !== null && this.isShowSign && this.currentHeight == this.height) {
+            this.signImage.render(ctx, this.x + shiftX + this.signX, this.y + shiftY + this.signY);
         }
     }
 }

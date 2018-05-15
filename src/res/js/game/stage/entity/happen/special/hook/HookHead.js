@@ -18,61 +18,44 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Hook head object constructor
      * @constructor
-     * @param {number} length Hook length
      * @param {number} restLength Hook rest length
      * @param {number} hookedLength Hook length of hooked
+     * @param {number} childID Child id for generating child
      */
-    constructor(length, restLength, hookedLength) {
+    constructor(restLength, hookedLength, childID) {
         super();
 
         /**
-         * Hook length for string
+         * Hook head original body
          * @protected
-         * @type {number}
+         * @type {RigidBody}
          */
-        this.stringLength = length;
-
+        this.originalBody = null;
 
         // initialize
-        this.setHookInfo(null, null, restLength, hookedLength);
+        this.setHookInfo(null, null, restLength, hookedLength, childID);
     }
 
     /**
-     * Initialize entity
+     * Set rigid body
      * @override
+     * @param {RigidBody} body rigid body
      */
-    init() {
-        super.init();
-        // set base data
-        let imageID = ResourceManager.image.load(`chara/hook.png`);
-        let anime = new SingleAnimation();
-        anime.addAnimation(new TileImage(imageID, this.width, this.height, 0, 0, 32, 32), 100);
-        anime.addAnimation(new TileImage(imageID, this.width, this.height, 32, 0, 32, 32), 100);
-        anime.addAnimation(new TileImage(imageID, this.width, this.height, 64, 0, 32, 32), 100);
-        anime.addAnimation(new TileImage(imageID, this.width, this.height, 96, 0, 32, 32), 100);
-        anime.setSize(this.width, this.height);
-        this.setImage(anime);
-        let collider = new ExcludedRoundRectangleCollider((22 - 0) * this.width / 32, 0, 10 * this.width / 32, 10 * this.height / 32, 2, 0);
-        collider.setAABB(new DirectionalAABB());
-        this.setCollider(collider);
-        this.setMaterial(new ImmutableMaterial(1, 0.0, 0.0));
-        let org = new PreciseBody();
-        org.setMaterial(new ImmutableRigidMaterial());
-        let body = new StringBody(org, (this.directionX >= 0 ? this.getHookX() - this.x : this.x + this.width - this.getHookX()), (this.directionY > 0 ? this.getHookY() - this.y : this.y + this.height - this.getHookY()), this.stringLength);
-        body.setMaterial(new ImmutableRigidMaterial());
-        this.setRigidBody(body);
-        this.addAI(new HeadHookStateAI(this, body, org));
-
-        this.string = body;
-        this.directionX = this.owner.directionX;
-        this.directionY = -1;
-        this.x -= (this.getHookX() - this.x);
-        this.y -= (this.getHookY() - this.y);
+    setRigidBody(body) {
+        super.setRigidBody(body);
+        if (BaseUtil.implementsOf(body, IString)) {
+            this.string = body;
+        }
+        // TODO: Should abstract
+        if (body instanceof StringBody) {
+            this.originalBody = body.jointingList[0];
+        }
     }
 
     /**
      * Hook center x position
      * @override
+     * @protected
      * @return {number} Hook center x position
      */
     getHookX() {
@@ -82,6 +65,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Hook center x position
      * @override
+     * @protected
      * @return {number} Hook center x position
      */
     getHookY() {
@@ -89,15 +73,21 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Try to remove it
+     * Hooked hook
      * @override
-     * @return {boolean} Whether it was removed
      */
-    tryRemove() {
-        if (super.tryRemove()) {
-            this.owner.body.enable = true;
-        }
-        return false;
+    hooked() {
+        super.hooked();
+        this.originalBody.enable = false;
+    }
+
+    /**
+     * Release hook
+     * @override
+     */
+    release() {
+        super.release();
+        this.originalBody.enable = true;
     }
 
     /**
@@ -109,6 +99,19 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         return true;
     }
 
+    /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        super.init();
+        this.addAI(new HeadHookStateAI(this));
+
+        this.directionX = this.owner.directionX;
+        this.directionY = -1;
+        this.x -= (this.getHookX() - this.x);
+        this.y -= (this.getHookY() - this.y);
+    }
 
     /**
      * Update entty
@@ -119,16 +122,5 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         super.update(dt);
         // TODO: Maybe include image
         this.image.setSize(this.width * this.directionX, -this.height * (this.directionY == 0 ? 1 : this.directionY));
-    }
-
-    /**
-     * Render entity
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {
-        super.render(ctx, shiftX, shiftY);
     }
 }

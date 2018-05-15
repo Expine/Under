@@ -28,11 +28,4 @@ class IString extends Interface { // eslint-disable-line  no-unused-vars
      * @param {RigidBody} body Joiting body
      */
     removeBody(body) {}
-
-    /**
-     * Get collision data by each string element
-     * @abstract
-     * @return {Array<CollisionData>} collision data by each string element
-     */
-    getCollisions() {}
 }

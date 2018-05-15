@@ -81,23 +81,25 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
         this.setSize(this.entityData.width, this.entityData.height);
 
         // load animation
-        let file = ResourceManager.image.load(`chara/${this.entityData.image.file}`);
-        if (this.entityData.image.type == `single`) {
-            this.animation = new SingleClipImage(file, this.entityData.image.width, this.entityData.image.height);
-        } else if (this.entityData.image.type == `anime`) {
-            let animation = new SingleClipAnimation();
-            for (let it of this.entityData.image.animation) {
-                animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
+        if (this.entityData.image !== undefined) {
+            let file = ResourceManager.image.load(`chara/${this.entityData.image.file}`);
+            if (this.entityData.image.type == `single`) {
+                this.animation = new SingleClipImage(file, this.entityData.image.width, this.entityData.image.height);
+            } else if (this.entityData.image.type == `anime`) {
+                let animation = new SingleClipAnimation();
+                for (let it of this.entityData.image.animation) {
+                    animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
+                }
+                this.animation = animation;
+            } else if (this.entityData.image.type == `multianime`) {
+                let animation = new SingleClipAnimation();
+                for (let it of this.entityData.image.animations[0].animation) {
+                    animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
+                }
+                this.animation = animation;
             }
-            this.animation = animation;
-        } else if (this.entityData.image.type == `multianime`) {
-            let animation = new SingleClipAnimation();
-            for (let it of this.entityData.image.animations[0].animation) {
-                animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
-            }
-            this.animation = animation;
+            this.animation.init();
         }
-        this.animation.init();
     }
 
     /**
@@ -106,7 +108,9 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
      * @param {number} dt Delta time
      */
     update(dt) {
-        this.animation.update(dt);
+        if (this.animation !== null) {
+            this.animation.update(dt);
+        }
         this.selectEntity = null;
         let x = Input.mouse.getMouseX();
         let y = Input.mouse.getMouseY();
@@ -134,7 +138,9 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
         if (this.x + this.width < this.clipX || this.clipX + this.clipWidth < this.x || this.y + this.height < this.clipY || this.clipY + this.clipHeight < this.y) {
             return;
         }
-        this.animation.clipingRender(ctx, this.x, this.y, this.clipX, this.clipY, this.clipWidth, this.clipHeight);
+        if (this.animation !== null) {
+            this.animation.clipingRender(ctx, this.x, this.y, this.clipX, this.clipY, this.clipWidth, this.clipHeight);
+        }
         if (this.selectEntity != null) {
             ctx.strokeRect(this.x, this.y, this.width, this.height, `red`);
         }

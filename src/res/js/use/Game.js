@@ -306,6 +306,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof State !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/state/NoneState.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof AI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/StraightAI.js'; document.head.appendChild(script);
     }
@@ -553,11 +558,6 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof State !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/special/hook/HookedState.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof State !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/special/hook/HookingState.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -593,7 +593,7 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof SignObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/entity/TextSignObject.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/entity/object/TextSignObject.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -937,11 +937,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof HookReleasedState !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/special/hook/HeadHookReleasedState.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof HookStateAI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/special/hook/HeadHookStateAI.js'; document.head.appendChild(script);
     }
@@ -1228,6 +1223,7 @@
         typeof PlayerBaseStateAI !== `undefined` &&
         typeof PlayerGameoverStateAI !== `undefined` &&
         typeof BaseState !== `undefined` &&
+        typeof NoneState !== `undefined` &&
         typeof StraightAI !== `undefined` &&
         typeof ImageBackground !== `undefined` &&
         typeof InvariantBackground !== `undefined` &&
@@ -1278,7 +1274,6 @@
         typeof TitleScene !== `undefined` &&
         typeof IMovableState !== `undefined` &&
         typeof IPrepareState !== `undefined` &&
-        typeof HookedState !== `undefined` &&
         typeof HookingState !== `undefined` &&
         typeof HookReleasedState !== `undefined` &&
         typeof HookStateAI !== `undefined` &&
@@ -1355,7 +1350,6 @@
         typeof UnderStateAI !== `undefined` &&
         typeof WildRollingState !== `undefined` &&
         typeof HeadHookingState !== `undefined` &&
-        typeof HeadHookReleasedState !== `undefined` &&
         typeof HeadHookStateAI !== `undefined` &&
         typeof HookObject !== `undefined` &&
         typeof HookPlayer !== `undefined` &&

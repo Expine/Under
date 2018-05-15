@@ -66,6 +66,13 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
         this.hookedLength = 0;
 
         /**
+         * Child id for generating child
+         * @protected
+         * @type {number}
+         */
+        this.childID = 0;
+
+        /**
          * Generated x position
          * @protected
          * @type {number}
@@ -87,34 +94,35 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
     }
 
     /**
-     * Set owned entity
-     * @param {MutableEntity} owner Owned entity
+     * Hook center x position
+     * @abstract
+     * @protected
+     * @return {number} Hook center x position
      */
-    setOwner(owner) {
-        this.owner = owner;
-    }
+    getHookX() {}
+
+    /**
+     * Hook center x position
+     * @abstract
+     * @protected
+     * @return {number} Hook center x position
+     */
+    getHookY() {}
 
     /**
      * Set hook information
+     * @protected
      * @param {HookObject} previous Previous hook object
      * @param {IString} string Hook string
      * @param {number} restLength Hook rest length
      * @param {number} hookedLength Hook length of hooked
      */
-    setHookInfo(previous, string, restLength, hookedLength) {
+    setHookInfo(previous, string, restLength, hookedLength, childID) {
         this.previous = previous;
         this.string = string;
         this.restLength = restLength;
         this.hookedLength = hookedLength;
-    }
-
-    /**
-     * Initialize entity
-     * @override
-     */
-    init() {
-        this.generatedX = this.owner.directionX >= 0 ? this.x - this.owner.width - this.owner.x : this.owner.x - this.x;
-        this.generatedY = this.owner.y - this.y;
+        this.childID = childID;
     }
 
     /**
@@ -124,45 +132,47 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
     connectPlayer() {
         let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
         let y = this.owner.y - this.generatedY;
+        // TODO: Maybe abstract
         this.post = new HookPlayer();
         this.post.setPosition(x, y, this.z);
         this.post.setSize(8, 8);
         this.post.setOwner(this.owner);
-        this.post.setHookInfo(this, this.string, this.restLength - 15, this.hookedLength);
+        this.post.setHookInfo(this, this.string, this.restLength - 15, this.hookedLength, this.childID);
         this.post.init();
     }
 
     /**
      * Generete hook child
      * @protected
+     * @param {number} vx Generated velocity of x
+     * @param {number} vy Generated velocity of y
      */
     makeChild(vx, vy) {
-        if ((this.isHead() || this.previous) !== null && this.post === null && this.restLength > 0 && !this.isHooked) {
-            if (this.restLength - 15 <= 0) {
-                this.connectPlayer();
-                return;
-            }
-            let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
-            let y = this.owner.y - this.generatedY;
-            let dx = Math.abs(x - this.getHookX());
-            let dy = Math.abs(y - this.getHookY());
-            let d = Math.sqrt(dx * dx + dy * dy);
-            let l = this.string.getLength() + 3;
-            if (d > l) {
-                // generate
-                this.post = new HookChild();
-                this.post.setPosition(x, y, this.z);
-                this.post.setSize(4, 4);
-                this.post.setOwner(this.owner);
-                this.post.setHookInfo(this, this.string, this.restLength - 15, this.hookedLength);
-                this.stage.addEntity(this.post);
-                // set initial info
-                this.post.body.setNextAddVelocity(vx, vy);
-                this.string.addBody(this.post.body, (this.post.directionX >= 0 ? this.post.getHookX() - this.post.x : this.post.x + this.post.width - this.post.getHookX()), (this.post.directionY > 0 ? this.post.getHookY() - this.post.y : this.post.y + this.post.height - this.post.getHookY()), 3);
-                this.post.deltaMove(-dx * (d - l) / d, -dy * (d - l) / d);
-                // generate continuously
-                this.post.makeChild(vx, vy);
-            }
+        // create player
+        if (this.restLength - 15 <= 0) {
+            this.connectPlayer();
+            return;
+        }
+        // check length
+        let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+        let y = this.owner.y - this.generatedY;
+        let dx = Math.abs(x - this.getHookX());
+        let dy = Math.abs(y - this.getHookY());
+        let d = Math.sqrt(dx * dx + dy * dy);
+        let l = this.string.getLength() + 3;
+        if (d > l) {
+            // generate
+            this.post = this.stage.addEntityByID(this.childID, undefined, (it) => {
+                it.setPosition(x, y, this.z);
+                it.setOwner(this.owner);
+            });
+            this.post.setHookInfo(this, this.string, this.restLength - 15, this.hookedLength, this.childID);
+            // set initial info
+            this.post.body.setNextAddVelocity(vx, vy);
+            this.string.addBody(this.post.body, (this.post.directionX >= 0 ? this.post.getHookX() - this.post.x : this.post.x + this.post.width - this.post.getHookX()), (this.post.directionY > 0 ? this.post.getHookY() - this.post.y : this.post.y + this.post.height - this.post.getHookY()), 3);
+            this.post.deltaMove(-dx * (d - l) / d, -dy * (d - l) / d);
+            // generate continuously
+            this.post.makeChild(vx, vy);
         }
     }
 
@@ -176,24 +186,23 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
     }
 
     /**
-     * Hook center x position
-     * @abstract
-     * @return {number} Hook center x position
-     */
-    getHookX() {}
-
-    /**
-     * Hook center x position
-     * @abstract
-     * @return {number} Hook center x position
-     */
-    getHookY() {}
-
-    /**
      * Create post hook (Do not create it if it already exists)
      * @override
      */
     createPost() {
+        // check head or connected
+        if (!this.isHead() && this.previous === null) {
+            return;
+        }
+        // check already created
+        if (this.post !== null) {
+            return;
+        }
+        // check max length or hooked
+        if (this.restLength <= 0 && this.isHooked) {
+            return;
+        }
+
         this.makeChild(this.body.velocityX, this.body.velocityY);
     }
 
@@ -224,7 +233,7 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
                 it.changeState(`released`);
             }
         }
-        if ((this.isHead() || this.previous) !== null && this.post === null) {
+        if ((this.isHead() || this.previous !== null) && this.post === null) {
             this.connectPlayer();
         }
     }
@@ -243,6 +252,24 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
     }
 
     /**
+     * Whether the tip of the hook
+     * @override
+     * @return {boolean} Whether the tip of the hook
+     */
+    isHead() {
+        return false;
+    }
+
+    /**
+     * Set owned entity
+     * @override
+     * @param {MutableEntity} owner Owned entity
+     */
+    setOwner(owner) {
+        this.owner = owner;
+    }
+
+    /**
      * Destroy object
      * @override
      */
@@ -258,12 +285,13 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
     }
 
     /**
-     * Whether the tip of the hook
+     * Initialize entity
      * @override
-     * @return {boolean} Whether the tip of the hook
      */
-    isHead() {
-        return false;
+    init() {
+        super.init();
+        this.generatedX = this.owner.directionX >= 0 ? this.x - this.owner.width - this.owner.x : this.owner.x - this.x;
+        this.generatedY = this.owner.y - this.y;
     }
 
     /**
@@ -275,7 +303,6 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         super.render(ctx, shiftX, shiftY);
-        // ctx.fillRect(this.x + shiftX, this.y + shiftY, this.width, this.height, `red`, 1);
         if (this.post !== null) {
             ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.post.getHookX() + shiftX, this.post.getHookY() + shiftY, `#FFCC66`, 4);
         } else {

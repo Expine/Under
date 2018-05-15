@@ -306,6 +306,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof State !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/state/NoneState.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof AI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/StraightAI.js'; document.head.appendChild(script);
     }

@@ -92,11 +92,12 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
      * @override
      * @param {Object} id Added entity ID
      * @param {JSON} deploy Deploy json data
+     * @param {Function<((Entity) => void)>} init Initialize function
      * @return {Entity} Added entity
      */
-    addEntityByID(id, deploy) {
+    addEntityByID(id, deploy, init) {
         this.entitiesID.push(id);
-        return super.addEntityByID(id, deploy);
+        return super.addEntityByID(id, deploy, init);
     }
 
     /**

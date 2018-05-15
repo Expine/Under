@@ -16,15 +16,6 @@
  */
 class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
     /**
-     * Initialize entity
-     * @override
-     */
-    init() {
-        super.init();
-        this.string.addBody(this.owner.body, this.owner.width + this.generatedX, -this.generatedY, this.string.getLength());
-    }
-
-    /**
      * Hook center x position
      * @override
      * @return {number} Hook center x position
@@ -59,4 +50,13 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
      * @override
      */
     destroy() {}
+
+    /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        super.init();
+        this.string.addBody(this.owner.body, this.owner.width + this.generatedX, -this.generatedY, this.string.getLength());
+    }
 }

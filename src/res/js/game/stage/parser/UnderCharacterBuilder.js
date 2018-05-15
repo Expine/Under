@@ -10,6 +10,21 @@
  */
 class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  no-unused-vars
     /**
+     * Make rigid body
+     * @protected
+     * @param {JSON} body Rigid body information json data
+     * @return {RigidBody} Rigid body
+     */
+    makeBody(body) {
+        switch (body.type) {
+            case `String`:
+                return new StringBody(this.makeBody(body.body), body.x, body.y, body.length, body.k, body.count);
+            default:
+                return super.makeBody(body);
+        }
+    }
+
+    /**
      * Make collider
      * @protected
      * @param {JSON} collider Collider information json data
@@ -64,6 +79,15 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
         switch (entity.type) {
             case `Player`:
                 return new UnderPlayer();
+            case `HookHead`:
+                {
+                    let max = deploy === undefined || deploy.max === undefined ? entity.max : deploy.max;
+                    let hook = deploy === undefined || deploy.hook === undefined ? entity.hook : deploy.hook;
+                    let child = deploy === undefined || deploy.child === undefined ? entity.child : deploy.child;
+                    return new HookHead(max, hook, child);
+                }
+            case `HookChild`:
+                return new HookChild();
             case `Sign`:
                 {
                     let signData = deploy.sign === undefined ? entity.sign : deploy.sign;

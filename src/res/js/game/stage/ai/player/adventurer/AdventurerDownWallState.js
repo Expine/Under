@@ -86,12 +86,13 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
                     }
                 }
             } else {
-                let hook = new HookHead(4, 300, 200);
-                hook.setPosition(this.entity.x + this.entity.width / 2, this.entity.y + this.entity.height / 2, this.entity.z - 1);
-                hook.setSize(32, 32);
-                hook.setOwner(this.entity);
-                this.entity.stage.addEntity(hook);
-                hook.body.enforce(900000 * this.entity.directionX / dt, -1500000 / dt);
+                let hook = this.entity.stage.addEntityByID(200010, undefined, (it) => {
+                    it.setPosition(this.entity.x + this.entity.width / 2, this.entity.y + this.entity.height / 2, this.entity.z - 1);
+                    it.setOwner(this.entity);
+                });
+                if (hook instanceof MutableEntity) {
+                    hook.body.enforce(900000 * this.entity.directionX / dt, -1500000 / dt);
+                }
             }
         }
 
