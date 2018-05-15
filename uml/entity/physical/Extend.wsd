@@ -4,43 +4,44 @@ package under {
     package extend {
         package ex_stage {
             package ex_physics {
-                package ex_collider {
-                    class CircleCollider {
-                        #radius : number
-                        #shiftX : number
-                        #shiftY : number
-                        #centerX : number
-                        #centerY : number
-                    }
-                    class RectangleCollider {
-                        #startX : number
-                        #startY : number
-                        #endX : number
-                        #endY : number
-                    }
-                    class RoundRectangleCollider {
-                        #cut : number
-                    }
-                }
                 package ex_body {
                     class MaxAdoptBody {
+                        #internalAccelerationX : number
+                        #internalAccelerationY : number
                         #vpx : number
                         #vpy : number
                         #vmx : number
                         #vmy : number
                         #preX : number
                         #preY : number
+                        +setNextAddVelocity(vx,vy) <<override>>
+                        +reset() <<override>>
+                        +enforce(forceX,forceY) <<override>>
+                        +updateInfo(dt) <<override>>
+                        +updateVelocity(dt) <<override>>
+                        +updateEntity(dt) <<override>>
+                        +cleanup(dt) <<override>>
                     }
-                    class PreciseBody
+                    class PreciseBody {
+                        +updateEntity(dt) <<override>>
+                    }
                     class PlayerBody
+                    interface IJoint {
+                        {abstract} +joind(jointed,jointedX,jointedY,length)
+                        {abstract} +unjoint()
+                    }
                     class JointBody {
-                        JointBody(jointingX,jointingY,jointed,jointedX,jointedY,length) : JointingBody
+                        constructor(jointingX,jointingY)
                         #jointingX : number
                         #jointingY : number
                         #jointed : Entity
                         #jointedX : number
                         #jointedY : number
                         #length : number
+                        +joind(jointed,jointedX,jointedY,length) <<override>>
+                        +unjoint() <<override>>
+                        +updateVelocity(dt) <<override>>
+                        +updateEntity(dt) <<override>>
                     }
                     class ImmutableRigidMaterial {
                         ImmutableRigidMaterial(k,frictionX,frictionY) : ImmutableRigidMaterial
@@ -49,12 +50,17 @@ package under {
                         #frictionYVal : number
                     }
                 }
+
                 package ex_material {
                     class ImmutableMaterial  {
                         ImmutableMaterial(mass,elasticity,mu) : ImmutableMaterial
                         #massVal : number
                         #eVal : number
                         #muVal : number
+                        +k() : number <<getter>> <<override>>
+                        +frictionX() : number <<getter>> <<override>>
+                        +frictionY() : number <<getter>> <<override>>
+                        +gravityScale() : number <<getter>> <<override>>
                     }
                 }
             }
@@ -65,9 +71,17 @@ package under {
 package under {
     package base {
         package stage {
+            abstract Stage
             package physics {
+                abstract PhysicalWorld
+                package entity {
+                    abstract Entity
+                    abstract InfluentialEntity
+                    abstract MutableEntity
+                }
                 package colloder {
                     abstract Collider
+                    abstract CollisionData
                 }
                 package body {
                     abstract RigidBody
@@ -81,14 +95,26 @@ package under {
     }
 }
 
-Collider <|.. RectangleCollider
-Collider <|.. CircleCollider
-RectangleCollider <|-- RoundRectangleCollider
+MutableEntity <.. MaxAdoptBody : Get
+Material <.. MaxAdoptBody : Get
+RigidMaterial <.. MaxAdoptBody : Get and set
+
+MutableEntity <... PreciseBody : Move
+Stage <... PreciseBody : Get
+PhysicalWorld <... PreciseBody : Get
+CollisionData <... PreciseBody : Get
+Collider <... PreciseBody : Response
+
+MutableEntity <.. JointBody : Get and move
+Entity <.. JointBody : Get
+
 RigidBody <|.. MaxAdoptBody
-MaxAdoptBody <|-- PlayerBody
-MaxAdoptBody <|-- PreciseBody
+MaxAdoptBody <|--- PreciseBody
+PreciseBody <|-- PlayerBody
+IJoint <|. JointBody
 MaxAdoptBody <|-- JointBody
 RigidMaterial <|.. ImmutableRigidMaterial
+
 Material <|.. ImmutableMaterial
 
 @enduml

@@ -55,16 +55,9 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         /**
          * Jointing body enable list
          * @protected
-         * @type {Array<bool>}
+         * @type {Array<boolean>}
          */
         this.enableList = [];
-
-        /**
-         * Collision data list
-         * @protected
-         * @type {Array<CollisionData>}
-         */
-        this.collisions = [];
 
         /**
          * String power
@@ -84,26 +77,6 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         this.jointingXList.push(jointingX);
         this.jointingYList.push(jointingY);
         this.jointingLengthList.push(length);
-    }
-
-    /**
-     * Set mutable entity
-     * @override
-     * @param {MutableEntity} entity Mutable entity
-     */
-    setEntity(entity) {
-        super.setEntity(entity);
-        this.body.setEntity(entity);
-    }
-
-    /**
-     * Set rigid material
-     * @override
-     * @param {RigidMaterial} material Rigid material
-     */
-    setMaterial(material) {
-        super.setMaterial(material);
-        this.body.setMaterial(material);
     }
 
     /**
@@ -143,11 +116,32 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
     }
 
     /**
-     * Initialize body
+     * Set mutable entity
+     * @override
+     * @param {MutableEntity} entity Mutable entity
+     */
+    setEntity(entity) {
+        super.setEntity(entity);
+        this.body.setEntity(entity);
+    }
+
+    /**
+     * Set rigid material
+     * @override
+     * @param {RigidMaterial} material Rigid material
+     */
+    setMaterial(material) {
+        super.setMaterial(material);
+        this.body.setMaterial(material);
+    }
+
+    /**
+     * Reset rigid body state
      * @override
      */
-    init() {
-        this.body.init();
+    reset() {
+        super.reset();
+        this.body.reset();
     }
 
     /**
@@ -168,6 +162,14 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      */
     enforce(forceX, forceY) {
         this.body.enforce(forceX, forceY);
+    }
+
+    /**
+     * Initialize body
+     * @override
+     */
+    init() {
+        this.body.init();
     }
 
     /**
@@ -193,7 +195,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             return;
         }
         // initialize
-        this.collisions.length = 0;
+        const collisions = [];
         // set constant value
         const listLength = this.jointingLengthList.length;
         const milisec = dt / 1000;
@@ -254,7 +256,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                             yRepulsionList[i] = col.ny != 0;
                         }
                     }
-                    this.collisions.push(col);
+                    collisions.push(col);
                 }
                 // correct
                 it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
@@ -328,7 +330,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                                 yRepulsionList[i] = col.ny != 0;
                             }
                         }
-                        this.collisions.push(col);
+                        collisions.push(col);
                     }
                     // decide position
                     willXList[0][i] = willXList[1][i];
@@ -350,7 +352,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             it.entity.collider.clear();
         }
         // update collision data
-        for (let it of this.collisions) {
+        for (let it of collisions) {
             it.colliding.collider.addCollision(it);
             it.collided.collider.addCollision(it);
         }

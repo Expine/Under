@@ -4,21 +4,53 @@ package game {
     package ga_stage {
         package ga_physics {
             package ga_body {
-
+                interface IString {
+                    {abstract} +getLength() : number
+                    {abstract} +addBody(jointing,jointingX,jointingY,length)
+                    {abstract} +removeBody(body)
+                }
+                class StringBody {
+                    #body : RigidBody
+                    #jointingList : Array<RigidBody>
+                    #jointingXList : Array<number>
+                    #jointingYList : Array<number>
+                    #jointingLengthList : Array<number>
+                    #enableList : Array<boolean>
+                    #k : number
+                    #count : number
+                    +velocityX() : number <<getter>> <<override>>
+                    +velocityY() : number <<getter>> <<override>>
+                    +accelerationX() : number <<getter>> <<override>>
+                    +accelerationY() : number <<getter>> <<override>>
+                    +setEntity(entity) <<override>>
+                    +setMaterial(material) <<override>>
+                    +reset() <<override>>
+                    +setNextAddVelocity(vx,vy) <<override>>
+                    +enforce(forceX, forceY) <<override>>
+                    +init() <<override>>
+                    +prepare(dt) <<override>>
+                    +update(dt) <<override>>
+                    +cleanup(dt) <<override>>
+                    +getLength() : number <<override>>
+                    +addBody(jointing,jointingX,jointingY,length) <<override>>
+                    +removeBody(body) <<override>>
+                }
             }
             package ga_collider {
-                class DirectionalRectangleCollider
-                class DirectionalRoundRectangleCollider
-                class ExcludedRectangleCollider {
-                    +ExcludedRectangleCollider(startX, startY, width, height, targetID) : ExcludedRectangleCollider
-                    #targetID : number
-                }
-                class ExcludedRoundRectangleCollider {
-                    +ExcludedRoundRectangleCollider(startX, startY, width, height, cut,targetID) : ExcludedRoundRectangleCollider
-                    #targetID : number
-                }
                 interface IExclude {
                     {abstract} +getTartgetID() : number
+                }
+                class ExcludedRectangleCollider {
+                    +constructor(startX, startY, width, height, targetID)
+                    #targetID : number
+                    +getTartgetID() : number <<override>>
+                    +isResponse(collider) : boolean <<override>>
+                }
+                class ExcludedRoundRectangleCollider {
+                    +constructor(startX, startY, width, height, cut,targetID)
+                    #targetID : number
+                    +getTartgetID() : number <<override>>
+                    +isResponse(collider) : boolean <<override>>
                 }
             }
         }
@@ -26,6 +58,24 @@ package game {
 }
 
 package under {
+    package base {
+        package stage {
+            abstract Stage
+            package physics {
+                abstract PhysicalWorld
+                package body {
+                    abstract RigidBody
+                }
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+            }
+            package entity {
+                abstract MutableEntity
+            }
+        }
+    }
     package extend {
         package ex_stage {
             package ex_physics {
@@ -38,8 +88,15 @@ package under {
     }
 }
 
-RectangleCollider <|-- DirectionalRectangleCollider
-RoundRectangleCollider <|-- DirectionalRoundRectangleCollider
+Stage <.. StringBody : Get
+PhysicalWorld <.. StringBody : Get
+MutableEntity <.. StringBody : Get and move
+CollisionData <.. StringBody : Get
+Collider <.. StringBody : Resonse
+
+RigidBody <|.. StringBody
+IString <|. StringBody
+
 RectangleCollider <|-- ExcludedRectangleCollider
 IExclude <|.. ExcludedRectangleCollider
 RoundRectangleCollider <|-- ExcludedRoundRectangleCollider

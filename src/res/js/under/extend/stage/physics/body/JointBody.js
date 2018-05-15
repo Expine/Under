@@ -57,6 +57,29 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Joint to something
+     * @override
+     * @param {Entity} jointed Jointed entity
+     * @param {number} jointedX Jointed x position
+     * @param {number} jointedY Jointed y position
+     * @param {number} length Jointed length
+     */
+    joint(jointed, jointedX, jointedY, length) {
+        this.jointed = jointed;
+        this.jointedX = jointedX;
+        this.jointedY = jointedY;
+        this.length = length;
+    }
+
+    /**
+     * Unjoint
+     * @override
+     */
+    unjoint() {
+        this.jointed = null;
+    }
+
+    /**
      * Update velocity
      * @override
      * @protected
@@ -112,28 +135,5 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
                 this.entity.deltaMove(l * dx / d, l * dy / d);
             }
         }
-    }
-
-    /**
-     * Joint to something
-     * @override
-     * @param {Entity} jointed Jointed entity
-     * @param {number} jointedX Jointed x position
-     * @param {number} jointedY Jointed y position
-     * @param {number} length Jointed length
-     */
-    joint(jointed, jointedX, jointedY, length) {
-        this.jointed = jointed;
-        this.jointedX = jointedX;
-        this.jointedY = jointedY;
-        this.length = length;
-    }
-
-    /**
-     * Unjoint
-     * @override
-     */
-    unjoint() {
-        this.jointed = null;
     }
 }

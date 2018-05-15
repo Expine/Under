@@ -1,0 +1,111 @@
+@startuml PhysicalExtendCollider
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_physics {
+                package ex_collider {
+                    class CircleCollider {
+                        #radius : number
+                        #shiftX : number
+                        #shiftY : number
+                        #centerX : number
+                        #centerY : number
+                        +isInCollider(x,y) : boolean <<override>>
+                        +isCollision(collider,data) <<override>>
+                        +fixBound(startX,startY,endX,endY) <<override>>
+                        +update() <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
+                    class RectangleCollider {
+                        #startX : number
+                        #startY : number
+                        #endX : number
+                        #endY : number
+                        +isInCollider(x,y) : boolean <<override>>
+                        +isCollision(collider,data) <<override>>
+                        +fixBound(startX,startY,endX,endY) <<override>>
+                        +update() <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
+                    class RoundRectangleCollider {
+                        #cut : number
+                        +isCollision(collider,data) <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
+                    class SimpleAABB {
+                        #startXVal : number
+                        #startYVal : number
+                        #endXVal : number
+                        #endYVal : number
+                        +startX() : number <<getter>> <<override>>
+                        +startY() : number <<getter>> <<override>>
+                        +endX() : number <<getter>> <<override>>
+                        +endY() : number <<getter>> <<override>>
+                        +update(startX,startY,endX,endY,entity) <<override>>
+                    }
+                    class DirectionalAABB {
+                        +update(startX,startY,endX,endY,entity) <<override>>
+                    }
+                    class LowerPriorityData {
+                        +init() <<override>>
+                        +calcPriority() : umber <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                abstract Context
+            }
+        }
+        package stage {
+            package physics {
+                package entity {
+                    abstract InfluentialEntity
+                    abstract MutableEntity
+                }
+                package colloder {
+                    abstract Collider
+                    abstract AABB
+                    abstract CollisionData
+                }
+            }
+        }
+    }
+}
+
+CircleCollider ..> RectangleCollider : Collide
+MutableEntity <.. CircleCollider : Get
+InfluentialEntity <.. CircleCollider : Check
+AABB <.. CircleCollider : Update
+Context <.. CircleCollider : Render
+
+RectangleCollider ..> CircleCollider : Collide
+RectangleCollider ..> RoundRectangleCollider : Collide
+MutableEntity <.. RectangleCollider : Get
+InfluentialEntity <.. RectangleCollider : Check
+AABB <.. RectangleCollider : Update
+Context <.. RectangleCollider : Render
+
+CircleCollider <... RoundRectangleCollider : Collide
+MutableEntity <... RoundRectangleCollider : Get
+InfluentialEntity <... RoundRectangleCollider : Check
+AABB <... RoundRectangleCollider : Update
+Context <... RoundRectangleCollider : Render
+
+MutableEntity <.. DirectionalAABB : Get
+
+Collider <|.. RectangleCollider
+Collider <|.. CircleCollider
+RectangleCollider <|-- RoundRectangleCollider
+AABB <|.. SimpleAABB
+SimpleAABB <|.. DirectionalAABB
+CollisionData <|.. LowerPriorityData
+
+@enduml
