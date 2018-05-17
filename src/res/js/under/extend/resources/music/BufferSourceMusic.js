@@ -8,10 +8,25 @@
  */
 class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars
     /**
+     * Buffer source music constructor
+     * @constructor
+     */
+    constructor() {
+        super();
+
+        /**
+         * Currently playing BGM
+         * @protected
+         * @type {AudioBufferSourceNode}
+         */
+        this.bgm = null;
+    }
+    /**
      * Play sound
      * @private
      * @param {number} musicID SE Music id
      * @param {boolean} loop Whether sound is loop or not
+     * @return {AudioBufferSourceNode} Playing sound
      */
     _play(musicID, loop) {
         let music = this.music.getMusic(musicID);
@@ -23,6 +38,9 @@ class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars
                     if (music !== null) {
                         this._play(musicID, loop);
                         clearInterval(id);
+                        if (loop) {
+                            this.bgm = music;
+                        }
                     }
                 }, 1000 / 60);
             } else {
@@ -30,6 +48,7 @@ class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars
                 music.start(0);
             }
         }
+        return music;
     }
 
     /**
@@ -47,7 +66,10 @@ class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars
      * @param {number} musicID BGM Music id
      */
     playBGM(musicID) {
-        this._play(musicID, true);
+        if (this.bgm !== null) {
+            this.stopBGM();
+        }
+        this.bgm = this._play(musicID, true);
     }
 
     /**
@@ -71,6 +93,8 @@ class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars
      * @override
      */
     stopBGM() {
-        // TODO: Should be implemented
+        if (this.bgm !== null) {
+            this.bgm.stop();
+        }
     }
 }
