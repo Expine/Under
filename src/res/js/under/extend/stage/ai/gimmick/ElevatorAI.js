@@ -140,7 +140,7 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
             }
             this.entity.directionX = Math.sign(dx);
             this.entity.directionY = Math.sign(dy);
-            let fx = Math.abs(this.entity.body.velocityX) < this.maxVelocity ? dx / d * this.movePower * this.entity.material.mass : 0;
+            let fx = Math.abs(this.entPity.body.velocityX) < this.maxVelocity ? dx / d * this.movePower * this.entity.material.mass : 0;
             let fy = Math.abs(this.entity.body.velocityY) < this.maxVelocity ? dy / d * this.movePower * this.entity.material.mass : 0;
             this.entity.body.enforce(fx, fy);
         }

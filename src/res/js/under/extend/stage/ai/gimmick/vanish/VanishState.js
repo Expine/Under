@@ -58,13 +58,4 @@ class VanishState extends State { // eslint-disable-line  no-unused-vars
         }
         return true;
     }
-
-    /**
-     * Render entity by this state
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} [shiftX = 0] Shift x position
-     * @param {number} [shiftY = 0] Shift y position
-     */
-    render(ctx, shiftX = 0, shiftY = 0) {}
 }

@@ -33,7 +33,7 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
     /**
      * Make attack object
      * @protected
-     * @return {AttackObject} Attack object
+     * @return {Entity} Attack object
      */
     makeAttackObject() {
         let punch = this.entity.stage.addEntityByID(200000);

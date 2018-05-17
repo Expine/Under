@@ -30,6 +30,18 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Make attack object
+     * @protected
+     * @return {Entity} Attack object
+     */
+    makeAttackObject() {
+        let punch = this.entity.stage.addEntityByID(200000);
+        let x = this.entity.x + (this.entity.directionX == 1 ? this.entity.width - 22 : -32 + 22);
+        punch.setPosition(x, this.entity.y + 27, this.entity.z + 1);
+        return punch;
+    }
+
+    /**
      * Initialize
      * @override
      */
@@ -49,7 +61,7 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
             return;
         }
         if (!this.attacked) {
-            this.entity.stage.addEntity(this.makeAttackObject());
+            this.makeAttackObject();
             this.attacked = true;
         }
         // change state

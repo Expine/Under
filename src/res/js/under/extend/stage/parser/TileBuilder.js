@@ -17,6 +17,18 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Try to replace deploy data
+     * @protected
+     * @param {JSON} deploy Deploy json data
+     * @param {JSON} json Information json data
+     * @param {JSON} data Data name
+     * @return {JSON} Replaced JSON data
+     */
+    tryReplace(deploy, json, data) {
+        return (deploy == undefined || deploy[data] === undefined) ? json[data] : deploy[data];
+    }
+
+    /**
      * Make collider
      * @protected
      * @param {JSON} collider Collider information json data
@@ -83,7 +95,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
         if (deploy !== undefined) {
             base.setPosition(deploy.x, deploy.y, deploy.z);
         }
-        base.setSize(json.width, json.height);
+        base.setSize(this.tryReplace(deploy, json, `width`), this.tryReplace(deploy, json, `height`));
     }
 
     /**
@@ -93,7 +105,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildImage(base, deploy, json) {
-        let image = (deploy !== undefined && deploy.image !== undefined) ? deploy.image : json.image;
+        let image = this.tryReplace(deploy, json, `image`);
         if (image !== undefined) {
             base.setImage(this.makeImage(image));
         }
@@ -107,13 +119,13 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildPhysical(base, deploy, json) {
-        let colliderData = (deploy !== undefined && deploy.collider !== undefined) ? deploy.collider : json.collider;
-        let materialData = (deploy !== undefined && deploy.material !== undefined) ? deploy.material : json.material;
+        let colliderData = this.tryReplace(deploy, json, `collider`);
+        let materialData = this.tryReplace(deploy, json, `material`);
         // set collider
         let collider = this.makeCollider(colliderData);
         if (collider != null) {
-            collider.enable = json.collider.enable === undefined ? true : json.collider.enable;
-            collider.response = json.collider.response === undefined ? true : json.collider.response;
+            collider.enable = colliderData.enable === undefined ? true : colliderData.enable;
+            collider.response = colliderData.response === undefined ? true : colliderData.response;
             collider.setAABB(this.makeAABB(colliderData));
         }
         base.setCollider(collider);

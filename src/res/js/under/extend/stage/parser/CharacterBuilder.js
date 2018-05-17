@@ -56,35 +56,26 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * Make AI
      * @protected
      * @param {JSON} ai AI information json data
-     * @param {JSON} deploy AI deploy json data
      * @return {AI} AI
      */
-    makeAI(ai, deploy) {
+    makeAI(ai) {
         switch (ai.type) {
             case `EnemyAI`:
-                return new EnemyAI();
+                return new EnemyAI(this.makeAI(ai.ai));
             case `StraightAI`:
-                return new StraightAI();
+                return new StraightAI(ai.mvx, ai.px);
             case `JumpAI`:
-                return new JumpAI();
+                return new JumpAI(ai.jump);
             case `ElevatorAI`:
                 {
-                    let v = (deploy === undefined || deploy.velocity === undefined) ? ai.velocity : deploy.velocity;
-                    let p = (deploy === undefined || deploy.power === undefined) ? ai.power : deploy.power;
-                    let floors = (deploy === undefined || deploy.floors === undefined) ? ai.floors : deploy.floors;
-                    let ret = new ElevatorAI(v, p);
-                    for (let it of floors) {
+                    let ret = new ElevatorAI(ai.velocity, ai.power);
+                    for (let it of ai.floors) {
                         ret.addPosition(it.x, it.y);
                     }
                     return ret;
                 }
             case `VanishStateAI`:
-                {
-                    let hide = (deploy === undefined || deploy.hide === undefined) ? ai.hide : deploy.hide;
-                    let show = (deploy === undefined || deploy.show === undefined) ? ai.show : deploy.show;
-                    let interval = (deploy === undefined || deploy.interval === undefined) ? ai.interval : deploy.interval;
-                    return new VanishStateAI(hide, show, interval);
-                }
+                return new VanishStateAI(ai.hide, ai.show, ai.interval);
             case `PlayerGameoverStateAI`:
                 return new PlayerGameoverStateAI();
             case `PlayerBaseStateAI`:
@@ -118,31 +109,34 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             case `Door`:
                 {
                     let ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
-                    let collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
-                    collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                    let colliderData = this.tryReplace(deploy, entity, `collider`);
+                    let collider = this.makeCollider(colliderData);
+                    collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
                     return ret;
                 }
             case `Sign`:
                 {
                     let ret = new SignObject();
-                    let collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
-                    collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                    let colliderData = this.tryReplace(deploy, entity, `collider`);
+                    let collider = this.makeCollider(colliderData);
+                    collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
-                    let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
+                    let signData = this.tryReplace(deploy, entity, `sign`);
                     ret.setSign(this.imageBuilder.build(`event`, signData.image), signData.x, signData.y);
                     return ret;
                 }
             case `Event`:
                 {
                     let ret = new ImmutableEvent();
-                    let collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
-                    collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                    let colliderData = this.tryReplace(deploy, entity, `collider`);
+                    let collider = this.makeCollider(colliderData);
+                    collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
                     return ret;
                 }
             case `Attack`:
-                return new AttackObject((deploy === undefined || deploy.life === undefined) ? entity.lifespan : deploy.lifespan);
+                return new AttackObject(this.tryReplace(deploy, entity, `lifespan`));
             default:
                 return null;
         }
@@ -156,10 +150,11 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {JSON} json Character json data
      */
     buildBody(base, deploy, json) {
-        base.setRigidBody(this.makeBody(json.body));
+        let bodyData = this.tryReplace(deploy, json, `body`);
+        base.setRigidBody(this.makeBody(bodyData));
         if (base.body != null) {
-            base.body.enable = json.body.enable === undefined ? true : json.body.enable;
-            base.body.setMaterial(this.makeBodyMaterial(json.body.material));
+            base.body.enable = bodyData.enable === undefined ? true : bodyData.enable;
+            base.body.setMaterial(this.makeBodyMaterial(bodyData.material));
         }
     }
 
@@ -171,11 +166,28 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {JSON} json Character json data
      */
     buildAI(base, deploy, json) {
-        if (json.ai === undefined) {
-            return;
+        let aiData = [];
+        if (json.ai !== undefined) {
+            for (let it of json.ai) {
+                aiData.push(it);
+            }
         }
-        for (let ai of json.ai) {
-            base.addAI(this.makeAI(ai, deploy !== undefined ? deploy.ai : undefined));
+        if (deploy !== undefined && deploy.ai !== undefined) {
+            for (let it of deploy.ai) {
+                let index = aiData.findIndex((v) => v.type === it.type);
+                if (index >= 0) {
+                    for (let item in it) {
+                        if (it.hasOwnProperty(item)) {
+                            aiData[index][item] = it[item];
+                        }
+                    }
+                } else {
+                    aiData.push(it);
+                }
+            }
+        }
+        for (let ai of aiData) {
+            base.addAI(this.makeAI(ai));
         }
     }
 

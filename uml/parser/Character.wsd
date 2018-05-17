@@ -8,7 +8,7 @@ package under {
                     #makeImage(image) : GameImage <<override>>
                     #makeBody(body) : RigidBody
                     #makeBodyMaterial(material) : RigidBodyMaterial
-                    #makeAI(ai, deploy) : AI
+                    #makeAI(ai) : AI
                     #makeEntityBase(deploy, entity) : Entity
                     #buildBody(base,deploy,json)
                     #buildAI(base,deploy,json)

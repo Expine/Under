@@ -9,22 +9,24 @@ class StraightAI extends AI { // eslint-disable-line  no-unused-vars
     /**
      * Straight AI Constructor
      * @constructor
+     * @param {number} mvx Maximum speed vector of x
+     * @param {number} px Force applied when moving
      */
-    constructor() {
+    constructor(mvx, px) {
         super();
 
         /**
-         * Maximum speed vector
+         * Maximum speed vector of x
          * @protected
          * @type {number}
          */
-        this.maxVelocityX = 100;
+        this.maxVelocityX = mvx;
         /**
          * Force applied when moving
          * @protected
          * @type {number}
          */
-        this.walkPower = 1000;
+        this.walkPower = px;
     }
 
     /**

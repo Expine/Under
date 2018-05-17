@@ -147,7 +147,12 @@
                 "mu": 0.95
             },
             "ai": [{
-                "type": "EnemyAI"
+                "type": "EnemyAI",
+                "ai": {
+                    "type": "StraightAI",
+                    "mvx": 100,
+                    "px": 1000
+                }
             }]
         },
         {
@@ -186,7 +191,8 @@
                 "mu": 0.95
             },
             "ai": [{
-                "type": "JumpAI"
+                "type": "JumpAI",
+                "jump": 500
             }]
         },
         {
@@ -214,7 +220,12 @@
                 "mu": 0.95
             },
             "ai": [{
-                "type": "EnemyAI"
+                "type": "EnemyAI",
+                "ai": {
+                    "type": "StraightAI",
+                    "mvx": 100,
+                    "px": 1000
+                }
             }]
         },
         {

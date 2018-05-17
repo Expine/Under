@@ -1,0 +1,120 @@
+@startuml AIExtend
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_ai {
+                package ex_player {
+                    class PlayerBaseStateAI
+                    class PlayerGameoverStateAI
+                    class PStationaryState {
+                        #maxVelocityX : number
+                        #walkPower : number
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class PWalkState {
+                        #maxVelocityX : number
+                        #walkPower : number
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class PJumpState {
+                        #inAirCount : number
+                        #jumpPressedTime : number
+                        #jumpDeltaTime : number
+                        #jumpPower : number
+                        #reserveVelocityX : number
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class PJumpingState {
+                        #maxVelocityX : number
+                        #movePower : number
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class PPunchState {
+                        #attacked : boolean
+                        #threshold : number
+                        #makeAttackObject() : AttackObject
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class PGameoverState {
+                        +apply(dt) : boolean <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+        }
+        package resource {
+            package image {
+                abstract GameAnimation
+            }
+        }
+        package stage {
+            package entity {
+                abstract AutonomyEntity
+            }
+            package physics {
+                package body {
+                    abstract RigidBody
+                }
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_ai {
+                class NamedStateAI
+                package ex_state {
+                    abstract BaseState
+                }
+            }
+        }
+    }
+}
+
+AutonomyEntity <.... PStationaryState : Get
+RigidBody <.... PStationaryState : Enforce
+IKey <.... PStationaryState : Get
+
+AutonomyEntity <.... PWalkState : Get
+RigidBody <.... PWalkState : Enforce
+IKey <.... PWalkState : Get
+
+AutonomyEntity <.... PJumpState : Get
+RigidBody <.... PJumpState : Enforce
+IKey <.... PJumpState : Get
+
+AutonomyEntity <.... PJumpingState : Get
+RigidBody <.... PJumpingState : Enforce
+IKey <.... PJumpingState : Get
+
+AutonomyEntity <.... PPunchState : Get
+GameAnimation <.... PPunchState : Get
+
+PlayerBaseStateAI ..> PStationaryState : Generate
+PlayerBaseStateAI ..> PWalkState : Generate
+PlayerBaseStateAI ..> PJumpState : Generate
+PlayerBaseStateAI ..> PJumpingState : Generate
+PlayerBaseStateAI ..> PPunchState : Generate
+
+PlayerGameoverStateAI ..> PGameoverState : Generate
+
+NamedStateAI <|-- PlayerBaseStateAI
+NamedStateAI <|-- PlayerGameoverStateAI
+
+BaseState <|.. PStationaryState
+BaseState <|.. PWalkState
+BaseState <|.. PJumpState
+BaseState <|.. PJumpingState
+BaseState <|.. PPunchState
+BaseState <|.. PGameoverState
+
+@enduml

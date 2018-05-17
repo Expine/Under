@@ -47,10 +47,9 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
      * @override
      * @protected
      * @param {JSON} ai AI information json data
-     * @param {JSON} deploy AI deploy json data
      * @return {AI} AI
      */
-    makeAI(ai, deploy) {
+    makeAI(ai) {
         switch (ai.type) {
             case `CommonBaseStateAI`:
                 return new CommonBaseStateAI();
@@ -63,7 +62,7 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
             case `PropellerBaseStateAI`:
                 return new PropellerBaseStateAI();
             default:
-                return super.makeAI(ai, deploy);
+                return super.makeAI(ai);
         }
     }
 
@@ -80,25 +79,19 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
             case `Player`:
                 return new UnderPlayer();
             case `HookHead`:
-                {
-                    let max = deploy === undefined || deploy.max === undefined ? entity.max : deploy.max;
-                    let hook = deploy === undefined || deploy.hook === undefined ? entity.hook : deploy.hook;
-                    let child = deploy === undefined || deploy.child === undefined ? entity.child : deploy.child;
-                    return new HookHead(max, hook, child);
-                }
+                return new HookHead(this.tryReplace(deploy, entity, `max`), this.tryReplace(deploy, entity, `hook`), this.tryReplace(deploy, entity, `child`));
             case `HookChild`:
                 return new HookChild();
             case `Sign`:
                 {
-                    let signData = deploy.sign === undefined ? entity.sign : deploy.sign;
-                    let ret = null;
+                    let signData = this.tryReplace(deploy, entity, `sign`);
                     if (signData.image !== undefined) {
                         return super.makeEntityBase(deploy, entity);
-                    } else {
-                        ret = new TextSignObject();
                     }
-                    let collider = this.makeCollider(deploy.collider === undefined ? entity.collider : deploy.collider);
-                    collider.setAABB(this.makeAABB(deploy.collider === undefined ? entity.collider : deploy.collider));
+                    let ret = new TextSignObject();
+                    let colliderData = this.tryReplace(deploy, entity, `collider`);
+                    let collider = this.makeCollider(colliderData);
+                    collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
                     ret.setSign(signData.x, signData.y, signData.size, signData.text);
                     return ret;

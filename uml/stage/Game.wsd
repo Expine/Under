@@ -13,7 +13,7 @@ package game {
             }
             class UnderCharacterBuilder {
                 +makeCollider(collider) : Collider <<override>>
-                +makeAI(ai,deploy) : AI <<override>>
+                +makeAI(ai) : AI <<override>>
                 +makeEntityBase(deploy,entity) : Entity <<override>>
             }
         }

@@ -9,8 +9,9 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
     /**
      * Jump AI Constructor
      * @constructor
+     * @param {number} jumpPower Jumping power
      */
-    constructor() {
+    constructor(jumpPower) {
         super();
 
         /**
@@ -18,7 +19,7 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.jumpPower = 500;
+        this.jumpPower = jumpPower;
 
         /**
          * On ground counter
@@ -26,6 +27,12 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.onGroundCount = 0;
+        /**
+         * Jumped conter
+         * @protected
+         * @type {number}
+         */
+        this.jumpedCount = 0;
     }
 
     /**
@@ -37,11 +44,10 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
         if (Util.onGround(this.entity)) {
             this.entity.getImage().init();
             this.onGroundCount += dt / 1000;
+            this.jumpedCount -= dt / 1000;
         } else {
-            this.onGroundCount -= dt / 1000;
-            if (this.onGroundCount < 0) {
-                this.onGroundCount = 0;
-            }
+            this.jumpedCount = 1;
+            this.onGroundCount = 0;
         }
     }
 
@@ -53,7 +59,7 @@ class JumpAI extends AI { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // judge
-        if (this.onGroundCount > 1) {
+        if (this.onGroundCount > 1 && this.jumpedCount <= 0) {
             // reset and jump
             this.entity.body.enforce(0, -this.jumpPower * this.entity.material.mass * 1000 / dt);
         }

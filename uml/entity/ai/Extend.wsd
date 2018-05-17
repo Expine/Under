@@ -5,49 +5,54 @@ package under {
         package ex_stage {
             package ex_ai {
                 class NamedStateAI {
-                    -state : State
-                    -stateName : string
+                    #state : State
+                    #stateName : string
                     #nameStates : Dictionary<string, State>
-                    #stateAnimation : NamedAnimation
+                    +init() <<override>>
+                    +getState() <<override>>
+                    +getStateID() <<override>>
+                    +changeState(id) <<override>>
                 }
                 class StraightAI {
+                    +constructor(mvx,px)
                     #maxVelocityX : number
                     #walkPower : number
+                    +apply(dt) : boolean <<override>>
                 }
                 class JumpAI {
+                    +constructor(jumpPower)
                     #jumpPower : number
+                    #onGroundCount : number
+                    #jumpedCount : number
+                    +apply(dt) : boolean <<override>>
                 }
-                class EnemyAI
-
-                abstract BaseState {
-                    +BaseState(name) : BaseState
-                    #stateAnimation : NamedAnimation
-                    +setStateAnimation(stateAnimation)
+                class EnemyAI {
+                    +constructor(baseAI)
+                    #baseAI : AI
+                    #preDireciontX : number
+                    #preDireciontY : number
+                    +setEntity(entity) <<override>>
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +apply(dt) : boolean <<override>>
+                }
+                package ex_attack {
+                    class AttackObjectAI {
+                        +constructor(actor)
+                        #actor : Entity
+                        #preActorX : number
+                        #preActorY : number
+                        +apply(dt) : boolean <<override>>
+                    }
                 }
 
-                package ex_player {
-                    class PlayerBaseStateAI
-                    class PlayerGameoverStateAI
-                    class PStationaryState {
-                        #maxVelocityX : number
-                        #walkPower : number
+                package ex_state {
+                    abstract BaseState {
+                        +init() <<override>>
                     }
-                    class PWalkState {
-                        #maxVelocityX : number
-                        #walkPower : number
+                    class NoneState {
+                        +apply(dt) : boolean <<override>>
                     }
-                    class PJumpState {
-                        -inAirCount_ : number
-                        -jumpPressedTime_ : number
-                        -jumpDeltaTime_ : number
-                        -jumpPower_ : number
-                    }
-                    class PJumpingState {
-                        #maxVelocityX : number
-                        #walkPower : number
-                    }
-                    class PPunchState
-                    class PGameoverState
                 }
             }
         }
@@ -56,38 +61,66 @@ package under {
 
 package under {
     package base {
+        package resource {
+            package image {
+                abstract NamedAnimation
+            }
+        }
         package stage {
             package ai {
                 abstract AI
                 abstract StateAI
                 abstract State
             }
+            package entity {
+                abstract Entity
+                abstract AutonomyEntity
+                package interface {
+                    interface IDamagable
+                    interface IPlayable
+                }
+            }
+            package physics {
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+                package body {
+                    abstract RigidBody
+                }
+                package Material {
+                    abstract Material
+                }
+            }
         }
     }
 }
 
-PlayerBaseStateAI ..> PStationaryState : Generate
-PlayerBaseStateAI ..> PWalkState : Generate
-PlayerBaseStateAI ..> PJumpState : Generate
-PlayerBaseStateAI ..> PJumpingState : Generate
-PlayerBaseStateAI ..> PPunchState : Generate
+AutonomyEntity <.. StraightAI : Get and set
+RigidBody <.. StraightAI : Enforce
+Material <.. StraightAI : Get
+AutonomyEntity <.. JumpAI : Get
+RigidBody <.. JumpAI : Enforce
+Material <.. JumpAI : Get
+AutonomyEntity <.. EnemyAI : Get
+Collider <.. EnemyAI : Get
+CollisionData <.. EnemyAI : Get
+IDamagable <.. EnemyAI : Damage
 
-PlayerGameoverStateAI ..> PGameoverState : Generate
+NamedAnimation <.. BaseState : Set name
+
+AutonomyEntity <.. AttackObjectAI : Move
+Collider <.. AttackObjectAI : Get
+CollisionData <.. AttackObjectAI : Get
+IDamagable <.. AttackObjectAI : Damage
 
 StateAI <|.. NamedStateAI
 AI <|.. StraightAI
 AI <|.. JumpAI
-StraightAI <|-- EnemyAI
-NamedStateAI <|-- PlayerBaseStateAI
-NamedStateAI <|-- PlayerGameoverStateAI
+AI <|..
+ EnemyAI
 
 State <|.. BaseState
-PStationaryState --|> BaseState
-PWalkState --|> BaseState
-PJumpState --|> BaseState
-PJumpingState --|> BaseState
-PGameoverState --|> BaseState
-
-State <|.. PPunchState
+State <|.. NoneState
 
 @enduml

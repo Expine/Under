@@ -1,0 +1,105 @@
+@startuml AIExtend
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_ai {
+                package ex_gimmick {
+                    class ElevatorAI {
+                        +constructor(maxVelocity,movePower)
+                        #maxVelocity : number
+                        #movePower : number
+                        #floor : number
+                        #elevatorXList : Array<number>
+                        #elevatorYList : Array<number>
+                        #onPlayer : boolean
+                        #isMoving : boolean
+                        #notOnPlayerCount : number
+                        +addPosition(x,y)
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
+                    package ex_vanish {
+                        class VanishStateAI {
+                            +constructor(hideTime,showTime,intervalTime)
+                        }
+                        class ShowState {
+                            +constructor(showTime)
+                            #showTime : number
+                            #showCount : number
+                            +init() <<override>>
+                            +apply(dt) : boolean <<override>>
+                            +render(ctx,shiftX,shiftY) <<override>>
+                        }
+                        class VanishState {
+                            +constructor(hideTime,isShowingNext)
+                            #hideTime : number
+                            #isShowingNext : boolean
+                            #hideCount : number
+                            +init() <<override>>
+                            +apply(dt) : boolean <<override>>
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package ai {
+                abstract AI
+                abstract StateAI
+                abstract State
+            }
+            package entity {
+                abstract AutonomyEntity
+                package interface {
+                    interface IPlayable
+                }
+            }
+            package physics {
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+                package body {
+                    abstract RigidBody
+                }
+                package Material {
+                    abstract Material
+                }
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_ai {
+                class NamedStateAI
+            }
+        }
+    }
+}
+
+AutonomyEntity <.. ElevatorAI : Get and set
+Collider <.. ElevatorAI : Get
+CollisionData <.. ElevatorAI : Get
+IPlayable <.. ElevatorAI : Judge
+RigidBody <.. ElevatorAI : Enforce
+Material <.. ElevatorAI : Get
+
+VanishStateAI ..> ShowState : Generate
+VanishStateAI ..> VanishState : Generate
+AutonomyEntity <.... ShowState : Get and render
+Collider <.... ShowState : Enable
+AutonomyEntity <.... VanishState : Get and render
+Collider <.... VanishState : Enable
+
+AI <|.. ElevatorAI
+NamedStateAI <|.. VanishStateAI
+State <|... ShowState
+State <|... VanishState
+
+@enduml

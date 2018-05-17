@@ -6,6 +6,7 @@ package under {
             package ex_parser {
                 class TileBuilder {
                     #makeImage(image) : GameImage
+                    #tryReplace(deploy, json, data) : JSON
                     #makeCollider(collider) : Collider
                     #makeAABB(collider) : AABB
                     #makeMaterial(material) : Material

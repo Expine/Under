@@ -23,7 +23,8 @@ class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused
     /**
      *
      * Make attack object
-     * @return {AttackObject}
+     * @protected
+     * @return {Entity} Attack object
      */
     makeAttackObject() {
         let punch = this.entity.stage.addEntityByID(200001);

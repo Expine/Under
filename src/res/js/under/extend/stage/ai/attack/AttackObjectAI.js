@@ -26,13 +26,13 @@ class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {number}
          */
-        this.preActorx = this.actor.x;
+        this.preActorX = this.actor.x;
         /**
          * Previous actor y position
          * @protected
          * @type {number}
          */
-        this.preActory = this.actor.y;
+        this.preActorY = this.actor.y;
     }
 
     /**
@@ -43,9 +43,9 @@ class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // move to actor
-        this.entity.deltaMove(this.actor.x - this.preActorx, this.actor.y - this.preActory);
-        this.preActorx = this.actor.x;
-        this.preActory = this.actor.y;
+        this.entity.deltaMove(this.actor.x - this.preActorX, this.actor.y - this.preActorY);
+        this.preActorX = this.actor.x;
+        this.preActorY = this.actor.y;
 
         // If damageable object is collided, damage
         for (let it of this.entity.collider.collisions) {
