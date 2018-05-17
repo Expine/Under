@@ -20,6 +20,12 @@ class IKey extends IInput { // eslint-disable-line  no-unused-vars
      * @return {number} 0 key code
      */
     zero() {}
+    /**
+     * Get space key code
+     * @abstract
+     * @return {number} Space key code
+     */
+    space() {}
 
     /**
      * Get right key code

@@ -24,6 +24,7 @@ package under {
                 +init() <<override>>
                 +a() : number <<override>>
                 +zero() : number <<override>>
+                +space() : number <<override>>
                 +right() : number <<override>>
                 +left() : number <<override>>
                 +up() : number <<override>>
@@ -70,6 +71,7 @@ package under {
                 +isPressed(code) : boolean <<override>>
                 +a() : number <<override>>
                 +zero() : number <<override>>
+                +space() : number <<override>>
                 +right() : number <<override>>
                 +left() : number <<override>>
                 +up() : number <<override>>

@@ -100,6 +100,14 @@ class AllInput extends Input /* , IKey, IMouse */ { // eslint-disable-line  no-u
     zero() {
         return this.keyDelegate.zero();
     }
+    /**
+     * Get space key code
+     * @override
+     * @return {number} Space key code
+     */
+    space() {
+        return this.keyDelegate.space();
+    }
 
     /**
      * Get right key code

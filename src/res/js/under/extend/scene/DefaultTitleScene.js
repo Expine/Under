@@ -57,9 +57,8 @@ class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
         let sample = `Sample`;
         ctx.fillText(sample, 400, 300, 0.5);
 
-        // TODO: Use method
         // render when enter pressed
-        if (Input.key.isPressed(13)) {
+        if (Input.key.isPressed(Input.key.space())) {
             ctx.fillText(`Enter pressed`, 400, 400, 0.5, 0, 30, `red`);
         }
 

@@ -27,6 +27,14 @@ class KeyInput extends StateInputManager /* , IKey */ { // eslint-disable-line  
     zero() {
         return 48;
     }
+    /**
+     * Get space key code
+     * @override
+     * @return {number} Space key code
+     */
+    space() {
+        return 13;
+    }
 
     /**
      * Get right key code
