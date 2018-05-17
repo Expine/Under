@@ -1,0 +1,77 @@
+@startuml AIPropeller
+package game {
+    package ga_stage {
+        package ga_ai {
+            package ga_player {
+                package ga_wild {
+                    class PropellerBaseStateAI
+                    class PropellerJumpingState {
+                        +constructor(maxVelocityX,maxVelocityY, movePowerX,movePowerY)
+                        #propellerDiffY : number
+                        #moveY(vy,dy) <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                abstract GameAnimation
+            }
+        }
+        package stage {
+            package entity {
+                abstract AutonomyEntity
+            }
+            package physics {
+                package body {
+                    abstract RigidBody
+                }
+                package collider {
+                    abstract Collider
+                    abstract AABB
+                }
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        package ga_ai {
+            interface IMovableState
+            interface IPrepareState
+            package ga_player {
+                abstract UnderMovableState
+                package ga_normal {
+                    class NormalBaseStateAI
+                }
+            }
+        }
+    }
+}
+
+IMovableState <.. PropellerBaseStateAI : Transfer
+IPrepareState <.. PropellerBaseStateAI : Transfer
+
+PropellerBaseStateAI ..> PropellerJumpingState : Generate
+
+AutonomyEntity <.... PropellerJumpingState : Get
+RigidBody <.... PropellerJumpingState : Get and enforce
+GameAnimation <.... PropellerJumpingState : Restore
+Collider <.... PropellerJumpingState : Get and fix
+AABB <.... PropellerJumpingState : Get
+
+
+NormalBaseStateAI <|-- PropellerBaseStateAI
+
+UnderMovableState <|.. PropellerJumpingState
+
+@enduml

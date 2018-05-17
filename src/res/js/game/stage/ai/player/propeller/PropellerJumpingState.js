@@ -10,7 +10,7 @@
  * @extends {UnderMovableState}
  * @classdesc Propeller jump state that can fly
  */
-class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line  no-unused-vars
+class PropellerJumpingState extends UnderMovableState { // eslint-disable-line  no-unused-vars
     /**
      * Propeller jump state constructor
      * @constructor
@@ -22,6 +22,11 @@ class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line 
     constructor(maxVelocityX, maxVelocityY, movePowerX, movePowerY) {
         super(maxVelocityX, maxVelocityY, movePowerX, movePowerY);
 
+        /**
+         * Amount of indicating difference of height
+         * @protected
+         * @type {number}
+         */
         this.propellerDiffY = 8;
     }
 
@@ -48,7 +53,6 @@ class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line 
         if (this.entity.getImage() instanceof GameAnimation) {
             this.entity.getImage().restore();
         }
-        this.underCount = 0;
         let aabb = this.entity.collider.getAABB();
         this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.propellerDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
     }
@@ -74,11 +78,7 @@ class PropellerBJumpingState extends UnderMovableState { // eslint-disable-line 
     apply(dt) {
         this.moveByInput(dt);
         if (Util.onGround(this.entity)) {
-            if (this.entity.body.isFixX) {
-                this.ai.changeState(`stationary`);
-            } else {
-                this.ai.changeState(`walk`);
-            }
+            this.transitionUsualState();
             // restore
             let aabb = this.entity.collider.getAABB();
             this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY + this.propellerDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);

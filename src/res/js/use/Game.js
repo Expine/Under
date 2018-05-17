@@ -1098,7 +1098,7 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof UnderMovableState !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/player/propeller/PropellerBJumpingState.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/player/propeller/PropellerJumpingState.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1377,7 +1377,7 @@
         typeof NormalJumpingState !== `undefined` &&
         typeof NormalStationaryState !== `undefined` &&
         typeof NormalWalkState !== `undefined` &&
-        typeof PropellerBJumpingState !== `undefined` &&
+        typeof PropellerJumpingState !== `undefined` &&
         typeof AdventurerFallState !== `undefined` &&
         typeof AdventurerGrabState !== `undefined` &&
         typeof AdventurerJumpingState !== `undefined` &&

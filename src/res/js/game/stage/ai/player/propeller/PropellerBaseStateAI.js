@@ -31,6 +31,6 @@ class PropellerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  n
                 }
             }
         }
-        this.namedStates[`jumping`] = new PropellerBJumpingState(350, 500, 21000, 30000);
+        this.namedStates[`jumping`] = new PropellerJumpingState(350, 500, 21000, 30000);
     }
 }
