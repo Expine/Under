@@ -1,0 +1,84 @@
+@startuml EntityExtendCharacter
+package under {
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                package ex_character {
+                    class Character {
+                        #hp : number
+                        +setHP(hp)
+                        +getHP() : number <<override>>
+                        +damage() : number <<override>>
+                        +destroy() <<override>>
+                    }
+                    class StateCharacter {
+                        #state : State
+                        +applyAI(dt) <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
+                    class Enemy
+                    class Player {
+                        #invincible : number
+                        +damage(damage) <<override>>
+                        +getCameraX() : number <<override>>
+                        +getCameraY() : number <<override>>
+                        +isGameover() : boolean <<override>>
+                        +update(dt) <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                abstract GameImage
+            }
+        }
+        package stage {
+            abstract Stage
+            package ai {
+                abstract StateAI
+                package state {
+                    abstract State
+                }
+            }
+            package entity {
+                package interface {
+                    interface IDamagable
+                    interface IPlayable
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                class AIListedObject
+            }
+        }
+    }
+}
+
+Stage <... Character : Destroy
+GameImage <... Character : Set size
+StateAI <... StateCharacter : Get state
+State <... StateCharacter : Render
+
+Stage <... Player : Get height
+
+AIListedObject <|-- Character
+IDamagable <|.. Character
+Character <|-- StateCharacter
+StateCharacter <|-- Player
+IPlayable <|.. Player
+Character <|-- Enemy
+
+@enduml

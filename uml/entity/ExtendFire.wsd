@@ -1,0 +1,64 @@
+@startuml EntityExtendFire
+package under {
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                package ex_fire {
+                    class ImmutableEvent {
+                        #event : GameEvent
+                        #collided : boolean
+                        #eventCollider : Collider
+                        +setEvent(event) <<override>>
+                        +getEvent() : GameEvent <<override>>
+                        +fire() <<override>>
+                        +getCollider() : Collider <<override>>
+                        +update(dt) <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package event {
+            abstract EventManager
+            package common {
+                abstract GameEvent
+            }
+        }
+        package stage {
+            abstract Stage
+            package entity {
+                abstract Entity
+                package interface {
+                    interface IPlayable
+                    interface IEventEntity
+                    interface IColliderable
+                }
+            }
+            package physics {
+                abstract PhysicalWorld
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+            }
+        }
+    }
+}
+
+GameEvent <.. ImmutableEvent : Init and register
+EventManager <.. ImmutableEvent : Register
+Collider <.. ImmutableEvent : Set and get
+Stage <.. ImmutableEvent : Get
+PhysicalWorld <.. ImmutableEvent : Get
+CollisionData <.. ImmutableEvent : Get
+IPlayable <.. ImmutableEvent : Judge
+
+Entity <|.. ImmutableEvent
+IEventEntity <|.. ImmutableEvent
+IColliderable <|.. ImmutableEvent
+
+@enduml

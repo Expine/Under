@@ -12,43 +12,6 @@ package under {
                     +updateAI(dt) <<override>>
                     +applyAI(dt) <<override>>
                 }
-                package ex_character {
-                    class Character {
-                        #hp : number
-                        +setHP(hp)
-                        +getHP() : number <<override>>
-                        +damage() : number <<override>>
-                        +destroy() <<override>>
-                    }
-                    class StateCharacter {
-                        #state : State
-                        +applyAI(dt) <<override>>
-                        +render(ctx,shiftX,shiftY) <<override>>
-                    }
-                    class Enemy
-                    class Player {
-                        #invincible : number
-                        +damage(damage) <<override>>
-                        +getCameraX() : number <<override>>
-                        +getCameraY() : number <<override>>
-                        +isGameover() : boolean <<override>>
-                        +update(dt) <<override>>
-                        +render(ctx,shiftX,shiftY) <<override>>
-                    }
-                }
-                package ex_fire {
-                    class ImmutableEvent {
-                        #event : GameEvent
-                        #collided : boolean
-                        #eventCollider : Collider
-                        +setEvent(event) <<override>>
-                        +getEvent() : GameEvent <<override>>
-                        +fire() <<override>>
-                        +getCollider() : Collider <<override>>
-                        +init() <<override>>
-                        +update(dt) <<override>>
-                    }
-                }
                 package ex_happen {
                     package ex_attack {
                         class AttackObject {
@@ -63,33 +26,6 @@ package under {
                         +setOwner(owner)
                     }
                 }
-                package ex_object {
-                    class DoorObject {
-                        #transtion : string
-                        #isReplace : boolean
-                        #popNumber : number
-                        #doorCollider : Collider
-                        #isTransitioning : boolean
-                        +setCollider(collider)
-                        +getCollider() : Collider <<override>>
-                        +init() <<override>>
-                        +update(dt) <<override>>
-                    }
-                    class SignObject {
-                        #signImage : GameImage
-                        #signX : number
-                        #signY : number
-                        #signCollider : Collider
-                        #isShowSign : boolean
-                        #speed : number
-                        +setSign(signImage,x,y)
-                        +setCollider(collider)
-                        +getCollider() : Collider <<override>>
-                        +init() <<override>>
-                        +update(dt) <<override>>
-                        +render(ctx,shiftX,shiftY) <<override>>
-                    }
-                }
             }
         }
     }
@@ -97,27 +33,17 @@ package under {
 
 package under {
     package base {
-        package ai {
-            abstract AI
-            abstract StateAI
-            package state {
-                abstract State
-            }
-        }
         package stage {
             abstract Stage
+            package ai {
+                abstract AI
+            }
             package entity {
-                abstract Entity
-                abstract ImagedEntity
                 abstract ImmutableObject
                 abstract MutableObject
                 abstract AutonomyObject
                 package interface {
-                    interface IDamagable
                     interface IBreakable
-                    interface IPlayable
-                    interface IEventEntity
-                    interface IColliderable
                 }
             }
         }
@@ -125,32 +51,15 @@ package under {
 }
 
 AI <.. AIListedObject : Update and apply
-Stage <.. Character : Destroy
-StateAI <.. StateCharacter : Get state
-State <.. StateCharacter : Render
+
+Stage <.. AttackObject : Destroy
 
 ImmutableObject <|.. TileObject
 MutableObject <|.. Obstacle
 AutonomyObject <|.. AIListedObject
 
-AIListedObject <|-- Character
-IDamagable <|.. Character
-Character <|-- StateCharacter
-StateCharacter <|-- Player
-IPlayable <|.. Player
-Character <|-- Enemy
-
-Entity <|.. ImmutableEvent
-IEventEntity <|.. ImmutableEvent
-IColliderable <|.. ImmutableEvent
-
 AIListedObject <|-- PossessedObject
 AIListedObject <|.. AttackObject
 IBreakable <|.. AttackObject
-
-ImagedEntity <|.. DoorObject
-IColliderable <|.. DoorObject
-ImagedEntity <|.. SignObject
-IColliderable <|.. SignObject
 
 @enduml

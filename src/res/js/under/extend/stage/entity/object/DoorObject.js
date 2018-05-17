@@ -60,6 +60,7 @@ class DoorObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
     setCollider(collider) {
         this.doorCollider = collider;
         this.doorCollider.setEntity(this);
+        this.doorCollider.init();
     }
 
     /**
@@ -69,15 +70,6 @@ class DoorObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
      */
     getCollider() {
         return this.doorCollider;
-    }
-
-    /**
-     * Initialize entity
-     * @override
-     */
-    init() {
-        super.init();
-        this.doorCollider.init();
     }
 
     /**

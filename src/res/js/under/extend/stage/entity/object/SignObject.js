@@ -76,6 +76,7 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
     setCollider(collider) {
         this.signCollider = collider;
         this.signCollider.setEntity(this);
+        this.signCollider.init();
     }
 
     /**
@@ -95,7 +96,6 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
         if (this.signImage !== null) {
             this.signImage.init();
         }
-        this.signCollider.init();
         this.isShowSign = false;
     }
 

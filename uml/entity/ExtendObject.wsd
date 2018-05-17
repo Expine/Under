@@ -1,0 +1,88 @@
+@startuml EntityExtendObject
+package under {
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                package ex_object {
+                    class DoorObject {
+                        #transtion : string
+                        #isReplace : boolean
+                        #popNumber : number
+                        #doorCollider : Collider
+                        #isTransitioning : boolean
+                        +setCollider(collider)
+                        +getCollider() : Collider <<override>>
+                        +update(dt) <<override>>
+                    }
+                    class SignObject {
+                        #signImage : GameImage
+                        #signX : number
+                        #signY : number
+                        #signCollider : Collider
+                        #isShowSign : boolean
+                        #speed : number
+                        +setSign(signImage,x,y)
+                        +setCollider(collider)
+                        +getCollider() : Collider <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                        +render(ctx,shiftX,shiftY) <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+        }
+        package resource {
+            package image {
+                abstract GameImage
+            }
+        }
+        package stage {
+            abstract Stage
+            abstract StageManager
+            package entity {
+                abstract ImagedEntity
+                package interface {
+                    interface IPlayable
+                    interface IColliderable
+                }
+            }
+            package physics {
+                abstract PhysicalWorld
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+            }
+        }
+    }
+}
+
+Collider <.. DoorObject : Set and get
+IKey <.. DoorObject : Get and enable
+StageManager <.. DoorObject : Transition
+Stage <.. DoorObject : Get
+PhysicalWorld <.. DoorObject : Get
+CollisionData <.. DoorObject : Get
+IPlayable <.. DoorObject : Judge
+
+Collider <.. SignObject : Set and get
+GameImage <.. SignObject : Manage
+Stage <.. SignObject : Get
+PhysicalWorld <.. SignObject : Get
+CollisionData <.. SignObject : Get
+IPlayable <.. SignObject : Judge
+
+ImagedEntity <|.. DoorObject
+IColliderable <|.. DoorObject
+ImagedEntity <|.. SignObject
+IColliderable <|.. SignObject
+
+@enduml

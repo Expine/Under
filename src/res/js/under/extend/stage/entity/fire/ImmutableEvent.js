@@ -75,6 +75,7 @@ class ImmutableEvent extends Entity /* , IEventEntity, IColliderable */ { // esl
     setCollider(collider) {
         this.eventCollider = collider;
         this.eventCollider.setEntity(this);
+        this.eventCollider.init();
     }
 
     /**
@@ -84,14 +85,6 @@ class ImmutableEvent extends Entity /* , IEventEntity, IColliderable */ { // esl
      */
     getCollider() {
         return this.eventCollider;
-    }
-
-    /**
-     * Initialize entity
-     * @override
-     */
-    init() {
-        this.eventCollider.init();
     }
 
     /**

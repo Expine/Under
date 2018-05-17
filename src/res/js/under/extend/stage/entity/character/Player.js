@@ -85,8 +85,6 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
         if (this.invincible <= 0) {
             this.invincible = 0;
         }
-        // TODO: Maybe include image
-        this.image.setSize(this.width * this.directionX, this.height * (this.directionY == 0 ? 1 : this.directionY));
         super.update(dt);
     }
 
