@@ -269,10 +269,21 @@
             "id": 100006,
             "type": "Sign",
             "image": {
-                "type": "single",
+                "type": "anime",
                 "file": "sign.png",
                 "width": 64,
-                "height": 64
+                "height": 64,
+                "loop": false,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 100,
+                    "serial": true,
+                    "horizontal": 4,
+                    "vertical": 1
+                }]
             },
             "width": 64,
             "height": 64,
@@ -368,10 +379,21 @@
             "id": 100009,
             "type": "Sign",
             "image": {
-                "type": "single",
+                "type": "anime",
                 "file": "sign.png",
                 "width": 32,
-                "height": 32
+                "height": 32,
+                "loop": false,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 100,
+                    "serial": true,
+                    "horizontal": 4,
+                    "vertical": 1
+                }]
             },
             "width": 32,
             "height": 32,

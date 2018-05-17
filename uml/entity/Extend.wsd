@@ -81,7 +81,6 @@ package under {
                         #signY : number
                         #signCollider : Collider
                         #isShowSign : boolean
-                        #currentHeight : number
                         #speed : number
                         +setSign(signImage,x,y)
                         +setCollider(collider)

@@ -50,13 +50,6 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
         this.isShowSign = false;
 
         /**
-         * Sign current height
-         * @protected
-         * @type {number}
-         */
-        this.currentHeight = 0;
-
-        /**
          * Show speed
          * @protected
          * @type {number}
@@ -102,9 +95,8 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
         if (this.signImage !== null) {
             this.signImage.init();
         }
-        this.isShowSign = false;
-        this.currentHeight = 0;
         this.signCollider.init();
+        this.isShowSign = false;
     }
 
     /**
@@ -121,27 +113,18 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
                 break;
             }
         }
-        // show
-        if (this.isShowSign && this.currentHeight < this.height) {
+        if (this.isShowSign) {
             super.update(dt);
-            this.currentHeight += dt / 1000 * this.speed;
-            if (this.currentHeight > this.height) {
-                this.currentHeight = this.height;
+            // show
+            if (this.signImage !== null && Util.canEnd(this.image)) {
+                this.signImage.update(dt);
             }
-        }
-        // hide
-        if (!this.isShowSign && this.currentHeight > 0) {
-            super.update(dt);
-            this.currentHeight -= dt / 1000 * this.speed * 3;
-            if (this.currentHeight < 0) {
+        } else {
+            // hide
+            if (this.signImage !== null) {
                 this.signImage.init();
-                this.currentHeight = 0;
             }
         }
-        if (this.signImage !== null && this.isShowSign && this.current == this.height) {
-            this.signImage.update(dt);
-        }
-        this.image.setSize(this.width, this.currentHeight);
     }
 
     /**
@@ -152,9 +135,8 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        // TODO: the signboard stand up by animation?
-        super.render(ctx, shiftX, shiftY + this.height - this.currentHeight);
-        if (this.signImage !== null && this.isShowSign && this.currentHeight == this.height) {
+        super.render(ctx, shiftX, shiftY);
+        if (this.signImage !== null && this.isShowSign && Util.canEnd(this.image)) {
             this.signImage.render(ctx, this.x + shiftX + this.signX, this.y + shiftY + this.signY);
         }
     }
