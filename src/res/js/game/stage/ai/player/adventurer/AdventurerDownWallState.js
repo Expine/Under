@@ -69,11 +69,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
             return true;
         }
         if (Util.onGround(this.entity)) {
-            if (this.entity.body.isFixX) {
-                this.ai.changeState(`stationary`);
-            } else {
-                this.ai.changeState(`walk`);
-            }
+            this.transitionUsualState();
             return true;
         }
         if (Input.key.isPress(Input.key.sub())) {
@@ -97,21 +93,14 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
         }
 
         // always push wall
-        let collided = false;
-        for (let it of this.entity.collider.collisions) {
-            if (Math.abs(it.nx) > 0.5 && this.directionX * it.nx < 0) {
-                collided = true;
-            }
-        }
+        this.entity.body.enforce(-30000 * this.entity.material.mass * this.directionX / dt, 0);
+        this.entity.directionX = this.directionX;
+        let collided = this.entity.collider.collisions.some((it) => Math.abs(it.nx) && this.directionX * it.nx < 0);
         if (collided) {
-            this.entity.body.enforce(-30000 * this.entity.material.mass * this.directionX / dt, 0);
-            this.entity.directionX = this.directionX;
             this.downWallCount = 0;
         } else if (++this.downWallCount > 2) {
+            this.entity.body.enforce(90000 * this.entity.material.mass * this.directionX / dt, 0);
             this.ai.changeState(`falling`);
-        } else {
-            this.entity.body.enforce(-30000 * this.entity.material.mass * this.directionX / dt, 0);
-            this.entity.directionX = this.directionX;
         }
         return true;
     }

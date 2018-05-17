@@ -30,6 +30,17 @@ class AdventurerJumpingState extends NormalJumpingState { // eslint-disable-line
                 }
             }
         }
+        // release hook
+        if (Input.key.isPress(Input.key.sub())) {
+            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
+            if (hooks.length >= 1) {
+                for (let it of hooks) {
+                    if (it.getActor() === this.entity) {
+                        it.release();
+                    }
+                }
+            }
+        }
         return super.apply(dt);
     }
 }

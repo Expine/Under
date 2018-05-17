@@ -5,10 +5,36 @@ package game {
             package ga_player {
                 package ga_wild {
                     class WildBaseStateAI
-                    class WildJumpState
-                    class WildClawState
-                    class WildRollingState
-                    class WildRollState
+                    class WildClawState {
+                        #makeAttackObject() : Entity <<override>>
+                    }
+                    class WildRollingState {
+                        +apply(dt) <<override>>
+                    }
+                    class WildRollState {
+                        +constructor(movePowerX,movePoserY)
+                        +init() <<override>>
+                        +apply(dt) <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            abstract Stage
+            package ai {
+                abstract StateAI
+            }
+            package entity {
+                abstract AutonomyEntity
+            }
+            package physics {
+                package body {
+                    abstract RigidBody
                 }
             }
         }
@@ -18,12 +44,13 @@ package game {
 package game {
     package ga_stage {
         package ga_ai {
+            interface IMovableState
+            interface IPrepareState
             package ga_player {
                 abstract UnderPlayerState
                 abstract UnderMovableState
                 package ga_normal {
                     class NormalBaseStateAI
-                    class NormalJumpState
                     class NormalPunchState
                 }
             }
@@ -31,14 +58,24 @@ package game {
     }
 }
 
-WildBaseStateAI ..> WildJumpState : Generate
+IMovableState <.. WildBaseStateAI : Transfer
+IPrepareState <.. WildBaseStateAI : Transfer
+
 WildBaseStateAI ..> WildClawState : Generate
 WildBaseStateAI ..> WildRollState : Generate
 WildBaseStateAI ..> WildRollingState : Generate
 
+AutonomyEntity <.... WildClawState : Get
+Stage <.... WildClawState : Create
+StateAI <.... WildRollState : Change
+AutonomyEntity <.... WildRollState : Get
+RigidBody <.... WildRollState : Set and enforce
+
+AutonomyEntity <.... WildRollingState : Get
+RigidBody <.... WildRollingState : Set
+
 NormalBaseStateAI <|-- WildBaseStateAI
 
-WildJumpState --|> NormalJumpState
 WildClawState --|> NormalPunchState
 WildRollingState ..|> UnderPlayerState
 WildRollState ..|> UnderMovableState

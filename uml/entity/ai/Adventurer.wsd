@@ -1,0 +1,173 @@
+@startuml AIAdventurer
+package game {
+    package ga_stage {
+        package ga_ai {
+            package ga_player {
+                package ga_adventurer {
+                    class AdventurerBaseStateAI
+                    class AdventurerStationaryState {
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class AdventurerWalkState {
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class AdventurerJumpingState {
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class AdventurerFallState {
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class AdventurerGrabState {
+                        #changed() <<override>>
+                    }
+                    class AdventurerHookState {
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class AdventurerDownWallState {
+                        +contructor(maxVelocityX,movePower)
+                        #directionX : number
+                        #directionY : number
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+        }
+        package stage {
+            abstract Stage
+            package ai {
+                abstract StateAI
+            }
+            package entity {
+                abstract AutonomyEntity
+            }
+            package physics {
+                package body {
+                    abstract RigidBody
+                }
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                package ex_happen {
+                    abstract PossessedObject
+                }
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        package ga_ai {
+            interface IMovableState
+            interface IPrepareState
+            package ga_player {
+                abstract UnderPlayerState
+                abstract UnderMovableState
+                package ga_normal {
+                    class NormalBaseStateAI
+                    class NormalStationaryState
+                    class NormalWalkState
+                    class NormalJumpingState
+                    class NormalFallState
+                    class NormalGrabState
+                }
+            }
+        }
+        package ga_entity {
+            package ga_happen {
+                package ga_special {
+                    package ga_hook {
+                        interface IHook
+                    }
+                }
+            }
+        }
+    }
+}
+
+IMovableState <.. AdventurerBaseStateAI : Transfer
+IPrepareState <.. AdventurerBaseStateAI : Transfer
+
+AdventurerBaseStateAI ..> AdventurerStationaryState : Generate
+AdventurerBaseStateAI ..> AdventurerWalkState : Generate
+AdventurerBaseStateAI ..> AdventurerGrabState : Generate
+AdventurerBaseStateAI ..> AdventurerJumpingState : Generate
+AdventurerBaseStateAI ..> AdventurerFallState : Generate
+AdventurerBaseStateAI ..> AdventurerHookState : Generate
+AdventurerBaseStateAI ..> AdventurerDownWallState : Generate
+
+AutonomyEntity <.... AdventurerStationaryState : Get
+IKey <.... AdventurerStationaryState : Get
+Collider <.... AdventurerStationaryState : Get
+CollisionData <.... AdventurerStationaryState : Get
+IHook <.. AdventurerStationaryState : Judge and remove
+
+AutonomyEntity <.... AdventurerWalkState : Get
+IKey <.... AdventurerWalkState : Get
+Collider <.... AdventurerWalkState : Get
+CollisionData <.... AdventurerWalkState : Get
+IHook <.. AdventurerWalkState : Judge and remove
+
+AutonomyEntity <.... AdventurerJumpingState : Get
+IKey <.... AdventurerJumpingState : Get
+Collider <.... AdventurerJumpingState : Get
+CollisionData <.... AdventurerJumpingState : Get
+Stage <.... AdventurerJumpingState : Get
+IHook <.. AdventurerJumpingState : Remove and release
+
+AutonomyEntity <.... AdventurerFallState : Get
+StateAI <.... AdventurerFallState : Change
+RigidBody <.... AdventurerFallState : Enforce
+IKey <.... AdventurerFallState : Get
+Collider <.... AdventurerFallState : Get
+CollisionData <.... AdventurerFallState : Get
+Stage <.... AdventurerFallState : Get
+IHook <.. AdventurerFallState : Remove and release
+
+AutonomyEntity <.... AdventurerGrabState : Get
+Stage <.... AdventurerGrabState : Get
+IHook <.. AdventurerGrabState : Get and release
+
+AutonomyEntity <...... AdventurerHookState : Get
+Stage <.... AdventurerHookState : Get and create
+PossessedObject <.... AdventurerHookState : Set
+RigidBody <.... AdventurerHookState : Enforce
+IHook <.. AdventurerHookState : Get and release
+
+AutonomyEntity <.... AdventurerDownWallState : Get
+StateAI <.... AdventurerDownWallState : Change
+RigidBody <.... AdventurerDownWallState : Enforce
+IKey <.... AdventurerDownWallState : Get
+Collider <.... AdventurerDownWallState : Get
+CollisionData <.... AdventurerDownWallState : Get
+Stage <.... AdventurerDownWallState : Get and create
+IHook <.. AdventurerDownWallState : Remove and release
+
+NormalBaseStateAI <|-- AdventurerBaseStateAI
+
+NormalStationaryState <|-- AdventurerStationaryState
+NormalWalkState <|-- AdventurerWalkState
+NormalJumpingState <|-- AdventurerJumpingState
+NormalFallState <|-- AdventurerFallState
+NormalGrabState <|-- AdventurerGrabState
+UnderPlayerState <|.. AdventurerHookState
+UnderMovableState <|.. AdventurerDownWallState
+
+@enduml

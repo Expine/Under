@@ -1,4 +1,4 @@
-@startuml AINormal
+@startuml AIGameBase
 package game {
     package ga_stage {
         package ga_ai {
