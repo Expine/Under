@@ -4,6 +4,7 @@
  * - Determines by state
  * - Manages state by name
  * - ### Basic information can be transferred to another state AI
+ * @interface
  * @extends {NamedStateAI}
  * @classdesc Transferable state AI to transfer information to another state AI
  */
@@ -16,11 +17,6 @@ class TransferableStateAI extends NamedStateAI { // eslint-disable-line  no-unus
         for (let name in this.namedStates) {
             if (this.namedStates.hasOwnProperty(name)) {
                 let other = state.namedStates[name];
-                if (other === undefined) {
-                    // create to store animation
-                    other = new NormalNoneState();
-                    state.setState(other, name);
-                }
                 if (other instanceof TransferableState) {
                     // transfer state
                     this.namedStates[name].transfer(other);

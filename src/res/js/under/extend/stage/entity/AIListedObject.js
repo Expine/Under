@@ -6,10 +6,10 @@
  * - It is not fixed and can be moved
  * - It can move by AI
  * - ### Manages AI by list
- * @extends {AutonomyEntitiy}
+ * @extends {AutonomyEntity}
  * @classdesc AI listed object to manage AI by list
  */
-class AIListedObject extends AutonomyEntitiy { // eslint-disable-line  no-unused-vars
+class AIListedObject extends AutonomyEntity { // eslint-disable-line  no-unused-vars
     /**
      * AI listed object constructor
      * @constructor

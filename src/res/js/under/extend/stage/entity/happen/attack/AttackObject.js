@@ -6,14 +6,13 @@
  * - It is not fixed and can be moved
  * - It can move by AI
  * - Manages AI by list
- * - Generated and owned by someone
  * - Object that can be destroyed
  * - ### Object indicating attack that have lifespan
- * @extends {PossessedObject}
+ * @extends {AIListedObject}
  * @implements {IBreakable}
  * @classdesc Attack object indicating attack that have lifespan
  */
-class AttackObject extends PossessedObject /* , IBreakable */ { // eslint-disable-line  no-unused-vars
+class AttackObject extends AIListedObject /* , IBreakable */ { // eslint-disable-line  no-unused-vars
     /**
      * Attack object constructor
      * @constructor

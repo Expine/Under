@@ -38,7 +38,7 @@ class EnemyAI extends AI { // eslint-disable-line  no-unused-vars
     /**
      * Set autonomy entity
      * @override
-     * @param {AutonomyEntitiy} entity Autonomy entity
+     * @param {AutonomyEntity} entity Autonomy entity
      */
     setEntity(entity) {
         super.setEntity(entity);

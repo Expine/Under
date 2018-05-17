@@ -267,6 +267,11 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof AI !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/EnemyAI.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof AI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/ElevatorAI.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -802,11 +807,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof StraightAI !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/EnemyAI.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof NamedStateAI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/vanish/VanishStateAI.js'; document.head.appendChild(script);
     }
@@ -852,7 +852,7 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof AutonomyEntitiy !== `undefined`) {
+    if (typeof AutonomyEntity !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/AIListedObject.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -869,6 +869,11 @@
 {let id = setInterval(function() {
     if (typeof Character !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/character/StateCharacter.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof AIListedObject !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -982,11 +987,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof PossessedObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof UnderPlayerState !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/player/adventurer/AdventurerHookState.js'; document.head.appendChild(script);
     }
@@ -998,7 +998,7 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof UnderPlayerState !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/player/common/CommonNone.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/player/common/CpmmonJudgeState.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1009,11 +1009,6 @@
 {let id = setInterval(function() {
     if (typeof UnderPlayerState !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/player/normal/NormalJumpState.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof UnderPlayerState !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/ai/player/normal/NormalNoneState.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1215,6 +1210,7 @@
         typeof GeneratableScreen !== `undefined` &&
         typeof ScalableScreen !== `undefined` &&
         typeof AttackObjectAI !== `undefined` &&
+        typeof EnemyAI !== `undefined` &&
         typeof ElevatorAI !== `undefined` &&
         typeof ShowState !== `undefined` &&
         typeof VanishState !== `undefined` &&
@@ -1304,7 +1300,7 @@
         typeof IResourceManager !== `undefined` &&
         typeof ClipLayer !== `undefined` &&
         typeof LayeredScene !== `undefined` &&
-        typeof AutonomyEntitiy !== `undefined` &&
+        typeof AutonomyEntity !== `undefined` &&
         typeof ImmutableEntity !== `undefined` &&
         typeof IBreakable !== `undefined` &&
         typeof IColliderable !== `undefined` &&
@@ -1323,7 +1319,6 @@
         typeof BaseLayeredScene !== `undefined` &&
         typeof DragScrollLayer !== `undefined` &&
         typeof NamedTabbedLayer !== `undefined` &&
-        typeof EnemyAI !== `undefined` &&
         typeof VanishStateAI !== `undefined` &&
         typeof PGameoverState !== `undefined` &&
         typeof PJumpingState !== `undefined` &&
@@ -1337,6 +1332,7 @@
         typeof Character !== `undefined` &&
         typeof Enemy !== `undefined` &&
         typeof StateCharacter !== `undefined` &&
+        typeof AttackObject !== `undefined` &&
         typeof PossessedObject !== `undefined` &&
         typeof TileObject !== `undefined` &&
         typeof CharacterBuilder !== `undefined` &&
@@ -1359,13 +1355,11 @@
         typeof IImageManager !== `undefined` &&
         typeof IMusicManager !== `undefined` &&
         typeof Player !== `undefined` &&
-        typeof AttackObject !== `undefined` &&
         typeof AdventurerHookState !== `undefined` &&
         typeof CommonGameoverState !== `undefined` &&
-        typeof CommonNoneState !== `undefined` &&
+        typeof CpmmonJudgeState !== `undefined` &&
         typeof NormalBaseStateAI !== `undefined` &&
         typeof NormalJumpState !== `undefined` &&
-        typeof NormalNoneState !== `undefined` &&
         typeof NormalPunchState !== `undefined` &&
         typeof NormalSpecialState !== `undefined` &&
         typeof PropellerBaseStateAI !== `undefined` &&

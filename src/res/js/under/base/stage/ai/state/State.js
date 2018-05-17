@@ -12,7 +12,7 @@ class State { // eslint-disable-line  no-unused-vars
     constructor() {
         /**
          * Entity for targeting
-         * @type {AutonomyEntitiy}
+         * @type {AutonomyEntity}
          */
         this.entity = null;
 
@@ -31,7 +31,7 @@ class State { // eslint-disable-line  no-unused-vars
 
     /**
      * Set entity for targeting
-     * @param {AutonomyEntitiy} entity Entity for tageting
+     * @param {AutonomyEntity} entity Entity for tageting
      */
     setEntity(entity) {
         this.entity = entity;

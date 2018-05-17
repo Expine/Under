@@ -12,14 +12,14 @@ class AI { // eslint-disable-line  no-unused-vars
     constructor() {
         /**
          * Entity to which AI is attached
-         * @type {AutonomyEntitiy}
+         * @type {AutonomyEntity}
          */
         this.entity = null;
     }
 
     /**
      * Set autonomy entity
-     * @param {AutonomyEntitiy} entity Autonomy entity
+     * @param {AutonomyEntity} entity Autonomy entity
      */
     setEntity(entity) {
         this.entity = entity;

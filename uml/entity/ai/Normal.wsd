@@ -2,50 +2,67 @@
 package game {
     package ga_stage {
         package ga_ai {
-            abstract TransferableState {
-                +transfer(state)
-            }
-            class TransferableStateAI {
-                +transfer(state)
-            }
-            abstract MovableState {
-                {abstract} +setMaxVelocity(maxVelocityX, maxVelocityY)
-                {abstract} +setMovePower(movePowerX, movePowerY)
-            }
             package ga_player {
-                abstract UnderPlayerState
-                abstract UnderMovableState {
-                    #maxVelocityX : number
-                    #maxVelocityY : number
-                    #movePowerX : number
-                    #movePowerY : number
-                }
-                class UnderStateAI {
-                    #specialActionName : string
-                }
-                package ga_common {
-                    class CommonBaseStateAI
-                    class CommonNoneState
-                    class CommonGameoverState
-                }
                 package ga_normal {
                     class NormalBaseStateAI
-                    class NormalStationaryState
-                    class NormalWalkState
+                    class NormalStationaryState {
+                        +constructor(maxVelocityX,walkPower)
+                        #fallCount : number
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class NormalWalkState {
+                        +constructor(maxVelocityX,walkPower)
+                        #fallCount : number
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
                     class NormalJumpState {
-                        -inAirCount_ : number
-                        -jumpPressedTime_ : number
-                        -jumpDeltaTime_ : number
-                        -jumpPower_ : number
+                        +constructor(jumpPower)
+                        #jumpPower : number
+                        #inAirCount : number
+                        #jumpPressedTime : number
+                        #jumpDeltaTime : number
+                        #reservedVelocityX : number
+                        +speedMagnification(val) <<setter>> <<override>>
+                        +appliedPower(val) <<setter>> <<override>>
+                        +speedMagnification() : number <<getter>> <<override>>
+                        +appliedPower() : number <<getter>> <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                        +apply(dt) <<override>>
                     }
-                    class NormalJumpingState
-                    class NormalFallState
-                    class NormalPunchState
+                    class NormalJumpingState {
+                        +constructor(maxVelocityX,movePower)
+                        +apply(dt) <<override>>
+                    }
+                    class NormalFallState {
+                        +constructor(maxVelocityX,movePower)
+                        +apply(dt) <<override>>
+                    }
+                    class NormalPunchState {
+                        #attacked : boolean
+                        #threshold : number
+                        #makeAttackObject() : Entity
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
                     class NormalGrabState {
-                        -underCount_ : number
+                        #underCount : number
+                        #underDiffY : number
+                        #player : IUnderPlayable
+                        +init() <<override>>
+                        #chaged()
+                        #grabCollider()
+                        #restoreCollider()
+                        #judgeContinue() : boolean
+                        #grabWalk(dt)
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
                     }
-                    class NormalSpecialState
-                    class NormalNoneState
+                    class NormalSpecialState {
+                        +apply(dt) : boolean <<override>>
+                    }
                 }
             }
         }
@@ -54,10 +71,33 @@ package game {
 
 package under {
     package base {
-        package state {
+        package input {
+            interface IKey
+        }
+        package resouce {
+            package image {
+                abstract GameImage
+                abstract GameAnimation
+                abstract NamedAnimation
+            }
+        }
+        package stage {
+            abstract Stage
+            package ai {
+                abstract StateAI
+            }
+            package entity {
+                abstract AutonomyEntity
+            }
             package physical {
+                abstract PhysicalWorld
                 package collider {
-                    class AABB
+                    abstract Collider
+                    abstract AABB
+                    abstract CollisionData
+                }
+                package body {
+                    abstract RigidBody
                 }
             }
         }
@@ -65,15 +105,31 @@ package under {
     package extend {
         package ex_stage {
             package ex_ai {
-                class NamedStateAI
-                abstract BaseState
+                package ex_attack {
+                    class AttackObjectAI
+                }
             }
         }
     }
 }
-
-CommonBaseStateAI ..> CommonNoneState : "Generate"
-CommonBaseStateAI ..> CommonGameoverState : "Generate"
+package game {
+    package ga_stage {
+        package  ga_ai {
+            interface IPrepareState
+            package ga_player {
+                abstract UnderStateAI
+                abstract UnderPlayerState
+                abstract UnderMovableState
+            }
+        }
+        package ga_entity {
+            package ga_interface {
+                interface ITerrain
+                interface IUnderPlayable
+            }
+        }
+    }
+}
 
 NormalBaseStateAI ..> NormalStationaryState : Generate
 NormalBaseStateAI ..> NormalWalkState : Generate
@@ -83,31 +139,52 @@ NormalBaseStateAI ..> NormalFallState : Generate
 NormalBaseStateAI ..> NormalPunchState : Generate
 NormalBaseStateAI ..> NormalGrabState : Generate
 NormalBaseStateAI ..> NormalSpecialState : Generate
-NormalBaseStateAI ..> NormalNoneState : Generate
 
-NormalGrabState ..|> AABB : Restore
+StateAI <..... NormalStationaryState : Change
+IKey <..... NormalStationaryState : Get
+StateAI <..... NormalWalkState : Change
+IKey <..... NormalWalkState : Get
 
-NamedStateAI <|--- TransferableStateAI
-TransferableStateAI <|-- CommonBaseStateAI
-TransferableStateAI <|-- UnderStateAI
-UnderStateAI <|-- NormalBaseStateAI
+GameImage <..... NormalJumpState : Update and judge
+StateAI <..... NormalJumpState : Change
+IKey <..... NormalJumpState : Get
+AutonomyEntity <..... NormalJumpState : Get
+RigidBody <..... NormalJumpState : Enforce
 
-BaseState <|----- TransferableState
-TransferableState <|-- UnderPlayerState
-UnderPlayerState <|-- UnderMovableState
-MovableState <|.. UnderMovableState
+StateAI <..... NormalJumpingState : Change
+AutonomyEntity <..... NormalJumpingState : Get
+RigidBody <..... NormalJumpingState : Get
+StateAI <..... NormalFallState : Change
 
-CommonNoneState ..|> UnderPlayerState
-CommonGameoverState ..|> UnderPlayerState
+AutonomyEntity <..... NormalPunchState : Get and set
+StateAI <..... NormalPunchState : Change
+Stage <..... NormalPunchState : Create
+GameAnimation <..... NormalPunchState : Judge
+AttackObjectAI <..... NormalPunchState : Genrate
 
-NormalStationaryState ..|> UnderMovableState
-NormalWalkState ..|> UnderMovableState
-NormalJumpState ..|> UnderPlayerState
-NormalJumpingState ..|> UnderMovableState
-NormalFallState ..|> UnderMovableState
-NormalPunchState ..|> UnderPlayerState
-NormalGrabState ..|> UnderPlayerState
-NormalSpecialState ..|> UnderPlayerState
-NormalNoneState ..|> UnderPlayerState
+AutonomyEntity <..... NormalGrabState : Get
+Collider <..... NormalGrabState : Fix
+AABB <..... NormalGrabState : Get
+Stage <..... NormalGrabState : Get
+PhysicalWorld <..... NormalGrabState : Get
+CollisionData <..... NormalGrabState : Get
+GameImage <..... NormalGrabState : Init
+GameAnimation <..... NormalGrabState : Get and set
+NamedAnimation <..... NormalGrabState : Get ID
+IUnderPlayable <.... NormalGrabState : Change
+ITerrain <.... NormalGrabState : Get
+
+IKey <..... NormalSpecialState : Get
+
+UnderStateAI <|.. NormalBaseStateAI
+UnderMovableState <|.. NormalStationaryState
+UnderMovableState <|.. NormalWalkState
+UnderMovableState <|.. NormalJumpingState
+UnderMovableState <|.. NormalFallState
+UnderPlayerState <|.. NormalJumpState
+IPrepareState <|.. NormalJumpingState
+UnderPlayerState <|.. NormalPunchState
+UnderPlayerState <|.. NormalGrabState
+UnderPlayerState <|.. NormalSpecialState
 
 @enduml

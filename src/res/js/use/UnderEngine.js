@@ -267,6 +267,11 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof AI !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/EnemyAI.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof AI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/ElevatorAI.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -672,11 +677,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof StraightAI !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/EnemyAI.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof NamedStateAI !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/gimmick/vanish/VanishStateAI.js'; document.head.appendChild(script);
     }
@@ -722,7 +722,7 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof AutonomyEntitiy !== `undefined`) {
+    if (typeof AutonomyEntity !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/AIListedObject.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -739,6 +739,11 @@
 {let id = setInterval(function() {
     if (typeof Character !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/character/StateCharacter.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof AIListedObject !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -789,10 +794,5 @@
 {let id = setInterval(function() {
     if (typeof StateCharacter !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/character/Player.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof PossessedObject !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
     }
 }, 1);}

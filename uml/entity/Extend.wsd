@@ -58,7 +58,7 @@ package under {
                             +update(dt) <<override>>
                         }
                     }
-                    class PossesedObject {
+                    abstract PossessedObject {
                         #owner : Entity
                         +setOwner(owner)
                     }
@@ -145,8 +145,8 @@ Entity <|.. ImmutableEvent
 IEventEntity <|.. ImmutableEvent
 IColliderable <|.. ImmutableEvent
 
-AIListedObject <|-- PossesedObject
-PossesedObject <|-- AttackObject
+AIListedObject <|-- PossessedObject
+AIListedObject <|.. AttackObject
 IBreakable <|.. AttackObject
 
 ImagedEntity <|.. DoorObject

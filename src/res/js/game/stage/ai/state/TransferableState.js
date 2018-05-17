@@ -4,6 +4,7 @@
  * - Enable to set animation
  * - Initialize state image
  * - ### Basic information can be transferred to another state
+ * @interface
  * @extends {BaseState}
  * @classdesc Transferable state to transfer information to another state
  */

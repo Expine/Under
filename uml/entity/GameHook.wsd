@@ -100,7 +100,7 @@ package under {
         package ex_stage {
             package ex_entity {
                 package ex_happen {
-                    class PosessedObject
+                    class PossessedObject
                 }
             }
         }
@@ -139,7 +139,7 @@ RigidBody <... HookHead : Enable
 
 HookChild ..> HookStateAI : Generate
 
-PosessedObject <|.. HookObject
+PossessedObject <|.. HookObject
 IBreakable <|.. HookObject
 IHook <|. HookObject
 HookObject <|.. HookHead

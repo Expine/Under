@@ -4,6 +4,7 @@
  * - Initialize state image
  * - Basic information can be transferred to another state
  * - ### Render entity by entity own image ID for change type
+ * @interface
  * @extends {TransferableState}
  * @classdesc Under player state to render entity by entity own image ID
  */

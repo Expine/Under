@@ -19,6 +19,13 @@ class NormalJumpState extends UnderPlayerState /* , IPrepareState */ { // eslint
         super();
 
         /**
+         * Jumping force
+         * @protected
+         * @type {number}
+         */
+        this.jumpPower = jumpPower;
+
+        /**
          * Count for judging on air
          * @protected
          * @type {numebr}
@@ -44,13 +51,6 @@ class NormalJumpState extends UnderPlayerState /* , IPrepareState */ { // eslint
          * @type {number}
          */
         this.animationMagnification = 1;
-
-        /**
-         * Jumping force
-         * @protected
-         * @type {number}
-         */
-        this.jumpPower = jumpPower;
 
         /**
          * Reserved velocity of X
@@ -143,7 +143,6 @@ class NormalJumpState extends UnderPlayerState /* , IPrepareState */ { // eslint
         }
         if (Util.canEnd(this.entity.getImage()) && this.inAirCount == 0) {
             // reset and jump
-            this.entity.getImage().init();
             this.entity.body.setNextAddVelocity(this.reservedVelocityX * 0.8 - this.entity.body.velocityX, -this.entity.body.velocityY);
             this.entity.body.enforce(0, -this.jumpPower * this.entity.material.mass * 1000 / dt * (this.jumpPressedTime + this.jumpDeltaTime) / 2 / this.jumpDeltaTime);
             this.ai.changeState(`jumping`);

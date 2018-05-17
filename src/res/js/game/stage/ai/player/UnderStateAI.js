@@ -5,6 +5,7 @@
  * - Manages state by name
  * - Basic information can be transferred to another state AI
  * - ### Changes special state by alias
+ * @interface
  * @extends {TransferableStateAI}
  * @classdesc Under state AI to change special state by alias
  */

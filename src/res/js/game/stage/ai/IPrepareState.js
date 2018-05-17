@@ -24,9 +24,7 @@ class IPrepareState extends Interface { // eslint-disable-line  no-unused-vars
      * @abstract
      * @return {number} The magnification of the elapsed speed of the preparation time
      */
-    get speedMagnification() {
-        return 10;
-    }
+    get speedMagnification() {}
 
     /**
      * Get the power to be applied

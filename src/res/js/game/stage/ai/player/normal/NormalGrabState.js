@@ -43,35 +43,6 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
     }
 
     /**
-     * Initialize state
-     * @override
-     */
-    init() {
-        // set image
-        let image = this.entity.getImage();
-        if (image instanceof NamedAnimation) {
-            image.setName(this.ai.getStateID());
-        }
-        if (image instanceof GameAnimation) {
-            image.restore();
-        }
-        this.underCount = 0;
-        this.grabCollider();
-    }
-
-    /**
-     * Set entity for targeting
-     * @override
-     * @param {AutonomyEntitiy} entity Entity for tageting
-     */
-    setEntity(entity) {
-        super.setEntity(entity);
-        if (BaseUtil.implementsOf(entity, IUnderPlayable)) {
-            this.player = entity;
-        }
-    }
-
-    /**
      * Type changed function
      * @protected
      */
@@ -145,6 +116,27 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
             if (this.entity.getImage() instanceof GameAnimation) {
                 this.entity.getImage().pause();
             }
+        }
+    }
+
+    /**
+     * Initialize state
+     * @override
+     */
+    init() {
+        // set image
+        let image = this.entity.getImage();
+        if (image instanceof NamedAnimation) {
+            image.setName(this.ai.getStateID());
+        }
+        if (image instanceof GameAnimation) {
+            image.restore();
+        }
+        this.underCount = 0;
+        this.grabCollider();
+
+        if (BaseUtil.implementsOf(this.entity, IUnderPlayable)) {
+            this.player = this.entity;
         }
     }
 

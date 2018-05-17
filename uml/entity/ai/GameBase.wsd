@@ -1,0 +1,129 @@
+@startuml AINormal
+package game {
+    package ga_stage {
+        package ga_ai {
+            abstract TransferableStateAI {
+                +transfer(state)
+            }
+            interface IMovableState {
+                {abstract} +maxVX() : number <<getter>>
+                {abstract} +maxVY() : number <<getter>>
+                {abstract} +movePX() : number <<getter>>
+                {abstract} +movePY() : number <<getter>>
+                {abstract} +setMaxVelocity(maxVelocityX,maxVelocityY)
+                {abstract} +setMovePower(movePowerX,movePowerY)
+            }
+            interface IPrepareState {
+                {abstract} +speedMagnification(val) <<setter>>
+                {abstract} +appliedPower(val) <<setter>>
+                {abstract} +speedMagnification() : number <<getter>>
+                {abstract} +appliedPower() : number <<getter>>
+            }
+            package ga_state {
+                abstract TransferableState {
+                    +transfer(state)
+                }
+            }
+            package ga_player {
+                abstract UnderStateAI {
+                    +constructor(state)
+                    #specialActionName : string
+                    +changeState(state) : boolean <<override>>
+                }
+                abstract UnderPlayerState {
+                    #transitionUsualState()
+                }
+                abstract UnderMovableState {
+                    #maxVelocityX
+                    #maxVelocityY
+                    #movePowerX
+                    #movePowerY
+                    +maxVX() : number <<getter>> <<override>>
+                    +maxVY() : number <<getter>> <<override>>
+                    +movePX() : number <<getter>> <<override>>
+                    +movePY() : number <<getter>> <<override>>
+                    +setMaxVelocity(maxVelocityX,maxVelocityY) <<override>>
+                    +setMovePower(movePowerX,movePowerY) <<override>>
+                    #moveX(vx,dt)
+                    #moveY(vy,dt)
+                    #moveVyInput(dt) : boolean
+                }
+                package ga_common {
+                    class CommonBaseStateAI
+                    class CommonJudgeState {
+                        #damagedTarget : IDamagable
+                        +init() <<override>>
+                        +apply(dt) : boolean <<<override>>
+                    }
+                    class CommonGameoverState {
+                        +init() <<override>>
+                        +apply(dt) : boolean <<<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+        }
+        package stage {
+            package ai {
+                abstract StateAI
+            }
+            package entity {
+                abstract AutonomyEntity
+                package interface {
+                    interface IDamagable
+                }
+            }
+            package physical {
+                package collider {
+                    abstract Collider
+                }
+                package body {
+                    abstract RigidBody
+                }
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_ai {
+                class NamedStateAI
+                abstract BaseState
+            }
+        }
+    }
+}
+
+TransferableStateAI ..> TransferableState : Transfer
+StateAI <.. UnderPlayerState : Change
+AutonomyEntity <.. UnderMovableState : Get
+RigidBody <.. UnderMovableState : Enforce
+IKey <.. UnderMovableState : Get
+
+CommonBaseStateAI ..> CommonJudgeState : Generate
+CommonBaseStateAI ..> CommonGameoverState : Generate
+
+IDamagable <.. CommonJudgeState : Judge
+StateAI <.. CommonJudgeState : Change
+
+AutonomyEntity <.. CommonGameoverState : Get
+Collider <.. CommonGameoverState : Fix
+
+NamedStateAI <|-- TransferableStateAI
+TransferableStateAI <|-- UnderStateAI
+BaseState <|-- TransferableState
+TransferableState <|-- UnderPlayerState
+UnderPlayerState <|-- UnderMovableState
+IMovableState <|.. UnderMovableState
+
+TransferableStateAI <|.. CommonBaseStateAI
+UnderPlayerState <|.. CommonJudgeState
+UnderPlayerState <|.. CommonGameoverState
+
+@enduml

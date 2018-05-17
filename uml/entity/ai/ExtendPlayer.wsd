@@ -58,6 +58,9 @@ package under {
             }
         }
         package stage {
+            package ai {
+                abstract StateAI
+            }
             package entity {
                 abstract AutonomyEntity
             }
@@ -82,22 +85,27 @@ package under {
 
 AutonomyEntity <.... PStationaryState : Get
 RigidBody <.... PStationaryState : Enforce
+StateAI <.... PStationaryState : Change
 IKey <.... PStationaryState : Get
 
 AutonomyEntity <.... PWalkState : Get
 RigidBody <.... PWalkState : Enforce
+StateAI <.... PWalkState : Change
 IKey <.... PWalkState : Get
 
 AutonomyEntity <.... PJumpState : Get
 RigidBody <.... PJumpState : Enforce
+StateAI <.... PJumpState : Change
 IKey <.... PJumpState : Get
 
 AutonomyEntity <.... PJumpingState : Get
 RigidBody <.... PJumpingState : Enforce
+StateAI <.... PJumpingState : Change
 IKey <.... PJumpingState : Get
 
 AutonomyEntity <.... PPunchState : Get
 GameAnimation <.... PPunchState : Get
+StateAI <.... PPunchState : Change
 
 PlayerBaseStateAI ..> PStationaryState : Generate
 PlayerBaseStateAI ..> PWalkState : Generate

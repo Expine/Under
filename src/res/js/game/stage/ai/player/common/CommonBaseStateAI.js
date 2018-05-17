@@ -16,7 +16,7 @@ class CommonBaseStateAI extends TransferableStateAI { // eslint-disable-line  no
     constructor() {
         super(`none`);
 
-        this.namedStates[`none`] = new CommonNoneState();
+        this.namedStates[`none`] = new CpmmonJudgeState();
         this.namedStates[`gameover`] = new CommonGameoverState();
     }
 }

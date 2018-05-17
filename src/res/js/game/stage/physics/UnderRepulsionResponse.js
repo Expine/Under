@@ -84,11 +84,11 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
                 // Solve
                 // 1. collision data priority - Either one is immutable -> high priority (lower one is high priority (for gravity))
                 /*
-                 if (dot2 > 0 || e1 instanceof AutonomyEntitiy) {
+                 if (dot2 > 0 || e1 instanceof AutonomyEntity) {
                      while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                          e1.deltaMove(n1x, n1y);
                      }
-                 } else if (e2 instanceof AutonomyEntitiy) {
+                 } else if (e2 instanceof AutonomyEntity) {
                      while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                          e2.deltaMove(n2x, n2y);
                      }

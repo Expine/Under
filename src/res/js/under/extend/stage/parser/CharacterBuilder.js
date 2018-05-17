@@ -161,7 +161,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     /**
      * Build AI from json data
      * @protected
-     * @param {AutonomyEntitiy} base Base entity
+     * @param {AutonomyEntity} base Base entity
      * @param {JSON} deploy Entity deploy json data
      * @param {JSON} json Character json data
      */
@@ -210,7 +210,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         if (base instanceof MutableEntity) {
             this.buildBody(base, deploy, json);
         }
-        if (base instanceof AutonomyEntitiy) {
+        if (base instanceof AutonomyEntity) {
             this.buildAI(base, deploy, json);
         }
         return base;

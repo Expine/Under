@@ -1,16 +1,16 @@
 /**
- * Common none state
+ * Common judge state
  * - Determines the operation by AI according to the state and renders based on state
  * - Initialize state image
  * - Basic information can be transferred to another state
  * - Render entity by entity own image ID for change type
  * - ### Does nothing but transfer gameover only if entity is died
  * @extends {UnderPlayerState}
- * @classdesc Common none state to do nothing but transfer gameover only if entity is died
+ * @classdesc Common judge state to do nothing but transfer gameover only if entity is died
  */
-class CommonNoneState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class CpmmonJudgeState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
     /**
-     * Common none state constructor
+     * Common judge state constructor
      * @constructor
      */
     constructor() {
@@ -23,14 +23,15 @@ class CommonNoneState extends UnderPlayerState { // eslint-disable-line  no-unus
          */
         this.damagedTarget = null;
     }
+
     /**
-     * Set entity for targeting
-     * @param {AutonomyEntitiy} entity Entity for tageting
+     * Initialize
+     * @override
      */
-    setEntity(entity) {
-        super.setEntity(entity);
-        if (BaseUtil.implementsOf(entity, IDamagable)) {
-            this.damagedTarget = entity;
+    init() {
+        super.init();
+        if (BaseUtil.implementsOf(this.entity, IDamagable)) {
+            this.damagedTarget = this.entity;
         }
     }
 
@@ -41,7 +42,7 @@ class CommonNoneState extends UnderPlayerState { // eslint-disable-line  no-unus
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        if (this.damagedTarget.getHP() <= 0) {
+        if (this.damagedTarget !== null && this.damagedTarget.getHP() <= 0) {
             this.ai.changeState(`gameover`);
             return true;
         }
