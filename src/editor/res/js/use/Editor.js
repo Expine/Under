@@ -69,6 +69,7 @@
 {let script = document.createElement('script'); script.src='src/res/js/under/base/util/BaseUtil.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/util/Interface.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/util/Method.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/under/debug/base/Debugger.js'; document.head.appendChild(script);}
 {let id = setInterval(function() {
     if (typeof Layer !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/scene/layer/DebugLayer.js'; document.head.appendChild(script);
@@ -82,6 +83,11 @@
 {let id = setInterval(function() {
     if (typeof PhysicalWorld !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/stage/physics/DebugWorld.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Debugger !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/VolatileDebugger.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1258,9 +1264,11 @@
         typeof BaseUtil !== `undefined` &&
         typeof Interface !== `undefined` &&
         typeof Method !== `undefined` &&
+        typeof Debugger !== `undefined` &&
         typeof DebugLayer !== `undefined` &&
         typeof DebugStage !== `undefined` &&
         typeof DebugWorld !== `undefined` &&
+        typeof VolatileDebugger !== `undefined` &&
         typeof AutoInputEvent !== `undefined` &&
         typeof DelayEvent !== `undefined` &&
         typeof DeleteEvent !== `undefined` &&

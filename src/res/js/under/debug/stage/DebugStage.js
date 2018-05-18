@@ -233,7 +233,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
         Timer.it.stopTimer(`renderEntity`);
 
         // For debug to render entity information
-        if (Engine.debug) {
+        if (Debugger.debug) {
             let startX = -this.stage.camera.cameraX;
             let startY = -this.stage.camera.cameraY;
             let endX = startX + this.stage.camera.screenWidth;

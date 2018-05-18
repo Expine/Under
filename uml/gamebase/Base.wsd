@@ -21,7 +21,6 @@ package under {
             #manager : SceneManager
             #music : Music
             #timer : Timer
-            {static} +debug : boolean
             +setInput(input)
             +setScreen(screen)
             +setContext(context)

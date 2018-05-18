@@ -123,11 +123,3 @@ class Engine { // eslint-disable-line  no-unused-vars
      */
     main() {}
 }
-
-// TODO: Maybe separate
-/**
- * Whether it is debug mode or not
- * @static
- * @type {boolean}
- */
-Engine.debug = true;

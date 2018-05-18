@@ -1,4 +1,6 @@
 {
+    "files.insertFinalNewline": true,
+    "files.useExperimentalFileWatcher": true,
     "todohighlight.include": [
         "**/*.js"
     ],
@@ -8,6 +10,5 @@
     "javascript.format.insertSpaceAfterCommaDelimiter": true,
     "javascript.format.insertSpaceAfterSemicolonInForStatements": true,
     "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
-    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-    "files.insertFinalNewline": true
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false
 }
