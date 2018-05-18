@@ -140,6 +140,7 @@ package under {
                         +accelerationX() : number <<getter>>
                         +accelerationY() : number <<getter>>
                         +setEntity(entity)
+                        +getEntity() : MutableEntity
                         +setMaterial(material)
                         +reset()
                         {abstract} +setNextAddVelocity(vx,vy)

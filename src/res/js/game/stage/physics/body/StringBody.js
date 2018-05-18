@@ -378,6 +378,14 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         return this.jointingLengthList[this.jointingLengthList.length - 1];
     }
 
+    /**
+     * Get body list
+     * @override
+     * @return {Array<RigidBody>} Body list
+     */
+    getBodies() {
+        return this.jointingList;
+    }
 
     /**
      * Add entity for string

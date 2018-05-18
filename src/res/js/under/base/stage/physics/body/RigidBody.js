@@ -60,6 +60,14 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get entity attached it
+     * @return {MutableEntity} Entity attached it
+     */
+    getEntity() {
+        return this.entity;
+    }
+
+    /**
      * Set rigid material
      * @param {RigidMaterial} material Rigid material
      */

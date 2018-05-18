@@ -37,22 +37,6 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set rigid body
-     * @override
-     * @param {RigidBody} body rigid body
-     */
-    setRigidBody(body) {
-        super.setRigidBody(body);
-        if (BaseUtil.implementsOf(body, IString)) {
-            this.string = body;
-        }
-        // TODO: Should abstract
-        if (body instanceof StringBody) {
-            this.originalBody = body.jointingList[0];
-        }
-    }
-
-    /**
      * Hook center x position
      * @override
      * @protected
@@ -105,6 +89,13 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
      */
     init() {
         super.init();
+
+        if (BaseUtil.implementsOf(body, IString)) {
+            this.string = body;
+            let bodies = this.string.getBodies().filter((it) => it.getEntity() === this);
+            this.originalBody = bodies.length === 0 ? null : bodies[0];
+        }
+
         this.addAI(new HeadHookStateAI(this));
 
         this.directionX = this.owner.directionX;

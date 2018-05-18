@@ -6,6 +6,7 @@ package game {
             package ga_body {
                 interface IString {
                     {abstract} +getLength() : number
+                    {abstract} +getBodies() : Array<RigidBody>
                     {abstract} +addBody(jointing,jointingX,jointingY,length)
                     {abstract} +removeBody(body)
                 }
@@ -32,6 +33,7 @@ package game {
                     +update(dt) <<override>>
                     +cleanup(dt) <<override>>
                     +getLength() : number <<override>>
+                    +getBodies() : Array<RigidBody> <<override>>
                     +addBody(jointing,jointingX,jointingY,length) <<override>>
                     +removeBody(body) <<override>>
                 }

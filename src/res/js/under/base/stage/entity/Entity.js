@@ -10,7 +10,6 @@ class Entity { // eslint-disable-line  no-unused-vars
      * @constructor
      */
     constructor() {
-        // TODO:: Should ban setting
         /**
          * Entity x position
          * @type {number}

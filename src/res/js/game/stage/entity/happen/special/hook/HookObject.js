@@ -132,7 +132,6 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
     connectPlayer() {
         let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
         let y = this.owner.y - this.generatedY;
-        // TODO: Maybe abstract
         this.post = new HookPlayer();
         this.post.setPosition(x, y, this.z);
         this.post.setSize(8, 8);

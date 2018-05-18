@@ -13,6 +13,13 @@ class IString extends Interface { // eslint-disable-line  no-unused-vars
     getLength() {}
 
     /**
+     * Get body list
+     * @abstract
+     * @return {Array<RigidBody>} Body list
+     */
+    getBodies() {}
+
+    /**
      * Add entity for string
      * @abstract
      * @param {RigidBody} jointing Jointing body
