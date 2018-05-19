@@ -38,8 +38,6 @@ class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  
         this.namedStates[`jumping`] = new AdventurerJumpingState(262.5, 14000);
         this.namedStates[`fall`] = new AdventurerFallState(250, 15000);
         this.namedStates[`falling`] = new AdventurerFallState(250, 15000);
-        // TODO: Adventurer attack state
-        this.namedStates[`attack`] = new NormalPunchState();
         this.namedStates[`hook`] = new AdventurerHookState();
         this.namedStates[`downwall`] = new AdventurerDownWallState(250, 15000);
     }

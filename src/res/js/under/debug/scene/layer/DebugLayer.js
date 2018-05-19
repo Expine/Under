@@ -9,7 +9,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * Debug layer constructor
      * @constructor
-     * @param {Debugger} debug Debugger instance
+     * @param {GaemDebugger} debug Debugger instance
      */
     constructor(debug) {
         super();
@@ -17,7 +17,7 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
         /**
          * Stage instance
          * @protected
-         * @type {Debugger}
+         * @type {GameDebugger}
          */
         this.debug = debug;
     }
@@ -46,6 +46,6 @@ class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         Timer.it.render(ctx, this.x, this.y);
-        this.debug.render(ctx, this.x + GameScreen.it.width, this.y);
+        this.debug.render(ctx, this.x + this.width, this.y);
     }
 }

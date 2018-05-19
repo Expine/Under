@@ -19,7 +19,6 @@ class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused
         this.threshold = 0.0;
     }
 
-    // TODO: Should imeplement claw
     /**
      *
      * Make attack object

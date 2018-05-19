@@ -97,6 +97,7 @@ package under {
                     #gravity : number
                     #response : CollisionResponse
                     +setResponse(response)
+                    +getResponse() : CollisionResponse
                     {abstract} +addEntity(entity)
                     {abstract} +removeEntity(entity)
                     {abstract} +getCollisionData(entity) : Array<CollisionData>
@@ -105,8 +106,10 @@ package under {
                     {abstract} #prepareBody(dt)
                     {abstract} #updateBody(dt)
                     {abstract} #updateBodyCleanup(dt)
+                    {abstract} #initCollision(dt)
                     {abstract} #updateCollision(dt)
                     {abstract} #updateResponse(dt)
+                    {abstract} #cleanup(dt)
                     +update(dt)
                     {abstract} +render(ctx,shiftX,shiftY)
                 }

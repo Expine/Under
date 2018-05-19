@@ -69,7 +69,7 @@
 {let script = document.createElement('script'); script.src='src/res/js/under/base/util/BaseUtil.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/util/Interface.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/util/Method.js'; document.head.appendChild(script);}
-{let script = document.createElement('script'); script.src='src/res/js/under/debug/base/Debugger.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/under/debug/base/GameDebugger.js'; document.head.appendChild(script);}
 {let id = setInterval(function() {
     if (typeof Layer !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/scene/layer/DebugLayer.js'; document.head.appendChild(script);
@@ -86,7 +86,7 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Debugger !== `undefined`) {
+    if (typeof GameDebugger !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/VolatileDebugger.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -1264,7 +1264,7 @@
         typeof BaseUtil !== `undefined` &&
         typeof Interface !== `undefined` &&
         typeof Method !== `undefined` &&
-        typeof Debugger !== `undefined` &&
+        typeof GameDebugger !== `undefined` &&
         typeof DebugLayer !== `undefined` &&
         typeof DebugStage !== `undefined` &&
         typeof DebugWorld !== `undefined` &&

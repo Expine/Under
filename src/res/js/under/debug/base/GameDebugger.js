@@ -1,16 +1,17 @@
 /**
- * Debugger
+ * Game debugger
  * - ### Registers debug information
- * @classdesc Debugger for registering debug information
+ * @interface
+ * @classdesc Game debugger for registering debug information
  */
-class Debugger { // eslint-disable-line  no-unused-vars
+class GameDebugger { // eslint-disable-line  no-unused-vars
     /**
-     * Debugger constructor
+     * Game debugger constructor
      * @constructor
      */
     constructor() {
         // set singleton
-        Debugger.it = this;
+        GameDebugger.it = this;
     }
 
     /**
@@ -46,13 +47,13 @@ class Debugger { // eslint-disable-line  no-unused-vars
 
 /**
  * Instance for singleton
- * @type {Debugger}
+ * @type {GameDebugger}
  */
-Debugger.it = null;
+GameDebugger.it = null;
 
 /**
  * Whether it is debug mode or not
  * @static
  * @type {boolean}
  */
-Debugger.debug = false;
+GameDebugger.debug = false;

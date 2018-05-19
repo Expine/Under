@@ -1,0 +1,61 @@
+@startuml DebugBase
+
+package under {
+    package debug {
+        package d_base {
+            abstract GameDebugger {
+                {static} +it : GameDebugger
+                {static} +debug : boolean
+                {abstract} +register(name,value)
+                {abstract} +init()
+                {abstract} +update(dt)
+                {abstract} +render(ctx,x,y)
+            }
+        }
+        package d_scene {
+            package d_layer {
+                class DebugLayer
+            }
+        }
+        class UnderDebugEngine {
+            +update() <<override>>
+            +render() <<override>>
+        }
+        class VolatileDebugger {
+            3registeredData : Object<string,string>
+            +renderingData : Array<strinng>
+            +register(name,value) <<override>
+            +update(dt) <<override>
+            +render(ctx,x,y) <<override>
+        }
+    }
+}
+
+package under {
+    package base {
+        abstract Engine
+        package resource {
+            package image {
+                abstract Context
+            }
+        }
+        package scene {
+            package layer {
+                abstract Layer
+            }
+        }
+        package timer {
+            abstract Timer
+        }
+    }
+}
+
+Timer <.. UnderDebugEngine : Register
+Context <.. UnderDebugEngine : Render
+Timer <.. DebugLayer : Render
+GameDebugger <.. DebugLayer : Update and render
+
+Engine <|.. UnderDebugEngine
+GameDebugger <|.. VolatileDebugger
+
+@enduml

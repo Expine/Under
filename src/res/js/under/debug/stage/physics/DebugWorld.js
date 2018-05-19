@@ -33,6 +33,7 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Get response instance for collision response
+     * @override
      * @return {CollisionResponse} Collision response instance
      */
     getResponse() {
@@ -156,7 +157,7 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
 
     /**
      * Cleanup all information
-     * @abstract
+     * @override
      * @protected
      * @param {number} dt Delta time
      */

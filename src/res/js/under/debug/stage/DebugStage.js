@@ -89,6 +89,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Set whether to update the stage or not
+     * @override
      * @param {boolean} enable Whether to update the stage or not
      */
     setEnable(enable) {
@@ -98,10 +99,29 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
 
     /**
      * Get whether to update the stage or not
+     * @override
      * @return {boolean} Whether to update the stage or not
      */
     getEnable() {
         return this.stage.getEnable();
+    }
+
+    /**
+     * Get stage width
+     * @override
+     * @return {number} Stage width
+     */
+    getStageWidth() {
+        return this.stage.getStageWidth();
+    }
+
+    /**
+     * Get stage height
+     * @override
+     * @return {number} Stage height
+     */
+    getStageHeight() {
+        return this.stage.getStageHeight();
     }
 
     /**
@@ -233,7 +253,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
         Timer.it.stopTimer(`renderEntity`);
 
         // For debug to render entity information
-        if (Debugger.debug) {
+        if (GameDebugger.debug) {
             let startX = -this.stage.camera.cameraX;
             let startY = -this.stage.camera.cameraY;
             let endX = startX + this.stage.camera.screenWidth;

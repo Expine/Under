@@ -104,7 +104,6 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
             if (this.entity.getImage() instanceof GameAnimation) {
                 this.entity.getImage().restore();
             }
-            // TODO: Is there a better way to do it?
             if (this.ai.getStateID() == `grab`) {
                 this.entity.image.init();
             }

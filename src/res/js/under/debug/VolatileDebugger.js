@@ -2,9 +2,10 @@
  * Volatile debugger
  * - Registers debug information
  * - ### Resets infromation for each update
+ * @extends {GameDebugger}
  * @classdesc Volatile debugger to reset information for each update
  */
-class VolatileDebugger extends Debugger { // eslint-disable-line  no-unused-vars
+class VolatileDebugger extends GameDebugger { // eslint-disable-line  no-unused-vars
     /**
      * Volatile debugger constructor
      * @constructor
@@ -66,16 +67,3 @@ class VolatileDebugger extends Debugger { // eslint-disable-line  no-unused-vars
         }
     }
 }
-
-/**
- * Instance for singleton
- * @type {Debugger}
- */
-Debugger.it = null;
-
-/**
- * Whether it is debug mode or not
- * @static
- * @type {boolean}
- */
-Debugger.debug = false;

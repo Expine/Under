@@ -18,6 +18,7 @@ package under {
                     #prepareBody(dt) <<override>>
                     #updateBody(dt) <<override>>
                     #updateBodyCleanup(dt) <<override>>
+                    #initCollision(dt) <<override>>
                     #updateCollision(dt) <<override>>
                     #updateResponse(dt) <<override>>
                 }

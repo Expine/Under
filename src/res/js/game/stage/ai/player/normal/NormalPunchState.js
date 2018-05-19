@@ -59,7 +59,6 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
         }
         if (!this.attacked) {
             let attack = this.makeAttackObject();
-            // TODO: Should be into making function
             if (attack instanceof AutonomyEntity) {
                 attack.addAI(new AttackObjectAI(this.entity));
             }

@@ -77,7 +77,6 @@ class UnderRepulsionResponse extends CollisionResponse { // eslint-disable-line 
                     e1.deltaMove(n1x, n1y);
                     e2.deltaMove(n2x, n2y);
                 }
-                // TODO: Push back problem
                 // player -> mutable -> immutable
                 // 1. mutable -> immutable is very fast(mutable is light) and push back later so player did not collided immutable
                 // 2. mutable -> immutable push back then player -> mutable push back so mutable is over immutable

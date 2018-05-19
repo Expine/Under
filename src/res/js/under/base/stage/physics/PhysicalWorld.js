@@ -150,6 +150,7 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
         this.initCollision(dt);
         this.updateCollision(dt);
         this.updateResponse(dt);
+        this.cleanup(dt);
     }
 
     /**

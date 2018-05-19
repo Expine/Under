@@ -112,21 +112,21 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
         let players = stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
         if (players.length > 0) {
             let player = players[0];
-            Debugger.it.register(`time`, `${dt} mssc`);
-            Debugger.it.register(`collision`, `${stage.getPhysicalWorld().getCollisionSize()} collision`);
+            GameDebugger.it.register(`time`, `${dt} mssc`);
+            GameDebugger.it.register(`collision`, `${stage.getPhysicalWorld().getCollisionSize()} collision`);
             if (player instanceof InfluentialEntity) {
-                Debugger.it.register(`pcollision`, `${player.collider.collisions.length} player collision`);
+                GameDebugger.it.register(`pcollision`, `${player.collider.collisions.length} player collision`);
             }
-            Debugger.it.register(`physics`, `${BaseUtil.getClassName(stage.getPhysicalWorld() instanceof DebugWorld ? stage.getPhysicalWorld().world : stage.getPhysicalWorld())}-${BaseUtil.getClassName(stage.getPhysicalWorld().getResponse())}`);
-            Debugger.it.register(`ppos`, `Pos(${Math.floor(player.x)}, ${Math.floor(player.y)})`);
+            GameDebugger.it.register(`physics`, `${BaseUtil.getClassName(stage.getPhysicalWorld() instanceof DebugWorld ? stage.getPhysicalWorld().world : stage.getPhysicalWorld())}-${BaseUtil.getClassName(stage.getPhysicalWorld().getResponse())}`);
+            GameDebugger.it.register(`ppos`, `Pos(${Math.floor(player.x)}, ${Math.floor(player.y)})`);
             if (player instanceof MutableEntity) {
-                Debugger.it.register(`pvec`, `Vec(${Math.floor(player.body.velocityX)}, ${Math.floor(player.body.velocityY)})`);
-                Debugger.it.register(`pacc`, `Acc(${Math.floor(player.body.accelerationX)},${Math.floor(player.body.accelerationY)})`);
+                GameDebugger.it.register(`pvec`, `Vec(${Math.floor(player.body.velocityX)}, ${Math.floor(player.body.velocityY)})`);
+                GameDebugger.it.register(`pacc`, `Acc(${Math.floor(player.body.accelerationX)},${Math.floor(player.body.accelerationY)})`);
             }
             if (player instanceof StateCharacter && player.state !== null) {
-                Debugger.it.register(`state`, `${BaseUtil.getClassName(player.state)}`);
+                GameDebugger.it.register(`state`, `${BaseUtil.getClassName(player.state)}`);
             }
-            Debugger.it.register(`mouse`, `M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`);
+            GameDebugger.it.register(`mouse`, `M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`);
         }
 
         // save
@@ -138,7 +138,7 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
         }
         // change debug mode
         if (Input.key.isPress(Input.key.a() + 3)) {
-            Debugger.debug = !Debugger.debug;
+            GameDebugger.debug = !GameDebugger.debug;
         }
 
         // reload images
