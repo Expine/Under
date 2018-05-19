@@ -22,7 +22,6 @@ class EventUnparser { // eslint-disable-line  no-unused-vars
             ret.name = event.name;
             ret.x = event.x;
             ret.y = event.y;
-            ret.file = ResourceManager.image.getPath(event.imageID).replace(`event/`, ``);
         } else if (event instanceof DeleteEvent) {
             ret.type = `delete`;
             ret.name = event.name;

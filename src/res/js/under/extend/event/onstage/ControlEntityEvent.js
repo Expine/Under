@@ -11,22 +11,17 @@ class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-
     /**
      * Control entity event constructor
      * @constructor
+     * @param {string} name Target entity name
      */
-    constructor() {
+    constructor(name) {
         super();
 
-        /**
-         * Target entity
-         * @protected
-         * @type {Entity}
-         */
-        this.target = null;
         /**
          * Target entity name
          * @protected
          * @type {string}
          */
-        this.targetName = ``;
+        this.targetName = name;
 
         /**
          * Next velocity of x direction
@@ -55,14 +50,6 @@ class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-
     }
 
     /**
-     * Set target entity
-     * @param {string} name Target entity name
-     */
-    setTarget(name) {
-        this.targetName = name;
-    }
-
-    /**
      * Set next velocity
      * @param {number} vx Next velocity of x direction
      * @param {number} vy Next velocity of y direction
@@ -88,16 +75,17 @@ class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-
      */
     init() {
         super.init();
+        let target = null;
         // TODO: Improve search method
         if (this.targetName == `player`) {
-            this.target = this.stage.getEntities().find((it) => {
+            target = this.stage.getEntities().find((it) => {
                 return BaseUtil.implementsOf(it, IPlayable);
             });
         }
-        if (this.target != null) {
-            if (this.target instanceof MutableEntity) {
-                this.target.body.setNextAddVelocity(this.vx - this.target.body.velocityX, this.vy - this.target.body.velocityY);
-                this.target.body.enforce(this.fx, this.fy);
+        if (target != null) {
+            if (target instanceof MutableEntity) {
+                target.body.setNextAddVelocity(this.vx - target.body.velocityX, this.vy - target.body.velocityY);
+                target.body.enforce(this.fx, this.fy);
             }
         }
         this.op.next();

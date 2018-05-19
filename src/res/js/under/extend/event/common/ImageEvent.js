@@ -11,13 +11,11 @@ class ImageEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
      * Image event constructor
      * @constructor
      * @param {string} name Image unique name
-     * @param {number} imageID Image ID for rendering
      * @param {number} x Image x position
      * @param {number} y Image y position
-     * @param {number} width Image width
-     * @param {number} height Image height
+     * @param {GameImage} image Event image
      */
-    constructor(name, imageID, x, y, width, height) {
+    constructor(name, x, y, image) {
         super(name);
 
         /**
@@ -33,24 +31,11 @@ class ImageEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
          */
         this.y = y;
         /**
-         * Image ID for rendering
+         * Image for rendering
          * @protected
-         * @type {number}
+         * @type {GameImage}
          */
-        this.imageID = imageID;
-
-        /**
-         * Image width
-         * @protected
-         * @type {number}
-         */
-        this.width = width;
-        /**
-         * Image height
-         * @protected
-         * @type {number}
-         */
-        this.height = height;
+        this.image = image;
     }
 
     /**
@@ -58,8 +43,8 @@ class ImageEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        super.init();
         this.op.next();
+        this.image.init();
     }
 
     /**
@@ -69,6 +54,7 @@ class ImageEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether update is endped or not
      */
     update(dt) {
+        this.image.update();
         return false;
     }
 
@@ -78,6 +64,6 @@ class ImageEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         super.render(ctx);
-        ctx.drawImage(this.imageID, this.x, this.y, this.width, this.height);
+        this.image.render(ctx, this.x, this.y);
     }
 }

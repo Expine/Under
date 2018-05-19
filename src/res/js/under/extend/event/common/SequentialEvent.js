@@ -31,6 +31,14 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
     }
 
     /**
+     * Add game event to execute
+     * @param {GameEvent} event Game event to execute
+     */
+    addEvent(event) {
+        this.events.push(event);
+    }
+
+    /**
      * Execute next event
      * @override
      */
@@ -72,14 +80,6 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
     }
 
     /**
-     * Add game event to execute
-     * @param {GameEvent} event Game event to execute
-     */
-    addEvent(event) {
-        this.events.push(event);
-    }
-
-    /**
      * Initialize event
      * @override
      */
@@ -96,10 +96,8 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @override
      */
     destruct() {
-        for (let list of [this.events, this.runningEvents]) {
-            for (let it of list) {
-                it.destruct();
-            }
+        for (let it of this.runningEvents) {
+            it.destruct();
         }
     }
 

@@ -265,24 +265,15 @@
             "width": 32,
             "height": 32,
             "event": {
-                "type": "auto",
-                "orders": [{
-                    "type": "up",
-                    "time": 1
-                }, {
-                    "type": "loop",
-                    "number": 100,
-                    "orders": [{
-                        "type": "right",
-                        "time": 1
-                    }, {
-                        "type": "left",
-                        "time": 1
-                    }]
-                }, {
-                    "type": "down",
-                    "time": 1
-                }]
+                "type": "image",
+                "x": 100,
+                "y": 100,
+                "image": {
+                    "type": "single",
+                    "file": "actor.png",
+                    "width": 64,
+                    "height": 64
+                }
             }
         },
         {

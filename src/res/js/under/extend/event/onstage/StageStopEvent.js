@@ -26,6 +26,7 @@ class StageStopEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-
 
     /**
      * Set stage
+     * @override
      * @param {Stage} stage Stage to set
      */
     setStage(stage) {

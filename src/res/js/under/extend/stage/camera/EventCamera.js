@@ -1,24 +1,19 @@
 /**
  * Event camera
  * - Calculates the area to rendering
+ * - Delegates some processing to another camera
  * - ### For using by event
- * @extends {Camera}
+ * @extends {DelegateCamera}
  * @classdesc Event camera to use by event
  */
-class EventCamera extends Camera { // eslint-disable-line  no-unused-vars
+class EventCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
     /**
      * Event camera constructor
      * @constructor
+     * @param {Camera} baseCamera Base camera for delegation
      */
-    constructor() {
-        super();
-
-        /**
-         * Delegation camera
-         * @protected
-         * @type {Camera}
-         */
-        this.delegate = null;
+    constructor(baseCamera) {
+        super(baseCamera);
 
         /**
          * Movement x position
@@ -35,22 +30,6 @@ class EventCamera extends Camera { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set delegation camera
-     * @param {Camera} camera Delegation camera
-     */
-    setDelegate(camera) {
-        this.delegate = camera;
-    }
-
-    /**
-     * Get delegation camera
-     * @return {Camera} Delegation camera
-     */
-    getDelegate() {
-        return this.delegate;
-    }
-
-    /**
      * Set movement position
      * @param {number} x Movement x position
      * @param {number} y Movement y position
@@ -61,29 +40,6 @@ class EventCamera extends Camera { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Set camera max size
-     * @override
-     * @param {number} maxWidth Camera max width
-     * @param {number} maxHeight Cmera max height
-     */
-    setMaxSize(maxWidth, maxHeight) {
-        super.setMaxSize(maxWidth, maxHeight);
-        this.delegate.setMaxSize(maxWidth, maxHeight);
-    }
-
-    /**
-     * Initialize camera
-     * @override
-     * @param {number} x First camera x position
-     * @param {number} y First camera y position
-     */
-    init(x, y) {
-        this.baseCamera.init(x, y);
-        this.cameraX = this.delegate.cameraX;
-        this.cameraY = this.delegate.cameraY;
-    }
-
-    /**
      * Update camera
      * @override
      * @param {number} x Base x position
@@ -91,8 +47,6 @@ class EventCamera extends Camera { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(x, y, dt) {
-        this.delegate.update(this.toX, this.toY, dt);
-        this.cameraX = this.delegate.cameraX;
-        this.cameraY = this.delegate.cameraY;
+        super.update(this.toX, this.toY, dt);
     }
 }

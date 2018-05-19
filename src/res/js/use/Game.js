@@ -31,6 +31,11 @@
 }, 1);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/back/Background.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/camera/Camera.js'; document.head.appendChild(script);}
+{let id = setInterval(function() {
+    if (typeof Camera !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/base/stage/camera/DelegateCamera.js'; document.head.appendChild(script);
+    }
+}, 1);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/Entity.js'; document.head.appendChild(script);}
 {let id = setInterval(function() {
     if (typeof Entity !== `undefined`) {
@@ -363,12 +368,12 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Camera !== `undefined`) {
+    if (typeof DelegateCamera !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/camera/ClipCamera.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Camera !== `undefined`) {
+    if (typeof DelegateCamera !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/camera/EventCamera.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -378,12 +383,12 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Camera !== `undefined`) {
+    if (typeof DelegateCamera !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/camera/ForceMoveCamera.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Camera !== `undefined`) {
+    if (typeof DelegateCamera !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/stage/camera/MovingCamera.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -1170,6 +1175,7 @@
         typeof StateAI !== `undefined` &&
         typeof Background !== `undefined` &&
         typeof Camera !== `undefined` &&
+        typeof DelegateCamera !== `undefined` &&
         typeof Entity !== `undefined` &&
         typeof ImagedEntity !== `undefined` &&
         typeof InfluentialEntity !== `undefined` &&

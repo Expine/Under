@@ -1,62 +1,12 @@
 /**
  * Moving center camera
  * - Calculates the area to rendering
+ * - Delegates some processing to another camera
  * - ### Move gradually, not instantaneously
- * @extends {Camera}
+ * @extends {DelegateCamera}
  * @classdesc Moving center camera to move gradually, not instantaneously
  */
-class MovingCamera extends Camera { // eslint-disable-line  no-unused-vars
-    /**
-     * Moving Camera Constructor
-     * @constructor
-     * @param {Camera} baseCamera Base camera for delegation
-     */
-    constructor(baseCamera) {
-        super();
-
-        /**
-         * Base camera for delegation
-         * @protected
-         * @type {Camera}
-         */
-        this.baseCamera = baseCamera;
-    }
-
-
-    /**
-     * Set screen size
-     * @override
-     * @param {number} screenWidth Camera screen width
-     * @param {number} screenHeight Camera screen height
-     */
-    setScreenSize(screenWidth, screenHeight) {
-        super.setScreenSize(screenWidth, screenHeight);
-        this.baseCamera.setScreenSize(screenWidth, screenHeight);
-    }
-
-    /**
-     * Set camera max size
-     * @override
-     * @param {number} maxWidth Camera max width
-     * @param {number} maxHeight Cmera max height
-     */
-    setMaxSize(maxWidth, maxHeight) {
-        super.setMaxSize(maxWidth, maxHeight);
-        this.baseCamera.setMaxSize(maxWidth, maxHeight);
-    }
-
-    /**
-     * Initialize camera
-     * @override
-     * @param {number} x First camera x position
-     * @param {number} y First camera y position
-     */
-    init(x, y) {
-        this.baseCamera.init(x, y);
-        this.cameraX = this.baseCamera.cameraX;
-        this.cameraY = this.baseCamera.cameraY;
-    }
-
+class MovingCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
     /**
      * Update camera
      * @override
@@ -65,7 +15,7 @@ class MovingCamera extends Camera { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(x, y, dt) {
-        this.baseCamera.update(x, y, dt);
+        super.update(x, y, dt);
 
         // move gradually
         if (this.cameraX != this.baseCamera.cameraX || this.cameraY != this.baseCamera.cameraY) {

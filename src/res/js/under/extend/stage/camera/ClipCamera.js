@@ -1,48 +1,12 @@
 /**
  * Clip camera
  * - Calculates the area to rendering
+ * - Delegates some processing to another camera
  * - ### Cliping camera position by stage size
- * @extends {Camera}
+ * @extends {DelegateCamera}
  * @classdesc Clip camera for cliping camera position by stage size
  */
-class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars
-    /**
-     * Clip camera
-     * @param {Camera} baseCamera Base camera for delegation
-     */
-    constructor(baseCamera) {
-        super();
-
-        /**
-         * Base camera for delegation
-         * @protected
-         * @type {Camera}
-         */
-        this.baseCamera = baseCamera;
-    }
-
-    /**
-     * Set screen size
-     * @override
-     * @param {number} screenWidth Camera screen width
-     * @param {number} screenHeight Camera screen height
-     */
-    setScreenSize(screenWidth, screenHeight) {
-        super.setScreenSize(screenWidth, screenHeight);
-        this.baseCamera.setScreenSize(screenWidth, screenHeight);
-    }
-
-    /**
-     * Set camera max size
-     * @override
-     * @param {number} maxWidth Camera max width
-     * @param {number} maxHeight Cmera max height
-     */
-    setMaxSize(maxWidth, maxHeight) {
-        super.setMaxSize(maxWidth, maxHeight);
-        this.baseCamera.setMaxSize(maxWidth, maxHeight);
-    }
-
+class ClipCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
     /**
      * Initialize camera
      * @override
@@ -50,7 +14,7 @@ class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars
      * @param {number} y First camera y position
      */
     init(x, y) {
-        this.baseCamera.init(x, y);
+        super.init(x, y);
         this.clip();
     }
 
@@ -63,7 +27,7 @@ class ClipCamera extends Camera { // eslint-disable-line  no-unused-vars
      */
     update(x, y, dt) {
         // set position
-        this.baseCamera.update(x, y, dt);
+        super.update(x, y, dt);
         this.clip();
     }
 

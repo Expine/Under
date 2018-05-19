@@ -90,6 +90,15 @@ package under {
                     {abstract} +init(x,y)
                     {abstract} +update(x.y,dt)
                 }
+                abstract DelegateCmaera {
+                    +constructor(baseCamera)
+                    #baseCamera : Camera
+                    +getBaseCamera() : Camera
+                    +setScreenSize(screenWidth,screenHeight) <<oerride>>
+                    +setMaxSize(maxWidth,maxHeight) <<oerride>>
+                    +init(x,y) <<oerride>>
+                    +update(x.y,dt) <<oerride>>
+                }
             }
             package physics {
                 abstract PhysicalWorld {
@@ -139,5 +148,6 @@ Stage "1" *-- "*" Entity : Should own(init)
 Stage "1" *-- "1" EntityFactory : Create entity
 PhysicalWorld "1"*--"*" InfluentialEntity : Should own
 PhysicalWorld "1"*--"1" CollisionResponse : Own
+Camera <|-- DelegateCmaera
 
 @enduml

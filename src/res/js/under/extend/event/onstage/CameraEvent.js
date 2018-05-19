@@ -32,11 +32,10 @@ class CameraEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-lin
          */
         this.toY = y;
 
-        // TODO: Shoud be abstracted
         /**
          * Event camera
          * @protected
-         * @type {EventCamera}
+         * @type {DelegateCamera}
          */
         this.camera = null;
 
@@ -50,6 +49,7 @@ class CameraEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-lin
 
     /**
      * Set stage
+     * @override
      * @param {Stage} stage Stage to set
      */
     setStage(stage) {
@@ -61,10 +61,9 @@ class CameraEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-lin
      * @override
      */
     init() {
-        this.camera = new EventCamera();
+        this.camera = new EventCamera(this.stage.getCamera());
         this.camera.setToPosition(this.toX, this.toY);
         this.camera.setScreenSize(this.stage.getCamera().screenWidth, this.stage.getCamera().screenHeight);
-        this.camera.setDelegate(this.stage.getCamera());
         this.stage.setCamera(this.camera);
         this.op.next();
     }
@@ -74,7 +73,7 @@ class CameraEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-lin
      * @override
      */
     destruct() {
-        this.stage.setCamera(this.camera.getDelegate());
+        this.stage.setCamera(this.camera.getBaseCamera());
     }
 
     /**

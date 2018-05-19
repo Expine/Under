@@ -60,6 +60,7 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
         // initialize
         this.tileBuilder.setImageBuilder(image);
         this.characterBuilder.setImageBuilder(image);
+        this.eventBuilder.setImageBuilder(image);
     }
 
     /**

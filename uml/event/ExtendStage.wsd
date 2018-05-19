@@ -1,0 +1,125 @@
+@startuml EventStage
+
+package under {
+    package extend {
+        package ex_event {
+            package ex_onstage {
+                class CameraEvent {
+                    +constructor(name,x,y)
+                    #toX : number
+                    #toY : number
+                    #camera : DelegateCamera
+                    #Stage : Stage
+                    +setStage(stage) <<override>>
+                    +init() <<override>>
+                    +destruct() <<override>>
+                    +update(dt) <<override>>
+                }
+                class ControlEntityEvent {
+                    #targetName : string
+                    #vx : number
+                    #vy : number
+                    #fx : number
+                    #fy : number
+                    +setVelocity(vx,vy)
+                    +setForce(fx,fy)
+                    +init() <<override>>
+                }
+                class StageStopEvent {
+                    #stage : Stage
+                    +setStage(stage) <<override>>
+                    +init() <<override>>
+                    +destruct() <<override>>
+                    +update(dt) <<override>>
+                }
+                class TransitionalEvent {
+                    +constructor(stageName,isReplace)
+                    #stageName : string
+                    #isReplace : boolean
+                    +init() <<override>>
+                }
+                class WaitKeyEvent {
+                    +init() <<override>>
+                    +destruct() <<override>>
+                    +update(dt) <<override>>
+                }
+                class SequentialStageEvent {
+                    #stage : Stage
+                    +setStage(stage) <<override>>
+                    +init() <<override>>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            abstract IKey
+        }
+        package resource {
+            package image {
+                abstract GameImage
+            }
+        }
+        package event {
+            abstract EventManager
+            interface IEventOperator
+            interface IEventRegister
+            package evcommon {
+                abstract GameEvent
+                abstract NamedEvent
+            }
+            package onstage {
+                interface IStageEvent
+                abstract StageEvent
+            }
+        }
+        package stage {
+            abstract Stage
+            abstract StageManager
+            package entity {
+                abstract MutableEntity
+            }
+        }
+    }
+    package extend {
+        package ex_event {
+            package ex_common {
+                class SequentialEvent
+            }
+        }
+        package ex_stage {
+            package ex_camera {
+                class EventCamera
+            }
+        }
+    }
+}
+
+EventCamera <.. CameraEvent : Generate and init
+Stage <... CameraEvent : Get and set camera
+IEventOperator <... CameraEvent : Next
+Stage <... ControlEntityEvent : Get
+MutableEntity <... ControlEntityEvent : Move
+IEventOperator <... ControlEntityEvent : Next
+Stage <... StageStopEvent : Enable
+IEventOperator <... StageStopEvent : Next
+StageManager <... TransitionalEvent : Transition
+IEventOperator <... TransitionalEvent : Next
+IKey <... WaitKeyEvent : Judge
+Stage <... WaitKeyEvent : Enable
+IEventOperator <... WaitKeyEvent : Next
+
+NamedEvent <|.. CameraEvent
+IStageEvent <|.. CameraEvent
+StageEvent <|.. ControlEntityEvent
+NamedEvent <|.. StageStopEvent
+IStageEvent <|.. StageStopEvent
+StageEvent <|.. TransitionalEvent
+StageEvent <|.. WaitKeyEvent
+SequentialEvent <|-- SequentialStageEvent
+IStageEvent <|.. SequentialStageEvent
+
+@enduml

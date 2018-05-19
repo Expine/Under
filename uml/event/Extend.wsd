@@ -1,4 +1,4 @@
-@startuml EventBase
+@startuml EventExtend
 
 package under {
     package extend {
@@ -14,7 +14,40 @@ package under {
                 +getRunningEvents() : Array<GameEvent> <<override>>
                 #removeEvents(removes) <<override>>
             }
-            package evcommon {
+            package ex_evcommon {
+                package inputorder {
+                    abstract InputOrder {
+                        {abstract} +init()
+                        {abstract} +destruct()
+                        {abstract} +update(dt)
+                    }
+                    class DirectionInputOrder {
+                        +constructor(time,directionX,directionY)
+                        #time : number
+                        #remainingTime : number
+                        #directionX : number
+                        #directionY : number
+                        +init() <<override>>
+                        +destruct() <<override>>
+                        +update(dt) <<override>>
+                    }
+                    class WaitInputOrder {
+                        +constructor(time)
+                        #time : number
+                        #remainingTime : number
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                    }
+                    class LoopInputOrder {
+                        +constructor(loopNumber)
+                        #loopNumber : number
+                        #orders : Array<InputOrder>
+                        #orderIndex : number
+                        +addOrder(order)
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                    }
+                }
                 class AutoInputEvent {
                     #orders : Array<InputOrder>
                     +addOrder(order)
@@ -22,18 +55,37 @@ package under {
                     +destruct() <<override>>
                     +update(dt) <<override>>
                 }
-                class DelayEvent
-                class DeleteEvent
-                class ImageEvent
-                class SequentialEvent
-            }
-            package onstage {
-                interface IStageEvent {
-                    +setStage(stage)
+                class DelayEvent {
+                    +constructor(delay)
+                    #delay : number
+                    #count : number
+                    +update(dt) <<override>>
                 }
-                abstract StageEvent {
-                    #stage : Stage
-                    +setStage(stage) <<override>>
+                class DeleteEvent {
+                    +constructor(name)
+                    #name : string
+                    +init() <<override>>
+                }
+                class ImageEvent {
+                    +constructor(name,x,y,image)
+                    #x : number
+                    #y : number
+                    #image : GameImage
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx) <<override>>
+                }
+                class SequentialEvent {
+                    #events : Array<GameEvent>
+                    #runningEvents : Array<GameEvent>
+                    +addEvent(event)
+                    +next() <<override>>
+                    +delete(event) <<override>>
+                    +getRunningEvents() : Array<GameEvent> <<override>>
+                    +init() <<override>>
+                    +destruct() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx) <<override>>
                 }
             }
         }
@@ -42,20 +94,21 @@ package under {
 
 package under {
     package base {
+        package input {
+            abstract IKey
+        }
+        package resource {
+            package image {
+                abstract GameImage
+            }
+        }
         package event {
             abstract EventManager
             interface IEventOperator
             interface IEventRegister
-            package evparser {
-                abstract EventBuilder
-            }
             package evcommon {
                 abstract GameEvent
                 abstract NamedEvent
-            }
-            package onstage {
-                interface IStageEvent
-                abstract StageEvent
             }
         }
     }
@@ -63,8 +116,26 @@ package under {
 
 GameEvent "1" ..o "*" QueueEventManager : Manage
 
-EventManager <|.. QueueEventManager
-IEventRegister <|.. QueueEventManager
-IEventOperator <|.. QueueEventManager
+IKey <... DirectionInputOrder : Press and unpress
+IKey <... AutoInputEvent : Enable
+AutoInputEvent ..> InputOrder : Manage
+IEventOperator <.. AutoInputEvent : Next
+IEventOperator <.. DelayEvent : Next
+IEventOperator <.. DeleteEvent : Get and next
+NamedEvent <.. DeleteEvent : Get
+GameImage <.. ImageEvent : Update and redner
+
+EventManager <|... QueueEventManager
+IEventRegister <|... QueueEventManager
+IEventOperator <|... QueueEventManager
+
+InputOrder <|.. DirectionInputOrder
+InputOrder <|.. WaitInputOrder
+GameEvent <|.. AutoInputEvent
+GameEvent <|.. DelayEvent
+GameEvent <|.. DeleteEvent
+NamedEvent <|.. ImageEvent
+GameEvent <|.. SequentialEvent
+IEventOperator <|.. SequentialEvent
 
 @enduml

@@ -7,13 +7,13 @@
  */
 class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unused-vars
     /**
-     * Load event image
+     * Make event image
      * @protected
-     * @param {string} path Event image path
-     * @return {number} Event image ID
+     * @param {JSON} image Event image information json data
+     * @return {GameImage} Event image
      */
-    loadEventImage(path) {
-        return ResourceManager.image.load(`event/${path}`);
+    makeImage(image) {
+        return this.imageBuilder.build(`event`, image);
     }
 
     /**
@@ -58,7 +58,7 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
             case `waitkey`:
                 return new WaitKeyEvent();
             case `image`:
-                return new ImageEvent(event.name, this.loadEventImage(event.file), event.x, event.y, event.width, event.height);
+                return new ImageEvent(event.name, event.x, event.y, this.makeImage(event.image));
             case `delete`:
                 return new DeleteEvent(event.name);
             case `delay`:
@@ -77,8 +77,7 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
                 }
             case `control`:
                 {
-                    let ret = new ControlEntityEvent();
-                    ret.setTarget(event.target);
+                    let ret = new ControlEntityEvent(event.target);
                     if (event.vx !== undefined && event.vy !== undefined) {
                         ret.setVelocity(event.vx, event.vy);
                     }
