@@ -608,6 +608,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof SimpleEventBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/event/UnderEventBuilder.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof UnderEngineBuilder !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/MainBuilder.js'; document.head.appendChild(script);
     }
@@ -670,11 +675,6 @@
 {let id = setInterval(function() {
     if (typeof SignObject !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/entity/object/TextSignObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof SimpleEventBuilder !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/game/stage/parser/UnderEventBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1395,6 +1395,7 @@
         typeof TextWindowEvent !== `undefined` &&
         typeof CameraChangeEvent !== `undefined` &&
         typeof PhysicalChangeEvent !== `undefined` &&
+        typeof UnderEventBuilder !== `undefined` &&
         typeof MainBuilder !== `undefined` &&
         typeof UILayer !== `undefined` &&
         typeof TitleScene !== `undefined` &&
@@ -1408,7 +1409,6 @@
         typeof IHook !== `undefined` &&
         typeof ITerrain !== `undefined` &&
         typeof TextSignObject !== `undefined` &&
-        typeof UnderEventBuilder !== `undefined` &&
         typeof UnderStageParser !== `undefined` &&
         typeof UnderTileBuilder !== `undefined` &&
         typeof IString !== `undefined` &&

@@ -1,0 +1,119 @@
+@startuml EventGame
+
+package game {
+    package ga_event {
+        class UnderEventBuilder {
+            #makeEvent(event) <<override>>
+        }
+        package ga_common {
+            class LinkEvent {
+                +constructor(url)
+                #url : string
+                +init() <<override>>
+            }
+            class TextWindowEvent {
+                +constructor(name,x,y,sentence,size)
+                #x : number
+                #y : number
+                #sentence : string
+                #size : number
+                #showCount : number
+                #ended : boolean
+                +init() <<override>>
+            }
+        }
+        package ga_onstage {
+            class CameraChangeEvent {
+                +constructor(type,isMoving,isCliping)
+                #type : string
+                #isMoving : boolean
+                #isCliping : boolean
+                +init() <<override>>
+            }
+            class PhysicalChangeEvent
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+            interface IMouse
+        }
+        package resource {
+            package image {
+                abstract IImageManager
+                abstract Context
+            }
+        }
+        package event {
+            interface IEventOperator
+            package evcommon {
+                abstract GameEvent
+                abstract NamedEvent
+            }
+            package onstage {
+                abstract StageEvent
+            }
+        }
+        package stage {
+            abstract Stage
+            package physics {
+                abstract PhysicalWorld
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_camera {
+                class CenterCamera
+                class ClipCamera
+                class MovingCamera
+            }
+            package ex_physics {
+                class RepulsionResponse
+                class ImpulseBasedResponse
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        package ga_physics {
+            class UnderRepulsionResponse
+        }
+    }
+}
+
+UnderEventBuilder ..> LinkEvent : Generate
+UnderEventBuilder ..> TextWindowEvent : Generate
+UnderEventBuilder ..> PhysicalChangeEvent : Generate
+UnderEventBuilder ..> CameraChangeEvent : Generate
+UnderEventBuilder ..> UnderRepulsionResponse  : Generate
+RepulsionResponse <.. UnderEventBuilder : Generate
+ImpulseBasedResponse <.. UnderEventBuilder : Generate
+
+IKey <.. LinkEvent : Clear
+IMouse <.. LinkEvent : Clear
+IEventOperator <.. LinkEvent : Next
+IKey <.. TextWindowEvent : Judge
+IEventOperator <.. TextWindowEvent : Next
+IImageManager <.. TextWindowEvent : Load
+Context <.. TextWindowEvent : Render
+Stage <.. CameraChangeEvent : Get
+CenterCamera <.. CameraChangeEvent : Generate
+ClipCamera <.. CameraChangeEvent : Generate
+MovingCamera <.. CameraChangeEvent : Generate
+IEventOperator <.. CameraChangeEvent : Next
+Stage <.. PhysicalChangeEvent : Get
+PhysicalWorld <.. PhysicalChangeEvent : Set response
+IEventOperator <.. PhysicalChangeEvent : Next
+
+
+GameEvent <|.. LinkEvent
+NamedEvent <|.. TextWindowEvent
+StageEvent <|.. CameraChangeEvent
+
+@enduml

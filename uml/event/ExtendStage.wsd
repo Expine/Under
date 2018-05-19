@@ -56,17 +56,10 @@ package under {
 package under {
     package base {
         package input {
-            abstract IKey
-        }
-        package resource {
-            package image {
-                abstract GameImage
-            }
+            interface IKey
         }
         package event {
-            abstract EventManager
             interface IEventOperator
-            interface IEventRegister
             package evcommon {
                 abstract GameEvent
                 abstract NamedEvent

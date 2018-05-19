@@ -95,7 +95,7 @@ package under {
 package under {
     package base {
         package input {
-            abstract IKey
+            interface IKey
         }
         package resource {
             package image {
