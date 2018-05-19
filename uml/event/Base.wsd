@@ -1,0 +1,59 @@
+@startuml EventBase
+
+package under {
+    package base {
+        package event {
+            abstract EventManager {
+                {static} +it : IEventRegister
+                {abstract} +getRunningEvents() : Array<GameEvent>
+                {abstract} #removeEvents(removes)
+                +update(dt)
+                +render(ctx)
+            }
+            interface IEventOperator {
+                {abstract} +next()
+                {abstract} +delete(event)
+                {abstract} +getRunningEvents() : Array<GameEvent>
+            }
+            interface IEventRegister {
+                {abstract} +register(event)
+                {abstract} +unregister(event)
+                {abstract} +clear()
+            }
+            package evparser {
+                abstract EventBuilder {
+                    {abstract} +build(json)
+                }
+            }
+            package evcommon {
+                abstract GameEvent {
+                    #op : IEventOperator
+                    +setEventOperator(op)
+                    {abstract} +init()
+                    {abstract} +destruct()
+                    {abstract} +update(dt) : boolean
+                    {abstract} +render()
+                }
+                abstract NamedEvent {
+                    +constructor(name)
+                    +getName() : string
+                }
+            }
+            package onstage {
+                interface IStageEvent {
+                    +setStage(stage)
+                }
+                abstract StageEvent {
+                    #stage : Stage
+                    +setStage(stage) <<override>>
+                }
+            }
+        }
+    }
+}
+
+GameEvent <|-- NamedEvent
+GameEvent <|-- StageEvent
+IStageEvent <|.. StageEvent
+
+@enduml

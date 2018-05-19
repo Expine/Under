@@ -93,6 +93,7 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
      * @override
      */
     init() {
+        this.signCollider.init();
         if (this.signImage !== null) {
             this.signImage.init();
         }

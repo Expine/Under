@@ -17,56 +17,92 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
     }
 
     /**
+     * Make input order
+     * @protected
+     * @param {JSON} order Order json data
+     * @return {InpurOrder} Input order
+     */
+    makeInputOrder(order) {
+        switch (order.type) {
+            case `up`:
+                return new DirectionInputOrder(order.time, 0, -1);
+            case `down`:
+                return new DirectionInputOrder(order.time, 0, 1);
+            case `right`:
+                return new DirectionInputOrder(order.time, 1, 0);
+            case `left`:
+                return new DirectionInputOrder(order.time, -1, 0);
+            case `wait`:
+                return new WaitInputOrder(order.time);
+            case `loop`:
+                {
+                    let ret = new LoopInputOrder(order.number);
+                    for (let it of order.orders) {
+                        ret.addOrder(this.makeInputOrder(it));
+                    }
+                    return ret;
+                }
+        }
+    }
+
+    /**
      * Make event
      * @protected
      * @param {JSON} event Event json data
-     * @return {Event} Event
+     * @return {GameEvent} Event
      */
     makeEvent(event) {
-        if (event.type == `talk`) {
-            return new TalkEvent(event.sentence);
-        } else if (event.type == `waitkey`) {
-            return new WaitKeyEvent();
-        } else if (event.type == `image`) {
-            return new ImageEvent(event.name, this.loadEventImage(event.file), event.x, event.y, event.width, event.height);
-        } else if (event.type == `delete`) {
-            return new DeleteEvent(event.name);
-        } else if (event.type == `delay`) {
-            return new DelayEvent(event.delay);
-        } else if (event.type == `stop`) {
-            return new StageStopEvent(event.name);
-        } else if (event.type == `transition`) {
-            return new TransitionalEvent(event.stage, event.replace);
-        } else if (event.type == `auto`) {
-            let ret = new AutoInputEvent();
-            for (let it of event.orders) {
-                ret.addOrder(it);
-            }
-            return ret;
-        } else if (event.type == `control`) {
-            let ret = new ControlEntityEvent();
-            ret.setTarget(event.target);
-            if (event.vx !== undefined && event.vy !== undefined) {
-                ret.setVelocity(event.vx, event.vy);
-            }
-            if (event.fx !== undefined && event.fy !== undefined) {
-                ret.setForce(event.fx, event.fy);
-            }
-            return ret;
-        } else if (event.type == `camera`) {
-            return new CameraEvent(event.name, event.x, event.y);
-        } else if (event.type == `sequential`) {
-            let ret = new SequentialEvent();
-            for (let it of event.events) {
-                if (BaseUtil.implementsOf(this.makeEvent(it), IStageEvent)) {
-                    ret = new SequentialStageEvent();
-                    break;
+        switch (event.type) {
+            case `talk`:
+                return new TalkEvent(event.sentence);
+            case `waitkey`:
+                return new WaitKeyEvent();
+            case `image`:
+                return new ImageEvent(event.name, this.loadEventImage(event.file), event.x, event.y, event.width, event.height);
+            case `delete`:
+                return new DeleteEvent(event.name);
+            case `delay`:
+                return new DelayEvent(event.delay);
+            case `stop`:
+                return new StageStopEvent(event.name);
+            case `transition`:
+                return new TransitionalEvent(event.stage, event.replace);
+            case `auto`:
+                {
+                    let ret = new AutoInputEvent();
+                    for (let it of event.orders) {
+                        ret.addOrder(this.makeInputOrder(it));
+                    }
+                    return ret;
                 }
-            }
-            for (let it of event.events) {
-                ret.addEvent(this.makeEvent(it));
-            }
-            return ret;
+            case `control`:
+                {
+                    let ret = new ControlEntityEvent();
+                    ret.setTarget(event.target);
+                    if (event.vx !== undefined && event.vy !== undefined) {
+                        ret.setVelocity(event.vx, event.vy);
+                    }
+                    if (event.fx !== undefined && event.fy !== undefined) {
+                        ret.setForce(event.fx, event.fy);
+                    }
+                    return ret;
+                }
+            case `camera`:
+                return new CameraEvent(event.name, event.x, event.y);
+            case `sequential`:
+                {
+                    let ret = new SequentialEvent();
+                    for (let it of event.events) {
+                        if (BaseUtil.implementsOf(this.makeEvent(it), IStageEvent)) {
+                            ret = new SequentialStageEvent();
+                            break;
+                        }
+                    }
+                    for (let it of event.events) {
+                        ret.addEvent(this.makeEvent(it));
+                    }
+                    return ret;
+                }
         }
     }
 

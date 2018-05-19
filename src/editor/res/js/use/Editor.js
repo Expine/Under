@@ -110,6 +110,17 @@
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/ImageEvent.js'; document.head.appendChild(script);
     }
 }, 1);}
+{let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/inputorder/InputOrder.js'; document.head.appendChild(script);}
+{let id = setInterval(function() {
+    if (typeof InputOrder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/inputorder/LoopInputOrder.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof InputOrder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/inputorder/WaitInputOrder.js'; document.head.appendChild(script);
+    }
+}, 1);}
 {let id = setInterval(function() {
     if (typeof GameEvent !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/SequentialEvent.js'; document.head.appendChild(script);
@@ -807,6 +818,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof InputOrder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/inputorder/DirectionInputOrder.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof StateInputManager !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/input/KeyInput.js'; document.head.appendChild(script);
     }
@@ -1273,6 +1289,9 @@
         typeof DelayEvent !== `undefined` &&
         typeof DeleteEvent !== `undefined` &&
         typeof ImageEvent !== `undefined` &&
+        typeof InputOrder !== `undefined` &&
+        typeof LoopInputOrder !== `undefined` &&
+        typeof WaitInputOrder !== `undefined` &&
         typeof SequentialEvent !== `undefined` &&
         typeof CameraEvent !== `undefined` &&
         typeof ControlEntityEvent !== `undefined` &&
@@ -1413,6 +1432,7 @@
         typeof IEventEntity !== `undefined` &&
         typeof IPlayable !== `undefined` &&
         typeof UnderDebugEngine !== `undefined` &&
+        typeof DirectionInputOrder !== `undefined` &&
         typeof KeyInput !== `undefined` &&
         typeof MouseInput !== `undefined` &&
         typeof PreventKeyInput !== `undefined` &&

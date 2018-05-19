@@ -12,6 +12,7 @@ package under {
                         #isTransitioning : boolean
                         +setCollider(collider)
                         +getCollider() : Collider <<override>>
+                        +init() <<override>>
                         +update(dt) <<override>>
                     }
                     class SignObject {

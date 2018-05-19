@@ -64,6 +64,18 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
     }
 
     /**
+     * Clear all events
+     * @override
+     */
+    clear() {
+        for (let it of this.runningEvents) {
+            it.destruct();
+        }
+        this.events.length = 0;
+        this.runningEvents.length = 0;
+    }
+
+    /**
      * Execute next event
      * @override
      */
@@ -92,20 +104,6 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
      */
     getRunningEvents() {
         return this.runningEvents;
-    }
-
-    /**
-     * Clear all events
-     * @override
-     */
-    clear() {
-        for (let list of [this.events, this.runningEvents]) {
-            for (let it of list) {
-                it.destruct();
-            }
-        }
-        this.events.length = 0;
-        this.runningEvents.length = 0;
     }
 
     /**

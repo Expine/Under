@@ -1,0 +1,70 @@
+@startuml EventBase
+
+package under {
+    package extend {
+        package ex_event {
+            class QueueEventManager {
+                #events : Array<GameEvent>
+                #runningEvents : Array<GameEvent>
+                +register(event) <<override>>
+                +unregister(event) <<override>>
+                +clear() <<override>>
+                +next() <<override>>
+                +delete(event) <<override>>
+                +getRunningEvents() : Array<GameEvent> <<override>>
+                #removeEvents(removes) <<override>>
+            }
+            package evcommon {
+                class AutoInputEvent {
+                    #orders : Array<InputOrder>
+                    +addOrder(order)
+                    +init() <<override>>
+                    +destruct() <<override>>
+                    +update(dt) <<override>>
+                }
+                class DelayEvent
+                class DeleteEvent
+                class ImageEvent
+                class SequentialEvent
+            }
+            package onstage {
+                interface IStageEvent {
+                    +setStage(stage)
+                }
+                abstract StageEvent {
+                    #stage : Stage
+                    +setStage(stage) <<override>>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package event {
+            abstract EventManager
+            interface IEventOperator
+            interface IEventRegister
+            package evparser {
+                abstract EventBuilder
+            }
+            package evcommon {
+                abstract GameEvent
+                abstract NamedEvent
+            }
+            package onstage {
+                interface IStageEvent
+                abstract StageEvent
+            }
+        }
+    }
+}
+
+GameEvent "1" ..o "*" QueueEventManager : Manage
+
+EventManager <|.. QueueEventManager
+IEventRegister <|.. QueueEventManager
+IEventOperator <|.. QueueEventManager
+
+@enduml

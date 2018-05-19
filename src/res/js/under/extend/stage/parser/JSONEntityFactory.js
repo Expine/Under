@@ -266,14 +266,18 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
      */
     createEntity(id, deploy) {
         let ret = null;
+        let info = null;
         if (this.tileInfo[id] !== undefined) {
             // build tile
-            ret = this.tileBuilder.build(deploy, this.tileInfo[id]);
+            info = this.tileInfo[id];
+            ret = this.tileBuilder.build(deploy, info);
         } else {
-            ret = this.characterBuilder.build(deploy, this.entityInfo[id]);
+            info = this.entityInfo[id];
+            ret = this.characterBuilder.build(deploy, info);
         }
-        if (BaseUtil.implementsOf(ret, IEventEntity) && deploy !== undefined) {
-            ret.setEvent(this.eventBuilder.build(deploy.event));
+        if (BaseUtil.implementsOf(ret, IEventEntity)) {
+            let event = (deploy === undefined || deploy.event === undefined) ? info.event : deploy.event;
+            ret.setEvent(this.eventBuilder.build(event));
         }
         return ret;
     }

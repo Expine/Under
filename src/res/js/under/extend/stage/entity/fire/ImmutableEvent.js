@@ -88,6 +88,14 @@ class ImmutableEvent extends Entity /* , IEventEntity, IColliderable */ { // esl
     }
 
     /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        this.eventCollider.update();
+    }
+
+    /**
      * Update entty
      * @override
      * @param {number} dt Delta time

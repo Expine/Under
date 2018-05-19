@@ -73,6 +73,14 @@ class DoorObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
     }
 
     /**
+     * Initialize entity
+     * @override
+     */
+    init() {
+        this.doorCollider.update();
+    }
+
+    /**
      * Update entty
      * @override
      * @param {number} dt Delta time

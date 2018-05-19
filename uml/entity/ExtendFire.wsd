@@ -12,6 +12,7 @@ package under {
                         +getEvent() : GameEvent <<override>>
                         +fire() <<override>>
                         +getCollider() : Collider <<override>>
+                        +init() <<override>>
                         +update(dt) <<override>>
                     }
                 }

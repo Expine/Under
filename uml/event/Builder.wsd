@@ -1,0 +1,41 @@
+@startuml EventBuilder
+
+package under {
+    package extend {
+        package ex_event {
+            package evparser {
+                abstract SimpleEventBuilder {
+                    #loadEventImage(path) : number
+                    #makeInputOrder(order) : InputOrder
+                    #makeEvent(event) : GameEvent
+                    +build(json) <<override>>
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package event {
+            abstract EventManager
+            interface IEventOperator
+            interface IEventRegister
+            package evparser {
+                abstract EventBuilder
+            }
+            package evcommon {
+                abstract GameEvent
+                abstract NamedEvent
+            }
+            package onstage {
+                interface IStageEvent
+                abstract StageEvent
+            }
+        }
+    }
+}
+
+EventBuilder <|.. SimpleEventBuilder
+
+@enduml

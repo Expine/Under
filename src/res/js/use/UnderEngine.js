@@ -106,6 +106,17 @@
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/ImageEvent.js'; document.head.appendChild(script);
     }
 }, 1);}
+{let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/inputorder/InputOrder.js'; document.head.appendChild(script);}
+{let id = setInterval(function() {
+    if (typeof InputOrder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/inputorder/LoopInputOrder.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof InputOrder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/inputorder/WaitInputOrder.js'; document.head.appendChild(script);
+    }
+}, 1);}
 {let id = setInterval(function() {
     if (typeof GameEvent !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/SequentialEvent.js'; document.head.appendChild(script);
@@ -625,6 +636,11 @@
 {let id = setInterval(function() {
     if (typeof UnderEngine !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/debug/UnderDebugEngine.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof InputOrder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/under/extend/event/common/inputorder/DirectionInputOrder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {

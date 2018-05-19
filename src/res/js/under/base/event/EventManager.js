@@ -17,6 +17,13 @@ class EventManager { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get currently running event
+     * @abstract
+     * @return {Array<GameEvent>} Currently running events
+     */
+    getRunningEvents() {}
+
+    /**
      * Remove events from event manager
      * @abstract
      * @protected
