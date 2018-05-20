@@ -2,11 +2,13 @@
  * Editor camera
  * - Calculates the area to rendering
  * - Delegates some processing to another camera
+ * - It can save data
  * - ### Moves by right clicked and dragging
  * @extends {DelegateCamera}
+ * @implements {IEditorSave}
  * @classdesc Editor camera to move by right clicked and dragging
  */
-class EditorCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
+class EditorCamera extends DelegateCamera /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
     /**
      * Editor camera Constructor
      * @constructor
@@ -46,6 +48,40 @@ class EditorCamera extends DelegateCamera { // eslint-disable-line  no-unused-va
          * @type {number}
          */
         this.screenDiffY = 0;
+    }
+
+    /**
+     * Unparses from camera to json
+     * @param {JSON} base Added target
+     * @param {Camera} camera Camera to unparse
+     */
+    unparse(base, camera) {
+        if (camera instanceof CenterCamera) {
+            base.type = `center`;
+        } else if (camera instanceof MovingCamera) {
+            base.moving = true;
+        } else if (camera instanceof ClipCamera) {
+            base.cliping = true;
+        } else if (camera instanceof ForceMoveCamera) {
+            base.force = {};
+            base.force.x = camera.toX;
+            base.force.y = camera.toY;
+            base.force.speed = camera.speed;
+        }
+        if (camera instanceof DelegateCamera) {
+            this.unparse(base, camera.baseCamera);
+        }
+    }
+
+    /**
+     * Get json data for saving
+     * @override
+     * @return {JSON} Json data for saving
+     */
+    getSaveData() {
+        let ret = {};
+        this.unparse(ret, this.baseCamera);
+        return ret;
     }
 
     /**

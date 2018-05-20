@@ -9,10 +9,12 @@
 class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
     /**
      * Debug world constructor
-     * @param {PhysicalWorld} world Original world for delegation
      * @constructor
+     * @param {PhysicalWorld} world Original world for delegation
+     * @param {number} stageWidth Stage width (pixel)
+     * @param {number} stageHeight Stage height (pixel)
      */
-    constructor(world) {
+    constructor(world, stageWidth, stageHeight) {
         super(world.gravity);
 
         /**
@@ -21,6 +23,19 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
          * @type {PhysicalWorld}
          */
         this.world = world;
+
+        /**
+         * Stage width (pixel)
+         * @protected
+         * @type {number}
+         */
+        this.stageWidth = stageWidth;
+        /**
+         * Stage height (pixel)
+         * @protected
+         * @type {number}
+         */
+        this.stageHeight = stageHeight;
     }
     /**
      * Set response instance for collision response
@@ -163,5 +178,39 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
      */
     cleanup(dt) {
         this.world.cleanup();
+    }
+
+    /**
+     * Update physical world
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        super.update(dt);
+        // Change response (Q)
+        if (Input.key.isPress(Input.key.a() + 16)) {
+            let response = this.world.getResponse();
+            if (response instanceof UnderRepulsionResponse) {
+                this.world.setResponse(new RepulsionResponse());
+            } else {
+                // TODO: Separate from debug
+                this.world.setResponse(new UnderRepulsionResponse());
+            }
+        }
+        // Change wprld (W)
+        if (Input.key.isPress(Input.key.a() + 22)) {
+            let world;
+            if (this.world instanceof SplitWorld) {
+                world = new SequentialWorld(this.gravity / 10000);
+            } else {
+                world = new SplitWorld(this.stageWidth, this.stageHeight, this.gravity / 10000);
+            }
+            world.setResponse(this.world.getResponse());
+            for (let it of this.world.entities) {
+                world.addEntity(it);
+            }
+            this.world = world;
+        }
     }
 }

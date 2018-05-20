@@ -4,9 +4,10 @@
  * - Stores ID
  * - ### Tile in editor
  * @implements {IEditorEntity}
+ * @implements {IEditorSave}
  * @classdesc Editor tile in editor
  */
-class EditorTile /* , IEditorEntity */ { // eslint-disable-line  no-unused-vars
+class EditorTile /* , IEditorEntity, IEditorSave */ { // eslint-disable-line  no-unused-vars
     /**
      * Editor tile constructor
      * @constructor
@@ -70,6 +71,7 @@ class EditorTile /* , IEditorEntity */ { // eslint-disable-line  no-unused-vars
     /**
      * Build base save data
      * @protected
+     * @param {JSON} base Target data
      */
     buildBaseData(base) {
         base.id = this.id;

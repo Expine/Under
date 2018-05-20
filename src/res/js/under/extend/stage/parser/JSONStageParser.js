@@ -106,7 +106,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
                 return new SplitWorld(stage.width, stage.height);
             case `gravity`:
                 {
-                    let ret = new GravityWorld(stage.width, stage.height);
+                    let ret = new VariableGravityWorld(stage.width, stage.height);
                     for (let it of world.gravity) {
                         ret.addGravity(it.x, it.y, it.delta);
                     }

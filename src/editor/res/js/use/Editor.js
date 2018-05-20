@@ -1,6 +1,4 @@
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/event/EventUnparser.js'; document.head.appendChild(script);}
-{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/back/BackgroundUnparser.js'; document.head.appendChild(script);}
-{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/camera/CameraUnparser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/EditorBase.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/EditorTool.js'; document.head.appendChild(script);}
 {let id = setInterval(function() {
@@ -18,6 +16,7 @@
         clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/SyringeTool.js'; document.head.appendChild(script);
     }
 }, 1);}
+{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EditorTile.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/Engine.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/EngineBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/event/common/GameEvent.js'; document.head.appendChild(script);}
@@ -559,13 +558,18 @@
 }, 1);}
 {let script = document.createElement('script'); script.src='src/res/js/under/extend/util/Util.js'; document.head.appendChild(script);}
 {let id = setInterval(function() {
-    if (typeof JSContext !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/context/EditorContext.js'; document.head.appendChild(script);
+    if (typeof UnderEngineBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/EditorBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof UnderEngineBuilder !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/EditorBuilder.js'; document.head.appendChild(script);
+    if (typeof JSContext !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/resource/image/EditorContext.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Background !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/back/EditorBackground.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -604,8 +608,8 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Entity !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EditorTile.js'; document.head.appendChild(script);
+    if (typeof EditorTile !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EditorDeployer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1064,11 +1068,6 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof EditorTile !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EditorDeployer.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
     if (typeof IEditorSave !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/interface/IEditorEntity.js'; document.head.appendChild(script);
     }
@@ -1300,13 +1299,12 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof EventUnparser !== `undefined` &&
-        typeof BackgroundUnparser !== `undefined` &&
-        typeof CameraUnparser !== `undefined` &&
         typeof EditorBase !== `undefined` &&
         typeof EditorTool !== `undefined` &&
         typeof SimpleEditor !== `undefined` &&
         typeof SelectingTool !== `undefined` &&
         typeof SyringeTool !== `undefined` &&
+        typeof EditorTile !== `undefined` &&
         typeof Engine !== `undefined` &&
         typeof EngineBuilder !== `undefined` &&
         typeof GameEvent !== `undefined` &&
@@ -1447,8 +1445,9 @@
         typeof UnderEngine !== `undefined` &&
         typeof UnderEngineBuilder !== `undefined` &&
         typeof Util !== `undefined` &&
-        typeof EditorContext !== `undefined` &&
         typeof EditorBuilder !== `undefined` &&
+        typeof EditorContext !== `undefined` &&
+        typeof EditorBackground !== `undefined` &&
         typeof EditorCamera !== `undefined` &&
         typeof IEditorFunction !== `undefined` &&
         typeof IEditorTarget !== `undefined` &&
@@ -1456,7 +1455,7 @@
         typeof PencilTool !== `undefined` &&
         typeof EditorStage !== `undefined` &&
         typeof EditorStageManager !== `undefined` &&
-        typeof EditorTile !== `undefined` &&
+        typeof EditorDeployer !== `undefined` &&
         typeof IEditable !== `undefined` &&
         typeof IEditorSave !== `undefined` &&
         typeof EditorEntityFactory !== `undefined` &&
@@ -1548,7 +1547,6 @@
         typeof SelectionLayer !== `undefined` &&
         typeof SingleChipLayer !== `undefined` &&
         typeof SingleEntityLayer !== `undefined` &&
-        typeof EditorDeployer !== `undefined` &&
         typeof IEditorEntity !== `undefined` &&
         typeof EditorStageParser !== `undefined` &&
         typeof GameScene !== `undefined` &&

@@ -7,9 +7,9 @@
             "type": "Invariant",
             "image": {
                 "type": "single",
-                "file": "back.png",
                 "width": 800,
-                "height": 600
+                "height": 600,
+                "file": "back.png"
             }
         }]
     },

@@ -30,6 +30,17 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
     }
 
     /**
+     * Make background for parsing stage
+     * @override
+     * @protected
+     * @param {JSON} back Background json data
+     * @return {Background} Background instance for base of parsing
+     */
+    makeBackground(back) {
+        return new EditorBackground(super.makeBackground(back));
+    }
+
+    /**
      * Make base camera for parsing stage
      * @override
      * @protected

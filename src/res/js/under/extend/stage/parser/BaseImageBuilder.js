@@ -17,7 +17,11 @@ class BaseImageBuilder extends ImageBuilder { // eslint-disable-line  no-unused-
         let id = ResourceManager.image.load(`${root}/${image.file}`);
         switch (image.type) {
             case `tile`:
-                return new TileImage(id, image.width, image.height, image.x, image.y, image.width, image.height);
+                {
+                    let width = image.w === undefined ? image.width : image.w;
+                    let height = image.h === undefined ? image.height : image.h;
+                    return new TileImage(id, image.width, image.height, image.x, image.y, width, height);
+                }
             case `single`:
                 return new SingleImage(id, image.width, image.height);
             case `anime`:

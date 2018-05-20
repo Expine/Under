@@ -1,83 +1,66 @@
-@startuml EditorStage
+@startuml EditorParser
 
 package editor {
     package ed_stage {
-        class EditorStage {
-            +constructor(stage,tileFiles,entityFiles)
-            #tileFiles : Array<string>
-            #entityFile : Array<string>
-            #playMode : boolean
-            #saveData : string
-            #preCamera : Camera
-            #editorEntities : Array<IEditorEnttiy>
-            #editor : EditorBase
-            +restore()
-            +getSaveData() : JSON <<override>>
-            +setTileSelection(selection) <<override>>
-            +setEntitySelection(selection) <<override>>
-            +addEntitybyID(id,deploy,init) : Entity <<override>>
-            +addEntiy(entity) <<override>>
-            +removeEntity(entity) <<override>>
-            +removeEntityImmediately(entity) <<override>>
-            +update(dt) <<override>>
-            +redner(ctx, shiftX, shiftY) <<override>
-        }
-
         package ed_parser {
-            class EditorStageParser
-        }
-        package ed_camera {
-            class EditorCamera {
-                #moving : boolean
-                #moveStartX : number
-                #moveStartY : number
-                #screenDiffX : number
-                #screenDiffY : number
-            }
-        }
-    }
-}
-
-package under {
-    package base {
-        package stage {
-            package camera {
-                abstract Camera
-            }
-        }
-    }
-    package debug {
-        package de_stage {
-            class DebugStage
-        }
-    }
-    package extend {
-        package ex_stage {
-            class SplitManagemenetStage
-            package ex_back {
-                class SequentialBackground
-                class InvariantBackground
+            class EditorStageParser {
+                #makeEditor() : EditorBase
+                #makeBaseStage(stage) : Stage <<override>>
+                #makeBackground(back) : Background <<override>>
+                #makeBaseCamera(camera) : Camera <<override>>
+                #makeBaseWorld(stage,world) : PhysicalWorld <<override>>
+                #makeEntityFactory(stage) : EntityFactory <<override>>
+                +parse(ilePath,width,height) : Stage <<override>>
             }
         }
     }
 }
 
 package game {
+    package ga_event {
+        class UnderEventBuilder
+    }
     package ga_stage {
-        class UnderStageParser
+        package ga_parser {
+            class UnderStageParser
+            class UnderTileBuilder
+            class UnderCharacterBuilder
+        }
+    }
+}
+package editor {
+    package ed_stage {
+        interface IEditable
+        class EditorStage
+        package ed_back {
+            class EditorBackground
+        }
+        package ed_edit {
+            class SimpleEditor
+        }
+        package ed_camera {
+            class EditorCamera
+        }
+        package ed_physics {
+            class EditorWorld
+        }
+        package ed_parser {
+            class EditorEntityFactory
+        }
     }
 }
 
-EditorStage <.. EditorStageParser : "Generate"
-EditorCamera <.. EditorStageParser : "Generate"
-EditorMap <.. EditorStageParser : "Generate"
-EditorInvariantMap <.. EditorStageParser : "Generate"
+SimpleEditor <.. EditorStageParser : Generate
+EditorStage <.. EditorStageParser : Generate
+EditorBackground <.. EditorStageParser : Generate
+EditorCamera <.. EditorStageParser : Generate
+EditorWorld <.. EditorStageParser : Generate
+EditorEntityFactory <.. EditorStageParser : Generate
+UnderTileBuilder <... EditorStageParser : Generate
+UnderCharacterBuilder <... EditorStageParser : Generate
+UnderEventBuilder <... EditorStageParser : Generate
+IEditable <.. EditorStageParser : Set
 
-DebugStage <|.. EditorStage
-Camera <|.. EditorCamera
-UnderStageParser <|.. EditorStageParser
-SplitManagemenetStage <|-- EditorStage
-SequentialMap <|-- EditorMap
-InvariantMap <|-- EditorInvariantMap
+UnderStageParser <|--- EditorStageParser
 
 @enduml

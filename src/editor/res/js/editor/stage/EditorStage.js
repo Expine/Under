@@ -102,8 +102,15 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         let data = {};
         data.width = this.getStageWidth();
         data.height = this.getStageHeight();
-        data.background = (new BackgroundUnparser()).unparse(this.stage.back);
-        data.camera = (new CameraUnparser()).unparse(this.stage.camera.baseCamera);
+        if (BaseUtil.implementsOf(this.stage.back, IEditorSave)) {
+            data.background = this.stage.back.getSaveData();
+        }
+        if (BaseUtil.implementsOf(this.getCamera(), IEditorSave)) {
+            data.camera = this.getCamera().getSaveData();
+        }
+        if (BaseUtil.implementsOf(this.getPhysicalWorld(), IEditorSave)) {
+            data.world = this.getPhysicalWorld().getSaveData();
+        }
         data.tiles = this.tileFiles;
         data.entities = this.entityFiles;
         data.layers = [];

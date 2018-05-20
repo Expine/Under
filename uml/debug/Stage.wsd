@@ -34,6 +34,7 @@ package under {
             }
             package d_physics {
                 class DebugWorld {
+                    +constructor(world,stageWidth,stageHeight)
                     +setResponse(response) <<override>>
                     +getResponse() : CollisionResponse <<override>>
                     +addEntity(entity) <<override>>
@@ -92,6 +93,23 @@ package under {
             abstract GameDebugger
         }
     }
+    package extend {
+        package ex_stage {
+            package ex_physics {
+                class SequentialWorld
+                class SplitWorld
+                class RepulsionResponse
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage{
+        package ga_physics {
+            class UnderRepulsionResponse
+        }
+    }
 }
 
 Timer <... DebugStage : Register
@@ -107,6 +125,10 @@ PhysicalWorld <.. DebugStage : Get
 DebugWorld <.. DebugStage : Get
 
 Timer <.. DebugWorld : Register
+UnderRepulsionResponse <.. DebugWorld : Generate
+RepulsionResponse <.. DebugWorld : Generate
+SequentialWorld <.. DebugWorld : Generate
+SplitWorld <.. DebugWorld : Generate
 
 Stage <|.. DebugStage
 PhysicalWorld <|.. DebugWorld

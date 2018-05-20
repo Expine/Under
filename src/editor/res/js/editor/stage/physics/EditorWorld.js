@@ -3,56 +3,35 @@
  * - Performs a physical operation
  * - Registers entities and apply a physical operation
  * - Measure time for debugging by delegation
+ * - It can save data
  * - ### Changes world type
  * @extends {DebugWorld}
+ * @implements {IEditorSave}
  * @classdesc Editor world to chane world type
  */
-class EditorWorld extends DebugWorld { // eslint-disable-line  no-unused-vars
+class EditorWorld extends DebugWorld /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
     /**
-     * Editor world constructor
-     * @param {PhysicalWorld} world Original world for delegation
-     * @param {number} stageWidth Stage width (pixel)
-     * @param {number} stageHeight Stage height (pixel)
-     * @constructor
-     */
-    constructor(world, stageWidth, stageHeight) {
-        super(world);
-
-        /**
-         * Stage width (pixel)
-         * @protected
-         * @type {number}
-         */
-        this.stageWidth = stageWidth;
-        /**
-         * Stage height (pixel)
-         * @protected
-         * @type {number}
-         */
-        this.stageHeight = stageHeight;
-    }
-    /**
-     * Update physical world
+     * Get json data for saving
      * @override
-     * @protected
-     * @param {number} dt Delta time
+     * @return {JSON} Json data for saving
      */
-    update(dt) {
-        // w key
-        if (Input.key.isPress(Input.key.a() + 22)) {
-            let world;
-            if (this.world instanceof SplitWorld) {
-                world = new SequentialWorld(this.gravity / 10000);
-            } else {
-                world = new SplitWorld(this.stageWidth, this.stageHeight, this.gravity / 10000);
+    getSaveData() {
+        let ret = {};
+        if (this.world instanceof SplitWorld) {
+            ret.type = `split`;
+        } else if (this.world instanceof SequentialWorld) {
+            ret.type = `sequential`;
+        } else if (this.world instanceof VariableGravityWorld) {
+            ret.type = `gravity`;
+            ret.gravity = [];
+            for (let i = 0; i < this.world.gravityXs.length; ++i) {
+                let data = {};
+                data.x = this.world.gravityXs[i];
+                data.y = this.world.gravityYs[i];
+                data.delta = this.world.deltas[i];
+                ret.gravity.push(data);
             }
-            world.setResponse(this.world.getResponse());
-            for (let it of this.world.entities) {
-                world.addEntity(it);
-            }
-            this.world = world;
-            return;
         }
-        super.update(dt);
+        return ret;
     }
 }

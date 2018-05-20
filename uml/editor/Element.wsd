@@ -1,0 +1,175 @@
+@startuml EditorElement
+
+package editor {
+    package ed_stage {
+        package ed_back {
+            class EditorBackground {
+                +constructor(baseBackground)
+                #baseBackground : Background
+                #loadPath(id) : number
+                #getImageData(image) : JSON
+                #unparser(back) : JSON
+                +getSaveData() : JSON <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx,shiftX,shiftY,screenWidth,screenHeight) <<override>>
+            }
+        }
+        package ed_entity {
+            class EditorTile {
+                +consstructor(entity,id)
+                #entity : Entity
+                #id : number
+                +getID() : number <<override>>
+                +equals(entity) <<override>>
+                +isDeployer : boolean <<override>>
+                +getSaveData() : JSON <<override>>
+                #buildBaseData(base)
+            }
+            class EditorDeployer {
+                +isDeployer : boolean <<override>>
+            }
+            package ed_interface {
+                interface IEditorEntity {
+                    {abstract} +getID() : number
+                    {abstract} +equals(entity)
+                    {abstract} +isDeployer : boolean
+                }
+            }
+        }
+        package ed_camera {
+            class EditorCamera {
+                #moving : boolean
+                #moveStartX : number
+                #moveStartY : number
+                #screenDiffX : number
+                #screenDiffY : number
+                #unparser(base,camera)
+                +getSaveData() : JSON <<override>>
+                +setScreenSize(screenWidth,screenHeight) <<override>>
+                +update(x,y,dt) <<override>>
+            }
+        }
+        package physics {
+            class EditorWorld {
+                #stageWidth : number
+                #stageHeight : number
+                +getSaveData() : JSON <<override>>
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+            interface IMouse
+        }
+        package resource {
+            package image {
+                interface IImageManager
+            }
+        }
+        package stage {
+            package back {
+                abstract Background
+            }
+            package camera {
+                abstract DelegateCamera
+            }
+            package entity {
+                abstract Entity
+            }
+        }
+    }
+    package debug {
+        package de_stage {
+            package de_physics {
+                class DebugWorld
+            }
+        }
+    }
+    package extend {
+        package ex_resource {
+            package ex_image {
+                class SingleImage
+                class TileImage
+                class SingleAnimation
+                class MultiNamedAnimation
+            }
+        }
+        package ex_stage {
+            package ex_back {
+                abstract ImageBackground
+                class SequentialBackground
+                class InvariantBackground
+                class MovementBackground
+                class AreaBackground
+                class FixedBackground
+            }
+            package ex_camera {
+                class CenterCamera
+                class MovingCamera
+                class ClipCamera
+                class ForceMoveCamera
+            }
+            package ex_world {
+                class SequentialWorld
+                class SplitWorld
+                class VariableGravityWorld
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        class UnderStageParser
+    }
+}
+
+package editor {
+    package ed_stage {
+        interface IEditorSave
+    }
+}
+
+IImageManager <.. EditorBackground : Get path
+MultiNamedAnimation <.. EditorBackground : Get
+SingleAnimation <.. EditorBackground : Get
+TileImage <.. EditorBackground : Get
+SingleImage <.. EditorBackground : Get
+SequentialBackground <.. EditorBackground : Get
+InvariantBackground <.. EditorBackground : Get
+MovementBackground <.. EditorBackground : Get
+AreaBackground <.. EditorBackground : Get
+FixedBackground <.. EditorBackground : Get
+ImageBackground <.. EditorBackground : Get
+
+CenterCamera <.. EditorCamera : Get
+MovingCamera <.. EditorCamera : Get
+ClipCamera <.. EditorCamera : Get
+ForceMoveCamera <.. EditorCamera : Get
+DelegateCamera <.. EditorCamera : Get
+IKey <.. EditorCamera : Get
+IMouse <.. EditorCamera : Get
+
+SplitWorld <.. EditorWorld : Get
+SequentialWorld <.. EditorWorld : Get
+VariableGravityWorld <.. EditorWorld : Get
+
+Entity <.. EditorTile : Get
+
+Background <|.. EditorBackground
+EditorBackground ..|> IEditorSave
+DelegateCamera <|.. EditorCamera
+EditorCamera ..|> IEditorSave
+DebugWorld <|.. EditorWorld
+EditorWorld ..|> IEditorSave
+
+IEditorEntity <|.. EditorTile
+IEditorSave <|.. EditorTile
+EditorTile <|-- EditorDeployer
+
+@enduml
