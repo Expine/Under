@@ -7,6 +7,8 @@
  * - It can save data
  * - ### Selects chips
  * @extends {NamedTabbedLayer}
+ * @implements {ISelection}
+ * @implements {IEditorSave}
  * @classdesc Chip layer to select chips
  */
 class ChipLayer extends NamedTabbedLayer /* , ISelection, IEditorSave */ { // eslint-disable-line  no-unused-vars

@@ -5,6 +5,7 @@
  * - It can make input blocked
  * - ### Registers input state by input event
  * @extends {Input}
+ * @implements {IInput}
  * @classdesc State input manager to regiter input state by input event
  */
 class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  no-unused-vars

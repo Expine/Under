@@ -3,21 +3,27 @@
 package editor {
     package ed_stage {
         class EditorStage {
-            +EditorStage(tileInfo,entityInfo) : EditorStage
+            +constructor(stage,tileInfo,entityInfo)
             #tileInfo : Dictionary<number, json>
             #entityInfo : Dictionary<number, json>
             #selectedX : number
             #selectedY : number
-            #tileSelection : Selection
-            #entitySelection : Selection
-            #saveData : string
+            #tileSelection : ISelection
+            #entitySelection : ISelection
             #playMode : boolean
+            #saveData : string
+            #preCamera : Camera
             #entitiesID : Array<number>
-            +getTileInfo() : Dictionary<number, json>
-            +getEntityInfo() : Dictionary<number, json>
-            +addEntityID(id)
-            +getSaveData() : json
             +restore()
+            +getSaveData() : JSON <<override>>
+            +setTileSelection(selection) <<override>>
+            +setEntitySelection(selection) <<override>>
+            +addEntitybyID(id,deploy,init) : Entity <<override>>
+            +addEntiy(entity) <<override>>
+            +removeEntity(entity) <<override>>
+            +removeEntityImmediately(entity) <<override>>
+            +update(dt) <<override>>
+            +redner(ctx, shiftX, shiftY) <<override>
         }
 
         package ed_parser {
@@ -43,6 +49,11 @@ package under {
             }
         }
     }
+    package debug {
+        package de_stage {
+            class DebugStage
+        }
+    }
     package extend {
         package ex_stage {
             class SplitManagemenetStage
@@ -65,6 +76,7 @@ EditorCamera <.. EditorStageParser : "Generate"
 EditorMap <.. EditorStageParser : "Generate"
 EditorInvariantMap <.. EditorStageParser : "Generate"
 
+DebugStage <|.. EditorStage
 Camera <|.. EditorCamera
 UnderStageParser <|.. EditorStageParser
 SplitManagemenetStage <|-- EditorStage

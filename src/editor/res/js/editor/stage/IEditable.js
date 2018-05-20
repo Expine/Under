@@ -7,12 +7,14 @@
 class IEditable extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Set tile selection
+     * @abstract
      * @param {ISelection} selection Tile selection
      */
     setTileSelection(selection) {}
 
     /**
      * Set entity selection
+     * @abstract
      * @param {ISelection} selection Entity selection
      */
     setEntitySelection(selection) {}

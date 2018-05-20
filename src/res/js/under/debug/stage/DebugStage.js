@@ -25,6 +25,72 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Register debug information
+     * @prtected
+     * @param {number} dt Delta time
+     */
+    registerInformation(dt) {
+        let players = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
+        if (players.length > 0) {
+            let player = players[0];
+            GameDebugger.it.register(`time`, `${dt} mssc`);
+            GameDebugger.it.register(`collision`, `${this.getPhysicalWorld().getCollisionSize()} collision`);
+            if (player instanceof InfluentialEntity) {
+                GameDebugger.it.register(`pcollision`, `${player.collider.collisions.length} player collision`);
+            }
+            GameDebugger.it.register(`physics`, `${BaseUtil.getClassName(this.getPhysicalWorld() instanceof DebugWorld ? this.getPhysicalWorld().world : this.getPhysicalWorld())}-${BaseUtil.getClassName(this.getPhysicalWorld().getResponse())}`);
+            GameDebugger.it.register(`ppos`, `Pos(${Math.floor(player.x)}, ${Math.floor(player.y)})`);
+            if (player instanceof MutableEntity) {
+                GameDebugger.it.register(`pvec`, `Vec(${Math.floor(player.body.velocityX)}, ${Math.floor(player.body.velocityY)})`);
+                GameDebugger.it.register(`pacc`, `Acc(${Math.floor(player.body.accelerationX)},${Math.floor(player.body.accelerationY)})`);
+            }
+            if (player instanceof StateCharacter && player.state !== null) {
+                GameDebugger.it.register(`state`, `${BaseUtil.getClassName(player.state)}`);
+            }
+            GameDebugger.it.register(`mouse`, `M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`);
+        }
+    }
+
+    /**
+     * Render entity information for debug
+     * @protected
+     * @param {Context} ctx Canvas context
+     * @param {number} shiftX Shift x position
+     * @param {number} shiftY Shift y position
+     */
+    renderEntityInformation(ctx, shiftX, shiftY) {
+        let startX = -this.stage.camera.cameraX;
+        let startY = -this.stage.camera.cameraY;
+        let endX = startX + this.stage.camera.screenWidth;
+        let endY = startY + this.stage.camera.screenHeight;
+        let mx = Input.mouse.getMouseX() + startX;
+        let my = Input.mouse.getMouseY() + startY;
+        for (let it of this.getEntities()) {
+            if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
+                if (it instanceof InfluentialEntity && it.collider !== null) {
+                    // render collider
+                    it.collider.render(ctx, this.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
+                    // render information
+                    if (it.collider.isInCollider(mx, my)) {
+                        ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
+                        if (it instanceof MutableEntity && it.body !== null) {
+                            ctx.fillText(`V(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
+                            ctx.fillText(`M(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
+                            ctx.fillText(`A(${Math.floor(it.body.accelerationX)}, ${Math.floor(it.body.accelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, `white`);
+                            ctx.fillText(`F((${it.body.isFixX}, ${it.body.isFixY}) - (${Math.floor(it.body.diffX)}, ${Math.floor(it.body.diffY)}))`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`);
+                        }
+                    }
+                } else if (BaseUtil.implementsOf(it, IColliderable)) {
+                    it.getCollider().render(ctx, this.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
+                    if (it.getCollider().isInCollider(mx, my)) {
+                        ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Set background manager
      * @override
      * @param {Background} back Background manager
@@ -226,6 +292,16 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Update stage
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        super.update(dt);
+        this.registerInformation(dt);
+    }
+
+    /**
      * Render background in stage
      * @override
      * @protected
@@ -254,35 +330,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
 
         // For debug to render entity information
         if (GameDebugger.debug) {
-            let startX = -this.stage.camera.cameraX;
-            let startY = -this.stage.camera.cameraY;
-            let endX = startX + this.stage.camera.screenWidth;
-            let endY = startY + this.stage.camera.screenHeight;
-            let mx = Input.mouse.getMouseX() + startX;
-            let my = Input.mouse.getMouseY() + startY;
-            for (let it of this.getEntities()) {
-                if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
-                    if (it instanceof InfluentialEntity && it.collider !== null) {
-                        // render collider
-                        it.collider.render(ctx, this.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
-                        // render information
-                        if (it.collider.isInCollider(mx, my)) {
-                            ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
-                            if (it instanceof MutableEntity && it.body !== null) {
-                                ctx.fillText(`V(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
-                                ctx.fillText(`M(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
-                                ctx.fillText(`A(${Math.floor(it.body.accelerationX)}, ${Math.floor(it.body.accelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, `white`);
-                                ctx.fillText(`F((${it.body.isFixX}, ${it.body.isFixY}) - (${Math.floor(it.body.diffX)}, ${Math.floor(it.body.diffY)}))`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`);
-                            }
-                        }
-                    } else if (BaseUtil.implementsOf(it, IColliderable)) {
-                        it.getCollider().render(ctx, this.stage.camera.baseX - startX, this.stage.camera.baseY - startY);
-                        if (it.getCollider().isInCollider(mx, my)) {
-                            ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`);
-                        }
-                    }
-                }
-            }
+            this.renderEntityInformation(ctx, shiftX, shiftY);
         }
     }
 

@@ -5,6 +5,7 @@
  * - It can save data
  * - ### It can save the current stage
  * @extends {StackStageManager}
+ * @implements {IEditorSave}
  * @classdesc Editor stage manager that can save the current stage
  */
 class EditorStageManager extends StackStageManager /* , IEditorSave */ { // eslint-disable-line  no-unused-vars

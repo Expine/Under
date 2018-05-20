@@ -1,0 +1,137 @@
+@startuml EditorSelection
+
+package editor {
+    package ed_scene {
+        package ed_layer {
+            abstract SelectionLayer
+            class ChipLayer {
+                #tileInfo : Object<string, Object<number, JSON>>
+                #chipLayers : Array<SelectionLayer>
+                #selected : ISelection
+                +setSelectionInfo(info) <<override>>
+                +getSelected() : number <<override>>
+                +setSelected(id) <<override>>
+                +getSaveData() : JSON <<override>>
+                +init() <<override>>
+                +render(ctx) <<override>>
+            }
+            class EntityLayer {
+                #entityInfo : Object<number, JSON>
+                #entityLayers : Array<SelectionLayer>
+                +setSelectionInfo(info) <<override>>
+                +getSelected() : number <<override>>
+                +setSelected(id) <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
+            }
+            class SingleChipLayer {
+                +constructor(fileName)
+                #tileInfo : Object<number, JSON>
+                #fileName : string
+                #tileImage : IClipImage
+                #selectTile : JSON
+                #selectedTile : JSON
+                +setSelectionInfo(info) <<override>>
+                +getSelected() : number <<override>>
+                +setSelected(id) <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
+            }
+            class SingleEntityLayer {
+                #entityData : JSON
+                #animation : IClipImage
+                #selectEntity : JSON
+                #selectedEntity : JSON
+                +setSelectionInfo(info) <<override>>
+                +getSelected() : number <<override>>
+                +setSelected(id) <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
+            }
+        }
+    }
+
+    package util {
+        interface ISelection {
+            {abstract} +setSelectionInfo(info)
+            {abstract} +getSelected() : number
+            {abstract} +setSelected(id)
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IMouse
+        }
+        package resource {
+            package image {
+                abstract Context
+                interface IImageManager
+                interface IClipImage
+            }
+        }
+        package scene {
+            package layer {
+                abstract ClipLayer
+            }
+        }
+    }
+    package extend {
+        package ex_resource {
+            package ex_image {
+                class SingleClipImage
+                class TileClipImage
+                class SingleClipAnimation
+            }
+        }
+        package ex_scene {
+            package ex_layer {
+                class DragScrollLayer
+                class NamedTabbedLayer
+            }
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        interface IEditorSave
+    }
+}
+
+SelectionLayer "*" --o "1" ChipLayer  : Select and save
+SingleChipLayer <.. ChipLayer : Generate and init
+DragScrollLayer <... ChipLayer : Generate
+Context <... ChipLayer : Render
+
+SelectionLayer "*" --o "1" EntityLayer  : Manege
+SingleEntityLayer <.. EntityLayer : Generate and init
+Context <... EntityLayer : Render
+
+SingleClipImage <... SingleChipLayer : Generate
+IClipImage <... SingleChipLayer : Update and render
+IMouse <... SingleChipLayer : Get mouse
+IImageManager <... SingleChipLayer : Load
+Context <... SingleChipLayer : Render
+
+SingleClipImage <... SingleEntityLayer : Generate
+TileClipImage <... SingleEntityLayer : Generate
+SingleClipAnimation <... SingleEntityLayer : Generate
+IClipImage <... SingleEntityLayer : Update and render
+IMouse <... SingleEntityLayer : Get mouse
+
+ClipLayer <|-- SelectionLayer
+ISelection <|.. SelectionLayer
+IEditorSave <|.. SelectionLayer
+NamedTabbedLayer <|-- ChipLayer
+ISelection <|.. ChipLayer
+IEditorSave <|.. ChipLayer
+SelectionLayer <|.. EntityLayer
+SelectionLayer <|.. SingleEntityLayer
+
+@enduml

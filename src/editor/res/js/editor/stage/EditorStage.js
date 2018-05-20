@@ -9,9 +9,11 @@
  * - It can save data
  * - ### Enable to put, remove and replace entity
  * @extends {DebugStage}
+ * @implements {IEditorSave}
+ * @implements {IEditable}
  * @classdesc Editor stage that can put, remove and replace entity
  */
-class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
+class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-disable-line  no-unused-vars
     /**
      * Editor stage constructor
      * @constructor
@@ -80,99 +82,11 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
         this.preCamera = null;
 
         /**
-         * List of entity ID
+         * List of editor entity
          * @protected
-         * @type {Array<number>}
+         * @type {Array<IEditorEntity>}
          */
-        this.entitiesID = [];
-    }
-
-    /**
-     * Add enttiy to stage by ID
-     * @override
-     * @param {Object} id Added entity ID
-     * @param {JSON} deploy Deploy json data
-     * @param {Function<((Entity) => void)>} init Initialize function
-     * @return {Entity} Added entity
-     */
-    addEntityByID(id, deploy, init) {
-        this.entitiesID.push(id);
-        return super.addEntityByID(id, deploy, init);
-    }
-
-    /**
-     * Add entity to stage
-     * @override
-     * @param {Entity} entity Entity object
-     */
-    addEntity(entity) {
-        super.addEntity(entity);
-        // onece update
-        entity.update(30);
-    }
-    /**
-     * Remove entity from stage
-     * @override
-     * @param {Entity} entity Entity object
-     */
-    removeEntity(entity) {
-        let index = this.stage.getEntities().indexOf(entity);
-        if (index >= 0) {
-            this.entitiesID.splice(index, 1);
-        }
-        super.removeEntity(entity);
-    }
-
-    /**
-     * Remove entity from stage immediately
-     * @abstract
-     * @protected
-     * @param {Entity} entity Entity object
-     */
-    removeEntityImmediately(entity) {
-        let index = this.stage.getEntities().indexOf(entity);
-        if (index >= 0) {
-            this.entitiesID.splice(index, 1);
-        }
-        super.removeEntityImmediately(entity);
-    }
-
-    /**
-     * Get json data for saving
-     * @override
-     * @return {JSON} Json data for saving
-     */
-    getSaveData() {
-        let data = {};
-        data.width = this.stage.stageWidth;
-        data.height = this.stage.stageHeight;
-        data.background = (new BackgroundUnparser()).unparse(this.stage.back);
-        data.camera = (new CameraUnparser()).unparse(this.stage.camera.baseCamera);
-        data.tiles = this.tileFile;
-        data.entities = this.entityFile;
-        data.layers = [];
-        data.layers.push([]);
-        data.deploy = [];
-        let entities = this.getEntities();
-        let unparser = new EntityUnparser();
-        for (let i = 0; i < entities.length; ++i) {
-            let it = entities[i];
-            let id = this.entitiesID[i];
-            let original = it instanceof TileObject ? this.getFactory().tileInfo[id] : this.getFactory().entityInfo[id];
-            let entity = unparser.unparse(it, original);
-            // unparse event
-            if (BaseUtil.implementsOf(it, IEventEntity)) {
-                entity.event = EventUnparser.unparse(it.getEvent());
-            }
-            // set
-            if (it instanceof TileObject) {
-                data.layers[0].push(entity);
-            } else {
-                data.deploy.push(entity);
-            }
-        }
-        this.saveData = JSON.stringify(data);
-        return data;
+        this.editorEntities = [];
     }
 
     /**
@@ -193,7 +107,37 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
     }
 
     /**
+     * Get json data for saving
+     * @override
+     * @return {JSON} Json data for saving
+     */
+    getSaveData() {
+        let data = {};
+        data.width = this.stage.stageWidth;
+        data.height = this.stage.stageHeight;
+        data.background = (new BackgroundUnparser()).unparse(this.stage.back);
+        data.camera = (new CameraUnparser()).unparse(this.stage.camera.baseCamera);
+        data.tiles = this.tileFile;
+        data.entities = this.entityFile;
+        data.layers = [];
+        data.layers.push([]);
+        data.deploy = [];
+        for (let i = 0; i < this.editorEntities.length; ++i) {
+            let entity = this.editorEntities[i].getSaveData();
+            // set
+            if (this.editorEntities[i].isDeployer()) {
+                data.deploy.push(entity);
+            } else {
+                data.layers[0].push(entity);
+            }
+        }
+        this.saveData = JSON.stringify(data);
+        return data;
+    }
+
+    /**
      * Set tile selection
+     * @override
      * @param {ISelection} selection Tile selection
      */
     setTileSelection(selection) {
@@ -203,11 +147,65 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
 
     /**
      * Set entity selection
+     * @override
      * @param {ISelection} selection Entity selection
      */
     setEntitySelection(selection) {
         this.entitySelection = selection;
         this.entitySelection.setSelectionInfo(this.getFactory().entityInfo);
+    }
+
+    /**
+     * Add enttiy to stage by ID
+     * @override
+     * @param {Object} id Added entity ID
+     * @param {JSON} deploy Deploy json data
+     * @param {Function<((Entity) => void)>} init Initialize function
+     * @return {Entity} Added entity
+     */
+    addEntityByID(id, deploy, init) {
+        let entity = super.addEntityByID(id, deploy, init);
+        entity.setStage(this);
+        this.editorEntities.push(entity instanceof TileObject ? new EditorTile(entity, id) : new EditorDeployer(entity, id));
+        return entity;
+    }
+
+    /**
+     * Add entity to stage
+     * @override
+     * @param {Entity} entity Entity object
+     */
+    addEntity(entity) {
+        super.addEntity(entity);
+        // onece update
+        entity.setStage(this);
+        entity.update(30);
+    }
+    /**
+     * Remove entity from stage
+     * @override
+     * @param {Entity} entity Entity object
+     */
+    removeEntity(entity) {
+        let index = this.editorEntities.findIndex((it) => it.equals(entity));
+        if (index >= 0) {
+            this.editorEntities.splice(index, 1);
+        }
+        super.removeEntity(entity);
+    }
+
+    /**
+     * Remove entity from stage immediately
+     * @abstract
+     * @protected
+     * @param {Entity} entity Entity object
+     */
+    removeEntityImmediately(entity) {
+        let index = this.editorEntities.findIndex((it) => it.equals(entity));
+        if (index >= 0) {
+            this.editorEntities.splice(index, 1);
+        }
+        super.removeEntityImmediately(entity);
     }
 
     /**
@@ -222,9 +220,10 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
                 this.stage.camera = this.preCamera;
                 this.restore();
             } else {
-                this.preCamera = this.stage.camera;
-                // TODO: Should be abstracted
-                this.stage.camera = this.preCamera.baseCamera;
+                this.preCamera = this.stage.getCamera();
+                if (this.preCamera instanceof DelegateCamera) {
+                    this.stage.setCamera(this.preCamera.getBaseCamera());
+                }
                 this.getSaveData();
             }
             this.playMode = !this.playMode;
@@ -292,7 +291,7 @@ class EditorStage extends DebugStage /* , IEditorSave */ { // eslint-disable-lin
                     let entity = entities[i];
                     if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
                         if (entity instanceof ImmutableEntity) {
-                            this.tileSelection.setSelected(this.entitiesID[i]);
+                            this.tileSelection.setSelected(this.editorEntities[i].getID());
                             break;
                         }
                     }

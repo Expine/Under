@@ -4,9 +4,10 @@ package editor {
     class EditorMain
     class EditorBuilder {
         #makeEngine() : Engine <<override>>
-        #makeInput() : Input <<override>>
         #makeScreen() : GameScreen <<override>>
+        #makeInput() : Input <<override>>
         #makeContext() : Context <<override>>
+        #makeTimer() : Timer <<override>>
     }
 
     package ed_context {
@@ -31,6 +32,9 @@ package under {
             class KeyInput
             class MouseInput
         }
+        package ex_timer {
+            class RecordedTimer
+        }
     }
     package debug {
         class UnderDebugEngine
@@ -45,6 +49,7 @@ package editor {
 
 EditorBuilder <.. EditorMain : Generate and build, Execute
 EditorScene <.. EditorMain : Generate
+
 UnderDebugEngine <.. EditorBuilder : Generate
 DetectiveScreen <.. EditorBuilder : Generate
 FitableScreen <.. EditorBuilder : Generate
@@ -52,6 +57,7 @@ EditorContext <.. EditorBuilder : Generate
 AllInput <.. EditorBuilder : Generate
 KeyInput <.. EditorBuilder : Generate
 MouseInput <.. EditorBuilder : Generate
+RecordedTimer <.. EditorBuilder : Generate
 
 UnderEngineBuilder <|--- EditorBuilder
 JSContext <|-- EditorContext

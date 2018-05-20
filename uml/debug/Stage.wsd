@@ -93,13 +93,15 @@ package under {
 }
 
 Timer <... DebugStage : Register
-GameDebugger <.. DebugStage : Judge
+GameDebugger <.. DebugStage : Judge and register, render
 IMouse <... DebugStage : Get
 MutableEntity <... DebugStage : Get
 Collider <... DebugStage : Judge and render
 IColliderable <... DebugStage : Get
 RigidBody <... DebugStage : Get
 Context <... DebugStage : Render
+PhysicalWorld <.. DebugStage : Get
+DebugWorld <.. DebugStage : Get
 
 Timer <.. DebugWorld : Register
 

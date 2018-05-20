@@ -1,25 +1,19 @@
 /**
  * Editor camera
  * - Calculates the area to rendering
+ * - Delegates some processing to another camera
  * - ### Moves by right clicked and dragging
- * @extends {Camera}
+ * @extends {DelegateCamera}
  * @classdesc Editor camera to move by right clicked and dragging
  */
-class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
+class EditorCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
     /**
      * Editor camera Constructor
      * @constructor
      * @param {Camera} baseCamera Base camera for delegation
      */
     constructor(baseCamera) {
-        super();
-
-        /**
-         * Base camera for delegation
-         * @protected
-         * @type {Camera}
-         */
-        this.baseCamera = baseCamera;
+        super(baseCamera);
 
         /**
          * Camera moving
@@ -62,33 +56,9 @@ class EditorCamera extends Camera { // eslint-disable-line  no-unused-vars
      */
     setScreenSize(screenWidth, screenHeight) {
         super.setScreenSize(screenWidth, screenHeight);
-        this.baseCamera.setScreenSize(screenWidth, screenHeight);
 
         this.screenDiffX = screenWidth - GameScreen.it.width;
         this.screenDiffY = screenHeight - GameScreen.it.height;
-    }
-
-    /**
-     * Set camera max size
-     * @override
-     * @param {number} maxWidth Camera max width
-     * @param {number} maxHeight Cmera max height
-     */
-    setMaxSize(maxWidth, maxHeight) {
-        super.setMaxSize(maxWidth, maxHeight);
-        this.baseCamera.setMaxSize(maxWidth, maxHeight);
-    }
-
-    /**
-     * Initialize camera
-     * @override
-     * @param {number} x First camera x position
-     * @param {number} y First camera y position
-     */
-    init(x, y) {
-        this.baseCamera.init(x, y);
-        this.cameraX = this.baseCamera.cameraX;
-        this.cameraY = this.baseCamera.cameraY;
     }
 
     /**

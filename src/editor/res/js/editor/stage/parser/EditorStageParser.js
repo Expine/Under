@@ -10,21 +10,6 @@
  */
 class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-unused-vars
     /**
-     * Editor stage parser
-     */
-    constructor() {
-        super();
-
-        // TODO: Should abstract
-        /**
-         * Editor stage
-         * @protected
-         * @type {EditorStage}
-         */
-        this.editorStage = null;
-    }
-
-    /**
      * Make base stage for parsing stage
      * @override
      * @protected
@@ -32,7 +17,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
-        return this.editorStage = new EditorStage(super.makeBaseStage(stage), stage.tileInfo, stage.entityInfo);
+        return new EditorStage(super.makeBaseStage(stage), stage.tileInfo, stage.entityInfo);
     }
 
     /**

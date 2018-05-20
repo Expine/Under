@@ -1,7 +1,6 @@
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/event/EventUnparser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/back/BackgroundUnparser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/camera/CameraUnparser.js'; document.head.appendChild(script);}
-{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EntityUnparser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/Engine.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/EngineBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/event/common/GameEvent.js'; document.head.appendChild(script);}
@@ -553,7 +552,7 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof Camera !== `undefined`) {
+    if (typeof DelegateCamera !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/camera/EditorCamera.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -565,6 +564,11 @@
 {let id = setInterval(function() {
     if (typeof StackStageManager !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/EditorStageManager.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Entity !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EditorTile.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1013,6 +1017,16 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof EditorTile !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EditorDeployer.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof IEditorSave !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/interface/IEditorEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof UnderStageParser !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/parser/EditorStageParser.js'; document.head.appendChild(script);
     }
@@ -1241,7 +1255,6 @@
     if (typeof EventUnparser !== `undefined` &&
         typeof BackgroundUnparser !== `undefined` &&
         typeof CameraUnparser !== `undefined` &&
-        typeof EntityUnparser !== `undefined` &&
         typeof Engine !== `undefined` &&
         typeof EngineBuilder !== `undefined` &&
         typeof GameEvent !== `undefined` &&
@@ -1387,6 +1400,7 @@
         typeof EditorCamera !== `undefined` &&
         typeof EditorStage !== `undefined` &&
         typeof EditorStageManager !== `undefined` &&
+        typeof EditorTile !== `undefined` &&
         typeof IEditable !== `undefined` &&
         typeof IEditorSave !== `undefined` &&
         typeof EditorWorld !== `undefined` &&
@@ -1476,6 +1490,8 @@
         typeof SelectionLayer !== `undefined` &&
         typeof SingleChipLayer !== `undefined` &&
         typeof SingleEntityLayer !== `undefined` &&
+        typeof EditorDeployer !== `undefined` &&
+        typeof IEditorEntity !== `undefined` &&
         typeof EditorStageParser !== `undefined` &&
         typeof GameScene !== `undefined` &&
         typeof CommonBaseStateAI !== `undefined` &&

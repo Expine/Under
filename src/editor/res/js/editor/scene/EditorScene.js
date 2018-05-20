@@ -68,21 +68,26 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
         let chipLayer = new ChipLayer();
         let entityLayer = new EntityLayer();
         let debug = new DebugLayer(new VolatileDebugger());
+        // set save data
         this.chipData = chipLayer;
         this.entityData = entityLayer;
 
+        // make real layer
         let chip = new FloatLayer(chipLayer);
         let entity = new FloatLayer(new DragScrollLayer(entityLayer));
-        // TODO: Should abstract
-        this.stageManager.getStage().setTileSelection(chipLayer);
-        this.stageManager.getStage().setEntitySelection(entityLayer);
+
+        // set information
+        let stage = this.stageManager.getStage();
+        if (BaseUtil.implementsOf(stage, IEditable)) {
+            stage.setTileSelection(chipLayer);
+            stage.setEntitySelection(entityLayer);
+        }
 
         this.addLayer(chip);
         this.addLayer(entity);
         this.addLayer(debug);
 
-        // set initiali position
-        debug.setSize(GameScreen.it.width, GameScreen.it.height);
+        debug.setSize(GameScreen.it.width, GameScreen.it.height - 250);
         chip.setPosition(20, GameScreen.it.height - 230, 0);
         chip.setSize(GameScreen.it.width / 2 - 40, 210);
         entity.setPosition(GameScreen.it.width / 2 + 20, GameScreen.it.height - 230, 0);
@@ -108,40 +113,24 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
         // update event
         this.eventManager.update(dt);
 
-        let stage = this.stageManager.getStage();
-        let players = stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
-        if (players.length > 0) {
-            let player = players[0];
-            GameDebugger.it.register(`time`, `${dt} mssc`);
-            GameDebugger.it.register(`collision`, `${stage.getPhysicalWorld().getCollisionSize()} collision`);
-            if (player instanceof InfluentialEntity) {
-                GameDebugger.it.register(`pcollision`, `${player.collider.collisions.length} player collision`);
-            }
-            GameDebugger.it.register(`physics`, `${BaseUtil.getClassName(stage.getPhysicalWorld() instanceof DebugWorld ? stage.getPhysicalWorld().world : stage.getPhysicalWorld())}-${BaseUtil.getClassName(stage.getPhysicalWorld().getResponse())}`);
-            GameDebugger.it.register(`ppos`, `Pos(${Math.floor(player.x)}, ${Math.floor(player.y)})`);
-            if (player instanceof MutableEntity) {
-                GameDebugger.it.register(`pvec`, `Vec(${Math.floor(player.body.velocityX)}, ${Math.floor(player.body.velocityY)})`);
-                GameDebugger.it.register(`pacc`, `Acc(${Math.floor(player.body.accelerationX)},${Math.floor(player.body.accelerationY)})`);
-            }
-            if (player instanceof StateCharacter && player.state !== null) {
-                GameDebugger.it.register(`state`, `${BaseUtil.getClassName(player.state)}`);
-            }
-            GameDebugger.it.register(`mouse`, `M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`);
-        }
-
-        // save
+        // save stage (S)
         if (Input.key.isPress(Input.key.a() + 18)) {
             console.log(JSON.stringify(this.saveTarget.getSaveData()));
         }
+        // save tile (T)
         if (Input.key.isPress(Input.key.a() + 19)) {
             console.log(JSON.stringify(this.chipData.getSaveData()));
         }
-        // change debug mode
+        // save entity (U)
+        if (Input.key.isPress(Input.key.a() + 20)) {
+            console.log(JSON.stringify(this.entityData.getSaveData()));
+        }
+        // change debug mode (D)
         if (Input.key.isPress(Input.key.a() + 3)) {
             GameDebugger.debug = !GameDebugger.debug;
         }
 
-        // reload images
+        // reload images (G)
         if (Input.key.isPress(Input.key.a() + 6)) {
             ResourceManager.image.reload();
         }
