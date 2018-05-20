@@ -47,13 +47,13 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
         /**
          * Tile information by JSON
          * @protected
-         * @type {JSON}
+         * @type {Object<number, JSON>}
          */
         this.tileInfo = {};
         /**
          * Entity information by JSON
          * @protected
-         * @type {JSON}
+         * @type {Object<number, JSON>}
          */
         this.entityInfo = {};
 

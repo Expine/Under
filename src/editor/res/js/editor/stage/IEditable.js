@@ -6,6 +6,13 @@
  */
 class IEditable extends Interface { // eslint-disable-line  no-unused-vars
     /**
+     * Set editor base
+     * @abstract
+     * @param {EditorBase} editor Editor base
+     */
+    setEditor(editor) {}
+
+    /**
      * Set tile selection
      * @abstract
      * @param {ISelection} selection Tile selection

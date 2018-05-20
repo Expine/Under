@@ -1,0 +1,83 @@
+@startuml EditorStage
+
+package editor {
+    package ed_stage {
+        class EditorStage {
+            +constructor(stage,tileFiles,entityFiles)
+            #tileFiles : Array<string>
+            #entityFile : Array<string>
+            #playMode : boolean
+            #saveData : string
+            #preCamera : Camera
+            #editorEntities : Array<IEditorEnttiy>
+            #editor : EditorBase
+            +restore()
+            +getSaveData() : JSON <<override>>
+            +setTileSelection(selection) <<override>>
+            +setEntitySelection(selection) <<override>>
+            +addEntitybyID(id,deploy,init) : Entity <<override>>
+            +addEntiy(entity) <<override>>
+            +removeEntity(entity) <<override>>
+            +removeEntityImmediately(entity) <<override>>
+            +update(dt) <<override>>
+            +redner(ctx, shiftX, shiftY) <<override>
+        }
+
+        package ed_parser {
+            class EditorStageParser
+        }
+        package ed_camera {
+            class EditorCamera {
+                #moving : boolean
+                #moveStartX : number
+                #moveStartY : number
+                #screenDiffX : number
+                #screenDiffY : number
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package camera {
+                abstract Camera
+            }
+        }
+    }
+    package debug {
+        package de_stage {
+            class DebugStage
+        }
+    }
+    package extend {
+        package ex_stage {
+            class SplitManagemenetStage
+            package ex_back {
+                class SequentialBackground
+                class InvariantBackground
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        class UnderStageParser
+    }
+}
+
+EditorStage <.. EditorStageParser : "Generate"
+EditorCamera <.. EditorStageParser : "Generate"
+EditorMap <.. EditorStageParser : "Generate"
+EditorInvariantMap <.. EditorStageParser : "Generate"
+
+DebugStage <|.. EditorStage
+Camera <|.. EditorCamera
+UnderStageParser <|.. EditorStageParser
+SplitManagemenetStage <|-- EditorStage
+SequentialMap <|-- EditorMap
+InvariantMap <|-- EditorInvariantMap
+
+@enduml

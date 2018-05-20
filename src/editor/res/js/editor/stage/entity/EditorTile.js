@@ -1,14 +1,12 @@
 /**
  * Editor tile
- * - Object present on the stage that has coordinate and size
  * - It can save data
  * - Stores ID
  * - ### Tile in editor
- * @extends {Entity}
  * @implements {IEditorEntity}
  * @classdesc Editor tile in editor
  */
-class EditorTile extends Entity /* , IEditorEntity */ { // eslint-disable-line  no-unused-vars
+class EditorTile /* , IEditorEntity */ { // eslint-disable-line  no-unused-vars
     /**
      * Editor tile constructor
      * @constructor
@@ -16,8 +14,6 @@ class EditorTile extends Entity /* , IEditorEntity */ { // eslint-disable-line  
      * @param {number} id Entity ID
      */
     constructor(entity, id) {
-        super();
-
         /**
          * Entity for saving
          * @protected

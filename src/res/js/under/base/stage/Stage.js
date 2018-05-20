@@ -172,7 +172,9 @@ class Stage { // eslint-disable-line  no-unused-vars
      * @param {Entity} entity Entity object
      */
     addEntity(entity) {
-        entity.setStage(this);
+        if (entity.stage === null) {
+            entity.setStage(this);
+        }
         entity.init();
     }
 

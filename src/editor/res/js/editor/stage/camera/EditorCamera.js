@@ -69,20 +69,29 @@ class EditorCamera extends DelegateCamera { // eslint-disable-line  no-unused-va
      * @param {number} dt Delta time
      */
     update(x, y, dt) {
-        if (x > 0 && y > 0) {
-            if (Input.mouse.isPress(Input.mouse.mRight())) {
-                this.moveStartX = Input.mouse.getMouseX();
-                this.moveStartY = Input.mouse.getMouseY();
-                this.moving = true;
-            } else if (this.moving && Input.mouse.isPressed(Input.mouse.mRight())) {
-                this.cameraX += Input.mouse.getMouseX() - this.moveStartX;
-                this.cameraY += Input.mouse.getMouseY() - this.moveStartY;
-                this.moveStartX = Input.mouse.getMouseX();
-                this.moveStartY = Input.mouse.getMouseY();
-            }
-        } else {
-            this.cameraX = x;
-            this.cameraY = y;
+        // move by mouse
+        if (Input.mouse.isPress(Input.mouse.mRight())) {
+            this.moveStartX = Input.mouse.getMouseX();
+            this.moveStartY = Input.mouse.getMouseY();
+            this.moving = true;
+        } else if (this.moving && Input.mouse.isPressed(Input.mouse.mRight())) {
+            this.cameraX += Input.mouse.getMouseX() - this.moveStartX;
+            this.cameraY += Input.mouse.getMouseY() - this.moveStartY;
+            this.moveStartX = Input.mouse.getMouseX();
+            this.moveStartY = Input.mouse.getMouseY();
+        }
+        // move by key
+        if (Input.key.isPress(Input.key.right())) {
+            this.cameraX = this.cameraX - this.screenWidth / 2;
+        }
+        if (Input.key.isPress(Input.key.left())) {
+            this.cameraX = this.cameraX + this.screenWidth / 2;
+        }
+        if (Input.key.isPress(Input.key.up())) {
+            this.cameraY = this.cameraY + this.screenHeight / 2;
+        }
+        if (Input.key.isPress(Input.key.down())) {
+            this.cameraY = this.cameraY - this.screenHeight / 2;
         }
     }
 }

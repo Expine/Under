@@ -7,59 +7,37 @@
  * - Do not update immutable objects
  * - Executes debug process
  * - It can save data
+ * - Target for editing
  * - ### Enable to put, remove and replace entity
  * @extends {DebugStage}
  * @implements {IEditorSave}
  * @implements {IEditable}
+ * @implements {IEditorTarget}
  * @classdesc Editor stage that can put, remove and replace entity
  */
-class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-disable-line  no-unused-vars
+class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget */ { // eslint-disable-line  no-unused-vars
     /**
      * Editor stage constructor
      * @constructor
      * @param {Stage} stage Original stage for delegation
-     * @param {string} tileFile Tile information json file
-     * @param {string} entityFile Entity information json file
+     * @param {Array<string>} tileFiles Tile information json file
+     * @param {Array<string>} entityFiles Entity information json file
      */
-    constructor(stage, tileFile, entityFile) {
+    constructor(stage, tileFiles, entityFiles) {
         super(stage);
 
         /**
-         * Tile information json file
+         * Tile information json files
          * @protected
-         * @type {Object<number, JSON>}
+         * @type {Array<string>}
          */
-        this.tileFile = tileFile;
+        this.tileFiles = tileFiles;
         /**
-         * Entity information json file
+         * Entity information json files
          * @protected
-         * @type {Object<number, JSON>}
+         * @type {Array<string>}
          */
-        this.entityFile = entityFile;
-
-        /**
-         * Selected x position
-         * @protected
-         * @type {number}
-         */
-        this.selectedX = -1;
-        /**
-         * Selected x position
-         * @protected
-         * @type {number}
-         */
-        this.selectedY = -1;
-
-        /**
-         * Selection of the tile to be placed
-         * @type {ISelection}
-         */
-        this.tileSelection = null;
-        /**
-         * Selection of the entity to be placed
-         * @type {ISelection}
-         */
-        this.entitySelection = null;
+        this.entityFiles = entityFiles;
 
         /**
          * Whether the test play is in progress or not
@@ -70,7 +48,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
         /**
          * Save data of string
          * @protected
-         * @type {string}
+         * @type {JSON}
          */
         this.saveData = null;
 
@@ -87,20 +65,29 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
          * @type {Array<IEditorEntity>}
          */
         this.editorEntities = [];
+
+        /**
+         * Editor for editing
+         * @protected
+         * @type {EditorBase}
+         */
+        this.editor = null;
     }
 
     /**
      * Restore stage mutable object data
+     * @protected
      */
     restore() {
-        let save = JSON.parse(this.saveData);
+        // remove not tile object
         let entities = this.getEntities();
         for (let i = entities.length - 1; i >= 0; --i) {
             if (!(entities[i] instanceof TileObject)) {
                 this.removeEntityImmediately(entities[i]);
             }
         }
-        for (let it of save.deploy) {
+        // add saved object
+        for (let it of this.saveData.deploy) {
             this.addEntityByID(it.id, it);
         }
         EventManager.it.clear();
@@ -113,26 +100,35 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
      */
     getSaveData() {
         let data = {};
-        data.width = this.stage.stageWidth;
-        data.height = this.stage.stageHeight;
+        data.width = this.getStageWidth();
+        data.height = this.getStageHeight();
         data.background = (new BackgroundUnparser()).unparse(this.stage.back);
         data.camera = (new CameraUnparser()).unparse(this.stage.camera.baseCamera);
-        data.tiles = this.tileFile;
-        data.entities = this.entityFile;
+        data.tiles = this.tileFiles;
+        data.entities = this.entityFiles;
         data.layers = [];
         data.layers.push([]);
         data.deploy = [];
-        for (let i = 0; i < this.editorEntities.length; ++i) {
-            let entity = this.editorEntities[i].getSaveData();
+        for (let it of this.editorEntities) {
             // set
-            if (this.editorEntities[i].isDeployer()) {
-                data.deploy.push(entity);
+            if (it.isDeployer()) {
+                data.deploy.push(it.getSaveData());
             } else {
-                data.layers[0].push(entity);
+                data.layers[0].push(it.getSaveData());
             }
         }
-        this.saveData = JSON.stringify(data);
         return data;
+    }
+
+    /**
+     * Set editor base
+     * @override
+     * @param {EditorBase} editor Editor base
+     */
+    setEditor(editor) {
+        this.editor = editor;
+        this.editor.setTarget(this);
+        this.editor.init();
     }
 
     /**
@@ -141,8 +137,11 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
      * @param {ISelection} selection Tile selection
      */
     setTileSelection(selection) {
-        this.tileSelection = selection;
-        this.tileSelection.setSelectionInfo(this.getFactory().tileInfo);
+        let factory = this.getFactory();
+        if (BaseUtil.implementsOf(factory, IEditorInfo)) {
+            selection.setSelectionInfo(factory.getTileInfo());
+        }
+        this.editor.addSelector(selection);
     }
 
     /**
@@ -151,8 +150,58 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
      * @param {ISelection} selection Entity selection
      */
     setEntitySelection(selection) {
-        this.entitySelection = selection;
-        this.entitySelection.setSelectionInfo(this.getFactory().entityInfo);
+        let factory = this.getFactory();
+        if (BaseUtil.implementsOf(factory, IEditorInfo)) {
+            selection.setSelectionInfo(factory.getEntityInfo());
+        }
+        this.editor.addSelector(selection);
+    }
+
+    /**
+     * Replace and paint
+     * @override
+     * @param {number} x Target x position
+     * @param {number} y Target y position
+     * @param {number} id Painting ID
+     */
+    paint(x, y, id) {
+        let replaceTile = id === -1 || this.getFactory().createEntity(id) instanceof TileObject;
+        // remove
+        for (let entity of this.getEntities()) {
+            if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
+                if (!(entity instanceof TileObject) || replaceTile) {
+                    this.removeEntityImmediately(entity);
+                }
+            }
+        }
+        // deploy
+        if (id !== -1) {
+            let deploy = {
+                x: x,
+                y: y,
+                z: 0,
+            };
+            this.addEntityByID(id, deploy);
+        }
+    }
+
+    /**
+     * Get painting ID by position
+     * @abstract
+     * @param {number} x Target x position
+     * @param {number} y Target y position
+     * @return {number} Painting ID
+     */
+    getID(x, y) {
+        for (let entity of this.getEntities()) {
+            if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
+                let target = this.editorEntities.find((it) => it.equals(entity));
+                if (target !== null) {
+                    return target.getID();
+                }
+            }
+        }
+        return -1;
     }
 
     /**
@@ -165,7 +214,6 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
      */
     addEntityByID(id, deploy, init) {
         let entity = super.addEntityByID(id, deploy, init);
-        entity.setStage(this);
         this.editorEntities.push(entity instanceof TileObject ? new EditorTile(entity, id) : new EditorDeployer(entity, id));
         return entity;
     }
@@ -178,7 +226,6 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
     addEntity(entity) {
         super.addEntity(entity);
         // onece update
-        entity.setStage(this);
         entity.update(30);
     }
     /**
@@ -209,6 +256,25 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
     }
 
     /**
+     * Update camera
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     */
+    updateCamera(dt) {
+        super.updateCamera(dt);
+
+        // move camera to player (E)
+        if (!this.playMode && Input.key.isPress(Input.key.a() + 4)) {
+            let player = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
+            if (player.length > 0) {
+                let p = player[0];
+                this.getCamera().init(p.getCameraX(), p.getCameraY());
+            }
+        }
+    }
+
+    /**
      * Update stage
      * @override
      * @param {number} dt delta time
@@ -217,155 +283,45 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable */ { // eslint-
         // switch test play
         if (Input.key.isPress(Input.key.a() + 15)) {
             if (this.playMode) {
-                this.stage.camera = this.preCamera;
+                this.setCamera(this.preCamera);
                 this.restore();
             } else {
-                this.preCamera = this.stage.getCamera();
+                this.preCamera = this.getCamera();
                 if (this.preCamera instanceof DelegateCamera) {
-                    this.stage.setCamera(this.preCamera.getBaseCamera());
+                    this.setCamera(this.preCamera.getBaseCamera());
                 }
-                this.getSaveData();
+                this.saveData = this.getSaveData();
             }
             this.playMode = !this.playMode;
         }
 
         // test play
-        if (this.playMode) {
-            if (Input.key.isPress(Input.key.a() + 5)) {
-                if (this.debugMode) {
-                    this.debugMode = false;
-                } else {
-                    this.debugMode = true;
-                }
-            }
-            if (!this.debugMode || (Input.key.isPress(Input.key.a()) || Input.key.isPressed(Input.key.a() + 1))) {
-                super.update(Input.key.isPressed(Input.key.a() + 8) ? dt * 10 : dt);
-            }
-        } else {
-            // move camera to end
-            if (Input.key.isPress(Input.key.a() + 4)) {
-                for (let it of this.getEntities()) {
-                    if (it instanceof Player) {
-                        this.stage.camera.update(-it.x + GameScreen.it.width / 2, -it.y + GameScreen.it.height / 2, dt);
-                    }
-                }
-            }
+        this.stage.setEnable(this.playMode);
+        super.update(dt);
+        this.stage.setEnable(true);
 
-            // move camera
-            if (Input.key.isPress(Input.key.right())) {
-                this.stage.camera.update(this.stage.camera.cameraX - this.stage.camera.screenWidth / 2, this.stage.camera.cameraY, dt);
-            }
-            if (Input.key.isPress(Input.key.left())) {
-                this.stage.camera.update(this.stage.camera.cameraX + this.stage.camera.screenWidth / 2, this.stage.camera.cameraY, dt);
-            }
-            if (Input.key.isPress(Input.key.up())) {
-                this.stage.camera.update(this.stage.camera.cameraX, this.stage.camera.cameraY + this.stage.camera.screenHeight / 2, dt);
-            }
-            if (Input.key.isPress(Input.key.down())) {
-                this.stage.camera.update(this.stage.camera.cameraX, this.stage.camera.cameraY - this.stage.camera.screenHeight / 2, dt);
-            }
-
-            // update camera
-            this.stage.camera.update(1, 1, dt);
-        }
-
-        // update selected area
-        this.selectedX = -1;
-        this.selectedY = -1;
-        let x = Math.floor((Input.mouse.getMouseX() - this.stage.camera.baseX - this.stage.camera.cameraX) / 32) * 32;
-        let y = Math.floor((Input.mouse.getMouseY() - this.stage.camera.baseY - this.stage.camera.cameraY) / 32) * 32;
+        // update editor
+        let x = Input.mouse.getMouseX() - this.getCamera().baseX - this.getCamera().cameraX;
+        let y = Input.mouse.getMouseY() - this.getCamera().baseY - this.getCamera().cameraY;
         // check camera position
         if (x + 32 >= -this.stage.camera.cameraX && x < this.stage.camera.screenWidth - this.stage.camera.cameraX && y + 32 >= -this.stage.camera.cameraY && y < this.stage.camera.screenHeight - this.stage.camera.cameraY) {
             // check background position
             if (0 <= x && x <= this.stageWidth && 0 <= y && y <= this.stageHeight) {
-                this.selectedX = x + this.stage.camera.cameraX;
-                this.selectedY = y + this.stage.camera.cameraY;
-            }
-        }
-
-        // syrunge
-        if (this.selectedX >= 0 && Input.mouse.isPressed(Input.mouse.mRight())) {
-            if (this.entitySelection.getSelected() < 0) {
-                let entities = this.getEntities();
-                for (let i = 0; i < entities.length; ++i) {
-                    let entity = entities[i];
-                    if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        if (entity instanceof ImmutableEntity) {
-                            this.tileSelection.setSelected(this.editorEntities[i].getID());
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        // place tile
-        if (this.selectedX >= 0 && Input.mouse.isPressed(Input.mouse.mLeft())) {
-            let tileID = this.tileSelection.getSelected();
-            let entityID = this.entitySelection.getSelected();
-            if (entityID >= 0) {
-                // remove
-                for (let entity of this.getEntities()) {
-                    if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        if (!(entity instanceof TileObject)) {
-                            this.removeEntityImmediately(entity);
-                        }
-                    }
-                }
-                let deploy = {
-                    x: x,
-                    y: y,
-                    z: 0,
-                };
-                this.addEntityByID(entityID, deploy);
-            } else if (tileID >= 0) {
-                // remove
-                for (let entity of this.getEntities()) {
-                    if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        if (entity instanceof TileObject) {
-                            this.removeEntityImmediately(entity);
-                        }
-                    }
-                }
-                let deploy = {
-                    x: x,
-                    y: y,
-                    z: 0,
-                };
-                this.addEntityByID(tileID, deploy);
-            } else {
-                // remove
-                for (let entity of this.getEntities()) {
-                    if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                        this.removeEntityImmediately(entity);
-                    }
-                }
+                this.editor.update(x, y, dt);
             }
         }
     }
 
     /**
      * Render stage
+     * @override
      * @param {Context} ctx Canvas context
      * @param {number} [shiftX = 0] Shift x position
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         super.render(ctx, shiftX, shiftY);
-
-        if (this.selectedX >= 0) {
-            let tileID = this.tileSelection.getSelected();
-            let entityID = this.entitySelection.getSelected();
-            let width = 32;
-            let height = 32;
-            if (entityID >= 0) {
-                width = this.getFactory().entityInfo[entityID].width;
-                height = this.getFactory().entityInfo[entityID].height;
-            } else if (tileID >= 0) {
-                width = this.getFactory().tileInfo[tileID].width;
-                height = this.getFactory().tileInfo[tileID].height;
-            }
-            ctx.strokeRect(this.selectedX, this.selectedY, width, height, `white`);
-        }
+        // render editor
+        this.editor.render(ctx, this.getCamera().cameraX, this.getCamera().cameraY);
     }
 }

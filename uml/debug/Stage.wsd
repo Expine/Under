@@ -6,6 +6,7 @@ package under {
             class DebugStage {
                 +constructor(stage,stageWidth,stageHeight)
                 #stage : Stage
+                #debugMode : boolean
                 +setBackground(back) <<override>> <<override>>
                 +setCamera(camera) <<override>> <<override>>
                 +setPhysicalWorld(physic) <<override>> <<override>>
@@ -56,6 +57,7 @@ package under {
 package under {
     package base {
         package input  {
+            interface IKey
             interface IMouse
         }
         package resource {
@@ -94,6 +96,7 @@ package under {
 
 Timer <... DebugStage : Register
 GameDebugger <.. DebugStage : Judge and register, render
+IKey <... DebugStage : Get
 IMouse <... DebugStage : Get
 MutableEntity <... DebugStage : Get
 Collider <... DebugStage : Judge and render

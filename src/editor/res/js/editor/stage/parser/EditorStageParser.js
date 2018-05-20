@@ -10,6 +10,15 @@
  */
 class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-unused-vars
     /**
+     * Make editor for editing
+     * @protected
+     * @return {EditorBase} Editor base
+     */
+    makeEditor() {
+        return new SimpleEditor();
+    }
+
+    /**
      * Make base stage for parsing stage
      * @override
      * @protected
@@ -17,7 +26,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
-        return new EditorStage(super.makeBaseStage(stage), stage.tileInfo, stage.entityInfo);
+        return new EditorStage(super.makeBaseStage(stage), stage.tiles, stage.entities);
     }
 
     /**
@@ -42,5 +51,39 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      */
     makeBaseWorld(stage, world) {
         return new EditorWorld(super.makeBaseWorld(stage, world), stage.width, stage.height);
+    }
+
+    /**
+     * Make entity factory
+     * @override
+     * @protected
+     * @param {JSON} stage Stage json data
+     * @return {EntityFactory} Entity factory
+     */
+    makeEntityFactory(stage) {
+        let ret = new EditorEntityFactory(new UnderTileBuilder(), new UnderCharacterBuilder(), new UnderEventBuilder());
+        for (let it of stage.tiles) {
+            ret.addTileInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
+        }
+        for (let it of stage.entities) {
+            ret.addEntityInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
+        }
+        return ret;
+    }
+
+    /**
+     * Parse file to stage
+     * @abstract
+     * @param {string} filePath Stage file path
+     * @param {number} width Stage width for rendering area
+     * @param {number} height Stage height for rendering area
+     * @return {Stage} Generated stage
+     */
+    parse(filePath, width, height) {
+        let stage = super.parse(filePath, width, height);
+        if (BaseUtil.implementsOf(stage, IEditable)) {
+            stage.setEditor(this.makeEditor());
+        }
+        return stage;
     }
 }

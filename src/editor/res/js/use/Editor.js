@@ -1,6 +1,23 @@
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/event/EventUnparser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/back/BackgroundUnparser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/camera/CameraUnparser.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/EditorBase.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/EditorTool.js'; document.head.appendChild(script);}
+{let id = setInterval(function() {
+    if (typeof EditorBase !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/SimpleEditor.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof EditorTool !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/SelectingTool.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof SelectingTool !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/SyringeTool.js'; document.head.appendChild(script);
+    }
+}, 1);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/Engine.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/EngineBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/event/common/GameEvent.js'; document.head.appendChild(script);}
@@ -557,6 +574,26 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/IEditorFunction.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/IEditorTarget.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof SelectingTool !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/EraserTool.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof SelectingTool !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/PencilTool.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof DebugStage !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/EditorStage.js'; document.head.appendChild(script);
     }
@@ -579,6 +616,16 @@
 {let id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/IEditorSave.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof JSONEntityFactory !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/parser/EditorEntityFactory.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/parser/IEditorInfo.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1255,6 +1302,11 @@
     if (typeof EventUnparser !== `undefined` &&
         typeof BackgroundUnparser !== `undefined` &&
         typeof CameraUnparser !== `undefined` &&
+        typeof EditorBase !== `undefined` &&
+        typeof EditorTool !== `undefined` &&
+        typeof SimpleEditor !== `undefined` &&
+        typeof SelectingTool !== `undefined` &&
+        typeof SyringeTool !== `undefined` &&
         typeof Engine !== `undefined` &&
         typeof EngineBuilder !== `undefined` &&
         typeof GameEvent !== `undefined` &&
@@ -1398,11 +1450,17 @@
         typeof EditorContext !== `undefined` &&
         typeof EditorBuilder !== `undefined` &&
         typeof EditorCamera !== `undefined` &&
+        typeof IEditorFunction !== `undefined` &&
+        typeof IEditorTarget !== `undefined` &&
+        typeof EraserTool !== `undefined` &&
+        typeof PencilTool !== `undefined` &&
         typeof EditorStage !== `undefined` &&
         typeof EditorStageManager !== `undefined` &&
         typeof EditorTile !== `undefined` &&
         typeof IEditable !== `undefined` &&
         typeof IEditorSave !== `undefined` &&
+        typeof EditorEntityFactory !== `undefined` &&
+        typeof IEditorInfo !== `undefined` &&
         typeof EditorWorld !== `undefined` &&
         typeof ISelection !== `undefined` &&
         typeof LinkEvent !== `undefined` &&

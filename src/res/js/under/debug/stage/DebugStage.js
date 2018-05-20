@@ -22,6 +22,13 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
          * @type {Stage}
          */
         this.stage = stage;
+
+        /**
+         * Sequential execution mode
+         * @protected
+         * @type {boolean}
+         */
+        this.debugMode = false;
     }
 
     /**
@@ -159,7 +166,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      * @param {boolean} enable Whether to update the stage or not
      */
     setEnable(enable) {
-        this.enable = enable;
+        super.setEnable(enable);
         this.stage.setEnable(enable);
     }
 
@@ -199,7 +206,14 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      * @return {Entity} Added entity
      */
     addEntityByID(id, deploy, init) {
-        return this.stage.addEntityByID(id, deploy, init);
+        // set stage on initialize
+        let func = (it) => {
+            if (init) {
+                init(it);
+            }
+            it.setStage(this);
+        };
+        return this.stage.addEntityByID(id, deploy, func);
     }
 
     /**
@@ -208,6 +222,7 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      * @param {Entity} entity Entity object
      */
     addEntity(entity) {
+        entity.setStage(this);
         this.stage.addEntity(entity);
     }
 
@@ -297,7 +312,15 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        super.update(dt);
+        // switch mode (F)
+        if (Input.key.isPress(Input.key.a() + 5)) {
+            this.debugMode = !this.debugMode;
+        }
+        // sequential execution (A) (B)
+        if (!this.debugMode || (Input.key.isPress(Input.key.a()) || Input.key.isPressed(Input.key.a() + 1))) {
+            // acceleration (I)
+            super.update(Input.key.isPressed(Input.key.a() + 8) ? dt * 10 : dt);
+        }
         this.registerInformation(dt);
     }
 
