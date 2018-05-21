@@ -1,0 +1,48 @@
+@startuml EditorEditBase
+
+package editor {
+    package ed_stage {
+        package ed_base {
+            abstract EditorBase {
+                #target : IEditorTarget
+                #selectors : Array<ISelection>
+                +setTarget(target)
+                +addSelector(selector)
+                +addTool(name,tool)
+                +getTarget() : IEditorTarget <<override>>
+                {abstract} +changeTool(name)
+                {abstract} +setCurrentID(id)
+                {abstract} +getCurrentID() : number
+                {abstract} +getTools() : Array<EditorTool>
+                {abstract} +getCurrentTool() : EDitorTool
+                {abstract} +init()
+                +update(x,y,dt)
+                +render(ctx,shiftX,shitfY)
+            }
+            abstract EditorTool {
+                #editor : IEditorFunction
+                +setEditor(editor)
+                {abstract} +init()
+                {abstract} +update(x,y,dt)
+                {abstract} +use(x,y,dt)
+                {abstract} +render(ctx,shiftX,shiftY)
+            }
+            interface IEditorFunction {
+                {abstract} +getTarget() : IEditorTarget
+                {abstract} +changeTool(name)
+                {abstract} +setCurrentID(id)
+                {abstract} +getCurrentID() : number
+            }
+            interface IEditorTarget {
+                {abstract} +paint(x,y,id)
+                {abstract} +getEditorEntity(x,y) : IEditorEntity
+            }
+        }
+    }
+}
+
+EditorBase ..> EditorTool : Init, update, use, render
+
+IEditorFunction <|.. EditorBase
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml EditorScene
+
+package editor {
+    package ed_scene {
+        class EditorScene {
+            #stage : EditorStage
+            #chipLayer : ChipLayer
+        }
+    }
+}
+
+package under {
+    package base {
+        package context {
+            class AnimationElement
+        }
+        package scene {
+            package layer {
+                abstract Layer
+            }
+        }
+    }
+    package extend {
+        package ex_context {
+            class SingleAnimation
+        }
+        package ex_scene {
+            class LayerBaseScene
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        class EditorStage
+        package ed_parser {
+            class EditorStageParser
+        }
+    }
+}
+
+EditorStageParser <.. EditorScene : "Parse"
+ChipLayer <.. EditorScene : "Select chip"
+EntityLayer <.. EditorScene : "Select entity"
+EditorStage <.. EditorScene : "Set chip"
+
+EntityLayer "1" o-- "*" SingleEntityLayer : "Manage"
+
+SingleAnimation <...... SingleEntityLayer : "Generate"
+AnimationElement <...... SingleEntityLayer : "Generate"
+
+LayerBaseScene <|-- EditorScene
+Layer <|-- SelectionLayer
+Selection <|.. SelectionLayer
+SelectionLayer <|.. ChipLayer
+SelectionLayer <|.. EntityLayer
+SelectionLayer <|.. SingleEntityLayer
+
+@enduml

@@ -2,15 +2,61 @@
 
 package editor {
     package ed_stage {
+        package ed_builder {
+            class EditBuilder {
+                {abstract} +build() : EditorBase
+            }
+            class SimpleEditorBuilder {
+                #makeImage(image) : GameImage
+                #makeTools(base)
+                #makeEditorBase() : EditorBase
+                +build() : EditorBase <<override>>
+            }
+        }
         package ed_parser {
             class EditorStageParser {
-                #makeEditor() : EditorBase
+                #editBuilder : EditBuilder
                 #makeBaseStage(stage) : Stage <<override>>
                 #makeBackground(back) : Background <<override>>
                 #makeBaseCamera(camera) : Camera <<override>>
                 #makeBaseWorld(stage,world) : PhysicalWorld <<override>>
                 #makeEntityFactory(stage) : EntityFactory <<override>>
                 +parse(ilePath,width,height) : Stage <<override>>
+            }
+        }
+        class EditorTileBuilder {
+            +build(deploy,json) : Entity <<override>>
+        }
+        class EditorCharacterBuilder {
+            +build(deploy,json) : Entity <<override>>
+        }
+        class EditorEntityFactory {
+            +getTileInfo() : Object<number,JSON> <<override>>
+            +getEntityInfo() : Object<number,JSON> <<override>>
+            #buldChipSerial(data,chip) <<override>>
+        }
+        interface IEditorInfo {
+            {abstract} +getTileInfo() : Object<number,JSON>
+            {abstract} +getEntityInfo() : Object<number,JSON>
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+        }
+    }
+    package extend {
+        package ex_resource {
+            package ex_image {
+                class SimpleImage
+            }
+        }
+        package ex_stage {
+            package ex_parser {
+                class JSONEntityFactory
             }
         }
     }
@@ -37,6 +83,17 @@ package editor {
         }
         package ed_edit {
             class SimpleEditor
+            package ed_tool {
+                class PencilTool
+                class EraseTool
+                class SyringeTool
+                class PaintTool
+                class AutoTileTool
+            }
+        }
+        package ed_entity {
+            class EditorTile
+            class EditorDeployer
         }
         package ed_camera {
             class EditorCamera
@@ -44,23 +101,38 @@ package editor {
         package ed_physics {
             class EditorWorld
         }
-        package ed_parser {
-            class EditorEntityFactory
-        }
     }
 }
 
-SimpleEditor <.. EditorStageParser : Generate
+SimpleEditorBuilder <.. EditorStageParser : Default
 EditorStage <.. EditorStageParser : Generate
 EditorBackground <.. EditorStageParser : Generate
 EditorCamera <.. EditorStageParser : Generate
 EditorWorld <.. EditorStageParser : Generate
-EditorEntityFactory <.. EditorStageParser : Generate
-UnderTileBuilder <... EditorStageParser : Generate
-UnderCharacterBuilder <... EditorStageParser : Generate
-UnderEventBuilder <... EditorStageParser : Generate
+EditorEntityFactory <... EditorStageParser : Generate
+UnderTileBuilder <..... EditorStageParser : Generate
+UnderCharacterBuilder <..... EditorStageParser : Generate
+UnderEventBuilder <..... EditorStageParser : Generate
 IEditable <.. EditorStageParser : Set
+EditBuilder <.. EditorStageParser : Build
+
+EditorTile <.. EditorTileBuilder : Generate
+EditorDeployer <.. EditorCharacterBuilder : Generate
+
+SimpleImage <... SimpleEditorBuilder : Generate
+SimpleEditor <.. SimpleEditorBuilder : Generate
+PencilTool <.. SimpleEditorBuilder : Generate
+EraseTool <.. SimpleEditorBuilder : Generate
+SyringeTool <.. SimpleEditorBuilder : Generate
+PaintTool <.. SimpleEditorBuilder : Generate
+AutoTileTool <.. SimpleEditorBuilder : Generate
+IKey <... SimpleEditorBuilder : Get
 
 UnderStageParser <|--- EditorStageParser
+EditBuilder <|. SimpleEditorBuilder
+UnderTileBuilder <|-- EditorTileBuilder
+UnderCharacterBuilder <|-- EditorCharacterBuilder
+JSONEntityFactory <|--- EditorEntityFactory
+IEditorInfo <|.. EditorEntityFactory
 
 @enduml

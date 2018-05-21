@@ -137,9 +137,6 @@ class SimpleEditor extends EditorBase { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        this.addTool(`pencil`, new PencilTool());
-        this.addTool(`eraser`, new EraserTool());
-        this.addTool(`syringe`, new SyringeTool());
         this.changeTool(`pencil`);
     }
 

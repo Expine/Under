@@ -80,11 +80,14 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      */
     restore() {
         // remove not tile object
-        let entities = this.getEntities();
-        for (let i = entities.length - 1; i >= 0; --i) {
-            if (!(entities[i] instanceof TileObject)) {
-                this.removeEntityImmediately(entities[i]);
+        let removeList = [];
+        for (let it of this.editorEntities) {
+            if (it.isDeployer()) {
+                removeList.push(it);
             }
+        }
+        for (let it of removeList) {
+            this.removeEntityImmediately(it.getEntity());
         }
         // add saved object
         for (let it of this.saveData.deploy) {
@@ -172,11 +175,16 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @param {number} id Painting ID
      */
     paint(x, y, id) {
-        let replaceTile = id === -1 || this.getFactory().createEntity(id) instanceof TileObject;
+        let replaceTile = true;
+        if (id !== -1) {
+            let willEntity = this.getFactory().createEntity(id);
+            replaceTile = !BaseUtil.implementsOf(willEntity, IEditorEntity) || !willEntity.isDeployer();
+        }
         // remove
-        for (let entity of this.getEntities()) {
+        for (let it of this.editorEntities) {
+            let entity = it.getEntity();
             if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                if (!(entity instanceof TileObject) || replaceTile) {
+                if (it.isDeployer() || replaceTile) {
                     this.removeEntityImmediately(entity);
                 }
             }
@@ -193,36 +201,39 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
     }
 
     /**
-     * Get painting ID by position
+     * Get editor entity
      * @abstract
      * @param {number} x Target x position
      * @param {number} y Target y position
-     * @return {number} Painting ID
+     * @return {IEditorEntity} Editor entity
      */
-    getID(x, y) {
-        for (let entity of this.getEntities()) {
+    getEditorEntity(x, y) {
+        for (let it of this.editorEntities) {
+            let entity = it.getEntity();
             if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
-                let target = this.editorEntities.find((it) => it.equals(entity));
-                if (target !== null) {
-                    return target.getID();
-                }
+                return it;
             }
         }
-        return -1;
+        return null;
     }
 
     /**
-     * Add enttiy to stage by ID
-     * @override
+     * Add entity to stage by ID
      * @param {Object} id Added entity ID
      * @param {JSON} deploy Deploy json data
      * @param {Function<((Entity) => void)>} init Initialize function
      * @return {Entity} Added entity
      */
     addEntityByID(id, deploy, init) {
-        let entity = super.addEntityByID(id, deploy, init);
-        this.editorEntities.push(entity instanceof TileObject ? new EditorTile(entity, id) : new EditorDeployer(entity, id));
-        return entity;
+        let ret = super.addEntityByID(id, deploy, (it) => {
+            if (init !== undefined && BaseUtil.implementsOf(it, IEditorEntity)) {
+                init(it.getEntity());
+            }
+        });
+        if (BaseUtil.implementsOf(ret, IEditorEntity)) {
+            ret = ret.getEntity();
+        }
+        return ret;
     }
 
     /**
@@ -231,9 +242,11 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @param {Entity} entity Entity object
      */
     addEntity(entity) {
+        if (BaseUtil.implementsOf(entity, IEditorEntity)) {
+            this.editorEntities.push(entity);
+            entity = entity.getEntity();
+        }
         super.addEntity(entity);
-        // onece update
-        entity.update(30);
     }
     /**
      * Remove entity from stage
@@ -287,7 +300,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @param {number} dt delta time
      */
     update(dt) {
-        // switch test play
+        // switch test play (P)
         if (Input.key.isPress(Input.key.a() + 15)) {
             if (this.playMode) {
                 this.setCamera(this.preCamera);

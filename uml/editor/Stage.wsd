@@ -16,7 +16,7 @@ package editor {
             +setTileSelection(selection) <<override>>
             +setEntitySelection(selection) <<override>>
             +paint(x,y,id) <<override>>
-            +getID(x,y) : number <<override>>
+            +getEditorEntity(x,y) : IEditorEntity <<override>>
             +addEntitybyID(id,deploy,init) : Entity <<override>>
             +addEntiy(entity) <<override>>
             +removeEntity(entity) <<override>>
@@ -53,13 +53,6 @@ package under {
             class DebugStage
         }
     }
-    package extend {
-        package ex_stage {
-            package ex_entity {
-                class TileObject
-            }
-        }
-    }
 }
 
 package editor {
@@ -85,7 +78,6 @@ package editor {
     }
 }
 
-TileObject <... EditorStage : Judge
 IEditorEntity <.. EditorStage : Get and save
 EditorBase <.. EditorStage : Init, update, render
 IEditorInfo <.. EditorStage : Get

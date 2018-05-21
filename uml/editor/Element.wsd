@@ -17,14 +17,18 @@ package editor {
         }
         package ed_entity {
             class EditorTile {
-                +consstructor(entity,id)
+                +consstructor(entity,id,autoTileBaseID)
                 #entity : Entity
                 #id : number
+                #autoTileBaseID : number
+                #buildBaseData(base)
                 +getID() : number <<override>>
+                +getEntity() : Entity <<override>>
+                +isAutoTile() : boolean <<override>>
+                +getAutoTileBaseID() : number <<override>>
                 +equals(entity) <<override>>
                 +isDeployer : boolean <<override>>
                 +getSaveData() : JSON <<override>>
-                #buildBaseData(base)
             }
             class EditorDeployer {
                 +isDeployer : boolean <<override>>
@@ -32,6 +36,9 @@ package editor {
             package ed_interface {
                 interface IEditorEntity {
                     {abstract} +getID() : number
+                    {abstract} +getEntity() : Entity
+                    {abstract} +isAutoTile() : boolean
+                    {abstract} +getAutoTileBaseID() : number
                     {abstract} +equals(entity)
                     {abstract} +isDeployer : boolean
                 }

@@ -11,7 +11,6 @@ class EditorEntityFactory extends JSONEntityFactory /* , IEditorInfo */ { // esl
     /**
      * Get tile information
      * @override
-     * @protected
      * @return {Object<number, JSON>} Tile information
      */
     getTileInfo() {
@@ -21,10 +20,21 @@ class EditorEntityFactory extends JSONEntityFactory /* , IEditorInfo */ { // esl
     /**
      * Get entity information
      * @override
-     * @protected
      * @return {Object<number, JSON>} Entity information
      */
     getEntityInfo() {
         return this.entityInfo;
+    }
+
+    /**
+     * Build sirial chip data
+     * @override
+     * @protected
+     * @param {JSON} data Target base json data
+     * @param {JSON} chip Serial chip information
+     */
+    buildChipSerial(data, chip) {
+        data.auto = chip.auto;
+        data.autoID = chip.id;
     }
 }

@@ -1,6 +1,12 @@
 {let script = document.createElement('script'); script.src='src/res/js/editor/event/EventUnparser.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/base/EditorBase.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/base/EditorTool.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/builder/EditBuilder.js'; document.head.appendChild(script);}
+{let id = setInterval(function() {
+    if (typeof EditBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/builder/SimpleEditBuilder.js'; document.head.appendChild(script);
+    }
+}, 1);}
 {let id = setInterval(function() {
     if (typeof EditorBase !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/SimpleEditor.js'; document.head.appendChild(script);
@@ -8,15 +14,29 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof EditorTool !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/SelectingTool.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/BaseTool.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof SelectingTool !== `undefined`) {
+    if (typeof BaseTool !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/EraserTool.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof BaseTool !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/PaintTool.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof BaseTool !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/PencilTool.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof EditorTool !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/SyringeTool.js'; document.head.appendChild(script);
     }
 }, 1);}
-{let script = document.createElement('script'); script.src='src/res/js/editor/stage/entity/EditorTile.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/Engine.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/EngineBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/event/common/GameEvent.js'; document.head.appendChild(script);}
@@ -588,13 +608,8 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof SelectingTool !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/EraserTool.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{let id = setInterval(function() {
-    if (typeof SelectingTool !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/PencilTool.js'; document.head.appendChild(script);
+    if (typeof BaseTool !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/AutoTileTool.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -608,8 +623,8 @@
     }
 }, 1);}
 {let id = setInterval(function() {
-    if (typeof EditorTile !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/entity/EditorDeployer.js'; document.head.appendChild(script);
+    if (typeof Entity !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/entity/EditorTile.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1068,6 +1083,11 @@
     }
 }, 1);}
 {let id = setInterval(function() {
+    if (typeof EditorTile !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/entity/EditorDeployer.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
     if (typeof IEditorSave !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/entity/interface/IEditorEntity.js'; document.head.appendChild(script);
     }
@@ -1075,6 +1095,11 @@
 {let id = setInterval(function() {
     if (typeof UnderStageParser !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/parser/EditorStageParser.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof UnderTileBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/parser/EditorTileBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1155,6 +1180,11 @@
 {let id = setInterval(function() {
     if (typeof SelectionLayer !== `undefined`) {
         clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/scene/layer/EntityLayer.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{let id = setInterval(function() {
+    if (typeof UnderCharacterBuilder !== `undefined`) {
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/parser/EditorCharacterBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1301,10 +1331,14 @@
     if (typeof EventUnparser !== `undefined` &&
         typeof EditorBase !== `undefined` &&
         typeof EditorTool !== `undefined` &&
+        typeof EditBuilder !== `undefined` &&
+        typeof SimpleEditBuilder !== `undefined` &&
         typeof SimpleEditor !== `undefined` &&
-        typeof SelectingTool !== `undefined` &&
+        typeof BaseTool !== `undefined` &&
+        typeof EraserTool !== `undefined` &&
+        typeof PaintTool !== `undefined` &&
+        typeof PencilTool !== `undefined` &&
         typeof SyringeTool !== `undefined` &&
-        typeof EditorTile !== `undefined` &&
         typeof Engine !== `undefined` &&
         typeof EngineBuilder !== `undefined` &&
         typeof GameEvent !== `undefined` &&
@@ -1451,11 +1485,10 @@
         typeof EditorCamera !== `undefined` &&
         typeof IEditorFunction !== `undefined` &&
         typeof IEditorTarget !== `undefined` &&
-        typeof EraserTool !== `undefined` &&
-        typeof PencilTool !== `undefined` &&
+        typeof AutoTileTool !== `undefined` &&
         typeof EditorStage !== `undefined` &&
         typeof EditorStageManager !== `undefined` &&
-        typeof EditorDeployer !== `undefined` &&
+        typeof EditorTile !== `undefined` &&
         typeof IEditable !== `undefined` &&
         typeof IEditorSave !== `undefined` &&
         typeof EditorEntityFactory !== `undefined` &&
@@ -1547,8 +1580,10 @@
         typeof SelectionLayer !== `undefined` &&
         typeof SingleChipLayer !== `undefined` &&
         typeof SingleEntityLayer !== `undefined` &&
+        typeof EditorDeployer !== `undefined` &&
         typeof IEditorEntity !== `undefined` &&
         typeof EditorStageParser !== `undefined` &&
+        typeof EditorTileBuilder !== `undefined` &&
         typeof GameScene !== `undefined` &&
         typeof CommonBaseStateAI !== `undefined` &&
         typeof UnderPlayerState !== `undefined` &&
@@ -1565,6 +1600,7 @@
         typeof IMusicManager !== `undefined` &&
         typeof Player !== `undefined` &&
         typeof EntityLayer !== `undefined` &&
+        typeof EditorCharacterBuilder !== `undefined` &&
         typeof AdventurerHookState !== `undefined` &&
         typeof CommonGameoverState !== `undefined` &&
         typeof CpmmonJudgeState !== `undefined` &&

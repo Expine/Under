@@ -15,11 +15,11 @@ class IEditorTarget extends Interface { // eslint-disable-line  no-unused-vars
     paint(x, y, id) {}
 
     /**
-     * Get painting ID by position
+     * Get editor entity
      * @abstract
      * @param {number} x Target x position
      * @param {number} y Target y position
-     * @return {number} Painting ID
+     * @return {IEditorEntity} Editor entity
      */
-    getID(x, y) {}
+    getEditorEntity(x, y) {}
 }

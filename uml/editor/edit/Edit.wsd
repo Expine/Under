@@ -1,0 +1,139 @@
+@startuml EditorEdit
+
+package editor {
+    package ed_stage {
+        package ed_edit {
+            package ed_tool {
+                abstract BaseTool {
+                    +constructor(image,key)
+                    #image : GameImage
+                    #key : number
+                    #selectedX : number
+                    #selectedY : number
+                    #selectedWidth : number
+                    #selectedHeight : number
+                    #resolution : number
+                    {abstract} #shortcut()
+                    +init() <<override>>
+                    +update(x,y,dt) <<override>>
+                    +use(x,y,id) <<override>>
+                    +render(ctx,shiftX,shiftY) <<override>>
+                }
+                class PencilTool {
+                    #shortcut() <<override>>
+                    +use(x,y,dt) <<override>>
+                }
+                class EraserTool {
+                    #shortcut() <<override>>
+                    +use(x,y,dt) <<override>>
+                }
+                class SyringTool {
+                    +update(x,y,dt) <<override>>
+                }
+                class PaintTool {
+                    #paint(x,y,id,preID)
+                    #shortcut() <<override>>
+                    +use(x,y,dt) <<override>>
+                }
+                class AutoTileTool {
+                    #calculateID(baseID,x,y) : number
+                    #paint(x,y,id)
+                    #paintAround(x,y,id)
+                    #shortcut() <<override>>
+                    +use(x,y,dt) <<override>>
+                }
+            }
+            class SimpleEditor {
+                #currentTool : EditorTool
+                #currentID : number
+                #tools : Object<string,EditorTool>
+                #updateSelector()
+                +addTool(name,tool) <<override>>
+                +changeTool(name) <<override>>
+                +setCurrentID(id) <<override>>
+                +getCurrentID() : number <<override>>
+                +getTools() : Array<EditorTool> <<override>>
+                +getCurrentTool() : EDitorTool <<override>>
+                +init() <<override>>
+                +update(x,y,dt) <<override>>
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+            interface IMouse
+        }
+        package resource {
+            package image {
+                abstract Context
+                abstract GameImage
+            }
+        }
+    }
+}
+package editor {
+    package ed_stage {
+        package ed_edit {
+            package ed_base {
+                abstract EditorBase
+                abstract EditorTool
+                interface IEditorFunction
+                interface IEditorTarget
+            }
+        }
+        package ed_entity {
+            package ed_interface {
+                interface IEditorEntity
+            }
+        }
+    }
+    package ed_util {
+        interface ISelection
+    }
+}
+
+EditorBase ..> EditorTool : Init, update, use, render
+
+IKey <.. BaseTool : Get
+BaseTool ..> Context : Render
+BaseTool ..> GameImage : Init, update, render
+
+PencilTool ..> IMouse : Get
+IEditorFunction <.. PencilTool : Use
+IEditorTarget <.. PencilTool : Paint
+
+EraserTool ..> IMouse : Get
+IEditorFunction <.. EraserTool : Use
+IEditorTarget <.. EraserTool : Paint
+
+SyringTool ..> IMouse : Get
+IEditorFunction <.. SyringTool : Use
+IEditorTarget <.. SyringTool : Get
+IEditorEntity <.. SyringTool : Get id
+
+PaintTool ..> IMouse : Get
+IEditorFunction <.. PaintTool : Use
+IEditorTarget <.. PaintTool : Paint and get
+IEditorEntity <.. AutoTileTool : Get
+
+AutoTileTool ..> IMouse : Get
+IEditorFunction <.. AutoTileTool : Use
+IEditorTarget <.. AutoTileTool : Paint and get
+IEditorEntity <.. AutoTileTool : Get
+
+ISelection <.. SimpleEditor : Get and set
+
+EditorBase <|.. SimpleEditor
+
+EditorTool <|.. BaseTool
+BaseTool <|.. PencilTool
+BaseTool <|.. EraserTool
+EditorTool <|.. SyringTool
+BaseTool <|.. PaintTool
+BaseTool <|.. AutoTileTool
+
+@enduml

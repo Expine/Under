@@ -1,15 +1,14 @@
 /**
- * Pencil tool
+ * Syringe tool
  * - Tool for editing
- * - Selects something
  * - ### Extracts entity
- * @extends {SelectingTool}
- * @classdesc Pencil tool to extract entity
+ * @extends {EditorTool}
+ * @classdesc Syringe tool to extract entity
  */
-class SyringeTool extends SelectingTool { // eslint-disable-line  no-unused-vars
+class SyringeTool extends EditorTool { // eslint-disable-line  no-unused-vars
     /**
      * Update tool
-     * @abstract
+     * @override
      * @param {number} x Target x position
      * @param {number} y Target y position
      * @param {number} dt Delta time
@@ -18,9 +17,9 @@ class SyringeTool extends SelectingTool { // eslint-disable-line  no-unused-vars
         this.selectedX = Math.floor(x / 32) * 32;
         this.selectedY = Math.floor(y / 32) * 32;
         if (Input.mouse.isPressed(Input.mouse.mRight())) {
-            let id = this.editor.getTarget().getID(this.selectedX, this.selectedY);
-            if (id >= 0) {
-                this.editor.setCurrentID(id);
+            let target = this.editor.getTarget().getEditorEntity(this.selectedX, this.selectedY);
+            if (target !== null) {
+                this.editor.setCurrentID(target.getID());
             }
         }
     }

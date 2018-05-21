@@ -21,6 +21,7 @@
         "file": "white.png",
         "chips": [{
             "id": 1000,
+            "auto": true,
             "terrain": 1,
             "image": {
                 "type": "tile",
@@ -39,6 +40,7 @@
         "file": "prairie.png",
         "chips": [{
             "id": 2000,
+            "auto": true,
             "terrain": 0,
             "image": {
                 "type": "tile",
@@ -57,6 +59,7 @@
         "file": "cave.png",
         "chips": [{
             "id": 3000,
+            "auto": true,
             "terrain": 2,
             "image": {
                 "type": "tile",

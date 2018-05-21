@@ -198,25 +198,6 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Add enttiy to stage by ID
-     * @override
-     * @param {Object} id Added entity ID
-     * @param {JSON} deploy Deploy json data
-     * @param {Function<((Entity) => void)>} init Initialize function
-     * @return {Entity} Added entity
-     */
-    addEntityByID(id, deploy, init) {
-        // set stage on initialize
-        let func = (it) => {
-            if (init) {
-                init(it);
-            }
-            it.setStage(this);
-        };
-        return this.stage.addEntityByID(id, deploy, func);
-    }
-
-    /**
      * Add entity to stage
      * @override
      * @param {Entity} entity Entity object

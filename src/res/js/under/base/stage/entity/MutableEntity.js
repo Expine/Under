@@ -52,8 +52,7 @@ class MutableEntity extends InfluentialEntity { // eslint-disable-line  no-unuse
      * @param {number} dy Relative movement amount in y direction
      */
     deltaMove(dx, dy) {
-        this.x += dx;
-        this.y += dy;
+        this.setPosition(this.x + dx, this.y + dy);
         if (this.collider !== undefined) {
             this.collider.update();
         }

@@ -55,9 +55,9 @@ class Entity { // eslint-disable-line  no-unused-vars
      * Set entity position
      * @param {number} x X position
      * @param {number} y Y position
-     * @param {number} z Z position
+     * @param {number} [z=z] Z position
      */
-    setPosition(x, y, z) {
+    setPosition(x, y, z = this.z) {
         this.x = x;
         this.y = y;
         this.z = z;

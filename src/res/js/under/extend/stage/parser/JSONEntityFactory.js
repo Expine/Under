@@ -204,6 +204,14 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
     }
 
     /**
+     * Build sirial chip data
+     * @protected
+     * @param {JSON} data Target base json data
+     * @param {JSON} chip Serial chip information
+     */
+    buildChipSerial(data, chip) {}
+
+    /**
      * Build tile information
      * @protected
      * @param {JSON} tileInfo Added tile information
@@ -246,6 +254,7 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                             data.image.file = tile.file;
                             data.image.x = x + cx * chip.image.width;
                             data.image.y = y + cy * chip.image.height;
+                            this.buildChipSerial(data, chip);
                             this.tileInfo[id] = data;
                             ++id;
                         }

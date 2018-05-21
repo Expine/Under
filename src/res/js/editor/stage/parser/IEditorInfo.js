@@ -8,7 +8,6 @@ class IEditorInfo extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Get tile information
      * @abstract
-     * @protected
      * @return {Object<number, JSON>} Tile information
      */
     getTileInfo() {}
@@ -16,7 +15,6 @@ class IEditorInfo extends Interface { // eslint-disable-line  no-unused-vars
     /**
      * Get entity information
      * @abstract
-     * @protected
      * @return {Object<number, JSON>} Entity information
      */
     getEntityInfo() {}

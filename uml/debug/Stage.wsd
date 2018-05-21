@@ -19,7 +19,6 @@ package under {
                 +getStageWidth() : number <<override>> <<override>>
                 +getStageHeight() : number <<override>> <<override>>
                 +addEntity(entity) <<override>> <<override>>
-                +addEntityByID(id,deploy,init) <<override>> <<override>>
                 +removeEntity(entity) <<override>>
                 #removeEntityImmediately(entity) <<override>>
                 +getEntities() : Array<Entity> <<override>>
