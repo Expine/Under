@@ -42,7 +42,7 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
      * @param {number} damage Amount of damage
      */
     damage(damage) {
-        if (this.invincible == 0 && this.hp > 0) {
+        if (this.invincible === 0 && this.hp > 0) {
             this.hp -= damage;
             this.invincible = 1000;
         }
@@ -96,7 +96,7 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.invincible % 2 == 0 || this.hp <= 0) {
+        if (this.invincible % 2 === 0 || this.hp <= 0) {
             super.render(ctx, shiftX, shiftY);
         }
     }

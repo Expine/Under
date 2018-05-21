@@ -250,11 +250,11 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                     if (it.velocityX * col.nx + it.velocityY * col.ny > 0) {
                         if (!xRepulsionList[i]) {
                             pxList[i] -= col.nx * it.entity.material.mass * Math.abs(it.velocityX) / milisec / 2;
-                            xRepulsionList[i] = col.nx != 0;
+                            xRepulsionList[i] = col.nx !== 0;
                         }
                         if (!yRepulsionList[i]) {
                             pyList[i] -= col.ny * it.entity.material.mass * Math.abs(it.velocityY) / milisec / 2;
-                            yRepulsionList[i] = col.ny != 0;
+                            yRepulsionList[i] = col.ny !== 0;
                         }
                     }
                     collisions.push(col);
@@ -276,7 +276,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                 let dx = willXList[0][i + 1] - willXList[0][i];
                 let dy = willYList[0][i + 1] - willYList[0][i];
                 let d2 = dx * dx + dy * dy;
-                if ((d2 - length * length) < elim || d2 == 0) {
+                if ((d2 - length * length) < elim || d2 === 0) {
                     continue;
                 }
                 // set power
@@ -324,11 +324,11 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
                         if (it.velocityX * col.nx + it.velocityY * col.ny > 0) {
                             if (!xRepulsionList[i]) {
                                 pxList[i] -= col.nx * it.entity.material.mass * Math.abs(it.velocityX) / milisec / 2;
-                                xRepulsionList[i] = col.nx != 0;
+                                xRepulsionList[i] = col.nx !== 0;
                             }
                             if (!yRepulsionList[i]) {
                                 pyList[i] -= col.ny * it.entity.material.mass * Math.abs(it.velocityY) / milisec / 2;
-                                yRepulsionList[i] = col.ny != 0;
+                                yRepulsionList[i] = col.ny !== 0;
                             }
                         }
                         collisions.push(col);

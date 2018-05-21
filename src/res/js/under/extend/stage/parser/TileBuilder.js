@@ -25,7 +25,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {JSON} Replaced JSON data
      */
     tryReplace(deploy, json, data) {
-        return (deploy == undefined || deploy[data] === undefined) ? json[data] : deploy[data];
+        return (deploy === undefined || deploy[data] === undefined) ? json[data] : deploy[data];
     }
 
     /**
@@ -123,7 +123,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
         let materialData = this.tryReplace(deploy, json, `material`);
         // set collider
         let collider = this.makeCollider(colliderData);
-        if (collider != null) {
+        if (collider !== null) {
             collider.enable = colliderData.enable === undefined ? true : colliderData.enable;
             collider.response = colliderData.response === undefined ? true : colliderData.response;
             collider.setAABB(this.makeAABB(colliderData));

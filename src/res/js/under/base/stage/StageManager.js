@@ -88,7 +88,7 @@ class StageManager { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         let stage = this.getStage();
-        if (stage != null) {
+        if (stage !== null) {
             stage.update(dt);
         }
     }
@@ -101,7 +101,7 @@ class StageManager { // eslint-disable-line  no-unused-vars
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         let stage = this.getStage();
-        if (stage != null) {
+        if (stage !== null) {
             stage.render(ctx, shiftX, shiftY);
         }
     }

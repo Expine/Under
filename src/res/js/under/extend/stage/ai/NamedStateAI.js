@@ -84,7 +84,7 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      */
     changeState(id) {
         // Do not process if it is in the same state
-        if (id == this.stateName) {
+        if (id === this.stateName) {
             return false;
         }
         if (this.namedStates[id] === undefined) {

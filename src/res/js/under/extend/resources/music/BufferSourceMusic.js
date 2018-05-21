@@ -30,23 +30,21 @@ class BufferSourceMusic extends Music { // eslint-disable-line  no-unused-vars
      */
     _play(musicID, loop) {
         let music = this.music.getMusic(musicID);
-        if (music !== undefined) {
-            if (music === null) {
-                let instance = this;
-                let id = setInterval(() => {
-                    let music = instance.music.getMusic(musicID);
-                    if (music !== null) {
-                        this._play(musicID, loop);
-                        clearInterval(id);
-                        if (loop) {
-                            this.bgm = music;
-                        }
+        if (music !== null) {
+            music.loop = loop;
+            music.start(0);
+        } else {
+            let instance = this;
+            let id = setInterval(() => {
+                let music = instance.music.getMusic(musicID);
+                if (music !== null) {
+                    this._play(musicID, loop);
+                    clearInterval(id);
+                    if (loop) {
+                        this.bgm = music;
                     }
-                }, 1000 / 60);
-            } else {
-                music.loop = loop;
-                music.start(0);
-            }
+                }
+            }, 1000 / 60);
         }
         return music;
     }

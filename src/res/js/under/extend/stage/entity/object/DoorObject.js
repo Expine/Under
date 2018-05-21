@@ -95,7 +95,7 @@ class DoorObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
                 for (let i = 0; i < this.popNumber; ++i) {
                     StageManager.it.popStage();
                 }
-                if (this.transition != null) {
+                if (this.transition !== null) {
                     if (this.isReplace) {
                         StageManager.it.replaceStage(this.transition);
                     } else {

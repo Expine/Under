@@ -61,7 +61,7 @@ class LoopInputOrder extends InputOrder { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether order is ended or not
      */
     udpate(dt) {
-        if (this.orders.length == 0) {
+        if (this.orders.length === 0) {
             return true;
         }
         // update order

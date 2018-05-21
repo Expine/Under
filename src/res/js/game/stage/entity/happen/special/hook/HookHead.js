@@ -111,6 +111,6 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
     update(dt) {
         super.update(dt);
         // TODO: Maybe include image
-        this.image.setSize(this.width * this.directionX, -this.height * (this.directionY == 0 ? 1 : this.directionY));
+        this.image.setSize(this.width * this.directionX, -this.height * (this.directionY === 0 ? 1 : this.directionY));
     }
 }

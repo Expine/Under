@@ -9,7 +9,7 @@ class Util { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether entity is on the ground
      */
     static onGround(entity) {
-        return this.getUnderEntity(entity) != null;
+        return this.getUnderEntity(entity) !== null;
     }
 
     /**
@@ -32,7 +32,7 @@ class Util { // eslint-disable-line  no-unused-vars
     static getSideEntity(entity) {
         let list = entity.collider.collisions;
         for (let it of list) {
-            if (it.ny != 0) {
+            if (it.ny !== 0) {
                 continue;
             }
             let dot = entity.body.velocityX * it.nx + entity.body.velocityY * it.ny;

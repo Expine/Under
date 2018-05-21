@@ -33,7 +33,7 @@ class UnderStateAI extends TransferableStateAI { // eslint-disable-line  no-unus
      * @return {boolean} Whether change state or not
      */
     changeState(state) {
-        if (state == `special`) {
+        if (state === `special`) {
             state = this.specialActionName;
         }
         return super.changeState(state);

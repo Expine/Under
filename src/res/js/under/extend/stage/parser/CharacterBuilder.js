@@ -152,7 +152,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     buildBody(base, deploy, json) {
         let bodyData = this.tryReplace(deploy, json, `body`);
         base.setRigidBody(this.makeBody(bodyData));
-        if (base.body != null) {
+        if (base.body !== null) {
             base.body.enable = bodyData.enable === undefined ? true : bodyData.enable;
             base.body.setMaterial(this.makeBodyMaterial(bodyData.material));
         }

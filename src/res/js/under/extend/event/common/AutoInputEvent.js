@@ -55,7 +55,7 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether update is endped or not
      */
     update(dt) {
-        if (this.orders.length == 0) {
+        if (this.orders.length === 0) {
             this.op.next();
             return true;
         }

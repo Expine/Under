@@ -49,6 +49,7 @@ class CachedImage extends CachedArrayManager /* , IImageManager */ { // eslint-d
      * @return {Image} Music resource
      */
     getImage(id) {
-        return this.resources[id];
+        let ret = this.resources[id];
+        return ret === undefined ? null : ret;
     }
 }

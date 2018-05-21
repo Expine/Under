@@ -62,7 +62,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
             return a.z < b.z ? -1 : a.z > b.z ? 1 : 0;
         });
 
-        if (this.player != null) {
+        if (this.player !== null) {
             let x = this.player.getCameraX();
             let y = this.player.getCameraY();
             this.camera.init(x, y);
@@ -76,7 +76,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     addEntity(entity) {
         // set player
-        if (this.player == null && BaseUtil.implementsOf(entity, IPlayable)) {
+        if (this.player === null && BaseUtil.implementsOf(entity, IPlayable)) {
             this.player = entity;
         }
         if (entity instanceof InfluentialEntity) {
@@ -184,7 +184,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt Delta time
      */
     updateCamera(dt) {
-        if (this.player != null) {
+        if (this.player !== null) {
             let x = this.player.getCameraX();
             let y = this.player.getCameraY();
             this.camera.update(x, y, dt);

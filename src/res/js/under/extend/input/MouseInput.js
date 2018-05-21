@@ -58,7 +58,7 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
         let blur = this.target.parentElement.onblur;
         this.target.parentElement.onblur = () => {
             this.clear();
-            if (blur !== undefined) {
+            if (blur !== undefined && blur !== null) {
                 blur();
             }
         };
@@ -133,7 +133,7 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
             return;
         }
         let button = e.button;
-        if (this.inputState[button] === undefined || this.inputState[button] == this.STATE.NONE) {
+        if (this.inputState[button] === undefined || this.inputState[button] === this.STATE.NONE) {
             this.inputState[button] = this.STATE.PRESS;
         }
     }

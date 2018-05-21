@@ -52,7 +52,7 @@ class StateCharacter extends Character { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.state != null && this.state.canRendering) {
+        if (this.state !== null && this.state.canRendering) {
             this.state.render(ctx, shiftX, shiftY);
         } else {
             super.render(ctx, shiftX, shiftY);

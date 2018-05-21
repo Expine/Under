@@ -93,7 +93,7 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      * @return {number} Imag width
      */
     getWidth() {
-        return this.animation.length == 0 ? 0 : this.animation[this.runningAnimation].getWidth();
+        return this.animation.length === 0 ? 0 : this.animation[this.runningAnimation].getWidth();
     }
 
     /**
@@ -102,7 +102,7 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      * @return {number} Imag height
      */
     getHeight() {
-        return this.animation.length == 0 ? 0 : this.animation[this.runningAnimation].getHeight();
+        return this.animation.length === 0 ? 0 : this.animation[this.runningAnimation].getHeight();
     }
 
     /**
@@ -122,7 +122,7 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      */
     update(dt) {
         // check
-        if (this.paused || this.animation.length == 0) {
+        if (this.paused || this.animation.length === 0) {
             return;
         }
         if (!this.isLoop() && this.isEnded()) {

@@ -66,7 +66,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
      * @return {number} Selected tile ID (return -1 if not selected)
      */
     getSelected() {
-        return this.selectedTile == null ? -1 : this.selectedTile.id;
+        return this.selectedTile === null ? -1 : this.selectedTile.id;
     }
 
     /**
@@ -154,10 +154,10 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
      */
     render(ctx) {
         this.tileImage.clipingRender(ctx, this.x, this.y, this.clipX, this.clipY, this.clipWidth, this.clipHeight);
-        if (this.selectTile != null) {
+        if (this.selectTile !== null) {
             ctx.strokeRect(this.selectTile.image.x + this.x, this.selectTile.image.y + this.y, this.selectTile.image.width, this.selectTile.image.height, `red`);
         }
-        if (this.selectedTile != null) {
+        if (this.selectedTile !== null) {
             ctx.strokeRect(this.selectedTile.image.x + this.x, this.selectedTile.image.y + this.y, this.selectedTile.image.width, this.selectedTile.image.height, `white`);
         }
     }

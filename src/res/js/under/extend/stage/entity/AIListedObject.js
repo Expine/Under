@@ -45,7 +45,7 @@ class AIListedObject extends AutonomyEntity { // eslint-disable-line  no-unused-
      */
     removeAI(ai) {
         let index = this.ai.indexOf(ai);
-        if (index != -1) {
+        if (index !== -1) {
             this.ai.splice(index, 1);
         }
     }

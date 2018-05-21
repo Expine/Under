@@ -31,13 +31,13 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
          * @protected
          * @type {number}
          */
-        this.stageWidth = Math.floor(stageWidth / this.splitNumber) + ((stageWidth % this.splitNumber == 0) ? 0 : 1);
+        this.stageWidth = Math.floor(stageWidth / this.splitNumber) + ((stageWidth % this.splitNumber === 0) ? 0 : 1);
         /**
          * Stage height (area)
          * @protected
          * @type {number}
          */
-        this.stageHeight = Math.floor(stageHeight / this.splitNumber) + ((stageHeight % this.splitNumber == 0) ? 0 : 1);
+        this.stageHeight = Math.floor(stageHeight / this.splitNumber) + ((stageHeight % this.splitNumber === 0) ? 0 : 1);
 
         /**
          * List of list of entities that exist in each division unit
@@ -150,7 +150,7 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
                     if (itCollider === null || !itCollider.enable) {
                         continue;
                     }
-                    if (collidedList.indexOf(it) != -1) {
+                    if (collidedList.indexOf(it) !== -1) {
                         continue;
                     }
                     if (collider.isCollisionRoughly(itCollider) && collider.isCollision(itCollider, data)) {
@@ -209,7 +209,7 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
                 for (let x = sx; x <= ex; ++x) {
                     for (let it of this.notActorsMap[x + this.stageWidth * y]) {
                         let itCollider = it.collider;
-                        if (itCollider === null || !itCollider.enable || collidedList.indexOf(it) != -1 || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                        if (itCollider === null || !itCollider.enable || collidedList.indexOf(it) !== -1 || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
                             continue;
                         }
                         // add collision data

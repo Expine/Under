@@ -18,7 +18,7 @@ class MovingCamera extends DelegateCamera { // eslint-disable-line  no-unused-va
         super.update(x, y, dt);
 
         // move gradually
-        if (this.cameraX != this.baseCamera.cameraX || this.cameraY != this.baseCamera.cameraY) {
+        if (this.cameraX !== this.baseCamera.cameraX || this.cameraY !== this.baseCamera.cameraY) {
             this.cameraX = this.cameraX + (this.baseCamera.cameraX - this.cameraX) * dt / 200;
             this.cameraY = this.cameraY + (this.baseCamera.cameraY - this.cameraY) * dt / 200;
         }

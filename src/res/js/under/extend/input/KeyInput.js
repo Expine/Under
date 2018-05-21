@@ -133,7 +133,7 @@ class KeyInput extends StateInputManager /* , IKey */ { // eslint-disable-line  
             return;
         }
         let code = e.keyCode;
-        if (this.inputState[code] === undefined || this.inputState[code] == this.STATE.NONE) {
+        if (this.inputState[code] === undefined || this.inputState[code] === this.STATE.NONE) {
             this.inputState[code] = this.STATE.PRESS;
         }
     }

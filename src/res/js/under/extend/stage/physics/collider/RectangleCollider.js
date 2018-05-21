@@ -58,10 +58,10 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
      * Judge whether collision
      * @override
      * @param {Colllder} collider Target collider
-     * @param {CollisionData} data Pointer to save conflict information
+     * @param {CollisionData} [data=null] Pointer to save conflict information
      * @return {boolean} whether collision
      */
-    isCollision(collider, data) {
+    isCollision(collider, data = null) {
         if (collider instanceof RoundRectangleCollider) {
             return collider.isCollision(this, data);
         } else if (collider instanceof RectangleCollider) {
@@ -70,7 +70,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
             let sy = this.aabb.endY - collider.aabb.startY;
             let ey = this.aabb.startY - collider.aabb.endY;
             if (0 < sx && ex < 0 && 0 < sy && ey < 0) {
-                if (data !== undefined) {
+                if (data !== null) {
                     let me = this.entity;
                     let you = collider.entity;
                     let nx = Math.abs(sx) < Math.abs(ex) ? sx : ex;
@@ -160,7 +160,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
                 you += 1;
             }
         }
-        if (me != 0 || you != 0) {
+        if (me !== 0 || you !== 0) {
             ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
             ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
         }

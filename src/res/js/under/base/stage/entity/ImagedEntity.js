@@ -45,7 +45,7 @@ class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
      */
     setSize(width, height) {
         super.setSize(width, height);
-        if (this.image != null) {
+        if (this.image !== null) {
             this.image.setSize(width, height);
         }
     }
@@ -55,7 +55,7 @@ class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        if (this.image != null) {
+        if (this.image !== null) {
             this.image.init();
         }
     }
@@ -66,7 +66,7 @@ class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        if (this.image != null) {
+        if (this.image !== null) {
             this.image.update(dt);
         }
     }
@@ -79,7 +79,7 @@ class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        if (this.image != null) {
+        if (this.image !== null) {
             this.image.render(ctx, this.x + shiftX, this.y + shiftY);
         }
     }

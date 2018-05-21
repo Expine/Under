@@ -57,13 +57,13 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
     apply(dt) {
         // input
         let vx = 0;
-        if (Input.key.isPressed(Input.key.left()) && this.directionX == -1) {
+        if (Input.key.isPressed(Input.key.left()) && this.directionX === -1) {
             vx += -1;
         }
-        if (Input.key.isPressed(Input.key.right()) && this.directionX == 1) {
+        if (Input.key.isPressed(Input.key.right()) && this.directionX === 1) {
             vx += 1;
         }
-        if (vx != 0) {
+        if (vx !== 0) {
             this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
             this.ai.changeState(`falling`);
             return true;

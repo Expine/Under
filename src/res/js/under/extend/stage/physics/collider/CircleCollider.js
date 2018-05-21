@@ -70,16 +70,16 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * Judge whether collision
      * @override
      * @param {Colllder} collider Target collider
-     * @param {CollisionData} data Pointer to save conflict information
+     * @param {CollisionData} [data=null] Pointer to save conflict information
      * @return {boolean} whether collision
      */
-    isCollision(collider, data) {
+    isCollision(collider, data = null) {
         if (collider instanceof CircleCollider) {
             let nx = collider.centerX - this.centerX;
             let ny = collider.centerY - this.centerY;
             let r = this.radius + collider.radius;
             if (nx * nx + ny * ny < r * r) {
-                if (data !== undefined) {
+                if (data !== null) {
                     let me = this.entity;
                     let you = collider.entity;
                     let nlen = Math.sqrt(nx * nx + ny * ny);
@@ -154,7 +154,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
                 you += 1;
             }
         }
-        if (me != 0 || you != 0) {
+        if (me !== 0 || you !== 0) {
             ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
             ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
         }

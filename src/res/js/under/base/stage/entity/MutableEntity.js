@@ -40,7 +40,7 @@ class MutableEntity extends InfluentialEntity { // eslint-disable-line  no-unuse
     setRigidBody(body) {
         this.body = body;
         // initialize
-        if (this.body != null) {
+        if (this.body !== null) {
             body.setEntity(this);
             body.init();
         }
@@ -53,7 +53,7 @@ class MutableEntity extends InfluentialEntity { // eslint-disable-line  no-unuse
      */
     deltaMove(dx, dy) {
         this.setPosition(this.x + dx, this.y + dy);
-        if (this.collider !== undefined) {
+        if (this.collider !== null) {
             this.collider.update();
         }
     }

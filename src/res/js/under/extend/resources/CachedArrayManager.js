@@ -89,7 +89,7 @@ class CachedArrayManager extends ResourceManager { // eslint-disable-line  no-un
     getPath(id) {
         for (let path in this.caches) {
             if (this.caches.hasOwnProperty(path)) {
-                if (this.caches[path] == id) {
+                if (this.caches[path] === id) {
                     return path.replace(this.root, ``);
                 }
             }

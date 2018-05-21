@@ -117,8 +117,7 @@ IDamagable <.. AttackObjectAI : Damage
 StateAI <|.. NamedStateAI
 AI <|.. StraightAI
 AI <|.. JumpAI
-AI <|..
- EnemyAI
+AI <|.. EnemyAI
 
 State <|.. BaseState
 State <|.. NoneState

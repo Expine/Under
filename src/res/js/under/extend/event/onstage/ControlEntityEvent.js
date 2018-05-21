@@ -77,12 +77,12 @@ class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-
         super.init();
         let target = null;
         // TODO: Improve search method
-        if (this.targetName == `player`) {
+        if (this.targetName === `player`) {
             target = this.stage.getEntities().find((it) => {
                 return BaseUtil.implementsOf(it, IPlayable);
             });
         }
-        if (target != null) {
+        if (target !== null) {
             if (target instanceof MutableEntity) {
                 target.body.setNextAddVelocity(this.vx - target.body.velocityX, this.vy - target.body.velocityY);
                 target.body.enforce(this.fx, this.fy);

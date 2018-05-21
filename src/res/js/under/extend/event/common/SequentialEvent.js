@@ -120,7 +120,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
                 this.runningEvents.splice(index, 1);
             }
         }
-        return this.runningEvents.length == 0 && this.events.length == 0;
+        return this.runningEvents.length === 0 && this.events.length === 0;
     }
 
     /**

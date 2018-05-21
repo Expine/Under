@@ -104,7 +104,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
             if (this.entity.getImage() instanceof GameAnimation) {
                 this.entity.getImage().restore();
             }
-            if (this.ai.getStateID() == `grab`) {
+            if (this.ai.getStateID() === `grab`) {
                 this.entity.image.init();
             }
             if (this.ai.changeState(`grabwalk`)) {

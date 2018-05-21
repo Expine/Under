@@ -120,10 +120,10 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
             let dot = Math.sign(ovx * -ny + ovy * nx);
             dvx = dot * -ny * p * mu * dt / 1000;
             dvy = dot * nx * p * mu * dt / 1000;
-            if (ovx == b1.velocityX && Math.abs(dvx) > Math.abs(b1.velocityX)) {
+            if (ovx === b1.velocityX && Math.abs(dvx) > Math.abs(b1.velocityX)) {
                 dvx = b1.velocityX;
             }
-            if (ovy == b1.velocityY && Math.abs(dvy) > Math.abs(b1.velocityY)) {
+            if (ovy === b1.velocityY && Math.abs(dvy) > Math.abs(b1.velocityY)) {
                 dvy = b1.velocityY;
             }
             vdx1 -= dvx * b1.material.frictionX;
@@ -143,10 +143,10 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
             let dot = Math.sign(ovx * -ny + ovy * nx);
             dvx = dot * -ny * p * mu * dt / 1000;
             dvy = dot * nx * p * mu * dt / 1000;
-            if (ovx == b2.velocityX && Math.abs(dvx) > Math.abs(b2.velocityX)) {
+            if (ovx === b2.velocityX && Math.abs(dvx) > Math.abs(b2.velocityX)) {
                 dvx = b2.velocityX;
             }
-            if (ovy == b2.velocityY && Math.abs(dvy) > Math.abs(b2.velocityY)) {
+            if (ovy === b2.velocityY && Math.abs(dvy) > Math.abs(b2.velocityY)) {
                 dvy = b2.velocityY;
             }
             vdx2 -= dvx * b2.material.frictionX;

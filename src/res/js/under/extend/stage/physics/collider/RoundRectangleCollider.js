@@ -30,10 +30,10 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
      * Judge whether collision
      * @override
      * @param {Colllder} collider Target collider
-     * @param {CollisionData} data Pointer to save conflict information
+     * @param {CollisionData} [data=null] Pointer to save conflict information
      * @return {boolean} whether collision
      */
-    isCollision(collider, data) {
+    isCollision(collider, data = null) {
         if (collider instanceof RoundRectangleCollider) {
             let cutX = this.cut;
             let cutY = this.cut;
@@ -95,7 +95,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             }
 
             if (collided) {
-                if (data !== undefined) {
+                if (data !== null) {
                     let me = this.entity;
                     let you = collider.entity;
                     if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
@@ -146,7 +146,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             }
 
             if (collided) {
-                if (data !== undefined) {
+                if (data !== null) {
                     let me = this.entity;
                     let you = collider.entity;
                     if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
@@ -194,7 +194,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                 you += 1;
             }
         }
-        if (me != 0 || you != 0) {
+        if (me !== 0 || you !== 0) {
             ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
             ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
         }

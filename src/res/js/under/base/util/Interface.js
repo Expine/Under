@@ -42,7 +42,7 @@ class Interface { // eslint-disable-line  no-unused-vars
         while (proto !== null) {
             for (let it of Object.getOwnPropertyNames(proto)) {
                 // If it traces up to Interface, it ends
-                if (it == `constructor`) {
+                if (it === `constructor`) {
                     if (proto[it] === Interface) {
                         return;
                     }
@@ -87,7 +87,7 @@ class Interface { // eslint-disable-line  no-unused-vars
         }
         // check method
         for (let it of this._methods) {
-            if (instance[it.name] instanceof Function && instance[it.name].length == it.length) {
+            if (instance[it.name] instanceof Function && instance[it.name].length === it.length) {
                 continue;
             }
             return false;

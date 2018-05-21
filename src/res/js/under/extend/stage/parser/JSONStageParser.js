@@ -76,7 +76,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      */
     makeBaseCamera(camera) {
         let ret = null;
-        if (camera.type == `center`) {
+        if (camera.type === `center`) {
             ret = new CenterCamera();
         }
         if (camera.cliping) {

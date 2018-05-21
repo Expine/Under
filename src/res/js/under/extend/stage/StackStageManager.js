@@ -47,6 +47,6 @@ class StackStageManager extends StageManager { // eslint-disable-line  no-unused
      * @return {Stage} Currently stage
      */
     getStage() {
-        return this.stageStack.length == 0 ? null : this.stageStack[this.stageStack.length - 1];
+        return this.stageStack.length === 0 ? null : this.stageStack[this.stageStack.length - 1];
     }
 }

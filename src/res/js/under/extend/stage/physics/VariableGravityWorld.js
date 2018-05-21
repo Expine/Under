@@ -89,7 +89,7 @@ class VariableGravityWorld extends SplitWorld { // eslint-disable-line  no-unuse
     render(ctx, shiftX = 0, shiftY = 0) {
         if (this.number < this.deltas.length) {
             let delta = this.deltas[this.number];
-            if (delta < 1 && Math.floor(delta * 1000) % 2 == 0) {
+            if (delta < 1 && Math.floor(delta * 1000) % 2 === 0) {
                 if (this.number < this.deltas.length - 1) {
                     let x = this.gravityXs[this.number + 1];
                     let y = this.gravityYs[this.number + 1];

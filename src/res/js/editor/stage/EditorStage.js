@@ -226,7 +226,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      */
     addEntityByID(id, deploy, init) {
         let ret = super.addEntityByID(id, deploy, (it) => {
-            if (init !== undefined && BaseUtil.implementsOf(it, IEditorEntity)) {
+            if (init !== null && BaseUtil.implementsOf(it, IEditorEntity)) {
                 init(it.getEntity());
             }
         });

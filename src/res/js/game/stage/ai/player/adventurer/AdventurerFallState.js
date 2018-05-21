@@ -28,7 +28,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
             vx += 1;
         }
         // down wall
-        if (vx != 0) {
+        if (vx !== 0) {
             for (let it of this.entity.collider.collisions) {
                 if (Math.abs(it.nx) > 0.5 && vx * it.nx > 0 && it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider)) {
                     this.ai.changeState(`downwall`);

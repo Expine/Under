@@ -167,7 +167,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      */
     pause() {
         let anime = this.getAnimation();
-        if (anime !== undefined) {
+        if (anime !== null) {
             anime.pause();
         }
     }
@@ -178,7 +178,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      */
     restore() {
         let anime = this.getAnimation();
-        if (anime !== undefined) {
+        if (anime !== null) {
             anime.restore();
         }
     }

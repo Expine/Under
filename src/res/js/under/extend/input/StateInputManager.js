@@ -75,9 +75,9 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
     update() {
         // update input state
         for (let i = 0; i < this.inputState.length; ++i) {
-            if (this.inputState[i] == this.STATE.PRESS) {
+            if (this.inputState[i] === this.STATE.PRESS) {
                 this.inputState[i] = this.STATE.PRESSED;
-            } else if (this.inputState[i] == this.STATE.PRESSED) {
+            } else if (this.inputState[i] === this.STATE.PRESSED) {
                 this.inputState[i] = this.STATE.ON;
             }
             this.blocked[i] = false;
@@ -147,7 +147,7 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
      * @return {boolean} whether pressed now
      */
     isPress(code) {
-        return !this.blocked[code] && this.inputState[code] !== undefined && this.inputState[code] == this.STATE.PRESSED;
+        return !this.blocked[code] && this.inputState[code] !== undefined && this.inputState[code] === this.STATE.PRESSED;
     }
 
     /**
@@ -157,6 +157,6 @@ class StateInputManager extends Input /* , IInput */ { // eslint-disable-line  n
      * @return {boolean} whether pressed
      */
     isPressed(code) {
-        return !this.blocked[code] && this.inputState[code] !== undefined && (this.inputState[code] == this.STATE.PRESSED || this.inputState[code] == this.STATE.ON);
+        return !this.blocked[code] && this.inputState[code] !== undefined && (this.inputState[code] === this.STATE.PRESSED || this.inputState[code] === this.STATE.ON);
     }
 }

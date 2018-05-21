@@ -100,7 +100,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
         let maxHeight = 0;
         let innerHeight = 0;
         for (let it of this.entityLayers) {
-            if (it.height != maxHeight || sx + it.width > this.x + this.width) {
+            if (it.height !== maxHeight || sx + it.width > this.x + this.width) {
                 sx = this.x;
                 sy += maxHeight;
                 innerHeight += maxHeight;

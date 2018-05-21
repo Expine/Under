@@ -45,7 +45,7 @@ class CameraChangeEvent extends StageEvent { // eslint-disable-line  no-unused-v
     init() {
         let old = this.stage.getCamera();
         let camera = null;
-        if (this.type == `center`) {
+        if (this.type === `center`) {
             camera = new CenterCamera();
         }
         if (this.isCliping) {

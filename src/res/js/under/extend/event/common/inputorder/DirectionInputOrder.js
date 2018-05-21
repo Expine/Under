@@ -48,14 +48,14 @@ class DirectionInputOrder extends InputOrder { // eslint-disable-line  no-unused
      */
     init() {
         this.remainingTime = this.time;
-        if (this.directionX == 1) {
+        if (this.directionX === 1) {
             Input.key.press(Input.key.right());
-        } else if (this.directionX == -1) {
+        } else if (this.directionX === -1) {
             Input.key.press(Input.key.left());
         }
         if (this.directionY === 1) {
             Input.key.press(Input.key.down());
-        } else if (this.directionY == -1) {
+        } else if (this.directionY === -1) {
             Input.key.press(Input.key.up());
         }
     }
@@ -65,14 +65,14 @@ class DirectionInputOrder extends InputOrder { // eslint-disable-line  no-unused
      * @override
      */
     destruct() {
-        if (this.directionX == 1) {
+        if (this.directionX === 1) {
             Input.key.unpress(Input.key.right());
-        } else if (this.directionX == -1) {
+        } else if (this.directionX === -1) {
             Input.key.unpress(Input.key.left());
         }
         if (this.directionY === 1) {
             Input.key.unpress(Input.key.down());
-        } else if (this.directionY == -1) {
+        } else if (this.directionY === -1) {
             Input.key.unpress(Input.key.up());
         }
     }

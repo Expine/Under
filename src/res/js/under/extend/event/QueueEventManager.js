@@ -41,7 +41,7 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
         event.setEventOperator(this);
         this.events.push(event);
         // if event is first event, execute it
-        if (this.events.length == 1) {
+        if (this.events.length === 1) {
             this.next();
         }
     }

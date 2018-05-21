@@ -134,7 +134,7 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
                 this.entity.directionY = 0;
                 this.entity.body.setNextAddVelocity(0, -this.entity.body.velocityY);
             }
-            if (dx == 0 && dy == 0) {
+            if (dx === 0 && dy === 0) {
                 this.isMoving = false;
                 return true;
             }

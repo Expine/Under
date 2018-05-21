@@ -34,10 +34,10 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         // set direction
         let vx = Math.sign(this.entity.body.velocityX);
         let vy = Math.sign(this.entity.body.velocityY);
-        this.entity.directionX = vx == 0 ? this.entity.directionX : vx;
-        this.entity.directionY = vy == 0 ? this.entity.directionY : vy;
+        this.entity.directionX = vx === 0 ? this.entity.directionX : vx;
+        this.entity.directionY = vy === 0 ? this.entity.directionY : vy;
         // auto release
-        if (vy > 0 && this.descentCount++ == 5) {
+        if (vy > 0 && this.descentCount++ === 5) {
             let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {
                 for (let it of hooks) {
@@ -63,7 +63,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
                 let count = 0;
                 let dx = Math.sign(this.entity.body.velocityX);
                 let dy = Math.sign(this.entity.body.velocityY);
-                while (this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).length == 0 && ++count < 8) {
+                while (this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).length === 0 && ++count < 8) {
                     let reached = false;
                     for (let data of this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider)) {
                         let you = Util.getCollidedEntity(this.entity, data);

@@ -46,7 +46,7 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        if (this.getState() != null) {
+        if (this.getState() !== null) {
             this.getState().update(dt);
         }
     }
@@ -58,6 +58,6 @@ class StateAI extends AI { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        return this.getState() != null && this.getState().apply(dt);
+        return this.getState() !== null && this.getState().apply(dt);
     }
 }

@@ -75,7 +75,7 @@ class ChipLayer extends NamedTabbedLayer /* , ISelection, IEditorSave */ { // es
     setSelected(id) {
         for (let i = 0; i < this.chipLayers.length; ++i) {
             this.chipLayers[i].setSelected(id);
-            if (this.chipLayers[i].getSelected() != -1) {
+            if (this.chipLayers[i].getSelected() !== -1) {
                 this.currentlyTabIndex = i;
             }
         }

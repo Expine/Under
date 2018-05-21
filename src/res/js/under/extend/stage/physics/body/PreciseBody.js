@@ -18,7 +18,7 @@ class PreciseBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
         let dy = this.velocityY * dt / 1000;
         let max = Math.floor(Math.max(Math.abs(dx), Math.abs(dy)));
         // move slightly
-        if (max == 0) {
+        if (max === 0) {
             this.entity.deltaMove(dx, dy);
             return;
         }
@@ -34,7 +34,7 @@ class PreciseBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
                     }
                 }
             }
-            if (dx == 0 && dy == 0) {
+            if (dx === 0 && dy === 0) {
                 break;
             }
         }

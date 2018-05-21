@@ -39,7 +39,7 @@ class PropellerJumpingState extends UnderMovableState { // eslint-disable-line  
      */
     moveY(vy, dt) {
         if (this.entity.body.velocityY * vy < 0 || Math.abs(this.entity.body.velocityY) < Math.abs(this.maxVelocityY)) {
-            let power = vy == 1 ? this.movePowerY / 10 : this.movePowerY;
+            let power = vy === 1 ? this.movePowerY / 10 : this.movePowerY;
             this.entity.body.enforce(0, power * this.entity.material.mass * vy / dt);
         }
     }

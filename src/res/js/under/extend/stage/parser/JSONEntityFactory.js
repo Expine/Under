@@ -123,7 +123,7 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                 entity.body = JSON.parse(JSON.stringify(defaultBBody));
             }
             // check serial
-            if (entity.image !== undefined && entity.image.type == `anime`) {
+            if (entity.image !== undefined && entity.image.type === `anime`) {
                 let animation = [];
                 for (let it of entity.image.animation) {
                     if (it.serial) {
@@ -142,7 +142,7 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                 entity.image.animation = animation;
             }
             // check multi serial
-            if (entity.image !== undefined && entity.image.type == `multianime`) {
+            if (entity.image !== undefined && entity.image.type === `multianime`) {
                 let animations = [];
                 for (let it of entity.image.animations) {
                     if (it.serial && it.names !== undefined) {
@@ -158,7 +158,7 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                                 data.height = it.height;
                                 data.delta = it.delta;
                                 animation.push(data);
-                                if (++number == it.number) {
+                                if (++number === it.number) {
                                     for (let i = 0; i < it.names[index].length; ++i) {
                                         let item = {};
                                         item.name = it.names[index][i];

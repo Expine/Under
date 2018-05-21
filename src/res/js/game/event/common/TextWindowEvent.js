@@ -89,7 +89,7 @@ class TextWindowEvent extends NamedEvent { // eslint-disable-line  no-unused-var
             if (this.showCount > 1) {
                 this.showCount = 1;
             }
-            if (this.showCount == 1 && Input.key.isPressed(Input.key.yes())) {
+            if (this.showCount === 1 && Input.key.isPressed(Input.key.yes())) {
                 this.ended = true;
             }
         }
@@ -103,7 +103,7 @@ class TextWindowEvent extends NamedEvent { // eslint-disable-line  no-unused-var
      */
     render(ctx) {
         let id = ResourceManager.image.load(`window/win2.png`);
-        let size = (this.size == -1 ? 25 : this.size) * this.showCount * this.showCount;
+        let size = (this.size === -1 ? 25 : this.size) * this.showCount * this.showCount;
         let width = ctx.measureText(this.sentence, size);
         Util.renderWindow(ctx, id, this.x - (width + 64) / 2, this.y - (64 + size) / 2, width + 64, 64 + size);
         ctx.fillText(this.sentence, this.x, this.y, 0.5, 0.5, size);

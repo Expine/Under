@@ -10,10 +10,10 @@ class SingleImage extends GameImage { // eslint-disable-line  no-unused-vars
      * Single image constructor
      * @constructor
      * @param {number} imageID Image ID
-     * @param {number} [width = undefined] Image width
-     * @param {number} [height = undefined] Image height
+     * @param {number} [width = null] Image width
+     * @param {number} [height = null] Image height
      */
-    constructor(imageID, width, height) {
+    constructor(imageID, width = null, height = null) {
         super();
 
         /**
@@ -81,13 +81,13 @@ class SingleImage extends GameImage { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        if (this.width === undefined) {
+        if (this.width === null) {
             let width = ResourceManager.image.getWidth(this.imageID);
             if (width > 0) {
                 this.width = width;
             }
         }
-        if (this.height === undefined) {
+        if (this.height === null) {
             let height = ResourceManager.image.getHeight(this.imageID);
             if (height > 0) {
                 this.height = height;

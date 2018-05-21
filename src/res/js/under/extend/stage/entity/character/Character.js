@@ -72,7 +72,7 @@ class Character extends AIListedObject /* , IDamagable */ { // eslint-disable-li
      * @param {number} dt Delta time
      */
     update(dt) {
-        this.image.setSize(this.width * (this.directionX == 0 ? 1 : this.directionX), this.height * (this.directionY == 0 ? 1 : this.directionY));
+        this.image.setSize(this.width * (this.directionX === 0 ? 1 : this.directionX), this.height * (this.directionY === 0 ? 1 : this.directionY));
         super.update(dt);
     }
 }

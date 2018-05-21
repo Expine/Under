@@ -151,7 +151,7 @@ class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // esli
             if (Input.key.isPressed(Input.key.right())) {
                 vx += 1;
             }
-            if (vx != 0) {
+            if (vx !== 0) {
                 this.moveX(vx, dt);
                 moved = true;
             }
@@ -164,7 +164,7 @@ class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // esli
             if (Input.key.isPressed(Input.key.down())) {
                 vy += 1;
             }
-            if (vy != 0) {
+            if (vy !== 0) {
                 this.moveY(vy, dt);
                 moved = true;
             }

@@ -39,8 +39,8 @@ class CachedMusic extends CachedArrayManager /* , IMusicManager */ { // eslint-d
         request.open('GET', filePath, true);
         request.responseType = 'arraybuffer';
         request.onload = function() {
-            // status == 0 is local
-            if (request.status == 200 || request.status == 0) {
+            // status ===0 is local
+            if (request.status === 200 || request.status === 0) {
                 instance.context.decodeAudioData(request.response, function(buffer) {
                     let source = instance.context.createBufferSource();
                     source.buffer = buffer;
@@ -60,6 +60,7 @@ class CachedMusic extends CachedArrayManager /* , IMusicManager */ { // eslint-d
      * @return {BufferSource} Music resource
      */
     getMusic(id) {
-        return this.resources[id];
+        let music = this.resources[id];
+        return music === undefined ? null : music;
     }
 }
