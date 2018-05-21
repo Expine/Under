@@ -54,7 +54,7 @@ class EditorBase /* , IEditorFunction */ { // eslint-disable-line  no-unused-var
 
     /**
      * Get editor target
-     * @overide
+     * @override
      * @protected
      * @return {IEditorTarget} Editor target
      */

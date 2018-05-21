@@ -2,6 +2,7 @@
  * Selecting tool
  * - Tool for editing
  * - ### Selects something
+ * @interface
  * @extends {EditorTool}
  * @classdesc Selecting tool to select something
  */

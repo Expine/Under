@@ -8,6 +8,21 @@
  */
 class EraserTool extends SelectingTool { // eslint-disable-line  no-unused-vars
     /**
+     * Eraser tool constructor
+     * @constructor
+     */
+    constructor() {
+        super();
+
+        /**
+         * Eraser image
+         * @protected
+         * @type {GameImage}
+         */
+        this.image = new SingleImage(ResourceManager.image.load(`editor/eraser.png`), 16, 16);
+    }
+
+    /**
      * Update tool
      * @abstract
      * @param {number} x Target x position
@@ -37,5 +52,17 @@ class EraserTool extends SelectingTool { // eslint-disable-line  no-unused-vars
         if (id !== -1) {
             this.editor.changeTool(`pencil`);
         }
+    }
+
+    /**
+     * Render tool
+     * @abstract
+     * @param {Context} ctx Canvas context
+     * @param {number} [shiftX = 0] Shift x position
+     * @param {number} [shiftY = 0] Shift y position
+     */
+    render(ctx, shiftX = 0, shiftY = 0) {
+        super.render(ctx, shiftX, shiftY);
+        this.image.render(ctx, this.selectedX + shiftX + 16, this.selectedY + shiftY);
     }
 }

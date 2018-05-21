@@ -4,7 +4,6 @@
  * - Base of editing tools
  * - ### Uses simple tools
  * @extends {EditorBase}
- * @implements {IEditorFunction}
  * @classdesc Simple editor to use simple tools
  */
 class SimpleEditor extends EditorBase { // eslint-disable-line  no-unused-vars

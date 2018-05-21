@@ -1,22 +1,22 @@
-{let script = document.createElement('script'); script.src='src/editor/res/js/editor/event/EventUnparser.js'; document.head.appendChild(script);}
-{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/EditorBase.js'; document.head.appendChild(script);}
-{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/EditorTool.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/editor/event/EventUnparser.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/base/EditorBase.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/base/EditorTool.js'; document.head.appendChild(script);}
 {let id = setInterval(function() {
     if (typeof EditorBase !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/SimpleEditor.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/SimpleEditor.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof EditorTool !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/SelectingTool.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/SelectingTool.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof SelectingTool !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/SyringeTool.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/SyringeTool.js'; document.head.appendChild(script);
     }
 }, 1);}
-{let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EditorTile.js'; document.head.appendChild(script);}
+{let script = document.createElement('script'); script.src='src/res/js/editor/stage/entity/EditorTile.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/Engine.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/EngineBuilder.js'; document.head.appendChild(script);}
 {let script = document.createElement('script'); script.src='src/res/js/under/base/event/common/GameEvent.js'; document.head.appendChild(script);}
@@ -559,87 +559,87 @@
 {let script = document.createElement('script'); script.src='src/res/js/under/extend/util/Util.js'; document.head.appendChild(script);}
 {let id = setInterval(function() {
     if (typeof UnderEngineBuilder !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/EditorBuilder.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/EditorBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof JSContext !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/resource/image/EditorContext.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/resource/image/EditorContext.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Background !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/back/EditorBackground.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/back/EditorBackground.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof DelegateCamera !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/camera/EditorCamera.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/camera/EditorCamera.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/IEditorFunction.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/base/IEditorFunction.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/base/IEditorTarget.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/base/IEditorTarget.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof SelectingTool !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/EraserTool.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/EraserTool.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof SelectingTool !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/edit/tool/PencilTool.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/tool/PencilTool.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof DebugStage !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/EditorStage.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/EditorStage.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof StackStageManager !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/EditorStageManager.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/EditorStageManager.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof EditorTile !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/EditorDeployer.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/entity/EditorDeployer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/IEditable.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/IEditable.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/IEditorSave.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/IEditorSave.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof JSONEntityFactory !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/parser/EditorEntityFactory.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/parser/EditorEntityFactory.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/parser/IEditorInfo.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/parser/IEditorInfo.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof DebugWorld !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/physics/EditorWorld.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/physics/EditorWorld.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/util/ISelection.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/util/ISelection.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1044,37 +1044,37 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof BaseLayeredScene !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/scene/EditorScene.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/scene/EditorScene.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof NamedTabbedLayer !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/scene/layer/ChipLayer.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/scene/layer/ChipLayer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof ClipLayer !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/scene/layer/SelectionLayer.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/scene/layer/SelectionLayer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof SelectionLayer !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/scene/layer/SingleChipLayer.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/scene/layer/SingleChipLayer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof SelectionLayer !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/scene/layer/SingleEntityLayer.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/scene/layer/SingleEntityLayer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof IEditorSave !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/entity/interface/IEditorEntity.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/entity/interface/IEditorEntity.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
     if (typeof UnderStageParser !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/stage/parser/EditorStageParser.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/stage/parser/EditorStageParser.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1154,7 +1154,7 @@
 }, 1);}
 {let id = setInterval(function() {
     if (typeof SelectionLayer !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/scene/layer/EntityLayer.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/scene/layer/EntityLayer.js'; document.head.appendChild(script);
     }
 }, 1);}
 {let id = setInterval(function() {
@@ -1593,6 +1593,6 @@
         typeof AdventurerJumpingState !== `undefined` &&
         typeof AdventurerStationaryState !== `undefined` &&
         typeof AdventurerWalkState !== `undefined`) {
-        clearInterval(id); let script = document.createElement('script'); script.src='src/editor/res/js/editor/EditorMain.js'; document.head.appendChild(script);
+        clearInterval(id); let script = document.createElement('script'); script.src='src/res/js/editor/EditorMain.js'; document.head.appendChild(script);
     }
 }, 1);}

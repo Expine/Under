@@ -1,0 +1,129 @@
+@startuml EditorEdit
+
+package editor {
+    package ed_stage {
+        package ed_base {
+            abstract EditorBase {
+                #target : IEditorTarget
+                #selectors : Array<ISelection>
+                +setTarget(target)
+                +addSelector(selector)
+                +addTool(name,tool)
+                +getTarget() : IEditorTarget <<override>>
+                {abstract} +changeTool(name)
+                {abstract} +setCurrentID(id)
+                {abstract} +getCurrentID() : number
+                {abstract} +getTools() : Array<EditorTool>
+                {abstract} +getCurrentTool() : EDitorTool
+                {abstract} +init()
+                +update(x,y,dt)
+                +render(ctx,shiftX,shitfY)
+            }
+            abstract EditorTool {
+                #editor : IEditorFunction
+                +setEditor(editor)
+                {abstract} +init()
+                {abstract} +update(x,y,dt)
+                {abstract} +use(x,y,dt)
+                {abstract} +render(ctx,shiftX,shiftY)
+            }
+            interface IEditorFunction {
+                {abstract} +getTarget() : IEditorTarget
+                {abstract} +changeTool(name)
+                {abstract} +setCurrentID(id)
+                {abstract} +getCurrentID() : number
+            }
+            interface IEditorTarget {
+                {abstract} +paint(x,y,id)
+                {abstract} +getID(x,y) : number
+            }
+        }
+        package ed_tool {
+            abstract SelectingTool {
+                #selectedX : number
+                #selectedY : number
+                #selectedWidth : number
+                #selectedHeight : number
+                #resolution : number
+                +use(x,y,id) <<override>>
+                +render(ctx,shiftX,shiftY) <<override>>
+            }
+            class PencilTool {
+                +update(x,y,dt) <<override>>
+                +use(x,y,dt) <<override>>
+            }
+            class EraserTool {
+                +update(x,y,dt) <<override>>
+                +use(x,y,dt) <<override>>
+            }
+            class SyringTool {
+                +update(x,y,dt) <<override>>
+            }
+        }
+        class SimpleEditor {
+            #currentTool : EditorTool
+            #currentID : number
+            #tools : Object<string,EditorTool>
+            #updateSelector()
+            +addTool(name,tool) <<override>>
+            +changeTool(name) <<override>>
+            +setCurrentID(id) <<override>>
+            +getCurrentID() : number <<override>>
+            +getTools() : Array<EditorTool> <<override>>
+            +getCurrentTool() : EDitorTool <<override>>
+            +init() <<override>>
+            +update(x,y,dt) <<override>>
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+            interface IMouse
+        }
+        package resource {
+            package image {
+                abstract Context
+            }
+        }
+    }
+}
+package editor {
+    package ed_util {
+        interface ISelection
+    }
+}
+
+EditorBase ..> EditorTool : Init, update, use, render
+Context <.. SelectingTool : Render
+
+IKey <.. PencilTool : Get
+IMouse <.. PencilTool : Get
+IEditorFunction <.. PencilTool : Use
+IEditorTarget <.. PencilTool : Paint
+
+IKey <.. EraserTool : Get
+IMouse <.. EraserTool : Get
+IEditorFunction <.. EraserTool : Use
+IEditorTarget <.. EraserTool : Paint
+
+IMouse <.. SyringTool : Get
+IEditorFunction <.. SyringTool : Use
+IEditorTarget <.. SyringTool : Get id
+
+ISelection <.. SimpleEditor : Get and set
+SimpleEditor ..> PencilTool : Generate
+SimpleEditor ..> EraserTool : Generate
+SimpleEditor ..> SyringTool : Generate
+
+IEditorFunction <|.. EditorBase
+EditorBase <|.. SimpleEditor
+
+EditorTool <|.. SelectingTool
+SelectingTool <|.. PencilTool
+SelectingTool <|.. EraserTool
+SelectingTool <|.. SyringTool
+
+@enduml
