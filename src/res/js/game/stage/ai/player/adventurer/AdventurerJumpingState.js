@@ -21,8 +21,8 @@ class AdventurerJumpingState extends NormalJumpingState { // eslint-disable-line
     apply(dt) {
         // drag hook
         if (Input.key.isPressed(Input.key.up())) {
-            for (let it of this.entity.collider.collisions) {
-                let you = Util.getCollidedEntity(this.entity, it);
+            for (const it of this.entity.collider.collisions) {
+                const you = Util.getCollidedEntity(this.entity, it);
                 if (BaseUtil.implementsOf(you, IHook) && !you.isHead() && you.getActor() === this.entity) {
                     if (you.tryRemove()) {
                         return true;
@@ -32,9 +32,9 @@ class AdventurerJumpingState extends NormalJumpingState { // eslint-disable-line
         }
         // release hook
         if (Input.key.isPress(Input.key.sub())) {
-            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
+            const hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {
-                for (let it of hooks) {
+                for (const it of hooks) {
                     if (it.getActor() === this.entity) {
                         it.release();
                     }

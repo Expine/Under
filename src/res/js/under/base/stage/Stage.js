@@ -159,7 +159,7 @@ class Stage { // eslint-disable-line  no-unused-vars
      * @return {Entity} Added entity
      */
     addEntityByID(id, deploy, init = null) {
-        let ret = this.getFactory().createEntity(id, deploy);
+        const ret = this.getFactory().createEntity(id, deploy);
         if (init !== null) {
             init(ret);
         }

@@ -82,13 +82,13 @@ class SingleImage extends GameImage { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         if (this.width === null) {
-            let width = ResourceManager.image.getWidth(this.imageID);
+            const width = ResourceManager.image.getWidth(this.imageID);
             if (width > 0) {
                 this.width = width;
             }
         }
         if (this.height === null) {
-            let height = ResourceManager.image.getHeight(this.imageID);
+            const height = ResourceManager.image.getHeight(this.imageID);
             if (height > 0) {
                 this.height = height;
             }

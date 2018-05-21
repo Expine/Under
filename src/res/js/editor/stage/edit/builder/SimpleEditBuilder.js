@@ -44,7 +44,7 @@ class SimpleEditBuilder extends EditBuilder { // eslint-disable-line  no-unused-
      * @return {EditorBase} Generated edit tool
      */
     build() {
-        let ret = this.makeEditorBase();
+        const ret = this.makeEditorBase();
         this.makeTools(ret);
         return ret;
     }

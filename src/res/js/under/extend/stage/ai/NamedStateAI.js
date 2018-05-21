@@ -43,7 +43,7 @@ class NamedStateAI extends StateAI { // eslint-disable-line  no-unused-vars
      */
     init() {
         // save
-        let state = this.stateName;
+        const state = this.stateName;
         this.stateName = ``;
         this.changeState(state);
     }

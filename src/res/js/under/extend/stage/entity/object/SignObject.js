@@ -107,8 +107,8 @@ class SignObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
      */
     update(dt) {
         this.isShowSign = false;
-        for (let it of this.stage.getPhysicalWorld().getCollisionData(this.signCollider)) {
-            let you = Util.getCollidedEntity(this, it);
+        for (const it of this.stage.getPhysicalWorld().getCollisionData(this.signCollider)) {
+            const you = Util.getCollidedEntity(this, it);
             if (BaseUtil.implementsOf(you, IPlayable)) {
                 this.isShowSign = true;
                 break;

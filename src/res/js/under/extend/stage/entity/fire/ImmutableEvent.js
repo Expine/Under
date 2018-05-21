@@ -103,8 +103,8 @@ class ImmutableEvent extends Entity /* , IEventEntity, IColliderable */ { // esl
     update(dt) {
         super.update(dt);
         let localCollided = false;
-        for (let it of this.stage.getPhysicalWorld().getCollisionData(this.eventCollider)) {
-            let you = Util.getCollidedEntity(this, it);
+        for (const it of this.stage.getPhysicalWorld().getCollisionData(this.eventCollider)) {
+            const you = Util.getCollidedEntity(this, it);
             if (BaseUtil.implementsOf(you, IPlayable)) {
                 localCollided = true;
                 if (!this.collided) {

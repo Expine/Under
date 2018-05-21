@@ -13,7 +13,7 @@ class BaseState extends State { // eslint-disable-line  no-unused-vars
      */
     init() {
         // set image
-        let image = this.entity.getImage();
+        const image = this.entity.getImage();
         if (image instanceof NamedAnimation) {
             image.setName(this.ai.getStateID());
             image.init();

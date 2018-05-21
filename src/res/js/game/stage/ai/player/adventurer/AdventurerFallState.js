@@ -29,7 +29,7 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
         }
         // down wall
         if (vx !== 0) {
-            for (let it of this.entity.collider.collisions) {
+            for (const it of this.entity.collider.collisions) {
                 if (Math.abs(it.nx) > 0.5 && vx * it.nx > 0 && it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider)) {
                     this.ai.changeState(`downwall`);
                     this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
@@ -39,8 +39,8 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
         }
         // drag hook
         if (Input.key.isPressed(Input.key.up())) {
-            for (let it of this.entity.collider.collisions) {
-                let you = Util.getCollidedEntity(this.entity, it);
+            for (const it of this.entity.collider.collisions) {
+                const you = Util.getCollidedEntity(this.entity, it);
                 if (BaseUtil.implementsOf(you, IHook) && !you.isHead() && you.getActor() === this.entity) {
                     if (you.tryRemove()) {
                         return true;
@@ -50,9 +50,9 @@ class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-u
         }
         // release hook
         if (Input.key.isPress(Input.key.sub())) {
-            let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
+            const hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {
-                for (let it of hooks) {
+                for (const it of hooks) {
                     if (it.getActor() === this.entity) {
                         it.release();
                     }

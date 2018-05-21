@@ -39,7 +39,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
      */
     setSelectionInfo(info) {
         this.entityInfo = {};
-        for (let it in info) {
+        for (const it in info) {
             if (info.hasOwnProperty(it) && !isNaN(it)) {
                 this.entityInfo[it] = info[it];
             }
@@ -52,8 +52,8 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
      * @return {number} Selected entity ID (return -1 if not selected)
      */
     getSelected() {
-        for (let it of this.entityLayers) {
-            let selected = it.getSelected();
+        for (const it of this.entityLayers) {
+            const selected = it.getSelected();
             if (selected >= 0) {
                 return selected;
             }
@@ -67,7 +67,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
      * @param {number} id Entity ID
      */
     setSelected(id) {
-        for (let it of this.entityLayers) {
+        for (const it of this.entityLayers) {
             it.setSelected(id);
         }
     }
@@ -77,9 +77,9 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
      * @override
      */
     init() {
-        for (let it in this.entityInfo) {
+        for (const it in this.entityInfo) {
             if (this.entityInfo.hasOwnProperty(it)) {
-                let layer = new SingleEntityLayer();
+                const layer = new SingleEntityLayer();
                 layer.setSelectionInfo(this.entityInfo[it]);
                 layer.init();
                 this.entityLayers.push(layer);
@@ -99,7 +99,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
         let sy = this.y;
         let maxHeight = 0;
         let innerHeight = 0;
-        for (let it of this.entityLayers) {
+        for (const it of this.entityLayers) {
             if (it.height !== maxHeight || sx + it.width > this.x + this.width) {
                 sx = this.x;
                 sy += maxHeight;
@@ -112,12 +112,12 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
         }
         this.height = innerHeight + maxHeight;
         // cliping
-        for (let it of this.entityLayers) {
+        for (const it of this.entityLayers) {
             it.clip(this.clipX, this.clipY, this.clipWidth, this.clipHeight);
         }
 
         // update
-        for (let it of this.entityLayers) {
+        for (const it of this.entityLayers) {
             it.update(dt);
         }
     }
@@ -129,7 +129,7 @@ class EntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-var
      */
     render(ctx) {
         ctx.fillRect(this.clipX, this.clipY, this.clipWidth, this.clipHeight, `green`);
-        for (let it of this.entityLayers) {
+        for (const it of this.entityLayers) {
             it.render(ctx);
         }
     }

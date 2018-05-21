@@ -43,7 +43,6 @@ class CameraChangeEvent extends StageEvent { // eslint-disable-line  no-unused-v
      * @override
      */
     init() {
-        let old = this.stage.getCamera();
         let camera = null;
         if (this.type === `center`) {
             camera = new CenterCamera();
@@ -54,6 +53,7 @@ class CameraChangeEvent extends StageEvent { // eslint-disable-line  no-unused-v
         if (this.isMoving) {
             camera = new MovingCamera(camera);
         }
+        const old = this.stage.getCamera();
         camera.setScreenSize(old.screenWidth, old.screenHeight);
         this.stage.setCamera(camera);
         this.op.next();

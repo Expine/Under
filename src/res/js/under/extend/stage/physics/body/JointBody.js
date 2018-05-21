@@ -109,16 +109,16 @@ class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
         super.updateEntity(dt);
 
         if (this.jointed !== null) {
-            let ex = this.entity.directionX >= 0 ? this.entity.x + this.jointingX : this.entity.x + this.entity.width - this.jointingX;
-            let ey = this.entity.directionY > 0 ? this.entity.y + this.jointingY : this.entity.y + this.entity.height - this.jointingY;
-            let jx = this.jointed.directionX >= 0 ? this.jointed.x + this.jointedX : this.jointed.x + this.jointed.width - this.jointedX;
-            let jy = this.jointed.directionY > 0 ? this.jointed.y + this.jointedY : this.jointed.y + this.jointed.height - this.jointedY;
-            let dx = jx - ex;
-            let dy = jy - ey;
-            let d = Math.sqrt(dx * dx + dy * dy);
+            const ex = this.entity.directionX >= 0 ? this.entity.x + this.jointingX : this.entity.x + this.entity.width - this.jointingX;
+            const ey = this.entity.directionY > 0 ? this.entity.y + this.jointingY : this.entity.y + this.entity.height - this.jointingY;
+            const jx = this.jointed.directionX >= 0 ? this.jointed.x + this.jointedX : this.jointed.x + this.jointed.width - this.jointedX;
+            const jy = this.jointed.directionY > 0 ? this.jointed.y + this.jointedY : this.jointed.y + this.jointed.height - this.jointedY;
+            const dx = jx - ex;
+            const dy = jy - ey;
+            const d = Math.sqrt(dx * dx + dy * dy);
             if (d > this.length) {
-                let l = d - this.length;
-                for (let it of this.entity.collider.collisions) {
+                const l = d - this.length;
+                for (const it of this.entity.collider.collisions) {
                     if ((it.colliding === this.entity && it.nx * dx > 0) || (it.collided === this.entity && it.nx * dx < 0)) {
                         if (this.length < Math.abs(dx)) {
                             dy = dy * d / l + Math.sign(dy);

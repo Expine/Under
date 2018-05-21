@@ -15,7 +15,7 @@ class EditorStageManager extends StackStageManager /* , IEditorSave */ { // esli
      * @return {JSON} Json data for saving
      */
     getSaveData() {
-        let stage = this.getStage();
+        const stage = this.getStage();
         if (BaseUtil.implementsOf(stage, IEditorSave)) {
             return stage.getSaveData();
         }

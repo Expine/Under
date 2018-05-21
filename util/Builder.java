@@ -49,10 +49,10 @@ public class Builder {
                         classNameList.add(className);
                         String extendClass = getExtendClass(file);
                         if(extendClass == null) {
-                            text += "{let script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);}\r\n";
+                            text += "{const script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);}\r\n";
                         } else {
                             extendClass = "typeof " + extendClass + " !== `undefined`";
-                            text += "{let id = setInterval(function() {\r\n    if (" + extendClass + ") {\r\n        clearInterval(id); let script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);\r\n    }\r\n}, 1);}\r\n";
+                            text += "{const id = setInterval(function() {\r\n    if (" + extendClass + ") {\r\n        clearInterval(id); const script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);\r\n    }\r\n}, 1);}\r\n";
                         }
                         fileCount++;
                     }
@@ -77,7 +77,7 @@ public class Builder {
                         }
                         news += "typeof " + classNameList.get(i) + " !== `undefined`";
                     }
-                    text += "{let id = setInterval(function() {\r\n    if (" + news + ") {\r\n        clearInterval(id); let script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);\r\n    }\r\n}, 1);}\r\n";
+                    text += "{const id = setInterval(function() {\r\n    if (" + news + ") {\r\n        clearInterval(id); const script = document.createElement('script'); script.src='" + name + "'; document.head.appendChild(script);\r\n    }\r\n}, 1);}\r\n";
                     fileCount++;
                 }
             }

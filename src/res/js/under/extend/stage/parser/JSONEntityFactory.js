@@ -86,19 +86,19 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
      */
     buildEntityInfo(entityInfo) {
         // set default info
-        let defaultCollider = {
+        const defaultCollider = {
             type: `Rectangle`,
             startX: 0,
             startY: 0,
             width: 0,
             height: 0,
         };
-        let defaultMaterial = {
+        const defaultMaterial = {
             mass: 10,
             elasticity: 0.1,
             mu: 0.65,
         };
-        let defaultBBody = {
+        const defaultBBody = {
             type: `MaxAdopt`,
             material: {
                 type: `Immutable`,
@@ -107,7 +107,7 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                 frictionY: 0.0,
             },
         };
-        for (let entity of entityInfo.entities) {
+        for (const entity of entityInfo.entities) {
             // set default collider
             if (entity.collider === undefined) {
                 entity.collider = JSON.parse(JSON.stringify(defaultCollider));
@@ -124,12 +124,12 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
             }
             // check serial
             if (entity.image !== undefined && entity.image.type === `anime`) {
-                let animation = [];
-                for (let it of entity.image.animation) {
+                const animation = [];
+                for (const it of entity.image.animation) {
                     if (it.serial) {
                         for (let cy = 0; cy < it.vertical; ++cy) {
                             for (let cx = 0; cx < it.horizontal; ++cx) {
-                                let data = JSON.parse(JSON.stringify(it));
+                                const data = JSON.parse(JSON.stringify(it));
                                 data.x = it.x + cx * it.width;
                                 data.y = it.y + cy * it.height;
                                 animation.push(data);
@@ -143,15 +143,15 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
             }
             // check multi serial
             if (entity.image !== undefined && entity.image.type === `multianime`) {
-                let animations = [];
-                for (let it of entity.image.animations) {
+                const animations = [];
+                for (const it of entity.image.animations) {
                     if (it.serial && it.names !== undefined) {
+                        const animation = [];
                         let index = 0;
                         let number = 0;
-                        let animation = [];
                         for (let cy = 0; cy < it.vertical; ++cy) {
                             for (let cx = 0; cx < it.horizontal; ++cx) {
-                                let data = {};
+                                const data = {};
                                 data.x = it.x + cx * it.width;
                                 data.y = it.y + cy * it.height;
                                 data.width = it.width;
@@ -160,11 +160,11 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                                 animation.push(data);
                                 if (++number === it.number) {
                                     for (let i = 0; i < it.names[index].length; ++i) {
-                                        let item = {};
+                                        const item = {};
                                         item.name = it.names[index][i];
                                         item.loop = it.loops[index][i];
                                         if (it.deltas !== undefined) {
-                                            for (let anime of animation) {
+                                            for (const anime of animation) {
                                                 anime.delta = it.deltas[index][i];
                                             }
                                         }
@@ -178,12 +178,12 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                             }
                         }
                     } else {
-                        let animation = [];
-                        for (let e of it.animation) {
+                        const animation = [];
+                        for (const e of it.animation) {
                             if (e.serial) {
                                 for (let cy = 0; cy < e.vertical; ++cy) {
                                     for (let cx = 0; cx < e.horizontal; ++cx) {
-                                        let data = JSON.parse(JSON.stringify(e));
+                                        const data = JSON.parse(JSON.stringify(e));
                                         data.x = e.x + cx * e.width;
                                         data.y = e.y + cy * e.height;
                                         animation.push(data);
@@ -218,20 +218,20 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
      */
     buildTileInfo(tileInfo) {
         // set default info
-        let defaultCollider = {
+        const defaultCollider = {
             type: `Rectangle`,
             startX: 0,
             startY: 0,
             width: 0,
             height: 0,
         };
-        let defaultMaterial = {
+        const defaultMaterial = {
             mass: 10,
             elasticity: 0.1,
             mu: 0.65,
         };
-        for (let tile of tileInfo.tiles) {
-            for (let chip of tile.chips) {
+        for (const tile of tileInfo.tiles) {
+            for (const chip of tile.chips) {
                 // set default collider
                 if (chip.collider === undefined) {
                     chip.collider = JSON.parse(JSON.stringify(defaultCollider));
@@ -245,11 +245,11 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                 // check serial
                 if (chip.serial) {
                     let id = chip.id;
-                    let x = chip.image.x;
-                    let y = chip.image.y;
+                    const x = chip.image.x;
+                    const y = chip.image.y;
                     for (let cy = 0; cy < chip.vertical; ++cy) {
                         for (let cx = 0; cx < chip.horizontal; ++cx) {
-                            let data = JSON.parse(JSON.stringify(chip));
+                            const data = JSON.parse(JSON.stringify(chip));
                             data.id = id;
                             data.image.file = tile.file;
                             data.image.x = x + cx * chip.image.width;

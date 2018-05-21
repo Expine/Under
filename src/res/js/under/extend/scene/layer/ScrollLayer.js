@@ -58,8 +58,8 @@ class ScrollLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        let width = this.delegate.width;
-        let height = this.delegate.height;
+        const width = this.delegate.width;
+        const height = this.delegate.height;
         if (this.width < width) {
             if (this.scrollX < 0) {
                 this.scrollX = 0;

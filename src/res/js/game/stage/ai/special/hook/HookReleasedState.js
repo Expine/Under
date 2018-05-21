@@ -30,8 +30,8 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // check collisions
-        for (let it of this.entity.collider.collisions) {
-            let you = Util.getCollidedEntity(this.entity, it);
+        for (const it of this.entity.collider.collisions) {
+            const you = Util.getCollidedEntity(this.entity, it);
             if (you === this.hook.getActor()) {
                 this.hook.tryRemove();
                 break;

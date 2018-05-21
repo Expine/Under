@@ -42,8 +42,8 @@ class SimpleEditor extends EditorBase { // eslint-disable-line  no-unused-vars
      */
     updateSelector() {
         let cleared = true;
-        for (let it of this.selectors) {
-            let selected = it.getSelected();
+        for (const it of this.selectors) {
+            const selected = it.getSelected();
             if (selected >= 0) {
                 cleared = false;
                 if (this.currentID !== selected) {
@@ -55,7 +55,7 @@ class SimpleEditor extends EditorBase { // eslint-disable-line  no-unused-vars
         if (cleared) {
             this.currentID = -1;
         }
-        for (let it of this.selectors) {
+        for (const it of this.selectors) {
             if (this.currentID !== it.getSelected()) {
                 it.setSelected(-1);
             }
@@ -91,7 +91,7 @@ class SimpleEditor extends EditorBase { // eslint-disable-line  no-unused-vars
      */
     setCurrentID(id) {
         this.currentID = id;
-        for (let it of this.selectors) {
+        for (const it of this.selectors) {
             it.setSelected(id);
         }
     }
@@ -103,8 +103,8 @@ class SimpleEditor extends EditorBase { // eslint-disable-line  no-unused-vars
      * @return {Array<EditorTool>} All tools
      */
     getTools() {
-        let tools = [];
-        for (let it in this.tools) {
+        const tools = [];
+        for (const it in this.tools) {
             if (this.tools.hasOwnProperty(it)) {
                 tools.push(this.tools[it]);
             }

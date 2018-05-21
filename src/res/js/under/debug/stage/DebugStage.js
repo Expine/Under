@@ -37,9 +37,9 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     registerInformation(dt) {
-        let players = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
+        const players = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
         if (players.length > 0) {
-            let player = players[0];
+            const player = players[0];
             GameDebugger.it.register(`time`, `${dt} mssc`);
             GameDebugger.it.register(`collision`, `${this.getPhysicalWorld().getCollisionSize()} collision`);
             if (player instanceof InfluentialEntity) {
@@ -66,13 +66,13 @@ class DebugStage extends Stage { // eslint-disable-line  no-unused-vars
      * @param {number} shiftY Shift y position
      */
     renderEntityInformation(ctx, shiftX, shiftY) {
-        let startX = -this.stage.camera.cameraX;
-        let startY = -this.stage.camera.cameraY;
-        let endX = startX + this.stage.camera.screenWidth;
-        let endY = startY + this.stage.camera.screenHeight;
-        let mx = Input.mouse.getMouseX() + startX;
-        let my = Input.mouse.getMouseY() + startY;
-        for (let it of this.getEntities()) {
+        const startX = -this.stage.camera.cameraX;
+        const startY = -this.stage.camera.cameraY;
+        const endX = startX + this.stage.camera.screenWidth;
+        const endY = startY + this.stage.camera.screenHeight;
+        const mx = Input.mouse.getMouseX() + startX;
+        const my = Input.mouse.getMouseY() + startY;
+        for (const it of this.getEntities()) {
             if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
                 if (it instanceof InfluentialEntity && it.collider !== null) {
                     // render collider

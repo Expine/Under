@@ -76,8 +76,8 @@ class ForceMoveCamera extends DelegateCamera { // eslint-disable-line  no-unused
         this.cameraY = this.baseCamera.cameraY;
 
         // update next position
-        let nx = this.nextX;
-        let ny = this.nextY;
+        const nx = this.nextX;
+        const ny = this.nextY;
         if (this.nextX !== this.toX) {
             this.nextX = this.nextX + this.speed * dt / 1000 * Math.sign(this.toX - this.nextX);
         }

@@ -34,7 +34,7 @@ class SequentialBackground extends Background { // eslint-disable-line  no-unuse
      * @override
      */
     init() {
-        for (let it of this.backs) {
+        for (const it of this.backs) {
             it.init();
         }
     }
@@ -45,7 +45,7 @@ class SequentialBackground extends Background { // eslint-disable-line  no-unuse
      * @param {number} dt delta time
      */
     update(dt) {
-        for (let it of this.backs) {
+        for (const it of this.backs) {
             it.update(dt);
         }
     }
@@ -60,7 +60,7 @@ class SequentialBackground extends Background { // eslint-disable-line  no-unuse
      * @param {number} screenWidth Scren height
      */
     render(ctx, shiftX, shiftY, screenWidth, screenHeight) {
-        for (let back of this.backs) {
+        for (const back of this.backs) {
             back.render(ctx, shiftX, shiftY, screenWidth, screenHeight);
         }
     }

@@ -84,13 +84,13 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
                 return new HookChild();
             case `Sign`:
                 {
-                    let signData = this.tryReplace(deploy, entity, `sign`);
+                    const signData = this.tryReplace(deploy, entity, `sign`);
                     if (signData.image !== undefined) {
                         return super.makeEntityBase(deploy, entity);
                     }
-                    let ret = new TextSignObject();
-                    let colliderData = this.tryReplace(deploy, entity, `collider`);
-                    let collider = this.makeCollider(colliderData);
+                    const ret = new TextSignObject();
+                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
                     ret.setSign(signData.x, signData.y, signData.size, signData.text);

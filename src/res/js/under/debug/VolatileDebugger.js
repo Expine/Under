@@ -45,7 +45,7 @@ class VolatileDebugger extends GameDebugger { // eslint-disable-line  no-unused-
      */
     update(dt) {
         this.renderingData.length = 0;
-        for (let it in this.registeredData) {
+        for (const it in this.registeredData) {
             if (this.registeredData.hasOwnProperty(it)) {
                 this.renderingData.push(this.registeredData[it]);
             }
@@ -61,7 +61,7 @@ class VolatileDebugger extends GameDebugger { // eslint-disable-line  no-unused-
      * @param {number} y Debugger y position
      */
     render(ctx, x, y) {
-        for (let it of this.renderingData) {
+        for (const it of this.renderingData) {
             ctx.fillText(`${it}`, x, y, 1.0, 0.0, 20, `white`);
             y += 30;
         }

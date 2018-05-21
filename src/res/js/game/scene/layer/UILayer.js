@@ -50,16 +50,16 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
         this.playerHP = this.player.getHP();
 
         // load animation
-        let uiImage = ResourceManager.image.load(`ui/hp.png`);
+        const uiImage = ResourceManager.image.load(`ui/hp.png`);
         for (let i = 0; i < 6; ++i) {
             this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`);
             this.uiAnimation.setAnimation(new SingleAnimation(i % 2 === 0));
             if (i !== 5) {
-                for (let j = 0; j < 4; ++j) {
+                for (const j = 0; j < 4; ++j) {
                     this.uiAnimation.addAnimation(new TileImage(uiImage, 64, 64, 32 * j, 32 * i, 32, 32), i % 2 === 0 ? 300 : 200);
                 }
             } else {
-                for (let j = 0; j < 8; ++j) {
+                for (const j = 0; j < 8; ++j) {
                     this.uiAnimation.addAnimation(new TileImage(uiImage, 64, 64, 32 * (j % 4), 32 * (i + Math.floor(j / 4)), 32, 32), 200);
                 }
             }
@@ -75,7 +75,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         // Check hp change
-        let diff = this.playerHP - this.player.getHP();
+        const diff = this.playerHP - this.player.getHP();
         if (diff !== 0 && (this.uiAnimation.isEnded() || this.uiAnimation.isLoop())) {
             // decreasing animation
             this.uiAnimation.setName(`${this.playerHP}-${this.playerHP - Math.sign(diff)}`);

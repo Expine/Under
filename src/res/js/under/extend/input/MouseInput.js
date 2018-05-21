@@ -55,7 +55,7 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
         };
 
         // clear
-        let blur = this.target.parentElement.onblur;
+        const blur = this.target.parentElement.onblur;
         this.target.parentElement.onblur = () => {
             this.clear();
             if (blur !== undefined && blur !== null) {
@@ -132,7 +132,7 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
         if (!this.enable) {
             return;
         }
-        let button = e.button;
+        const button = e.button;
         if (this.inputState[button] === undefined || this.inputState[button] === this.STATE.NONE) {
             this.inputState[button] = this.STATE.PRESS;
         }
@@ -147,7 +147,7 @@ class MouseInput extends StateInputManager /* , IMouse */ { // eslint-disable-li
         if (!this.enable) {
             return;
         }
-        let button = e.button;
+        const button = e.button;
         this.inputState[button] = this.STATE.NONE;
     }
 }

@@ -87,7 +87,7 @@ class StageManager { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        let stage = this.getStage();
+        const stage = this.getStage();
         if (stage !== null) {
             stage.update(dt);
         }
@@ -100,7 +100,7 @@ class StageManager { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        let stage = this.getStage();
+        const stage = this.getStage();
         if (stage !== null) {
             stage.render(ctx, shiftX, shiftY);
         }

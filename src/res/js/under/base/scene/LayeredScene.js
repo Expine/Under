@@ -25,7 +25,7 @@ class LayeredScene extends Scene { // eslint-disable-line  no-unused-vars
      * Clear all layer
      */
     clearLayer() {
-        for (let it of this.getLayers().reverse()) {
+        for (const it of this.getLayers().reverse()) {
             this.removeLayer(it);
         }
     }
@@ -44,7 +44,7 @@ class LayeredScene extends Scene { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        for (let layer of this.getLayers()) {
+        for (const layer of this.getLayers()) {
             layer.update(dt);
         }
     }
@@ -55,7 +55,7 @@ class LayeredScene extends Scene { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        for (let layer of this.getLayers()) {
+        for (const layer of this.getLayers()) {
             layer.render(ctx);
         }
     }

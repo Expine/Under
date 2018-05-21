@@ -16,7 +16,7 @@ class PreventKeyInput extends KeyInput { // eslint-disable-line  no-unused-vars
      * @param {KeyBoardEvent} e Key event
      */
     prevent(e) {
-        let code = e.keyCode;
+        const code = e.keyCode;
         if (code === this.up() || code === this.down() || code === this.right() || code === this.left() || code === this.yes() || code === this.no() || code === this.sub()) {
             e.preventDefault();
         }

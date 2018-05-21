@@ -74,9 +74,9 @@ class EnemyAI extends AI { // eslint-disable-line  no-unused-vars
         // apply base AI
         if (this.baseAI.apply(dt)) {
             // check collided
-            for (let it of this.entity.collider.collisions) {
+            for (const it of this.entity.collider.collisions) {
                 if ((it.colliding === this.entity && it.nx * this.preDirectionX + it.ny * this.preDirectionY > 0) || (it.collided === this.entity && it.nx * this.preDirectionX + it.ny * this.preDirectionY < 0)) {
-                    let opponent = Util.getCollidedEntity(this.entity, it);
+                    const opponent = Util.getCollidedEntity(this.entity, it);
                     if (BaseUtil.implementsOf(opponent, IDamagable)) {
                         opponent.damage(1);
                     }

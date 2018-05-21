@@ -115,10 +115,10 @@ class EditorBase /* , IEditorFunction */ { // eslint-disable-line  no-unused-var
      * @param {number} dt Delta time
      */
     update(x, y, dt) {
-        for (let it of this.getTools()) {
+        for (const it of this.getTools()) {
             it.update(x, y, dt);
         }
-        let tool = this.getCurrentTool();
+        const tool = this.getCurrentTool();
         if (tool !== null) {
             tool.use(x, y, this.getCurrentID());
         }
@@ -132,7 +132,7 @@ class EditorBase /* , IEditorFunction */ { // eslint-disable-line  no-unused-var
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        let tool = this.getCurrentTool();
+        const tool = this.getCurrentTool();
         if (tool !== null) {
             tool.render(ctx, shiftX, shiftY);
         }

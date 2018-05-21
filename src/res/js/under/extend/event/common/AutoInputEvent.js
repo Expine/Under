@@ -60,7 +60,7 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
             return true;
         }
         // update order
-        let order = this.orders[0];
+        const order = this.orders[0];
         if (!order.udpate(dt)) {
             return false;
         }

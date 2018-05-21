@@ -87,16 +87,16 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
      * @return {JSON} Json data for saving
      */
     getSaveData() {
-        let data = [];
-        let list = [];
+        const data = [];
+        const list = [];
         // sort
-        for (let it in this.tileInfo) {
+        for (const it in this.tileInfo) {
             if (this.tileInfo.hasOwnProperty(it) && !isNaN(it)) {
                 list.push(parseInt(it));
             }
         }
         list = list.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
-        for (let it of list) {
+        for (const it of list) {
             data.push(this.tileInfo[it]);
         }
         return data;
@@ -133,9 +133,9 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
         }
         x -= this.x;
         y -= this.y;
-        for (let id in this.tileInfo) {
+        for (const id in this.tileInfo) {
             if (this.tileInfo.hasOwnProperty(id)) {
-                let tile = this.tileInfo[id];
+                const tile = this.tileInfo[id];
                 if (tile.image.x <= x && x < tile.image.x + tile.image.width && tile.image.y <= y && y < tile.image.y + tile.image.height) {
                     this.selectTile = tile;
                     break;

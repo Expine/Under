@@ -16,7 +16,7 @@ class EditorWorld extends DebugWorld /* , IEditorSave */ { // eslint-disable-lin
      * @return {JSON} Json data for saving
      */
     getSaveData() {
-        let ret = {};
+        const ret = {};
         if (this.world instanceof SplitWorld) {
             ret.type = `split`;
         } else if (this.world instanceof SequentialWorld) {
@@ -25,7 +25,7 @@ class EditorWorld extends DebugWorld /* , IEditorSave */ { // eslint-disable-lin
             ret.type = `gravity`;
             ret.gravity = [];
             for (let i = 0; i < this.world.gravityXs.length; ++i) {
-                let data = {};
+                const data = {};
                 data.x = this.world.gravityXs[i];
                 data.y = this.world.gravityYs[i];
                 data.delta = this.world.deltas[i];

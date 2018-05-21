@@ -19,9 +19,9 @@ class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  
         super();
 
         this.specialActionName = `hook`;
-        for (let name in this.namedStates) {
+        for (const name in this.namedStates) {
             if (this.namedStates.hasOwnProperty(name)) {
-                let state = this.namedStates[name];
+                const state = this.namedStates[name];
                 if (BaseUtil.implementsOf(state, IMovableState)) {
                     state.setMaxVelocity(state.maxVX * 7 / 6, state.maxVY * 7 / 6);
                     state.setMovePower(state.movePX * 7 / 6, state.movePY * 7 / 6);

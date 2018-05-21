@@ -35,11 +35,11 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
      */
     isCollision(collider, data = null) {
         if (collider instanceof RoundRectangleCollider) {
-            let cutX = this.cut;
-            let cutY = this.cut;
+            const cutX = this.cut;
+            const cutY = this.cut;
             // In the meantime, the opponent is regarded as a rectangle
-            let cutCX = 0;
-            let cutCY = 0;
+            const cutCX = 0;
+            const cutCY = 0;
             let nx = 0;
             let ny = 0;
             let d = Number.MAX_SAFE_INTEGER;
@@ -99,7 +99,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                     let me = this.entity;
                     let you = collider.entity;
                     if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
-                        let swap = me;
+                        const swap = me;
                         me = you;
                         you = swap;
                         nx = -nx;
@@ -107,15 +107,15 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                     } else if (!me instanceof MutableEntity || !you instanceof InfluentialEntity) {
                         console.log(`Error: Colliding entity should be mutable`);
                     }
-                    let px = me.x + nx * d;
-                    let py = me.y + ny * d;
+                    const px = me.x + nx * d;
+                    const py = me.y + ny * d;
                     data.register(me, you, nx, ny, px, py, d);
                 }
                 return true;
             }
         } else if (collider instanceof RectangleCollider) {
-            let cutX = this.cut;
-            let cutY = this.cut;
+            const cutX = this.cut;
+            const cutY = this.cut;
             let nx = 0;
             let ny = 0;
             let d = Number.MAX_SAFE_INTEGER;
@@ -150,7 +150,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                     let me = this.entity;
                     let you = collider.entity;
                     if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
-                        let swap = me;
+                        const swap = me;
                         me = you;
                         you = swap;
                         nx = -nx;
@@ -158,8 +158,8 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
                     } else if (!me instanceof MutableEntity || !you instanceof InfluentialEntity) {
                         console.log(`Error: Colliding entity should be mutable and collided entity should be influential`);
                     }
-                    let px = me.x + nx * d;
-                    let py = me.y + ny * d;
+                    const px = me.x + nx * d;
+                    const py = me.y + ny * d;
                     data.register(me, you, nx, ny, px, py, d);
                 }
                 return true;
@@ -187,7 +187,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
         // collision
         let me = 0;
         let you = 0;
-        for (let it of this.collisions) {
+        for (const it of this.collisions) {
             if (it.colliding === this.entity) {
                 me += 1;
             } else {
@@ -199,7 +199,7 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
         }
         // vector
-        for (let it of this.collisions) {
+        for (const it of this.collisions) {
             if (it.collided === this.entity) {
                 continue;
             }

@@ -130,8 +130,8 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
      * @protected
      */
     connectPlayer() {
-        let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
-        let y = this.owner.y - this.generatedY;
+        const x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+        const y = this.owner.y - this.generatedY;
         this.post = new HookPlayer();
         this.post.setPosition(x, y, this.z);
         this.post.setSize(8, 8);
@@ -153,12 +153,12 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
             return;
         }
         // check length
-        let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
-        let y = this.owner.y - this.generatedY;
-        let dx = Math.abs(x - this.getHookX());
-        let dy = Math.abs(y - this.getHookY());
-        let d = Math.sqrt(dx * dx + dy * dy);
-        let l = this.string.getLength() + 3;
+        const x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+        const y = this.owner.y - this.generatedY;
+        const dx = Math.abs(x - this.getHookX());
+        const dy = Math.abs(y - this.getHookY());
+        const d = Math.sqrt(dx * dx + dy * dy);
+        const l = this.string.getLength() + 3;
         if (d > l) {
             // generate
             this.post = this.stage.addEntityByID(this.childID, undefined, (it) => {
@@ -227,7 +227,7 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
      * @override
      */
     release() {
-        for (let it of this.ai) {
+        for (const it of this.ai) {
             if (it instanceof StateAI) {
                 it.changeState(`released`);
             }
@@ -305,8 +305,8 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
         if (this.post !== null) {
             ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.post.getHookX() + shiftX, this.post.getHookY() + shiftY, `#FFCC66`, 4);
         } else {
-            let x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
-            let y = this.owner.y - this.generatedY;
+            const x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+            const y = this.owner.y - this.generatedY;
             ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, `#FFCC66`, 4);
         }
     }

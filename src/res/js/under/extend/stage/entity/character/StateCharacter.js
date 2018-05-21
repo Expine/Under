@@ -36,7 +36,7 @@ class StateCharacter extends Character { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     applyAI(dt) {
-        for (let it of this.ai) {
+        for (const it of this.ai) {
             if (it.apply(dt)) {
                 this.state = it instanceof StateAI ? it.getState() : null;
                 break;

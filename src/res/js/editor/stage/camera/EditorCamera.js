@@ -79,7 +79,7 @@ class EditorCamera extends DelegateCamera /* , IEditorSave */ { // eslint-disabl
      * @return {JSON} Json data for saving
      */
     getSaveData() {
-        let ret = {};
+        const ret = {};
         this.unparse(ret, this.baseCamera);
         return ret;
     }

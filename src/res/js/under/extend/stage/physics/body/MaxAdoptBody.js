@@ -139,8 +139,8 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
         this.material.velocityX += this.internalAccelerationX * dt / 1000;
         this.material.velocityY += this.internalAccelerationY * dt / 1000;
         // air resistance
-        let kx = -this.material.velocityX * this.material.k / this.entity.material.mass * dt / 1000;
-        let ky = -this.material.velocityY * this.material.k / this.entity.material.mass * dt / 1000;
+        const kx = -this.material.velocityX * this.material.k / this.entity.material.mass * dt / 1000;
+        const ky = -this.material.velocityY * this.material.k / this.entity.material.mass * dt / 1000;
         if (Math.abs(this.material.velocityX) < Math.abs(kx)) {
             this.material.velocityX = 0;
         } else {
@@ -160,8 +160,8 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
      */
     updateEntity(dt) {
         // move
-        let dx = this.material.velocityX * dt / 1000;
-        let dy = this.material.velocityY * dt / 1000;
+        const dx = this.material.velocityX * dt / 1000;
+        const dy = this.material.velocityY * dt / 1000;
         this.entity.deltaMove(dx, dy);
     }
 

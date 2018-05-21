@@ -94,7 +94,7 @@ class NamedTabbedLayer extends TabbedLayer { // eslint-disable-line  no-unused-v
      * @param {Layer} layer Removed layer
      */
     removeTab(layer) {
-        let index = this.tabLayers.indexOf(layer);
+        const index = this.tabLayers.indexOf(layer);
         if (index >= 0) {
             this.tabLayers.splice(index, 1);
             this.tabNames.splice(index, 1);
@@ -107,7 +107,7 @@ class NamedTabbedLayer extends TabbedLayer { // eslint-disable-line  no-unused-v
      * @return {Layer} Currently tab layer
      */
     getTab() {
-        let ret = this.tabLayers[this.currentlyTabIndex];
+        const ret = this.tabLayers[this.currentlyTabIndex];
         return ret !== undefined ? ret : null;
     }
 
@@ -128,11 +128,11 @@ class NamedTabbedLayer extends TabbedLayer { // eslint-disable-line  no-unused-v
     update(dt) {
         super.update(dt);
 
-        let x = Input.mouse.getMouseX() - this.x;
-        let y = Input.mouse.getMouseY() - this.y;
+        const x = Input.mouse.getMouseX() - this.x;
+        const y = Input.mouse.getMouseY() - this.y;
         if (Input.mouse.isPress(Input.mouse.mLeft())) {
             for (let i = 0; i < this.tabLayers.length; ++i) {
-                let sx = this.x + this.tabX + (this.tabWidth + this.tabPadding) * i;
+                const sx = this.x + this.tabX + (this.tabWidth + this.tabPadding) * i;
                 if (sx < x && x < sx + this.tabWidth && this.tabY < y && y < this.tabY + this.tabHeight) {
                     this.currentlyTabIndex = i;
                     break;

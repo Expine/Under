@@ -38,7 +38,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @param {number} height Image height
      */
     setAllSize(width, height) {
-        for (let it in this.animation) {
+        for (const it in this.animation) {
             if (this.animation.hasOwnProperty(it)) {
                 this.animation[it].setSize(width, height);
             }
@@ -51,7 +51,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @param {number} imageID Image ID
      */
     setAllImageID(imageID) {
-        for (let it in this.animation) {
+        for (const it in this.animation) {
             if (this.animation.hasOwnProperty(it)) {
                 this.animation[it].setImageID(imageID);
             }
@@ -74,7 +74,7 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
      * @return {GameAnimation} animation
      */
     getAnimation() {
-        let ret = this.animation[this.name];
+        const ret = this.animation[this.name];
         return ret !== undefined ? ret : null;
     }
 

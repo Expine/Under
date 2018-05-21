@@ -68,8 +68,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 return new JumpAI(ai.jump);
             case `ElevatorAI`:
                 {
-                    let ret = new ElevatorAI(ai.velocity, ai.power);
-                    for (let it of ai.floors) {
+                    const ret = new ElevatorAI(ai.velocity, ai.power);
+                    for (const it of ai.floors) {
                         ret.addPosition(it.x, it.y);
                     }
                     return ret;
@@ -108,29 +108,29 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 return new Obstacle();
             case `Door`:
                 {
-                    let ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
-                    let colliderData = this.tryReplace(deploy, entity, `collider`);
-                    let collider = this.makeCollider(colliderData);
+                    const ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
+                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
                     return ret;
                 }
             case `Sign`:
                 {
-                    let ret = new SignObject();
-                    let colliderData = this.tryReplace(deploy, entity, `collider`);
-                    let collider = this.makeCollider(colliderData);
+                    const ret = new SignObject();
+                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
-                    let signData = this.tryReplace(deploy, entity, `sign`);
+                    const signData = this.tryReplace(deploy, entity, `sign`);
                     ret.setSign(this.imageBuilder.build(`event`, signData.image), signData.x, signData.y);
                     return ret;
                 }
             case `Event`:
                 {
-                    let ret = new ImmutableEvent();
-                    let colliderData = this.tryReplace(deploy, entity, `collider`);
-                    let collider = this.makeCollider(colliderData);
+                    const ret = new ImmutableEvent();
+                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
                     return ret;
@@ -150,7 +150,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {JSON} json Character json data
      */
     buildBody(base, deploy, json) {
-        let bodyData = this.tryReplace(deploy, json, `body`);
+        const bodyData = this.tryReplace(deploy, json, `body`);
         base.setRigidBody(this.makeBody(bodyData));
         if (base.body !== null) {
             base.body.enable = bodyData.enable === undefined ? true : bodyData.enable;
@@ -166,17 +166,17 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {JSON} json Character json data
      */
     buildAI(base, deploy, json) {
-        let aiData = [];
+        const aiData = [];
         if (json.ai !== undefined) {
-            for (let it of json.ai) {
+            for (const it of json.ai) {
                 aiData.push(it);
             }
         }
         if (deploy !== undefined && deploy.ai !== undefined) {
-            for (let it of deploy.ai) {
-                let index = aiData.findIndex((v) => v.type === it.type);
+            for (const it of deploy.ai) {
+                const index = aiData.findIndex((v) => v.type === it.type);
                 if (index >= 0) {
-                    for (let item in it) {
+                    for (const item in it) {
                         if (it.hasOwnProperty(item)) {
                             aiData[index][item] = it[item];
                         }
@@ -186,7 +186,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 }
             }
         }
-        for (let ai of aiData) {
+        for (const ai of aiData) {
             base.addAI(this.makeAI(ai));
         }
     }
@@ -199,7 +199,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @return {Entity} Generated character
      */
     build(deploy, json) {
-        let base = this.makeEntityBase(deploy, json);
+        const base = this.makeEntityBase(deploy, json);
         this.buildBase(base, deploy, json);
         if (base instanceof ImagedEntity) {
             this.buildImage(base, deploy, json);

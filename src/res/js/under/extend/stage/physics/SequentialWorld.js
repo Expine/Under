@@ -52,7 +52,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
 
         // initialize
         for (let i = 0; i < 100; ++i) {
-            let data = new LowerPriorityData();
+            const data = new LowerPriorityData();
             data.init();
             this.collisions.push(data);
         }
@@ -99,13 +99,13 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * @return {Array<CollisionData>} Collision information now
      */
     getCollisionData(collider) {
-        let ret = [];
+        const ret = [];
         if (collider === null) {
             return ret;
         }
-        let data = new LowerPriorityData();
-        for (let it of this.entities) {
-            let itCollider = it.collider;
+        const data = new LowerPriorityData();
+        for (const it of this.entities) {
+            const itCollider = it.collider;
             if (itCollider === null || it === collider.entity || !itCollider.enable) {
                 continue;
             }
@@ -133,7 +133,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     updateExternalForce(dt) {
-        for (let target of this.actors) {
+        for (const target of this.actors) {
             if (target.body !== null) {
                 target.body.enforce(0, this.gravity * target.material.mass * target.body.material.gravityScale);
             }
@@ -147,7 +147,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     prepareBody(dt) {
-        for (let target of this.actors) {
+        for (const target of this.actors) {
             if (target.body !== null) {
                 target.body.prepare(dt);
             }
@@ -161,7 +161,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     updateBody(dt) {
-        for (let target of this.actors) {
+        for (const target of this.actors) {
             if (target.body !== null) {
                 target.body.update(dt);
             }
@@ -175,7 +175,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     updateBodyCleanup(dt) {
-        for (let target of this.actors) {
+        for (const target of this.actors) {
             if (target.body !== null) {
                 target.body.cleanup(dt);
             }
@@ -194,7 +194,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
             this.collisions[j].init();
         }
         this.collisionSize = 0;
-        for (let it of this.entities) {
+        for (const it of this.entities) {
             if (it.collider !== null) {
                 it.collider.init();
             }
@@ -210,15 +210,15 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     updateCollision(dt) {
         // collision detection
         for (let i = 0; i < this.actors.length; ++i) {
-            let target = this.actors[i];
-            let targetCollider = target.collider;
+            const target = this.actors[i];
+            const targetCollider = target.collider;
             if (targetCollider === null || !targetCollider.enable) {
                 continue;
             }
             // check actors
             for (let j = i + 1; j < this.actors.length; ++j) {
-                let it = this.actors[j];
-                let itCollider = it.collider;
+                const it = this.actors[j];
+                const itCollider = it.collider;
                 if (itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
                     continue;
                 }
@@ -226,14 +226,14 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                 targetCollider.addCollision(this.collisions[this.collisionSize]);
                 itCollider.addCollision(this.collisions[this.collisionSize]);
                 if (++this.collisionSize >= this.collisions.length) {
-                    let data = new LowerPriorityData();
+                    const data = new LowerPriorityData();
                     data.init();
                     this.collisions.push(data);
                 }
             }
             // check tiles
-            for (let it of this.notActors) {
-                let itCollider = it.collider;
+            for (const it of this.notActors) {
+                const itCollider = it.collider;
                 if (itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
                     continue;
                 }
@@ -241,7 +241,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
                 targetCollider.addCollision(this.collisions[this.collisionSize]);
                 itCollider.addCollision(this.collisions[this.collisionSize]);
                 if (++this.collisionSize >= this.collisions.length) {
-                    let data = new LowerPriorityData();
+                    const data = new LowerPriorityData();
                     data.init();
                     this.collisions.push(data);
                 }
@@ -258,7 +258,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
     updateResponse(dt) {
         // collision response
         for (let j = 0; j < this.collisionSize; ++j) {
-            let it = this.collisions[j];
+            const it = this.collisions[j];
             if (it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider)) {
                 this.response.collisionResponse(it, dt);
             }

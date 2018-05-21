@@ -71,7 +71,7 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      * @param {number} height Image height
      */
     setSize(width, height) {
-        for (let it of this.animation) {
+        for (const it of this.animation) {
             it.setSize(width, height);
         }
     }
@@ -82,7 +82,7 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      * @param {number} imageID Image ID
      */
     setImageID(imageID) {
-        for (let it of this.animation) {
+        for (const it of this.animation) {
             it.setImageID(imageID);
         }
     }

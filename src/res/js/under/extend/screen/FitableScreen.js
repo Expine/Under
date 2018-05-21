@@ -15,7 +15,7 @@ class FitableScreen extends DelegateScreen { // eslint-disable-line     no-unuse
         super.init();
         // resize
         (window.onresize = () => {
-            let size = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
+            const size = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
             this.width = size * this.width;
             this.height = size * this.height;
             this.delegate.getCanvas().width = this.width;

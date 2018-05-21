@@ -56,28 +56,28 @@ class AutoTileTool extends BaseTool { // eslint-disable-line  no-unused-vars
             willID = top === null ? (right === null ? (under === null ? baseID + 46 : baseID + 42) : (under === null ? baseID + 45 : baseID + 32)) : (right === null ? (under === null ? baseID + 44 : baseID + 41) : (under === null ? baseID + 38 : baseID + 28));
         }
         if (checkLT) {
-            let check = this.editor.getTarget().getEditorEntity(x - 32, y - 32);
+            const check = this.editor.getTarget().getEditorEntity(x - 32, y - 32);
             if (check === null || !check.isAutoTile() || check.getAutoTileBaseID() !== baseID) {
                 willID += 1 << spaceCount;
             }
             ++spaceCount;
         }
         if (checkRT) {
-            let check = this.editor.getTarget().getEditorEntity(x + 32, y - 32);
+            const check = this.editor.getTarget().getEditorEntity(x + 32, y - 32);
             if (check === null || !check.isAutoTile() || check.getAutoTileBaseID() !== baseID) {
                 willID += 1 << spaceCount;
             }
             ++spaceCount;
         }
         if (checkRU) {
-            let check = this.editor.getTarget().getEditorEntity(x + 32, y + 32);
+            const check = this.editor.getTarget().getEditorEntity(x + 32, y + 32);
             if (check === null || !check.isAutoTile() || check.getAutoTileBaseID() !== baseID) {
                 willID += 1 << spaceCount;
             }
             ++spaceCount;
         }
         if (checkLU) {
-            let check = this.editor.getTarget().getEditorEntity(x - 32, y + 32);
+            const check = this.editor.getTarget().getEditorEntity(x - 32, y + 32);
             if (check === null || !check.isAutoTile() || check.getAutoTileBaseID() !== baseID) {
                 willID += 1 << spaceCount;
             }
@@ -134,8 +134,7 @@ class AutoTileTool extends BaseTool { // eslint-disable-line  no-unused-vars
     use(x, y, id) {
         super.use(x, y, id);
         if (id >= 0 && Input.mouse.isPressed(Input.mouse.mLeft())) {
-            let calcID = this.calculateID(id, this.selectedX, this.selectedY);
-            this.editor.getTarget().paint(this.selectedX, this.selectedY, calcID);
+            this.editor.getTarget().paint(this.selectedX, this.selectedY, this.calculateID(id, this.selectedX, this.selectedY));
             this.paintAround(this.selectedX, this.selectedY, id);
         }
     }

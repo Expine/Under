@@ -42,8 +42,8 @@ class DragScrollLayer extends ScrollLayer { // eslint-disable-line  no-unused-va
      * @param {number} dt Delta time
      */
     update(dt) {
-        let x = Input.mouse.getMouseX();
-        let y = Input.mouse.getMouseY();
+        const x = Input.mouse.getMouseX();
+        const y = Input.mouse.getMouseY();
         if (this.x <= x && x < this.x + this.width && this.y <= y && y < this.y + this.height && Input.mouse.isPress(Input.mouse.mRight())) {
             this.scrolling = true;
             this.oldMouseX = x;

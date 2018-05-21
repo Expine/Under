@@ -43,7 +43,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @override
      */
     next() {
-        let event = this.events[0];
+        const event = this.events[0];
         if (event !== undefined) {
             this.events.splice(0, 1);
             this.runningEvents.push(event);
@@ -85,7 +85,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      */
     init() {
         super.init();
-        for (let it of this.events) {
+        for (const it of this.events) {
             it.setEventOperator(this);
         }
         this.next();
@@ -96,7 +96,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @override
      */
     destruct() {
-        for (let it of this.runningEvents) {
+        for (const it of this.runningEvents) {
             it.destruct();
         }
     }
@@ -108,14 +108,14 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @return {boolean} Whether update is endped or not
      */
     update(dt) {
-        let removes = [];
-        for (let it of this.runningEvents) {
+        const removes = [];
+        for (const it of this.runningEvents) {
             if (it.update(dt)) {
                 removes.push(it);
             }
         }
-        for (let it of removes) {
-            let index = this.runningEvents.indexOf(it);
+        for (const it of removes) {
+            const index = this.runningEvents.indexOf(it);
             if (index >= 0) {
                 this.runningEvents.splice(index, 1);
             }
@@ -129,7 +129,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        for (let it of this.runningEvents) {
+        for (const it of this.runningEvents) {
             it.render(ctx);
         }
     }

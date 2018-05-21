@@ -61,8 +61,8 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
      * @return {boolean} whether position is in collider
      */
     isInCollider(x, y) {
-        let sx = this.centerX - x;
-        let sy = this.centerY - y;
+        const sx = this.centerX - x;
+        const sy = this.centerY - y;
         return sx * sx + sy * sy <= this.radius * this.radius;
     }
 
@@ -77,19 +77,19 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
         if (collider instanceof CircleCollider) {
             let nx = collider.centerX - this.centerX;
             let ny = collider.centerY - this.centerY;
-            let r = this.radius + collider.radius;
+            const r = this.radius + collider.radius;
             if (nx * nx + ny * ny < r * r) {
                 if (data !== null) {
                     let me = this.entity;
                     let you = collider.entity;
-                    let nlen = Math.sqrt(nx * nx + ny * ny);
+                    const nlen = Math.sqrt(nx * nx + ny * ny);
                     nx = nx / nlen;
                     ny = ny / nlen;
-                    let px = this.centerX + this.radius * nx;
-                    let py = this.centerY + this.radius * ny;
-                    let depth = r - nlen;
+                    const px = this.centerX + this.radius * nx;
+                    const py = this.centerY + this.radius * ny;
+                    const depth = r - nlen;
                     if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
-                        let swap = me;
+                        const swap = me;
                         me = you;
                         you = swap;
                         nx = -nx;
@@ -147,7 +147,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
         // collision
         let me = 0;
         let you = 0;
-        for (let it of this.collisions) {
+        for (const it of this.collisions) {
             if (it.colliding === this.entity) {
                 me += 1;
             } else {
@@ -159,7 +159,7 @@ class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
             ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
         }
         // vector
-        for (let it of this.collisions) {
+        for (const it of this.collisions) {
             if (it.e2 === this.entity) {
                 continue;
             }

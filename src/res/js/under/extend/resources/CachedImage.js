@@ -17,7 +17,7 @@ class CachedImage extends CachedArrayManager /* , IImageManager */ { // eslint-d
      * @return {Image} Resource
      */
     loadResource(filePath) {
-        let image = new Image();
+        const image = new Image();
         image.src = filePath;
         return image;
     }
@@ -28,7 +28,7 @@ class CachedImage extends CachedArrayManager /* , IImageManager */ { // eslint-d
      * @return {number} Image width
      */
     getWidth(id) {
-        let image = this.resources[id];
+        const image = this.resources[id];
         return image === undefined ? -1 : image.width;
     }
 
@@ -38,7 +38,7 @@ class CachedImage extends CachedArrayManager /* , IImageManager */ { // eslint-d
      * @return {number} Image height
      */
     getHeight(id) {
-        let image = this.resources[id];
+        const image = this.resources[id];
         return image === undefined ? -1 : image.height;
     }
 
@@ -49,7 +49,7 @@ class CachedImage extends CachedArrayManager /* , IImageManager */ { // eslint-d
      * @return {Image} Music resource
      */
     getImage(id) {
-        let ret = this.resources[id];
+        const ret = this.resources[id];
         return ret === undefined ? null : ret;
     }
 }

@@ -64,7 +64,7 @@ class SimpleTimer extends Timer { // eslint-disable-line  no-unused-vars
      * @param {number} y Timer y position
      */
     render(ctx, x, y) {
-        for (let name in this.namedTimer) {
+        for (const name in this.namedTimer) {
             if (this.namedTimer.hasOwnProperty(name)) {
                 ctx.fillText(`${name} : ${this.getTimer(name)} msec`, x, y, 0.0, 0.0, 20, `white`);
                 y += 30;

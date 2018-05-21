@@ -50,7 +50,7 @@ class CachedArrayManager extends ResourceManager { // eslint-disable-line  no-un
         if (!filePath.startsWith(this.root)) {
             filePath = this.root + filePath;
         }
-        let cache = this.caches[filePath];
+        const cache = this.caches[filePath];
         if (cache !== undefined) {
             return cache;
         }
@@ -73,7 +73,7 @@ class CachedArrayManager extends ResourceManager { // eslint-disable-line  no-un
      * @override
      */
     reload() {
-        for (let it in this.caches) {
+        for (const it in this.caches) {
             if (this.caches.hasOwnProperty(it)) {
                 this.resources[this.caches[it]] = this.loadResource(`${it}?time=${new Date()}`);
             }
@@ -87,7 +87,7 @@ class CachedArrayManager extends ResourceManager { // eslint-disable-line  no-un
      * @return {string} Resource path (return null if not exists)
      */
     getPath(id) {
-        for (let path in this.caches) {
+        for (const path in this.caches) {
             if (this.caches.hasOwnProperty(path)) {
                 if (this.caches[path] === id) {
                     return path.replace(this.root, ``);

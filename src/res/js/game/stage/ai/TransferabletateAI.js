@@ -14,9 +14,9 @@ class TransferableStateAI extends NamedStateAI { // eslint-disable-line  no-unus
      * @param {TransferableStateAI} state Where to give information
      */
     transfer(state) {
-        for (let name in this.namedStates) {
+        for (const name in this.namedStates) {
             if (this.namedStates.hasOwnProperty(name)) {
-                let other = state.namedStates[name];
+                const other = state.namedStates[name];
                 if (other instanceof TransferableState) {
                     // transfer state
                     this.namedStates[name].transfer(other);

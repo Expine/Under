@@ -82,18 +82,18 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
 
         // load animation
         if (this.entityData.image !== undefined) {
-            let file = ResourceManager.image.load(`chara/${this.entityData.image.file}`);
+            const file = ResourceManager.image.load(`chara/${this.entityData.image.file}`);
             if (this.entityData.image.type === `single`) {
                 this.animation = new SingleClipImage(file, this.entityData.image.width, this.entityData.image.height);
             } else if (this.entityData.image.type === `anime`) {
-                let animation = new SingleClipAnimation();
-                for (let it of this.entityData.image.animation) {
+                const animation = new SingleClipAnimation();
+                for (const it of this.entityData.image.animation) {
                     animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
                 }
                 this.animation = animation;
             } else if (this.entityData.image.type === `multianime`) {
-                let animation = new SingleClipAnimation();
-                for (let it of this.entityData.image.animations[0].animation) {
+                const animation = new SingleClipAnimation();
+                for (const it of this.entityData.image.animations[0].animation) {
                     animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
                 }
                 this.animation = animation;

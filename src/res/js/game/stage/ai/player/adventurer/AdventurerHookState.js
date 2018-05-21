@@ -16,9 +16,9 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
     init() {
         super.init();
         // check release
-        let hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
+        const hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
         if (hooks.length >= 1) {
-            for (let it of hooks) {
+            for (const it of hooks) {
                 if (it.getActor() === this.entity) {
                     it.release();
                 }
@@ -36,7 +36,7 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
     apply(dt) {
         // generate hook
         if (Util.canEnd(this.entity.getImage())) {
-            let hook = this.entity.stage.addEntityByID(200010, undefined, (it) => {
+            const hook = this.entity.stage.addEntityByID(200010, undefined, (it) => {
                 it.setPosition(this.entity.x + this.entity.width / 2, this.entity.y + this.entity.height / 2, this.entity.z - 1);
                 if (it instanceof PossessedObject) {
                     it.setOwner(this.entity);

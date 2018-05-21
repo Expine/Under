@@ -65,7 +65,7 @@ class LoopInputOrder extends InputOrder { // eslint-disable-line  no-unused-vars
             return true;
         }
         // update order
-        let order = this.orders[this.orderIndex];
+        const order = this.orders[this.orderIndex];
         if (!order.udpate(dt)) {
             return false;
         }

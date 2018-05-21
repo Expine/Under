@@ -114,7 +114,7 @@ class NormalJumpState extends UnderPlayerState /* , IPrepareState */ { // eslint
      * @param {number} dt Delta time
      */
     update(dt) {
-        let image = this.entity.getImage();
+        const image = this.entity.getImage();
         if (image !== null) {
             image.update(dt * (this.animationMagnification - 1));
         }

@@ -108,8 +108,8 @@ class DoorObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-
         }
         // open
         if (Input.key.isPress(Input.key.up())) {
-            for (let it of this.stage.getPhysicalWorld().getCollisionData(this.doorCollider)) {
-                let you = Util.getCollidedEntity(this, it);
+            for (const it of this.stage.getPhysicalWorld().getCollisionData(this.doorCollider)) {
+                const you = Util.getCollidedEntity(this, it);
                 if (BaseUtil.implementsOf(you, IPlayable) && Util.onGround(you)) {
                     this.isTransitioning = true;
                     Input.key.setInputEnable(false);

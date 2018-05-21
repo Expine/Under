@@ -21,8 +21,8 @@ class AdventurerWalkState extends NormalWalkState { // eslint-disable-line  no-u
     apply(dt) {
         // drag hook
         if (Input.key.isPressed(Input.key.up())) {
-            for (let it of this.entity.collider.collisions) {
-                let you = Util.getCollidedEntity(this.entity, it);
+            for (const it of this.entity.collider.collisions) {
+                const you = Util.getCollidedEntity(this.entity, it);
                 if (BaseUtil.implementsOf(you, IHook) && !you.isHead() && you.getActor() === this.entity) {
                     if (you.tryRemove()) {
                         return true;

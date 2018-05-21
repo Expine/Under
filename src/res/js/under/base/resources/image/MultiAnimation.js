@@ -44,7 +44,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @param {number} height Image height
      */
     setSize(width, height) {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         if (anime !== null) {
             anime.setSize(width, height);
         }
@@ -56,7 +56,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @param {number} imageID Image ID
      */
     setImageID(imageID) {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         if (anime !== null) {
             anime.setImageID(imageID);
         }
@@ -68,7 +68,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @return {number} Imag width
      */
     getWidth() {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         return anime !== null ? anime.getWidth() : 0;
     }
 
@@ -78,7 +78,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @return {number} Imag height
      */
     getHeight() {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         return anime !== null ? anime.getHeight() : 0;
     }
 
@@ -87,7 +87,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @override
      */
     init() {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         if (anime !== null) {
             anime.init();
         }
@@ -99,7 +99,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @param {number} dt
      */
     update(dt) {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         if (anime !== null) {
             anime.update(dt);
         }
@@ -113,7 +113,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @param {number} y Image y position
      */
     render(ctx, x, y) {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         if (anime !== null) {
             anime.render(ctx, x, y);
         }
@@ -125,7 +125,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @return {boolean} Whether to loop or not
      */
     isLoop() {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         return anime !== null && anime.isLoop();
     }
 
@@ -135,7 +135,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @return {boolean} Whether the animation has ended or not
      */
     isEnded() {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         return anime !== null && anime.isEnded();
     }
 
@@ -144,7 +144,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @return {number} Animation count
      */
     getAnimationCount() {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         return anime !== null ? anime.getAnimationCount() : 0;
     }
 
@@ -155,7 +155,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @param {number} delta Animation delta time
      */
     addAnimation(image, delta) {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         if (anime !== null) {
             anime.addAnimation(image, delta);
         }
@@ -166,7 +166,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @override
      */
     pause() {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         if (anime !== null) {
             anime.pause();
         }
@@ -177,7 +177,7 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
      * @override
      */
     restore() {
-        let anime = this.getAnimation();
+        const anime = this.getAnimation();
         if (anime !== null) {
             anime.restore();
         }

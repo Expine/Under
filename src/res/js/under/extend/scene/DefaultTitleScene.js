@@ -54,8 +54,7 @@ class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         // render sample text
-        let sample = `Sample`;
-        ctx.fillText(sample, 400, 300, 0.5);
+        ctx.fillText(`Sample`, 400, 300, 0.5);
 
         // render when enter pressed
         if (Input.key.isPressed(Input.key.space())) {
@@ -63,7 +62,7 @@ class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
         }
 
         // render circle on mouse
-        let angle = this.angle_ > Math.PI * 2 ? Math.PI * 2 : this.angle_;
+        const angle = this.angle_ > Math.PI * 2 ? Math.PI * 2 : this.angle_;
         ctx.strokeCircle(Input.mouse.getMouseX(), Input.mouse.getMouseY(), this.r_, 0, angle, false);
     }
 }

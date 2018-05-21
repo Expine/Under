@@ -23,7 +23,7 @@ class SingleClipAnimation extends SingleAnimation /* , IClipImage */ { // eslint
      */
     clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight) {
         if (this.animation.length > 0) {
-            let curImage = this.animation[this.runningAnimation];
+            const curImage = this.animation[this.runningAnimation];
             if (BaseUtil.implementsOf(curImage, IClipImage)) {
                 curImage.clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight);
             }

@@ -19,9 +19,9 @@ class WildBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  no-unu
         super();
 
         this.specialActionName = `roll`;
-        for (let name in this.namedStates) {
+        for (const name in this.namedStates) {
             if (this.namedStates.hasOwnProperty(name)) {
-                let state = this.namedStates[name];
+                const state = this.namedStates[name];
                 if (BaseUtil.implementsOf(state, IMovableState)) {
                     state.setMaxVelocity(state.maxVX * 4 / 3, state.maxVY * 4 / 3);
                     state.setMovePower(state.movePX * 5 / 4, state.movePY * 5 / 3);

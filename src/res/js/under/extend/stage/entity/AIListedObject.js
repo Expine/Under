@@ -32,7 +32,7 @@ class AIListedObject extends AutonomyEntity { // eslint-disable-line  no-unused-
      * @param {number} [priority=-1] Priority of AI. If it is a positive number count from the front, if it is a negative number count from the back
      */
     addAI(ai, priority = -1) {
-        let index = priority < 0 ? this.ai.length + priority + 1 : priority;
+        const index = priority < 0 ? this.ai.length + priority + 1 : priority;
         this.ai.splice(index, 0, ai);
         // initialize
         super.addAI(ai, priority);
@@ -44,7 +44,7 @@ class AIListedObject extends AutonomyEntity { // eslint-disable-line  no-unused-
      * @param {AI} ai AI to control this
      */
     removeAI(ai) {
-        let index = this.ai.indexOf(ai);
+        const index = this.ai.indexOf(ai);
         if (index !== -1) {
             this.ai.splice(index, 1);
         }
@@ -57,7 +57,7 @@ class AIListedObject extends AutonomyEntity { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     updateAI(dt) {
-        for (let it of this.ai) {
+        for (const it of this.ai) {
             it.update(dt);
         }
     }
@@ -69,7 +69,7 @@ class AIListedObject extends AutonomyEntity { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     applyAI(dt) {
-        for (let it of this.ai) {
+        for (const it of this.ai) {
             if (it.apply(dt)) {
                 break;
             }

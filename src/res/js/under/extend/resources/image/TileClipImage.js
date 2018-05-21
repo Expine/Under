@@ -33,18 +33,18 @@ class TileClipImage extends TileImage /* , IClipImage */ { // eslint-disable-lin
      * @param {number} clipWidth Cliping height
      */
     clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight) {
-        let widthPer = this.srcW / this.width;
-        let heightPer = this.srcH / this.height;
+        const widthPer = this.srcW / this.width;
+        const heightPer = this.srcH / this.height;
         // set destination
-        let dx = x < clipX ? clipX : x;
-        let dy = y < clipY ? clipY : y;
-        let dw = clipX + clipWidth < x + this.width ? clipX + clipWidth - dx : this.width - dx + x;
-        let dh = clipY + clipHeight < y + this.height ? clipY + clipHeight - dy : this.height - dy + y;
+        const dx = x < clipX ? clipX : x;
+        const dy = y < clipY ? clipY : y;
+        const dw = clipX + clipWidth < x + this.width ? clipX + clipWidth - dx : this.width - dx + x;
+        const dh = clipY + clipHeight < y + this.height ? clipY + clipHeight - dy : this.height - dy + y;
         // set source
-        let sx = this.srcX + (x < clipX ? (clipX - x) * widthPer : 0);
-        let sy = this.srcY + (y < clipY ? (clipY - y) * heightPer : 0);
-        let sw = clipX + clipWidth < x + this.width ? (clipX + clipWidth - dx) * widthPer : this.srcW - sx + this.srcX;
-        let sh = clipY + clipHeight < y + this.height ? (clipY + clipHeight - dy) * heightPer : this.srcH - sy + this.srcY;
+        const sx = this.srcX + (x < clipX ? (clipX - x) * widthPer : 0);
+        const sy = this.srcY + (y < clipY ? (clipY - y) * heightPer : 0);
+        const sw = clipX + clipWidth < x + this.width ? (clipX + clipWidth - dx) * widthPer : this.srcW - sx + this.srcX;
+        const sh = clipY + clipHeight < y + this.height ? (clipY + clipHeight - dy) * heightPer : this.srcH - sy + this.srcY;
         if (sw > 0 && sh > 0) {
             ctx.drawImage(this.imageID, dx, dy, dw, dh, sx, sy, sw, sh);
         }

@@ -92,7 +92,7 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
 
         if (BaseUtil.implementsOf(this.body, IString)) {
             this.string = this.body;
-            let bodies = this.string.getBodies().filter((it) => it.getEntity() === this);
+            const bodies = this.string.getBodies().filter((it) => it.getEntity() === this);
             this.originalBody = bodies.length === 0 ? null : bodies[0];
         }
 

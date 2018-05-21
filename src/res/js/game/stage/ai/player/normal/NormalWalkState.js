@@ -45,7 +45,7 @@ class NormalWalkState extends UnderMovableState { // eslint-disable-line  no-unu
      */
     apply(dt) {
         // input
-        let input = this.moveByInput(dt);
+        const input = this.moveByInput(dt);
         // stationary
         if (!input) {
             this.ai.changeState(`stationary`);

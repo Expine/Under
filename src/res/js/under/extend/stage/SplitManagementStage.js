@@ -63,8 +63,8 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         });
 
         if (this.player !== null) {
-            let x = this.player.getCameraX();
-            let y = this.player.getCameraY();
+            const x = this.player.getCameraX();
+            const y = this.player.getCameraY();
             this.camera.init(x, y);
         }
     }
@@ -87,7 +87,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         super.addEntity(entity);
         // sort
         if (this.inited) {
-            let index = this.sortedEntity.findIndex((it) => {
+            const index = this.sortedEntity.findIndex((it) => {
                 return entity.z < it.z;
             });
             if (index >= 0) {
@@ -147,11 +147,11 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} dt Delta time
      */
     updateEntity(dt) {
-        for (let it of this.entities) {
+        for (const it of this.entities) {
             it.update(dt);
         }
         // remove entity
-        for (let entity of this.removeList) {
+        for (const entity of this.removeList) {
             this.removeEntityImmediately(entity);
         }
         this.removeList.length = 0;
@@ -185,8 +185,8 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     updateCamera(dt) {
         if (this.player !== null) {
-            let x = this.player.getCameraX();
-            let y = this.player.getCameraY();
+            const x = this.player.getCameraX();
+            const y = this.player.getCameraY();
             this.camera.update(x, y, dt);
         }
     }
@@ -212,11 +212,11 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * @param {number} shiftY Shift y position
      */
     renderEntity(ctx, shiftX, shiftY) {
-        let startX = -this.camera.cameraX;
-        let startY = -this.camera.cameraY;
-        let endX = startX + this.camera.screenWidth;
-        let endY = startY + this.camera.screenHeight;
-        for (let it of this.sortedEntity) {
+        const startX = -this.camera.cameraX;
+        const startY = -this.camera.cameraY;
+        const endX = startX + this.camera.screenWidth;
+        const endY = startY + this.camera.screenHeight;
+        for (const it of this.sortedEntity) {
             if (it.x + it.width >= startX && it.x < endX && it.y + it.height >= startY && it.y < endY) {
                 it.render(ctx, this.camera.baseX - startX, this.camera.baseY - startY);
             }

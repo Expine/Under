@@ -68,7 +68,7 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
      * @override
      */
     clear() {
-        for (let it of this.runningEvents) {
+        for (const it of this.runningEvents) {
             it.destruct();
         }
         this.events.length = 0;
@@ -80,7 +80,7 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
      * @override
      */
     next() {
-        let event = this.events[0];
+        const event = this.events[0];
         if (event !== undefined) {
             this.events.splice(0, 1);
             this.runningEvents.push(event);
@@ -112,7 +112,7 @@ class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator
      * @param {Array<GameEvent>} removes List of event for removing
      */
     removeEvents(removes) {
-        for (let it of removes) {
+        for (const it of removes) {
             this.unregister(it);
         }
     }

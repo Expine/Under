@@ -16,7 +16,7 @@ class TabbedLayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     setPosition(x, y, z) {
         super.setPosition(x, y, z);
-        for (let it of this.getTabs()) {
+        for (const it of this.getTabs()) {
             it.setPosition(x, y, z);
         }
     }
@@ -29,7 +29,7 @@ class TabbedLayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     setSize(width, height) {
         super.setSize(width, height);
-        for (let it of this.getTabs()) {
+        for (const it of this.getTabs()) {
             it.setSize(width, height);
         }
     }
@@ -69,7 +69,7 @@ class TabbedLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        let tab = this.getTab();
+        const tab = this.getTab();
         if (tab !== null) {
             tab.update(dt);
         }
@@ -81,7 +81,7 @@ class TabbedLayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        let tab = this.getTab();
+        const tab = this.getTab();
         if (tab !== null) {
             tab.render(ctx);
         }

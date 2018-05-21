@@ -37,8 +37,8 @@ class EventManager { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
-        let removes = [];
-        for (let it of this.getRunningEvents()) {
+        const removes = [];
+        for (const it of this.getRunningEvents()) {
             if (it.update(dt)) {
                 removes.push(it);
             }
@@ -52,7 +52,7 @@ class EventManager { // eslint-disable-line  no-unused-vars
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        for (let it of this.getRunningEvents()) {
+        for (const it of this.getRunningEvents()) {
             it.render(ctx);
         }
     }

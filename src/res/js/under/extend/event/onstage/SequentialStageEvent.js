@@ -38,7 +38,7 @@ class SequentialStageEvent extends SequentialEvent /* IStageEvent */ { // eslint
      * @override
      */
     init() {
-        for (let it of this.events) {
+        for (const it of this.events) {
             if (BaseUtil.implementsOf(it, IStageEvent)) {
                 it.setStage(this.stage);
             }

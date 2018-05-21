@@ -55,7 +55,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @protected
      */
     grabCollider() {
-        let aabb = this.entity.collider.getAABB();
+        const aabb = this.entity.collider.getAABB();
         this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY + this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
     }
 
@@ -64,7 +64,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @protected
      */
     restoreCollider() {
-        let aabb = this.entity.collider.getAABB();
+        const aabb = this.entity.collider.getAABB();
         this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.underDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
     }
 
@@ -79,7 +79,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
         }
 
         // check collision
-        let check = this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).some((it) => {
+        const check = this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).some((it) => {
             return it.collided.collider.isResponse(this.entity) && it.ny < -0.5;
         });
         if (check) {
@@ -99,7 +99,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @param {number} dt Delta time
      */
     grabWalk(dt) {
-        let moved = this.moveByInput(dt);
+        const moved = this.moveByInput(dt);
         if (moved) {
             if (this.entity.getImage() instanceof GameAnimation) {
                 this.entity.getImage().restore();
@@ -124,7 +124,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      */
     init() {
         // set image
-        let image = this.entity.getImage();
+        const image = this.entity.getImage();
         if (image instanceof NamedAnimation) {
             image.setName(this.ai.getStateID());
         }
@@ -146,8 +146,8 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        let image = this.entity.getImage();
-        let canGrabAction = (!(image instanceof GameAnimation) || (image.isEnded() || image.isLoop()));
+        const image = this.entity.getImage();
+        const canGrabAction = (!(image instanceof GameAnimation) || (image.isEnded() || image.isLoop()));
         // judge
         if (!Util.onGround(this.entity) || !Input.key.isPressed(Input.key.down())) {
             if (!this.judgeContinue()) {
@@ -163,7 +163,7 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
         // grab action
         if (canGrabAction && Util.onGround(this.entity)) {
             // change
-            let ground = Util.getUnderEntity(this.entity);
+            const ground = Util.getUnderEntity(this.entity);
             if (BaseUtil.implementsOf(ground, ITerrain)) {
                 if (this.player.changeType(ground.getTerrainID())) {
                     this.changed();

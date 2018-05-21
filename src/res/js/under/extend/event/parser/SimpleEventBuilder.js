@@ -36,8 +36,8 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
                 return new WaitInputOrder(order.time);
             case `loop`:
                 {
-                    let ret = new LoopInputOrder(order.number);
-                    for (let it of order.orders) {
+                    const ret = new LoopInputOrder(order.number);
+                    for (const it of order.orders) {
                         ret.addOrder(this.makeInputOrder(it));
                     }
                     return ret;
@@ -69,15 +69,15 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
                 return new TransitionalEvent(event.stage, event.replace);
             case `auto`:
                 {
-                    let ret = new AutoInputEvent();
-                    for (let it of event.orders) {
+                    const ret = new AutoInputEvent();
+                    for (const it of event.orders) {
                         ret.addOrder(this.makeInputOrder(it));
                     }
                     return ret;
                 }
             case `control`:
                 {
-                    let ret = new ControlEntityEvent(event.target);
+                    const ret = new ControlEntityEvent(event.target);
                     if (event.vx !== undefined && event.vy !== undefined) {
                         ret.setVelocity(event.vx, event.vy);
                     }
@@ -90,14 +90,14 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
                 return new CameraEvent(event.name, event.x, event.y);
             case `sequential`:
                 {
-                    let ret = new SequentialEvent();
-                    for (let it of event.events) {
+                    const ret = new SequentialEvent();
+                    for (const it of event.events) {
                         if (BaseUtil.implementsOf(this.makeEvent(it), IStageEvent)) {
                             ret = new SequentialStageEvent();
                             break;
                         }
                     }
-                    for (let it of event.events) {
+                    for (const it of event.events) {
                         ret.addEvent(this.makeEvent(it));
                     }
                     return ret;

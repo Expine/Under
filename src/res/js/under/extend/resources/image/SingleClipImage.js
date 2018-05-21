@@ -22,20 +22,20 @@ class SingleClipImage extends SingleImage /* , IClipImage */ { // eslint-disable
      * @param {number} clipWidth Cliping height
      */
     clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight) {
-        let width = ResourceManager.image.getWidth(this.imageID);
-        let height = ResourceManager.image.getHeight(this.imageID);
-        let widthPer = width / this.width;
-        let heightPer = height / this.height;
+        const width = ResourceManager.image.getWidth(this.imageID);
+        const height = ResourceManager.image.getHeight(this.imageID);
+        const widthPer = width / this.width;
+        const heightPer = height / this.height;
         // set destination
-        let dx = x < clipX ? clipX : x;
-        let dy = y < clipY ? clipY : y;
-        let dw = clipX + clipWidth < x + this.width ? clipX + clipWidth - dx : this.width - dx + x;
-        let dh = clipY + clipHeight < y + this.height ? clipY + clipHeight - dy : this.height - dy + y;
+        const dx = x < clipX ? clipX : x;
+        const dy = y < clipY ? clipY : y;
+        const dw = clipX + clipWidth < x + this.width ? clipX + clipWidth - dx : this.width - dx + x;
+        const dh = clipY + clipHeight < y + this.height ? clipY + clipHeight - dy : this.height - dy + y;
         // set source
-        let sx = x < clipX ? (clipX - x) * widthPer : 0;
-        let sy = y < clipY ? (clipY - y) * heightPer : 0;
-        let sw = clipX + clipWidth < x + this.width ? (clipX + clipWidth - dx) * widthPer : width - sx;
-        let sh = clipY + clipHeight < y + this.height ? (clipY + clipHeight - dy) * heightPer : height - sy;
+        const sx = x < clipX ? (clipX - x) * widthPer : 0;
+        const sy = y < clipY ? (clipY - y) * heightPer : 0;
+        const sw = clipX + clipWidth < x + this.width ? (clipX + clipWidth - dx) * widthPer : width - sx;
+        const sh = clipY + clipHeight < y + this.height ? (clipY + clipHeight - dy) * heightPer : height - sy;
         if (sw > 0 && sh > 0) {
             ctx.drawImage(this.imageID, dx, dy, dw, dh, sx, sy, sw, sh);
         }

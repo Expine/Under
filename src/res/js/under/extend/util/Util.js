@@ -18,7 +18,7 @@ class Util { // eslint-disable-line  no-unused-vars
      * @return {InfluentialEntity} Under entity (if not, return null)
      */
     static getUnderEntity(entity) {
-        let data = entity.collider.collisions.find((it) => {
+        const data = entity.collider.collisions.find((it) => {
             return ((it.colliding === entity && it.ny > 0) || (it.collided === entity && it.ny < 0)) && it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider);
         });
         return data === undefined ? null : this.getCollidedEntity(entity, data);
@@ -30,12 +30,12 @@ class Util { // eslint-disable-line  no-unused-vars
      * @return {InfluentialEntity} Under entity (if not, return null)
      */
     static getSideEntity(entity) {
-        let list = entity.collider.collisions;
-        for (let it of list) {
+        const list = entity.collider.collisions;
+        for (const it of list) {
             if (it.ny !== 0) {
                 continue;
             }
-            let dot = entity.body.velocityX * it.nx + entity.body.velocityY * it.ny;
+            const dot = entity.body.velocityX * it.nx + entity.body.velocityY * it.ny;
             if ((it.colliding === entity && dot > 0) || (it.collided === entity && dot < 0)) {
                 return this.getCollidedEntity(entity, it);
             }
@@ -59,7 +59,7 @@ class Util { // eslint-disable-line  no-unused-vars
      * @return {string} Loaded text
      */
     static loadFile(filePath) {
-        let req = new XMLHttpRequest();
+        const req = new XMLHttpRequest();
         req.open(`GET`, filePath, false);
         req.send(null);
         return req.responseText;
@@ -75,8 +75,8 @@ class Util { // eslint-disable-line  no-unused-vars
      * @param {number} height Window height
      */
     static renderWindow(ctx, id, x, y, width, height) {
-        let imageWidth = ResourceManager.image.getWidth(id) / 3;
-        let imageHeight = ResourceManager.image.getHeight(id) / 3;
+        const imageWidth = ResourceManager.image.getWidth(id) / 3;
+        const imageHeight = ResourceManager.image.getHeight(id) / 3;
         x = Math.floor(x);
         y = Math.floor(y);
         width = Math.floor(width);
@@ -111,7 +111,7 @@ class Util { // eslint-disable-line  no-unused-vars
      * @return {number} Index of element if it exists
      */
     static removeIfExists(list, element) {
-        let index = list.indexOf(element);
+        const index = list.indexOf(element);
         if (index >= 0) {
             list.splice(index, 1);
         }

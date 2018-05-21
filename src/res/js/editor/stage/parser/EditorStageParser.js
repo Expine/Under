@@ -78,11 +78,11 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @return {EntityFactory} Entity factory
      */
     makeEntityFactory(stage) {
-        let ret = new EditorEntityFactory(new EditorTileBuilder(), new EditorCharacterBuilder(), new UnderEventBuilder());
-        for (let it of stage.tiles) {
+        const ret = new EditorEntityFactory(new EditorTileBuilder(), new EditorCharacterBuilder(), new UnderEventBuilder());
+        for (const it of stage.tiles) {
             ret.addTileInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
         }
-        for (let it of stage.entities) {
+        for (const it of stage.entities) {
             ret.addEntityInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
         }
         return ret;
@@ -97,7 +97,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @return {Stage} Generated stage
      */
     parse(filePath, width, height) {
-        let stage = super.parse(filePath, width, height);
+        const stage = super.parse(filePath, width, height);
         if (BaseUtil.implementsOf(stage, IEditable)) {
             stage.setEditor(this.editBuilder.build());
         }

@@ -114,7 +114,7 @@ class KeyInput extends StateInputManager /* , IKey */ { // eslint-disable-line  
         };
 
         // clear
-        let blur = this.target.parentElement.onblur;
+        const blur = this.target.parentElement.onblur;
         this.target.parentElement.onblur = () => {
             this.clear();
             if (blur !== undefined && blur !== null) {
@@ -132,7 +132,7 @@ class KeyInput extends StateInputManager /* , IKey */ { // eslint-disable-line  
         if (!this.enable) {
             return;
         }
-        let code = e.keyCode;
+        const code = e.keyCode;
         if (this.inputState[code] === undefined || this.inputState[code] === this.STATE.NONE) {
             this.inputState[code] = this.STATE.PRESS;
         }
@@ -147,7 +147,7 @@ class KeyInput extends StateInputManager /* , IKey */ { // eslint-disable-line  
         if (!this.enable) {
             return;
         }
-        let code = e.keyCode;
+        const code = e.keyCode;
         this.inputState[code] = this.STATE.NONE;
     }
 }

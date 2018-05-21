@@ -39,7 +39,7 @@ class BaseLayeredScene extends LayeredScene { // eslint-disable-line  no-unused-
         super.addLayer(layer);
 
         // sort
-        let index = this.sortedLayers.findIndex((it) => {
+        const index = this.sortedLayers.findIndex((it) => {
             return layer.z < it.z;
         });
         if (index >= 0) {
@@ -82,7 +82,7 @@ class BaseLayeredScene extends LayeredScene { // eslint-disable-line  no-unused-
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        for (let layer of this.sortedLayers) {
+        for (const layer of this.sortedLayers) {
             layer.render(ctx);
         }
     }

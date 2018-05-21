@@ -82,15 +82,15 @@ class EngineBuilder { // eslint-disable-line  no-unused-vars
      * @return {Engine} Game engine
      */
     build() {
-        let engine = this.makeEngine();
+        const engine = this.makeEngine();
         engine.setInput(this.makeInput());
         engine.setScreen(this.makeScreen());
         // set context
-        let context = this.makeContext();
+        const context = this.makeContext();
         context.setImageManager(this.makeImageManager());
         engine.setContext(context);
         // set music
-        let music = this.makeMusic();
+        const music = this.makeMusic();
         music.setMusicManager(this.makeMusicManager());
         engine.setMusic(music);
         engine.setSceneManager(this.makeSceneManager());

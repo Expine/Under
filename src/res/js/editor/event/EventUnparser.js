@@ -11,7 +11,7 @@ class EventUnparser { // eslint-disable-line  no-unused-vars
      * @return {JSON} Json data
      */
     static unparse(event) {
-        let ret = {};
+        const ret = {};
         if (event instanceof TalkEvent) {
             ret.type = `talk`;
             ret.sentence = event.sentence;
@@ -44,7 +44,7 @@ class EventUnparser { // eslint-disable-line  no-unused-vars
         } else if (event instanceof AutoInputEvent) {
             ret.type = `auto`;
             ret.orders = [];
-            for (let it of event.orders) {
+            for (const it of event.orders) {
                 ret.orders.push(it);
             }
         } else if (event instanceof ControlEntityEvent) {
@@ -57,7 +57,7 @@ class EventUnparser { // eslint-disable-line  no-unused-vars
         } else if (event instanceof SequentialEvent) {
             ret.type = `sequential`;
             ret.events = [];
-            for (let it of event.events) {
+            for (const it of event.events) {
                 ret.events.push(EventUnparser.unparse(it));
             }
         }

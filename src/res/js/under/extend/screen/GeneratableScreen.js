@@ -18,7 +18,7 @@ class GeneratableScreen extends CanvasScreen { // eslint-disable-line  no-unused
         document.body.appendChild(this.canvas);
 
         // generate style
-        let style = document.createElement(`style`);
+        const style = document.createElement(`style`);
         style.append(`canvas {display:block;width: ` + this.width + `px;height: ` + this.height + `px;margin: 0px auto;}`);
         document.head.appendChild(style);
 

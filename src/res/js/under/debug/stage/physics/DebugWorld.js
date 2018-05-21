@@ -190,7 +190,7 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
         super.update(dt);
         // Change response (Q)
         if (Input.key.isPress(Input.key.a() + 16)) {
-            let response = this.world.getResponse();
+            const response = this.world.getResponse();
             if (response instanceof UnderRepulsionResponse) {
                 this.world.setResponse(new RepulsionResponse());
             } else {
@@ -200,14 +200,9 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
         }
         // Change wprld (W)
         if (Input.key.isPress(Input.key.a() + 22)) {
-            let world;
-            if (this.world instanceof SplitWorld) {
-                world = new SequentialWorld(this.gravity / 10000);
-            } else {
-                world = new SplitWorld(this.stageWidth, this.stageHeight, this.gravity / 10000);
-            }
+            const world = this.world instanceof SplitWorld ? new SequentialWorld(this.gravity / 10000) : new SplitWorld(this.stageWidth, this.stageHeight, this.gravity / 10000);
             world.setResponse(this.world.getResponse());
-            for (let it of this.world.entities) {
+            for (const it of this.world.entities) {
                 world.addEntity(it);
             }
             this.world = world;

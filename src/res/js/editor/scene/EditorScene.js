@@ -54,7 +54,7 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
      */
     init() {
         // set stage manager
-        let manager = new EditorStageManager();
+        const manager = new EditorStageManager();
         manager.setStageParser(new EditorStageParser());
         manager.setStageSize(GameScreen.it.width, GameScreen.it.height - 250);
         manager.pushStage(`map1`);
@@ -65,19 +65,19 @@ class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-v
         this.eventManager = new QueueEventManager();
 
         // make layer
-        let chipLayer = new ChipLayer();
-        let entityLayer = new EntityLayer();
-        let debug = new DebugLayer(new VolatileDebugger());
+        const chipLayer = new ChipLayer();
+        const entityLayer = new EntityLayer();
+        const debug = new DebugLayer(new VolatileDebugger());
         // set save data
         this.chipData = chipLayer;
         this.entityData = entityLayer;
 
         // make real layer
-        let chip = new FloatLayer(chipLayer);
-        let entity = new FloatLayer(new DragScrollLayer(entityLayer));
+        const chip = new FloatLayer(chipLayer);
+        const entity = new FloatLayer(new DragScrollLayer(entityLayer));
 
         // set information
-        let stage = this.stageManager.getStage();
+        const stage = this.stageManager.getStage();
         if (BaseUtil.implementsOf(stage, IEditable)) {
             stage.setTileSelection(chipLayer);
             stage.setEntitySelection(entityLayer);

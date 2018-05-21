@@ -180,7 +180,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      */
     prepare() {
         for (let i = 0; i < this.jointingList.length; ++i) {
-            let it = this.jointingList[i];
+            const it = this.jointingList[i];
             this.enableList[i] = it.enable;
             it.enable = false;
         }
@@ -203,24 +203,24 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         const milisec2 = milisec * milisec;
         const elim = 1;
         // generate element
-        let world = this.entity.stage.getPhysicalWorld();
+        const world = this.entity.stage.getPhysicalWorld();
         // generate list
-        let dxList = new Array(listLength);
-        let dyList = new Array(listLength);
-        let willXList = [];
+        const dxList = new Array(listLength);
+        const dyList = new Array(listLength);
+        const willXList = [];
         willXList.push(new Array(listLength));
         willXList.push(new Array(listLength));
-        let willYList = [];
+        const willYList = [];
         willYList.push(new Array(listLength));
         willYList.push(new Array(listLength));
-        let pxList = new Array(listLength);
-        let pyList = new Array(listLength);
-        let movedList = new Array(listLength);
-        let xRepulsionList = new Array(listLength);
-        let yRepulsionList = new Array(listLength);
+        const pxList = new Array(listLength);
+        const pyList = new Array(listLength);
+        const movedList = new Array(listLength);
+        const xRepulsionList = new Array(listLength);
+        const yRepulsionList = new Array(listLength);
         // initialize
         for (let i = 0; i < listLength; ++i) {
-            let it = this.jointingList[i];
+            const it = this.jointingList[i];
             // update information
             if (this.enableList[i]) {
                 it.updateInfo(dt);
@@ -238,8 +238,8 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             yRepulsionList[i] = false;
             // check collision
             if (this.enableList[i]) {
-                let data = world.getCollisionData(it.entity.collider);
-                for (let col of data) {
+                const data = world.getCollisionData(it.entity.collider);
+                for (const col of data) {
                     if (!col.colliding.collider.isResponse(col.collided.collider) || !col.collided.collider.isResponse(col.colliding.collider)) {
                         continue;
                     }
@@ -272,20 +272,20 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             isLoop = false;
             for (let i = 0; i < listLength - 1; ++i) {
                 // check length
-                let length = this.jointingLengthList[i + 1] + this.jointingLengthList[i];
-                let dx = willXList[0][i + 1] - willXList[0][i];
-                let dy = willYList[0][i + 1] - willYList[0][i];
-                let d2 = dx * dx + dy * dy;
+                const length = this.jointingLengthList[i + 1] + this.jointingLengthList[i];
+                const dx = willXList[0][i + 1] - willXList[0][i];
+                const dy = willYList[0][i + 1] - willYList[0][i];
+                const d2 = dx * dx + dy * dy;
                 if ((d2 - length * length) < elim || d2 === 0) {
                     continue;
                 }
                 // set power
-                let m1 = this.jointingList[i].entity.material.mass;
-                let m2 = this.jointingList[i + 1].entity.material.mass;
-                let d = Math.sqrt(d2);
-                let power = (d - length) * this.k;
-                let px = power * dx / d;
-                let py = power * dy / d;
+                const m1 = this.jointingList[i].entity.material.mass;
+                const m2 = this.jointingList[i + 1].entity.material.mass;
+                const d = Math.sqrt(d2);
+                const power = (d - length) * this.k;
+                const px = power * dx / d;
+                const py = power * dy / d;
                 // move by power
                 if (this.enableList[i]) {
                     willXList[1][i] += px * milisec2 / m1;
@@ -308,12 +308,12 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             // move and check collision
             for (let i = 0; i < listLength; ++i) {
                 if (movedList[i]) {
-                    let it = this.jointingList[i];
+                    const it = this.jointingList[i];
                     // move
                     it.entity.deltaMove(willXList[1][i] - it.entity.x - dxList[i], willYList[1][i] - it.entity.y - dyList[i]);
                     // check collision
-                    let data = world.getCollisionData(it.entity.collider);
-                    for (let col of data) {
+                    const data = world.getCollisionData(it.entity.collider);
+                    for (const col of data) {
                         if (!col.colliding.collider.isResponse(col.collided.collider) || !col.collided.collider.isResponse(col.colliding.collider)) {
                             continue;
                         }
@@ -342,7 +342,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
         }
         // cleaunp and update velocity
         for (let i = 0; i < listLength; ++i) {
-            let it = this.jointingList[i];
+            const it = this.jointingList[i];
             it.cleanup(dt);
             if (this.enableList[i]) {
                 it.enforce(pxList[i], pyList[i]);
@@ -353,7 +353,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             it.entity.collider.clear();
         }
         // update collision data
-        for (let it of collisions) {
+        for (const it of collisions) {
             it.colliding.collider.addCollision(it);
             it.collided.collider.addCollision(it);
         }
@@ -366,7 +366,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      */
     cleanup(dt) {
         for (let i = 0; i < this.jointingList.length; ++i) {
-            let it = this.jointingList[i];
+            const it = this.jointingList[i];
             it.enable = this.enableList[i];
         }
     }
@@ -410,7 +410,7 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
      * @param {RigidBody} body Joiting body
      */
     removeBody(body) {
-        let index = this.jointingList.indexOf(body);
+        const index = this.jointingList.indexOf(body);
         if (index >= 0) {
             this.jointingList.splice(index, 1);
             this.jointingXList.splice(index, 1);

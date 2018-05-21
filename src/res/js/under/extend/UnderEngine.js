@@ -34,7 +34,7 @@ class UnderEngine extends Engine { // eslint-disable-line  no-unused-vars
      * @protected
      */
     update() {
-        let newTime = +new Date();
+        const newTime = +new Date();
         this.timer.update(newTime - this.oldTime);
         this.input.update();
         // minimum delta time is 30 milisec

@@ -17,7 +17,7 @@ class SyringeTool extends EditorTool { // eslint-disable-line  no-unused-vars
         this.selectedX = Math.floor(x / 32) * 32;
         this.selectedY = Math.floor(y / 32) * 32;
         if (Input.mouse.isPressed(Input.mouse.mRight())) {
-            let target = this.editor.getTarget().getEditorEntity(this.selectedX, this.selectedY);
+            const target = this.editor.getTarget().getEditorEntity(this.selectedX, this.selectedY);
             if (target !== null) {
                 this.editor.setCurrentID(target.getID());
             }

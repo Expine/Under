@@ -27,7 +27,7 @@ class StackStageManager extends StageManager { // eslint-disable-line  no-unused
      * @param {string} stageName Stage name
      */
     pushStage(stageName) {
-        let stage = this.parser.parse(`src/res/stage/${stageName}.json`, this.width, this.height);
+        const stage = this.parser.parse(`src/res/stage/${stageName}.json`, this.width, this.height);
         this.stageStack.push(stage);
         stage.init();
     }

@@ -17,19 +17,19 @@ class PaintTool extends BaseTool { // eslint-disable-line  no-unused-vars
      */
     paint(x, y, id, preID) {
         this.editor.getTarget().paint(x, y, id);
-        let right = this.editor.getTarget().getEditorEntity(x + 32, y);
+        const right = this.editor.getTarget().getEditorEntity(x + 32, y);
         if (right !== null && right.getID() === preID) {
             this.paint(x + 32, y, id, preID);
         }
-        let left = this.editor.getTarget().getEditorEntity(x - 32, y);
+        const left = this.editor.getTarget().getEditorEntity(x - 32, y);
         if (left !== null && left.getID() === preID) {
             this.paint(x - 32, y, id, preID);
         }
-        let under = this.editor.getTarget().getEditorEntity(x, y + 32);
+        const under = this.editor.getTarget().getEditorEntity(x, y + 32);
         if (under !== null && under.getID() === preID) {
             this.paint(x, y + 32, id, preID);
         }
-        let top = this.editor.getTarget().getEditorEntity(x, y - 32);
+        const top = this.editor.getTarget().getEditorEntity(x, y - 32);
         if (top !== null && top.getID() === preID) {
             this.paint(x, y - 32, id, preID);
         }
@@ -54,9 +54,8 @@ class PaintTool extends BaseTool { // eslint-disable-line  no-unused-vars
     use(x, y, id) {
         super.use(x, y, id);
         if (id >= 0 && Input.mouse.isPressed(Input.mouse.mLeft())) {
-            let pre = this.editor.getTarget().getEditorEntity(this.selectedX, this.selectedY);
-            let preID = pre === null ? -1 : pre.getID();
-            this.paint(this.selectedX, this.selectedY, id, preID);
+            const pre = this.editor.getTarget().getEditorEntity(this.selectedX, this.selectedY);
+            this.paint(this.selectedX, this.selectedY, id, pre === null ? -1 : pre.getID());
         }
     }
 }

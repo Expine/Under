@@ -105,7 +105,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildImage(base, deploy, json) {
-        let image = this.tryReplace(deploy, json, `image`);
+        const image = this.tryReplace(deploy, json, `image`);
         if (image !== undefined) {
             base.setImage(this.makeImage(image));
         }
@@ -119,10 +119,10 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildPhysical(base, deploy, json) {
-        let colliderData = this.tryReplace(deploy, json, `collider`);
-        let materialData = this.tryReplace(deploy, json, `material`);
+        const colliderData = this.tryReplace(deploy, json, `collider`);
+        const materialData = this.tryReplace(deploy, json, `material`);
         // set collider
-        let collider = this.makeCollider(colliderData);
+        const collider = this.makeCollider(colliderData);
         if (collider !== null) {
             collider.enable = colliderData.enable === undefined ? true : colliderData.enable;
             collider.response = colliderData.response === undefined ? true : colliderData.response;
@@ -141,7 +141,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {Entity} Generated tile
      */
     build(deploy, json) {
-        let base = this.makeTileBase(deploy, json);
+        const base = this.makeTileBase(deploy, json);
         this.buildBase(base, deploy, json);
         if (base instanceof ImagedEntity) {
             this.buildImage(base, deploy, json);

@@ -57,8 +57,8 @@ class AreaBackground extends ImageBackground { // eslint-disable-line  no-unused
     render(ctx, shiftX, shiftY, screenWidth, screenHeight) {
         let x = -shiftX - this.x;
         let y = -shiftY - this.y;
-        let width = this.backImage.getWidth();
-        let height = this.backImage.getHeight();
+        const width = this.backImage.getWidth();
+        const height = this.backImage.getHeight();
         if (x <= 0) {
             x = this.x + shiftX;
         } else if (this.areaWidth - screenWidth <= -shiftX - this.x) {

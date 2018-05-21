@@ -47,9 +47,9 @@ class ChipLayer extends NamedTabbedLayer /* , ISelection, IEditorSave */ { // es
      */
     setSelectionInfo(info) {
         this.tileInfo = {};
-        for (let it in info) {
+        for (const it in info) {
             if (info.hasOwnProperty(it) && !isNaN(it)) {
-                let fileName = info[it].image.file;
+                const fileName = info[it].image.file;
                 if (this.tileInfo[fileName] === undefined) {
                     this.tileInfo[fileName] = {};
                 }
@@ -87,10 +87,10 @@ class ChipLayer extends NamedTabbedLayer /* , ISelection, IEditorSave */ { // es
      * @return {JSON} Json data for saving
      */
     getSaveData() {
-        let data = {};
+        const data = {};
         data.tiles = [];
         for (let i = 0; i < this.chipLayers.length; ++i) {
-            let tile = {};
+            const tile = {};
             tile.file = this.tabNames[i];
             tile.chips = this.chipLayers[i].getSaveData();
             data.tiles.push(tile);
@@ -103,10 +103,10 @@ class ChipLayer extends NamedTabbedLayer /* , ISelection, IEditorSave */ { // es
      * @override
      */
     init() {
-        for (let it in this.tileInfo) {
+        for (const it in this.tileInfo) {
             if (this.tileInfo.hasOwnProperty(it)) {
                 // create layer
-                let layer = new SingleChipLayer(it);
+                const layer = new SingleChipLayer(it);
                 layer.setSelectionInfo(this.tileInfo[it]);
                 this.chipLayers.push(layer);
                 this.addTabWithName(new DragScrollLayer(layer), it);

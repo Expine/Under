@@ -37,8 +37,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
-        let ret = new SplitManagementStage(stage.width, stage.height);
-        return ret;
+        return new SplitManagementStage(stage.width, stage.height);
     }
 
     /**
@@ -50,8 +49,8 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     makeBackground(back) {
         switch (back.type) {
             case `Sequential`:
-                let ret = new SequentialBackground();
-                for (let it of back.backs) {
+                const ret = new SequentialBackground();
+                for (const it of back.backs) {
                     ret.addBackground(this.makeBackground(it));
                 }
                 return ret;
@@ -106,8 +105,8 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
                 return new SplitWorld(stage.width, stage.height);
             case `gravity`:
                 {
-                    let ret = new VariableGravityWorld(stage.width, stage.height);
-                    for (let it of world.gravity) {
+                    const ret = new VariableGravityWorld(stage.width, stage.height);
+                    for (const it of world.gravity) {
                         ret.addGravity(it.x, it.y, it.delta);
                     }
                     return ret;
@@ -133,11 +132,11 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {EntityFactory} Entity factory
      */
     makeEntityFactory(stage) {
-        let ret = new JSONEntityFactory();
-        for (let it of stage.tiles) {
+        const ret = new JSONEntityFactory();
+        for (const it of stage.tiles) {
             ret.addTileInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
         }
-        for (let it of stage.entities) {
+        for (const it of stage.entities) {
             ret.addEntityInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
         }
         return ret;
@@ -153,9 +152,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      */
     parse(filePath, width, height) {
         // get stage file data
-        let stage = JSON.parse(Util.loadFile(filePath));
+        const stage = JSON.parse(Util.loadFile(filePath));
         // make stage
-        let base = this.makeBaseStage(stage);
+        const base = this.makeBaseStage(stage);
         base.setBackground(this.makeBackground(stage.background));
         base.setCamera(this.makeBaseCamera(stage.camera));
         base.getCamera().setScreenSize(width, height);
@@ -165,8 +164,8 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
         base.setFactory(this.makeEntityFactory(stage));
         let layerIndex = 0;
         // make tile
-        for (let layer of stage.layers) {
-            for (let chip of layer) {
+        for (const layer of stage.layers) {
+            for (const chip of layer) {
                 if (chip.z === undefined) {
                     chip.z = layerIndex;
                 }
@@ -175,7 +174,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
             layerIndex += 1;
         }
         // make entity
-        for (let entity of stage.deploy) {
+        for (const entity of stage.deploy) {
             if (entity.z === undefined) {
                 entity.z = layerIndex;
             }

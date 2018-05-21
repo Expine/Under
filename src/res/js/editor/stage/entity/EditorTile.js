@@ -115,7 +115,7 @@ class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-d
      * @return {JSON} Json data for saving
      */
     getSaveData() {
-        let ret = {};
+        const ret = {};
         this.buildBaseData(ret);
         return ret;
     }

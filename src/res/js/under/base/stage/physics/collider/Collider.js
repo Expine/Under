@@ -137,8 +137,8 @@ class Collider { // eslint-disable-line  no-unused-vars
         if (!this.enable) {
             return false;
         }
-        let me = this.getAABB();
-        let you = collider.getAABB();
+        const me = this.getAABB();
+        const you = collider.getAABB();
         return me.endX >= you.startX && you.endX >= me.startX && me.endY >= you.startY && you.endY >= me.startY;
     }
 

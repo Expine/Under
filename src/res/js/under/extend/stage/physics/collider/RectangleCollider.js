@@ -65,10 +65,10 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
         if (collider instanceof RoundRectangleCollider) {
             return collider.isCollision(this, data);
         } else if (collider instanceof RectangleCollider) {
-            let sx = this.aabb.endX - collider.aabb.startX;
-            let ex = this.aabb.startX - collider.aabb.endX;
-            let sy = this.aabb.endY - collider.aabb.startY;
-            let ey = this.aabb.startY - collider.aabb.endY;
+            const sx = this.aabb.endX - collider.aabb.startX;
+            const ex = this.aabb.startX - collider.aabb.endX;
+            const sy = this.aabb.endY - collider.aabb.startY;
+            const ey = this.aabb.startY - collider.aabb.endY;
             if (0 < sx && ex < 0 && 0 < sy && ey < 0) {
                 if (data !== null) {
                     let me = this.entity;
@@ -77,7 +77,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
                     let ny = Math.abs(sy) < Math.abs(ey) ? sy : ey;
                     let depth = 0;
                     if (me instanceof MutableEntity && me.body.velocityX * nx + me.body.velocityY * ny > 0) {} else if (you instanceof MutableEntity && you.body.velocityX * nx + you.body.velocityY * ny < 0) {
-                        let swap = me;
+                        const swap = me;
                         me = you;
                         you = swap;
                         nx = -nx;
@@ -102,8 +102,8 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
                         nx = 0;
                         ny = Math.sign(ny);
                     }
-                    let px = me.x + nx * depth;
-                    let py = me.y + ny * depth;
+                    const px = me.x + nx * depth;
+                    const py = me.y + ny * depth;
                     data.register(me, you, nx, ny, px, py, depth);
                 }
                 return true;
@@ -153,7 +153,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
         // collision
         let me = 0;
         let you = 0;
-        for (let it of this.collisions) {
+        for (const it of this.collisions) {
             if (it.colliding === this.entity) {
                 me += 1;
             } else {
@@ -165,7 +165,7 @@ class RectangleCollider extends Collider { // eslint-disable-line  no-unused-var
             ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`);
         }
         // vector
-        for (let it of this.collisions) {
+        for (const it of this.collisions) {
             if (it.collided === this.entity) {
                 continue;
             }

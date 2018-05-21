@@ -12,25 +12,25 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
      */
     collisionResponse(data, dt) {
         // set data
-        let e1 = data.colliding;
-        let e2 = data.collided;
-        let b1 = e1.body;
+        const e1 = data.colliding;
+        const e2 = data.collided;
+        const b1 = e1.body;
         let b2 = null;
-        let nx = data.nx;
-        let ny = data.ny;
-        let d = data.depth;
+        const nx = data.nx;
+        const ny = data.ny;
+        const d = data.depth;
         // only push back if not actively colliding
         if (b1.velocityX * nx + b1.velocityY * ny <= 0) {
             if (d < 1.0e-4) {
                 return;
             }
             if (e2 instanceof MutableEntity) {
-                let nm1 = d / 5;
-                let n1x = -nx * nm1;
-                let n1y = -ny * nm1;
-                let nm2 = d / 100;
-                let n2x = nx * nm2;
-                let n2y = ny * nm2;
+                const nm1 = d / 5;
+                const n1x = -nx * nm1;
+                const n1y = -ny * nm1;
+                const nm2 = d / 100;
+                const n2x = nx * nm2;
+                const n2y = ny * nm2;
                 // push back
                 let i = 0;
                 while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
@@ -40,8 +40,8 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
             } else {
                 // push back
                 let i = 0;
-                let n1x = -nx * d / 10;
-                let n1y = -ny * d / 10;
+                const n1x = -nx * d / 10;
+                const n1y = -ny * d / 10;
                 while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                     e1.deltaMove(n1x, n1y);
                 }
@@ -56,23 +56,23 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
         let vdy2 = 0;
         if (e2 instanceof MutableEntity && (ny < 1 || b1.velocityX * e2.body.velocityX + b1.velocityY * e2.body.velocityY < 0)) {
             b2 = e2.body;
-            let dot1 = b1.velocityX * nx + b1.velocityY * ny;
-            let dot2 = b2.velocityX * nx + b2.velocityY * ny;
-            let v1x = dot1 * nx;
-            let v1y = dot1 * ny;
-            let v2x = dot2 * nx;
-            let v2y = dot2 * ny;
-            let v1 = v1x * v1x + v1y * v1y;
-            let v2 = v2x * v2x + v2y * v2y;
+            const dot1 = b1.velocityX * nx + b1.velocityY * ny;
+            const dot2 = b2.velocityX * nx + b2.velocityY * ny;
+            const v1x = dot1 * nx;
+            const v1y = dot1 * ny;
+            const v2x = dot2 * nx;
+            const v2y = dot2 * ny;
+            const v1 = v1x * v1x + v1y * v1y;
+            const v2 = v2x * v2x + v2y * v2y;
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
-                let nm1 = d / 5;
-                let n1x = -nx * nm1;
-                let n1y = -ny * nm1;
-                let nm2 = d / 100;
-                let n2x = b2.isFixX ? 0 : nx * nm2;
-                let n2y = b2.isFixY ? 0 : ny * nm2;
+                const nm1 = d / 5;
+                const n1x = -nx * nm1;
+                const n1y = -ny * nm1;
+                const nm2 = d / 100;
+                const n2x = b2.isFixX ? 0 : nx * nm2;
+                const n2y = b2.isFixY ? 0 : ny * nm2;
                 while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                     e1.deltaMove(n1x, n1y);
                     e2.deltaMove(n2x, n2y);
@@ -83,15 +83,15 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
                 return;
             }
             // repulsion
-            let e = (e1.material.e + e2.material.e) / 2;
+            const e = (e1.material.e + e2.material.e) / 2;
             vdx1 = (v2x - v1x) * (1 + e) * (e2.material.mass) / (e1.material.mass + e2.material.mass);
             vdy1 = (v2y - v1y) * (1 + e) * (e2.material.mass) / (e1.material.mass + e2.material.mass);
             vdx2 = -(v2x - v1x) * (1 + e) * (e1.material.mass) / (e1.material.mass + e2.material.mass);
             vdy2 = -(v2y - v1y) * (1 + e) * (e1.material.mass) / (e1.material.mass + e2.material.mass);
         } else {
-            let dot1 = b1.velocityX * nx + b1.velocityY * ny;
-            let v1x = dot1 * nx;
-            let v1y = dot1 * ny;
+            const dot1 = b1.velocityX * nx + b1.velocityY * ny;
+            const v1x = dot1 * nx;
+            const v1y = dot1 * ny;
             // push back
             if (d > 1.0e-4) {
                 let i = 0;
@@ -100,7 +100,7 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
                 }
             }
             // repulsion
-            let e = e2.material.e;
+            const e = e2.material.e;
             vdx1 = -v1x * (1 + e);
             vdy1 = -v1y * (1 + e);
         }
@@ -108,16 +108,16 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
         // friction
         if (e1.collider.getAABB().startY < e2.collider.getAABB().startY) {
             // e1 on e2
-            let mu = e2.material.mu;
-            let dotp = b1.accelerationX * nx + b1.accelerationY * ny;
-            let px = dotp * nx;
-            let py = dotp * ny;
-            let p = Math.sqrt(px * px + py * py);
+            const mu = e2.material.mu;
+            const dotp = b1.accelerationX * nx + b1.accelerationY * ny;
+            const px = dotp * nx;
+            const py = dotp * ny;
+            const p = Math.sqrt(px * px + py * py);
             let dvx = 0;
             let dvy = 0;
-            let ovx = (b2 === null || b2.isFixX || b2.diffX * b2.velocityX < 0) ? b1.velocityX : b1.diffX - b2.diffX;
-            let ovy = (b2 === null || b2.isFixY || b2.diffY * b2.velocityY < 0) ? b1.velocityY : b1.diffY - b2.diffY;
-            let dot = Math.sign(ovx * -ny + ovy * nx);
+            const ovx = (b2 === null || b2.isFixX || b2.diffX * b2.velocityX < 0) ? b1.velocityX : b1.diffX - b2.diffX;
+            const ovy = (b2 === null || b2.isFixY || b2.diffY * b2.velocityY < 0) ? b1.velocityY : b1.diffY - b2.diffY;
+            const dot = Math.sign(ovx * -ny + ovy * nx);
             dvx = dot * -ny * p * mu * dt / 1000;
             dvy = dot * nx * p * mu * dt / 1000;
             if (ovx === b1.velocityX && Math.abs(dvx) > Math.abs(b1.velocityX)) {
@@ -131,16 +131,16 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
             vdy1 -= dvy < 0 ? 0 : dvy * b1.material.frictionY;
         } else if (b2 !== null) {
             // e2 on e1
-            let mu = e1.material.mu;
-            let dotp = b2.accelerationX * nx + b2.accelerationY * ny;
-            let px = dotp * nx;
-            let py = dotp * ny;
-            let p = Math.sqrt(px * px + py * py);
+            const mu = e1.material.mu;
+            const dotp = b2.accelerationX * nx + b2.accelerationY * ny;
+            const px = dotp * nx;
+            const py = dotp * ny;
+            const p = Math.sqrt(px * px + py * py);
             let dvx = 0;
             let dvy = 0;
-            let ovx = (b1.isFixX || b1.diffX * b1.velocityX < 0) ? b2.velocityX : b2.diffX - b1.diffX;
-            let ovy = (b1.isFixY || b1.diffY * b1.velocityY < 0) ? b2.velocityY : b2.diffY - b1.diffY;
-            let dot = Math.sign(ovx * -ny + ovy * nx);
+            const ovx = (b1.isFixX || b1.diffX * b1.velocityX < 0) ? b2.velocityX : b2.diffX - b1.diffX;
+            const ovy = (b1.isFixY || b1.diffY * b1.velocityY < 0) ? b2.velocityY : b2.diffY - b1.diffY;
+            const dot = Math.sign(ovx * -ny + ovy * nx);
             dvx = dot * -ny * p * mu * dt / 1000;
             dvy = dot * nx * p * mu * dt / 1000;
             if (ovx === b2.velocityX && Math.abs(dvx) > Math.abs(b2.velocityX)) {

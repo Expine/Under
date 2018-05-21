@@ -44,7 +44,7 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
      * @return {PhysicalWorld} Physical world instance for base of parsing
      */
     makeBaseWorld() {
-        let world = new SequentialWorld();
+        const world = new SequentialWorld();
         world.setResponse(new RepulsionResponse());
         return world;
     }
@@ -64,7 +64,7 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
      * @return {TileObject} Tile object
      */
     makeTileObject(verticalId, horizontalId, tileWidth, tileHeight, x, y, width, height, imageID) {
-        let tile = new TileObject(horizontalId * tileWidth, verticalId * tileHeight, tileWidth, tileHeight, x, y, width, height, imageID);
+        const tile = new TileObject(horizontalId * tileWidth, verticalId * tileHeight, tileWidth, tileHeight, x, y, width, height, imageID);
         tile.setCollider(new RectangleCollider(0, 0, width, height));
         tile.setMaterial(new ImmutableMaterial());
         return tile;
@@ -80,32 +80,32 @@ class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-var
      */
     parse(filePath, width, height) {
         // Load stage file
-        let req = new XMLHttpRequest();
+        const req = new XMLHttpRequest();
         req.open(`GET`, filePath, false);
         req.send(null);
         // get stage file data
-        let lines = req.responseText.split(`\n`);
-        let stageBaseData = lines[0].split(`,`);
-        let tileBaseData = lines[1].split(`,`);
-        let stageData = lines[2].split(`,`);
+        const lines = req.responseText.split(`\n`);
+        const stageBaseData = lines[0].split(`,`);
+        const tileBaseData = lines[1].split(`,`);
+        const stageData = lines[2].split(`,`);
         // set base data
-        let backID = ResourceManager.image.load(`back/` + stageBaseData[0]);
-        let stageWidth = parseInt(stageBaseData[1]);
-        let stageHeight = parseInt(stageBaseData[2]);
-        let tileID = ResourceManager.image.load(`tile/` + tileBaseData[0]);
-        let tileWidth = parseInt(tileBaseData[1]);
-        let tileHeight = parseInt(tileBaseData[2]);
-        let tileHorizontalNumber = parseInt(tileBaseData[3]);
+        const backID = ResourceManager.image.load(`back/` + stageBaseData[0]);
+        const stageWidth = parseInt(stageBaseData[1]);
+        const stageHeight = parseInt(stageBaseData[2]);
+        const tileID = ResourceManager.image.load(`tile/` + tileBaseData[0]);
+        const tileWidth = parseInt(tileBaseData[1]);
+        const tileHeight = parseInt(tileBaseData[2]);
+        const tileHorizontalNumber = parseInt(tileBaseData[3]);
 
         // set base
-        let stage = this.makeBaseStage(stageWidth * tileWidth, stageHeight * tileHeight);
+        const stage = this.makeBaseStage(stageWidth * tileWidth, stageHeight * tileHeight);
         stage.setBackground(this.makeBaseBackground(backID));
         stage.setCamera(this.makeBaseCamera(width, height));
         stage.setPhysicalWorld(this.makeBaseWorld());
         // set tile
-        for (let y = 0; y < stageHeight; ++y) {
-            for (let x = 0; x < stageWidth; ++x) {
-                let id = parseInt(stageData[x + y * stageWidth]);
+        for (const y = 0; y < stageHeight; ++y) {
+            for (const x = 0; x < stageWidth; ++x) {
+                const id = parseInt(stageData[x + y * stageWidth]);
                 if (id > -1) {
                     stage.addEntity(this.makeTileObject(Math.floor(id / tileHorizontalNumber), id % tileHorizontalNumber, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight, tileID));
                 }

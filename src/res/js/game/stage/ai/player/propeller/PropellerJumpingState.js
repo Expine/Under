@@ -39,7 +39,7 @@ class PropellerJumpingState extends UnderMovableState { // eslint-disable-line  
      */
     moveY(vy, dt) {
         if (this.entity.body.velocityY * vy < 0 || Math.abs(this.entity.body.velocityY) < Math.abs(this.maxVelocityY)) {
-            let power = vy === 1 ? this.movePowerY / 10 : this.movePowerY;
+            const power = vy === 1 ? this.movePowerY / 10 : this.movePowerY;
             this.entity.body.enforce(0, power * this.entity.material.mass * vy / dt);
         }
     }
@@ -53,7 +53,7 @@ class PropellerJumpingState extends UnderMovableState { // eslint-disable-line  
         if (this.entity.getImage() instanceof GameAnimation) {
             this.entity.getImage().restore();
         }
-        let aabb = this.entity.collider.getAABB();
+        const aabb = this.entity.collider.getAABB();
         this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY - this.propellerDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
     }
 
@@ -80,7 +80,7 @@ class PropellerJumpingState extends UnderMovableState { // eslint-disable-line  
         if (Util.onGround(this.entity)) {
             this.transitionUsualState();
             // restore
-            let aabb = this.entity.collider.getAABB();
+            const aabb = this.entity.collider.getAABB();
             this.entity.collider.fixBound(aabb.startX - this.entity.x, aabb.startY + this.propellerDiffY - this.entity.y, aabb.endX - this.entity.x, aabb.endY - this.entity.y);
         }
         return true;

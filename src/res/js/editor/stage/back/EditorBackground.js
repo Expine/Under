@@ -41,29 +41,29 @@ class EditorBackground extends Background /* , IEditorSave */ { // eslint-disabl
      * @return {JSON} Image json data
      */
     getImageData(image) {
-        let ret = {};
-        let id = 0;
+        const ret = {};
+        const id = 0;
         if (image instanceof MultiNamedAnimation) {
             ret.type = `multianime`;
             ret.animations = [];
-            for (let it in image.animation) {
+            for (const it in image.animation) {
                 if (image.animation.hasOwnProperty(it)) {
-                    let anime = image.animation[it];
+                    const anime = image.animation[it];
                     if (anime instanceof SingleAnimation) {
                         let width = 0;
                         let height = 0;
-                        let animeData = {};
+                        const animeData = {};
                         animeData.name = it;
                         if (anime.loop) {
                             animeData.loop = anime.loop;
                         }
                         animeData.animaton = [];
-                        for (let e of anime.animation) {
+                        for (const e of anime.animation) {
                             if (e instanceof TileImage) {
                                 id = e.imageID;
                                 width = e.width;
                                 height = e.height;
-                                let data = {};
+                                const data = {};
                                 data.x = e.srcX;
                                 data.y = e.srcY;
                                 data.width = e.srcW;
@@ -83,9 +83,9 @@ class EditorBackground extends Background /* , IEditorSave */ { // eslint-disabl
                 ret.loop = image.loop;
             }
             ret.animation = [];
-            for (let it of image.animation) {
+            for (const it of image.animation) {
                 if (it instanceof TileImage) {
-                    let data = {};
+                    const data = {};
                     data.x = it.srcX;
                     data.y = it.srcY;
                     data.width = it.srcW;
@@ -117,14 +117,14 @@ class EditorBackground extends Background /* , IEditorSave */ { // eslint-disabl
      * @return {JSON} Json data
      */
     unparse(back) {
-        let ret = {};
+        const ret = {};
         if (back instanceof EditorBackground) {
             back = back.baseBackground;
         }
         if (back instanceof SequentialBackground) {
             ret.type = `Sequential`;
             ret.backs = [];
-            for (let it of back.backs) {
+            for (const it of back.backs) {
                 ret.backs.push(this.unparse(it));
             }
         } else if (back instanceof InvariantBackground) {

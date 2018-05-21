@@ -16,7 +16,7 @@ class PreciseBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
         // move
         let dx = this.velocityX * dt / 1000;
         let dy = this.velocityY * dt / 1000;
-        let max = Math.floor(Math.max(Math.abs(dx), Math.abs(dy)));
+        const max = Math.floor(Math.max(Math.abs(dx), Math.abs(dy)));
         // move slightly
         if (max === 0) {
             this.entity.deltaMove(dx, dy);
@@ -24,7 +24,7 @@ class PreciseBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
         }
         for (let i = 0; i < max; ++i) {
             this.entity.deltaMove(dx / max, dy / max);
-            for (let it of this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider)) {
+            for (const it of this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider)) {
                 if (it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider)) {
                     if (it.nx * dx > 0) {
                         dx = 0;

@@ -53,7 +53,7 @@ class RecordedTimer extends SimpleTimer { // eslint-disable-line  no-unused-vars
      */
     update(dt) {
         super.update(dt);
-        for (let it in this.namedTimer) {
+        for (const it in this.namedTimer) {
             if (this.namedTimer.hasOwnProperty(it)) {
                 if (this.recordedTime[it] === undefined) {
                     this.recordedTime[it] = [];
@@ -66,12 +66,12 @@ class RecordedTimer extends SimpleTimer { // eslint-disable-line  no-unused-vars
         this.elapsedTime += dt;
         if (this.elapsedTime > 1000) {
             this.elapsedTime -= 1000;
-            for (let it in this.recordedTime) {
+            for (const it in this.recordedTime) {
                 if (this.recordedTime.hasOwnProperty(it)) {
                     this.maxTime[it] = 0;
                     this.minTime[it] = Number.MAX_SAFE_INTEGER;
                     this.meanTime[it] = 0;
-                    for (let e of this.recordedTime[it]) {
+                    for (const e of this.recordedTime[it]) {
                         this.maxTime[it] = Math.max(this.maxTime[it], e);
                         this.minTime[it] = Math.min(this.minTime[it], e);
                         this.meanTime[it] += e;
@@ -91,11 +91,11 @@ class RecordedTimer extends SimpleTimer { // eslint-disable-line  no-unused-vars
      * @param {number} y Timer y position
      */
     render(ctx, x, y) {
-        for (let name in this.namedTimer) {
+        for (const name in this.namedTimer) {
             if (this.namedTimer.hasOwnProperty(name)) {
-                let max = this.maxTime[name] === undefined ? 0 : this.maxTime[name];
-                let min = this.minTime[name] === undefined ? 0 : this.minTime[name];
-                let mean = this.meanTime[name] === undefined ? 0 : this.meanTime[name];
+                const max = this.maxTime[name] === undefined ? 0 : this.maxTime[name];
+                const min = this.minTime[name] === undefined ? 0 : this.minTime[name];
+                const mean = this.meanTime[name] === undefined ? 0 : this.meanTime[name];
                 ctx.fillText(`${name} : ${max} - ${min} (${mean}) msec`, x, y, 0.0, 0.0, 20, `white`);
                 y += 30;
             }

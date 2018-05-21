@@ -201,7 +201,7 @@ class JSContext extends Context { // eslint-disable-line  no-unused-vars
      * @param {number} srcH Source height
      */
     drawImage(imageID, x, y, width, height, srcX, srcY, srcW, srcH) {
-        let image = this.image.getImage(imageID);
+        const image = this.image.getImage(imageID);
         x = Math.round(x);
         y = Math.round(y);
         if (width === undefined) {

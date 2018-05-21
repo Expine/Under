@@ -60,7 +60,7 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
 
         // initialize layer
         this.clearLayer();
-        let ui = new UILayer(this.stageManager.getStage());
+        const ui = new UILayer(this.stageManager.getStage());
         ui.setPosition(0, 0);
         ui.setSize(GameScreen.it.width, GameScreen.it.height);
         this.addLayer(ui);
@@ -75,7 +75,7 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
     update(dt) {
         // gameover
         if (this.player.isGameover() && !this.gameover) {
-            let layer = new GameoverLayer();
+            const layer = new GameoverLayer();
             layer.setPosition(0, 0, 1);
             layer.setSize(GameScreen.it.width, GameScreen.it.height);
             this.addLayer(layer);

@@ -82,8 +82,8 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
      */
     init() {
         // apply relative position
-        let x = this.entity.x;
-        let y = this.entity.y;
+        const x = this.entity.x;
+        const y = this.entity.y;
         for (let i = 0; i < this.elevatorXList.length; ++i) {
             x += this.elevatorXList[i];
             y += this.elevatorYList[i];
@@ -101,8 +101,8 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
     apply(dt) {
         let localCheck = false;
         // check on ground
-        for (let it of this.entity.collider.collisions) {
-            let you = Util.getCollidedEntity(this.entity, it);
+        for (const it of this.entity.collider.collisions) {
+            const you = Util.getCollidedEntity(this.entity, it);
             if (BaseUtil.implementsOf(you, IPlayable)) {
                 if (!this.isMoving && !this.onPlayer) {
                     // move next floor
@@ -123,7 +123,7 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
         if (this.isMoving) {
             let dx = this.elevatorXList[this.floor] - this.entity.x;
             let dy = this.elevatorYList[this.floor] - this.entity.y;
-            let d = Math.sqrt(dx * dx + dy * dy);
+            const d = Math.sqrt(dx * dx + dy * dy);
             if (dx * this.entity.directionX < 0) {
                 dx = 0;
                 this.entity.directionX = 0;
@@ -140,8 +140,8 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
             }
             this.entity.directionX = Math.sign(dx);
             this.entity.directionY = Math.sign(dy);
-            let fx = Math.abs(this.entity.body.velocityX) < this.maxVelocity ? dx / d * this.movePower * this.entity.material.mass : 0;
-            let fy = Math.abs(this.entity.body.velocityY) < this.maxVelocity ? dy / d * this.movePower * this.entity.material.mass : 0;
+            const fx = Math.abs(this.entity.body.velocityX) < this.maxVelocity ? dx / d * this.movePower * this.entity.material.mass : 0;
+            const fy = Math.abs(this.entity.body.velocityY) < this.maxVelocity ? dy / d * this.movePower * this.entity.material.mass : 0;
             this.entity.body.enforce(fx, fy);
         }
         return true;

@@ -40,7 +40,7 @@ class Interface { // eslint-disable-line  no-unused-vars
     addMethodsAutomatically() {
         let proto = this.__proto__;
         while (proto !== null) {
-            for (let it of Object.getOwnPropertyNames(proto)) {
+            for (const it of Object.getOwnPropertyNames(proto)) {
                 // If it traces up to Interface, it ends
                 if (it === `constructor`) {
                     if (proto[it] === Interface) {
@@ -53,7 +53,7 @@ class Interface { // eslint-disable-line  no-unused-vars
                     this.addMethod(proto[it]);
                 }
                 // add getter and setter
-                let disc = Object.getOwnPropertyDescriptor(proto, it);
+                const disc = Object.getOwnPropertyDescriptor(proto, it);
                 if (disc !== undefined) {
                     if (disc.get !== undefined) {
                         this._getters.push(it);
@@ -86,18 +86,18 @@ class Interface { // eslint-disable-line  no-unused-vars
             return false;
         }
         // check method
-        for (let it of this._methods) {
+        for (const it of this._methods) {
             if (instance[it.name] instanceof Function && instance[it.name].length === it.length) {
                 continue;
             }
             return false;
         }
         // check getter
-        for (let it of this._getters) {
+        for (const it of this._getters) {
             let proto = instance.__proto__;
             let exists = false;
             while (proto !== null) {
-                let disc = Object.getOwnPropertyDescriptor(proto, it);
+                const disc = Object.getOwnPropertyDescriptor(proto, it);
                 if (disc !== undefined && disc.get !== undefined) {
                     exists = true;
                     break;
@@ -110,11 +110,11 @@ class Interface { // eslint-disable-line  no-unused-vars
             return false;
         }
         // check setter
-        for (let it of this._setters) {
+        for (const it of this._setters) {
             let proto = instance.__proto__;
             let exists = false;
             while (proto !== null) {
-                let disc = Object.getOwnPropertyDescriptor(proto, it);
+                const disc = Object.getOwnPropertyDescriptor(proto, it);
                 if (disc !== undefined && disc.set !== undefined) {
                     exists = true;
                     break;

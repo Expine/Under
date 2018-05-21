@@ -80,17 +80,17 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      */
     restore() {
         // remove not tile object
-        let removeList = [];
-        for (let it of this.editorEntities) {
+        const removeList = [];
+        for (const it of this.editorEntities) {
             if (it.isDeployer()) {
                 removeList.push(it);
             }
         }
-        for (let it of removeList) {
+        for (const it of removeList) {
             this.removeEntityImmediately(it.getEntity());
         }
         // add saved object
-        for (let it of this.saveData.deploy) {
+        for (const it of this.saveData.deploy) {
             this.addEntityByID(it.id, it);
         }
         EventManager.it.clear();
@@ -102,7 +102,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @return {JSON} Json data for saving
      */
     getSaveData() {
-        let data = {};
+        const data = {};
         data.width = this.getStageWidth();
         data.height = this.getStageHeight();
         if (BaseUtil.implementsOf(this.stage.back, IEditorSave)) {
@@ -119,7 +119,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         data.layers = [];
         data.layers.push([]);
         data.deploy = [];
-        for (let it of this.editorEntities) {
+        for (const it of this.editorEntities) {
             // set
             if (it.isDeployer()) {
                 data.deploy.push(it.getSaveData());
@@ -147,7 +147,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @param {ISelection} selection Tile selection
      */
     setTileSelection(selection) {
-        let factory = this.getFactory();
+        const factory = this.getFactory();
         if (BaseUtil.implementsOf(factory, IEditorInfo)) {
             selection.setSelectionInfo(factory.getTileInfo());
         }
@@ -160,7 +160,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @param {ISelection} selection Entity selection
      */
     setEntitySelection(selection) {
-        let factory = this.getFactory();
+        const factory = this.getFactory();
         if (BaseUtil.implementsOf(factory, IEditorInfo)) {
             selection.setSelectionInfo(factory.getEntityInfo());
         }
@@ -177,12 +177,12 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
     paint(x, y, id) {
         let replaceTile = true;
         if (id !== -1) {
-            let willEntity = this.getFactory().createEntity(id);
+            const willEntity = this.getFactory().createEntity(id);
             replaceTile = !BaseUtil.implementsOf(willEntity, IEditorEntity) || !willEntity.isDeployer();
         }
         // remove
-        for (let it of this.editorEntities) {
-            let entity = it.getEntity();
+        for (const it of this.editorEntities) {
+            const entity = it.getEntity();
             if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
                 if (it.isDeployer() || replaceTile) {
                     this.removeEntityImmediately(entity);
@@ -191,12 +191,11 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         }
         // deploy
         if (id !== -1) {
-            let deploy = {
+            this.addEntityByID(id, {
                 x: x,
                 y: y,
                 z: 0,
-            };
-            this.addEntityByID(id, deploy);
+            });
         }
     }
 
@@ -208,8 +207,8 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @return {IEditorEntity} Editor entity
      */
     getEditorEntity(x, y) {
-        for (let it of this.editorEntities) {
-            let entity = it.getEntity();
+        for (const it of this.editorEntities) {
+            const entity = it.getEntity();
             if (entity.x <= x && x < entity.x + entity.width && entity.y <= y && y < entity.y + entity.height) {
                 return it;
             }
@@ -221,10 +220,10 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * Add entity to stage by ID
      * @param {Object} id Added entity ID
      * @param {JSON} deploy Deploy json data
-     * @param {Function<((Entity) => void)>} init Initialize function
+     * @param {Function<((Entity) => void)>} [init=null] Initialize function
      * @return {Entity} Added entity
      */
-    addEntityByID(id, deploy, init) {
+    addEntityByID(id, deploy, init = null) {
         let ret = super.addEntityByID(id, deploy, (it) => {
             if (init !== null && BaseUtil.implementsOf(it, IEditorEntity)) {
                 init(it.getEntity());
@@ -254,7 +253,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @param {Entity} entity Entity object
      */
     removeEntity(entity) {
-        let index = this.editorEntities.findIndex((it) => it.equals(entity));
+        const index = this.editorEntities.findIndex((it) => it.equals(entity));
         if (index >= 0) {
             this.editorEntities.splice(index, 1);
         }
@@ -268,7 +267,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * @param {Entity} entity Entity object
      */
     removeEntityImmediately(entity) {
-        let index = this.editorEntities.findIndex((it) => it.equals(entity));
+        const index = this.editorEntities.findIndex((it) => it.equals(entity));
         if (index >= 0) {
             this.editorEntities.splice(index, 1);
         }
@@ -286,9 +285,9 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
 
         // move camera to player (E)
         if (!this.playMode && Input.key.isPress(Input.key.a() + 4)) {
-            let player = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
+            const player = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
             if (player.length > 0) {
-                let p = player[0];
+                const p = player[0];
                 this.getCamera().init(p.getCameraX(), p.getCameraY());
             }
         }
@@ -321,8 +320,8 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         this.stage.setEnable(true);
 
         // update editor
-        let x = Input.mouse.getMouseX() - this.getCamera().baseX - this.getCamera().cameraX;
-        let y = Input.mouse.getMouseY() - this.getCamera().baseY - this.getCamera().cameraY;
+        const x = Input.mouse.getMouseX() - this.getCamera().baseX - this.getCamera().cameraX;
+        const y = Input.mouse.getMouseY() - this.getCamera().baseY - this.getCamera().cameraY;
         // check camera position
         if (x + 32 >= -this.stage.camera.cameraX && x < this.stage.camera.screenWidth - this.stage.camera.cameraX && y + 32 >= -this.stage.camera.cameraY && y < this.stage.camera.screenHeight - this.stage.camera.cameraY) {
             // check background position

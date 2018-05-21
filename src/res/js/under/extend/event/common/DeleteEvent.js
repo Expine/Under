@@ -27,15 +27,15 @@ class DeleteEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
-        let removes = [];
-        for (let it of this.op.getRunningEvents()) {
+        const removes = [];
+        for (const it of this.op.getRunningEvents()) {
             if (it instanceof NamedEvent) {
                 if (it.getName() === this.name) {
                     removes.push(it);
                 }
             }
         }
-        for (let it of removes) {
+        for (const it of removes) {
             this.op.delete(it);
         }
         this.op.next();

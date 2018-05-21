@@ -71,9 +71,9 @@ class VariableGravityWorld extends SplitWorld { // eslint-disable-line  no-unuse
             }
         }
 
-        for (let target of this.actors) {
+        for (const target of this.actors) {
             if (target.body !== null) {
-                let g = this.gravity * target.material.mass * target.body.material.gravityScale;
+                const g = this.gravity * target.material.mass * target.body.material.gravityScale;
                 target.body.enforce(g * this.gravityX, g * this.gravityY);
             }
         }
@@ -88,11 +88,11 @@ class VariableGravityWorld extends SplitWorld { // eslint-disable-line  no-unuse
      */
     render(ctx, shiftX = 0, shiftY = 0) {
         if (this.number < this.deltas.length) {
-            let delta = this.deltas[this.number];
+            const delta = this.deltas[this.number];
             if (delta < 1 && Math.floor(delta * 1000) % 2 === 0) {
                 if (this.number < this.deltas.length - 1) {
-                    let x = this.gravityXs[this.number + 1];
-                    let y = this.gravityYs[this.number + 1];
+                    const x = this.gravityXs[this.number + 1];
+                    const y = this.gravityYs[this.number + 1];
                     if (x > 0) {
                         ctx.fillText(`>`, GameScreen.it.width - 10, GameScreen.it.height / 2, 1.0, 0.5, 100, `red`);
                     }
