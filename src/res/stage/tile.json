@@ -16,6 +16,30 @@
             "serial": true,
             "horizontal": 8,
             "vertical": 32
+        }, {
+            "id": 2,
+            "collider": {
+                "height": 24
+            }
+        }, {
+            "id": 3,
+            "collider": {
+                "height": 24
+            }
+        }, {
+            "id": 4,
+            "collider": {
+                "height": 24
+            }
+        }, {
+            "id": 5,
+            "terrain": 3
+        }, {
+            "id": 6,
+            "terrain": 3
+        }, {
+            "id": 7,
+            "terrain": 3
         }]
     }, {
         "file": "white.png",
@@ -73,6 +97,11 @@
             "serial": true,
             "horizontal": 8,
             "vertical": 6
+        }, {
+            "id": 3044,
+            "collider": {
+                "height": 24
+            }
         }]
     }]
 }

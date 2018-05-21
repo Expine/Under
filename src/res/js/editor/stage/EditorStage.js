@@ -317,6 +317,9 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         // test play
         this.stage.setEnable(this.playMode);
         super.update(dt);
+        if (!this.playMode && !this.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable))) {
+            this.stage.camera.update(0, 0, dt);
+        }
         this.stage.setEnable(true);
 
         // update editor

@@ -79,16 +79,15 @@ class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unu
         }
 
         // check collision
-        const check = this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).some((it) => {
-            return it.collided.collider.isResponse(this.entity) && it.ny < -0.5;
-        });
+        this.restoreCollider();
+        const check = this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).some((it) => it.collided.collider.isResponse(this.entity) && it.ny < -0.5);
         if (check) {
+            this.grabCollider();
             return true;
         }
 
         // restore
         this.entity.image.init();
-        this.restoreCollider();
         this.transitionUsualState();
         return false;
     }

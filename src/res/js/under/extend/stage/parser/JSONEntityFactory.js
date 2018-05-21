@@ -80,6 +80,23 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
     }
 
     /**
+     * Override value from data to base
+     * @param {JSON} base Base data
+     * @param {JSON} data Override data
+     */
+    overrideValue(base, data) {
+        for (let it in data) {
+            if (data.hasOwnProperty(it)) {
+                if (base[it] === undefined || base[it] instanceof Array || !isNaN(base[it])) {
+                    base[it] = data[it];
+                } else {
+                    this.overrideValue(base[it], data[it]);
+                }
+            }
+        }
+    }
+
+    /**
      * Build entity information
      * @protected
      * @param {JSON} entityInfo Added entity information
@@ -233,13 +250,13 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
         for (const tile of tileInfo.tiles) {
             for (const chip of tile.chips) {
                 // set default collider
-                if (chip.collider === undefined) {
+                if (this.tileInfo[chip.id] === undefined && chip.collider === undefined) {
                     chip.collider = JSON.parse(JSON.stringify(defaultCollider));
                     chip.collider.width = chip.width;
                     chip.collider.height = chip.height;
                 }
                 // set default material
-                if (chip.material === undefined) {
+                if (this.tileInfo[chip.id] === undefined && chip.material === undefined) {
                     chip.material = JSON.parse(JSON.stringify(defaultMaterial));
                 }
                 // check serial
@@ -255,13 +272,21 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
                             data.image.x = x + cx * chip.image.width;
                             data.image.y = y + cy * chip.image.height;
                             this.buildChipSerial(data, chip);
-                            this.tileInfo[id] = data;
+                            if (this.tileInfo[id] === undefined) {
+                                this.tileInfo[id] = data;
+                            } else {
+                                this.overrideValue(this.tileInfo[id], data);
+                            }
                             ++id;
                         }
                     }
                 } else {
-                    this.tileInfo[chip.id] = chip;
-                    this.tileInfo[chip.id].file = tile.file;
+                    if (this.tileInfo[chip.id] === undefined) {
+                        chip.image.file = tile.file;
+                        this.tileInfo[chip.id] = chip;
+                    } else {
+                        this.overrideValue(this.tileInfo[chip.id], chip);
+                    }
                 }
             }
         }
