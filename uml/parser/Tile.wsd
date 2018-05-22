@@ -50,6 +50,7 @@ package under {
                 }
                 package ex_entity {
                     class TileObject
+                    class OnlyImageEntity
                 }
             }
         }
@@ -64,6 +65,7 @@ TileBuilder ..> SimpleAABB : Generate
 TileBuilder ..> DirectionalAABB : Generate
 TileBuilder ..> ImmutableMaterial : Generate
 TileBuilder ..> TileObject : Generate
+TileBuilder ..> OnlyImageEntity : Generate
 Entity <.. TileBuilder : Set
 ImagedEntity <.. TileBuilder : Set
 InfluentialEntity <.. TileBuilder : Set

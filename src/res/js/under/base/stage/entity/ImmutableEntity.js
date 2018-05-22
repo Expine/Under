@@ -1,7 +1,7 @@
 /**
  * Immutable entity
  * - Object present on the stage that has coordinate and size
- * - Has image ID
+ * - Manages image
  * - It can be collided because it has material and collider
  * - ### It is fixed and no change will occur
  * @interface

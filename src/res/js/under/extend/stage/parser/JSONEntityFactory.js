@@ -87,8 +87,8 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
     overrideValue(base, data) {
         for (let it in data) {
             if (data.hasOwnProperty(it)) {
-                if (base[it] === undefined || base[it] instanceof Array || !isNaN(base[it])) {
-                    base[it] = data[it];
+                if (base[it] === undefined || base[it] instanceof Array || !isNaN(base[it]) || data[it] === null) {
+                    base[it] = data[it] === null ? undefined : data[it];
                 } else {
                     this.overrideValue(base[it], data[it]);
                 }

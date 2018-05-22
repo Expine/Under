@@ -30,10 +30,15 @@ class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @override
      * @protected
      * @param {JSON} deploy Entity deploy json data
-     * @param {JSON} json Tile information json data
+     * @param {JSON} tile Tile information json data
      * @return {Entity} Underlying tile object
      */
-    makeTileBase(deploy, json) {
-        return new UnderTileObject(json.terrain);
+    makeTileBase(deploy, tile) {
+        switch (tile.type) {
+            case undefined:
+                return new UnderTileObject(tile.terrain);
+            default:
+                return super.makeTileBase(deploy, tile);
+        }
     }
 }

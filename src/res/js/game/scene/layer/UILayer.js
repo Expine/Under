@@ -55,11 +55,11 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
             this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`);
             this.uiAnimation.setAnimation(new SingleAnimation(i % 2 === 0));
             if (i !== 5) {
-                for (const j = 0; j < 4; ++j) {
+                for (let j = 0; j < 4; ++j) {
                     this.uiAnimation.addAnimation(new TileImage(uiImage, 64, 64, 32 * j, 32 * i, 32, 32), i % 2 === 0 ? 300 : 200);
                 }
             } else {
-                for (const j = 0; j < 8; ++j) {
+                for (let j = 0; j < 8; ++j) {
                     this.uiAnimation.addAnimation(new TileImage(uiImage, 64, 64, 32 * (j % 4), 32 * (i + Math.floor(j / 4)), 32, 32), 200);
                 }
             }

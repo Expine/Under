@@ -14,6 +14,7 @@ package under {
                     #entityInfo : JSON
                     +addEntityInfo(entityInfo)
                     +addTileInfo(tileInfo)
+                    #overrideValue(base,data)
                     #buildEntityInfo(entityInfo)
                     #buildChipSerial(data,chip)
                     #buildTileInfo(tileInfo)

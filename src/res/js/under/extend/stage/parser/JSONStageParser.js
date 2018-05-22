@@ -61,7 +61,7 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
             case `Area`:
                 return new AreaBackground(this.makeBackgroundImage(back.image), back.x, back.y, back.width, back.height);
             case `Fixed`:
-                return new FixedBackBackground(this.makeBackgroundImage(back.image), back.x, back.y);
+                return new FixedBackground(this.makeBackgroundImage(back.image), back.x, back.y);
             default:
                 return null;
         }

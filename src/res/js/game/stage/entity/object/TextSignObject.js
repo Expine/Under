@@ -1,7 +1,7 @@
 /**
  * Immutable event object
  * - Object present on the stage that has coordinate and size
- * - Has image ID
+ * - Manages image
  * - Show sign
  * - ### Show sign text
  * @extends {SignObject}

@@ -5,6 +5,7 @@ package under {
             package ex_entity {
                 class TileObject
                 class Obstacle
+                class OnlyImageEntity
                 class AIListedObject {
                     #ai : Array<AI>
                     +addAI(ai,priotiy) <<override>>
@@ -39,6 +40,7 @@ package under {
                 abstract AI
             }
             package entity {
+                abstract ImagedEntity
                 abstract ImmutableObject
                 abstract MutableObject
                 abstract AutonomyObject
@@ -54,6 +56,7 @@ AI <.. AIListedObject : Update and apply
 
 Stage <.. AttackObject : Destroy
 
+ImagedEntity <|.. OnlyImageEntity
 ImmutableObject <|.. TileObject
 MutableObject <|.. Obstacle
 AutonomyObject <|.. AIListedObject

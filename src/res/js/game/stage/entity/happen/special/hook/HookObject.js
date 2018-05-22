@@ -1,7 +1,7 @@
 /**
  * Hook object
  * - Object present on the stage that has coordinate and size
- * - Has image ID
+ * - Manages image
  * - It can be collided because it has material and collider
  * - It is not fixed and can be moved
  * - It can move by AI

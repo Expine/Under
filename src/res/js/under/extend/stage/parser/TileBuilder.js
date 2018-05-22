@@ -82,7 +82,14 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {Entity} Underlying tile object
      */
     makeTileBase(deploy, tile) {
-        return new TileObject();
+        switch (tile.type) {
+            case `image`:
+                return new OnlyImageEntity();
+            case undefined:
+                return new TileObject();
+            default:
+                return null;
+        }
     }
 
     /**
@@ -122,15 +129,17 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
         const colliderData = this.tryReplace(deploy, json, `collider`);
         const materialData = this.tryReplace(deploy, json, `material`);
         // set collider
-        const collider = this.makeCollider(colliderData);
-        if (collider !== null) {
-            collider.enable = colliderData.enable === undefined ? true : colliderData.enable;
-            collider.response = colliderData.response === undefined ? true : colliderData.response;
-            collider.setAABB(this.makeAABB(colliderData));
+        if (colliderData !== undefined) {
+            const collider = this.makeCollider(colliderData);
+            if (collider !== null) {
+                collider.enable = colliderData.enable === undefined ? true : colliderData.enable;
+                collider.response = colliderData.response === undefined ? true : colliderData.response;
+                collider.setAABB(this.makeAABB(colliderData));
+            }
+            base.setCollider(collider);
+            // set material
+            base.setMaterial(this.makeMaterial(materialData));
         }
-        base.setCollider(collider);
-        // set material
-        base.setMaterial(this.makeMaterial(materialData));
     }
 
     /**

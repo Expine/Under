@@ -118,8 +118,8 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
             return ret;
         }
         // check region
-        const sx = Math.floor(collider.aabb.startX / this.splitNumber);
-        const sy = Math.floor(collider.aabb.startY / this.splitNumber);
+        let sx = Math.floor(collider.aabb.startX / this.splitNumber);
+        let sy = Math.floor(collider.aabb.startY / this.splitNumber);
         const ex = Math.floor(collider.aabb.endX / this.splitNumber);
         const ey = Math.floor(collider.aabb.endY / this.splitNumber);
         if (ex < 0 || ey < 0 || sx >= this.stageWidth || sy >= this.stageHeight) {

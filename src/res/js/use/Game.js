@@ -413,6 +413,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof ImagedEntity !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/OnlyImageEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof ImageBuilder !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/BaseImageBuilder.js'; document.head.appendChild(script);
     }
@@ -1268,6 +1273,7 @@
         typeof DoorObject !== `undefined` &&
         typeof SignObject !== `undefined` &&
         typeof Obstacle !== `undefined` &&
+        typeof OnlyImageEntity !== `undefined` &&
         typeof BaseImageBuilder !== `undefined` &&
         typeof CSVStageParser !== `undefined` &&
         typeof JSONEntityFactory !== `undefined` &&

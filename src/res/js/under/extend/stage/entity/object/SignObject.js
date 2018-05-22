@@ -1,7 +1,7 @@
 /**
  * Immutable event object
  * - Object present on the stage that has coordinate and size
- * - Has image ID
+ * - Manages image
  * - Object that has collide
  * - ### Show sign
  * @extends {ImagedEntity}
