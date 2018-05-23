@@ -1,6 +1,11 @@
 @startuml EditorParser
 
 package editor {
+    package ed_event {
+        class EditorEventBuilder {
+            +build(json) <<override>>
+        }
+    }
     package ed_stage {
         package ed_builder {
             class EditBuilder {
@@ -34,6 +39,7 @@ package editor {
             +getTileInfo() : Object<number,JSON> <<override>>
             +getEntityInfo() : Object<number,JSON> <<override>>
             #buldChipSerial(data,chip) <<override>>
+            +build(id,deploy) <<override>>
         }
         interface IEditorInfo {
             {abstract} +getTileInfo() : Object<number,JSON>
@@ -75,6 +81,9 @@ package game {
     }
 }
 package editor {
+    package ed_event {
+        class EditorEvent
+    }
     package ed_stage {
         interface IEditable
         class EditorStage
@@ -110,29 +119,32 @@ EditorBackground <.. EditorStageParser : Generate
 EditorCamera <.. EditorStageParser : Generate
 EditorWorld <.. EditorStageParser : Generate
 EditorEntityFactory <... EditorStageParser : Generate
-UnderTileBuilder <..... EditorStageParser : Generate
-UnderCharacterBuilder <..... EditorStageParser : Generate
-UnderEventBuilder <..... EditorStageParser : Generate
+EditorTileBuilder <..... EditorStageParser : Generate
+EditorCharacterBuilder <..... EditorStageParser : Generate
+EditorEventBuilder <..... EditorStageParser : Generate
 IEditable <.. EditorStageParser : Set
 EditBuilder <.. EditorStageParser : Build
 
-EditorTile <.. EditorTileBuilder : Generate
-EditorDeployer <.. EditorCharacterBuilder : Generate
+EditorTileBuilder ..> EditorTile : Generate
+EditorCharacterBuilder ..> EditorDeployer : Generate
 
-SimpleImage <... SimpleEditorBuilder : Generate
+SimpleImage <.... SimpleEditorBuilder : Generate
 SimpleEditor <.. SimpleEditorBuilder : Generate
 PencilTool <.. SimpleEditorBuilder : Generate
 EraseTool <.. SimpleEditorBuilder : Generate
 SyringeTool <.. SimpleEditorBuilder : Generate
 PaintTool <.. SimpleEditorBuilder : Generate
 AutoTileTool <.. SimpleEditorBuilder : Generate
-IKey <... SimpleEditorBuilder : Get
+IKey <.... SimpleEditorBuilder : Get
+
+EditorEventBuilder ..> EditorEvent : Generate
 
 UnderStageParser <|--- EditorStageParser
 EditBuilder <|. SimpleEditorBuilder
 UnderTileBuilder <|-- EditorTileBuilder
 UnderCharacterBuilder <|-- EditorCharacterBuilder
-JSONEntityFactory <|--- EditorEntityFactory
+JSONEntityFactory <|---- EditorEntityFactory
 IEditorInfo <|.. EditorEntityFactory
+UnderEventBuilder <|-- EditorEventBuilder
 
 @enduml

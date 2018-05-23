@@ -1,0 +1,61 @@
+@startuml EditorElement
+
+package editor {
+    package ed_stage {
+        package ed_camera {
+            class EditorCamera {
+                #moving : boolean
+                #moveStartX : number
+                #moveStartY : number
+                #screenDiffX : number
+                #screenDiffY : number
+                #unparser(base,camera)
+                +getSaveData() : JSON <<override>>
+                +setScreenSize(screenWidth,screenHeight) <<override>>
+                +update(x,y,dt) <<override>>
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package input {
+            interface IKey
+            interface IMouse
+        }
+        package stage {
+            package camera {
+                abstract DelegateCamera
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_camera {
+                class CenterCamera
+                class MovingCamera
+                class ClipCamera
+                class ForceMoveCamera
+            }
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        interface IEditorSave
+    }
+}
+
+CenterCamera <.. EditorCamera : Get
+MovingCamera <.. EditorCamera : Get
+ClipCamera <.. EditorCamera : Get
+ForceMoveCamera <.. EditorCamera : Get
+IKey <.. EditorCamera : Get
+IMouse <.. EditorCamera : Get
+
+DelegateCamera <|.. EditorCamera
+EditorCamera ..|> IEditorSave
+
+@enduml

@@ -178,8 +178,8 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
             if (targetCollider === null || !targetCollider.enable) {
                 continue;
             }
-            const sx = Math.floor(targetCollider.aabb.startX / this.splitNumber);
-            const sy = Math.floor(targetCollider.aabb.startY / this.splitNumber);
+            let sx = Math.floor(targetCollider.aabb.startX / this.splitNumber);
+            let sy = Math.floor(targetCollider.aabb.startY / this.splitNumber);
             const ex = Math.floor(targetCollider.aabb.endX / this.splitNumber);
             const ey = Math.floor(targetCollider.aabb.endY / this.splitNumber);
             if (ex < 0 || ey < 0 || sx >= this.stageWidth || sy >= this.stageHeight) {

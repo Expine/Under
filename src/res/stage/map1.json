@@ -4,14 +4,6 @@
     "background": {
         "type": "Sequential",
         "backs": [{
-            "type": "Invariant",
-            "image": {
-                "type": "single",
-                "width": 800,
-                "height": 600,
-                "file": "back.png"
-            }
-        }, {
             "type": "Area",
             "x": 0,
             "y": 0,
@@ -19,7 +11,7 @@
             "height": 2784,
             "image": {
                 "type": "single",
-                "width" :1024,
+                "width": 1024,
                 "height": 1024,
                 "file": "air.png"
             }
@@ -31,7 +23,7 @@
             "height": 2784,
             "image": {
                 "type": "single",
-                "width" :1024,
+                "width": 1024,
                 "height": 1024,
                 "file": "air.png"
             }
@@ -39,11 +31,11 @@
             "type": "Area",
             "x": 0,
             "y": 3488,
-            "width":1312,
-            "height":1280,
+            "width": 1312,
+            "height": 1280,
             "image": {
                 "type": "single",
-                "width" :1024,
+                "width": 1024,
                 "height": 1024,
                 "file": "hospital.png"
             }
@@ -51,11 +43,9 @@
             "type": "Fixed",
             "x": 4704,
             "y": 4416,
-            "width":1984,
-            "height":1024,
             "image": {
                 "type": "single",
-                "width" :1024,
+                "width": 1024,
                 "height": 1024,
                 "file": "cave.png"
             }
@@ -63,11 +53,9 @@
             "type": "Fixed",
             "x": 4896,
             "y": 4256,
-            "width":1792,
-            "height":1024,
             "image": {
                 "type": "single",
-                "width" :1024,
+                "width": 1024,
                 "height": 1024,
                 "file": "cave.png"
             }
@@ -75,11 +63,11 @@
             "type": "Area",
             "x": 5568,
             "y": 3648,
-            "width":1120,
-            "height":1120,
+            "width": 1120,
+            "height": 1120,
             "image": {
                 "type": "single",
-                "width" :1024,
+                "width": 1024,
                 "height": 1024,
                 "file": "cave.png"
             }
@@ -87,11 +75,11 @@
             "type": "Area",
             "x": 0,
             "y": 0,
-            "width":9000,
-            "height":2176,
+            "width": 9000,
+            "height": 2176,
             "image": {
                 "type": "single",
-                "width" :1024,
+                "width": 1024,
                 "height": 1024,
                 "file": "cloud.png"
             }
@@ -16375,5 +16363,23 @@
         "x": 2400,
         "y": 4512,
         "z": 0
+    }, {
+        "id": 100005,
+        "x": 192,
+        "y": 4672,
+        "z": 0,
+        "event": {
+            "type": "sequential",
+            "events": [{
+                "type": "stop",
+                "name": "stop"
+            }, {
+                "type": "talk",
+                "sentence": "………………"
+            }, {
+                "type": "delete",
+                "name": "stop"
+            }]
+        }
     }]
 }

@@ -11,10 +11,10 @@
 class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-unused-vars
     /**
      * Editor stage parser
-     * @param {ImageBuilder} [image = undefined] Image builder instance
+     * @param {ImageBuilder} [image = EditorImageBuilder] Image builder instance
      * @param {EditBuilder} [edit = SimpleEditBuilder] Edit builder instance
      */
-    constructor(image = undefined, edit = new SimpleEditBuilder()) {
+    constructor(image = new EditorImageBuilder(), edit = new SimpleEditBuilder()) {
         super(image);
         /**
          * Edit builder instance
@@ -78,7 +78,7 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @return {EntityFactory} Entity factory
      */
     makeEntityFactory(stage) {
-        const ret = new EditorEntityFactory(new EditorTileBuilder(), new EditorCharacterBuilder(), new UnderEventBuilder());
+        const ret = new EditorEntityFactory(new EditorTileBuilder(), new EditorCharacterBuilder(), new EditorEventBuilder(), this.imageBuilder);
         for (const it of stage.tiles) {
             ret.addTileInfo(JSON.parse(Util.loadFile(`src/res/stage/${it}`)));
         }

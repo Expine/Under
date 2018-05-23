@@ -315,12 +315,15 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         }
 
         // test play
-        this.stage.setEnable(this.playMode);
-        super.update(dt);
-        if (!this.playMode && !this.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable))) {
-            this.stage.camera.update(0, 0, dt);
+        if (this.playMode) {
+            super.update(dt);
+        } else if (!this.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable))) {
+            this.updateBackground(dt);
+            this.getCamera().update(0, 0, dt);
+        } else {
+            this.updateBackground(dt);
+            this.updateCamera(dt);
         }
-        this.stage.setEnable(true);
 
         // update editor
         const x = Input.mouse.getMouseX() - this.getCamera().baseX - this.getCamera().cameraX;

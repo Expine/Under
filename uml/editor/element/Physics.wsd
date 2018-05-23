@@ -1,0 +1,47 @@
+@startuml EditorElement
+
+package editor {
+    package ed_stage {
+        package physics {
+            class EditorWorld {
+                #stageWidth : number
+                #stageHeight : number
+                +getSaveData() : JSON <<override>>
+            }
+        }
+    }
+}
+
+package under {
+    package debug {
+        package de_stage {
+            package de_physics {
+                class DebugWorld
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_world {
+                class SequentialWorld
+                class SplitWorld
+                class VariableGravityWorld
+            }
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        interface IEditorSave
+    }
+}
+
+SplitWorld <.. EditorWorld : Get
+SequentialWorld <.. EditorWorld : Get
+VariableGravityWorld <.. EditorWorld : Get
+
+DebugWorld <|.. EditorWorld
+EditorWorld ..|> IEditorSave
+
+@enduml

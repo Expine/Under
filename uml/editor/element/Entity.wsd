@@ -1,0 +1,64 @@
+@startuml EditorElement
+
+package editor {
+    package ed_stage {
+        package ed_entity {
+            class EditorTile {
+                +consstructor(entity,id,autoTileBaseID)
+                #entity : Entity
+                #id : number
+                #autoTileBaseID : number
+                #buildBaseData(base)
+                #buildEventData(base)
+                +getID() : number <<override>>
+                +getEntity() : Entity <<override>>
+                +isAutoTile() : boolean <<override>>
+                +getAutoTileBaseID() : number <<override>>
+                +equals(entity) <<override>>
+                +isDeployer : boolean <<override>>
+                +getSaveData() : JSON <<override>>
+            }
+            class EditorDeployer {
+                +isDeployer : boolean <<override>>
+            }
+            package ed_interface {
+                interface IEditorEntity {
+                    {abstract} +getID() : number
+                    {abstract} +getEntity() : Entity
+                    {abstract} +isAutoTile() : boolean
+                    {abstract} +getAutoTileBaseID() : number
+                    {abstract} +equals(entity)
+                    {abstract} +isDeployer : boolean
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package entity {
+                abstract Entity
+                package interface {
+                    interface IEventEntity
+                }
+            }
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        interface IEditorSave
+    }
+}
+
+Entity <.. EditorTile : Get
+IEventEntity <.. EditorTile : Get
+
+IEditorEntity <|.. EditorTile
+IEditorSave <|.. EditorTile
+EditorTile <|-- EditorDeployer
+
+@enduml

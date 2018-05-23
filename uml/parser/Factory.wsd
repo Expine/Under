@@ -18,6 +18,7 @@ package under {
                     #buildEntityInfo(entityInfo)
                     #buildChipSerial(data,chip)
                     #buildTileInfo(tileInfo)
+                    #buildEvent(base,deploy)
                     +createEntity(id,deploy) <<override>>
                 }
             }

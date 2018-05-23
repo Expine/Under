@@ -26,91 +26,6 @@ class EditorBackground extends Background /* , IEditorSave */ { // eslint-disabl
     }
 
     /**
-     * Load background resource path
-     * @protected
-     * @param {number} id Background image ID
-     */
-    loadPath(id) {
-        return ResourceManager.image.getPath(id).replace(`back/`, ``);
-    }
-
-    /**
-     * Get image json data by image
-     * @protected
-     * @param {GameImage} image Image for getting json data
-     * @return {JSON} Image json data
-     */
-    getImageData(image) {
-        const ret = {};
-        const id = 0;
-        if (image instanceof MultiNamedAnimation) {
-            ret.type = `multianime`;
-            ret.animations = [];
-            for (const it in image.animation) {
-                if (image.animation.hasOwnProperty(it)) {
-                    const anime = image.animation[it];
-                    if (anime instanceof SingleAnimation) {
-                        let width = 0;
-                        let height = 0;
-                        const animeData = {};
-                        animeData.name = it;
-                        if (anime.loop) {
-                            animeData.loop = anime.loop;
-                        }
-                        animeData.animaton = [];
-                        for (const e of anime.animation) {
-                            if (e instanceof TileImage) {
-                                id = e.imageID;
-                                width = e.width;
-                                height = e.height;
-                                const data = {};
-                                data.x = e.srcX;
-                                data.y = e.srcY;
-                                data.width = e.srcW;
-                                data.height = e.srcH;
-                                animeData.animation.push(data);
-                            }
-                        }
-                        animeData.width = width;
-                        animeData.height = height;
-                        ret.animations.push(animeData);
-                    }
-                }
-            }
-        } else if (image instanceof SingleAnimation) {
-            ret.type = `anime`;
-            if (image.loop) {
-                ret.loop = image.loop;
-            }
-            ret.animation = [];
-            for (const it of image.animation) {
-                if (it instanceof TileImage) {
-                    const data = {};
-                    data.x = it.srcX;
-                    data.y = it.srcY;
-                    data.width = it.srcW;
-                    data.height = it.srcH;
-                    ret.animation.push(data);
-                }
-            }
-        } else if (image instanceof TileImage) {
-            ret.type = `tile`;
-            ret.width = image.width;
-            ret.height = image.height;
-            ret.x = image.srcX;
-            ret.y = image.srcY;
-            ret.width = image.width === image.srcW ? undefined : image.srcW;
-            ret.height = image.height === image.srcH ? undefined : image.srcH;
-        } else if (image instanceof SingleImage) {
-            ret.type = `single`;
-            ret.width = image.width;
-            ret.height = image.height;
-        }
-        ret.file = this.loadPath(id);
-        return ret;
-    }
-
-    /**
      * Unparses from background to json
      * @protected
      * @param {Background} back Background to unparse
@@ -139,15 +54,15 @@ class EditorBackground extends Background /* , IEditorSave */ { // eslint-disabl
             ret.type = `Area`;
             ret.x = back.x;
             ret.y = back.y;
-            ret.width = back.areaHeight;
+            ret.width = back.areaWidth;
             ret.height = back.areaHeight;
         } else if (back instanceof FixedBackground) {
             ret.type = `Fixed`;
             ret.x = back.x;
             ret.y = back.y;
         }
-        if (back instanceof ImageBackground) {
-            ret.image = this.getImageData(back.backImage);
+        if (back instanceof ImageBackground && BaseUtil.implementsOf(back.backImage, IEditorSave)) {
+            ret.image = back.backImage.getSaveData();
         }
         return ret;
     }

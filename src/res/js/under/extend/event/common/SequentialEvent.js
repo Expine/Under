@@ -21,6 +21,12 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
          * @type {Array<GameEvent>}
          */
         this.events = [];
+        /**
+         * Next event number
+         * @protected
+         * @type {number}
+         */
+        this.nextEventNumber = 0;
 
         /**
          * List of running events
@@ -43,9 +49,8 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @override
      */
     next() {
-        const event = this.events[0];
-        if (event !== undefined) {
-            this.events.splice(0, 1);
+        if (this.nextEventNumber < this.events.length) {
+            const event = this.events[this.nextEventNumber++];
             this.runningEvents.push(event);
             event.init();
         } else {
@@ -59,11 +64,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      * @param {GameEvent} event Target event
      */
     delete(event) {
-        let index = this.events.indexOf(event);
-        if (index >= 0) {
-            this.events.splice(index, 1);
-        }
-        index = this.runningEvents.indexOf(event);
+        const index = this.runningEvents.indexOf(event);
         if (index >= 0) {
             this.runningEvents.splice(index, 1);
             event.destruct();
@@ -85,6 +86,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
      */
     init() {
         super.init();
+        this.nextEventNumber = 0;
         for (const it of this.events) {
             it.setEventOperator(this);
         }
@@ -120,7 +122,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
                 this.runningEvents.splice(index, 1);
             }
         }
-        return this.runningEvents.length === 0 && this.events.length === 0;
+        return this.runningEvents.length === 0 && this.nextEventNumber >= this.events.length;
     }
 
     /**

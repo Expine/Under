@@ -1,0 +1,91 @@
+@startuml EditorEvent
+
+package editor {
+    package ed_event {
+        class EditorEvent {
+            #unparser(event) : JSON
+            +getSaveData() : JSON <<override>>
+            +setStage(stage) <<override>>
+            +getName() : string <<override>>
+            +setEventOperator(op) <<override>>
+            +init() <<override>>
+            +destruct() <<override>>
+            +update(dt) <<override>>
+            +render(ctx) <<override>>
+        }
+    }
+}
+
+package under {
+    package base {
+        package event {
+            package common {
+                abstract NamedEvent
+            }
+            package onstage {
+                interface IStageEvent
+            }
+        }
+    }
+    package extend {
+        package ex_event {
+            package ex_common {
+                class AutoInputEvent
+                class DelayEvent
+                class DeleteEvent
+                class ImageEvent
+                class SequentialEvent
+            }
+            package ex_onstage {
+                class CameraEvent
+                class ControlEntityEvent
+                class StageStopEvent
+                class TalkEvent
+                class TransitionalEvent
+                class WaitKeyEvent
+            }
+        }
+    }
+}
+
+package game {
+    package ga_event {
+        package ga_common {
+            class LinkEvent
+            class TextWindowEvent
+        }
+        package ga_onstage {
+            class CameraChangeEvent
+            class PhysicalChangeEvent
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        interface IEditorSave
+    }
+}
+
+AutoInputEvent <.. EditorEvent : Get
+DelayEvent <.. EditorEvent : Get
+DeleteEvent <.. EditorEvent : Get
+ImageEvent <.. EditorEvent : Get
+SequentialEvent <.. EditorEvent : Get
+CameraEvent <.. EditorEvent : Get
+ControlEntityEvent <.. EditorEvent : Get
+StageStopEvent <.. EditorEvent : Get
+TalkEvent <.. EditorEvent : Get
+TransitionalEvent <.. EditorEvent : Get
+WaitKeyEvent <.. EditorEvent : Get
+LinkEvent <.. EditorEvent : Get
+TextWindowEvent <.. EditorEvent : Get
+CameraChangeEvent <.. EditorEvent : Get
+PhysicalChangeEvent <.. EditorEvent : Get
+
+
+NamedEvent <|.. EditorEvent
+EditorEvent ..|> IEditorSave
+IStageEvent <|.. EditorEvent
+
+@enduml

@@ -90,7 +90,7 @@ class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unuse
                 return new CameraEvent(event.name, event.x, event.y);
             case `sequential`:
                 {
-                    const ret = new SequentialEvent();
+                    let ret = new SequentialEvent();
                     for (const it of event.events) {
                         if (BaseUtil.implementsOf(this.makeEvent(it), IStageEvent)) {
                             ret = new SequentialStageEvent();

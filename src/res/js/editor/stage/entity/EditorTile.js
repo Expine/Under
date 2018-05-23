@@ -55,6 +55,20 @@ class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-d
     }
 
     /**
+     * Build event save data
+     * @protected
+     * @param {JSON} base Target data
+     */
+    buildEventData(base) {
+        if (BaseUtil.implementsOf(this.entity, IEventEntity)) {
+            const event = this.entity.getEvent();
+            if (event !== null && BaseUtil.implementsOf(event, IEditorSave)) {
+                base.event = event.getSaveData();
+            }
+        }
+    }
+
+    /**
      * Get entity getID
      * @override
      * @return {number} Entity ID
@@ -117,6 +131,7 @@ class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-d
     getSaveData() {
         const ret = {};
         this.buildBaseData(ret);
+        this.buildEventData(ret);
         return ret;
     }
 

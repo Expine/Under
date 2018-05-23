@@ -1,0 +1,70 @@
+@startuml EditorEvent
+
+package editor {
+    package ed_resource {
+        package ed_image {
+            class EditorImage {
+                #baseImage : GameImage
+                #root : string
+                +getSaveData() : JSON <<override>>
+                +setName(name) <<override>>
+                +getAnimation() : Animation <<override>>
+                +setAnimation(animation) <<override>>
+                +setAllSize(width,height) <<override>>
+                +setAllImageID(imageID) <<override>>
+                +setSize(width,height) <<override>>
+                +setImageID(imageID) <<override>>
+                +getWidth() : number <<override>>
+                +getHeight() : number <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx,x,y) <<override>>
+                +isLoop() : boolean <<override>>
+                +isEnded() : boolean <<override>>
+                +getAnimationCount() : number <<override>>
+                +addAnimation(image,delta) <<override>>
+                +pause() <<override>>
+                +restore() <<override>>
+
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package resource {
+            package image {
+                abstract NamedAnimtion
+                abstract IImageManager
+            }
+        }
+    }
+    package extend {
+        package ex_resource {
+            package ex_image {
+                class SingleImage
+                class TileImage
+                class SingleAnimation
+                class MultiNamedAnimation
+            }
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        interface IEditorSave
+    }
+}
+
+SingleImage <.. EditorImage : Get
+TileImage <.. EditorImage : Get
+SingleAnimation <.. EditorImage : Get
+MultiNamedAnimation <.. EditorImage : Get
+IImageManager <.. EditorImage : Get
+
+NamedAnimtion <|.. EditorImage
+EditorImage ..|> IEditorSave
+
+@enduml

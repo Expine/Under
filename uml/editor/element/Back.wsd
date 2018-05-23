@@ -1,0 +1,59 @@
+@startuml EditorElement
+
+package editor {
+    package ed_stage {
+        package ed_back {
+            class EditorBackground {
+                +constructor(baseBackground)
+                #baseBackground : Background
+                #loadPath(id) : number
+                #getImageData(image) : JSON
+                #unparser(back) : JSON
+                +getSaveData() : JSON <<override>>
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx,shiftX,shiftY,screenWidth,screenHeight) <<override>>
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package back {
+                abstract Background
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_back {
+                abstract ImageBackground
+                class SequentialBackground
+                class InvariantBackground
+                class MovementBackground
+                class AreaBackground
+                class FixedBackground
+            }
+        }
+    }
+}
+
+package editor {
+    package ed_stage {
+        interface IEditorSave
+    }
+}
+
+SequentialBackground <.. EditorBackground : Get
+InvariantBackground <.. EditorBackground : Get
+MovementBackground <.. EditorBackground : Get
+AreaBackground <.. EditorBackground : Get
+FixedBackground <.. EditorBackground : Get
+ImageBackground <.. EditorBackground : Get
+
+Background <|.. EditorBackground
+EditorBackground ..|> IEditorSave
+
+@enduml

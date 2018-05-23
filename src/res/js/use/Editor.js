@@ -1,4 +1,3 @@
-{const script = document.createElement('script'); script.src='src/res/js/editor/event/EventUnparser.js'; document.head.appendChild(script);}
 {const script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/base/EditorBase.js'; document.head.appendChild(script);}
 {const script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/base/EditorTool.js'; document.head.appendChild(script);}
 {const script = document.createElement('script'); script.src='src/res/js/editor/stage/edit/builder/EditBuilder.js'; document.head.appendChild(script);}
@@ -588,6 +587,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof NamedEvent !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/editor/event/EditorEvent.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof JSContext !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/editor/resource/image/EditorContext.js'; document.head.appendChild(script);
     }
@@ -645,6 +649,11 @@
 {const id = setInterval(function() {
     if (typeof JSONEntityFactory !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/editor/stage/parser/EditorEntityFactory.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof BaseImageBuilder !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/editor/stage/parser/EditorImageBuilder.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -1063,6 +1072,16 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof UnderEventBuilder !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/editor/event/EditorEventBuilder.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof NamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/editor/resource/image/EditorImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof BaseLayeredScene !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/editor/scene/EditorScene.js'; document.head.appendChild(script);
     }
@@ -1333,8 +1352,7 @@
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof EventUnparser !== `undefined` &&
-        typeof EditorBase !== `undefined` &&
+    if (typeof EditorBase !== `undefined` &&
         typeof EditorTool !== `undefined` &&
         typeof EditBuilder !== `undefined` &&
         typeof SimpleEditBuilder !== `undefined` &&
@@ -1486,6 +1504,7 @@
         typeof UnderEngineBuilder !== `undefined` &&
         typeof Util !== `undefined` &&
         typeof EditorBuilder !== `undefined` &&
+        typeof EditorEvent !== `undefined` &&
         typeof EditorContext !== `undefined` &&
         typeof EditorBackground !== `undefined` &&
         typeof EditorCamera !== `undefined` &&
@@ -1498,6 +1517,7 @@
         typeof IEditable !== `undefined` &&
         typeof IEditorSave !== `undefined` &&
         typeof EditorEntityFactory !== `undefined` &&
+        typeof EditorImageBuilder !== `undefined` &&
         typeof IEditorInfo !== `undefined` &&
         typeof EditorWorld !== `undefined` &&
         typeof ISelection !== `undefined` &&
@@ -1581,6 +1601,8 @@
         typeof PlayerBody !== `undefined` &&
         typeof DirectionalAABB !== `undefined` &&
         typeof RecordedTimer !== `undefined` &&
+        typeof EditorEventBuilder !== `undefined` &&
+        typeof EditorImage !== `undefined` &&
         typeof EditorScene !== `undefined` &&
         typeof ChipLayer !== `undefined` &&
         typeof SelectionLayer !== `undefined` &&

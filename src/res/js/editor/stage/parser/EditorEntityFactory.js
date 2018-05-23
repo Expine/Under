@@ -37,4 +37,19 @@ class EditorEntityFactory extends JSONEntityFactory /* , IEditorInfo */ { // esl
         data.auto = chip.auto;
         data.autoID = chip.id;
     }
+
+    /**
+     * Create entity from factory data
+     * @override
+     * @param {Object} id ID for entity
+     * @param {JSON} deploy Entity deploy json data
+     * @return {Entity} Entity instance
+     */
+    createEntity(id, deploy) {
+        let ret = super.createEntity(id, deploy);
+        if (BaseUtil.implementsOf(ret, IEditorEntity)) {
+            this.buildEvent(ret.getEntity(), deploy);
+        }
+        return ret;
+    }
 }

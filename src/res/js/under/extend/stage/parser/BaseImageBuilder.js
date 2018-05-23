@@ -1,9 +1,9 @@
 /**
- * Image builder
- * - ### Generates image from json data
- * - Generates normal image from json data
+ * Base image builder
+ * - Generates image from json data
+ * - ### Generates normal image from json data
  * @extends {ImageBuilder}
- * @classdesc Image builder to generate normal image from json
+ * @classdesc Base image builder to generate normal image from json
  */
 class BaseImageBuilder extends ImageBuilder { // eslint-disable-line  no-unused-vars
     /**

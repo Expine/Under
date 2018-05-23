@@ -293,6 +293,19 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
     }
 
     /**
+     * Build event
+     * @protected
+     * @param {Entity} base Based entity for setting event
+     * @param {JSON} deploy Entity deploy json data
+     */
+    buildEvent(base, deploy) {
+        if (BaseUtil.implementsOf(base, IEventEntity)) {
+            let event = (deploy === undefined || deploy.event === undefined) ? info.event : deploy.event;
+            base.setEvent(this.eventBuilder.build(event));
+        }
+    }
+
+    /**
      * Create entity from factory data
      * @override
      * @param {Object} id ID for entity
@@ -310,10 +323,7 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
             info = this.entityInfo[id];
             ret = this.characterBuilder.build(deploy, info);
         }
-        if (BaseUtil.implementsOf(ret, IEventEntity)) {
-            let event = (deploy === undefined || deploy.event === undefined) ? info.event : deploy.event;
-            ret.setEvent(this.eventBuilder.build(event));
-        }
+        this.buildEvent(ret, deploy);
         return ret;
     }
 }
