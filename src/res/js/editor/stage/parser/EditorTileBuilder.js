@@ -16,6 +16,6 @@ class EditorTileBuilder extends UnderTileBuilder { // eslint-disable-line  no-un
      * @return {Entity} Generated tile
      */
     build(deploy, json) {
-        return new EditorTile(super.build(deploy, json), json.id, json.autoID);
+        return new EditorTile(super.build(deploy, json), deploy, json.id, json.autoID);
     }
 }

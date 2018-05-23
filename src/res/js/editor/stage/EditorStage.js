@@ -120,11 +120,18 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         data.layers.push([]);
         data.deploy = [];
         for (const it of this.editorEntities) {
+            const save = it.getSaveData();
             // set
             if (it.isDeployer()) {
-                data.deploy.push(it.getSaveData());
+                data.deploy.push(save);
             } else {
-                data.layers[0].push(it.getSaveData());
+                // convert z order to layer index
+                const z = parseInt(save.z);
+                if (data.layers[z] === undefined) {
+                    data.layers[z] = [];
+                }
+                delete save.z;
+                data.layers[z].push(save);
             }
         }
         return data;
