@@ -19,6 +19,12 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
          * @type {Array<InputOrder>}
          */
         this.orders = [];
+        /**
+         * Next order number
+         * @protected
+         * @type {number}
+         */
+        this.nextOrderNumber = 0;
     }
 
     /**
@@ -35,8 +41,9 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      */
     init() {
         Input.key.setInputEnable(false);
+        this.nextOrderNumber = 0;
         if (this.orders.length > 0) {
-            this.orders[0].init();
+            this.orders[this.nextOrderNumber].init();
         }
     }
 
@@ -55,21 +62,20 @@ class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether update is endped or not
      */
     update(dt) {
-        if (this.orders.length === 0) {
+        if (this.orders.length <= this.nextOrderNumber) {
             this.op.next();
             return true;
         }
         // update order
-        const order = this.orders[0];
+        const order = this.orders[this.nextOrderNumber];
         if (!order.udpate(dt)) {
             return false;
         }
         // next
-        this.orders.splice(0, 1);
         order.destruct();
         // judge end
-        if (this.orders.length > 0) {
-            this.orders[0].init();
+        if (this.orders.length > ++this.nextOrderNumber) {
+            this.orders[this.nextOrderNumber].init();
             return false;
         }
         // next

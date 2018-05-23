@@ -50,6 +50,7 @@ package under {
                 }
                 class AutoInputEvent {
                     #orders : Array<InputOrder>
+                    #nextOrderNumber : number
                     +addOrder(order)
                     +init() <<override>>
                     +destruct() <<override>>

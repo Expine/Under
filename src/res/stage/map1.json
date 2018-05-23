@@ -16370,16 +16370,21 @@
         "z": 0,
         "event": {
             "type": "sequential",
-            "events": [{
-                "type": "stop",
-                "name": "stop"
-            }, {
-                "type": "talk",
-                "sentence": "………………"
-            }, {
-                "type": "delete",
-                "name": "stop"
-            }]
+            "events": [
+                {
+                    "type": "auto",
+                    "orders": [{
+                        "type": "left",
+                        "time": 1
+                    }, {
+                        "type": "right",
+                        "time": 0.5
+                    }, {
+                        "type": "down",
+                        "time": 1
+                    }]
+                }
+]
         }
     }]
 }

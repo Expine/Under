@@ -84,6 +84,7 @@ class DirectionInputOrder extends InputOrder { // eslint-disable-line  no-unused
      * @return {boolean} Whether order is ended or not
      */
     udpate(dt) {
-        return (this.remainingTime -= dt / 1000) <= 0;
+        this.remainingTime -= dt / 1000;
+        return this.remainingTime <= 0;
     }
 }

@@ -28,7 +28,41 @@ class EditorEvent extends NamedEvent /* , IEditorSave, IStageEvent */ { // eslin
     }
 
     /**
+     * Unparse from input order to json
+     * @protected
+     * @param {InputOrder} order Traget input order
+     * @return {JSON} JSON data
+     */
+    unparseInputOrder(order) {
+        const ret = {};
+        if (order instanceof DirectionInputOrder) {
+            if (order.directionX === 1) {
+                ret.type = `right`;
+            } else if (order.directionX === -1) {
+                ret.type = `left`;
+            } else if (order.directionY === 1) {
+                ret.type = `down`;
+            } else if (order.directionY === -1) {
+                ret.type = `up`;
+            }
+            ret.time = order.time;
+        } else if (order instanceof WaitInputOrder) {
+            ret.type = `wait`;
+            ret.time = order.time;
+        } else if (order instanceof LoopInputOrder) {
+            ret.type = `loop`;
+            ret.number = order.loopNumber;
+            ret.orders = [];
+            for (const it of order.orders) {
+                ret.orders.push(this.unparseInputOrder(it));
+            }
+        }
+        return ret;
+    }
+
+    /**
      * Unparses from event to json
+     * @protected
      * @param {GameEvent} event Event to unparse
      * @return {JSON} Json data
      */
@@ -38,7 +72,7 @@ class EditorEvent extends NamedEvent /* , IEditorSave, IStageEvent */ { // eslin
             ret.type = `auto`;
             ret.orders = [];
             for (const it of event.orders) {
-                ret.orders.push(it);
+                ret.orders.push(this.unparseInputOrder(it));
             }
         } else if (event instanceof DelayEvent) {
             ret.type = `delay`;

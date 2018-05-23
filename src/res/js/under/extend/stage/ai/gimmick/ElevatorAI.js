@@ -82,8 +82,8 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
      */
     init() {
         // apply relative position
-        const x = this.entity.x;
-        const y = this.entity.y;
+        let x = this.entity.x;
+        let y = this.entity.y;
         for (let i = 0; i < this.elevatorXList.length; ++i) {
             x += this.elevatorXList[i];
             y += this.elevatorYList[i];
