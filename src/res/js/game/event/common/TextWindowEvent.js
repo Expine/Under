@@ -68,7 +68,9 @@ class TextWindowEvent extends NamedEvent { // eslint-disable-line  no-unused-var
     init() {
         this.showCount = 0;
         this.ended = false;
-        this.op.next();
+        if (this.op !== null) {
+            this.op.next();
+        }
     }
 
     /**

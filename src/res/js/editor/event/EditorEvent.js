@@ -85,6 +85,9 @@ class EditorEvent extends NamedEvent /* , IEditorSave, IStageEvent */ { // eslin
             ret.name = event.name;
             ret.x = event.x;
             ret.y = event.y;
+            if (BaseUtil.implementsOf(event.image, IEditorSave)) {
+                ret.image = event.image.getSaveData();
+            }
         } else if (event instanceof CameraEvent) {
             ret.type = `camera`;
             ret.name = event.name;

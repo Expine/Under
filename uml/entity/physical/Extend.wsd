@@ -110,7 +110,7 @@ Entity <.. JointBody : Get
 
 RigidBody <|.. MaxAdoptBody
 MaxAdoptBody <|--- PreciseBody
-PreciseBody <|-- PlayerBody
+MaxAdoptBody <|-- PlayerBody
 IJoint <|. JointBody
 MaxAdoptBody <|-- JointBody
 RigidMaterial <|.. ImmutableRigidMaterial
