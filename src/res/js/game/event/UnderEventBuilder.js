@@ -20,7 +20,7 @@ class UnderEventBuilder extends SimpleEventBuilder { // eslint-disable-line  no-
             case `changeCamera`:
                 return new CameraChangeEvent(event.camera, event.moving, event.cliping);
             case `changePhysical`:
-                const response = null;
+                let response = null;
                 switch (event.physical) {
                     case `under`:
                         response = new UnderRepulsionResponse();
