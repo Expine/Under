@@ -398,6 +398,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof ImmutableEvent !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/fire/OnceEventEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof ImagedEntity !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/object/DoorObject.js'; document.head.appendChild(script);
     }
@@ -455,6 +460,11 @@
 {const id = setInterval(function() {
     if (typeof RigidBody !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/MaxAdoptBody.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof MaxAdoptBody !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -929,11 +939,6 @@
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof PreciseBody !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
     if (typeof SimpleAABB !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/collider/DirectionalAABB.js'; document.head.appendChild(script);
     }
@@ -1270,6 +1275,7 @@
         typeof ForceMoveCamera !== `undefined` &&
         typeof MovingCamera !== `undefined` &&
         typeof ImmutableEvent !== `undefined` &&
+        typeof OnceEventEntity !== `undefined` &&
         typeof DoorObject !== `undefined` &&
         typeof SignObject !== `undefined` &&
         typeof Obstacle !== `undefined` &&
@@ -1282,6 +1288,7 @@
         typeof IJoint !== `undefined` &&
         typeof ImmutableRigidMaterial !== `undefined` &&
         typeof MaxAdoptBody !== `undefined` &&
+        typeof PlayerBody !== `undefined` &&
         typeof PreciseBody !== `undefined` &&
         typeof CircleCollider !== `undefined` &&
         typeof LowerPriorityData !== `undefined` &&
@@ -1377,7 +1384,6 @@
         typeof TileObject !== `undefined` &&
         typeof CharacterBuilder !== `undefined` &&
         typeof JointBody !== `undefined` &&
-        typeof PlayerBody !== `undefined` &&
         typeof DirectionalAABB !== `undefined` &&
         typeof RecordedTimer !== `undefined` &&
         typeof GameScene !== `undefined` &&

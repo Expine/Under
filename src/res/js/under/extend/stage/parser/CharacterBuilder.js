@@ -109,7 +109,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             case `Door`:
                 {
                     const ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
-                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const colliderData = this.trDyReplace(deploy, entity, `collider`);
                     const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
@@ -128,7 +128,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 }
             case `Event`:
                 {
-                    const ret = new ImmutableEvent();
+                    const once = this.tryReplace(deploy, entity, `once`);
+                    const ret = once ? new OnceEventEntity() : new ImmutableEvent();
                     const colliderData = this.tryReplace(deploy, entity, `collider`);
                     const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));

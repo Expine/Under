@@ -11,7 +11,7 @@
  */
 class ImmutableEvent extends Entity /* , IEventEntity, IColliderable */ { // eslint-disable-line  no-unused-vars
     /**
-     * Influential event object constructor
+     * Immutable event object constructor
      * @constructor
      */
     constructor() {

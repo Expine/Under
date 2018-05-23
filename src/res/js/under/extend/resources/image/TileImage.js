@@ -55,6 +55,6 @@ class TileImage extends SingleImage { // eslint-disable-line  no-unused-vars
      * @param {number} y Image y position
      */
     render(ctx, x, y) {
-        ctx.drawImage(this.imageID, x, y, this.width, this.height, this.srcX, this.srcY, this.srcW, this.srcW);
+        ctx.drawImage(this.imageID, x, y, this.width, this.height, this.srcX, this.srcY, this.srcW, this.srcH);
     }
 }

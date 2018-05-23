@@ -398,6 +398,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof ImmutableEvent !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/fire/OnceEventEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof ImagedEntity !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/object/DoorObject.js'; document.head.appendChild(script);
     }
@@ -455,6 +460,11 @@
 {const id = setInterval(function() {
     if (typeof RigidBody !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/MaxAdoptBody.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof MaxAdoptBody !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -796,11 +806,6 @@
 {const id = setInterval(function() {
     if (typeof PreciseBody !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/JointBody.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
-    if (typeof PreciseBody !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {

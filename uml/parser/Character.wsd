@@ -50,6 +50,7 @@ package under {
                 }
                 package ex_fire {
                     class ImmutableEvent
+                    class OnceEventEntity
                 }
                 package ex_object {
                     class DoorObject
@@ -101,6 +102,7 @@ CharacterBuilder ..> Obstacle : Generate
 CharacterBuilder ..> DoorObject : Generate
 CharacterBuilder ..> SignObject : Generate
 CharacterBuilder ..> ImmutableEvent : Generate
+CharacterBuilder ..> OnceEventEntity : Generate
 CharacterBuilder ..> AttackObject : Generate
 MutableEntity <... CharacterBuilder : Set
 AutonomyEntity <... CharacterBuilder : Set
