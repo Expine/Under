@@ -126,19 +126,30 @@
             "id": 100001,
             "type": "Enemy",
             "image": {
-                "type": "single",
-                "file": "enemy.png",
+                "type": "anime",
+                "file": "mud.png",
                 "width": 64,
-                "height": 64
+                "height": 64,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 200,
+                    "serial": true,
+                    "horizontal": 3,
+                    "vertical": 1
+                }]
             },
             "width": 64,
             "height": 64,
             "collider": {
                 "type": "RoundRectangle",
                 "startX": 0,
-                "startY": 32,
+                "startY": 34,
                 "width": 64,
-                "height": 32,
+                "height": 30,
                 "cut": 5
             },
             "material": {

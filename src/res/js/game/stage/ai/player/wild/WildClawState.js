@@ -10,16 +10,6 @@
  */
 class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused-vars
     /**
-     * WIld claw state
-     * @constructor
-     */
-    constructor() {
-        super();
-
-        this.threshold = 0.0;
-    }
-
-    /**
      *
      * Make attack object
      * @protected
@@ -30,5 +20,17 @@ class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused
         const x = this.entity.x + (this.entity.directionX === 1 ? this.entity.width - 22 : -64 + 22);
         punch.setPosition(x, this.entity.y, this.entity.z + 1);
         return punch;
+    }
+    /**
+     * Update state
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        const image = this.entity.getImage();
+        if (image !== null) {
+            image.update(dt);
+        }
+        super.update(dt);
     }
 }
