@@ -7,6 +7,7 @@ package editor {
                 #baseImage : GameImage
                 #root : string
                 +getSaveData() : JSON <<override>>
+                +setDirection(directionX,directionY) <<override>>
                 +setName(name) <<override>>
                 +getAnimation() : Animation <<override>>
                 +setAnimation(animation) <<override>>
@@ -34,9 +35,10 @@ package editor {
 package under {
     package base {
         package resource {
+            interface IImageManager
             package image {
                 abstract NamedAnimtion
-                abstract IImageManager
+                interface IDirectionalImage
             }
         }
     }
@@ -66,5 +68,6 @@ IImageManager <.. EditorImage : Get
 
 NamedAnimtion <|.. EditorImage
 EditorImage ..|> IEditorSave
+IDirectionalImage <|.. EditorImage
 
 @enduml

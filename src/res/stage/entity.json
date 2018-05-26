@@ -39,6 +39,7 @@
             "image": {
                 "type": "multianime",
                 "file": "player.png",
+                "directional": true,
                 "width": 64,
                 "height": 64,
                 "animations": [{
@@ -128,6 +129,7 @@
             "image": {
                 "type": "anime",
                 "file": "mud.png",
+                "directional": true,
                 "width": 64,
                 "height": 64,
                 "loop": true,
@@ -212,6 +214,7 @@
             "image": {
                 "type": "single",
                 "file": "enemy.png",
+                "directional": true,
                 "width": 256,
                 "height": 64
             },

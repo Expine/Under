@@ -102,15 +102,4 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
         }
         this.setPosition(this.x + this.x - this.getHookX(), this.y + this.y - this.getHookY());
     }
-
-    /**
-     * Update entty
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        super.update(dt);
-        // TODO: Maybe include image
-        this.image.setSize(this.width * this.directionX, -this.height * (this.directionY === 0 ? 1 : this.directionY));
-    }
 }

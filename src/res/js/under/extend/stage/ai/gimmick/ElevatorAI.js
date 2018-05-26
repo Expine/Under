@@ -126,20 +126,19 @@ class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
             const d = Math.sqrt(dx * dx + dy * dy);
             if (dx * this.entity.directionX < 0) {
                 dx = 0;
-                this.entity.directionX = 0;
+                this.entity.setDirection(0);
                 this.entity.body.setNextAddVelocity(-this.entity.body.velocityX, 0);
             }
             if (dy * this.entity.directionY < 0) {
                 dy = 0;
-                this.entity.directionY = 0;
+                this.entity.setDirection(undefined, 0);
                 this.entity.body.setNextAddVelocity(0, -this.entity.body.velocityY);
             }
             if (dx === 0 && dy === 0) {
                 this.isMoving = false;
                 return true;
             }
-            this.entity.directionX = Math.sign(dx);
-            this.entity.directionY = Math.sign(dy);
+            this.entity.setDirection(Math.sign(dx), Math.sign(dy));
             const fx = Math.abs(this.entity.body.velocityX) < this.maxVelocity ? dx / d * this.movePower * this.entity.material.mass : 0;
             const fy = Math.abs(this.entity.body.velocityY) < this.maxVelocity ? dy / d * this.movePower * this.entity.material.mass : 0;
             this.entity.body.enforce(fx, fy);

@@ -41,7 +41,6 @@ package game {
                             +release() <<override>>
                             +isHead() : boolean <<override>>
                             +init() <<override>>
-                            +update(dt) <<override>>
                         }
                         class HookChild {
                             +getHookX() <<override>>

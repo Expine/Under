@@ -41,7 +41,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
     init() {
         super.init();
         // Check direction
-        this.entity.directionX = -Math.sign(this.entity.body.velocityX);
+        this.entity.setDirection(-Math.sign(this.entity.body.velocityX));
         this.directionX = this.entity.directionX;
         this.downWallCount = 0;
         // push wall
@@ -96,7 +96,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
 
         // always push wall
         this.entity.body.enforce(-30000 * this.entity.material.mass * this.directionX / dt, 0);
-        this.entity.directionX = this.directionX;
+        this.entity.setDirection(this.directionX);
         const collided = this.entity.collider.collisions.some((it) => Math.abs(it.nx) && this.directionX * it.nx < 0);
         if (collided) {
             this.downWallCount = 0;

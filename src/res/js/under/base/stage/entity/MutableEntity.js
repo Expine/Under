@@ -47,6 +47,20 @@ class MutableEntity extends InfluentialEntity { // eslint-disable-line  no-unuse
     }
 
     /**
+     * Set direction of entity
+     * @param {number} [directionX = this.directionX] Direction of x
+     * @param {number} [directionY = this.directionY] Direction of y
+     */
+    setDirection(directionX = this.directionX, directionY = this.directionY) {
+        this.directionX = directionX;
+        this.directionY = directionY;
+
+        if (BaseUtil.implementsOf(this.image, IDirectionalImage)) {
+            this.image.setDirection(directionX, directionY);
+        }
+    }
+
+    /**
      * Move entity relatively
      * @param {number} dx Relative movement amount in x direction
      * @param {number} dy Relative movement amount in y direction

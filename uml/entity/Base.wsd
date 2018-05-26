@@ -40,6 +40,7 @@ package under {
                     +directionX : number
                     +directionY : number
                     +setRigidBody(body)
+                    +setDirection(directionX,directionY)
                     +deltaMove(dx,dy)
                 }
                 abstract AutonomyEntity {

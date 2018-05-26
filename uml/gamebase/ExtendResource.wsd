@@ -100,6 +100,26 @@ package under {
                     +setAllImageID(imageID) <<override>
                     +setName(name) <<override>
                 }
+
+                class SingleClipImage {
+                    +clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight) <<override>>
+                }
+                class TileClipImage {
+                    +clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight) <<override>>
+                }
+                class DIrectionalTileImage {
+                    #directionX : number
+                    #directionY : number
+                    +setDirection(directionX,directionY) <<override>>
+                    +render(ctx,x,y) <<override>>
+                }
+                class DIrectionalSingleAnimation {
+                    +setDirection(directionX,directionY) <<override>>
+                }
+                class DirectionalMultiNamedAnimation {
+                    +setDirection(directionX,directionY) <<override>>
+
+                }
             }
 
         }
@@ -123,6 +143,8 @@ package under {
                 abstract GameImage
                 abstract GameAnimation
                 abstract NamedAnimation
+                interface IClipImage
+                interface IDIrectionalImage
             }
         }
     }
@@ -134,6 +156,12 @@ Context <.. SingleImage : Render image
 Context <.. TileImage : Render image
 GameImage <.. SingleAnimation : Set and render
 GameAnimation <.. MultiNamedAnimation : Set
+
+IImageManager <.. SingleClipImage : Get size
+Context <.. SingleClipImage : Render image
+Context <.. TileClipImage : Render image
+
+Context <.. DIrectionalTileImage : Render
 
 Context <|.. JSContext
 Context <|.. GLContext
@@ -149,5 +177,17 @@ GameImage <|.. SingleImage
 SingleImage <|- TileImage
 GameAnimation <|.. SingleAnimation
 NamedAnimation <|.. MultiNamedAnimation
+
+SingleImage <|-- SingleClipImage
+IClipImage <|.. SingleClipImage
+TileImage <|-- TileClipImage
+IClipImage <|.. TileClipImage
+
+TileImage <|-- DIrectionalTileImage
+IDIrectionalImage <|.. DIrectionalTileImage
+SingleAnimation <|-- DIrectionalSingleAnimation
+IDIrectionalImage <|.. DIrectionalSingleAnimation
+MultiNamedAnimation <|-- DirectionalMultiNamedAnimation
+IDIrectionalImage <|.. DirectionalMultiNamedAnimation
 
 @enduml

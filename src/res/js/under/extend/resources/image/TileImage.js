@@ -49,7 +49,7 @@ class TileImage extends SingleImage { // eslint-disable-line  no-unused-vars
 
     /**
      * Render image
-     * @abstract
+     * @override
      * @param {Context} ctx Canvas context
      * @param {number} x Image x position
      * @param {number} y Image y position

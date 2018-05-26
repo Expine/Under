@@ -96,6 +96,7 @@
         "image": {
             "type": "anime",
             "file": "claw.png",
+            "directional": true,
             "width": 48,
             "height": 48,
             "loop": true,
@@ -144,6 +145,7 @@
         "image": {
             "type": "anime",
             "file": "hook.png",
+            "directional": true,
             "width": 32,
             "height": 32,
             "animation": [{

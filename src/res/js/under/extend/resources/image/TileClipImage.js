@@ -11,17 +11,6 @@
  */
 class TileClipImage extends TileImage /* , IClipImage */ { // eslint-disable-line  no-unused-vars
     /**
-     * Render image
-     * @abstract
-     * @param {Context} ctx Canvas context
-     * @param {number} x Image x position
-     * @param {number} y Image y position
-     */
-    render(ctx, x, y) {
-        ctx.drawImage(this.imageID, x, y, this.width, this.height, this.srcX, this.srcY, this.srcW, this.srcW);
-    }
-
-    /**
      * Render image by cliping
      * @abstract
      * @param {Context} ctx Canvas context

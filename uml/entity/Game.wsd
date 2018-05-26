@@ -47,9 +47,7 @@ package game {
 package under {
     package base {
         package resource {
-            package image {
-                interface IImageManager
-            }
+            interface IImageManager
         }
     }
     package extend {

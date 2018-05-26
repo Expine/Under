@@ -33,8 +33,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         // set direction
         const vx = Math.sign(this.entity.body.velocityX);
         const vy = Math.sign(this.entity.body.velocityY);
-        this.entity.directionX = vx === 0 ? this.entity.directionX : vx;
-        this.entity.directionY = vy === 0 ? this.entity.directionY : vy;
+        this.entity.setDirection(vx === 0 ? undefined : vx, vy === 0 ? undefined : vy);
         // check hook
         if (this.hook === null) {
             return true;

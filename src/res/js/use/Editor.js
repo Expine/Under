@@ -857,6 +857,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/resources/image/IDirectionalImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof GameAnimation !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/resources/image/MultiAnimation.js'; document.head.appendChild(script);
     }
@@ -944,6 +949,11 @@
 {const id = setInterval(function() {
     if (typeof KeyInput !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/input/PreventKeyInput.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof TileImage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/DirectionalTileImage.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -1204,6 +1214,16 @@
 {const id = setInterval(function() {
     if (typeof IResourceManager !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/resources/IMusicManager.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof MultiNamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/DirectionalMultiNamedAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof SingleAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/DirectionalSingleAnimation.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -1573,6 +1593,7 @@
         typeof IMouse !== `undefined` &&
         typeof GameAnimation !== `undefined` &&
         typeof IClipImage !== `undefined` &&
+        typeof IDirectionalImage !== `undefined` &&
         typeof MultiAnimation !== `undefined` &&
         typeof NamedAnimation !== `undefined` &&
         typeof IResourceManager !== `undefined` &&
@@ -1591,6 +1612,7 @@
         typeof KeyInput !== `undefined` &&
         typeof MouseInput !== `undefined` &&
         typeof PreventKeyInput !== `undefined` &&
+        typeof DirectionalTileImage !== `undefined` &&
         typeof MultiNamedAnimation !== `undefined` &&
         typeof SingleAnimation !== `undefined` &&
         typeof SingleClipAnimation !== `undefined` &&
@@ -1643,6 +1665,8 @@
         typeof UnderCharacterBuilder !== `undefined` &&
         typeof IImageManager !== `undefined` &&
         typeof IMusicManager !== `undefined` &&
+        typeof DirectionalMultiNamedAnimation !== `undefined` &&
+        typeof DirectionalSingleAnimation !== `undefined` &&
         typeof Player !== `undefined` &&
         typeof AttackObject !== `undefined` &&
         typeof EntityLayer !== `undefined` &&

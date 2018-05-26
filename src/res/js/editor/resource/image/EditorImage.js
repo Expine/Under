@@ -5,12 +5,14 @@
  * - Manages multiple animations
  * - Manages animation by name
  * - It can save data
+ * - Considers the direction
  * - ### Enables to use in editor
  * @extends {NamedAnimation}
  * @implements {IEditorSave}
+ * @implements {IDirectionalImage}}
  * @classdesc Editor image to enable to use in editor
  */
-class EditorImage extends NamedAnimation /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
+class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ { // eslint-disable-line  no-unused-vars
     /**
      * Editor image constructor
      * @constructor
@@ -119,6 +121,18 @@ class EditorImage extends NamedAnimation /* , IEditorSave */ { // eslint-disable
         }
         ret.file = this.loadPath(id);
         return ret;
+    }
+
+    /**
+     * Set direction of image
+     * @abstract
+     * @param {number} directionX Direction of x
+     * @param {number} directionY Direction of y
+     */
+    setDirection(directionX, directionY) {
+        if (BaseUtil.implementsOf(this.baseImage, IDirectionalImage)) {
+            this.baseImage.setDirection(directionX, directionY);
+        }
     }
 
     /**

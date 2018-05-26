@@ -23,7 +23,7 @@ class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused
             owner: this.entity,
         });
         if (attack instanceof MutableEntity) {
-            attack.directionX = this.entity.directionX;
+            attack.setDirection(this.entity.directionX);
         }
         return attack;
     }

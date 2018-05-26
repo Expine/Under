@@ -55,6 +55,17 @@ package under {
                     {abstract} +drawImage(imageID,x,y,width,height,srcX,srcY,srcW,srcH)
                 }
 
+                interface IClipImage {
+                    {abstract} +getWidth() : number
+                    {abstract} +getHeight() : number
+                    {abstract} +init()
+                    {abstract} +update(dt)
+                    {abstract} +clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight)
+                }
+                interface IDirectionalImage {
+                    {abstract} +setDirection(directionX,directionY)
+                }
+
                 abstract GameImage {
                     {abstract} +setSize(width,height)
                     {abstract} +setImageID(imageID)
