@@ -31,6 +31,14 @@ package game {
                 interface IUnderPlayable {
                     {abstract} +changeType(id) : boolean
                 }
+                interface IHook {
+                    {abstract} +getActor() : Entity
+                    {abstract} +createPost()
+                    {abstract} +hooked()
+                    {abstract} +release()
+                    {abstract} +tryRemove() : boolean
+                    {abstract} +isHead() : boolean
+                }
             }
         }
     }

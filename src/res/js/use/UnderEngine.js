@@ -289,6 +289,11 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof AI !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/attack/StarightAttackAI.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof AI !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/EnemyAI.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -650,6 +655,11 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IOwned.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IPlayable.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -785,11 +795,6 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof AIListedObject !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
-    if (typeof AIListedObject !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/PossessedObject.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -831,5 +836,10 @@
 {const id = setInterval(function() {
     if (typeof StateCharacter !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/character/Player.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof PossessedObject !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
     }
 }, 1);}

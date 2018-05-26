@@ -5,16 +5,8 @@ package game {
         package ga_parser {
             class UnderStageParser {
                 +constructor(tile,chara,event)
-                +makePhysicalResponse() : CollisionResponse <<override>>
-            }
-            class UnderTileBuilder {
-                +makeCollider(collider) : Collider <<override>>
-                +makeTileBase(deploy,json) : Entity <<override>>
-            }
-            class UnderCharacterBuilder {
-                +makeCollider(collider) : Collider <<override>>
-                +makeAI(ai) : AI <<override>>
-                +makeEntityBase(deploy,entity) : Entity <<override>>
+                #makeEntityFactory() : EntityFactory <<override>>
+                #makePhysicalResponse() : CollisionResponse <<override>>
             }
         }
 
@@ -27,18 +19,6 @@ package game {
 }
 
 package game {
-    package ga_stage {
-        package ga_entity {
-            class UnderTileObject
-            class UnderPlayer
-        }
-        package ga_physics {
-            package ga_collider {
-                class ExcludedRectangleCollider
-                class ExcludedRoundRectangleCollider
-            }
-        }
-    }
 }
 
 package under {
@@ -68,25 +48,28 @@ package under {
             package ex_parser {
                 class JSONStageParser
                 class JSONEntityFactory
-                class TileBuilder
-                class CharacterBuilder
             }
         }
     }
 }
 
-UnderStageParser ..> UnderTileBuilder : Set
-UnderStageParser ..> UnderCharacterBuilder : Set
+package game {
+    package ga_event {
+        class UnderEventBuilder
+    }
+    package ga_stage {
+        package ga_parser {
+            class UnderTileBuilder
+            class UnderCharacterBuilder
+        }
+    }
+}
+
+UnderStageParser ..> UnderTileBuilder : Generate
+UnderStageParser ..> UnderCharacterBuilder : Generate
+UnderStageParser ..> UnderEventBuilder : Generate
 UnderStageParser ..> UnderRepulsionResponse : Generate
 JSONEntityFactory <.. UnderStageParser : Generate
-
-UnderTileBuilder ..> UnderTileObject : Generate and init
-UnderTileBuilder ..> ExcludedRectangleCollider : Generate
-UnderTileBuilder ..> ExcludedRoundRectangleCollider : Generate
-
-UnderCharacterBuilder ..> UnderPlayer : Generate
-UnderCharacterBuilder ..> ExcludedRectangleCollider : Generate
-UnderCharacterBuilder ..> ExcludedRoundRectangleCollider : Generate
 
 RigidBody <.. UnderRepulsionResponse : Get and enforce
 Material <.. UnderRepulsionResponse : Get
@@ -96,8 +79,6 @@ MutableEntity <.. UnderRepulsionResponse : Get
 CollisionData <.. UnderRepulsionResponse : Get
 
 JSONStageParser <|-- UnderStageParser
-TileBuilder <|-- UnderTileBuilder
-CharacterBuilder <|-- UnderCharacterBuilder
 CollisionResponse <|.... UnderRepulsionResponse
 
 @enduml

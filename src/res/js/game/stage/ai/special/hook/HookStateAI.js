@@ -11,12 +11,11 @@ class HookStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
     /**
      * Hook State AI Constructor
      * @constructor
-     * @param {IHook} hook Hook for getting hook information
      */
-    constructor(hook) {
+    constructor() {
         super(`hooking`);
 
-        this.namedStates[`hooking`] = new HookingState(hook);
-        this.namedStates[`released`] = new HookReleasedState(hook);
+        this.namedStates[`hooking`] = new HookingState();
+        this.namedStates[`released`] = new HookReleasedState();
     }
 }

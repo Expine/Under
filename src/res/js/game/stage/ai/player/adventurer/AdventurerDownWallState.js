@@ -82,9 +82,11 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
                     }
                 }
             } else {
-                const hook = this.entity.stage.addEntityByID(200010, undefined, (it) => {
-                    it.setPosition(this.entity.x + this.entity.width / 2, this.entity.y + this.entity.height / 2, this.entity.z - 1);
-                    it.setOwner(this.entity);
+                const hook = this.entity.stage.addEntityByID(200010, {
+                    x: this.entity.x + this.entity.width / 2,
+                    y: this.entity.y + this.entity.height / 2,
+                    z: this.entity.z - 1,
+                    owner: this.entity,
                 });
                 if (hook instanceof MutableEntity) {
                     hook.body.enforce(900000 * this.entity.directionX / dt, -1500000 / dt);

@@ -38,10 +38,20 @@ package under {
                 }
                 package ex_attack {
                     class AttackObjectAI {
-                        +constructor(actor)
                         #actor : Entity
                         #preActorX : number
                         #preActorY : number
+                        +init() <<override>>
+                        +apply(dt) : boolean <<override>>
+                    }
+                    class StraightAttackAI {
+                        +constructor(maxVelocityX,maxVelocityY,movePowerX,movePowerY)
+                        #maxVelocityX : number
+                        #maxVelocityY : number
+                        #movePowerX : number
+                        #movePowerY : number
+                        #actor : Entity
+                        +init() <<override>>
                         +apply(dt) : boolean <<override>>
                     }
                 }
@@ -73,11 +83,10 @@ package under {
                 abstract State
             }
             package entity {
-                abstract Entity
                 abstract AutonomyEntity
                 package interface {
                     interface IDamagable
-                    interface IPlayable
+                    interface IOwned
                 }
             }
             package physics {
@@ -110,14 +119,25 @@ IDamagable <.. EnemyAI : Damage
 NamedAnimation <.. BaseState : Set name
 
 AutonomyEntity <.. AttackObjectAI : Move
+IOwned <.. AttackObjectAI : Get
 Collider <.. AttackObjectAI : Get
 CollisionData <.. AttackObjectAI : Get
 IDamagable <.. AttackObjectAI : Damage
+
+AutonomyEntity <.. StraightAttackAI : Move
+IOwned <.. StraightAttackAI : Get
+RigidBody <.. StraightAttackAI : Move
+Collider <.. StraightAttackAI : Get
+CollisionData <.. StraightAttackAI : Get
+IDamagable <.. StraightAttackAI : Damage
 
 StateAI <|.. NamedStateAI
 AI <|.. StraightAI
 AI <|.. JumpAI
 AI <|.. EnemyAI
+
+AI <|.. AttackObjectAI
+AI <|.. StraightAttackAI
 
 State <|.. BaseState
 State <|.. NoneState

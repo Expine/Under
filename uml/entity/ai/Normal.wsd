@@ -102,15 +102,6 @@ package under {
             }
         }
     }
-    package extend {
-        package ex_stage {
-            package ex_ai {
-                package ex_attack {
-                    class AttackObjectAI
-                }
-            }
-        }
-    }
 }
 package game {
     package ga_stage {
@@ -140,41 +131,40 @@ NormalBaseStateAI ..> NormalPunchState : Generate
 NormalBaseStateAI ..> NormalGrabState : Generate
 NormalBaseStateAI ..> NormalSpecialState : Generate
 
-StateAI <..... NormalStationaryState : Change
-IKey <..... NormalStationaryState : Get
-StateAI <..... NormalWalkState : Change
-IKey <..... NormalWalkState : Get
+StateAI <.... NormalStationaryState : Change
+IKey <.... NormalStationaryState : Get
+StateAI <.... NormalWalkState : Change
+IKey <.... NormalWalkState : Get
 
-GameImage <..... NormalJumpState : Update and judge
-StateAI <..... NormalJumpState : Change
-IKey <..... NormalJumpState : Get
-AutonomyEntity <..... NormalJumpState : Get
-RigidBody <..... NormalJumpState : Enforce
+GameImage <.... NormalJumpState : Update and judge
+StateAI <.... NormalJumpState : Change
+IKey <.... NormalJumpState : Get
+AutonomyEntity <.... NormalJumpState : Get
+RigidBody <.... NormalJumpState : Enforce
 
-StateAI <..... NormalJumpingState : Change
-AutonomyEntity <..... NormalJumpingState : Get
-RigidBody <..... NormalJumpingState : Get
-StateAI <..... NormalFallState : Change
+StateAI <.... NormalJumpingState : Change
+AutonomyEntity <.... NormalJumpingState : Get
+RigidBody <.... NormalJumpingState : Get
+StateAI <.... NormalFallState : Change
 
-AutonomyEntity <..... NormalPunchState : Get and set
-StateAI <..... NormalPunchState : Change
-Stage <..... NormalPunchState : Create
-GameAnimation <..... NormalPunchState : Judge
-AttackObjectAI <..... NormalPunchState : Genrate
+AutonomyEntity <.... NormalPunchState : Get and set
+StateAI <.... NormalPunchState : Change
+Stage <.... NormalPunchState : Create
+GameAnimation <.... NormalPunchState : Judge
 
-AutonomyEntity <..... NormalGrabState : Get
-Collider <..... NormalGrabState : Fix
-AABB <..... NormalGrabState : Get
-Stage <..... NormalGrabState : Get
-PhysicalWorld <..... NormalGrabState : Get
-CollisionData <..... NormalGrabState : Get
-GameImage <..... NormalGrabState : Init
-GameAnimation <..... NormalGrabState : Get and set
-NamedAnimation <..... NormalGrabState : Get ID
-IUnderPlayable <.... NormalGrabState : Change
-ITerrain <.... NormalGrabState : Get
+AutonomyEntity <.... NormalGrabState : Get
+Collider <.... NormalGrabState : Fix
+AABB <.... NormalGrabState : Get
+Stage <.... NormalGrabState : Get
+PhysicalWorld <.... NormalGrabState : Get
+CollisionData <.... NormalGrabState : Get
+GameImage <.... NormalGrabState : Init
+GameAnimation <.... NormalGrabState : Get and set
+NamedAnimation <.... NormalGrabState : Get ID
+NormalGrabState ..> IUnderPlayable : Change
+NormalGrabState ..> ITerrain : Get
 
-IKey <..... NormalSpecialState : Get
+IKey <.... NormalSpecialState : Get
 
 UnderStateAI <|.. NormalBaseStateAI
 UnderMovableState <|.. NormalStationaryState

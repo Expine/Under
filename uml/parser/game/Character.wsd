@@ -1,0 +1,110 @@
+@startuml ParserGameCharacter
+
+package game {
+    package ga_stage {
+        package ga_parser {
+            class UnderCharacterBuilder {
+                #makeBody(body) : RigidBody <<override>>
+                #makeCollider(collider) : Collider <<override>>
+                #makeAI(ai) : AI <<override>>
+                #makeEntityBase(deploy,entity) : Entity <<override>>
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        package ga_ai {
+            package ga_player {
+                package ga_common {
+                    class CommonBaseStateAI
+                }
+                package ga_normal {
+                    class NormalBaseStateAI
+                }
+                package ga_wild {
+                    class WIldBaseStateAI
+                }
+                package ga_adventurer {
+                    class AdventurerBaseStateAI
+                }
+                package ga_propeller {
+                    class PropellerBaseStateAI
+                }
+            }
+            package ga_ai_special {
+                package ga_ai_hook {
+                    class HookStateAI
+                    class HeadHookStateAI
+                }
+            }
+        }
+        package ga_entity {
+            class UnderPlayer
+            package ga_happen {
+                package ga_special {
+                    package ga_hook {
+                        class HookHead
+                        class HookChild
+                    }
+                }
+            }
+            package ga_object {
+                class TextSignObject
+            }
+        }
+        package ga_physics {
+            package ga_collider {
+                class ExcludedRectangleCollider
+                class ExcludedRoundRectangleCollider
+            }
+            package ga_body {
+                class StringBody
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package physics {
+                package collider {
+                    abstract Collider
+                }
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_parser {
+                class CharacterBuilder
+            }
+        }
+    }
+}
+
+UnderCharacterBuilder ..> StringBody : Generate
+
+UnderCharacterBuilder ..> ExcludedRectangleCollider : Generate
+UnderCharacterBuilder ..> ExcludedRoundRectangleCollider : Generate
+
+UnderCharacterBuilder ..> CommonBaseStateAI : Generate
+UnderCharacterBuilder ..> NormalBaseStateAI : Generate
+UnderCharacterBuilder ..> WIldBaseStateAI : Generate
+UnderCharacterBuilder ..> AdventurerBaseStateAI : Generate
+UnderCharacterBuilder ..> PropellerBaseStateAI : Generate
+UnderCharacterBuilder ..> HookStateAI : Generate
+UnderCharacterBuilder ..> HeadHookStateAI : Generate
+
+UnderCharacterBuilder ..> UnderPlayer : Generate
+UnderCharacterBuilder ..> HookHead : Generate
+UnderCharacterBuilder ..> HookChild : Generate
+UnderCharacterBuilder ..> TextSignObject : Generate
+
+Collider <.. UnderCharacterBuilder : Set
+
+CharacterBuilder <|-- UnderCharacterBuilder
+
+@enduml

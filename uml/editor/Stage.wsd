@@ -17,7 +17,7 @@ package editor {
             +setEntitySelection(selection) <<override>>
             +paint(x,y,id) <<override>>
             +getEditorEntity(x,y) : IEditorEntity <<override>>
-            +addEntitybyID(id,deploy,init) : Entity <<override>>
+            +addEntitybyID(id,deploy) : Entity <<override>>
             +addEntiy(entity) <<override>>
             +removeEntity(entity) <<override>>
             +removeEntityImmediately(entity) <<override>>

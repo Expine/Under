@@ -71,6 +71,10 @@ package under {
                     interface IColliderable {
                         {abstract} +getCollider() : Collider
                     }
+                    interface IOwned {
+                        {abstract} +setOwner(owner)
+                        {abstract} +getOwner() : Entity
+                    }
                 }
             }
             package physics {

@@ -25,14 +25,6 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
         super();
 
         /**
-         * Owned entity
-         * @override
-         * @protected
-         * @type {MutableEntity}
-         */
-        this.owner = null;
-
-        /**
          * Previous hook object
          * @protected
          * @type {HookObject}
@@ -130,9 +122,13 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
      * @protected
      */
     connectPlayer() {
-        const x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
-        const y = this.owner.y - this.generatedY;
-        this.post = new HookPlayer();
+        let x = this.generatedX;
+        let y = this.generatedY;
+        if (this.owner instanceof MutableEntity) {
+            x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+            y = this.owner.y - this.generatedY;
+        }
+        this.post = new HookOwner();
         this.post.setPosition(x, y, this.z);
         this.post.setSize(8, 8);
         this.post.setOwner(this.owner);
@@ -153,17 +149,23 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
             return;
         }
         // check length
-        const x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
-        const y = this.owner.y - this.generatedY;
+        let x = this.generatedX;
+        let y = this.generatedY;
+        if (this.owner instanceof MutableEntity) {
+            x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+            y = this.owner.y - this.generatedY;
+        }
         const dx = Math.abs(x - this.getHookX());
         const dy = Math.abs(y - this.getHookY());
         const d = Math.sqrt(dx * dx + dy * dy);
         const l = this.string.getLength() + 3;
         if (d > l) {
             // generate
-            this.post = this.stage.addEntityByID(this.childID, undefined, (it) => {
-                it.setPosition(x, y, this.z);
-                it.setOwner(this.owner);
+            this.post = this.stage.addEntityByID(this.childID, {
+                x: x,
+                y: y,
+                z: this.z,
+                owner: this.owner,
             });
             this.post.setHookInfo(this, this.string, this.restLength - 15, this.hookedLength, this.childID);
             // set initial info
@@ -243,7 +245,7 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
      * @return {boolean} Whether it was removed
      */
     tryRemove() {
-        if (this.post instanceof HookPlayer) {
+        if (this.post instanceof HookOwner) {
             this.destroy();
             return true;
         }
@@ -257,15 +259,6 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
      */
     isHead() {
         return false;
-    }
-
-    /**
-     * Set owned entity
-     * @override
-     * @param {MutableEntity} owner Owned entity
-     */
-    setOwner(owner) {
-        this.owner = owner;
     }
 
     /**
@@ -289,8 +282,12 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
      */
     init() {
         super.init();
-        this.generatedX = this.owner.directionX >= 0 ? this.x - this.owner.width - this.owner.x : this.owner.x - this.x;
-        this.generatedY = this.owner.y - this.y;
+        this.generatedX = this.x;
+        this.generatedY = this.y;
+        if (this.owner instanceof MutableEntity) {
+            this.generatedX = this.owner.directionX >= 0 ? this.x - this.owner.width - this.owner.x : this.owner.x - this.x;
+            this.generatedY = this.owner.y - this.y;
+        }
     }
 
     /**
@@ -304,7 +301,7 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
         super.render(ctx, shiftX, shiftY);
         if (this.post !== null) {
             ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.post.getHookX() + shiftX, this.post.getHookY() + shiftY, `#FFCC66`, 4);
-        } else {
+        } else if (this.owner instanceof MutableEntity) {
             const x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
             const y = this.owner.y - this.generatedY;
             ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, `#FFCC66`, 4);

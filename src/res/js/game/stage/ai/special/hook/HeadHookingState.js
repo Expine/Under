@@ -10,10 +10,9 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
     /**
      * Head hooking state constructor
      * @constructor
-     * @param {IHook} hook Hook for getting hook information
      */
-    constructor(hook) {
-        super(hook);
+    constructor() {
+        super();
 
         /**
          * Count during descent
@@ -36,8 +35,12 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         const vy = Math.sign(this.entity.body.velocityY);
         this.entity.directionX = vx === 0 ? this.entity.directionX : vx;
         this.entity.directionY = vy === 0 ? this.entity.directionY : vy;
+        // check hook
+        if (this.hook === null) {
+            return true;
+        }
         // auto release
-        if (vy > 0 && this.descentCount++ === 5) {
+        if (vy > 0 && this.descentCount++ >= 5) {
             const hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
             if (hooks.length >= 1) {
                 for (const it of hooks) {
@@ -59,26 +62,8 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
                 if (BaseUtil.implementsOf(you, IHook) && you.getActor() === this.hook.getActor()) {
                     continue;
                 }
-                // move
-                let count = 0;
-                const dx = Math.sign(this.entity.body.velocityX);
-                const dy = Math.sign(this.entity.body.velocityY);
-                while (this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider).length === 0 && ++count < 8) {
-                    let reached = false;
-                    for (const data of this.entity.stage.getPhysicalWorld().getCollisionData(this.entity.collider)) {
-                        const you = Util.getCollidedEntity(this.entity, data);
-                        if (you.collider.isResponse(this.entity.collider) && this.entity.collider.isResponse(you.collider)) {
-                            reached = true;
-                            break;
-                        }
-                    }
-                    if (reached) {
-                        break;
-                    }
-                    this.entity.deltaMove(dx, dy);
-                }
                 // hook
-                this.entity.hooked();
+                this.hook.hooked();
                 this.ai.changeState(`hooked`);
                 break;
             }

@@ -227,15 +227,10 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * Add entity to stage by ID
      * @param {Object} id Added entity ID
      * @param {JSON} deploy Deploy json data
-     * @param {Function<((Entity) => void)>} [init=null] Initialize function
      * @return {Entity} Added entity
      */
-    addEntityByID(id, deploy, init = null) {
-        let ret = super.addEntityByID(id, deploy, (it) => {
-            if (init !== null && BaseUtil.implementsOf(it, IEditorEntity)) {
-                init(it.getEntity());
-            }
-        });
+    addEntityByID(id, deploy) {
+        let ret = super.addEntityByID(id, deploy);
         if (BaseUtil.implementsOf(ret, IEditorEntity)) {
             ret = ret.getEntity();
         }

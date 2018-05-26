@@ -1,0 +1,45 @@
+@startuml ParserGameTile
+
+package game {
+    package ga_stage {
+        package ga_parser {
+            class UnderTileBuilder {
+                +makeCollider(collider) : Collider <<override>>
+                +makeTileBase(deploy,entity) : Entity <<override>>
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        package ga_entity {
+            class UnderTileObject
+        }
+        package ga_physics {
+            package ga_collider {
+                class ExcludedRectangleCollider
+                class ExcludedRoundRectangleCollider
+            }
+        }
+    }
+}
+
+package under {
+    package extend {
+        package ex_stage {
+            package ex_parser {
+                class TileBuilder
+            }
+        }
+    }
+}
+
+UnderTileBuilder ..> ExcludedRectangleCollider : Generate
+UnderTileBuilder ..> ExcludedRoundRectangleCollider : Generate
+
+UnderTileBuilder ..> UnderTileObject : Generate and init
+
+TileBuilder <|-- UnderTileBuilder
+
+@enduml

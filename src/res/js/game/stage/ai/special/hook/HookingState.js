@@ -9,9 +9,8 @@ class HookingState extends State { // eslint-disable-line  no-unused-vars
     /**
      * Hooking state
      * @constructor
-     * @param {IHook} hook Hook for getting hook information
      */
-    constructor(hook) {
+    constructor() {
         super();
 
         /**
@@ -19,7 +18,17 @@ class HookingState extends State { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {IHook}
          */
-        this.hook = hook;
+        this.hook = null;
+    }
+
+    /**
+     * Initialize
+     * @override
+     */
+    init() {
+        if (BaseUtil.implementsOf(this.entity, IHook)) {
+            this.hook = this.entity;
+        }
     }
 
     /**
@@ -29,7 +38,9 @@ class HookingState extends State { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
-        this.hook.createPost();
+        if (this.hook !== null) {
+            this.hook.createPost();
+        }
         return true;
     }
 }

@@ -61,6 +61,10 @@ class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  n
                 return new AdventurerBaseStateAI();
             case `PropellerBaseStateAI`:
                 return new PropellerBaseStateAI();
+            case `HookStateAI`:
+                return new HookStateAI();
+            case `HeadHookStateAI`:
+                return new HeadHookStateAI();
             default:
                 return super.makeAI(ai);
         }

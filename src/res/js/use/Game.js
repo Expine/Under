@@ -289,6 +289,11 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof AI !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/attack/StarightAttackAI.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof AI !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/EnemyAI.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -630,7 +635,7 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/game/stage/entity/happen/special/hook/IHook.js'; document.head.appendChild(script);
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/game/stage/entity/interface/IHook.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -780,6 +785,11 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IOwned.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IPlayable.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -915,11 +925,6 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof AIListedObject !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
-    if (typeof AIListedObject !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/PossessedObject.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -990,7 +995,7 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof HookObject !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/game/stage/entity/happen/special/hook/HookPlayer.js'; document.head.appendChild(script);
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/game/stage/entity/happen/special/hook/HookOwner.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -1021,6 +1026,11 @@
 {const id = setInterval(function() {
     if (typeof StateCharacter !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/character/Player.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof PossessedObject !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -1253,6 +1263,7 @@
         typeof GeneratableScreen !== `undefined` &&
         typeof ScalableScreen !== `undefined` &&
         typeof AttackObjectAI !== `undefined` &&
+        typeof StraightAttackAI !== `undefined` &&
         typeof EnemyAI !== `undefined` &&
         typeof ElevatorAI !== `undefined` &&
         typeof ShowState !== `undefined` &&
@@ -1352,6 +1363,7 @@
         typeof IColliderable !== `undefined` &&
         typeof IDamagable !== `undefined` &&
         typeof IEventEntity !== `undefined` &&
+        typeof IOwned !== `undefined` &&
         typeof IPlayable !== `undefined` &&
         typeof UnderDebugEngine !== `undefined` &&
         typeof DirectionInputOrder !== `undefined` &&
@@ -1379,7 +1391,6 @@
         typeof Character !== `undefined` &&
         typeof Enemy !== `undefined` &&
         typeof StateCharacter !== `undefined` &&
-        typeof AttackObject !== `undefined` &&
         typeof PossessedObject !== `undefined` &&
         typeof TileObject !== `undefined` &&
         typeof CharacterBuilder !== `undefined` &&
@@ -1394,13 +1405,14 @@
         typeof HeadHookingState !== `undefined` &&
         typeof HeadHookStateAI !== `undefined` &&
         typeof HookObject !== `undefined` &&
-        typeof HookPlayer !== `undefined` &&
+        typeof HookOwner !== `undefined` &&
         typeof IUnderPlayable !== `undefined` &&
         typeof UnderTileObject !== `undefined` &&
         typeof UnderCharacterBuilder !== `undefined` &&
         typeof IImageManager !== `undefined` &&
         typeof IMusicManager !== `undefined` &&
         typeof Player !== `undefined` &&
+        typeof AttackObject !== `undefined` &&
         typeof AdventurerHookState !== `undefined` &&
         typeof CommonGameoverState !== `undefined` &&
         typeof CpmmonJudgeState !== `undefined` &&

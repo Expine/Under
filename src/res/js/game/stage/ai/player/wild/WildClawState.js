@@ -16,10 +16,16 @@ class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused
      * @return {Entity} Attack object
      */
     makeAttackObject() {
-        const punch = this.entity.stage.addEntityByID(200001);
-        const x = this.entity.x + (this.entity.directionX === 1 ? this.entity.width - 22 : -64 + 22);
-        punch.setPosition(x, this.entity.y, this.entity.z + 1);
-        return punch;
+        const attack = this.entity.stage.addEntityByID(200002, {
+            x: this.entity.x + (this.entity.directionX === 1 ? this.entity.width - 22 : -26),
+            y: this.entity.y + 8,
+            z: this.entity.z + 1,
+            owner: this.entity,
+        });
+        if (attack instanceof MutableEntity) {
+            attack.directionX = this.entity.directionX;
+        }
+        return attack;
     }
     /**
      * Update state
