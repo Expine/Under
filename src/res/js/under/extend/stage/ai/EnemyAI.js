@@ -77,7 +77,7 @@ class EnemyAI extends AI { // eslint-disable-line  no-unused-vars
             for (const it of this.entity.collider.collisions) {
                 if ((it.colliding === this.entity && it.nx * this.preDirectionX + it.ny * this.preDirectionY > 0) || (it.collided === this.entity && it.nx * this.preDirectionX + it.ny * this.preDirectionY < 0)) {
                     const opponent = Util.getCollidedEntity(this.entity, it);
-                    if (BaseUtil.implementsOf(opponent, IDamagable)) {
+                    if (BaseUtil.implementsOf(opponent, IDamagable) && BaseUtil.implementsOf(opponent, IPlayable)) {
                         opponent.damage(1);
                     }
                 }

@@ -87,6 +87,7 @@ package under {
                 package interface {
                     interface IDamagable
                     interface IOwned
+                    interface IPLayable
                 }
             }
             package physics {
@@ -115,6 +116,7 @@ AutonomyEntity <.. EnemyAI : Get
 Collider <.. EnemyAI : Get
 CollisionData <.. EnemyAI : Get
 IDamagable <.. EnemyAI : Damage
+IPLayable <.. EnemyAI : Judge
 
 NamedAnimation <.. BaseState : Set name
 
