@@ -41,6 +41,7 @@ package under {
             package ex_physics {
                 package ex_body {
                     class ImmutableRigidMaterial
+                    class MutableRigidMaterial
                     class MaxAdoptBody
                     class PreciseBody
                     class PlayerBody
@@ -96,6 +97,7 @@ CharacterBuilder ....> PreciseBody : Generate
 CharacterBuilder ....> PlayerBody : Generate
 
 CharacterBuilder ....> ImmutableRigidMaterial : Generate
+CharacterBuilder ....> MutableRigidMaterial : Generate
 
 CharacterBuilder ...> EnemyAI : Generate
 CharacterBuilder ...> StraightAI : Generate

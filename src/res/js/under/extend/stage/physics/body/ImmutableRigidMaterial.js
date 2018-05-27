@@ -1,12 +1,13 @@
 /**
- * Rigid material
+ * Immutable rigid material
  * - Manages physical quantity
  * - ### Manages it as immutable information excluded velocity and acceleration
- * @classdesc Rigid body to manage physical quantity
+ * @extends {RigidMaterial}
+ * @classdesc Immutable rigid material to manage as immutable information exclueded velocity and acceleration
  */
 class ImmutableRigidMaterial extends RigidMaterial { // eslint-disable-line  no-unused-vars
     /**
-     * Rigid body constructor
+     * Immutable rigid material constructor
      * @constructor
      * @param {number} [k = 0.5] Coefficient of air resistance
      * @param {number} [frictionX = 1] Coefficient of x friction coefficient

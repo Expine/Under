@@ -47,6 +47,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         switch (material.type) {
             case `Immutable`:
                 return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
+            case `Mutable`:
+                return new MutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
             default:
                 return null;
         }

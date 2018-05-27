@@ -69,4 +69,32 @@ class RigidMaterial { // eslint-disable-line  no-unused-vars
      * @return {number} Gravity scale
      */
     get gravityScale() {}
+
+    /**
+     * Set coefficient of air resistance
+     * @abstract
+     * @param {number} val Coefficient of air resistance
+     */
+    set k(val) {}
+
+    /**
+     * Set coefficient of x friction coefficient
+     * @abstract
+     * @param {number} val Coefficient of x friction coefficient
+     */
+    set frictionX(val) {}
+
+    /**
+     * Set coefficient of y friction coefficient
+     * @abstract
+     * @param {number} val Coefficient of y friction coefficient
+     */
+    set frictionY(val) {}
+
+    /**
+     * Set gravity scale
+     * @abstract
+     * @param {number} val Gravity scale
+     */
+    set gravityScale(val) {}
 }

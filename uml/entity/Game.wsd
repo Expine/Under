@@ -48,6 +48,15 @@ package under {
     package base {
         package resource {
             interface IImageManager
+            package image {
+                abstract MultiAnimation
+            }
+        }
+        package physics {
+            package body {
+                abstract RigidBody
+                abstract RigidMaterial
+            }
         }
     }
     package extend {
@@ -57,11 +66,6 @@ package under {
                 class Player
                 package ex_object {
                     class SignObject
-                }
-            }
-            package ex_physics {
-                package ex_body {
-                    class ImmutableRigidMaterial
                 }
             }
         }
@@ -93,8 +97,10 @@ UnderPlayer ..> WildBaseStateAI : Generate
 UnderPlayer ..> NormalBaseStateAI : Generate
 UnderPlayer ..> AdventurerBaseStateAI : Generate
 UnderPlayer ..> PropellerBaseStateAI : Generate
-UnderPlayer ..> ImmutableRigidMaterial : Generate
 UnderPlayer ..> TransferableStateAI : Transfer
+RigidBody <.. UnderPlayer : Set
+RigidMaterial <.. UnderPlayer : Set
+MultiAnimation <.. UnderPlayer : Set
 IImageManager <.. UnderPlayer : Load
 
 Player <|-- UnderPlayer

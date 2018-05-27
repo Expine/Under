@@ -506,6 +506,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof ImmutableRigidMaterial !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/MutableRigidMaterial.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof MaxAdoptBody !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js'; document.head.appendChild(script);
     }
@@ -1522,6 +1527,7 @@
         typeof IJoint !== `undefined` &&
         typeof ImmutableRigidMaterial !== `undefined` &&
         typeof MaxAdoptBody !== `undefined` &&
+        typeof MutableRigidMaterial !== `undefined` &&
         typeof PlayerBody !== `undefined` &&
         typeof PreciseBody !== `undefined` &&
         typeof CircleCollider !== `undefined` &&
