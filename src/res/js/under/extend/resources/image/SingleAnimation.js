@@ -65,100 +65,6 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
     }
 
     /**
-     * Set image size
-     * @override
-     * @param {number} width Image width
-     * @param {number} height Image height
-     */
-    setSize(width, height) {
-        for (const it of this.animation) {
-            it.setSize(width, height);
-        }
-    }
-
-    /**
-     * Set image ID
-     * @override
-     * @param {number} imageID Image ID
-     */
-    setImageID(imageID) {
-        for (const it of this.animation) {
-            it.setImageID(imageID);
-        }
-    }
-
-    /**
-     * Get image width
-     * @override
-     * @return {number} Imag width
-     */
-    getWidth() {
-        return this.animation.length === 0 ? 0 : this.animation[this.runningAnimation].getWidth();
-    }
-
-    /**
-     * Get image height
-     * @override
-     * @return {number} Imag height
-     */
-    getHeight() {
-        return this.animation.length === 0 ? 0 : this.animation[this.runningAnimation].getHeight();
-    }
-
-    /**
-     * Initialize animation
-     * @override
-     */
-    init() {
-        this.animationCount = 0;
-        this.runningAnimation = 0;
-        this.ended = false;
-    }
-
-    /**
-     * Update animation
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        // check
-        if (this.paused || this.animation.length === 0) {
-            return;
-        }
-        if (!this.isLoop() && this.isEnded()) {
-            return;
-        }
-        // update animation
-        let delta = this.deltas[this.runningAnimation];
-        this.animationCount += dt;
-        while (this.animationCount >= delta) {
-            this.animationCount -= delta;
-            if (++this.runningAnimation >= this.animation.length) {
-                this.ended = true;
-                if (this.isLoop()) {
-                    this.runningAnimation = 0;
-                } else {
-                    this.runningAnimation--;
-                }
-            }
-            delta = this.deltas[this.runningAnimation];
-        }
-    }
-
-    /**
-     * Render animation
-     * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} x Image x position
-     * @param {number} y Image y position
-     */
-    render(ctx, x, y) {
-        if (this.animation.length > 0) {
-            this.animation[this.runningAnimation].render(ctx, x, y);
-        }
-    }
-
-    /**
      * Whether to loop or not
      * @override
      * @return {boolean} Whether to loop or not
@@ -174,6 +80,22 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
      */
     isEnded() {
         return this.ended;
+    }
+
+    /**
+     * Pause animation
+     * @override
+     */
+    pause() {
+        this.paused = true;
+    }
+
+    /**
+     * Restore animation
+     * @override
+     */
+    restore() {
+        this.paused = false;
     }
 
     /**
@@ -196,18 +118,65 @@ class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-
     }
 
     /**
-     * Pause animation
+     * Get list of animation elements
      * @override
+     * @protected
+     * @return {Array<GameImage>} List of animation elements
      */
-    pause() {
-        this.paused = true;
+    getImages() {
+        return this.animation;
     }
 
     /**
-     * Restore animation
+     * Get current image of animation
+     * @abstract
+     * @protected
+     * @return {GameImage} Current image of animation
+     */
+    getCurrentImage() {
+        return this.animation[this.runningAnimation] === undefined ? null : this.animation[this.runningAnimation];
+    }
+
+    /**
+     * Initialize animation
      * @override
      */
-    restore() {
-        this.paused = false;
+    init() {
+        super.init();
+        this.animationCount = 0;
+        this.runningAnimation = 0;
+        this.ended = false;
+    }
+
+    /**
+     * Update animation
+     * @override
+     * @param {number} dt Delta time
+     */
+    update(dt) {
+        // check
+        if (this.paused || this.animation.length === 0) {
+            return;
+        }
+        if (!this.isLoop() && this.isEnded()) {
+            return;
+        }
+        // update image
+        super.update(dt);
+        // update animation
+        let delta = this.deltas[this.runningAnimation];
+        this.animationCount += dt;
+        while (this.animationCount >= delta) {
+            this.animationCount -= delta;
+            if (++this.runningAnimation >= this.animation.length) {
+                this.ended = true;
+                if (this.isLoop()) {
+                    this.runningAnimation = 0;
+                } else {
+                    this.runningAnimation--;
+                }
+            }
+            delta = this.deltas[this.runningAnimation];
+        }
     }
 }

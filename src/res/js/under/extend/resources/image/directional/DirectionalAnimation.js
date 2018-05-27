@@ -1,14 +1,16 @@
 /**
- * Single animation
+ * Directional animation
  * - Renders image
  * - Manages animation
- * - Runs single animation
  * - Considers the direction
+ * - Clips area when rendering
+ * - Delegates other animation
  * - ### Render animation considering the direction
- * @extends {SingleAnimation}
- * @classdesc Single animation to render animation considering the direction
+ * @extends {DelegateAnimation}
+ * @implements {IDirectionalImage}
+ * @classdesc Directional animation to render animation considering the direction
  */
-class DirectionalSingleAnimation extends SingleAnimation /* , IDirectionalImage */ { // eslint-disable-line  no-unused-vars
+class DirectionalAnimation extends DelegateAnimation /* , IDirectionalImage */ { // eslint-disable-line  no-unused-vars
     /**
      * Set direction of image
      * @override
@@ -16,7 +18,7 @@ class DirectionalSingleAnimation extends SingleAnimation /* , IDirectionalImage 
      * @param {number} directionY Direction of y
      */
     setDirection(directionX, directionY) {
-        for (const it of this.animation) {
+        for (const it of this.getImages()) {
             if (BaseUtil.implementsOf(it, IDirectionalImage)) {
                 it.setDirection(directionX, directionY);
             }

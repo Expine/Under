@@ -30,16 +30,18 @@
                 "mu": 0.1
             },
             "ai": [{
-                    "type": "CommonBaseStateAI"
-                },
-                {
-                    "type": "NormalBaseStateAI"
-                }
-            ],
+                "type": "CommonBaseStateAI"
+            }, {
+                "type": "NormalBaseStateAI"
+            }],
             "image": {
                 "type": "multianime",
                 "file": "player.png",
                 "directional": true,
+                "transition": {
+                    "type": "stripe",
+                    "time": 1
+                },
                 "width": 64,
                 "height": 64,
                 "animations": [{

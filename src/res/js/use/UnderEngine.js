@@ -198,6 +198,16 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof GameImage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/delegate/DelegateImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof DelegateImage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/directional/DirectionalImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof Context !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/GLContext.js'; document.head.appendChild(script);
     }
@@ -699,8 +709,28 @@
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof TileImage !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/DirectionalTileImage.js'; document.head.appendChild(script);
+    if (typeof DelegateImage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/clip/ClipImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof GameAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/delegate/DelegateAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof NamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/delegate/DelegateNamedAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof DelegateAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/directional/DirectionalAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof DelegateNamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/directional/DirectionalNamedAnimation.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -714,18 +744,13 @@
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof SingleAnimation !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/SingleClipAnimation.js'; document.head.appendChild(script);
+    if (typeof DelegateNamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/transition/TransitionalBlinkAnimation.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof SingleImage !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/SingleClipImage.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
-    if (typeof TileImage !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/TileClipImage.js'; document.head.appendChild(script);
+    if (typeof DelegateNamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/transition/TransitionalStripeAnimation.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -849,13 +874,8 @@
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof MultiNamedAnimation !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/DirectionalMultiNamedAnimation.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
-    if (typeof SingleAnimation !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/DirectionalSingleAnimation.js'; document.head.appendChild(script);
+    if (typeof DelegateAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/clip/ClipAnimation.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {

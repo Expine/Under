@@ -33,7 +33,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
         /**
          * Tile image
          * @protected
-         * @type {IClipImage}
+         * @type {GameImage}
          */
         this.tileImage = null;
 
@@ -108,7 +108,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
      */
     init() {
         super.init();
-        this.tileImage = new SingleClipImage(ResourceManager.image.load(`tile/${this.fileName}`));
+        this.tileImage = new ClipImage(new SingleImage(ResourceManager.image.load(`tile/${this.fileName}`)));
         this.tileImage.init();
     }
 
@@ -121,6 +121,9 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
         super.update(dt);
 
         this.tileImage.update(dt);
+        if (BaseUtil.implementsOf(this.tileImage, IClipImage)) {
+            this.tileImage.setClipArea(this.clipX, this.clipY, this.clipWidth, this.clipHeight);
+        }
         // tile selection
         this.selectTile = null;
         let x = Input.mouse.getMouseX();
@@ -153,7 +156,7 @@ class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused
      * @param {Context} ctx Canvas context
      */
     render(ctx) {
-        this.tileImage.clipingRender(ctx, this.x, this.y, this.clipX, this.clipY, this.clipWidth, this.clipHeight);
+        this.tileImage.render(ctx, this.x, this.y);
         if (this.selectTile !== null) {
             ctx.strokeRect(this.selectTile.image.x + this.x, this.selectTile.image.y + this.y, this.selectTile.image.width, this.selectTile.image.height, `red`);
         }

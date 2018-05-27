@@ -26,7 +26,7 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
 
         /**
          * Entity animation
-         * @type {IClipImage}
+         * @type {GameImage}
          */
         this.animation = null;
 
@@ -84,17 +84,17 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
         if (this.entityData.image !== undefined) {
             const file = ResourceManager.image.load(`chara/${this.entityData.image.file}`);
             if (this.entityData.image.type === `single`) {
-                this.animation = new SingleClipImage(file, this.entityData.image.width, this.entityData.image.height);
+                this.animation = new ClipImage(new SingleImage(file, this.entityData.image.width, this.entityData.image.height));
             } else if (this.entityData.image.type === `anime`) {
-                const animation = new SingleClipAnimation();
+                const animation = new ClipAnimation(new SingleAnimation());
                 for (const it of this.entityData.image.animation) {
-                    animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
+                    animation.addAnimation(new ClipImage(new TileImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height)), it.delta);
                 }
                 this.animation = animation;
             } else if (this.entityData.image.type === `multianime`) {
-                const animation = new SingleClipAnimation();
+                const animation = new ClipAnimation(new SingleAnimation());
                 for (const it of this.entityData.image.animations[0].animation) {
-                    animation.addAnimation(new TileClipImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height), it.delta);
+                    animation.addAnimation(new ClipImage(new TileImage(file, this.entityData.image.width, this.entityData.image.height, it.x, it.y, it.width, it.height)), it.delta);
                 }
                 this.animation = animation;
             }
@@ -110,6 +110,9 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
     update(dt) {
         if (this.animation !== null) {
             this.animation.update(dt);
+            if (BaseUtil.implementsOf(this.animation, IClipImage)) {
+                this.animation.setClipArea(this.clipX, this.clipY, this.clipWidth, this.clipHeight);
+            }
         }
         this.selectEntity = null;
         let x = Input.mouse.getMouseX();
@@ -139,7 +142,7 @@ class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unus
             return;
         }
         if (this.animation !== null) {
-            this.animation.clipingRender(ctx, this.x, this.y, this.clipX, this.clipY, this.clipWidth, this.clipHeight);
+            this.animation.render(ctx, this.x, this.y);
         }
         if (this.selectEntity !== null) {
             ctx.strokeRect(this.x, this.y, this.width, this.height, `red`);

@@ -21,6 +21,13 @@ class GameImage { // eslint-disable-line  no-unused-vars
     setImageID(imageID) {}
 
     /**
+     * Get image ID
+     * @abstract
+     * @return {number} Image ID
+     */
+    getImageID() {}
+
+    /**
      * Get image width
      * @abstract
      * @return {number} Imag width
@@ -33,6 +40,38 @@ class GameImage { // eslint-disable-line  no-unused-vars
      * @return {number} Imag height
      */
     getHeight() {}
+
+    /**
+     * Get source offset x position
+     * @abstract
+     * @protected
+     * @type {number}
+     */
+    getSourceOffsetX() {}
+
+    /**
+     * Get source offset y position
+     * @abstract
+     * @protected
+     * @type {number}
+     */
+    getSourceOffsetY() {}
+
+    /**
+     * Get source width
+     * @abstract
+     * @protected
+     * @type {number}
+     */
+    getSourceWidth() {}
+
+    /**
+     * Get source height
+     * @abstract
+     * @protected
+     * @type {number}
+     */
+    getSourceHeight() {}
 
     /**
      * Initialize image

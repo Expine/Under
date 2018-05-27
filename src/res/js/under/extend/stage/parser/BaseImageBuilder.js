@@ -14,44 +14,84 @@ class BaseImageBuilder extends ImageBuilder { // eslint-disable-line  no-unused-
      * @return {GameImage} Maked image
      */
     build(root, image) {
-        const id = ResourceManager.image.load(`${root}/${image.file}`);
+        let ret = null;
+        const id = image.file === undefined ? -1 : ResourceManager.image.load(`${root}/${image.file}`);
+        // build base
         switch (image.type) {
             case `tile`:
                 {
                     const width = image.w === undefined ? image.width : image.w;
                     const height = image.h === undefined ? image.height : image.h;
-                    if (image.directional) {
-                        return new DirectionalTileImage(id, image.width, image.height, image.x, image.y, width, height);
-                    } else {
-                        return new TileImage(id, image.width, image.height, image.x, image.y, width, height);
-                    }
+                    ret = new TileImage(id, width, height, image.x, image.y, image.width, image.height);
+                    break;
                 }
             case `single`:
-                return new SingleImage(id, image.width, image.height);
+                ret = new SingleImage(id, image.width, image.height);
+                break;
             case `anime`:
-                {
-                    const base = image.directional ? new DirectionalSingleAnimation(image.loop) : new SingleAnimation(image.loop);
-                    base.setSize(image.width, image.height);
-                    for (const it of image.animation) {
-                        base.addAnimation(image.directional ? new DirectionalTileImage(id, image.width, image.height, it.x, it.y, it.width, it.height) : new TileImage(id, image.width, image.height, it.x, it.y, it.width, it.height), it.delta);
-                    }
-                    return base;
-                }
+                ret = new SingleAnimation(image.loop);
+                break;
             case `multianime`:
-                {
-                    const base = image.directional ? new DirectionalMultiNamedAnimation() : new MultiNamedAnimation();
-                    for (const anime of image.animations) {
-                        base.setName(anime.name);
-                        base.setAnimation(image.directional ? new DirectionalSingleAnimation(anime.loop) : new SingleAnimation(anime.loop));
-                        base.setSize(image.width, image.height);
-                        for (const it of anime.animation) {
-                            base.addAnimation(image.directional ? new DirectionalTileImage(id, image.width, image.height, it.x, it.y, it.width, it.height) : new TileImage(id, image.width, image.height, it.x, it.y, it.width, it.height), it.delta);
-                        }
-                    }
-                    return base;
-                }
-            default:
-                return null;
+                ret = new MultiNamedAnimation();
+                break;
         }
+        // build transitional
+        if (image.transition !== undefined) {
+            switch (image.transition.type) {
+                case `blink`:
+                    if (ret instanceof NamedAnimation) {
+                        ret = new TransitionalNamedAnimation(ret, image.transition.time, image.transition.interval);
+                    }
+                    break;
+                case `stripe`:
+                    if (ret instanceof NamedAnimation) {
+                        ret = new TransitionalStripeAnimation(ret, image.transition.time);
+                        image.clip = true;
+                    }
+                    break;
+            }
+        }
+        // build clip
+        if (image.clip) {
+            if (ret instanceof NamedAnimation) {} else if (ret instanceof GameAnimation) {
+                ret = new ClipAnimation(ret);
+            } else if (ret instanceof GameImage) {
+                ret = new ClipImage(ret);
+            }
+        }
+        // build directional
+        if (image.directional) {
+            if (ret instanceof NamedAnimation) {
+                ret = new DirectionalNamedAnimation(ret);
+            } else if (ret instanceof GameAnimation) {
+                ret = new DirectionalAnimation(ret);
+            } else if (ret instanceof GameImage) {
+                ret = new DirectionalImage(ret);
+            }
+        }
+        if (ret instanceof MultiAnimation) {
+            for (const anime of image.animations) {
+                ret.setName(anime.name);
+                anime.type = `anime`;
+                anime.directional = image.directional;
+                anime.clip = image.clip;
+                const element = this.build(root, anime);
+                if (element instanceof GameAnimation) {
+                    ret.setAnimation(element);
+                }
+            }
+            ret.setAllImageID(id);
+            ret.setAllSize(image.width, image.height);
+        } else if (ret instanceof GameAnimation) {
+            for (const it of image.animation) {
+                it.type = `tile`;
+                it.directional = image.directional;
+                it.clip = image.clip;
+                ret.addAnimation(this.build(root, it), it.delta);
+            }
+            ret.setImageID(id);
+            ret.setSize(image.width, image.height);
+        }
+        return ret;
     }
 }

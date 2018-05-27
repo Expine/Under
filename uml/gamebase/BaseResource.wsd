@@ -56,11 +56,7 @@ package under {
                 }
 
                 interface IClipImage {
-                    {abstract} +getWidth() : number
-                    {abstract} +getHeight() : number
-                    {abstract} +init()
-                    {abstract} +update(dt)
-                    {abstract} +clipingRender(ctx, x, y, clipX, clipY, clipWidth, clipHeight)
+                    {abstract} +setClipArea(clipX,clipY,clipWidth,clipHeight)
                 }
                 interface IDirectionalImage {
                     {abstract} +setDirection(directionX,directionY)
@@ -69,8 +65,13 @@ package under {
                 abstract GameImage {
                     {abstract} +setSize(width,height)
                     {abstract} +setImageID(imageID)
+                    {abstract} +getImageID() : number
                     {abstract} +getWidth() : number
                     {abstract} +getHeight() : number
+                    {abstract} +getSourceOffsetX() : number
+                    {abstract} +getSourceOffsetY() : number
+                    {abstract} +getSourceWidth() : number
+                    {abstract} +getSourceHeight() : number
                     {abstract} +init()
                     {abstract} +update(dt)
                     {abstract} +render(ctx,x,y)
@@ -79,29 +80,42 @@ package under {
                 abstract GameAnimation {
                     {abstract} +isLoop() : boolean
                     {abstract} +isEnded() : boolean
-                    {abstract} +getAnimationCount() : number
-                    {abstract} +addAnimation(image,delta)
                     {abstract} +pause()
                     {abstract} +restore()
-                }
-                abstract MultiAnimation {
-                    {abstract} +getAnimation() : Animation
-                    {abstract} +setAnimation(animation)
-                    {abstract} +setAllSize(width,height)
-                    {abstract} +setAllImageID(imageID)
+                    {abstract} +getAnimationCount() : number
+                    {abstract} +addAnimation(image,delta)
+                    {abstract} +getImages() : Array<GameImage>
+                    {abstract} +getCurrentImage() : GameImage
                     +setSize(width,height) <<override>>
                     +setImageID(imageID) <<override>>
+                    +getImageID() : number <<override>>
                     +getWidth() : number <<override>>
                     +getHeight() : number <<override>>
+                    +getSourceOffsetX() : number <<override>>
+                    +getSourceOffsetY() : number <<override>>
+                    +getSourceWidth() : number <<override>>
+                    +getSourceHeight() : number <<override>>
                     +init() <<override>>
                     +update(dt) <<override>>
                     +render(ctx,x,y) <<override>>
+                }
+                abstract MultiAnimation {
+                    {abstract} +getAnimation() : GameAnimation
+                    {abstract} +getAnimations() : Array<GameAnimation>
+                    {abstract} +setAnimation(animation)
+                    +setAllSize(width,height)
+                    +setAllImageID(imageID)
                     +isLoop() : boolean <<override>>
                     +isEnded() : boolean <<override>>
-                    +getAnimationCount() : number <<override>>
-                    +addAnimation(image,delta) <<override>>
                     +pause() <<override>>
                     +restore() <<override>>
+                    +getAnimationCount() : number <<override>>
+                    +addAnimation(image,delta) <<override>>
+                    +getImages() : Array<GameImage> <<override>>
+                    +getCurrentImage() : GameImage <<override>>
+                    +init() <<override>>
+                    +update(dt) <<override>>
+                    +render(ctx,x,y) <<override>>
                 }
                 abstract NamedAnimation {
                     {abstract} +setName(name)

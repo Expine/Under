@@ -41,8 +41,10 @@ class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
     init() {
         if (BaseUtil.implementsOf(this.entity, IOwned)) {
             this.actor = this.entity.getOwner();
-            this.preActorX = this.actor.x;
-            this.preActorY = this.actor.y;
+            if (this.actor !== null) {
+                this.preActorX = this.actor.x;
+                this.preActorY = this.actor.y;
+            }
         }
     }
 

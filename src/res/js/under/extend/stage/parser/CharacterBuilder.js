@@ -206,7 +206,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      * @param {JSON} json Character json data
      */
     buildOwner(base, deploy, json) {
-        if (deploy !== undefined) {
+        if (deploy !== undefined && deploy.owner !== undefined) {
             base.setOwner(deploy.owner);
         }
     }

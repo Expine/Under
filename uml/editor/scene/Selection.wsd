@@ -29,7 +29,7 @@ package editor {
                 +constructor(fileName)
                 #tileInfo : Object<number, JSON>
                 #fileName : string
-                #tileImage : IClipImage
+                #tileImage : GameImage
                 #selectTile : JSON
                 #selectedTile : JSON
                 +setSelectionInfo(info) <<override>>
@@ -41,7 +41,7 @@ package editor {
             }
             class SingleEntityLayer {
                 #entityData : JSON
-                #animation : IClipImage
+                #animation : GameImage
                 #selectEntity : JSON
                 #selectedEntity : JSON
                 +setSelectionInfo(info) <<override>>
@@ -84,9 +84,13 @@ package under {
     package extend {
         package ex_resource {
             package ex_image {
-                class SingleClipImage
-                class TileClipImage
-                class SingleClipAnimation
+                package ex_clip {
+                    class ClipImage
+                    class ClipAnimation
+                }
+                class SingleImage
+                class TileImage
+                class SingleAnimation
             }
         }
         package ex_scene {
@@ -113,15 +117,18 @@ SelectionLayer "*" --o "1" EntityLayer  : Manege
 SingleEntityLayer <.. EntityLayer : Generate and init
 Context <... EntityLayer : Render
 
-SingleClipImage <... SingleChipLayer : Generate
-IClipImage <... SingleChipLayer : Update and render
+ClipImage <... SingleChipLayer : Generate
+SingleImage <... SingleChipLayer : Generate
+IClipImage <... SingleChipLayer : Set
 IMouse <... SingleChipLayer : Get mouse
 IImageManager <... SingleChipLayer : Load
 Context <... SingleChipLayer : Render
 
-SingleClipImage <... SingleEntityLayer : Generate
-TileClipImage <... SingleEntityLayer : Generate
-SingleClipAnimation <... SingleEntityLayer : Generate
+ClipImage <... SingleEntityLayer : Generate
+ClipAnimation <... SingleEntityLayer : Generate
+SingleImage <... SingleEntityLayer : Generate
+TileImage <... SingleEntityLayer : Generate
+SingleAnimation <... SingleEntityLayer : Generate
 IClipImage <... SingleEntityLayer : Update and render
 IMouse <... SingleEntityLayer : Get mouse
 

@@ -48,6 +48,45 @@ class TileImage extends SingleImage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get source offset x position
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceOffsetX() {
+        return this.srcX;
+    }
+
+    /**
+     * Get source offset y position
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceOffsetY() {
+        return this.srcY;
+    }
+
+    /**
+     * Get source width
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceWidth() {
+        return this.srcW;
+    }
+    /**
+     * Get source height
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceHeight() {
+        return this.srcH;
+    }
+
+    /**
      * Render image
      * @override
      * @param {Context} ctx Canvas context

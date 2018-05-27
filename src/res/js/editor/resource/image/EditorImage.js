@@ -6,13 +6,15 @@
  * - Manages animation by name
  * - It can save data
  * - Considers the direction
+ * - Clips area when rendering
  * - ### Enables to use in editor
  * @extends {NamedAnimation}
  * @implements {IEditorSave}
- * @implements {IDirectionalImage}}
+ * @implements {IDirectionalImage}
+ * @implements {IClipImage}
  * @classdesc Editor image to enable to use in editor
  */
-class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ { // eslint-disable-line  no-unused-vars
+class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage, IClipImage */ { // eslint-disable-line  no-unused-vars
     /**
      * Editor image constructor
      * @constructor
@@ -125,13 +127,27 @@ class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ 
 
     /**
      * Set direction of image
-     * @abstract
+     * @override
      * @param {number} directionX Direction of x
      * @param {number} directionY Direction of y
      */
     setDirection(directionX, directionY) {
         if (BaseUtil.implementsOf(this.baseImage, IDirectionalImage)) {
             this.baseImage.setDirection(directionX, directionY);
+        }
+    }
+
+    /**
+     * Set clipingArea
+     * @override
+     * @param {number} clipX Cliping x position
+     * @param {number} clipY Cliping y position
+     * @param {number} clipWidth Cliping width
+     * @param {number} clipWidth Cliping height
+     */
+    setClipArea(clipX, clipY, clipWidth, clipHeight) {
+        if (BaseUtil.implementsOf(this.baseImage, IClipImage)) {
+            this.baseImage.setClipArea(clipX, clipY, clipWidth, clipHeight);
         }
     }
 
@@ -153,6 +169,15 @@ class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ 
      */
     getAnimation() {
         return this.baseImage instanceof MultiAnimation ? this.baseImage.getAnimation() : null;
+    }
+    /**
+     * Get list of animation
+     * @override
+     * @protected
+     * @return {Array<GameAnimation>} List of animation
+     */
+    getAnimations() {
+        return this.baseImage instanceof MultiAnimation ? this.baseImage.getAnimations() : null;
     }
 
     /**
@@ -179,7 +204,7 @@ class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ 
     }
 
     /**
-     * Set all animation size
+     * Set all animation ID
      * @override
      * @param {number} imageID Image ID
      */
@@ -187,6 +212,84 @@ class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ 
         if (this.baseImage instanceof MultiAnimation) {
             this.baseImage.setAllImageID(imageID);
         }
+    }
+
+    /**
+     * Whether to loop or not
+     * @override
+     * @return {boolean} Whether to loop or not
+     */
+    isLoop() {
+        return this.baseImage instanceof GameAnimation && this.baseImage.isLoop();
+    }
+
+    /**
+     * Whether the animation has ended or not
+     * @override
+     * @return {boolean} Whether the animation has ended or not
+     */
+    isEnded() {
+        return !(this.baseImage instanceof GameAnimation) || this.baseImage.isEnded();
+    }
+
+    /**
+     * Pause animation
+     * @override
+     */
+    pause() {
+        if (this.baseImage instanceof GameAnimation) {
+            this.baseImage.pause();
+        }
+    }
+
+    /**
+     * Restore animation
+     * @override
+     */
+    restore() {
+        if (this.baseImage instanceof GameAnimation) {
+            this.baseImage.restore();
+        }
+    }
+
+    /**
+     * Get animation count indicating animation progress
+     * @return {number} Animation count
+     */
+    getAnimationCount() {
+        return this.baseImage instanceof GameAnimation ? this.baseImage.getAnimationCount() : 0;
+    }
+
+    /**
+     * Add animation
+     * @override
+     * @param {GameImage} image Animation element
+     * @param {number} delta Animation delta time
+     */
+    addAnimation(image, delta) {
+        if (this.baseImage instanceof GameAnimation) {
+            this.baseImage.addAnimation(image, delta);
+        }
+    }
+
+    /**
+     * Get list of animation elements
+     * @override
+     * @protected
+     * @return {Array<GameImage>} List of animation elements
+     */
+    getImages() {
+        return this.baseImage instanceof GameAnimation ? this.baseImage.getImages() : [];
+    }
+
+    /**
+     * Get current image of animation
+     * @override
+     * @protected
+     * @return {GameImage} Current image of animation
+     */
+    getCurrentImage() {
+        return this.baseImage instanceof GameAnimation ? this.baseImage.getCurrentImage() : null;
     }
 
     /**
@@ -209,6 +312,15 @@ class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ 
     }
 
     /**
+     * Get image ID
+     * @override
+     * @return {number} Image ID
+     */
+    getImageID() {
+        return this.baseImage.getImageID();
+    }
+
+    /**
      * Get image width
      * @override
      * @return {number} Imag width
@@ -224,6 +336,46 @@ class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ 
      */
     getHeight() {
         return this.baseImage.getHeight();
+    }
+
+    /**
+     * Get source offset x position
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceOffsetX() {
+        return this.baseImage.getSourceOffsetY();
+    }
+
+    /**
+     * Get source offset y position
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceOffsetY() {
+        return this.baseImage.getSourceOffsetY();
+    }
+
+    /**
+     * Get source width
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceWidth() {
+        return this.getSourceWidth();
+    }
+
+    /**
+     * Get source height
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceHeight() {
+        return this.getSourceHeight();
     }
 
     /**
@@ -252,63 +404,5 @@ class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage */ 
      */
     render(ctx, x, y) {
         this.baseImage.render(ctx, x, y);
-    }
-
-    /**
-     * Whether to loop or not
-     * @override
-     * @return {boolean} Whether to loop or not
-     */
-    isLoop() {
-        return this.baseImage instanceof GameAnimation && this.baseImage.isLoop();
-    }
-
-    /**
-     * Whether the animation has ended or not
-     * @override
-     * @return {boolean} Whether the animation has ended or not
-     */
-    isEnded() {
-        return !(this.baseImage instanceof GameAnimation) || this.baseImage.isEnded();
-    }
-
-    /**
-     * Get animation count indicating animation progress
-     * @return {number} Animation count
-     */
-    getAnimationCount() {
-        return this.baseImage instanceof GameAnimation ? this.baseImage.getAnimationCount() : 0;
-    }
-
-    /**
-     * Add animation
-     * @override
-     * @param {GameImage} image Animation element
-     * @param {number} delta Animation delta time
-     */
-    addAnimation(image, delta) {
-        if (this.baseImage instanceof GameAnimation) {
-            this.baseImage.addAnimation(image, delta);
-        }
-    }
-
-    /**
-     * Pause animation
-     * @override
-     */
-    pause() {
-        if (this.baseImage instanceof GameAnimation) {
-            this.baseImage.pause();
-        }
-    }
-
-    /**
-     * Restore animation
-     * @override
-     */
-    restore() {
-        if (this.baseImage instanceof GameAnimation) {
-            this.baseImage.restore();
-        }
     }
 }
