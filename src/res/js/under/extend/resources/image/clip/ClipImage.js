@@ -76,10 +76,11 @@ class ClipImage extends DelegateImage { // eslint-disable-line  no-unused-vars
         const dw = this.clipX + this.clipWidth < x + width ? this.clipX + this.clipWidth - dx : width - dx + x;
         const dh = this.clipY + this.clipHeight < y + height ? this.clipY + this.clipHeight - dy : height - dy + y;
         // set source
-        const sx = this.getSourceOffsetX() + (x < this.clipX ? (this.clipX - x) * widthPer : 0);
+        let sx = this.getSourceOffsetX() + (x < this.clipX ? (this.clipX - x) * widthPer : 0);
         const sy = this.getSourceOffsetY() + (y < this.clipY ? (this.clipY - y) * heightPer : 0);
         const sw = this.clipX + this.clipWidth < x + width ? (this.clipX + this.clipWidth - dx) * widthPer : this.getSourceWidth() - sx + this.getSourceOffsetX();
         const sh = this.clipY + this.clipHeight < y + height ? (this.clipY + this.clipHeight - dy) * heightPer : this.getSourceHeight() - sy + this.getSourceOffsetY();
+        sx -= (this.getWidth() > 0 ? 0 : this.getSourceWidth() - sw);
         if (sw > 0 && sh > 0) {
             ctx.drawImage(this.getImageID(), dx, dy, dw * Math.sign(this.getWidth()), dh * Math.sign(this.getHeight()), sx, sy, sw, sh);
         }
