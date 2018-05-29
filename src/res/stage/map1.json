@@ -16330,42 +16330,125 @@
                 "height": 64,
                 "loop": true,
                 "animation": [{
-                    "x":0, "y":0, "width": 64, "height": 32, "delta": 200
+                    "x": 0,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":64, "y":0, "width": 64, "height": 32, "delta": 200
+                    "x": 64,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":128, "y":0, "width": 64, "height": 32, "delta": 200
+                    "x": 128,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":192, "y":0, "width": 64, "height": 32, "delta": 200
+                    "x": 192,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":0, "y":32, "width": 64, "height": 32, "delta": 200
+                    "x": 0,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":64, "y":32, "width": 64, "height": 32, "delta": 200
+                    "x": 64,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":128, "y":32, "width": 64, "height": 32, "delta": 200
+                    "x": 128,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":192, "y":32, "width": 64, "height": 32, "delta": 200
+                    "x": 192,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":0, "y":64, "width": 64, "height": 32, "delta": 200
+                    "x": 0,
+                    "y": 64,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":64, "y":64, "width": 64, "height": 32, "delta": 200
+                    "x": 64,
+                    "y": 64,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":128, "y":64, "width": 64, "height": 32, "delta": 200
+                    "x": 128,
+                    "y": 64,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":192, "y":64, "width": 64, "height": 32, "delta": 200
+                    "x": 192,
+                    "y": 64,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":0, "y":96, "width": 64, "height": 32, "delta": 200
+                    "x": 0,
+                    "y": 96,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":64, "y":96, "width": 64, "height": 32, "delta": 200
+                    "x": 64,
+                    "y": 96,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":128, "y":96, "width": 64, "height": 32, "delta": 200
+                    "x": 128,
+                    "y": 96,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":192, "y":96, "width": 64, "height": 32, "delta": 200
+                    "x": 192,
+                    "y": 96,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }]
             }
         }
     }, {
-        "x":800,"y":4608,"z":0,"id":100006,
+        "x": 800,
+        "y": 4608,
+        "z": 0,
+        "id": 100006,
         "sign": {
             "x": 0,
             "y": -100,
@@ -16376,18 +16459,198 @@
                 "height": 64,
                 "loop": true,
                 "animation": [{
-                    "x":0, "y":0, "width": 64, "height": 32, "delta": 200
+                    "x": 0,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":64, "y":0, "width": 64, "height": 32, "delta": 200
+                    "x": 64,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
                 }, {
-                    "x":128, "y":0, "width": 64, "height": 32, "delta": 100
+                    "x": 128,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 100,
+                    "type": "tile"
                 }, {
-                    "x":0, "y":32, "width": 64, "height": 32, "delta": 100
+                    "x": 0,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 100,
+                    "type": "tile"
                 }, {
-                    "x":64, "y":32, "width": 64, "height": 32, "delta": 100
+                    "x": 64,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 100,
+                    "type": "tile"
                 }, {
-                    "x":128, "y":32, "width": 64, "height": 32, "delta": 100
+                    "x": 128,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 100,
+                    "type": "tile"
                 }]
             }
-        }    }]
+        }
+    }, {
+        "x": 1376,
+        "y": 4608,
+        "z": 0,
+        "id": 100006,
+        "sign": {
+            "x": 0,
+            "y": -100,
+            "image": {
+                "type": "anime",
+                "file": "operationExp3.png",
+                "width": 128,
+                "height": 64,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 64,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 128,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 192,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 0,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 100,
+                    "type": "tile"
+                }, {
+                    "x": 64,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 100,
+                    "type": "tile"
+                }, {
+                    "x": 128,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 100,
+                    "type": "tile"
+                }, {
+                    "x": 192,
+                    "y": 32,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 500,
+                    "type": "tile"
+                }]
+            }
+        }
+    }, {
+        "x": 1856,
+        "y": 4416,
+        "z": 0,
+        "id": 100006,
+        "sign": {
+            "x": 0,
+            "y": -100,
+            "image": {
+                "type": "anime",
+                "file": "operationExp4.png",
+                "width": 64,
+                "height": 96,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 48,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 32,
+                    "y": 0,
+                    "width": 32,
+                    "height": 48,
+                    "delta": 200,
+                    "type": "tile"
+                }]
+            }
+        }
+    }, {
+        "x": 2528,
+        "y": 4384,
+        "z": 0,
+        "id": 100006,
+        "sign": {
+            "x": 0,
+            "y": -100,
+            "image": {
+                "type": "anime",
+                "file": "operationExp5.png",
+                "width": 128,
+                "height": 64,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 64,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 128,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 192,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }]
+            }
+        }
+    }]
 }
