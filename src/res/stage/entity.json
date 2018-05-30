@@ -534,6 +534,29 @@
                     "height": 96
                 }
             }
+        },
+        {
+            "id": 100013,
+            "type": "OnlyImage",
+            "image": {
+                "type": "anime",
+                "file": "goal.png",
+                "width": 96,
+                "height": 96,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 150,
+                    "serial": true,
+                    "horizontal": 4,
+                    "vertical": 1
+                }]
+            },
+            "width": 96,
+            "height": 96
         }
     ]
 }

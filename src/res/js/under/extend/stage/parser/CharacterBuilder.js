@@ -100,6 +100,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     makeEntityBase(deploy, entity) {
         switch (entity.type) {
+            case `OnlyImage`:
+                return new OnlyImageEntity();
             case `AIObject`:
                 return new AIListedObject();
             case `Character`:
