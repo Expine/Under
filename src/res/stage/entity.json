@@ -87,7 +87,7 @@
                             [100],
                             [200],
                             [200],
-                            [200, 200],
+                            [200, 100],
                             [200, 300]
                         ],
                         "number": 4,
@@ -494,6 +494,46 @@
                 "show": 2,
                 "interval": 1
             }]
+        },
+        {
+            "id": 100012,
+            "type": "Sign",
+            "image": {
+                "type": "anime",
+                "file": "sideSign.png",
+                "width": 64,
+                "height": 64,
+                "loop": false,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 100,
+                    "serial": true,
+                    "horizontal": 4,
+                    "vertical": 1
+                }]
+            },
+            "width": 64,
+            "height": 64,
+            "collider": {
+                "type": "Rectangle",
+                "startX": -100,
+                "startY": -63,
+                "width": 160,
+                "height": 190
+            },
+            "sign": {
+                "x": 0,
+                "y": 0,
+                "image": {
+                    "type": "single",
+                    "file": "actor.png",
+                    "width": 96,
+                    "height": 96
+                }
+            }
         }
     ]
 }

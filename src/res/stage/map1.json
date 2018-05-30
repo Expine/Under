@@ -16652,5 +16652,102 @@
                 }]
             }
         }
+    }, {
+        "x": 5568,
+        "y": 4672,
+        "z": 0,
+        "id": 100006,
+        "sign": {
+            "x": 0,
+            "y": -100,
+            "image": {
+                "type": "anime",
+                "file": "operationExp6.png",
+                "width": 128,
+                "height": 64,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 64,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 128,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 192,
+                    "y": 0,
+                    "width": 64,
+                    "height": 32,
+                    "delta": 200,
+                    "type": "tile"
+                }]
+            }
+        }
+    }, {
+        "x": 5696,
+        "y": 4512,
+        "z": 0,
+        "id": 100012,
+        "collider": {
+            "type": "Rectangle",
+            "startX": -100,
+            "startY": -63,
+            "width": 160,
+            "height": 126
+        },
+        "sign": {
+            "x": 100,
+            "y": 0,
+            "image": {
+                "type": "anime",
+                "file": "operationExp7.png",
+                "width": 128,
+                "height": 128,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 64,
+                    "height": 64,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 64,
+                    "y": 0,
+                    "width": 64,
+                    "height": 64,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 128,
+                    "y": 0,
+                    "width": 64,
+                    "height": 64,
+                    "delta": 200,
+                    "type": "tile"
+                }, {
+                    "x": 192,
+                    "y": 0,
+                    "width": 64,
+                    "height": 64,
+                    "delta": 200,
+                    "type": "tile"
+                }]
+            }
+        }
     }]
 }
