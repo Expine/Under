@@ -42,8 +42,8 @@ package under {
             interface IMouse
         }
         package resource {
+            interface IImageManager
             package image {
-                abstract IImageManager
                 abstract Context
             }
         }

@@ -55,6 +55,7 @@ class CameraChangeEvent extends StageEvent { // eslint-disable-line  no-unused-v
         }
         const old = this.stage.getCamera();
         camera.setScreenSize(old.screenWidth, old.screenHeight);
+        camera.setMaxSize(old.maxWidth, old.maxHeight);
         this.stage.setCamera(camera);
         this.op.next();
     }

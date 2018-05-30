@@ -40,6 +40,7 @@ package under {
                     +directionX : number
                     +directionY : number
                     +setRigidBody(body)
+                    +setDirection(directionX,directionY)
                     +deltaMove(dx,dy)
                 }
                 abstract AutonomyEntity {
@@ -70,6 +71,10 @@ package under {
                     }
                     interface IColliderable {
                         {abstract} +getCollider() : Collider
+                    }
+                    interface IOwned {
+                        {abstract} +setOwner(owner)
+                        {abstract} +getOwner() : Entity
                     }
                 }
             }
@@ -163,6 +168,10 @@ package under {
                         {abstract} +frictionX() : number <<getter>>
                         {abstract} +frictionY() : number <<getter>>
                         {abstract} +gravityScale() : number <<getter>>
+                        {abstract} +k(val) <<setter>>
+                        {abstract} +frictionX(val) <<setter>>
+                        {abstract} +frictionY(val) <<setter>>
+                        {abstract} +gravityScale(val) <<setter>>
                     }
                 }
             }

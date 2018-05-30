@@ -36,11 +36,11 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
     apply(dt) {
         // generate hook
         if (Util.canEnd(this.entity.getImage())) {
-            const hook = this.entity.stage.addEntityByID(200010, undefined, (it) => {
-                it.setPosition(this.entity.x + this.entity.width / 2, this.entity.y + this.entity.height / 2, this.entity.z - 1);
-                if (it instanceof PossessedObject) {
-                    it.setOwner(this.entity);
-                }
+            const hook = this.entity.stage.addEntityByID(200010, {
+                x: this.entity.x + this.entity.width / 2,
+                y: this.entity.y + this.entity.height / 2,
+                z: this.entity.z - 1,
+                owner: this.entity,
             });
             if (hook instanceof MutableEntity) {
                 hook.body.enforce(1200000 * this.entity.directionX / dt, -2000000 / dt);

@@ -26,7 +26,7 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
 
         // initialize
         this.setHP(3);
-        this.directionX = 1;
+        this.setDirection(1);
 
         /**
          * Remaining time of invincible state

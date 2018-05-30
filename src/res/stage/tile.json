@@ -3,7 +3,7 @@
         "file": "tile.png",
         "chips": [{
             "id": 0,
-            "terrain": 0,
+            "terrain": 1,
             "image": {
                 "type": "tile",
                 "x": 0,
@@ -42,21 +42,27 @@
             "terrain": 3
         }, {
             "id": 16,
+            "z": -10,
             "type": "image"
         }, {
             "id": 17,
+            "z": -10,
             "type": "image"
         }, {
             "id": 18,
+            "z": -10,
             "type": "image"
         }, {
             "id": 24,
+            "z": -10,
             "type": "image"
         }, {
             "id": 25,
+            "z": -10,
             "type": "image"
         }, {
             "id": 26,
+            "z": -10,
             "type": "image"
         }]
     }, {

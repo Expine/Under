@@ -47,6 +47,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
         switch (material.type) {
             case `Immutable`:
                 return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
+            case `Mutable`:
+                return new MutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
             default:
                 return null;
         }
@@ -80,6 +82,10 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 return new PlayerGameoverStateAI();
             case `PlayerBaseStateAI`:
                 return new PlayerBaseStateAI();
+            case `AttackObjectAI`:
+                return new AttackObjectAI();
+            case `StraightAttackAI`:
+                return new StraightAttackAI(ai.vx === undefined ? 0 : ai.vx, ai.vy === undefined ? 0 : ai.vy, ai.px === undefined ? 0 : ai.px, ai.py === undefined ? 0 : ai.py);
             default:
                 return null;
         }
@@ -94,6 +100,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
      */
     makeEntityBase(deploy, entity) {
         switch (entity.type) {
+            case `OnlyImage`:
+                return new OnlyImageEntity();
             case `AIObject`:
                 return new AIListedObject();
             case `Character`:
@@ -109,7 +117,7 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
             case `Door`:
                 {
                     const ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
-                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const colliderData = this.trDyReplace(deploy, entity, `collider`);
                     const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
@@ -128,7 +136,8 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 }
             case `Event`:
                 {
-                    const ret = new ImmutableEvent();
+                    const once = this.tryReplace(deploy, entity, `once`);
+                    const ret = once ? new OnceEventEntity() : new ImmutableEvent();
                     const colliderData = this.tryReplace(deploy, entity, `collider`);
                     const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));
@@ -192,6 +201,19 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     }
 
     /**
+     * Build owner by json data
+     * @protected
+     * @param {IOwned} base Base entity
+     * @param {JSON} deploy Entity deploy json data
+     * @param {JSON} json Character json data
+     */
+    buildOwner(base, deploy, json) {
+        if (deploy !== undefined && deploy.owner !== undefined) {
+            base.setOwner(deploy.owner);
+        }
+    }
+
+    /**
      * Build character from json data
      * @override
      * @param {JSON} deploy Entity deploy json data
@@ -201,6 +223,9 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     build(deploy, json) {
         const base = this.makeEntityBase(deploy, json);
         this.buildBase(base, deploy, json);
+        if (BaseUtil.implementsOf(base, IOwned)) {
+            this.buildOwner(base, deploy, json);
+        }
         if (base instanceof ImagedEntity) {
             this.buildImage(base, deploy, json);
         }

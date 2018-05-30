@@ -96,21 +96,10 @@ class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
             this.originalBody = bodies.length === 0 ? null : bodies[0];
         }
 
-        this.addAI(new HeadHookStateAI(this));
-
-        this.directionX = this.owner.directionX;
-        this.directionY = -1;
+        if (this.owner instanceof MutableEntity) {
+            this.directionX = this.owner.directionX;
+            this.directionY = -1;
+        }
         this.setPosition(this.x + this.x - this.getHookX(), this.y + this.y - this.getHookY());
-    }
-
-    /**
-     * Update entty
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        super.update(dt);
-        // TODO: Maybe include image
-        this.image.setSize(this.width * this.directionX, -this.height * (this.directionY === 0 ? 1 : this.directionY));
     }
 }

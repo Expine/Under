@@ -58,6 +58,15 @@ class SingleImage extends GameImage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get image ID
+     * @abstract
+     * @return {number} Image ID
+     */
+    getImageID() {
+        return this.imageID;
+    }
+
+    /**
      * Get image width
      * @override
      * @return {number} Imag width
@@ -76,19 +85,58 @@ class SingleImage extends GameImage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get source offset x position
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceOffsetX() {
+        return 0;
+    }
+
+    /**
+     * Get source offset y position
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceOffsetY() {
+        return 0;
+    }
+
+    /**
+     * Get source width
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceWidth() {
+        return ResourceManager.image.getWidth(this.imageID);
+    }
+    /**
+     * Get source height
+     * @override
+     * @protected
+     * @type {number}
+     */
+    getSourceHeight() {
+        return ResourceManager.image.getHeight(this.imageID);
+    }
+
+    /**
      * Update image
      * @override
      * @param {number} dt Delta time
      */
     update(dt) {
         if (this.width === null) {
-            const width = ResourceManager.image.getWidth(this.imageID);
+            const width = this.getSourceWidth();
             if (width > 0) {
                 this.width = width;
             }
         }
         if (this.height === null) {
-            const height = ResourceManager.image.getHeight(this.imageID);
+            const height = this.getSourceHeight();
             if (height > 0) {
                 this.height = height;
             }

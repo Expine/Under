@@ -18,7 +18,7 @@
             "body": {
                 "type": "Player",
                 "material": {
-                    "type": "Immutable",
+                    "type": "Mutable",
                     "k": 10,
                     "frictionX": 1.0,
                     "frictionY": 0.0
@@ -30,15 +30,18 @@
                 "mu": 0.1
             },
             "ai": [{
-                    "type": "CommonBaseStateAI"
-                },
-                {
-                    "type": "NormalBaseStateAI"
-                }
-            ],
+                "type": "CommonBaseStateAI"
+            }, {
+                "type": "NormalBaseStateAI"
+            }],
             "image": {
                 "type": "multianime",
                 "file": "player.png",
+                "directional": true,
+                "transition": {
+                    "type": "stripe",
+                    "time": 1
+                },
                 "width": 64,
                 "height": 64,
                 "animations": [{
@@ -72,7 +75,7 @@
                             [true],
                             [false],
                             [false, false],
-                            [false, false, true]
+                            [false, true]
                         ],
                         "deltas": [
                             [300],
@@ -84,8 +87,8 @@
                             [100],
                             [200],
                             [200],
-                            [200, 200],
-                            [200, 200, 200]
+                            [200, 100],
+                            [200, 300]
                         ],
                         "number": 4,
                         "horizontal": 4,
@@ -126,19 +129,31 @@
             "id": 100001,
             "type": "Enemy",
             "image": {
-                "type": "single",
-                "file": "enemy.png",
+                "type": "anime",
+                "file": "mud.png",
+                "directional": true,
                 "width": 64,
-                "height": 64
+                "height": 64,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 200,
+                    "serial": true,
+                    "horizontal": 3,
+                    "vertical": 1
+                }]
             },
             "width": 64,
             "height": 64,
             "collider": {
                 "type": "RoundRectangle",
                 "startX": 0,
-                "startY": 32,
+                "startY": 34,
                 "width": 64,
-                "height": 32,
+                "height": 30,
                 "cut": 5
             },
             "material": {
@@ -201,6 +216,7 @@
             "image": {
                 "type": "single",
                 "file": "enemy.png",
+                "directional": true,
                 "width": 256,
                 "height": 64
             },
@@ -478,6 +494,69 @@
                 "show": 2,
                 "interval": 1
             }]
+        },
+        {
+            "id": 100012,
+            "type": "Sign",
+            "image": {
+                "type": "anime",
+                "file": "sideSign.png",
+                "width": 64,
+                "height": 64,
+                "loop": false,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 100,
+                    "serial": true,
+                    "horizontal": 4,
+                    "vertical": 1
+                }]
+            },
+            "width": 64,
+            "height": 64,
+            "collider": {
+                "type": "Rectangle",
+                "startX": -100,
+                "startY": -63,
+                "width": 160,
+                "height": 190
+            },
+            "sign": {
+                "x": 0,
+                "y": 0,
+                "image": {
+                    "type": "single",
+                    "file": "actor.png",
+                    "width": 96,
+                    "height": 96
+                }
+            }
+        },
+        {
+            "id": 100013,
+            "type": "OnlyImage",
+            "image": {
+                "type": "anime",
+                "file": "goal.png",
+                "width": 96,
+                "height": 96,
+                "loop": true,
+                "animation": [{
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32,
+                    "delta": 150,
+                    "serial": true,
+                    "horizontal": 4,
+                    "vertical": 1
+                }]
+            },
+            "width": 96,
+            "height": 96
         }
     ]
 }

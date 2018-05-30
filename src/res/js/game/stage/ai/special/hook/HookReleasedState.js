@@ -19,9 +19,18 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {IHook}
          */
-        this.hook = hook;
+        this.hook = null;
     }
 
+    /**
+     * Initialize
+     * @override
+     */
+    init() {
+        if (BaseUtil.implementsOf(this.entity, IHook)) {
+            this.hook = this.entity;
+        }
+    }
     /**
      * Apply AI and decide action
      * @override
@@ -29,6 +38,11 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
      * @return {boolean} Whether decided on action
      */
     apply(dt) {
+        // check hook
+        if (this.hook === null) {
+            return true;
+        }
+
         // check collisions
         for (const it of this.entity.collider.collisions) {
             const you = Util.getCollidedEntity(this.entity, it);
@@ -37,5 +51,6 @@ class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
                 break;
             }
         }
+        return true;
     }
 }

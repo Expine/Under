@@ -23,6 +23,6 @@ class Enemy extends Character { // eslint-disable-line  no-unused-vars
 
         // initialize
         this.setHP(1);
-        this.directionX = 1;
+        this.setDirection(1);
     }
 }

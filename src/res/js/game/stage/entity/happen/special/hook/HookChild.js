@@ -41,8 +41,6 @@ class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
      */
     init() {
         super.init();
-        this.addAI(new HookStateAI(this));
-
         this.setPosition(this.x + this.x - this.getHookX(), this.y + this.y - this.getHookY());
     }
 }

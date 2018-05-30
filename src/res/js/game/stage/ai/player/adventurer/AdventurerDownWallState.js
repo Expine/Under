@@ -41,7 +41,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
     init() {
         super.init();
         // Check direction
-        this.entity.directionX = -Math.sign(this.entity.body.velocityX);
+        this.entity.setDirection(-Math.sign(this.entity.body.velocityX));
         this.directionX = this.entity.directionX;
         this.downWallCount = 0;
         // push wall
@@ -82,9 +82,11 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
                     }
                 }
             } else {
-                const hook = this.entity.stage.addEntityByID(200010, undefined, (it) => {
-                    it.setPosition(this.entity.x + this.entity.width / 2, this.entity.y + this.entity.height / 2, this.entity.z - 1);
-                    it.setOwner(this.entity);
+                const hook = this.entity.stage.addEntityByID(200010, {
+                    x: this.entity.x + this.entity.width / 2,
+                    y: this.entity.y + this.entity.height / 2,
+                    z: this.entity.z - 1,
+                    owner: this.entity,
                 });
                 if (hook instanceof MutableEntity) {
                     hook.body.enforce(900000 * this.entity.directionX / dt, -1500000 / dt);
@@ -94,7 +96,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
 
         // always push wall
         this.entity.body.enforce(-30000 * this.entity.material.mass * this.directionX / dt, 0);
-        this.entity.directionX = this.directionX;
+        this.entity.setDirection(this.directionX);
         const collided = this.entity.collider.collisions.some((it) => Math.abs(it.nx) && this.directionX * it.nx < 0);
         if (collided) {
             this.downWallCount = 0;

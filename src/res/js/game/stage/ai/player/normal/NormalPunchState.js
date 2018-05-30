@@ -36,10 +36,12 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
      * @return {Entity} Attack object
      */
     makeAttackObject() {
-        const punch = this.entity.stage.addEntityByID(200000);
-        const x = this.entity.x + (this.entity.directionX === 1 ? this.entity.width - 22 : -32 + 22);
-        punch.setPosition(x, this.entity.y + 27, this.entity.z + 1);
-        return punch;
+        return this.entity.stage.addEntityByID(200000, {
+            x: this.entity.x + (this.entity.directionX === 1 ? this.entity.width - 22 : -32 + 22),
+            y: this.entity.y + 27,
+            z: this.entity.z + 1,
+            owner: this.entity,
+        });
     }
 
     init() {
@@ -58,10 +60,7 @@ class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unu
             return;
         }
         if (!this.attacked) {
-            const attack = this.makeAttackObject();
-            if (attack instanceof AutonomyEntity) {
-                attack.addAI(new AttackObjectAI(this.entity));
-            }
+            this.makeAttackObject();
             this.attacked = true;
         }
         // change state

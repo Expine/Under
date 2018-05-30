@@ -35,9 +35,12 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
      * @return {Entity} Attack object
      */
     makeAttackObject() {
-        const punch = this.entity.stage.addEntityByID(200000);
-        const x = this.entity.x + (this.entity.directionX === 1 ? this.entity.width - 22 : -32 + 22);
-        punch.setPosition(x, this.entity.y + 27, this.entity.z + 1);
+        const punch = this.entity.stage.addEntityByID(200000, {
+            x: this.entity.x + (this.entity.directionX === 1 ? this.entity.width - 22 : -32 + 22),
+            y: this.entity.y + 27,
+            z: this.entity.z + 1,
+            owner: this.entity,
+        });
         return punch;
     }
 

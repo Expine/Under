@@ -1,0 +1,95 @@
+@startuml AIHook
+package game {
+    package ga_stage {
+        package ga_ai {
+            package ga_special {
+                package ga_hook {
+                    class HookStateAI
+                    class HeadHookStateAI
+                    class HookingState {
+                        #hook : IHook
+                        +init() <<override>>
+                        +apply(dt) : boolean  <<override>>
+                    }
+                    class HeadHookingState {
+                        #descentCount : number
+                        +apply(dt) : boolean  <<override>>
+                    }
+                    class HookReleasedState {
+                        #hook : IHook
+                        +init() <<override>>
+                        +apply(dt) : boolean  <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            package ai {
+                abstract StateAI
+                package state {
+                    abstract State
+                }
+            }
+            package entity {
+                abstract MutableEntity
+            }
+            package physics {
+                package collider {
+                    abstract Collider
+                    abstract CollisionData
+                }
+            }
+        }
+    }
+    package extend {
+        package ex_stage {
+            package ex_ai {
+                class NamedStateAI
+                package ex_state {
+                    class NoneState
+                }
+            }
+        }
+    }
+}
+
+package game {
+    package ga_stage {
+        package ga_entity {
+            package ga_interface {
+                interface IHook
+            }
+        }
+    }
+}
+
+HookStateAI ..> HookingState : Generate
+HookStateAI ..> HookReleasedState : Generate
+HeadHookStateAI ..> HeadHookingState : Generate
+NoneState <.. HeadHookStateAI : Generate
+
+IHook <.. HookingState : Create
+
+MutableEntity <.... HeadHookingState :: Get
+IHook <... HeadHookingState : Hook and release
+Collider <.... HeadHookingState : Get
+CollisionData <.... HeadHookingState : Get
+StateAI <.... HeadHookingState : Change
+
+IHook <... HookReleasedState : Remove
+Collider <.... HookReleasedState : Get
+CollisionData <.... HookReleasedState : Get
+
+NamedStateAI <|-- HookStateAI
+HookStateAI <|-- HeadHookStateAI
+
+State <|.. HookingState
+HookingState <|-- HeadHookingState
+State <|-- HookReleasedState
+
+@enduml

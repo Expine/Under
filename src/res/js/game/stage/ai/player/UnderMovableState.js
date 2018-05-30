@@ -115,7 +115,7 @@ class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // esli
      * @param {number} dt Delta time
      */
     moveX(vx, dt) {
-        this.entity.directionX = vx;
+        this.entity.setDirection(vx === 0 ? this.directionX : vx);
         if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < Math.abs(this.maxVelocityX)) {
             this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
         }
@@ -128,7 +128,7 @@ class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // esli
      * @param {number} dt Delta time
      */
     moveY(vy, dt) {
-        this.entity.directionX = vy;
+        this.entity.setDirection(undefined, vy === 0 ? this.directionY : vy);
         if (this.entity.body.velocityY * vy < 0 || Math.abs(this.entity.body.velocityY) < Math.abs(this.maxVelocityY)) {
             this.entity.body.enforce(0, this.movePowerY * this.entity.material.mass * vy / dt);
         }

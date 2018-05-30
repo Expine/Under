@@ -1,5 +1,5 @@
 /**
- * Multi named Animation
+ * Multi named animation
  * - Renders image
  * - Manages animation
  * - Manages multiple animations
@@ -32,34 +32,6 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     }
 
     /**
-     * Set all animation size
-     * @override
-     * @param {number} width Image width
-     * @param {number} height Image height
-     */
-    setAllSize(width, height) {
-        for (const it in this.animation) {
-            if (this.animation.hasOwnProperty(it)) {
-                this.animation[it].setSize(width, height);
-            }
-        }
-    }
-
-    /**
-     * Set all animation size
-     * @override
-     * @param {number} imageID Image ID
-     */
-    setAllImageID(imageID) {
-        for (const it in this.animation) {
-            if (this.animation.hasOwnProperty(it)) {
-                this.animation[it].setImageID(imageID);
-            }
-        }
-    }
-
-
-    /**
      * Set running animation name
      * @override
      * @param {string} name Running animation name
@@ -76,6 +48,22 @@ class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-un
     getAnimation() {
         const ret = this.animation[this.name];
         return ret !== undefined ? ret : null;
+    }
+
+    /**
+     * Get list of animation
+     * @override
+     * @protected
+     * @return {Array<GameAnimation>} List of animation
+     */
+    getAnimations() {
+        const list = [];
+        for (const it in this.animation) {
+            if (this.animation.hasOwnProperty(it)) {
+                list.push(this.animation[it]);
+            }
+        }
+        return list;
     }
 
     /**

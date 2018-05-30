@@ -4,7 +4,7 @@ package editor {
     package ed_stage {
         package ed_entity {
             class EditorTile {
-                +consstructor(entity,id,autoTileBaseID)
+                +consstructor(entity,deployData,id,autoTileBaseID)
                 #entity : Entity
                 #id : number
                 #autoTileBaseID : number

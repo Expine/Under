@@ -72,30 +72,22 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
             case 0:
                 ai = new WildBaseStateAI();
                 fileName = `wild.png`;
-                if (this.body.material.frictionY !== 0) {
-                    this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
-                }
+                this.body.material.frictionY = 0;
                 break;
             case 1:
                 ai = new NormalBaseStateAI();
                 fileName = `player.png`;
-                if (this.body.material.frictionY !== 0) {
-                    this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
-                }
+                this.body.material.frictionY = 0;
                 break;
             case 2:
                 ai = new AdventurerBaseStateAI();
                 fileName = `adventurer.png`;
-                if (this.body.material.frictionY !== 2) {
-                    this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 2));
-                }
+                this.body.material.frictionY = 2;
                 break;
             case 3:
                 ai = new PropellerBaseStateAI();
                 fileName = `propeller.png`;
-                if (this.body.material.frictionY !== 0) {
-                    this.body.setMaterial(new ImmutableRigidMaterial(this.body.material.k, this.body.material.frictionX, 0));
-                }
+                this.body.material.frictionY = 0;
                 break;
         }
         // inspect whether it changes

@@ -12,12 +12,11 @@
      /**
       * Head hook State AI Constructor
       * @constructor
-      * @param {IHook} hook Hook for getting hook information
       */
-     constructor(hook) {
-         super(hook);
+     constructor() {
+         super();
 
-         this.namedStates[`hooking`] = new HeadHookingState(hook);
+         this.namedStates[`hooking`] = new HeadHookingState();
          this.namedStates[`hooked`] = new NoneState();
      }
  }

@@ -15,6 +15,10 @@ package under {
                         +init() <<override>>
                         +update(dt) <<override>>
                     }
+                    class OnceEventEntity {
+                        +destroy() <<override>>
+                        +fire() <<override>>
+                    }
                 }
             }
         }
@@ -37,6 +41,7 @@ package under {
                     interface IPlayable
                     interface IEventEntity
                     interface IColliderable
+                    interface IBreakable
                 }
             }
             package physics {
@@ -58,8 +63,13 @@ PhysicalWorld <.. ImmutableEvent : Get
 CollisionData <.. ImmutableEvent : Get
 IPlayable <.. ImmutableEvent : Judge
 
+Stage <.. OnceEventEntity : Remove
+
 Entity <|.. ImmutableEvent
 IEventEntity <|.. ImmutableEvent
 IColliderable <|.. ImmutableEvent
+
+ImmutableEvent <|-- OnceEventEntity
+IBreakable <|.. OnceEventEntity
 
 @enduml

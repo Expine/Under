@@ -198,6 +198,16 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof GameImage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/delegate/DelegateImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof DelegateImage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/directional/DirectionalImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof Context !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/GLContext.js'; document.head.appendChild(script);
     }
@@ -285,6 +295,11 @@
 {const id = setInterval(function() {
     if (typeof AI !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/attack/AttackObjectAI.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof AI !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/ai/attack/StarightAttackAI.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -398,6 +413,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof ImmutableEvent !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/fire/OnceEventEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof ImagedEntity !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/object/DoorObject.js'; document.head.appendChild(script);
     }
@@ -455,6 +475,16 @@
 {const id = setInterval(function() {
     if (typeof RigidBody !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/MaxAdoptBody.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof ImmutableRigidMaterial !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/MutableRigidMaterial.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof MaxAdoptBody !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -620,7 +650,7 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/game/stage/entity/happen/special/hook/IHook.js'; document.head.appendChild(script);
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/game/stage/entity/interface/IHook.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -714,6 +744,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/resources/image/IDirectionalImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof GameAnimation !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/resources/image/MultiAnimation.js'; document.head.appendChild(script);
     }
@@ -770,6 +805,11 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof Interface !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IOwned.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/IPlayable.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -799,6 +839,31 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof DelegateImage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/clip/ClipImage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof GameAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/delegate/DelegateAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof NamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/delegate/DelegateNamedAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof DelegateAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/directional/DirectionalAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof DelegateNamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/directional/DirectionalNamedAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof NamedAnimation !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/MultiNamedAnimation.js'; document.head.appendChild(script);
     }
@@ -809,18 +874,13 @@
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof SingleAnimation !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/SingleClipAnimation.js'; document.head.appendChild(script);
+    if (typeof DelegateNamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/transition/TransitionalBlinkAnimation.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof SingleImage !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/SingleClipImage.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
-    if (typeof TileImage !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/TileClipImage.js'; document.head.appendChild(script);
+    if (typeof DelegateNamedAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/transition/TransitionalStripeAnimation.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -905,11 +965,6 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof AIListedObject !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
-    if (typeof AIListedObject !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/PossessedObject.js'; document.head.appendChild(script);
     }
 }, 1);}
@@ -926,11 +981,6 @@
 {const id = setInterval(function() {
     if (typeof PreciseBody !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/JointBody.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
-    if (typeof PreciseBody !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/PlayerBody.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -985,7 +1035,7 @@
 }, 1);}
 {const id = setInterval(function() {
     if (typeof HookObject !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/game/stage/entity/happen/special/hook/HookPlayer.js'; document.head.appendChild(script);
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/game/stage/entity/happen/special/hook/HookOwner.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -1014,8 +1064,18 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof DelegateAnimation !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/clip/ClipAnimation.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof StateCharacter !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/character/Player.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof PossessedObject !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/happen/attack/AttackObject.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -1230,6 +1290,8 @@
         typeof CachedArrayManager !== `undefined` &&
         typeof CachedImage !== `undefined` &&
         typeof CachedMusic !== `undefined` &&
+        typeof DelegateImage !== `undefined` &&
+        typeof DirectionalImage !== `undefined` &&
         typeof GLContext !== `undefined` &&
         typeof JSContext !== `undefined` &&
         typeof SingleImage !== `undefined` &&
@@ -1248,6 +1310,7 @@
         typeof GeneratableScreen !== `undefined` &&
         typeof ScalableScreen !== `undefined` &&
         typeof AttackObjectAI !== `undefined` &&
+        typeof StraightAttackAI !== `undefined` &&
         typeof EnemyAI !== `undefined` &&
         typeof ElevatorAI !== `undefined` &&
         typeof ShowState !== `undefined` &&
@@ -1270,6 +1333,7 @@
         typeof ForceMoveCamera !== `undefined` &&
         typeof MovingCamera !== `undefined` &&
         typeof ImmutableEvent !== `undefined` &&
+        typeof OnceEventEntity !== `undefined` &&
         typeof DoorObject !== `undefined` &&
         typeof SignObject !== `undefined` &&
         typeof Obstacle !== `undefined` &&
@@ -1282,6 +1346,8 @@
         typeof IJoint !== `undefined` &&
         typeof ImmutableRigidMaterial !== `undefined` &&
         typeof MaxAdoptBody !== `undefined` &&
+        typeof MutableRigidMaterial !== `undefined` &&
+        typeof PlayerBody !== `undefined` &&
         typeof PreciseBody !== `undefined` &&
         typeof CircleCollider !== `undefined` &&
         typeof LowerPriorityData !== `undefined` &&
@@ -1334,6 +1400,7 @@
         typeof IMouse !== `undefined` &&
         typeof GameAnimation !== `undefined` &&
         typeof IClipImage !== `undefined` &&
+        typeof IDirectionalImage !== `undefined` &&
         typeof MultiAnimation !== `undefined` &&
         typeof NamedAnimation !== `undefined` &&
         typeof IResourceManager !== `undefined` &&
@@ -1345,17 +1412,22 @@
         typeof IColliderable !== `undefined` &&
         typeof IDamagable !== `undefined` &&
         typeof IEventEntity !== `undefined` &&
+        typeof IOwned !== `undefined` &&
         typeof IPlayable !== `undefined` &&
         typeof UnderDebugEngine !== `undefined` &&
         typeof DirectionInputOrder !== `undefined` &&
         typeof KeyInput !== `undefined` &&
         typeof MouseInput !== `undefined` &&
         typeof PreventKeyInput !== `undefined` &&
+        typeof ClipImage !== `undefined` &&
+        typeof DelegateAnimation !== `undefined` &&
+        typeof DelegateNamedAnimation !== `undefined` &&
+        typeof DirectionalAnimation !== `undefined` &&
+        typeof DirectionalNamedAnimation !== `undefined` &&
         typeof MultiNamedAnimation !== `undefined` &&
         typeof SingleAnimation !== `undefined` &&
-        typeof SingleClipAnimation !== `undefined` &&
-        typeof SingleClipImage !== `undefined` &&
-        typeof TileClipImage !== `undefined` &&
+        typeof TransitionalBlinkAnimation !== `undefined` &&
+        typeof TransitionalStripeAnimation !== `undefined` &&
         typeof BaseLayeredScene !== `undefined` &&
         typeof DragScrollLayer !== `undefined` &&
         typeof NamedTabbedLayer !== `undefined` &&
@@ -1372,12 +1444,10 @@
         typeof Character !== `undefined` &&
         typeof Enemy !== `undefined` &&
         typeof StateCharacter !== `undefined` &&
-        typeof AttackObject !== `undefined` &&
         typeof PossessedObject !== `undefined` &&
         typeof TileObject !== `undefined` &&
         typeof CharacterBuilder !== `undefined` &&
         typeof JointBody !== `undefined` &&
-        typeof PlayerBody !== `undefined` &&
         typeof DirectionalAABB !== `undefined` &&
         typeof RecordedTimer !== `undefined` &&
         typeof GameScene !== `undefined` &&
@@ -1388,13 +1458,15 @@
         typeof HeadHookingState !== `undefined` &&
         typeof HeadHookStateAI !== `undefined` &&
         typeof HookObject !== `undefined` &&
-        typeof HookPlayer !== `undefined` &&
+        typeof HookOwner !== `undefined` &&
         typeof IUnderPlayable !== `undefined` &&
         typeof UnderTileObject !== `undefined` &&
         typeof UnderCharacterBuilder !== `undefined` &&
         typeof IImageManager !== `undefined` &&
         typeof IMusicManager !== `undefined` &&
+        typeof ClipAnimation !== `undefined` &&
         typeof Player !== `undefined` &&
+        typeof AttackObject !== `undefined` &&
         typeof AdventurerHookState !== `undefined` &&
         typeof CommonGameoverState !== `undefined` &&
         typeof CpmmonJudgeState !== `undefined` &&

@@ -5,14 +5,6 @@ package game {
             package ga_happen {
                 package ga_special {
                     package ga_hook {
-                        interface IHook {
-                            {abstract} +getActor() : Entity
-                            {abstract} +createPost()
-                            {abstract} +hooked()
-                            {abstract} +release()
-                            {abstract} +tryRemove() : boolean
-                            {abstract} +isHead() : boolean
-                        }
                         abstract HookObject {
                             +constructor(restLength,hookedLength,previous,string)
                             #owner : MutableEntity
@@ -36,7 +28,6 @@ package game {
                             +release() <<override>>
                             +tryRemove() : boolean <<override>>
                             +isHead() : boolean
-                            +setOwner(owner) <<override>>
                             +destroy() <<override>>
                             +init() <<override>>
                             +render(ctx,shiftX,shiftY) <<override>>
@@ -50,14 +41,13 @@ package game {
                             +release() <<override>>
                             +isHead() : boolean <<override>>
                             +init() <<override>>
-                            +update(dt) <<override>>
                         }
                         class HookChild {
                             +getHookX() <<override>>
                             +getHookY() <<override>>
                             +init() <<override>>
                         }
-                        class HookPlayer {
+                        class HookOwner {
                             +getHookX() <<override>>
                             +getHookY() <<override>>
                             +hooked() <<override>>
@@ -76,7 +66,6 @@ package under {
     package base {
         package resource {
             package image {
-                interface IImageManager
                 abstract Context
                 abstract GameImage
             }
@@ -108,18 +97,14 @@ package under {
 }
 package game {
     package ga_stage {
-        package ga_ai {
-            package ga_aspecial {
-                package ga_ahook {
-                    class HookStateAI
-                    class HeadHookStateAI
-                }
+        package ga_entity {
+            package ga_interface {
+                interface IHook
             }
         }
         package ga_physics {
             package ga_body {
                 interface IString
-                class StringBody
             }
         }
     }
@@ -127,23 +112,20 @@ package game {
 
 MutableEntity <.. HookObject : Get
 HookObject ..> IString: Get and manage body
-HookObject ..> HookPlayer : Generate
+HookObject ..> HookOwner : Generate
 Context <.. HookObject : Render
 Stage <.. HookObject : Add and remove
 
-HookHead ..> HeadHookStateAI : Generate
 GameImage <... HookHead : Resize
 HookObject ..> IString : Set
-HookHead ..> StringBody : Get original
 RigidBody <... HookHead : Enable
-
-HookChild ..> HookStateAI : Generate
+IString <. HookHead : Get body
 
 PossessedObject <|.. HookObject
 IBreakable <|.. HookObject
 IHook <|. HookObject
 HookObject <|.. HookHead
 HookObject <|.. HookChild
-HookObject <|.. HookPlayer
+HookObject <|.. HookOwner
 
 @enduml

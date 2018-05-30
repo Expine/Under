@@ -28,8 +28,12 @@ class LinkEvent extends GameEvent { // eslint-disable-line  no-unused-vars
      */
     init() {
         this.op.next();
-        Input.key.clear();
-        Input.mouse.clear();
+        if (Input.key !== null) {
+            Input.key.clear();
+        }
+        if (Input.mouse !== null) {
+            Input.mouse.clear();
+        }
         window.open(this.url, `_blank`);
     }
 }

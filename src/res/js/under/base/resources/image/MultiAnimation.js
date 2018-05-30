@@ -16,6 +16,14 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
     getAnimation() {}
 
     /**
+     * Get list of animation
+     * @abstract
+     * @protected
+     * @return {Array<GameAnimation>} List of animation
+     */
+    getAnimations() {}
+
+    /**
      * Set animation into animations
      * @abstract
      * @param {GameAnimation} animation Set animation
@@ -24,62 +32,110 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
 
     /**
      * Set all animation size
-     * @abstract
      * @param {number} width Image width
      * @param {number} height Image height
      */
-    setAllSize(width, height) {}
+    setAllSize(width, height) {
+        for (const it of this.getAnimations()) {
+            it.setSize(width, height);
+        }
+    }
 
     /**
      * Set all animation size
-     * @abstract
      * @param {number} imageID Image ID
      */
-    setAllImageID(imageID) {}
-
-    /**
-     * Set image size
-     * @override
-     * @param {number} width Image width
-     * @param {number} height Image height
-     */
-    setSize(width, height) {
-        const anime = this.getAnimation();
-        if (anime !== null) {
-            anime.setSize(width, height);
+    setAllImageID(imageID) {
+        for (const it of this.getAnimations()) {
+            it.setImageID(imageID);
         }
     }
 
     /**
-     * Set image ID
+     * Whether to loop or not
      * @override
-     * @param {number} imageID Image ID
+     * @return {boolean} Whether to loop or not
      */
-    setImageID(imageID) {
+    isLoop() {
+        const anime = this.getAnimation();
+        return anime !== null && anime.isLoop();
+    }
+
+    /**
+     * Whether the animation has ended or not
+     * @override
+     * @return {boolean} Whether the animation has ended or not
+     */
+    isEnded() {
+        const anime = this.getAnimation();
+        return anime !== null && anime.isEnded();
+    }
+
+    /**
+     * Pause animation
+     * @override
+     */
+    pause() {
         const anime = this.getAnimation();
         if (anime !== null) {
-            anime.setImageID(imageID);
+            anime.pause();
         }
     }
 
     /**
-     * Get image width
+     * Restore animation
      * @override
-     * @return {number} Imag width
      */
-    getWidth() {
+    restore() {
         const anime = this.getAnimation();
-        return anime !== null ? anime.getWidth() : 0;
+        if (anime !== null) {
+            anime.restore();
+        }
     }
 
     /**
-     * Get image height
+     * Get animation count indicating animation progress
      * @override
-     * @return {number} Imag height
+     * @return {number} Animation count
      */
-    getHeight() {
+    getAnimationCount() {
         const anime = this.getAnimation();
-        return anime !== null ? anime.getHeight() : 0;
+        return anime !== null ? anime.getAnimationCount() : 0;
+    }
+
+    /**
+     * Add animation
+     * @override
+     * @param {GameImage} image Animation element
+     * @param {number} delta Animation delta time
+     */
+    addAnimation(image, delta) {
+        const anime = this.getAnimation();
+        if (anime !== null) {
+            anime.addAnimation(image, delta);
+        }
+    }
+
+    /**
+     * Get list of animation elements
+     * @override
+     * @protected
+     * @return {Array<GameImage>} List of animation elements
+     */
+    getImages() {
+        const anime = this.getAnimation();
+        return anime === null ? [] : anime.getImages();
+    }
+
+    /**
+     * Get current image of animation
+     * @override
+     * @protected
+     * @return {GameImage} Current image of animation
+     */
+    getCurrentImage() {
+        const anime = this.getAnimation();
+        return anime === null ? null : anime.getCurrentImage();
     }
 
     /**
@@ -116,70 +172,6 @@ class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-v
         const anime = this.getAnimation();
         if (anime !== null) {
             anime.render(ctx, x, y);
-        }
-    }
-
-    /**
-     * Whether to loop or not
-     * @override
-     * @return {boolean} Whether to loop or not
-     */
-    isLoop() {
-        const anime = this.getAnimation();
-        return anime !== null && anime.isLoop();
-    }
-
-    /**
-     * Whether the animation has ended or not
-     * @override
-     * @return {boolean} Whether the animation has ended or not
-     */
-    isEnded() {
-        const anime = this.getAnimation();
-        return anime !== null && anime.isEnded();
-    }
-
-    /**
-     * Get animation count indicating animation progress
-     * @return {number} Animation count
-     */
-    getAnimationCount() {
-        const anime = this.getAnimation();
-        return anime !== null ? anime.getAnimationCount() : 0;
-    }
-
-    /**
-     * Add animation
-     * @override
-     * @param {GameImage} image Animation element
-     * @param {number} delta Animation delta time
-     */
-    addAnimation(image, delta) {
-        const anime = this.getAnimation();
-        if (anime !== null) {
-            anime.addAnimation(image, delta);
-        }
-    }
-
-    /**
-     * Pause animation
-     * @override
-     */
-    pause() {
-        const anime = this.getAnimation();
-        if (anime !== null) {
-            anime.pause();
-        }
-    }
-
-    /**
-     * Restore animation
-     * @override
-     */
-    restore() {
-        const anime = this.getAnimation();
-        if (anime !== null) {
-            anime.restore();
         }
     }
 }

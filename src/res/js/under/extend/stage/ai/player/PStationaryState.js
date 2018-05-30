@@ -46,7 +46,7 @@ class PStationaryState extends BaseState { // eslint-disable-line  no-unused-var
             vx += 1;
         }
         if (vx !== 0) {
-            this.entity.directionX = vx;
+            this.entity.setDirection(vx);
             if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
                 this.entity.body.enforce(vx * this.walkPower * this.entity.material.mass / dt, 0);
             }

@@ -91,12 +91,8 @@ package game {
             }
         }
         package ga_entity {
-            package ga_happen {
-                package ga_special {
-                    package ga_hook {
-                        interface IHook
-                    }
-                }
+            package ga_interface {
+                interface IHook
             }
         }
     }
@@ -117,20 +113,20 @@ AutonomyEntity <.... AdventurerStationaryState : Get
 IKey <.... AdventurerStationaryState : Get
 Collider <.... AdventurerStationaryState : Get
 CollisionData <.... AdventurerStationaryState : Get
-IHook <.. AdventurerStationaryState : Judge and remove
+AdventurerStationaryState ..> IHook : Judge and remove
 
 AutonomyEntity <.... AdventurerWalkState : Get
 IKey <.... AdventurerWalkState : Get
 Collider <.... AdventurerWalkState : Get
 CollisionData <.... AdventurerWalkState : Get
-IHook <.. AdventurerWalkState : Judge and remove
+AdventurerWalkState ..> IHook : Judge and remove
 
 AutonomyEntity <.... AdventurerJumpingState : Get
 IKey <.... AdventurerJumpingState : Get
 Collider <.... AdventurerJumpingState : Get
 CollisionData <.... AdventurerJumpingState : Get
 Stage <.... AdventurerJumpingState : Get
-IHook <.. AdventurerJumpingState : Remove and release
+AdventurerJumpingState ..> IHook : Remove and release
 
 AutonomyEntity <.... AdventurerFallState : Get
 StateAI <.... AdventurerFallState : Change
@@ -139,17 +135,17 @@ IKey <.... AdventurerFallState : Get
 Collider <.... AdventurerFallState : Get
 CollisionData <.... AdventurerFallState : Get
 Stage <.... AdventurerFallState : Get
-IHook <.. AdventurerFallState : Remove and release
+AdventurerFallState ..> IHook : Remove and release
 
 AutonomyEntity <.... AdventurerGrabState : Get
 Stage <.... AdventurerGrabState : Get
-IHook <.. AdventurerGrabState : Get and release
+AdventurerGrabState ..> IHook : Get and release
 
 AutonomyEntity <...... AdventurerHookState : Get
 Stage <.... AdventurerHookState : Get and create
 PossessedObject <.... AdventurerHookState : Set
 RigidBody <.... AdventurerHookState : Enforce
-IHook <.. AdventurerHookState : Get and release
+AdventurerHookState ..> IHook : Get and release
 
 AutonomyEntity <.... AdventurerDownWallState : Get
 StateAI <.... AdventurerDownWallState : Change
@@ -158,7 +154,7 @@ IKey <.... AdventurerDownWallState : Get
 Collider <.... AdventurerDownWallState : Get
 CollisionData <.... AdventurerDownWallState : Get
 Stage <.... AdventurerDownWallState : Get and create
-IHook <.. AdventurerDownWallState : Remove and release
+AdventurerDownWallState ..> IHook : Remove and release
 
 NormalBaseStateAI <|-- AdventurerBaseStateAI
 

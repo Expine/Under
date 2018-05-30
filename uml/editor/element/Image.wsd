@@ -1,4 +1,4 @@
-@startuml EditorEvent
+@startuml EditorImage
 
 package editor {
     package ed_resource {
@@ -7,25 +7,34 @@ package editor {
                 #baseImage : GameImage
                 #root : string
                 +getSaveData() : JSON <<override>>
+                +setDirection(directionX,directionY) <<override>>
+                +setClipImage(clipX,clipY,clipWidth,clipHeight) <<override>>
                 +setName(name) <<override>>
                 +getAnimation() : Animation <<override>>
+                +getAnimations() : Array<GameAnimation> <<override>>
                 +setAnimation(animation) <<override>>
                 +setAllSize(width,height) <<override>>
                 +setAllImageID(imageID) <<override>>
+                +isLoop() : boolean <<override>>
+                +isEnded() : boolean <<override>>
+                +pause() <<override>>
+                +restore() <<override>>
+                +getAnimationCount() : number <<override>>
+                +addAnimation(image,delta) <<override>>
+                +getImages() : Array<GameImage> <<override>>
+                +getCurrentImage() : GameImage <<override>>
                 +setSize(width,height) <<override>>
                 +setImageID(imageID) <<override>>
+                +getImageID() : number <<override>>
                 +getWidth() : number <<override>>
                 +getHeight() : number <<override>>
+                +getSourceOffsetX() : number <<override>>
+                +getSourceOffsetY() : number <<override>>
+                +getSourceWidth() : number <<override>>
+                +getSourceHeight() : number <<override>>
                 +init() <<override>>
                 +update(dt) <<override>>
                 +render(ctx,x,y) <<override>>
-                +isLoop() : boolean <<override>>
-                +isEnded() : boolean <<override>>
-                +getAnimationCount() : number <<override>>
-                +addAnimation(image,delta) <<override>>
-                +pause() <<override>>
-                +restore() <<override>>
-
             }
         }
     }
@@ -34,9 +43,11 @@ package editor {
 package under {
     package base {
         package resource {
+            interface IImageManager
             package image {
                 abstract NamedAnimtion
-                abstract IImageManager
+                interface IDirectionalImage
+                interface IClipImage
             }
         }
     }
@@ -66,5 +77,7 @@ IImageManager <.. EditorImage : Get
 
 NamedAnimtion <|.. EditorImage
 EditorImage ..|> IEditorSave
+IDirectionalImage <|.. EditorImage
+IClipImage <|.. EditorImage
 
 @enduml

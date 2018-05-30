@@ -24,7 +24,8 @@ package under {
                     }
                     abstract PossessedObject {
                         #owner : Entity
-                        +setOwner(owner)
+                        +setOwner(owner) <<override>>
+                        +getOwner() : Entity <<override>>
                     }
                 }
             }
@@ -46,6 +47,7 @@ package under {
                 abstract AutonomyObject
                 package interface {
                     interface IBreakable
+                    interface IOWned
                 }
             }
         }
@@ -62,7 +64,8 @@ MutableObject <|.. Obstacle
 AutonomyObject <|.. AIListedObject
 
 AIListedObject <|-- PossessedObject
-AIListedObject <|.. AttackObject
+IOWned <|.. PossessedObject
+PossessedObject <|.. AttackObject
 IBreakable <|.. AttackObject
 
 @enduml

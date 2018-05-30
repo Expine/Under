@@ -119,6 +119,7 @@ class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable
         for (const it of removes) {
             const index = this.runningEvents.indexOf(it);
             if (index >= 0) {
+                it.destruct();
                 this.runningEvents.splice(index, 1);
             }
         }

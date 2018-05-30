@@ -9,9 +9,8 @@ class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
     /**
      * Attack object AI Constructor
      * @constructor
-     * @param {Entity} actor Owned entity
      */
-    constructor(actor) {
+    constructor() {
         super();
 
         /**
@@ -19,20 +18,34 @@ class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
          * @protected
          * @type {Entity}
          */
-        this.actor = actor;
+        this.actor = null;
 
         /**
          * Previous actor x position
          * @protected
          * @type {number}
          */
-        this.preActorX = this.actor.x;
+        this.preActorX = 0;
         /**
          * Previous actor y position
          * @protected
          * @type {number}
          */
-        this.preActorY = this.actor.y;
+        this.preActorY = 0;
+    }
+
+    /**
+     * Initialize
+     * @override
+     */
+    init() {
+        if (BaseUtil.implementsOf(this.entity, IOwned)) {
+            this.actor = this.entity.getOwner();
+            if (this.actor !== null) {
+                this.preActorX = this.actor.x;
+                this.preActorY = this.actor.y;
+            }
+        }
     }
 
     /**
@@ -43,13 +56,15 @@ class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
      */
     apply(dt) {
         // move to actor
-        this.entity.deltaMove(this.actor.x - this.preActorX, this.actor.y - this.preActorY);
-        this.preActorX = this.actor.x;
-        this.preActorY = this.actor.y;
+        if (this.actor !== null) {
+            this.entity.deltaMove(this.actor.x - this.preActorX, this.actor.y - this.preActorY);
+            this.preActorX = this.actor.x;
+            this.preActorY = this.actor.y;
+        }
 
         // If damageable object is collided, damage
         for (const it of this.entity.collider.collisions) {
-            const entity = Util.getCollidedEntity(this.actor, it);
+            const entity = Util.getCollidedEntity(this.entity, it);
             if (this.actor !== entity && BaseUtil.implementsOf(entity, IDamagable)) {
                 entity.damage(1);
             }

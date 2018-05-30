@@ -17,6 +17,6 @@ class EditorCharacterBuilder extends UnderCharacterBuilder { // eslint-disable-l
      * @return {Entity} Generated tile
      */
     build(deploy, json) {
-        return new EditorDeployer(super.build(deploy, json), json.id, json.autoID);
+        return new EditorDeployer(super.build(deploy, json), deploy, json.id, json.autoID);
     }
 }

@@ -14,10 +14,11 @@ class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-d
      * Editor tile constructor
      * @constructor
      * @param {Entity} entity Entity for saving
+     * @param {JSON} deployData Entity deploy JSON data
      * @param {number} id Entity ID
      * @param {number} [autoTileBaseID=-1] Auto tile base ID
      */
-    constructor(entity, id, autoTileBaseID = -1) {
+    constructor(entity, deployData, id, autoTileBaseID = -1) {
         super();
 
         /**
@@ -26,6 +27,12 @@ class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-d
          * @type {Entity}
          */
         this.entity = entity;
+        /**
+         * Entity deploy JSON data
+         * @protected
+         * @type {JSON}
+         */
+        this.deployData = deployData;
         /**
          * Entity ID
          * @protected
@@ -49,9 +56,7 @@ class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-d
         base.id = this.id;
         base.x = this.entity.x;
         base.y = this.entity.y;
-        if (!(this.entity instanceof TileObject)) {
-            base.z = this.entity.z;
-        }
+        base.z = this.entity.z;
     }
 
     /**
@@ -66,6 +71,18 @@ class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-d
                 base.event = event.getSaveData();
             }
         }
+    }
+
+    /**
+     * Get json data for saving
+     * @override
+     * @return {JSON} Json data for saving
+     */
+    getSaveData() {
+        const ret = this.deployData;
+        this.buildBaseData(ret);
+        this.buildEventData(ret);
+        return ret;
     }
 
     /**
@@ -121,18 +138,6 @@ class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-d
      */
     isDeployer() {
         return false;
-    }
-
-    /**
-     * Get json data for saving
-     * @override
-     * @return {JSON} Json data for saving
-     */
-    getSaveData() {
-        const ret = {};
-        this.buildBaseData(ret);
-        this.buildEventData(ret);
-        return ret;
     }
 
     /**

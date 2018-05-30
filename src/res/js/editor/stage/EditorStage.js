@@ -120,11 +120,18 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         data.layers.push([]);
         data.deploy = [];
         for (const it of this.editorEntities) {
+            const save = it.getSaveData();
             // set
             if (it.isDeployer()) {
-                data.deploy.push(it.getSaveData());
+                data.deploy.push(save);
             } else {
-                data.layers[0].push(it.getSaveData());
+                // convert z order to layer index
+                const z = parseInt(save.z);
+                if (data.layers[z] === undefined) {
+                    data.layers[z] = [];
+                }
+                delete save.z;
+                data.layers[z].push(save);
             }
         }
         return data;
@@ -220,15 +227,10 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
      * Add entity to stage by ID
      * @param {Object} id Added entity ID
      * @param {JSON} deploy Deploy json data
-     * @param {Function<((Entity) => void)>} [init=null] Initialize function
      * @return {Entity} Added entity
      */
-    addEntityByID(id, deploy, init = null) {
-        let ret = super.addEntityByID(id, deploy, (it) => {
-            if (init !== null && BaseUtil.implementsOf(it, IEditorEntity)) {
-                init(it.getEntity());
-            }
-        });
+    addEntityByID(id, deploy) {
+        let ret = super.addEntityByID(id, deploy);
         if (BaseUtil.implementsOf(ret, IEditorEntity)) {
             ret = ret.getEntity();
         }

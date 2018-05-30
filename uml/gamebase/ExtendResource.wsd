@@ -59,8 +59,13 @@ package under {
                     #height : number
                     +setSize(width,height) <<override>>
                     +setImageID(imageID) <<override>>
+                    +getImageID() : number <<override>>
                     +getWidth() : number <<override>>
                     +getHeight() : number <<override>>
+                    +getSourceOffsetX() : number <<override>>
+                    +getSourceOffsetY() : number <<override>>
+                    +getSourceWidth() : number <<override>>
+                    +getSourceHeight() : number <<override>>
                     +update(dt) <<override>>
                     +render(ctx,x,y) <<override>>
                 }
@@ -69,6 +74,10 @@ package under {
                     #srcY : number
                     #srcW : number
                     #srcH : number
+                    +getSourceOffsetX() : number <<override>>
+                    +getSourceOffsetY() : number <<override>>
+                    +getSourceWidth() : number <<override>>
+                    +getSourceHeight() : number <<override>>
                     +render(ctx,x,y) <<override>>
                 }
                 class SingleAnimation {
@@ -79,29 +88,127 @@ package under {
                     #loop : boolean
                     #ended : boolean
                     #paused : boolean
-                    +setSize(width,height) <<override>>
-                    +setImageID(imageID) <<override>>
-                    +init() <<override>>
-                    +update(dt) <<override>>
-                    +render(ctx,x,y) <<override>>
                     +isLoop() : boolean <<override>>
                     +isEnded() : boolean <<override>>
-                    +getAnimationCount() : number <<override>>
-                    +addAnimation(image,delta) <<override>>
                     +pause() <<override>>
                     +restore() <<override>>
+                    +getAnimationCount() : number <<override>>
+                    +addAnimation(image,delta) <<override>>
+                    +getImages() : Array<GameImage> <<override>>
+                    +getCurrentImage() : GameImage <<override>>
+                    +init() <<override>>
+                    +update(dt) <<override>>
                 }
                 class MultiNamedAnimation {
-                    #animation : Dictionary<string, Animation>
+                    #animation : Dictionary<string, GameAnimation>
                     #name : string
-                    +getAnimation() : Animation <<override>
-                    +setAnimation(animation) <<override>
-                    +setAllSize(width,height) <<override>
-                    +setAllImageID(imageID) <<override>
                     +setName(name) <<override>
+                    +getAnimation() : Animation <<override>
+                    +getAnimations() : Array<GameAnimation> <<override>>
+                    +setAnimation(animation) <<override>
+                }
+
+                package directional {
+                    class DirectionalImage {
+                        #directionX : number
+                        #directionY : number
+                        +setDirection(directionX,directionY) <<override>>
+                        +render(ctx,x,y) <<override>>
+                    }
+                    class DirectionalAnimation {
+                        +setDirection(directionX,directionY) <<override>>
+                    }
+                    class DirectionalNamedAnimation {
+                        +setDirection(directionX,directionY) <<override>>
+                    }
+                }
+
+                package ex_delegate {
+                    class DelegateImage {
+                        +constructor(baseImage)
+                        #baseImage : GameImage
+                        +setDirection(directionX,directionY) <<override>>
+                        +setClipArea(clipX,clipY,clipWidth,clipHeight) <<override>>
+                        +setSize(width,height) <<override>>
+                        +setImageID(imageID) <<override>>
+                        +getImageID() : number <<override>>
+                        +getWidth() : number <<override>>
+                        +getHeight() : number <<override>>
+                        +getSourceOffsetX() : number <<override>>
+                        +getSourceOffsetY() : number <<override>>
+                        +getSourceWidth() : number <<override>>
+                        +getSourceHeight() : number <<override>>
+                        +update(dt) <<override>>
+                        +render(ctx,x,y) <<override>>
+                    }
+                    class DelegateAnimation {
+                        +constructor(baseAnimation)
+                        #baseAnimation : GameAnimation
+                        +setDirection(directionX,directionY) <<override>>
+                        +setClipArea(clipX,clipY,clipWidth,clipHeight) <<override>>
+                        +isLoop() : boolean <<override>>
+                        +isEnded() : boolean <<override>>
+                        +pause() <<override>>
+                        +restore() <<override>>
+                        +getAnimationCount() : number <<override>>
+                        +addAnimation(image,delta) <<override>>
+                        +getImages() : Array<GameImage> <<override>>
+                        +getCurrentImage() : GameImage <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                    }
+                    class DelegateNamedAnimation {
+                        +constructor(baseAnimation)
+                        #baseAnimation : NamedAnimation
+                        +setName(name) <<override>>
+                        +setAllSize(width,height) <<override>>
+                        +setAllImageID(imageID) <<override>>
+                        +getAnimation() : GameAnimation <<override>>
+                        +getAnimations() : Array<GameAnimation> <<override>>
+                        +setAnimation(animation) <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                        +render(ctx,x,y) <<override>>
+                    }
+                }
+
+                package ex_clip {
+                    class ClipImage {
+                        #clipX : number
+                        #clipY : number
+                        #clipWidth : number
+                        #clipHeight : number
+                        +setClipArea(clipX,clipY,clipWidth,clipHeight) <<override>>
+                        +render(ctx,x,y) <<override>>
+                    }
+                    class ClipAnimation {
+                        +setClipArea(clipX,clipY,clipWidth,clipHeight) <<override>>
+                    }
+                }
+
+                package ex_transition {
+                    class TransitionalBlinkAnimation {
+                        +constructor(baseAnimation,transitionTime,transitionInterval)
+                        #transitionTime : number
+                        #transitionInterval : number
+                        #oldImageID : number
+                        #transitionID : number
+                        #transitionCount : number
+                        +setAllImageID(imageID) <<override>>
+                        +update(dt) <<overrie>>
+                    }
+                    class TramsitionalStripeAnimation {
+                        +constructor(baseAnimation,transitionTime)
+                        #transitionTime : number
+                        #oldImageID : number
+                        #transitionID : number
+                        #transitionCount : number
+                        +setAllImageID(imageID) <<override>>
+                        +update(dt) <<overrie>>
+                        +render(ctx,x,y) <<override>>
+                    }
                 }
             }
-
         }
     }
 }
@@ -123,6 +230,8 @@ package under {
                 abstract GameImage
                 abstract GameAnimation
                 abstract NamedAnimation
+                interface IClipImage
+                interface IDirectionalImage
             }
         }
     }
@@ -134,6 +243,9 @@ Context <.. SingleImage : Render image
 Context <.. TileImage : Render image
 GameImage <.. SingleAnimation : Set and render
 GameAnimation <.. MultiNamedAnimation : Set
+
+IImageManager <.. SingleImage : Get
+Context <.. ClipImage : Render image
 
 Context <|.. JSContext
 Context <|.. GLContext
@@ -149,5 +261,25 @@ GameImage <|.. SingleImage
 SingleImage <|- TileImage
 GameAnimation <|.. SingleAnimation
 NamedAnimation <|.. MultiNamedAnimation
+
+GameImage <|.. DelegateImage
+IClipImage <|.. DelegateImage
+IDirectionalImage <|.. DelegateImage
+GameAnimation <|.. DelegateAnimation
+IClipImage <|.. DelegateAnimation
+IDirectionalImage <|.. DelegateAnimation
+NamedAnimation <|.. DelegateNamedAnimation
+IClipImage <|.. DelegateNamedAnimation
+IDirectionalImage <|.. DelegateNamedAnimation
+
+DelegateImage <|-- ClipImage
+DelegateAnimation <|-- ClipAnimation
+
+DelegateImage <|-- DirectionalImage
+DelegateAnimation <|-- DirectionalAnimation
+DelegateNamedAnimation <|-- DirectionalNamedAnimation
+
+DelegateNamedAnimation <|-- TransitionalBlinkAnimation
+DelegateNamedAnimation <|-- TramsitionalStripeAnimation
 
 @enduml

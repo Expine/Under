@@ -44,10 +44,24 @@ package under {
                         +updateEntity(dt) <<override>>
                     }
                     class ImmutableRigidMaterial {
-                        ImmutableRigidMaterial(k,frictionX,frictionY) : ImmutableRigidMaterial
+                        constructor(k,frictionX,frictionY)
                         #kVal : number
                         #frictionXVal : number
                         #frictionYVal : number
+                        +k() : number <<getter>> <<override>>
+                        +frictionX() : number <<getter>> <<override>>
+                        +frictionY() : number <<getter>> <<override>>
+                        +gravityScale() : number <<getter>> <<override>>
+                    }
+                    class MutableRigidMaterial {
+                        +k() : number <<getter>> <<override>>
+                        +frictionX() : number <<getter>> <<override>>
+                        +frictionY() : number <<getter>> <<override>>
+                        +gravityScale() : number <<getter>> <<override>>
+                        +k(val) <<setter>> <<override>>
+                        +frictionX(val) <<setter>> <<override>>
+                        +frictionY(val) <<setter>> <<override>>
+                        +gravityScale(val) <<setter>> <<override>>
                     }
                 }
 
@@ -110,10 +124,11 @@ Entity <.. JointBody : Get
 
 RigidBody <|.. MaxAdoptBody
 MaxAdoptBody <|--- PreciseBody
-PreciseBody <|-- PlayerBody
+MaxAdoptBody <|-- PlayerBody
 IJoint <|. JointBody
 MaxAdoptBody <|-- JointBody
 RigidMaterial <|.. ImmutableRigidMaterial
+ImmutableRigidMaterial <|-- MutableRigidMaterial
 
 Material <|.. ImmutableMaterial
 

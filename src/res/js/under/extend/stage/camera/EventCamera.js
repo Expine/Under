@@ -48,5 +48,7 @@ class EventCamera extends DelegateCamera { // eslint-disable-line  no-unused-var
      */
     update(x, y, dt) {
         super.update(this.toX, this.toY, dt);
+        this.cameraX = this.baseCamera.cameraX;
+        this.cameraY = this.baseCamera.cameraY;
     }
 }

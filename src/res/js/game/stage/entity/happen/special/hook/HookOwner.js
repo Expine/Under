@@ -10,18 +10,22 @@
  * - Object that can be destroyed
  * - It can get hook position and change state
  * - Implements hook and automatically generates post hook object
- * - ### Player's representation so it does not exists on stage
+ * - ### Owner's representation so it does not exists on stage
  * @extends {HookObject}
  * @classdesc Hook player object that player's representation so it does not exists on stage
  */
-class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
+class HookOwner extends HookObject { // eslint-disable-line  no-unused-vars
     /**
      * Hook center x position
      * @override
      * @return {number} Hook center x position
      */
     getHookX() {
-        return this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+        if (this.owner instanceof MutableEntity) {
+            return this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
+        } else {
+            return this.x;
+        }
     }
 
     /**
@@ -30,7 +34,11 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
      * @return {number} Hook center x position
      */
     getHookY() {
-        return this.owner.y - this.generatedY;
+        if (this.owner instanceof MutableEntity) {
+            return this.owner.y - this.generatedY;
+        } else {
+            return this.y;
+        }
     }
 
     /**
@@ -57,6 +65,8 @@ class HookPlayer extends HookObject { // eslint-disable-line  no-unused-vars
      */
     init() {
         super.init();
-        this.string.addBody(this.owner.body, this.owner.width + this.generatedX, -this.generatedY, this.string.getLength());
+        if (this.owner instanceof MutableEntity) {
+            this.string.addBody(this.owner.body, this.owner.width + this.generatedX, -this.generatedY, this.string.getLength());
+        }
     }
 }

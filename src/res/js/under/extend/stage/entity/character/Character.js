@@ -65,14 +65,4 @@ class Character extends AIListedObject /* , IDamagable */ { // eslint-disable-li
     destroy() {
         this.stage.removeEntity(this);
     }
-
-    /**
-     * Update object
-     * @override
-     * @param {number} dt Delta time
-     */
-    update(dt) {
-        this.image.setSize(this.width * (this.directionX === 0 ? 1 : this.directionX), this.height * (this.directionY === 0 ? 1 : this.directionY));
-        super.update(dt);
-    }
 }

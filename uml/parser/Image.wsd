@@ -15,9 +15,7 @@ package under {
 package under {
     package base {
         package resource {
-            package image {
-                interface IImageManager
-            }
+            interface IImageManager
         }
         package stage {
             package parser {
@@ -32,6 +30,19 @@ package under {
                 class SingleImage
                 class SingleAnimation
                 class MultiNamedAnimation
+                package ex_directional {
+                    class DirectionalImage
+                    class DirectionalAnimation
+                    class DirectionalNamedAnimation
+                }
+                package ex_clip {
+                    class ClipImage
+                    class ClipAnimation
+                }
+                package ex_transition {
+                    class TransitionalNamedAnimation
+                    class TransitionalStripeAnimation
+                }
             }
         }
     }
@@ -41,6 +52,17 @@ BaseImageBuilder ..> TileImage : Generate
 BaseImageBuilder ..> SingleImage : Generate
 BaseImageBuilder ..> SingleAnimation : Generate
 BaseImageBuilder ..> MultiNamedAnimation : Generate
+
+BaseImageBuilder ..> TransitionalNamedAnimation : Generate
+BaseImageBuilder ..> TransitionalStripeAnimation : Generate
+
+BaseImageBuilder ..> ClipImage : Generate
+BaseImageBuilder ..> ClipAnimation : Generate
+
+BaseImageBuilder ..> DirectionalImage : Generate
+BaseImageBuilder ..> DirectionalAnimation : Generate
+BaseImageBuilder ..> DirectionalNamedAnimation : Generate
+
 IImageManager <.. BaseImageBuilder : Load
 
 ImageBuilder <|.. BaseImageBuilder
