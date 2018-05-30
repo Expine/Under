@@ -16750,9 +16750,60 @@
             }
         }
     }, {
-        "x":7104,
-        "y":4512,
-        "z":0,
-        "id":100013
+        "x": 7104,
+        "y": 4512,
+        "z": 0,
+        "id": 100013
+    }, {
+        "id": 100005,
+        "x": 7136,
+        "y": 4640,
+        "z": 0,
+        "once": true,
+        "collider": {
+            "type": "Rectangle",
+            "startX": -48,
+            "startY": 0,
+            "width": 128,
+            "height": 32
+        },
+        "event": {
+            "type": "sequential",
+            "events":[{
+                "type": "control",
+                "target": "player",
+                "vx": 0
+            }, {
+                "type": "auto",
+                "orders": [{
+                    "type": "down",
+                    "time": 1
+                } , {
+                    "type": "wait",
+                    "time": 0.5
+                }, {
+                    "type": "up",
+                    "time": 100
+                }]
+            }]
+        }
+    }, {
+        "id": 100005,
+        "x": 7136,
+        "y": 0,
+        "z": 0,
+        "once": true,
+        "collider": {
+            "type": "Rectangle",
+            "startX": -96,
+            "startY": 0,
+            "width": 224,
+            "height": 32
+        },
+        "event": {
+            "type": "transition",
+            "stage": "map2",
+            "reokace": true
+        }
     }]
 }

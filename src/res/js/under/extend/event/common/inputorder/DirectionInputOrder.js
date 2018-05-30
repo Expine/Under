@@ -85,6 +85,16 @@ class DirectionInputOrder extends InputOrder { // eslint-disable-line  no-unused
      */
     udpate(dt) {
         this.remainingTime -= dt / 1000;
+        if (this.directionX === 1) {
+            Input.key.press(Input.key.right());
+        } else if (this.directionX === -1) {
+            Input.key.press(Input.key.left());
+        }
+        if (this.directionY === 1) {
+            Input.key.press(Input.key.down());
+        } else if (this.directionY === -1) {
+            Input.key.press(Input.key.up());
+        }
         return this.remainingTime <= 0;
     }
 }
