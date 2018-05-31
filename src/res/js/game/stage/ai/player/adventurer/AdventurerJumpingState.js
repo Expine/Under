@@ -32,12 +32,9 @@ class AdventurerJumpingState extends NormalJumpingState { // eslint-disable-line
         }
         // release hook
         if (Input.key.isPress(Input.key.sub())) {
-            const hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
-            if (hooks.length >= 1) {
-                for (const it of hooks) {
-                    if (it.getActor() === this.entity) {
-                        it.release();
-                    }
+            for (const it of this.entity.stage.getEntitiesByInterface(IHook)) {
+                if (it.getActor() === this.entity) {
+                    it.release();
                 }
             }
         }

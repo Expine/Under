@@ -204,6 +204,15 @@ class Stage { // eslint-disable-line  no-unused-vars
     getEntities() {}
 
     /**
+     * Get all entities by interface
+     * @abstract
+     * @param {Class} inter Interface for judging
+     * @param {boolean} useInstanceOf Whether uses insntaceof or not
+     * @return {Array<Entity>} All entities attached that interface
+     */
+    getEntitiesByInterface(inter, useInstanceOf = false) {}
+
+    /**
      * Update entity in stage
      * @abstract
      * @protected

@@ -46,7 +46,12 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      */
     init() {
         // find player
-        this.player = this.stage.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable) && BaseUtil.implementsOf(it, IDamagable));
+        for (let it of this.stage.getEntitiesByInterface(IPlayable)) {
+            if (BaseUtil.implementsOf(it, IDamagable)) {
+                this.player = it;
+            }
+        }
+
         this.playerHP = this.player.getHP();
 
         // load animation

@@ -40,7 +40,7 @@ class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-
         }
         // auto release
         if (vy > 0 && this.descentCount++ >= 5) {
-            const hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
+            const hooks = this.entity.stage.getEntitiesByInterface(IHook);
             if (hooks.length >= 1) {
                 for (const it of hooks) {
                     if (it.getActor() === this.hook.getActor()) {

@@ -171,6 +171,17 @@ class DelegateStage extends Stage { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Get all entities by interface
+     * @override
+     * @param {Class} inter Interface for judging
+     * @param {boolean} useInstanceOf Whether uses insntaceof or not
+     * @return {Array<Entity>} All entities attached that interface
+     */
+    getEntitiesByInterface(inter, useInstanceOf = false) {
+        return this.baseStage.getEntitiesByInterface(inter, useInstanceOf);
+    }
+
+    /**
      * Update entity in stage
      * @override
      * @protected

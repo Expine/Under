@@ -56,7 +56,7 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
         this.eventManager = new QueueEventManager();
 
         // set player
-        this.player = this.stageManager.getStage().getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable));
+        this.player = this.stageManager.getStage().getEntitiesByInterface(IPlayable)[0];
 
         // initialize layer
         this.clearLayer();

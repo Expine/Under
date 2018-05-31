@@ -31,7 +31,7 @@ class DebugStage extends DelegateStage { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     registerInformation(dt) {
-        const players = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
+        const players = this.getEntitiesByInterface(IPlayable);
         if (players.length > 0) {
             const player = players[0];
             GameDebugger.it.register(`time`, `${dt} mssc`);

@@ -30,6 +30,18 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
          * @type {Array<Entity>}
          */
         this.sortedEntity = [];
+        /**
+         * Intefcae list
+         * @protected
+         * @type {Object<string, Class>}
+         */
+        this.interfaceList = {};
+        /**
+         * Entity list of each interface
+         * @protected
+         * @type {Object<string, Array<Entity>>}
+         */
+        this.interfacedEntityList = {};
 
         /**
          * List of entity that will be removed
@@ -97,6 +109,14 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
                 this.sortedEntity.push(entity);
             }
         }
+        // add
+        for (let name in this.interfacedEntityList) {
+            if (this.interfacedEntityList.hasOwnProperty(name)) {
+                if (BaseUtil.implementsOf(entity, this.interfaceList[name])) {
+                    this.interfacedEntityList[name].push(entity);
+                }
+            }
+        }
     }
 
     /**
@@ -130,6 +150,16 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         if (index >= 0) {
             this.sortedEntity.splice(index, 1);
         }
+        for (let name in this.interfacedEntityList) {
+            if (this.interfacedEntityList.hasOwnProperty(name)) {
+                if (BaseUtil.implementsOf(entity, this.interfaceList[name])) {
+                    index = this.interfacedEntityList[name].indexOf(entity);
+                    if (index >= 0) {
+                        this.interfacedEntityList[name].splice(index, 1);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -139,6 +169,22 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     getEntities() {
         return this.entities;
+    }
+
+    /**
+     * Get all entities by interface
+     * @override
+     * @param {Class} inter Interface for judging
+     * @param {boolean} useInstanceOf Whether uses insntaceof or not
+     * @return {Array<Entity>} All entities attached that interface
+     */
+    getEntitiesByInterface(inter, useInstanceOf = false) {
+        // check already
+        if (this.interfacedEntityList[inter.name] === undefined) {
+            this.interfacedEntityList[inter.name] = useInstanceOf ? this.entities.filter((it) => it instanceof inter) : this.entities.filter((it) => BaseUtil.implementsOf(it, inter));
+            this.interfaceList[inter.name] = inter;
+        }
+        return this.interfacedEntityList[inter.name];
     }
 
     /**

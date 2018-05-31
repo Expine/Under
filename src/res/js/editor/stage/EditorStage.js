@@ -286,7 +286,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
 
         // move camera to player (E)
         if (!this.playMode && Input.key.isPress(Input.key.a() + 4)) {
-            const player = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
+            const player = this.getEntitiesByInterface(IPlayable);
             if (player.length > 0) {
                 const p = player[0];
                 this.getCamera().init(p.getCameraX(), p.getCameraY());
@@ -318,7 +318,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         // test play
         if (this.playMode) {
             super.update(dt);
-        } else if (!this.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable))) {
+        } else if (!this.getEntitiesByInterface(IPlayable)) {
             this.updateBackground(dt);
             this.getCamera().update(0, 0, dt);
         } else {

@@ -78,9 +78,7 @@ class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-
         let target = null;
         // TODO: Improve search method
         if (this.targetName === `player`) {
-            target = this.stage.getEntities().find((it) => {
-                return BaseUtil.implementsOf(it, IPlayable);
-            });
+            target = this.stage.getEntitiesByInterface(IPlayable);
         }
         if (target !== null) {
             if (target instanceof MutableEntity) {
