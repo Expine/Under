@@ -42,6 +42,19 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
     }
 
     /**
+     * Take over information
+     * @override
+     * @param {Object} target Target element
+     */
+    takeOver(target) {
+        super.takeOver(target);
+        if (target instanceof UnderPlayer) {
+            target.changeType(this.preTerrain);
+            target.image.update(10000);
+        }
+    }
+
+    /**
      * Add AI system
      * @override
      * @param {AI} ai AI to control this

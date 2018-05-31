@@ -9,6 +9,7 @@ package game {
                 class UnderPlayer {
                     #aiType : TransferableStateAI
                     #preTerrain : number
+                    +takeOver(target) <<override>>
                     +addAI(ai,priority) MMoverride>>
                     +changeType(id) : boolean <<override>>
                 }
@@ -52,10 +53,12 @@ package under {
                 abstract MultiAnimation
             }
         }
-        package physics {
-            package body {
-                abstract RigidBody
-                abstract RigidMaterial
+        package stage {
+            package physics {
+                package body {
+                    abstract RigidBody
+                    abstract RigidMaterial
+                }
             }
         }
     }

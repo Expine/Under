@@ -16,7 +16,7 @@
  * @implements {IPlayable}
  * @classdesc Player to be operate by the player
  */
-class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  no-unused-vars
+class Player extends StateCharacter /* , IPlayable, ITakeOver */ { // eslint-disable-line  no-unused-vars
     /**
      * Player constructor
      * @constructor
@@ -34,6 +34,21 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
          * @type {number}
          */
         this.invincible = 0;
+
+        /**
+         * Player unique name
+         * @protected
+         * @type {string}
+         */
+        this.uniqueName = ``;
+    }
+
+    /**
+     * Set unique name
+     * @param {string} name Unique name
+     */
+    setUniqueName(name) {
+        this.uniqueName = name;
     }
 
     /**
@@ -68,11 +83,32 @@ class Player extends StateCharacter /* , IPlayable */ { // eslint-disable-line  
 
     /**
      * Judge whether game over or not
-     * @abstract
+     * @override
      * @return {boolean} whether game over or not
      */
     isGameover() {
         return this.getHP() <= 0 || this.stage.getStageHeight() < this.y;
+    }
+
+    /**
+     * Judged whether it is the same entity to be handed over
+     * @override
+     * @param {Object} target Target element
+     * @return {boolean} Whether it is the same entity to be handed over
+     */
+    equals(target) {
+        return target instanceof Player && target.uniqueName === this.uniqueName;
+    }
+
+    /**
+     * Take over information
+     * @override
+     * @param {Object} target Target element
+     */
+    takeOver(target) {
+        if (target instanceof Player) {
+            target.setHP(this.getHP());
+        }
     }
 
     /**

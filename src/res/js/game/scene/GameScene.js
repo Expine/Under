@@ -60,7 +60,7 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
 
         // initialize layer
         this.clearLayer();
-        const ui = new UILayer(this.stageManager.getStage());
+        const ui = new UILayer(this.stageManager);
         ui.setPosition(0, 0);
         ui.setSize(GameScreen.it.width, GameScreen.it.height);
         this.addLayer(ui);

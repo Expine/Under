@@ -684,6 +684,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof Interface !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/base/stage/entity/interface/ITakeOver.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof DelegateStage !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/stage/DebugStage.js'; document.head.appendChild(script);
     }

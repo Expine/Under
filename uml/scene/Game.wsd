@@ -3,7 +3,8 @@
 package game {
     package ga_layer {
         class UILayer {
-            #stage : Stage
+            #stage : StageManager
+            #currentStage : Stage
             #player : IDamagable
             #playerHP : number
             #uiAnimation : NamedAnimation
@@ -106,6 +107,7 @@ SceneManager <.. GameScene : Replcae
 GameScreen <..GameScene : Get size
 
 Stage <.. UILayer : Get player
+StageManager <.. UILayer : Get
 IIMageManager <.. UILayer : Load
 MultiNamedAnimation <.. UILayer : Generate
 SingleAnimation <.. UILayer : Generate

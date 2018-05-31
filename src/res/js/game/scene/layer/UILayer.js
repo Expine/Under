@@ -9,16 +9,22 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
     /**
      * UI layer constructor
      * @constructor
-     * @param {Stage} stage Stage instance
+     * @param {StageManager} stage Stage manager instance
      */
     constructor(stage) {
         super();
         /**
          * Stage instance
          * @protected
-         * @type {Stage}
+         * @type {StageManager}
          */
         this.stage = stage;
+        /**
+         * Current stage
+         * @protected
+         * @type {Stage}
+         */
+        this.currentStage = null;
         /**
          * Damagable player instance
          * @protected
@@ -45,8 +51,9 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      * @override
      */
     init() {
+        this.currentStage = this.stage.getStage();
         // find player
-        for (let it of this.stage.getEntitiesByInterface(IPlayable)) {
+        for (let it of this.currentStage.getEntitiesByInterface(IPlayable)) {
             if (BaseUtil.implementsOf(it, IDamagable)) {
                 this.player = it;
             }
@@ -79,6 +86,16 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     update(dt) {
+        // check stage transition
+        if (this.currentStage !== this.stage.getStage()) {
+            this.currentStage = this.stage.getStage();
+            // find player
+            for (let it of this.currentStage.getEntitiesByInterface(IPlayable)) {
+                if (BaseUtil.implementsOf(it, IDamagable)) {
+                    this.player = it;
+                }
+            }
+        }
         // Check hp change
         const diff = this.playerHP - this.player.getHP();
         if (diff !== 0 && (this.uiAnimation.isEnded() || this.uiAnimation.isLoop())) {

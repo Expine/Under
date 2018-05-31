@@ -318,7 +318,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         // test play
         if (this.playMode) {
             super.update(dt);
-        } else if (!this.getEntitiesByInterface(IPlayable)) {
+        } else if (this.getEntitiesByInterface(IPlayable).length == 0) {
             this.updateBackground(dt);
             this.getCamera().update(0, 0, dt);
         } else {

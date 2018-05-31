@@ -19,10 +19,14 @@ package under {
                     class Enemy
                     class Player {
                         #invincible : number
+                        #uniqueName : string
+                        +setUniqueName(name)
                         +damage(damage) <<override>>
                         +getCameraX() : number <<override>>
                         +getCameraY() : number <<override>>
                         +isGameover() : boolean <<override>>
+                        +wquals(target) : boolean <<override>>
+                        +takeOver(target) <<override>>
                         +update(dt) <<override>>
                         +render(ctx,shiftX,shiftY) <<override>>
                     }
@@ -51,6 +55,7 @@ package under {
                 package interface {
                     interface IDamagable
                     interface IPlayable
+                    interface ITakeOver
                 }
             }
         }
@@ -79,6 +84,7 @@ IDamagable <|.. Character
 Character <|-- StateCharacter
 StateCharacter <|-- Player
 IPlayable <|.. Player
+ITakeOver <|.. Player
 Character <|-- Enemy
 
 @enduml

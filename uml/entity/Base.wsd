@@ -76,6 +76,10 @@ package under {
                         {abstract} +setOwner(owner)
                         {abstract} +getOwner() : Entity
                     }
+                    interface ITakeOver {
+                        {abstract} +equeals(target) : boolean
+                        {abstract} +takeOver(target)
+                    }
                 }
             }
             package physics {

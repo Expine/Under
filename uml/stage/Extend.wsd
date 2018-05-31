@@ -4,6 +4,7 @@ package under {
         package ex_stage {
             class StackStageManager {
                 #stageStack : Array<Stage>
+                #currentStage : Stage
                 +pushStage(stageName) <<override>>
                 +pushStageDirectly(stage) <<override>>
                 +popStage() : Stage <<override>>
@@ -99,6 +100,7 @@ package under {
             package entity {
                 package interface {
                     interface IPlayable
+                    interface ITakeOver
                 }
                 abstract Entity
                 abstract InfluentialEntity
@@ -108,6 +110,9 @@ package under {
 }
 
 StageParser <.. StackStageManager : Parse
+Stage <.. StackStageManager : Get
+ITakeOver <.. StackStageManager : Take over
+
 Entity "*" ..o "1" SplitManagementStage : Own and init, update, render
 IPlayable <.. SplitManagementStage : Get camera
 InfluentialEntity <.. SplitManagementStage : Pass
