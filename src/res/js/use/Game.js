@@ -77,11 +77,6 @@
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof Stage !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/stage/DebugStage.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
     if (typeof PhysicalWorld !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/stage/physics/DebugWorld.js'; document.head.appendChild(script);
     }
@@ -405,6 +400,11 @@
 {const id = setInterval(function() {
     if (typeof DelegateCamera !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/camera/MovingCamera.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof Stage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/DelegateStage.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -814,6 +814,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof DelegateStage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/stage/DebugStage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof UnderEngine !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/UnderDebugEngine.js'; document.head.appendChild(script);
     }
@@ -941,6 +946,11 @@
 {const id = setInterval(function() {
     if (typeof ImageBackground !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/FixedBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof DelegateStage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/CurtainStage.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {
@@ -1265,7 +1275,6 @@
         typeof Method !== `undefined` &&
         typeof GameDebugger !== `undefined` &&
         typeof DebugLayer !== `undefined` &&
-        typeof DebugStage !== `undefined` &&
         typeof DebugWorld !== `undefined` &&
         typeof VolatileDebugger !== `undefined` &&
         typeof AutoInputEvent !== `undefined` &&
@@ -1332,6 +1341,7 @@
         typeof FixCamera !== `undefined` &&
         typeof ForceMoveCamera !== `undefined` &&
         typeof MovingCamera !== `undefined` &&
+        typeof DelegateStage !== `undefined` &&
         typeof ImmutableEvent !== `undefined` &&
         typeof OnceEventEntity !== `undefined` &&
         typeof DoorObject !== `undefined` &&
@@ -1414,6 +1424,7 @@
         typeof IEventEntity !== `undefined` &&
         typeof IOwned !== `undefined` &&
         typeof IPlayable !== `undefined` &&
+        typeof DebugStage !== `undefined` &&
         typeof UnderDebugEngine !== `undefined` &&
         typeof DirectionInputOrder !== `undefined` &&
         typeof KeyInput !== `undefined` &&
@@ -1440,6 +1451,7 @@
         typeof PWalkState !== `undefined` &&
         typeof AreaBackground !== `undefined` &&
         typeof FixedBackground !== `undefined` &&
+        typeof CurtainStage !== `undefined` &&
         typeof AIListedObject !== `undefined` &&
         typeof Character !== `undefined` &&
         typeof Enemy !== `undefined` &&

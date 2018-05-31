@@ -77,11 +77,6 @@
     }
 }, 1);}
 {const id = setInterval(function() {
-    if (typeof Stage !== `undefined`) {
-        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/stage/DebugStage.js'; document.head.appendChild(script);
-    }
-}, 1);}
-{const id = setInterval(function() {
     if (typeof PhysicalWorld !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/stage/physics/DebugWorld.js'; document.head.appendChild(script);
     }
@@ -408,6 +403,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof Stage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/DelegateStage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof Entity !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/fire/ImmutableEvent.js'; document.head.appendChild(script);
     }
@@ -684,6 +684,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof DelegateStage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/stage/DebugStage.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof UnderEngine !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/debug/UnderDebugEngine.js'; document.head.appendChild(script);
     }
@@ -811,6 +816,11 @@
 {const id = setInterval(function() {
     if (typeof ImageBackground !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/back/FixedBackground.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof DelegateStage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/CurtainStage.js'; document.head.appendChild(script);
     }
 }, 1);}
 {const id = setInterval(function() {

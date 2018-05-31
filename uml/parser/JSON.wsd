@@ -47,6 +47,7 @@ package under {
     package extend {
         package ex_stage {
             class SplitManagementStage
+            class CurtainStage
             package ex_parser {
                 class BaseImageBuilder
                 class JSONEntityFactory
@@ -76,6 +77,7 @@ package under {
 }
 
 JSONStageParser .> SplitManagementStage : Generate
+JSONStageParser .> CurtainStage : Generate
 JSONStageParser .> JSONEntityFactory : Generate
 
 JSONStageParser ...> SequentialBackground : Generate

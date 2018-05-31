@@ -10,15 +10,18 @@ package under {
                 #height : number
                 +setStageParser(parser)
                 +setStageSize(width,height)
-                {abstract} +pushStage(stageName)
                 +replaceStage(stageName)
+                +replaceStageDirectly(stage)
+                {abstract} +pushStage(stageName)
+                {abstract} +pushStageDirectly(stage)
                 {abstract} +popStage() : Stage
                 {abstract} +getStage() : STage
                 +update(dt)
                 +render(ctx,shiftX,shiftY)
             }
             abstract Stage {
-                +constructor(stageWidth,stageHeight)
+                +constructor(name,stageWidth,stageHeight)
+                #name : string
                 #stageWidth : number
                 #stageHeight : number
                 #enable : boolean

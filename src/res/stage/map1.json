@@ -1,4 +1,10 @@
 {
+    "name": "Speculation is over, then beginning...",
+    "transition": {
+        "type": "curtain",
+        "nameTime": 2,
+        "transitionTime": 1
+    },
     "width": 12800,
     "height": 4800,
     "background": {
@@ -16769,7 +16775,7 @@
         },
         "event": {
             "type": "sequential",
-            "events":[{
+            "events": [{
                 "type": "control",
                 "target": "player",
                 "vx": 0
@@ -16778,7 +16784,7 @@
                 "orders": [{
                     "type": "down",
                     "time": 1
-                } , {
+                }, {
                     "type": "wait",
                     "time": 0.5
                 }, {

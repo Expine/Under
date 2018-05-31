@@ -5,31 +5,12 @@ package under {
         package d_stage {
             class DebugStage {
                 +constructor(stage,stageWidth,stageHeight)
-                #stage : Stage
                 #debugMode : boolean
-                +setBackground(back) <<override>> <<override>>
-                +setCamera(camera) <<override>> <<override>>
-                +setPhysicalWorld(physic) <<override>> <<override>>
-                +setFactory(factory) <<override>> <<override>>
-                +getCamera() : Camera <<override>> <<override>>
-                +getPhysicalWorld() : PhysicalWorld <<override>> <<override>>
-                #getFactory() : EntityFactory <<override>> <<override>>
-                +setEnable(enable) <<override>> <<override>>
-                +getEnable() : boolean <<override>> <<override>>
-                +getStageWidth() : number <<override>> <<override>>
-                +getStageHeight() : number <<override>> <<override>>
                 +addEntity(entity) <<override>> <<override>>
-                +removeEntity(entity) <<override>>
-                #removeEntityImmediately(entity) <<override>>
-                +getEntities() : Array<Entity> <<override>>
-                +init() <<override>>
                 #updateEntity(dt) <<override>>
                 #updatePhysics(dt) <<override>>
-                #updateBackground(dt) <<override>>
-                #updateCemera(dt) <<override>>
                 #renderBackground(ctx,shiftX,shiftY) <<override>>
                 #renderEntity(ctx,shiftX,shiftY) <<override>>
-                #renderWorld(ctx,shiftX,shiftY) <<override>>
             }
             package d_physics {
                 class DebugWorld {
@@ -66,7 +47,6 @@ package under {
             }
         }
         package stage {
-            abstract Stage
             package entity {
                 abstract MutableEntity
                 package interface {
@@ -94,6 +74,7 @@ package under {
     }
     package extend {
         package ex_stage {
+            abstract DelegateStage
             package ex_physics {
                 class SequentialWorld
                 class SplitWorld
@@ -129,7 +110,7 @@ RepulsionResponse <.. DebugWorld : Generate
 SequentialWorld <.. DebugWorld : Generate
 SplitWorld <.. DebugWorld : Generate
 
-Stage <|.. DebugStage
+DelegateStage <|.. DebugStage
 PhysicalWorld <|.. DebugWorld
 
 @enduml

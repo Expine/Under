@@ -61,6 +61,7 @@ package under {
             }
         }
         package ex_stage {
+            abstract DelegateStage
             package ex_parser {
                 class JSONEntityFactory
             }
@@ -122,6 +123,7 @@ EditorEntityFactory <... EditorStageParser : Generate
 EditorTileBuilder <..... EditorStageParser : Generate
 EditorCharacterBuilder <..... EditorStageParser : Generate
 EditorEventBuilder <..... EditorStageParser : Generate
+DelegateStage <.. EditorStageParser : Judge
 IEditable <.. EditorStageParser : Set
 EditBuilder <.. EditorStageParser : Build
 

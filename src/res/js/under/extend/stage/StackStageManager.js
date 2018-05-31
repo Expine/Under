@@ -28,6 +28,15 @@ class StackStageManager extends StageManager { // eslint-disable-line  no-unused
      */
     pushStage(stageName) {
         const stage = this.parser.parse(`src/res/stage/${stageName}.json`, this.width, this.height);
+        this.pushStageDirectly(stage);
+    }
+
+    /**
+     * Push stage to list
+     * @override
+     * @param {Stage} stage Stage instance
+     */
+    pushStageDirectly(stage) {
         this.stageStack.push(stage);
         stage.init();
     }

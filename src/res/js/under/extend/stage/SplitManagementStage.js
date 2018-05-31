@@ -12,11 +12,12 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     /**
      * Split management stage constructor
      * @constructor
+     * @param {string} name Stage name
      * @param {number} stageWidth Stage width (pixel)
      * @param {number} stageHeight Stage height (pixel)
      */
-    constructor(stageWidth, stageHeight) {
-        super(stageWidth, stageHeight);
+    constructor(name, stageWidth, stageHeight) {
+        super(name, stageWidth, stageHeight);
         /**
          * All entity list
          * @protected

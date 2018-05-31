@@ -37,7 +37,16 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
      * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
-        return new SplitManagementStage(stage.width, stage.height);
+        let ret = new SplitManagementStage(stage.name, stage.width, stage.height);
+        if (stage.transition !== undefined) {
+            const transition = stage.transition;
+            switch (transition.type) {
+                case `curtain`:
+                    ret = new CurtainStage(ret, transition.nameTime, transition.transitionTime);
+                    break;
+            }
+        }
+        return ret;
     }
 
     /**
@@ -153,6 +162,9 @@ class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-va
     parse(filePath, width, height) {
         // get stage file data
         const stage = JSON.parse(Util.loadFile(filePath));
+        if (stage.name === undefined) {
+            stage.name = filePath.split(`/`)[filePath.split(`/`).length - 1].split(`.`)[0];
+        }
         // make stage
         const base = this.makeBaseStage(stage);
         base.setBackground(this.makeBackground(stage.background));
