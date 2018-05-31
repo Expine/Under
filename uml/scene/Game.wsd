@@ -19,6 +19,7 @@ package game {
             #eventManager : EventManager
             #player : IPlayable
             #gameover : boolean
+            #initStage()
             +init() <<override>>
             +update(dt) <<override>>
             +render(ctx) <<override>>
@@ -79,6 +80,11 @@ package under {
         }
         package ex_stage {
             class StackStageManager
+            package ex_entity  {
+                package ex_respawn {
+                    abstract RespawnEntity
+                }
+            }
         }
     }
 }
@@ -105,6 +111,7 @@ EventManager <.. GameScene : Update and render
 IKey <.. GameScene : Get key
 SceneManager <.. GameScene : Replcae
 GameScreen <..GameScene : Get size
+RespawnEntity <.. GameScene : Respawn
 
 Stage <.. UILayer : Get player
 StageManager <.. UILayer : Get
@@ -113,6 +120,7 @@ MultiNamedAnimation <.. UILayer : Generate
 SingleAnimation <.. UILayer : Generate
 TileImage <.. UILayer : Generate
 NamedAnimation <.. UILayer : Configure and update, render
+IPlayable <.. UILayer : Judge
 
 BaseLayeredScene <|-- GameScene
 Layer <|-- UILayer

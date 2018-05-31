@@ -85,7 +85,7 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
      * @param {JSON} data Override data
      */
     overrideValue(base, data) {
-        for (let it in data) {
+        for (const it in data) {
             if (data.hasOwnProperty(it)) {
                 if (base[it] === undefined || base[it] instanceof Array || !isNaN(base[it]) || data[it] === null) {
                     base[it] = data[it] === null ? undefined : data[it];
@@ -299,9 +299,10 @@ class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unuse
      * @param {JSON} deploy Entity deploy json data
      */
     buildEvent(base, deploy) {
-        if (BaseUtil.implementsOf(base, IEventEntity)) {
-            let event = (deploy === undefined || deploy.event === undefined) ? info.event : deploy.event;
-            base.setEvent(this.eventBuilder.build(event));
+        if (deploy !== undefined && deploy.event !== undefined) {
+            if (BaseUtil.implementsOf(base, IEventEntity)) {
+                base.setEvent(this.eventBuilder.build(deploy.event));
+            }
         }
     }
 

@@ -44,6 +44,26 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
     }
 
     /**
+     * Initialize stage of game
+     * @protected
+     */
+    initStage() {
+        this.gameover = false;
+        // set player
+        this.player = this.stageManager.getStage().getEntitiesByInterface(IPlayable).find((it) => !it.isGameover());
+
+        // initialize ui layer
+        const layers = this.getLayers();
+        for (let i = layers.length - 1; i >= 0; --i) {
+            this.removeLayer(layers[i]);
+        }
+        const ui = new UILayer(this.stageManager);
+        ui.setPosition(0, 0);
+        ui.setSize(GameScreen.it.width, GameScreen.it.height);
+        this.addLayer(ui);
+    }
+
+    /**
      * Initialize scene
      * @override
      */
@@ -55,16 +75,8 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
 
         this.eventManager = new QueueEventManager();
 
-        // set player
-        this.player = this.stageManager.getStage().getEntitiesByInterface(IPlayable)[0];
-
-        // initialize layer
-        this.clearLayer();
-        const ui = new UILayer(this.stageManager);
-        ui.setPosition(0, 0);
-        ui.setSize(GameScreen.it.width, GameScreen.it.height);
-        this.addLayer(ui);
-        this.gameover = false;
+        // initialize stage
+        this.initStage();
     }
 
     /**
@@ -87,7 +99,15 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
         if (this.gameover) {
             // retry
             if (Input.key.isPress(Input.key.yes())) {
-                this.init();
+                // check respawn
+                for (const it of this.stageManager.getStage().getEntitiesByInterface(RespawnEntity)) {
+                    const entity = it.tryRespawn(dt);
+                    if (BaseUtil.implementsOf(entity, IPlayable)) {
+                        this.initStage();
+                    } else {
+                        this.stageManager.getStage().removeEntityImmediately(entity);
+                    }
+                }
             } else if (Input.key.isPress(Input.key.no())) {
                 SceneManager.it.replaceScene(new TitleScene());
             }

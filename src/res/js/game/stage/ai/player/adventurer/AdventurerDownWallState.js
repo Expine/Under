@@ -87,6 +87,9 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
                     y: this.entity.y + this.entity.height / 2,
                     z: this.entity.z - 1,
                     owner: this.entity,
+                    collider: {
+                        id: BaseUtil.implementsOf(this.entity.collider, IExclude) ? this.entity.collider.getTargetID() : undefined,
+                    },
                 });
                 if (hook instanceof MutableEntity) {
                     hook.body.enforce(900000 * this.entity.directionX / dt, -1500000 / dt);

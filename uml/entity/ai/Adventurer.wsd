@@ -95,6 +95,11 @@ package game {
                 interface IHook
             }
         }
+        package ga_physics {
+            package gs_collider {
+                interface IExclude
+            }
+        }
     }
 }
 
@@ -146,6 +151,7 @@ Stage <.... AdventurerHookState : Get and create
 PossessedObject <.... AdventurerHookState : Set
 RigidBody <.... AdventurerHookState : Enforce
 AdventurerHookState ..> IHook : Get and release
+IExclude <.. AdventurerHookState : Get
 
 AutonomyEntity <.... AdventurerDownWallState : Get
 StateAI <.... AdventurerDownWallState : Change
@@ -155,6 +161,7 @@ Collider <.... AdventurerDownWallState : Get
 CollisionData <.... AdventurerDownWallState : Get
 Stage <.... AdventurerDownWallState : Get and create
 AdventurerDownWallState ..> IHook : Remove and release
+IExclude <.. AdventurerDownWallState : Get
 
 NormalBaseStateAI <|-- AdventurerBaseStateAI
 

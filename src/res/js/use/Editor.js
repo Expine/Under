@@ -476,6 +476,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof Entity !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/respawn/RespawnEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof ImageBuilder !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/parser/BaseImageBuilder.js'; document.head.appendChild(script);
     }
@@ -1107,6 +1112,16 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof RespawnEntity !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/respawn/EnemyRespawnEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
+    if (typeof RespawnEntity !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/respawn/PlayerRespawnEntity.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof ImmutableEntity !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/entity/TileObject.js'; document.head.appendChild(script);
     }
@@ -1556,6 +1571,7 @@
         typeof SignObject !== `undefined` &&
         typeof Obstacle !== `undefined` &&
         typeof OnlyImageEntity !== `undefined` &&
+        typeof RespawnEntity !== `undefined` &&
         typeof BaseImageBuilder !== `undefined` &&
         typeof CSVStageParser !== `undefined` &&
         typeof JSONEntityFactory !== `undefined` &&
@@ -1683,6 +1699,8 @@
         typeof Enemy !== `undefined` &&
         typeof StateCharacter !== `undefined` &&
         typeof PossessedObject !== `undefined` &&
+        typeof EnemyRespawnEntity !== `undefined` &&
+        typeof PlayerRespawnEntity !== `undefined` &&
         typeof TileObject !== `undefined` &&
         typeof CharacterBuilder !== `undefined` &&
         typeof JointBody !== `undefined` &&

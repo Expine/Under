@@ -53,7 +53,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
     init() {
         this.currentStage = this.stage.getStage();
         // find player
-        for (let it of this.currentStage.getEntitiesByInterface(IPlayable)) {
+        for (const it of this.currentStage.getEntitiesByInterface(IPlayable)) {
             if (BaseUtil.implementsOf(it, IDamagable)) {
                 this.player = it;
             }
@@ -90,7 +90,7 @@ class UILayer extends Layer { // eslint-disable-line  no-unused-vars
         if (this.currentStage !== this.stage.getStage()) {
             this.currentStage = this.stage.getStage();
             // find player
-            for (let it of this.currentStage.getEntitiesByInterface(IPlayable)) {
+            for (const it of this.currentStage.getEntitiesByInterface(IPlayable)) {
                 if (BaseUtil.implementsOf(it, IDamagable)) {
                     this.player = it;
                 }

@@ -45,7 +45,7 @@ package under {
                 {abstract} +removeEntity(entity)
                 {abstract} #removeEntityImmediately(entity)
                 {abstract} +getEntities() : Array<Entity>
-                {abstract} +getEntitiesByInterface(inter,useInstanceOf) : Array<Entity>
+                {abstract} +getEntitiesByInterface(inter) : Array<Entity>
                 {abstract} #updateEntity(dt)
                 {abstract} #updatePhysics(dt)
                 {abstract} #updateBackground(dt)

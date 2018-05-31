@@ -9,6 +9,7 @@ package game {
                 class UnderPlayer {
                     #aiType : TransferableStateAI
                     #preTerrain : number
+                    +getTerrainID() : number <<override>>
                     +takeOver(target) <<override>>
                     +addAI(ai,priority) MMoverride>>
                     +changeType(id) : boolean <<override>>
@@ -108,6 +109,7 @@ IImageManager <.. UnderPlayer : Load
 
 Player <|-- UnderPlayer
 UnderPlayer ..|> IUnderPlayable
+UnderPlayer ..|>  ITerrain
 TileObject <|-- UnderTileObject
 UnderTileObject ..|> ITerrain
 

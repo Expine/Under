@@ -65,10 +65,15 @@ package under {
                         class AttackObject
                     }
                 }
+                package ex_spawn {
+                    class EnemyRespawnEntity
+                    class PlayerRespawnEntity
+                }
                 class AIListedObject
                 class Character
                 class StateCharacter
                 class Obstacle
+                class OnlyImageEntity
             }
             package ex_ai {
                 class EnemyAI
@@ -119,7 +124,9 @@ CharacterBuilder ..> DoorObject : Generate
 CharacterBuilder ..> SignObject : Generate
 CharacterBuilder ..> ImmutableEvent : Generate
 CharacterBuilder ..> OnceEventEntity : Generate
-CharacterBuilder ..> AttackObject : Generate
+CharacterBuilder ..> OnlyImageEntity : Generate
+CharacterBuilder ..> EnemyRespawnEntity : Generate
+CharacterBuilder ..> PlayerRespawnEntity : Generate
 
 AutonomyEntity <... CharacterBuilder : Set
 ImageBuilder <... CharacterBuilder : Build

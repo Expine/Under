@@ -89,7 +89,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     addEntity(entity) {
         // set player
-        if (this.player === null && BaseUtil.implementsOf(entity, IPlayable)) {
+        if (BaseUtil.implementsOf(entity, IPlayable)) {
             this.player = entity;
         }
         if (entity instanceof InfluentialEntity) {
@@ -112,8 +112,16 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         // add
         for (let name in this.interfacedEntityList) {
             if (this.interfacedEntityList.hasOwnProperty(name)) {
-                if (BaseUtil.implementsOf(entity, this.interfaceList[name])) {
-                    this.interfacedEntityList[name].push(entity);
+                if (BaseUtil.isInterface(this.interfaceList[name])) {
+                    // add interface
+                    if (BaseUtil.implementsOf(entity, this.interfaceList[name])) {
+                        this.interfacedEntityList[name].push(entity);
+                    }
+                } else {
+                    // add instanceof
+                    if (entity instanceof this.interfaceList[name]) {
+                        this.interfacedEntityList[name].push(entity);
+                    }
                 }
             }
         }
@@ -150,12 +158,23 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         if (index >= 0) {
             this.sortedEntity.splice(index, 1);
         }
-        for (let name in this.interfacedEntityList) {
+        for (const name in this.interfacedEntityList) {
             if (this.interfacedEntityList.hasOwnProperty(name)) {
-                if (BaseUtil.implementsOf(entity, this.interfaceList[name])) {
-                    index = this.interfacedEntityList[name].indexOf(entity);
-                    if (index >= 0) {
-                        this.interfacedEntityList[name].splice(index, 1);
+                if (BaseUtil.isInterface(this.interfaceList[name])) {
+                    // remove interface
+                    if (BaseUtil.implementsOf(entity, this.interfaceList[name])) {
+                        index = this.interfacedEntityList[name].indexOf(entity);
+                        if (index >= 0) {
+                            this.interfacedEntityList[name].splice(index, 1);
+                        }
+                    }
+                } else {
+                    // remove instanceof
+                    if (entity instanceof this.interfaceList[name]) {
+                        index = this.interfacedEntityList[name].indexOf(entity);
+                        if (index >= 0) {
+                            this.interfacedEntityList[name].splice(index, 1);
+                        }
                     }
                 }
             }
@@ -175,13 +194,12 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      * Get all entities by interface
      * @override
      * @param {Class} inter Interface for judging
-     * @param {boolean} useInstanceOf Whether uses insntaceof or not
      * @return {Array<Entity>} All entities attached that interface
      */
-    getEntitiesByInterface(inter, useInstanceOf = false) {
+    getEntitiesByInterface(inter) {
         // check already
         if (this.interfacedEntityList[inter.name] === undefined) {
-            this.interfacedEntityList[inter.name] = useInstanceOf ? this.entities.filter((it) => it instanceof inter) : this.entities.filter((it) => BaseUtil.implementsOf(it, inter));
+            this.interfacedEntityList[inter.name] = BaseUtil.isInterface(inter) ? this.entities.filter((it) => BaseUtil.implementsOf(it, inter)) : this.entities.filter((it) => it instanceof inter);
             this.interfaceList[inter.name] = inter;
         }
         return this.interfacedEntityList[inter.name];

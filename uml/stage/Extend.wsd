@@ -22,7 +22,7 @@ package under {
                 +removeEntity(entity) <<override>>
                 #removeEntityImmediately(entity) <<override>>
                 +getEntities() : Array<Entity> <<override>>
-                +getEntitiesByInterface(inter,useInstanceOf) : Array<Entity> <<override>>
+                +getEntitiesByInterface(inter) : Array<Entity> <<override>>
                 #updateEntity(dt) <<override>>
                 #updatePhysics(dt) <<override>>
                 #updateBackground(dt) <<override>>
@@ -49,7 +49,7 @@ package under {
                 +removeEntity(entity) <<override>>
                 #removeEntityImmediately(entity) <<override>>
                 +getEntities() : Array<Entity> <<override>>
-                +getEntitiesByInterface(inter,useInstanceOf) : Array<Entity> <<override>>
+                +getEntitiesByInterface(inter) : Array<Entity> <<override>>
                 #updateEntity(dt) <<override>>
                 #updatePhysics(dt) <<override>>
                 #updateBackground(dt) <<override>>

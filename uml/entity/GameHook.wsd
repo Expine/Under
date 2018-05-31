@@ -106,6 +106,9 @@ package game {
             package ga_body {
                 interface IString
             }
+            package ga_collider {
+                interface IExclude
+            }
         }
     }
 }
@@ -115,6 +118,7 @@ HookObject ..> IString: Get and manage body
 HookObject ..> HookOwner : Generate
 Context <.. HookObject : Render
 Stage <.. HookObject : Add and remove
+IExclude <.. HookObject : Get
 
 GameImage <... HookHead : Resize
 HookObject ..> IString : Set

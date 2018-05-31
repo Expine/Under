@@ -47,6 +47,6 @@ class ExcludedRoundRectangleCollider extends RoundRectangleCollider /* , IExclud
      * @return {boolean} whether to perform collision response or not
      */
     isResponse(collider) {
-        return super.isResponse() && (!BaseUtil.implementsOf(collider, IExclude) || !this.targetID === collider.getTargetID());
+        return super.isResponse() && (!BaseUtil.implementsOf(collider, IExclude) || this.targetID !== collider.getTargetID());
     }
 }
