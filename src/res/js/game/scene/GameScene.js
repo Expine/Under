@@ -20,6 +20,12 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
          * @type {StageManager}
          */
         this.stageManager = null;
+        /**
+         * Current stage instance
+         * @protected
+         * @type {Stage}
+         */
+        this.currentStage = null;
 
         /**
          * Event manager
@@ -50,6 +56,7 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
     initStage() {
         this.gameover = false;
         // set player
+        this.currentStage = this.stageManager.getStage();
         this.player = this.stageManager.getStage().getEntitiesByInterface(IPlayable).find((it) => !it.isGameover());
 
         // initialize ui layer
@@ -102,6 +109,7 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
 
         this.stageManager.update(dt);
         super.update(dt);
+        // judge game over
         if (this.gameover) {
             // retry
             if (Input.key.isPress(Input.key.yes())) {
@@ -117,6 +125,11 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
             } else if (Input.key.isPress(Input.key.no())) {
                 SceneManager.it.replaceScene(new TitleScene());
             }
+        }
+        // check transtion of stage
+        if (this.stageManager.getStage() !== this.currentStage) {
+            this.currentStage = this.stageManager.getStage();
+            this.player = this.stageManager.getStage().getEntitiesByInterface(IPlayable).find((it) => !it.isGameover());
         }
 
         // update event

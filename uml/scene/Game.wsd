@@ -16,6 +16,7 @@ package game {
     package ga_scene {
         class GameScene {
             #stageManager : StageManager
+            #currentStage : Stage
             #eventManager : EventManager
             #player : IPlayable
             #gameover : boolean
