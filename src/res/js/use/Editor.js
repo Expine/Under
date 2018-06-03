@@ -241,6 +241,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof GameImage !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/GameText.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof Context !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/resources/image/GLContext.js'; document.head.appendChild(script);
     }
@@ -1529,6 +1534,7 @@
         typeof CachedMusic !== `undefined` &&
         typeof DelegateImage !== `undefined` &&
         typeof DirectionalImage !== `undefined` &&
+        typeof GameText !== `undefined` &&
         typeof GLContext !== `undefined` &&
         typeof JSContext !== `undefined` &&
         typeof SingleImage !== `undefined` &&

@@ -32,6 +32,7 @@ package under {
         package ex_resource {
             package ex_image {
                 class SingleImage
+                class GameText
             }
         }
     }
@@ -44,6 +45,7 @@ package game {
 }
 
 SingleImage <..TitleScene : Generate
+GameText <.. TitleScene : Generate
 IIMageManager <.. TitleScene : Load
 IKey <.. TitleScene : Get key
 SceneManager <.. TitleScene : Replcae

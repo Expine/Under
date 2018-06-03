@@ -19,6 +19,13 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
          * @type {GameImage}
          */
         this._title = null;
+
+        /**
+         * Title text
+         * @private
+         * @type {GameImage}
+         */
+        this._titleText = null;
     }
 
     /**
@@ -27,7 +34,9 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
      */
     init() {
         this._title = new SingleImage(ResourceManager.image.load(`ui/title.png`), 370, 120);
+        this._titleText = new GameText(`Press Z to start`, 30, `white`);
         this._title.init();
+        this._titleText.init();
     }
 
     /**
@@ -49,5 +58,6 @@ class TitleScene extends Scene { // eslint-disable-line  no-unused-vars
      */
     render(ctx) {
         this._title.render(ctx, 215, 240);
+        this._titleText.render(ctx, 400, 450);
     }
 }

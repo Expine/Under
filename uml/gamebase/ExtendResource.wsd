@@ -107,6 +107,25 @@ package under {
                     +getAnimations() : Array<GameAnimation> <<override>>
                     +setAnimation(animation) <<override>
                 }
+                class GameText {
+                    +constructor(text,size,color,font,width)
+                    #text : string
+                    #size : number
+                    #color : string
+                    #font : string
+                    #width : number
+                    #height : number
+                    +setSize(width,height) <<override>>
+                    +setImageID(imageID) <<override>>
+                    +getImageID() : number <<override>>
+                    +getWidth() : number <<override>>
+                    +getHeight() : number <<override>>
+                    +getSourceOffsetX() : number <<override>>
+                    +getSourceOffsetY() : number <<override>>
+                    +getSourceWidth() : number <<override>>
+                    +getSourceHeight() : number <<override>>
+                    +render(ctx,x,y) <<override>>
+                }
 
                 package directional {
                     class DirectionalImage {
@@ -247,6 +266,8 @@ GameAnimation <.. MultiNamedAnimation : Set
 IImageManager <.. SingleImage : Get
 Context <.. ClipImage : Render image
 
+Context <.. GameText : Render
+
 Context <|.. JSContext
 Context <|.. GLContext
 Music <|.. BufferSourceMusic
@@ -261,6 +282,7 @@ GameImage <|.. SingleImage
 SingleImage <|- TileImage
 GameAnimation <|.. SingleAnimation
 NamedAnimation <|.. MultiNamedAnimation
+GameImage <|.. GameText
 
 GameImage <|.. DelegateImage
 IClipImage <|.. DelegateImage
