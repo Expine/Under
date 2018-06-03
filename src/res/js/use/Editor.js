@@ -206,6 +206,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof QueueEventManager !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/event/WithBackgroundEventManager.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof Input !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/input/AllInput.js'; document.head.appendChild(script);
     }
@@ -1527,6 +1532,7 @@
         typeof WaitKeyEvent !== `undefined` &&
         typeof SimpleEventBuilder !== `undefined` &&
         typeof QueueEventManager !== `undefined` &&
+        typeof WithBackgroundEventManager !== `undefined` &&
         typeof AllInput !== `undefined` &&
         typeof StateInputManager !== `undefined` &&
         typeof CachedArrayManager !== `undefined` &&

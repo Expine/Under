@@ -112,6 +112,9 @@ IKey <.. GameScene : Get key
 SceneManager <.. GameScene : Replcae
 GameScreen <..GameScene : Get size
 RespawnEntity <.. GameScene : Respawn
+SingleAnimation <.. GameScene : Generate
+TileImage <.. GameScene : Generate
+IIMageManager <.. GameScene : Load
 
 Stage <.. UILayer : Get player
 StageManager <.. UILayer : Get

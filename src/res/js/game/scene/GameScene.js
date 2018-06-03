@@ -73,7 +73,13 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
         this.stageManager.setStageSize(GameScreen.it.width, GameScreen.it.height);
         this.stageManager.pushStage(`map1`);
 
-        this.eventManager = new QueueEventManager();
+        const eventImage = new SingleAnimation(true);
+        const id = ResourceManager.image.load(`event/eventBack.png`);
+        for (let i = 0; i < 4; ++i) {
+            eventImage.addAnimation(new TileImage(id, GameScreen.it.width, GameScreen.it.height, i * 100, 0, 100, 75), 250);
+        }
+        this.eventManager = new WithBackgroundEventManager(eventImage);
+        this.eventManager.init();
 
         // initialize stage
         this.initStage();
