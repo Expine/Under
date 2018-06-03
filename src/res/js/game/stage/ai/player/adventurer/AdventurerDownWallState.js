@@ -74,7 +74,7 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
         }
         if (Input.key.isPress(Input.key.sub())) {
             // check already
-            const hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
+            const hooks = this.entity.stage.getEntitiesByInterface(IHook);
             if (hooks.length >= 1) {
                 for (const it of hooks) {
                     if (it.getActor() === this.entity) {
@@ -87,6 +87,9 @@ class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line
                     y: this.entity.y + this.entity.height / 2,
                     z: this.entity.z - 1,
                     owner: this.entity,
+                    collider: {
+                        id: BaseUtil.implementsOf(this.entity.collider, IExclude) ? this.entity.collider.getTargetID() : undefined,
+                    },
                 });
                 if (hook instanceof MutableEntity) {
                     hook.body.enforce(900000 * this.entity.directionX / dt, -1500000 / dt);

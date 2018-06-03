@@ -3,8 +3,7 @@
  * - Store stage size
  * - Performs updating and rendering stage
  * - Manages stage element such as entity
- * - Dividingly manages entities according to type
- * - Do not update immutable objects
+ * - Delegates other stage
  * - Executes debug process
  * - It can save data
  * - Target for editing
@@ -105,8 +104,8 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         const data = {};
         data.width = this.getStageWidth();
         data.height = this.getStageHeight();
-        if (BaseUtil.implementsOf(this.stage.back, IEditorSave)) {
-            data.background = this.stage.back.getSaveData();
+        if (BaseUtil.implementsOf(this.baseStage.back, IEditorSave)) {
+            data.background = this.baseStage.back.getSaveData();
         }
         if (BaseUtil.implementsOf(this.getCamera(), IEditorSave)) {
             data.camera = this.getCamera().getSaveData();
@@ -287,7 +286,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
 
         // move camera to player (E)
         if (!this.playMode && Input.key.isPress(Input.key.a() + 4)) {
-            const player = this.getEntities().filter((it) => BaseUtil.implementsOf(it, IPlayable));
+            const player = this.getEntitiesByInterface(IPlayable);
             if (player.length > 0) {
                 const p = player[0];
                 this.getCamera().init(p.getCameraX(), p.getCameraY());
@@ -319,7 +318,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         // test play
         if (this.playMode) {
             super.update(dt);
-        } else if (!this.getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable))) {
+        } else if (this.getEntitiesByInterface(IPlayable).length == 0) {
             this.updateBackground(dt);
             this.getCamera().update(0, 0, dt);
         } else {
@@ -331,7 +330,7 @@ class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget 
         const x = Input.mouse.getMouseX() - this.getCamera().baseX - this.getCamera().cameraX;
         const y = Input.mouse.getMouseY() - this.getCamera().baseY - this.getCamera().cameraY;
         // check camera position
-        if (x + 32 >= -this.stage.camera.cameraX && x < this.stage.camera.screenWidth - this.stage.camera.cameraX && y + 32 >= -this.stage.camera.cameraY && y < this.stage.camera.screenHeight - this.stage.camera.cameraY) {
+        if (x + 32 >= -this.getCamera().cameraX && x < this.getCamera().screenWidth - this.getCamera().cameraX && y + 32 >= -this.getCamera().cameraY && y < this.getCamera().screenHeight - this.getCamera().cameraY) {
             // check background position
             if (0 <= x && x <= this.stageWidth && 0 <= y && y <= this.stageHeight) {
                 this.editor.update(x, y, dt);

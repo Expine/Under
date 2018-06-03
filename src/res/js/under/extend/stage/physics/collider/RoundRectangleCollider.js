@@ -38,8 +38,8 @@ class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line 
             const cutX = this.cut;
             const cutY = this.cut;
             // In the meantime, the opponent is regarded as a rectangle
-            const cutCX = 0;
-            const cutCY = 0;
+            const cutCX = collider.cut;
+            const cutCY = collider.cut;
             let nx = 0;
             let ny = 0;
             let d = Number.MAX_SAFE_INTEGER;

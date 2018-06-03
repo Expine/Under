@@ -70,7 +70,7 @@ class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
         // change state
         if (Util.canEnd(this.entity.getImage())) {
             // punch
-            if (this.entity.body.isFixX) {
+            if (Math.abs(this.entity.body.velocityX) < 100) {
                 this.ai.changeState(`stationary`);
             } else {
                 this.ai.changeState(`walk`);

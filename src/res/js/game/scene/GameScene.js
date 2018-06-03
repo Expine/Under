@@ -20,6 +20,12 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
          * @type {StageManager}
          */
         this.stageManager = null;
+        /**
+         * Current stage instance
+         * @protected
+         * @type {Stage}
+         */
+        this.currentStage = null;
 
         /**
          * Event manager
@@ -44,6 +50,27 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
     }
 
     /**
+     * Initialize stage of game
+     * @protected
+     */
+    initStage() {
+        this.gameover = false;
+        // set player
+        this.currentStage = this.stageManager.getStage();
+        this.player = this.stageManager.getStage().getEntitiesByInterface(IPlayable).find((it) => !it.isGameover());
+
+        // initialize ui layer
+        const layers = this.getLayers();
+        for (let i = layers.length - 1; i >= 0; --i) {
+            this.removeLayer(layers[i]);
+        }
+        const ui = new UILayer(this.stageManager);
+        ui.setPosition(0, 0);
+        ui.setSize(GameScreen.it.width, GameScreen.it.height);
+        this.addLayer(ui);
+    }
+
+    /**
      * Initialize scene
      * @override
      */
@@ -53,18 +80,16 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
         this.stageManager.setStageSize(GameScreen.it.width, GameScreen.it.height);
         this.stageManager.pushStage(`map1`);
 
-        this.eventManager = new QueueEventManager();
+        const eventImage = new SingleAnimation(true);
+        const id = ResourceManager.image.load(`event/eventBack.png`);
+        for (let i = 0; i < 4; ++i) {
+            eventImage.addAnimation(new TileImage(id, GameScreen.it.width, GameScreen.it.height, i * 100, 0, 100, 75), 250);
+        }
+        this.eventManager = new WithBackgroundEventManager(eventImage);
+        this.eventManager.init();
 
-        // set player
-        this.player = this.stageManager.getStage().getEntities().find((it) => BaseUtil.implementsOf(it, IPlayable));
-
-        // initialize layer
-        this.clearLayer();
-        const ui = new UILayer(this.stageManager.getStage());
-        ui.setPosition(0, 0);
-        ui.setSize(GameScreen.it.width, GameScreen.it.height);
-        this.addLayer(ui);
-        this.gameover = false;
+        // initialize stage
+        this.initStage();
     }
 
     /**
@@ -84,13 +109,27 @@ class GameScene extends BaseLayeredScene { // eslint-disable-line  no-unused-var
 
         this.stageManager.update(dt);
         super.update(dt);
+        // judge game over
         if (this.gameover) {
             // retry
             if (Input.key.isPress(Input.key.yes())) {
-                this.init();
+                // check respawn
+                for (const it of this.stageManager.getStage().getEntitiesByInterface(RespawnEntity)) {
+                    const entity = it.tryRespawn(dt);
+                    if (BaseUtil.implementsOf(entity, IPlayable)) {
+                        this.initStage();
+                    } else {
+                        this.stageManager.getStage().removeEntityImmediately(entity);
+                    }
+                }
             } else if (Input.key.isPress(Input.key.no())) {
                 SceneManager.it.replaceScene(new TitleScene());
             }
+        }
+        // check transtion of stage
+        if (this.stageManager.getStage() !== this.currentStage) {
+            this.currentStage = this.stageManager.getStage();
+            this.player = this.stageManager.getStage().getEntitiesByInterface(IPlayable).find((it) => !it.isGameover());
         }
 
         // update event

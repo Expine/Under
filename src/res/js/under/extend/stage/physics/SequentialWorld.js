@@ -23,6 +23,12 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         this.collisions = [];
 
         /**
+         * Collision start index of list
+         * @protected
+         * @type {Array<number>}
+         */
+        this.collisionStartIndex = 0;
+        /**
          * Size of collision data list
          * @protected
          * @type {number}
@@ -49,6 +55,13 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
          * @type {Array<InfluentialEntity>}
          */
         this.entities = [];
+
+        /**
+         * Collision target entity list
+         * @protected
+         * @type {Array<InfluentialEntity>}
+         */
+        this.collisionTarget = [];
 
         // initialize
         for (let i = 0; i < 100; ++i) {
@@ -103,7 +116,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         if (collider === null) {
             return ret;
         }
-        const data = new LowerPriorityData();
+        let data = new LowerPriorityData();
         for (const it of this.entities) {
             const itCollider = it.collider;
             if (itCollider === null || it === collider.entity || !itCollider.enable) {
@@ -193,12 +206,14 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
         for (let j = 0; j < this.collisionSize; ++j) {
             this.collisions[j].init();
         }
+        this.collisionStartIndex = 0;
         this.collisionSize = 0;
         for (const it of this.entities) {
             if (it.collider !== null) {
                 it.collider.init();
             }
         }
+        this.collisionTarget = this.actors;
     }
 
     /**
@@ -209,17 +224,17 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      */
     updateCollision(dt) {
         // collision detection
-        for (let i = 0; i < this.actors.length; ++i) {
-            const target = this.actors[i];
+        for (let i = 0; i < this.collisionTarget.length; ++i) {
+            const target = this.collisionTarget[i];
             const targetCollider = target.collider;
             if (targetCollider === null || !targetCollider.enable) {
                 continue;
             }
             // check actors
-            for (let j = i + 1; j < this.actors.length; ++j) {
+            for (let j = 0; j < this.actors.length; ++j) {
                 const it = this.actors[j];
                 const itCollider = it.collider;
-                if (itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                if (it === target || itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize]) || targetCollider.collisions.find((data) => Util.getCollidedEntity(target, data) === it)) {
                     continue;
                 }
                 // add collision data
@@ -234,7 +249,7 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
             // check tiles
             for (const it of this.notActors) {
                 const itCollider = it.collider;
-                if (itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                if (itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize]) || targetCollider.collisions.find((data) => Util.getCollidedEntity(target, data) === it)) {
                     continue;
                 }
                 // add collision data
@@ -256,12 +271,35 @@ class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-
      * @param {number} dt Delta time
      */
     updateResponse(dt) {
+        this.collisionTarget = [];
         // collision response
-        for (let j = 0; j < this.collisionSize; ++j) {
+        for (let j = this.collisionStartIndex; j < this.collisionSize; ++j) {
             const it = this.collisions[j];
             if (it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider)) {
                 this.response.collisionResponse(it, dt);
+                if (it.depth > 1.0e-4 && this.collisionTarget.indexOf(it.colliding) === -1) {
+                    this.collisionTarget.push(it.colliding);
+                }
+                if (it.depth > 1.0e-4 && it.collided instanceof MutableEntity && this.collisionTarget.indexOf(it.collided) === -1) {
+                    this.collisionTarget.push(it.collided);
+                }
             }
         }
+    }
+
+    /**
+     * Judge whether collision detection continue or not
+     * @abstract
+     * @protected
+     * @param {number} dt Delta time
+     * @return {boolean} Whether collision detection continue or not
+     */
+    judgeContinueCollision(dt) {
+        let maxDepath = 1;
+        for (let j = this.collisionStartIndex; j < this.collisionSize; ++j) {
+            maxDepath = Math.max(maxDepath, this.collisions[j].depth);
+        }
+        this.collisionStartIndex = this.collisionSize;
+        return this.collisionTarget.length > 0 && this.collisionSize < 10000 && maxDepath > 1;
     }
 }

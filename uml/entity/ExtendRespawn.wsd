@@ -1,0 +1,75 @@
+@startuml EntityExtendRespawn
+package under {
+    package extend {
+        package ex_stage {
+            package ex_entity {
+                package ex_respawn {
+                    abstract RespawnEntity {
+                        {abstract} #createRespawnEntity() : Entity
+                        +tryRespawn(dt) : Entity
+                        +update(dt) <<override>>
+                    }
+                    class EnemyRespawnEntity {
+                        +constructor(respawnInterval,respawnMax)
+                        #respawnInterval : number
+                        #respawnMax : number
+                        #repawnIDs : Array<number>
+                        #respawnEnemies : Array<Entity>
+                        #respawnCount : number
+                        +addEnemyID(id)
+                        #createRespawnEntity() : Entity <<override>>
+                        +tryRespawn(dt) : Entity <<override>>
+                    }
+                    class PlayerRespawnEntity {
+                        +constructor(playerID,priority)
+                        #playerID : number
+                        #priority : number
+                        #collider : Collider
+                        #registered : boolean
+                        +setCollider(collider)
+                        +getCollider() : Collider <<override>>
+                        #createRespawnEntity() : Entity <<override>>
+                        +tryRespawn(dt) : Entity <<override>>
+                        +init() <<override>>
+                        +update(dt) <<override>>
+                    }
+                }
+            }
+        }
+    }
+}
+
+package under {
+    package base {
+        package stage {
+            abstract Stage
+            package entity {
+                abstract Entity
+                package interface {
+                    interface IPlayable
+                    interface IColliderable
+                }
+            }
+            package physics {
+                abstract PhysicalWorld
+                package collider {
+                    abstract CollisionData
+                }
+            }
+        }
+    }
+}
+
+Stage <.. EnemyRespawnEntity : Create
+
+Stage <.. PlayerRespawnEntity : Create and get
+IPlayable <.. PlayerRespawnEntity : Count and judge
+PhysicalWorld <.. PlayerRespawnEntity : Get
+CollisionData <.. PlayerRespawnEntity : Get
+
+Entity <|-- RespawnEntity
+RespawnEntity <|.. EnemyRespawnEntity
+RespawnEntity <|.. PlayerRespawnEntity
+IColliderable <|.. PlayerRespawnEntity
+
+@enduml

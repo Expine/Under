@@ -8,8 +8,20 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     /**
      * Rigid body constructor
      * @constructor
+     * @param {boolean} fixed Whether push back is not performed
      */
-    constructor() {
+    constructor(fixed) {
+        /**
+         * Whether push back is not performe
+         * @type {boolean}
+         */
+        this.fixed = fixed;
+        /**
+         * Whether it is constrained in a certain direction or not
+         * @type {Array<number>}
+         */
+        this.asGrounds = [];
+
         /**
          * Difference of previous x position (actural x velocity)
          * @type {number}
@@ -20,17 +32,6 @@ class RigidBody { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.diffY = 0;
-
-        /**
-         * Whether it is fixed for x direction or not
-         * @type {boolean}
-         */
-        this.isFixX = false;
-        /**
-         * Whether it is fixed for y direction or not
-         * @type {boolean}
-         */
-        this.isFixY = false;
 
         /**
          * Whether it is enabled or not
@@ -108,14 +109,20 @@ class RigidBody { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Whether to apply reflection only to the object
+     * @return {boolean} Whether to apply reflection only to the object
+     */
+    isFixed() {
+        return this.fixed;
+    }
+
+    /**
      * Reset rigid body state
      */
     reset() {
         this.material.reset();
         this.diffX = 0;
         this.diffY = 0;
-        this.isFixX = false;
-        this.isFixY = false;
     }
 
     /**
@@ -149,10 +156,13 @@ class RigidBody { // eslint-disable-line  no-unused-vars
 
     /**
      * Update rigid body information
-     * @abstract
      * @protected
      */
-    updateInfo(dt) {}
+    updateInfo(dt) {
+        for (let i = 0; i < 9; ++i) {
+            this.asGrounds[i] = false;
+        }
+    }
 
     /**
      * Update velocity

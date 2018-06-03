@@ -19,6 +19,12 @@ class StackStageManager extends StageManager { // eslint-disable-line  no-unused
          * @type {Array<Stage>}
          */
         this.stageStack = [];
+        /**
+         * Current stage to transfer information
+         * @protected
+         * @type {Stage}
+         */
+        this.currentStage = null;
     }
 
     /**
@@ -28,6 +34,27 @@ class StackStageManager extends StageManager { // eslint-disable-line  no-unused
      */
     pushStage(stageName) {
         const stage = this.parser.parse(`src/res/stage/${stageName}.json`, this.width, this.height);
+        if (this.currentStage !== null) {
+            // take over information
+            for (let target of this.currentStage.getEntitiesByInterface(ITakeOver)) {
+                for (let dst of stage.getEntitiesByInterface(ITakeOver)) {
+                    if (target.equals(dst)) {
+                        target.takeOver(dst);
+                        break;
+                    }
+                }
+            }
+        }
+        this.currentStage = stage;
+        this.pushStageDirectly(stage);
+    }
+
+    /**
+     * Push stage to list
+     * @override
+     * @param {Stage} stage Stage instance
+     */
+    pushStageDirectly(stage) {
         this.stageStack.push(stage);
         stage.init();
     }

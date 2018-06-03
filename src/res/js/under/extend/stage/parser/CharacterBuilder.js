@@ -27,11 +27,13 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     makeBody(body) {
         switch (body.type) {
             case `MaxAdopt`:
-                return new MaxAdoptBody();
+                return new MaxAdoptBody(body.fix);
             case `Precise`:
-                return new PreciseBody();
+                return new PreciseBody(body.fix);
             case `Player`:
-                return new PlayerBody();
+                return new PlayerBody(body.fix);
+            case `Fix`:
+                return new FixBody(body.fix);
             default:
                 return null;
         }
@@ -114,10 +116,28 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
                 return new Enemy();
             case `Obstacle`:
                 return new Obstacle();
+            case `EnemyRespawn`:
+                {
+                    const ret = new EnemyRespawnEntity(this.tryReplace(deploy, entity, `interval`), this.tryReplace(deploy, entity, `max`));
+                    for (let it of this.tryReplace(deploy, entity, `enemies`)) {
+                        ret.addEnemyID(it);
+                    }
+                    return ret;
+                }
+                return new OnlyImageEntity();
+            case `PlayerRespawn`:
+                {
+                    const ret = new PlayerRespawnEntity(this.tryReplace(deploy, entity, `player`), this.tryReplace(deploy, entity, `priority`));
+                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const collider = this.makeCollider(colliderData);
+                    collider.setAABB(this.makeAABB(colliderData));
+                    ret.setCollider(collider);
+                    return ret;
+                }
             case `Door`:
                 {
                     const ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
-                    const colliderData = this.trDyReplace(deploy, entity, `collider`);
+                    const colliderData = this.tryReplace(deploy, entity, `collider`);
                     const collider = this.makeCollider(colliderData);
                     collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);

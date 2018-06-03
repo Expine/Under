@@ -166,6 +166,9 @@ class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-d
                 y: y,
                 z: this.z,
                 owner: this.owner,
+                collider: {
+                    id: BaseUtil.implementsOf(this.collider, IExclude) ? this.collider.getTargetID() : undefined,
+                },
             });
             this.post.setHookInfo(this, this.string, this.restLength - 15, this.hookedLength, this.childID);
             // set initial info

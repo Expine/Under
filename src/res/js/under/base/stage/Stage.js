@@ -10,10 +10,17 @@ class Stage { // eslint-disable-line  no-unused-vars
     /**
      * Stage constructor
      * @constructor
+     * @param {string} name Stage name
      * @param {number} stageWidth Stage width (pixel)
      * @param {number} stageHeight Stage height (pixel)
      */
-    constructor(stageWidth, stageHeight) {
+    constructor(name, stageWidth, stageHeight) {
+        /**
+         * Stage name
+         * @protected
+         * @type {string}
+         */
+        this.name = name;
         /**
          * Stage width (pixel)
          * @protected
@@ -197,6 +204,14 @@ class Stage { // eslint-disable-line  no-unused-vars
     getEntities() {}
 
     /**
+     * Get all entities by interface
+     * @abstract
+     * @param {Class} inter Interface for judging
+     * @return {Array<Entity>} All entities attached that interface
+     */
+    getEntitiesByInterface(inter) {}
+
+    /**
      * Update entity in stage
      * @abstract
      * @protected
@@ -284,8 +299,8 @@ class Stage { // eslint-disable-line  no-unused-vars
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx, shiftX = 0, shiftY = 0) {
-        shiftX += this.camera.baseX;
-        shiftY += this.camera.baseY;
+        shiftX += this.getCamera().baseX;
+        shiftY += this.getCamera().baseY;
         this.renderBackground(ctx, shiftX, shiftY);
         this.renderEntity(ctx, shiftX, shiftY);
         this.renderWorld(ctx, shiftX, shiftY);

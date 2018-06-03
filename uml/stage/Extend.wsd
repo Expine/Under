@@ -4,12 +4,14 @@ package under {
         package ex_stage {
             class StackStageManager {
                 #stageStack : Array<Stage>
+                #currentStage : Stage
                 +pushStage(stageName) <<override>>
+                +pushStageDirectly(stage) <<override>>
                 +popStage() : Stage <<override>>
                 +getStage() : STage <<override>>
             }
             class SplitManagementStage {
-                +constructor(stageWidth,stageHeight)
+                +constructor(name,stageWidth,stageHeight)
                 #entities : Array<Entity>
                 #sortedEntity : Array<Entity>
                 #removeList : Array<Entity>
@@ -20,6 +22,7 @@ package under {
                 +removeEntity(entity) <<override>>
                 #removeEntityImmediately(entity) <<override>>
                 +getEntities() : Array<Entity> <<override>>
+                +getEntitiesByInterface(inter) : Array<Entity> <<override>>
                 #updateEntity(dt) <<override>>
                 #updatePhysics(dt) <<override>>
                 #updateBackground(dt) <<override>>
@@ -28,12 +31,57 @@ package under {
                 #renderEntity(ctx,shiftX,shiftY) <<override>>
                 #renderWorld(ctx,shiftX,shiftY) <<override>>
             }
+            abstract DelegateStage {
+                +constructor(baseStage)
+                #baseStage : Stage <<override>>
+                +setBackground(back) <<override>>
+                +setCamera(camera) <<override>>
+                +setPhysicalWorld(physic) <<override>>
+                +setFactory(factory) <<override>>
+                +getPhysicalWorld() : PhysicalWorld <<override>>
+                +getCamera() : Camera <<override>>
+                #getFactory() : EntityFactory <<override>>
+                +setEnable(enable) <<override>>
+                +getEnable() : boolean <<override>>
+                +getStageWidth() : number <<override>>
+                +getStageHeight() : number <<override>>
+                +addEntity(entity) <<override>>
+                +removeEntity(entity) <<override>>
+                #removeEntityImmediately(entity) <<override>>
+                +getEntities() : Array<Entity> <<override>>
+                +getEntitiesByInterface(inter) : Array<Entity> <<override>>
+                #updateEntity(dt) <<override>>
+                #updatePhysics(dt) <<override>>
+                #updateBackground(dt) <<override>>
+                #updateCemera(dt) <<override>>
+                +init() <<override>>
+                #renderBackground(ctx,shiftX,shiftY) <<override>>
+                #renderEntity(ctx,shiftX,shiftY) <<override>>
+                #renderWorld(ctx,shiftX,shiftY) <<override>>
+            }
+            class CurtainStage {
+                +constructor(baseStage,nameTime,transitionTime)
+                #nameTime : number
+                #transitionTime : number
+                #transitionCount : numbe
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx,shiftX,shiftY) <<override>>
+            }
         }
     }
 }
 
 package under {
     package base {
+        package resource {
+            package image {
+                abstract Context
+            }
+        }
+        package screen {
+            abstract GameScreen
+        }
         package stage {
             abstract Stage
             abstract StageManager
@@ -52,6 +100,7 @@ package under {
             package entity {
                 package interface {
                     interface IPlayable
+                    interface ITakeOver
                 }
                 abstract Entity
                 abstract InfluentialEntity
@@ -61,6 +110,9 @@ package under {
 }
 
 StageParser <.. StackStageManager : Parse
+Stage <.. StackStageManager : Get
+ITakeOver <.. StackStageManager : Take over
+
 Entity "*" ..o "1" SplitManagementStage : Own and init, update, render
 IPlayable <.. SplitManagementStage : Get camera
 InfluentialEntity <.. SplitManagementStage : Pass
@@ -68,7 +120,13 @@ Camera <.. SplitManagementStage : Set
 Background <.. SplitManagementStage : Render
 PhysicalWorld <.. SplitManagementStage : Set and update
 
+StageManager <.. CurtainStage : Replace
+GameScreen <.. CurtainStage : Get
+Context <.. CurtainStage : Render
+
 StageManager <|.. StackStageManager
 Stage <|.. SplitManagementStage
+Stage <|.. DelegateStage
+DelegateStage <|.. CurtainStage
 
 @enduml

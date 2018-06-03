@@ -14,6 +14,12 @@ package under {
                 +getRunningEvents() : Array<GameEvent> <<override>>
                 #removeEvents(removes) <<override>>
             }
+            class WithBackgroundEventManager {
+                +constructor(backImage)
+                +init() <<override>>
+                +update(dt) <<override>>
+                +render(ctx) <<override>>
+            }
             package ex_evcommon {
                 package inputorder {
                     abstract InputOrder {
@@ -130,6 +136,7 @@ GameImage <.. ImageEvent : Update and redner
 EventManager <|... QueueEventManager
 IEventRegister <|... QueueEventManager
 IEventOperator <|... QueueEventManager
+QueueEventManager<|.. WithBackgroundEventManager
 
 InputOrder <|.. DirectionInputOrder
 InputOrder <|.. WaitInputOrder

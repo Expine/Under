@@ -29,6 +29,38 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Try to override by deploy data
+     * @protected
+     * @param {JSON} deploy Deploy json data
+     * @param {JSON} json Information json data
+     * @param {JSON} init Initial data name
+     * @return {JSON} Replaced JSON data
+     */
+    tryOverride(deploy, json, init) {
+        if (init !== undefined) {
+            if (deploy === undefined || deploy[init] === undefined) {
+                return json[init];
+            } else {
+                return this.tryOverride(deploy[init], json[init]);
+            }
+        }
+        if (deploy === undefined) {
+            return json;
+        }
+        for (let name in deploy) {
+            if (deploy.hasOwnProperty(name)) {
+                const e = deploy[name];
+                if (typeof(e) !== `object` || e instanceof Array) {
+                    json[name] = e;
+                } else {
+                    json[name] = this.tryOverride(e, json[name]);
+                }
+            }
+        }
+        return json;
+    }
+
+    /**
      * Make collider
      * @protected
      * @param {JSON} collider Collider information json data
@@ -126,7 +158,7 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @param {JSON} json Character json data
      */
     buildPhysical(base, deploy, json) {
-        const colliderData = this.tryReplace(deploy, json, `collider`);
+        const colliderData = this.tryOverride(deploy, json, `collider`);
         const materialData = this.tryReplace(deploy, json, `material`);
         // set collider
         if (colliderData !== undefined) {
@@ -135,8 +167,8 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
                 collider.enable = colliderData.enable === undefined ? true : colliderData.enable;
                 collider.response = colliderData.response === undefined ? true : colliderData.response;
                 collider.setAABB(this.makeAABB(colliderData));
+                base.setCollider(collider);
             }
-            base.setCollider(collider);
             // set material
             base.setMaterial(this.makeMaterial(materialData));
         }

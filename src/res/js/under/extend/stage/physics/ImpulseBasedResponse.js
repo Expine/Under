@@ -13,11 +13,12 @@ class ImpulseBasedResponse extends CollisionResponse { // eslint-disable-line  n
     collisionResponse(data, dt) {
         const nx = data.nx;
         const ny = data.ny;
-        const d = data.depth * 600;
+        const d = data.depth * 200;
         const e1 = data.colliding;
         const e2 = data.collided;
         const b1 = e1.body;
-        if (e2 instanceof MutableEntity) {
+        const b2 = e2 instanceof MutableEntity ? e2.body : null;
+        if (b2 !== null) {
             const b2 = e2.body;
             const dot1 = b1.velocityX * nx + b1.velocityY * ny;
             const dot2 = b2.velocityX * nx + b2.velocityY * ny;
@@ -35,8 +36,8 @@ class ImpulseBasedResponse extends CollisionResponse { // eslint-disable-line  n
             const j = (1 + e) * m1 * m2 / (m1 + m2) * 1000 / dt;
             const j1 = j / n1;
             const j2 = j / n2;
-            const d1 = d / n1;
-            const d2 = d / n2;
+            const d1 = d / n1 * m1;
+            const d2 = d / n2 * m2;
             b1.enforce(j1 * vdx - d1 * nx, j1 * vdy - d1 * ny);
             b2.enforce(-j2 * vdx + d2 * nx, -j2 * vdy + d2 * ny);
         } else {
@@ -47,8 +48,55 @@ class ImpulseBasedResponse extends CollisionResponse { // eslint-disable-line  n
             const e = e1.material.e;
             const n1 = e1.collider.collisions.length;
             const j = (1 + e) * m1 * 1000 / -dt / n1;
-            const dd = d / n1 * 4;
+            const dd = d / n1 * 4 * m1;
             b1.enforce(j * v1x - dd * nx, j * v1y - dd * ny);
+        }
+
+        // friction
+        if (e1.collider.getAABB().startY < e2.collider.getAABB().startY) {
+            // e1 on e2
+            const mu = e2.material.mu;
+            const dotp = b1.accelerationX * nx + b1.accelerationY * ny;
+            const px = dotp * nx;
+            const py = dotp * ny;
+            const p = Math.sqrt(px * px + py * py);
+            let dvx = 0;
+            let dvy = 0;
+            const ovx = (b2 === null || b2.diffX * b2.velocityX < 0) ? b1.velocityX : b1.diffX - b2.diffX;
+            const ovy = (b2 === null || b2.diffY * b2.velocityY < 0) ? b1.velocityY : b1.diffY - b2.diffY;
+            const dot = Math.sign(ovx * -ny + ovy * nx);
+            dvx = dot * -ny * p * mu * dt / 1000;
+            dvy = dot * nx * p * mu * dt / 1000;
+            if (ovx === b1.velocityX && Math.abs(dvx) > Math.abs(b1.velocityX)) {
+                dvx = b1.velocityX;
+            }
+            if (ovy === b1.velocityY && Math.abs(dvy) > Math.abs(b1.velocityY)) {
+                dvy = b1.velocityY;
+            }
+            // Apply only to down wall
+            b1.setNextAddVelocity(-dvx * b1.material.frictionX, dvy < 0 ? 0 : -dvy * b1.material.frictionY);
+        } else if (b2 !== null) {
+            // e2 on e1
+            const mu = e1.material.mu;
+            const dotp = b2.accelerationX * nx + b2.accelerationY * ny;
+            const px = dotp * nx;
+            const py = dotp * ny;
+            const p = Math.sqrt(px * px + py * py);
+            let dvx = 0;
+            let dvy = 0;
+            const ovx = (b1.diffX * b1.velocityX < 0) ? b2.velocityX : b2.diffX - b1.diffX;
+            const ovy = (b1.diffY * b1.velocityY < 0) ? b2.velocityY : b2.diffY - b1.diffY;
+            const dot = Math.sign(ovx * -ny + ovy * nx);
+            dvx = dot * -ny * p * mu * dt / 1000;
+            dvy = dot * nx * p * mu * dt / 1000;
+            if (ovx === b2.velocityX && Math.abs(dvx) > Math.abs(b2.velocityX)) {
+                dvx = b2.velocityX;
+            }
+            if (ovy === b2.velocityY && Math.abs(dvy) > Math.abs(b2.velocityY)) {
+                dvy = b2.velocityY;
+            }
+            // Apply only to down wall
+            b2.setNextAddVelocity(-dvx * b2.material.frictionX, dvy < 0 ? 0 : -dvy * b2.material.frictionY);
         }
     }
 }

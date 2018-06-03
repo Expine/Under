@@ -16,7 +16,7 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
     init() {
         super.init();
         // check release
-        const hooks = this.entity.stage.getEntities().filter((it) => BaseUtil.implementsOf(it, IHook));
+        const hooks = this.entity.stage.getEntitiesByInterface(IHook);
         if (hooks.length >= 1) {
             for (const it of hooks) {
                 if (it.getActor() === this.entity) {
@@ -41,6 +41,9 @@ class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-
                 y: this.entity.y + this.entity.height / 2,
                 z: this.entity.z - 1,
                 owner: this.entity,
+                collider: {
+                    id: BaseUtil.implementsOf(this.entity.collider, IExclude) ? this.entity.collider.getTargetID() : undefined,
+                },
             });
             if (hook instanceof MutableEntity) {
                 hook.body.enforce(1200000 * this.entity.directionX / dt, -2000000 / dt);

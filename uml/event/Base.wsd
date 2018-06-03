@@ -7,6 +7,7 @@ package under {
                 {static} +it : IEventRegister
                 {abstract} +getRunningEvents() : Array<GameEvent>
                 {abstract} #removeEvents(removes)
+                {abstract} +init()
                 +update(dt)
                 +render(ctx)
             }

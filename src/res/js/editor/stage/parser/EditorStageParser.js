@@ -32,7 +32,11 @@ class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-un
      * @return {Stage} Stage instance for base of parsing
      */
     makeBaseStage(stage) {
-        return new EditorStage(super.makeBaseStage(stage), stage.tiles, stage.entities);
+        let target = super.makeBaseStage(stage);
+        while (target instanceof DelegateStage) {
+            target = target.getBaseStage();
+        }
+        return new EditorStage(target, stage.tiles, stage.entities);
     }
 
     /**

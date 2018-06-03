@@ -266,7 +266,7 @@
             "material": {
                 "mass": 1,
                 "elasticity": 0.1,
-                "mu": 0.95
+                "mu": 0.6
             }
         },
         {
@@ -352,7 +352,8 @@
                 "cut": 5
             },
             "body": {
-                "type": "MaxAdopt",
+                "type": "Fix",
+                "fix": true,
                 "material": {
                     "type": "Immutable",
                     "k": 0.5,
@@ -474,7 +475,8 @@
             "width": 32,
             "height": 32,
             "body": {
-                "type": "MaxAdopt",
+                "type": "Fix",
+                "fix": true,
                 "material": {
                     "type": "Immutable",
                     "k": 0.5,
@@ -557,6 +559,42 @@
             },
             "width": 96,
             "height": 96
+        },
+        {
+            "id": 100014,
+            "type": "EnemyRespawn",
+            "image": {
+                "type": "single",
+                "file": "event.png",
+                "width": 20,
+                "height": 20
+            },
+            "width": 32,
+            "height": 32,
+            "interval": 3,
+            "max": 3,
+            "enemies": []
+        },
+        {
+            "id": 100015,
+            "type": "PlayerRespawn",
+            "image": {
+                "type": "single",
+                "file": "event.png",
+                "width": 25,
+                "height": 25
+            },
+            "collider": {
+                "type": "Rectangle",
+                "startX": -32,
+                "startY": 0,
+                "width": 96,
+                "height": 96
+            },
+            "width": 96,
+            "height": 96,
+            "player": 100000,
+            "priority": 0
         }
     ]
 }

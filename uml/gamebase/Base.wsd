@@ -151,6 +151,7 @@ package under {
             class BaseUtil {
                 {static} #interfaces : Object<string,Interface>
                 {static} +implementsOf(instance,i) : boolean
+                {static} +isInterface(target) : boolean
                 {static} +getClassName(instance) : string
             }
             class Interface {

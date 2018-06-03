@@ -71,8 +71,8 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
                 const n1x = -nx * nm1;
                 const n1y = -ny * nm1;
                 const nm2 = d / 100;
-                const n2x = b2.isFixX ? 0 : nx * nm2;
-                const n2y = b2.isFixY ? 0 : ny * nm2;
+                const n2x = nx * nm2;
+                const n2y = ny * nm2;
                 while (i++ < 10 && e1.collider.isCollision(e2.collider)) {
                     e1.deltaMove(n1x, n1y);
                     e2.deltaMove(n2x, n2y);
@@ -115,8 +115,8 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
             const p = Math.sqrt(px * px + py * py);
             let dvx = 0;
             let dvy = 0;
-            const ovx = (b2 === null || b2.isFixX || b2.diffX * b2.velocityX < 0) ? b1.velocityX : b1.diffX - b2.diffX;
-            const ovy = (b2 === null || b2.isFixY || b2.diffY * b2.velocityY < 0) ? b1.velocityY : b1.diffY - b2.diffY;
+            const ovx = (b2 === null || b2.diffX * b2.velocityX < 0) ? b1.velocityX : b1.diffX - b2.diffX;
+            const ovy = (b2 === null || b2.diffY * b2.velocityY < 0) ? b1.velocityY : b1.diffY - b2.diffY;
             const dot = Math.sign(ovx * -ny + ovy * nx);
             dvx = dot * -ny * p * mu * dt / 1000;
             dvy = dot * nx * p * mu * dt / 1000;
@@ -138,8 +138,8 @@ class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-u
             const p = Math.sqrt(px * px + py * py);
             let dvx = 0;
             let dvy = 0;
-            const ovx = (b1.isFixX || b1.diffX * b1.velocityX < 0) ? b2.velocityX : b2.diffX - b1.diffX;
-            const ovy = (b1.isFixY || b1.diffY * b1.velocityY < 0) ? b2.velocityY : b2.diffY - b1.diffY;
+            const ovx = (b1.diffX * b1.velocityX < 0) ? b2.velocityX : b2.diffX - b1.diffX;
+            const ovy = (b1.diffY * b1.velocityY < 0) ? b2.velocityY : b2.diffY - b1.diffY;
             const dot = Math.sign(ovx * -ny + ovy * nx);
             dvx = dot * -ny * p * mu * dt / 1000;
             dvy = dot * nx * p * mu * dt / 1000;

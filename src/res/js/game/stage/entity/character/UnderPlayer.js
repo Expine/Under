@@ -13,12 +13,13 @@
  * - Player function interface
  * - Entity operated by the player
  * - Under player function interface
+ * - It can be gotten terrain ID
  * - ### It can change type
  * @extends {Player}
  * @implements {IUnderPlayable}
  * @classdesc Under player that can change type
  */
-class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line  no-unused-vars
+class UnderPlayer extends Player /* , IUnderPlayable, ITerrain */ { // eslint-disable-line  no-unused-vars
     /**
      * Under player constructor
      * @constructor
@@ -39,6 +40,28 @@ class UnderPlayer extends Player /* , IUnderPlayable */ { // eslint-disable-line
          * @type {number}
          */
         this.preTerrain = 1;
+    }
+
+    /**
+     * Get terrain ID
+     * @override
+     * @return {number} Terrain ID
+     */
+    getTerrainID() {
+        return this.preTerrain;
+    }
+
+    /**
+     * Take over information
+     * @override
+     * @param {Object} target Target element
+     */
+    takeOver(target) {
+        super.takeOver(target);
+        if (target instanceof UnderPlayer) {
+            target.changeType(this.preTerrain);
+            target.image.update(10000);
+        }
     }
 
     /**

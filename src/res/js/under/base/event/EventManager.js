@@ -32,7 +32,13 @@ class EventManager { // eslint-disable-line  no-unused-vars
     removeEvents(removes) {}
 
     /**
-     * Update scene
+     * Initialize event manager
+     * @abstract
+     */
+    init() {}
+
+    /**
+     * Update event manager
      * @override
      * @param {number} dt Delta time
      */
@@ -47,7 +53,7 @@ class EventManager { // eslint-disable-line  no-unused-vars
     }
 
     /**
-     * Render scene
+     * Render event manager
      * @override
      * @param {Context} ctx Canvas context
      */

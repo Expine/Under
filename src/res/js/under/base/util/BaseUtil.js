@@ -18,6 +18,22 @@ class BaseUtil { // eslint-disable-line  no-unused-vars
     }
 
     /**
+     * Judge whether target is interface or not
+     * @param {Class} target Target class data
+     * @return {boolean} Whether target is interface or not
+     */
+    static isInterface(target) {
+        let proto = target.__proto__;
+        while (proto !== null) {
+            if (proto.name === `Interface`) {
+                return true;
+            }
+            proto = proto.__proto__;
+        }
+        return false;
+    }
+
+    /**
      * Get class name by instance
      * @param {Object} instance Instance for getting class name
      * @return {string} Class name

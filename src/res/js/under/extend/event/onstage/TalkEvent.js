@@ -107,5 +107,9 @@ class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
         for (let i = 0; i < texts.length; ++i) {
             ctx.fillText(texts[i], 32, 32 + 35 * i, 0, 0, 25);
         }
+        // render press z
+        if (this.talked) {
+            ctx.fillText(`...Press Z key`, 570, 150, 1.0, 0.0, 16);
+        }
     }
 }

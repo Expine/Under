@@ -6,10 +6,12 @@ package under {
                 class SequentialWorld {
                     +constructor(gravity)
                     #collisions : Array<CollisionData>
+                    #collisionStartIndex : number
                     #collisionSize : number
                     #actors : Array<MutableEntity>
                     #notActors : Array<InfluentialEntity>
-                    #entities : Array<Entity>
+                    #entities : Array<InfluentialEntity>
+                    #collisionTarget : Array<InfluentialEntity>
                     +addEntity(entity) <<override>>
                     +removeEntity(entity) <<override>>
                     +getCollisionData(entity) : Array<CollisionData> <<override>>
@@ -21,6 +23,7 @@ package under {
                     #initCollision(dt) <<override>>
                     #updateCollision(dt) <<override>>
                     #updateResponse(dt) <<override>>
+                    #judgeContinueCollision(dt) : boolean <<override>>
                 }
                 class SplitWorld {
                     +constructor(stageWidth,stgeHeight,gravity,splitNumber)

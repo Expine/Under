@@ -12,11 +12,12 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
     /**
      * Split management stage constructor
      * @constructor
+     * @param {string} name Stage name
      * @param {number} stageWidth Stage width (pixel)
      * @param {number} stageHeight Stage height (pixel)
      */
-    constructor(stageWidth, stageHeight) {
-        super(stageWidth, stageHeight);
+    constructor(name, stageWidth, stageHeight) {
+        super(name, stageWidth, stageHeight);
         /**
          * All entity list
          * @protected
@@ -29,6 +30,18 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
          * @type {Array<Entity>}
          */
         this.sortedEntity = [];
+        /**
+         * Intefcae list
+         * @protected
+         * @type {Object<string, Class>}
+         */
+        this.interfaceList = {};
+        /**
+         * Entity list of each interface
+         * @protected
+         * @type {Object<string, Array<Entity>>}
+         */
+        this.interfacedEntityList = {};
 
         /**
          * List of entity that will be removed
@@ -76,7 +89,7 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     addEntity(entity) {
         // set player
-        if (this.player === null && BaseUtil.implementsOf(entity, IPlayable)) {
+        if (BaseUtil.implementsOf(entity, IPlayable)) {
             this.player = entity;
         }
         if (entity instanceof InfluentialEntity) {
@@ -94,6 +107,22 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
                 this.sortedEntity.splice(index, 0, entity);
             } else {
                 this.sortedEntity.push(entity);
+            }
+        }
+        // add
+        for (let name in this.interfacedEntityList) {
+            if (this.interfacedEntityList.hasOwnProperty(name)) {
+                if (BaseUtil.isInterface(this.interfaceList[name])) {
+                    // add interface
+                    if (BaseUtil.implementsOf(entity, this.interfaceList[name])) {
+                        this.interfacedEntityList[name].push(entity);
+                    }
+                } else {
+                    // add instanceof
+                    if (entity instanceof this.interfaceList[name]) {
+                        this.interfacedEntityList[name].push(entity);
+                    }
+                }
             }
         }
     }
@@ -129,6 +158,27 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
         if (index >= 0) {
             this.sortedEntity.splice(index, 1);
         }
+        for (const name in this.interfacedEntityList) {
+            if (this.interfacedEntityList.hasOwnProperty(name)) {
+                if (BaseUtil.isInterface(this.interfaceList[name])) {
+                    // remove interface
+                    if (BaseUtil.implementsOf(entity, this.interfaceList[name])) {
+                        index = this.interfacedEntityList[name].indexOf(entity);
+                        if (index >= 0) {
+                            this.interfacedEntityList[name].splice(index, 1);
+                        }
+                    }
+                } else {
+                    // remove instanceof
+                    if (entity instanceof this.interfaceList[name]) {
+                        index = this.interfacedEntityList[name].indexOf(entity);
+                        if (index >= 0) {
+                            this.interfacedEntityList[name].splice(index, 1);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -138,6 +188,21 @@ class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-var
      */
     getEntities() {
         return this.entities;
+    }
+
+    /**
+     * Get all entities by interface
+     * @override
+     * @param {Class} inter Interface for judging
+     * @return {Array<Entity>} All entities attached that interface
+     */
+    getEntitiesByInterface(inter) {
+        // check already
+        if (this.interfacedEntityList[inter.name] === undefined) {
+            this.interfacedEntityList[inter.name] = BaseUtil.isInterface(inter) ? this.entities.filter((it) => BaseUtil.implementsOf(it, inter)) : this.entities.filter((it) => it instanceof inter);
+            this.interfaceList[inter.name] = inter;
+        }
+        return this.interfacedEntityList[inter.name];
     }
 
     /**

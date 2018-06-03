@@ -16,7 +16,7 @@ class UnderPlayerState extends TransferableState { // eslint-disable-line  no-un
     transitionUsualState() {
         if (!Util.onGround(this.entity)) {
             this.ai.changeState(`fall`);
-        } else if (this.entity.body.isFixX) {
+        } else if (Math.abs(this.entity.body.velocityX) < 100) {
             this.ai.changeState(`stationary`);
         } else {
             this.ai.changeState(`walk`);
