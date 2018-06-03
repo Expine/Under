@@ -12,6 +12,7 @@ package game {
 
         package ga_physics {
             class UnderRepulsionResponse {
+                #asGround(entity,dirX,dirY) : boolean
                 +collisionResponse(data,dt) <<override>>
             }
         }

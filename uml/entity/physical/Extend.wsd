@@ -6,6 +6,7 @@ package under {
             package ex_physics {
                 package ex_body {
                     class MaxAdoptBody {
+                        +constructor(fixed)
                         #internalAccelerationX : number
                         #internalAccelerationY : number
                         #vpx : number
@@ -24,6 +25,9 @@ package under {
                     }
                     class PreciseBody {
                         +updateEntity(dt) <<override>>
+                    }
+                    class FixBody {
+                        +isFixed() : boolean <<override>>
                     }
                     class PlayerBody
                     interface IJoint {

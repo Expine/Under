@@ -15,6 +15,10 @@ package under {
             package d_physics {
                 class DebugWorld {
                     +constructor(world,stageWidth,stageHeight)
+                    #world : PhysicalWorld
+                    #stageWidth : number
+                    #stageHeight : number
+                    #judgeCount : number
                     +setResponse(response) <<override>>
                     +getResponse() : CollisionResponse <<override>>
                     +addEntity(entity) <<override>>
@@ -28,6 +32,7 @@ package under {
                     #initCollision(dt) <<override>>
                     #updateCollision(dt) <<override>>
                     #updateResponse(dt) <<override>>
+                    #judgeContinueCollision(dt) : boolean <<override>>
                     #cleanup(dt) <<override>>
                 }
             }
@@ -79,6 +84,7 @@ package under {
                 class SequentialWorld
                 class SplitWorld
                 class RepulsionResponse
+                class ImpulseBasedResponse
             }
         }
     }
@@ -107,6 +113,7 @@ DebugWorld <.. DebugStage : Get
 Timer <.. DebugWorld : Register
 UnderRepulsionResponse <.. DebugWorld : Generate
 RepulsionResponse <.. DebugWorld : Generate
+ImpulseBasedResponse <.. DebugWorld : Generate
 SequentialWorld <.. DebugWorld : Generate
 SplitWorld <.. DebugWorld : Generate
 

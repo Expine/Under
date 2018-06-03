@@ -353,9 +353,12 @@ class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-
             it.entity.collider.clear();
         }
         // update collision data
-        for (const it of collisions) {
-            it.colliding.collider.addCollision(it);
-            it.collided.collider.addCollision(it);
+        for (let i = collisions.length - 1; i >= 0; --i) {
+            const it = collisions[i];
+            if (!it.colliding.collider.collisions.find((t) => Util.getCollidedEntity(it.colliding, t) === it.collided)) {
+                it.colliding.collider.addCollision(it);
+                it.collided.collider.addCollision(it);
+            }
         }
     }
 

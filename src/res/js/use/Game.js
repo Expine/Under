@@ -1009,6 +1009,11 @@
     }
 }, 1);}
 {const id = setInterval(function() {
+    if (typeof MaxAdoptBody !== `undefined`) {
+        clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/FixBody.js'; document.head.appendChild(script);
+    }
+}, 1);}
+{const id = setInterval(function() {
     if (typeof PreciseBody !== `undefined`) {
         clearInterval(id); const script = document.createElement('script'); script.src='src/res/js/under/extend/stage/physics/body/JointBody.js'; document.head.appendChild(script);
     }
@@ -1483,6 +1488,7 @@
         typeof PlayerRespawnEntity !== `undefined` &&
         typeof TileObject !== `undefined` &&
         typeof CharacterBuilder !== `undefined` &&
+        typeof FixBody !== `undefined` &&
         typeof JointBody !== `undefined` &&
         typeof DirectionalAABB !== `undefined` &&
         typeof RecordedTimer !== `undefined` &&

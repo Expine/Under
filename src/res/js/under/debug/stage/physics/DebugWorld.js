@@ -36,6 +36,13 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
          * @type {number}
          */
         this.stageHeight = stageHeight;
+
+        /**
+         * Counter for judging
+         * @protected
+         * @type {number}
+         */
+        this.judgeCount = 0;
     }
     /**
      * Set response instance for collision response
@@ -143,6 +150,7 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     initCollision(dt) {
+        this.judgeCount = 0;
         Timer.it.startTimer(`collide`);
         this.world.initCollision(dt);
     }
@@ -155,7 +163,6 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
      */
     updateCollision(dt) {
         this.world.updateCollision(dt);
-        Timer.it.stopTimer(`collide`);
     }
 
     /**
@@ -165,9 +172,19 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     updateResponse(dt) {
-        Timer.it.startTimer(`response`);
         this.world.updateResponse(dt);
-        Timer.it.stopTimer(`response`);
+    }
+
+    /**
+     * Judge whether collision detection continue or not
+     * @override
+     * @protected
+     * @param {number} dt Delta time
+     * @return {boolean} Whether collision detection continue or not
+     */
+    judgeContinueCollision(dt) {
+        this.judgeCount += 1;
+        return this.world.judgeContinueCollision(dt);
     }
 
     /**
@@ -177,6 +194,7 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
      * @param {number} dt Delta time
      */
     cleanup(dt) {
+        Timer.it.stopTimer(`collide`);
         this.world.cleanup();
     }
 
@@ -193,6 +211,8 @@ class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
             const response = this.world.getResponse();
             if (response instanceof UnderRepulsionResponse) {
                 this.world.setResponse(new RepulsionResponse());
+            } else if (response instanceof RepulsionResponse) {
+                this.world.setResponse(new ImpulseBasedResponse());
             } else {
                 // TODO: Separate from debug
                 this.world.setResponse(new UnderRepulsionResponse());

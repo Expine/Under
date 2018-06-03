@@ -27,11 +27,13 @@ class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-v
     makeBody(body) {
         switch (body.type) {
             case `MaxAdopt`:
-                return new MaxAdoptBody();
+                return new MaxAdoptBody(body.fix);
             case `Precise`:
-                return new PreciseBody();
+                return new PreciseBody(body.fix);
             case `Player`:
-                return new PlayerBody();
+                return new PlayerBody(body.fix);
+            case `Fix`:
+                return new FixBody(body.fix);
             default:
                 return null;
         }

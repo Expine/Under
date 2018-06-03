@@ -5,7 +5,7 @@
         "nameTime": 2,
         "transitionTime": 1
     },
-    "width": 12800,
+    "width": 9000,
     "height": 4800,
     "background": {
         "type": "Sequential",
@@ -16828,5 +16828,17 @@
         "y": 4352,
         "z": 0,
         "priority": 1
+    }, {
+        "id": 100015,
+        "x": 4736,
+        "y": 4640,
+        "z": 0,
+        "priority": 2
+    }, {
+        "id": 100015,
+        "x": 5600,
+        "y": 3136,
+        "z": 0,
+        "priority": 3
     }]
 }

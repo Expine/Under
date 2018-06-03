@@ -9,9 +9,10 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
     /**
      * Max adopt body constructor
      * @constructor
+     * @param {boolean} fixed Whether push back is not performed
      */
-    constructor() {
-        super();
+    constructor(fixed) {
+        super(fixed);
 
         /**
          * Internal current x acceleration
@@ -117,11 +118,10 @@ class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
      * @protected
      */
     updateInfo(dt) {
+        super.updateInfo(dt);
         // set previous posiiton
         this.diffX = (this.entity.x - this.preX) * 1000 / dt;
         this.diffY = (this.entity.y - this.preY) * 1000 / dt;
-        this.isFixX = Math.abs(this.diffX) < 25;
-        this.isFixY = Math.abs(this.diffY) < 50;
         this.preX = this.entity.x;
         this.preY = this.entity.y;
     }

@@ -172,8 +172,8 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
      */
     updateCollision(dt) {
         // collision detection
-        for (let i = 0; i < this.actors.length; ++i) {
-            const target = this.actors[i];
+        for (let i = 0; i < this.collisionTarget.length; ++i) {
+            const target = this.collisionTarget[i];
             const targetCollider = target.collider;
             if (targetCollider === null || !targetCollider.enable) {
                 continue;
@@ -192,12 +192,13 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
                 sy = 0;
             }
             const collidedList = [];
-            for (let j = i + 1; j < this.actors.length; ++j) {
+            for (let j = 0; j < this.actors.length; ++j) {
                 const it = this.actors[j];
                 const itCollider = it.collider;
-                if (itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                if (it === target || itCollider === null || !itCollider.enable || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize]) || targetCollider.collisions.find((data) => Util.getCollidedEntity(target, data) === it)) {
                     continue;
                 }
+
                 // add collision data
                 targetCollider.addCollision(this.collisions[this.collisionSize]);
                 itCollider.addCollision(this.collisions[this.collisionSize]);
@@ -209,7 +210,7 @@ class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-var
                 for (let x = sx; x <= ex; ++x) {
                     for (const it of this.notActorsMap[x + this.stageWidth * y]) {
                         const itCollider = it.collider;
-                        if (itCollider === null || !itCollider.enable || collidedList.indexOf(it) !== -1 || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize])) {
+                        if (itCollider === null || !itCollider.enable || collidedList.indexOf(it) !== -1 || !targetCollider.isCollisionRoughly(itCollider) || !targetCollider.isCollision(itCollider, this.collisions[this.collisionSize]) || targetCollider.collisions.find((data) => Util.getCollidedEntity(target, data) === it)) {
                             continue;
                         }
                         // add collision data

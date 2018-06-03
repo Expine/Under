@@ -65,13 +65,16 @@ class EnemyRespawnEntity extends RespawnEntity { // eslint-disable-line  no-unus
      * @return {Entity} Generated entity
      */
     createRespawnEntity() {
-        const ret = this.stage.addEntityByID(this.respawnIDs[Math.floor(this.respawnIDs.length * Math.random())], {
-            x: this.x,
-            y: this.y,
-            z: this.z,
-        });
-        this.respawnEnemies.push(ret);
-        return ret;
+        if (this.respawnIDs.length > 0) {
+            const ret = this.stage.addEntityByID(this.respawnIDs[Math.floor(this.respawnIDs.length * Math.random())], {
+                x: this.x,
+                y: this.y,
+                z: this.z,
+            });
+            this.respawnEnemies.push(ret);
+            return ret;
+        }
+        return null;
     }
 
     /**

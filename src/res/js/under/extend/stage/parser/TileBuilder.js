@@ -37,15 +37,15 @@ class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
      * @return {JSON} Replaced JSON data
      */
     tryOverride(deploy, json, init) {
-        if (deploy === undefined) {
-            return json;
-        }
         if (init !== undefined) {
-            if (deploy[init] === undefined) {
+            if (deploy === undefined || deploy[init] === undefined) {
                 return json[init];
             } else {
                 return this.tryOverride(deploy[init], json[init]);
             }
+        }
+        if (deploy === undefined) {
+            return json;
         }
         for (let name in deploy) {
             if (deploy.hasOwnProperty(name)) {

@@ -266,7 +266,7 @@
             "material": {
                 "mass": 1,
                 "elasticity": 0.1,
-                "mu": 0.95
+                "mu": 0.6
             }
         },
         {
@@ -352,7 +352,8 @@
                 "cut": 5
             },
             "body": {
-                "type": "MaxAdopt",
+                "type": "Fix",
+                "fix": true,
                 "material": {
                     "type": "Immutable",
                     "k": 0.5,
@@ -474,7 +475,8 @@
             "width": 32,
             "height": 32,
             "body": {
-                "type": "MaxAdopt",
+                "type": "Fix",
+                "fix": true,
                 "material": {
                     "type": "Immutable",
                     "k": 0.5,

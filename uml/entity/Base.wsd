@@ -137,10 +137,11 @@ package under {
                 }
                 package body {
                     abstract RigidBody {
+                        +constructor(fixed)
+                        +fixed : boolean
+                        +asGrounds : Array<boolean>
                         +diffX : number
                         +diffY : number
-                        +isFixX : boolean
-                        +isFixY : boolean
                         +enable : boolean
                         #entity : MutableEntity
                         +material : RigidMaterial
@@ -152,11 +153,12 @@ package under {
                         +getEntity() : MutableEntity
                         +setMaterial(material)
                         +reset()
+                        +isFixed() : boolean
                         {abstract} +setNextAddVelocity(vx,vy)
                         {abstract} +enforce(forceX, forceY)
                         {abstract} +init()
                         {abstract} +prepare(dt)
-                        {abstract} #updateInfor(dt)
+                        #updateInfo(dt)
                         {abstract} #updateVeocity(dt)
                         {abstract} #updateEntity(dt)
                         +update(dt)

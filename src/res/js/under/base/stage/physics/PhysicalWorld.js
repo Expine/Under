@@ -129,6 +129,15 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
     updateResponse(dt) {}
 
     /**
+     * Judge whether collision detection continue or not
+     * @abstract
+     * @protected
+     * @param {number} dt Delta time
+     * @return {boolean} Whether collision detection continue or not
+     */
+    judgeContinueCollision(dt) {}
+
+    /**
      * Cleanup all information
      * @abstract
      * @protected
@@ -148,8 +157,10 @@ class PhysicalWorld { // eslint-disable-line  no-unused-vars
         this.updateBody(dt);
         this.updateBodyCleanup(dt);
         this.initCollision(dt);
-        this.updateCollision(dt);
-        this.updateResponse(dt);
+        do {
+            this.updateCollision(dt);
+            this.updateResponse(dt);
+        } while (this.judgeContinueCollision(dt));
         this.cleanup(dt);
     }
 

@@ -122,6 +122,7 @@ package under {
                     {abstract} #initCollision(dt)
                     {abstract} #updateCollision(dt)
                     {abstract} #updateResponse(dt)
+                    {abstract} #judgeContinueCollision(dt) : boolean
                     {abstract} #cleanup(dt)
                     +update(dt)
                     {abstract} +render(ctx,shiftX,shiftY)

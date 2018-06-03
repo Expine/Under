@@ -78,7 +78,7 @@ class DebugStage extends DelegateStage { // eslint-disable-line  no-unused-vars
                             ctx.fillText(`V(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`);
                             ctx.fillText(`M(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`);
                             ctx.fillText(`A(${Math.floor(it.body.accelerationX)}, ${Math.floor(it.body.accelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, `white`);
-                            ctx.fillText(`F((${it.body.isFixX}, ${it.body.isFixY}) - (${Math.floor(it.body.diffX)}, ${Math.floor(it.body.diffY)}))`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`);
+                            ctx.fillText(`(<${it.body.asGrounds[3]}, ^${it.body.asGrounds[1]}, >${it.body.asGrounds[5]}, ${it.body.asGrounds[7]})`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`);
                         }
                     }
                 } else if (BaseUtil.implementsOf(it, IColliderable)) {
