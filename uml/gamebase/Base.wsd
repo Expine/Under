@@ -199,6 +199,8 @@ Engine "1"*-- "1" Music : Own
 Engine "1"*-- "1" Timer : Own
 Engine "1"*-- "1" EventManager : Own
 
+Layer <.. LayeredScene : Manage
+
 Input --> GameScreen : Input target
 
 Input --> IKey : Singleton
