@@ -5,7 +5,7 @@
  * @extends {State}
  * @classdesc Vanish state to vanish entity
  */
-class VanishState extends State { // eslint-disable-line  no-unused-vars
+class VanishState extends State {
     /**
      * Vanish state constructor
      * @constructor

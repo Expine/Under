@@ -9,7 +9,7 @@
  * @extends {UnderStateAI}
  * @classdesc Normal base state AI to initialize by normal state
  */
-class NormalBaseStateAI extends UnderStateAI { // eslint-disable-line  no-unused-vars
+class NormalBaseStateAI extends UnderStateAI {
     /**
      * Normal base state AI constructor
      * @constructor

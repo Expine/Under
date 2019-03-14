@@ -11,7 +11,7 @@
  * @implements {IEditorSave}
  * @classdesc Chip layer to select chips
  */
-class ChipLayer extends NamedTabbedLayer /* , ISelection, IEditorSave */ { // eslint-disable-line  no-unused-vars
+class ChipLayer extends NamedTabbedLayer /* , ISelection, IEditorSave */ {
     /**
      * Chip layer constructor
      * @constructor

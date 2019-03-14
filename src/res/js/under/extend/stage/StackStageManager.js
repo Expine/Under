@@ -5,7 +5,7 @@
  * @extends {StageManager}
  * @classdesc Stack stage manager to ues the stack
  */
-class StackStageManager extends StageManager { // eslint-disable-line  no-unused-vars
+class StackStageManager extends StageManager {
     /**
      * Stack stage manager constructor
      * @constructor

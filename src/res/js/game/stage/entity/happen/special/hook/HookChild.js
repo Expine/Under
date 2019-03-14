@@ -14,7 +14,7 @@
  * @extends {HookObject}
  * @classdesc Hook child object to implement as rectangle
  */
-class HookChild extends HookObject { // eslint-disable-line  no-unused-vars
+class HookChild extends HookObject {
     /**
      * Hook center x position
      * @override

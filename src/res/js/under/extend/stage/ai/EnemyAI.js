@@ -5,7 +5,7 @@
  * @extends {AI}
  * @classdesc Enemy AI to damage to the conflicting opponent
  */
-class EnemyAI extends AI { // eslint-disable-line  no-unused-vars
+class EnemyAI extends AI {
     /**
      * Enemy AI constructor
      * @constructor

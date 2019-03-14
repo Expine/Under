@@ -6,7 +6,7 @@
  * @extends {BaseTool}
  * @classdesc Pencil tool to paint one by one
  */
-class PencilTool extends BaseTool { // eslint-disable-line  no-unused-vars
+class PencilTool extends BaseTool {
 
     /**
      * Shortcut for switching

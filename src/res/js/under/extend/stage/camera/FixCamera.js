@@ -5,7 +5,7 @@
  * @extends {Camera}
  * @classdesc Fix camera to fix certain position
  */
-class FixCamera extends Camera { // eslint-disable-line  no-unused-vars
+class FixCamera extends Camera {
     /**
      * Fix camera constructor
      * @constructor

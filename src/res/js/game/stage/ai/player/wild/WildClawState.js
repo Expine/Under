@@ -8,7 +8,7 @@
  * @extends {NormalPunchState}
  * @classdesc Wild claw state to attack by claw
  */
-class WildClawState extends NormalPunchState { // eslint-disable-line  no-unused-vars
+class WildClawState extends NormalPunchState {
     /**
      *
      * Make attack object

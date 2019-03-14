@@ -11,7 +11,7 @@
  * @implements {NormalWalkState}
  * @classdesc Adventurer walk state that can drag hok
  */
-class AdventurerWalkState extends NormalWalkState { // eslint-disable-line  no-unused-vars
+class AdventurerWalkState extends NormalWalkState {
     /**
      * Apply AI and decide action
      * @override

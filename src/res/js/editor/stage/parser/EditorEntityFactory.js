@@ -7,7 +7,7 @@
  * @extends {JSONEntityFactory}
  * @classdesc Editor entity factory to pass information
  */
-class EditorEntityFactory extends JSONEntityFactory /* , IEditorInfo */ { // eslint-disable-line  no-unused-vars
+class EditorEntityFactory extends JSONEntityFactory /* , IEditorInfo */ {
     /**
      * Get tile information
      * @override

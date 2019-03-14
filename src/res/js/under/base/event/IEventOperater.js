@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Event operator interface to control event
  */
-class IEventOperator extends Interface { // eslint-disable-line  no-unused-vars
+class IEventOperator extends Interface {
     /**
      * Execute next event
      * @abstract

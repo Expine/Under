@@ -8,7 +8,7 @@
  * @extends {DelegateStage}
  * @classdesc Curtain stage in charge of the stage transition by curtain
  */
-class CurtainStage extends DelegateStage { // eslint-disable-line  no-unused-vars
+class CurtainStage extends DelegateStage {
     /**
      * Curtain stage constructor
      * @constructor

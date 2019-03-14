@@ -8,7 +8,7 @@
  * @extends {UnderEngine}
  * @classdesc Under debug engine to measure time for debugging
  */
-class UnderDebugEngine extends UnderEngine { // eslint-disable-line  no-unused-vars
+class UnderDebugEngine extends UnderEngine {
     /**
      * Update in main loop
      * @override

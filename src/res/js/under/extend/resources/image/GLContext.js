@@ -5,7 +5,7 @@
  * @extends {Context}
  * @classdesc Context for rendering by WebGL
  */
-class GLContext extends Context { // eslint-disable-line  no-unused-vars
+class GLContext extends Context {
     /**
      * Set screen
      * @param {GameScreen} screen Screen system

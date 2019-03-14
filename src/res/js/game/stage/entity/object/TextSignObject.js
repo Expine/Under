@@ -7,7 +7,7 @@
  * @extends {SignObject}
  * @classdesc Immutable event object to show sign text
  */
-class TextSignObject extends SignObject { // eslint-disable-line  no-unused-vars
+class TextSignObject extends SignObject {
     /**
      * Influential event object constructor
      * @constructor

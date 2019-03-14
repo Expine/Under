@@ -6,7 +6,7 @@
  * @extends {SimpleAABB}
  * @classdesc Directional Axis Aligned Bounding Box to consider the direction
  */
-class DirectionalAABB extends SimpleAABB { // eslint-disable-line  no-unused-vars
+class DirectionalAABB extends SimpleAABB {
     /**
      * Update AABB
      * @override

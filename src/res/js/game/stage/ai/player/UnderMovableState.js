@@ -11,7 +11,7 @@
  * @implements {IMovableState}
  * @classdesc Under movable state to enable to set velocity and power
  */
-class UnderMovableState extends UnderPlayerState /* , IMovableState */ { // eslint-disable-line  no-unused-vars
+class UnderMovableState extends UnderPlayerState /* , IMovableState */ {
     /**
      * Under movable state constructor
      * @constructor

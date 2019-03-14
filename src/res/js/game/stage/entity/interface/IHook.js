@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Hook interface that can get hook position and change state
  */
-class IHook extends Interface { // eslint-disable-line  no-unused-vars
+class IHook extends Interface {
     /**
      * Get actor who it belongs to
      * @abstract

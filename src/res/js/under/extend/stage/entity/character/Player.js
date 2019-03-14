@@ -16,7 +16,7 @@
  * @implements {IPlayable}
  * @classdesc Player to be operate by the player
  */
-class Player extends StateCharacter /* , IPlayable, ITakeOver */ { // eslint-disable-line  no-unused-vars
+class Player extends StateCharacter /* , IPlayable, ITakeOver */ {
     /**
      * Player constructor
      * @constructor

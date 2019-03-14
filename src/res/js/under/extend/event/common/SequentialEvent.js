@@ -7,7 +7,7 @@
  * @implements {IEventOperator}
  * @classdesc Seuqential event to execute events continuously
  */
-class SequentialEvent extends GameEvent /* IEventOperator */ { // eslint-disable-line  no-unused-vars
+class SequentialEvent extends GameEvent /* IEventOperator */ {
     /**
      * Seuqential event constructor
      * @constructor

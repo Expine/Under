@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Selection to select something and set selected
  */
-class ISelection extends Interface { // eslint-disable-line  no-unused-vars
+class ISelection extends Interface {
     /**
      * Set information for selection
      * @abstract

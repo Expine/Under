@@ -7,7 +7,7 @@
  * @extends {UnderEventBuilder}
  * @classdesc Editor event builder to generate editor event
  */
-class EditorEventBuilder extends UnderEventBuilder { // eslint-disable-line  no-unused-vars
+class EditorEventBuilder extends UnderEventBuilder {
     /**
      * Build event from json data
      * @override

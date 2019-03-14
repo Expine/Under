@@ -14,7 +14,7 @@
  * @extends {HookObject}
  * @classdesc Hook player object that player's representation so it does not exists on stage
  */
-class HookOwner extends HookObject { // eslint-disable-line  no-unused-vars
+class HookOwner extends HookObject {
     /**
      * Hook center x position
      * @override

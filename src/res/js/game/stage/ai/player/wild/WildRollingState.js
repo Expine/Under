@@ -8,7 +8,7 @@
  * @extends {UnderPlayerState}
  * @classdesc Wild rolling state to stop rolling after landing
  */
-class WildRollingState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class WildRollingState extends UnderPlayerState {
     /**
      * Apply AI and decide action
      * @override

@@ -5,7 +5,7 @@
  * @extends {EntityFactory}
  * @classdesc JSON entity factory to generate from JSON data
  */
-class JSONEntityFactory extends EntityFactory { // eslint-disable-line  no-unused-vars
+class JSONEntityFactory extends EntityFactory {
     /**
      * JSON entity factory
      * @constructor

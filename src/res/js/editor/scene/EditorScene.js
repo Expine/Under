@@ -7,7 +7,7 @@
  * @extends {BaseLayeredScene}
  * @classdesc Editor scene to make stage
  */
-class EditorScene extends BaseLayeredScene { // eslint-disable-line  no-unused-vars
+class EditorScene extends BaseLayeredScene {
     /**
      * Editor scene constructor
      * @constructor

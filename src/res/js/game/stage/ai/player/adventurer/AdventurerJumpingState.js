@@ -11,7 +11,7 @@
  * @extends {NormalJumpingState}
  * @classdesc Adventurer jump state that can drag hook
  */
-class AdventurerJumpingState extends NormalJumpingState { // eslint-disable-line  no-unused-vars
+class AdventurerJumpingState extends NormalJumpingState {
     /**
      * Apply AI and decide action
      * @override

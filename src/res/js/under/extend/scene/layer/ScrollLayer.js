@@ -5,7 +5,7 @@
  * @extends {Layer}
  * @classdesc Scroll layer that can scroll inner elements
  */
-class ScrollLayer extends Layer { // eslint-disable-line  no-unused-vars
+class ScrollLayer extends Layer {
     /**
      * Scroll layer constructor
      * @constructor

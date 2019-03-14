@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Stage event interface to control the stage
  */
-class IStageEvent extends Interface { // eslint-disable-line  no-unused-vars
+class IStageEvent extends Interface {
     /**
      * Set stage
      * @abstract

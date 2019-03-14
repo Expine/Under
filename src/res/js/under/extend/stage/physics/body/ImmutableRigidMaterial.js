@@ -5,7 +5,7 @@
  * @extends {RigidMaterial}
  * @classdesc Immutable rigid material to manage as immutable information exclueded velocity and acceleration
  */
-class ImmutableRigidMaterial extends RigidMaterial { // eslint-disable-line  no-unused-vars
+class ImmutableRigidMaterial extends RigidMaterial {
     /**
      * Immutable rigid material constructor
      * @constructor

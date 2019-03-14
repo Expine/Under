@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Rigid body to manage physical quantity
  */
-class RigidMaterial { // eslint-disable-line  no-unused-vars
+class RigidMaterial {
     /**
      * Rigid body constructor
      * @constructor

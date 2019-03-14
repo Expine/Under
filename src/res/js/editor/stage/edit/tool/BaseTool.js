@@ -6,7 +6,7 @@
  * @extends {EditorTool}
  * @classdesc Base tool to select something
  */
-class BaseTool extends EditorTool { // eslint-disable-line  no-unused-vars
+class BaseTool extends EditorTool {
     /**
      * Base tool constructor
      * @constructor

@@ -6,7 +6,7 @@
  * @extends {MaxAdoptBody}
  * @classdesc Joint body to fit within a certain length range of some object
  */
-class JointBody extends PreciseBody { // eslint-disable-line  no-unused-vars
+class JointBody extends PreciseBody {
     /**
      * Joint body constructor
      * @constructor

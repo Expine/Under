@@ -6,7 +6,7 @@
  * @extends {BaseTool}
  * @classdesc Pencil tool to paint area
  */
-class PaintTool extends BaseTool { // eslint-disable-line  no-unused-vars
+class PaintTool extends BaseTool {
     /**
      * Paints area
      * @protected

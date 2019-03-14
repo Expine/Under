@@ -7,7 +7,7 @@
  * @extends {StageEvent}
  * @classdesc Camera change event to change camera type
  */
-class CameraChangeEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class CameraChangeEvent extends StageEvent {
     /**
      * Camera change event constructor
      * @constructor

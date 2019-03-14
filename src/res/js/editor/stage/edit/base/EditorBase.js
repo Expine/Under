@@ -5,7 +5,7 @@
  * @interface
  * @classdesc Editor base of editing tools
  */
-class EditorBase /* , IEditorFunction */ { // eslint-disable-line  no-unused-vars
+class EditorBase /* , IEditorFunction */ {
     /**
      * Editor base constructor
      * @constructor

@@ -5,7 +5,7 @@
  * @extends {AI}
  * @classdesc Attack object AI that is attached to attack object
  */
-class AttackObjectAI extends AI { // eslint-disable-line  no-unused-vars
+class AttackObjectAI extends AI {
     /**
      * Attack object AI Constructor
      * @constructor

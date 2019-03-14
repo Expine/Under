@@ -4,7 +4,7 @@
  * @extends {AI}
  * @classdesc Elevator AI to go straight ahead and reverses direction if it hit something
  */
-class ElevatorAI extends AI { // eslint-disable-line  no-unused-vars
+class ElevatorAI extends AI {
     /**
      * Elevator AI Constructor
      * @constructor

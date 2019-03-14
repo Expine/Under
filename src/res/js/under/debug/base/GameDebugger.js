@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Game debugger for registering debug information
  */
-class GameDebugger { // eslint-disable-line  no-unused-vars
+class GameDebugger {
     /**
      * Game debugger constructor
      * @constructor

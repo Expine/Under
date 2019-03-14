@@ -7,7 +7,7 @@
  * @extends {UnderPlayerState}
  * @classdesc Normal special state to do special action
  */
-class NormalSpecialState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class NormalSpecialState extends UnderPlayerState {
     /**
      * Apply AI and decide action
      * @override

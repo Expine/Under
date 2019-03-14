@@ -8,7 +8,7 @@
  * @extends {Stage}
  * @classdesc Delegate stage to delegate other stage
  */
-class DelegateStage extends Stage { // eslint-disable-line  no-unused-vars
+class DelegateStage extends Stage {
     /**
      * Delegate stage constructor
      * @constructor

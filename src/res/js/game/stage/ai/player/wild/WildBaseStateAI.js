@@ -10,7 +10,7 @@
  * @extends {NormalBaseStateAI}
  * @classdesc Wild base state AI to initialize by wild state
  */
-class WildBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  no-unused-vars
+class WildBaseStateAI extends NormalBaseStateAI {
     /**
      * Wild base state AI Constructor
      * @constructor

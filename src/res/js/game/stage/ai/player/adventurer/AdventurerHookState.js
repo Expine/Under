@@ -8,7 +8,7 @@
  * @extends {UnderPlayerState}
  * @classdesc Adventurer hook state that can generate and release hook
  */
-class AdventurerHookState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class AdventurerHookState extends UnderPlayerState {
     /**
      * Initilaize state
      * @override

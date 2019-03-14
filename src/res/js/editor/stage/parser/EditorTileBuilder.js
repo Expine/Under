@@ -7,7 +7,7 @@
  * @extends {UnderTileBuilder}
  * @classdesc Under tile builder to generates editor tile object
  */
-class EditorTileBuilder extends UnderTileBuilder { // eslint-disable-line  no-unused-vars
+class EditorTileBuilder extends UnderTileBuilder {
     /**
      * Build tile from json data
      * @override

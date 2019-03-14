@@ -8,6 +8,6 @@
  * @extends {InfluentialEntity}
  * @classdesc Immutable entity that is fixed and no change will occur
  */
-class ImmutableEntity extends InfluentialEntity { // eslint-disable-line  no-unused-vars
+class ImmutableEntity extends InfluentialEntity {
 
 }

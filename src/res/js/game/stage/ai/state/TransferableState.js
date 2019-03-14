@@ -8,7 +8,7 @@
  * @extends {BaseState}
  * @classdesc Transferable state to transfer information to another state
  */
-class TransferableState extends BaseState { // eslint-disable-line  no-unused-vars
+class TransferableState extends BaseState {
     /**
      * Transfer information to another state
      * @param {TransferableState} state Where to give information

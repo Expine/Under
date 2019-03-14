@@ -7,7 +7,7 @@
  * @extends {NamedStateAI}
  * @classdesc Player base State AI to manage player state
  */
-class PlayerBaseStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
+class PlayerBaseStateAI extends NamedStateAI {
     /**
      * Player base State AI Constructor
      * @constructor

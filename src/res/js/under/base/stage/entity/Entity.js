@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Entity that has coordinate and size
  */
-class Entity { // eslint-disable-line  no-unused-vars
+class Entity {
     /**
      * Entity constructor
      * @constructor

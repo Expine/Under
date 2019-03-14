@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Image builder to generate image from json
  */
-class ImageBuilder { // eslint-disable-line  no-unused-vars
+class ImageBuilder {
     /**
      * Build image from json data
      * @abstract

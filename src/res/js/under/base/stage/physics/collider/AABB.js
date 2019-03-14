@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Axis Aligned Bounding Box to use for rough collision determination
  */
-class AABB { // eslint-disable-line  no-unused-vars
+class AABB {
     /**
      * Get start x position
      * @abstract

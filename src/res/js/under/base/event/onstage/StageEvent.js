@@ -7,7 +7,7 @@
  * @implements {IStageEvent}
  * @classdesc Stage event to store stage instance
  */
-class StageEvent extends GameEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
+class StageEvent extends GameEvent /* , IStageEvent */ {
     /**
      * Stage event constructor
      * @constructor

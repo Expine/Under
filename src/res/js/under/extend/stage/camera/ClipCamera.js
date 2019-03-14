@@ -6,7 +6,7 @@
  * @extends {DelegateCamera}
  * @classdesc Clip camera for cliping camera position by stage size
  */
-class ClipCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
+class ClipCamera extends DelegateCamera {
     /**
      * Initialize camera
      * @override

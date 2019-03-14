@@ -7,7 +7,7 @@
  * @extends {InfluentialEntity}
  * @classdesc Mmutable entity that is not fixed and can be moved
  */
-class MutableEntity extends InfluentialEntity { // eslint-disable-line  no-unused-vars
+class MutableEntity extends InfluentialEntity {
     /**
      * Mutable entity constructor
      * @constructor

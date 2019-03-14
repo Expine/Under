@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Background to render and update background image
  */
-class Background { // eslint-disable-line  no-unused-vars
+class Background {
     /**
      * Initialize background
      * @abstract

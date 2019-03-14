@@ -9,7 +9,7 @@
  * @extends {TransferableStateAI}
  * @classdesc Under state AI to change special state by alias
  */
-class UnderStateAI extends TransferableStateAI { // eslint-disable-line  no-unused-vars
+class UnderStateAI extends TransferableStateAI {
     /**
      * Under state AI constructor
      * @constructor

@@ -6,7 +6,7 @@
  * @extends {Layer}
  * @classdesc Tabbed layer that can manage layers by tab
  */
-class TabbedLayer extends Layer { // eslint-disable-line  no-unused-vars
+class TabbedLayer extends Layer {
     /**
      * Set layer position
      * @override

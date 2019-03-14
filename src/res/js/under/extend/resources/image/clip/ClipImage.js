@@ -8,7 +8,7 @@
  * @extends {DelegateImage}
  * @classdesc Clip image to render by cliping
  */
-class ClipImage extends DelegateImage { // eslint-disable-line  no-unused-vars
+class ClipImage extends DelegateImage {
     /**
      * Clip image constructor
      * @constructor

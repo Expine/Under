@@ -10,7 +10,7 @@
  * @extends {UnderMovableState}
  * @classdesc Propeller jump state that can fly
  */
-class PropellerJumpingState extends UnderMovableState { // eslint-disable-line  no-unused-vars
+class PropellerJumpingState extends UnderMovableState {
     /**
      * Propeller jump state constructor
      * @constructor

@@ -13,7 +13,7 @@
  * @implements {Character}
  * @classdesc Enemy to be operated as the enemy
  */
-class Enemy extends Character { // eslint-disable-line  no-unused-vars
+class Enemy extends Character {
     /**
      * Enemy constructor
      * @constructor

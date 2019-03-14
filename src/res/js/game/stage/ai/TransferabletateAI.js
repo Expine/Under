@@ -8,7 +8,7 @@
  * @extends {NamedStateAI}
  * @classdesc Transferable state AI to transfer information to another state AI
  */
-class TransferableStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
+class TransferableStateAI extends NamedStateAI {
     /**
      * Transfer information to another state AI
      * @param {TransferableStateAI} state Where to give information

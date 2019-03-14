@@ -11,7 +11,7 @@
  * @extends {DelegateNamedAnimation}
  * @classdesc Transitional stripe animation to animate transitions to other images by stripe
  */
-class TransitionalStripeAnimation extends DelegateNamedAnimation { // eslint-disable-line  no-unused-vars
+class TransitionalStripeAnimation extends DelegateNamedAnimation {
     /**
      * Transitional stripe animation constructor
      * @constructor

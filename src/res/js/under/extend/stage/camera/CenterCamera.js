@@ -5,7 +5,7 @@
  * @extends {Camera}
  * @classdesc Center camera for centering at the indicated coodinates
  */
-class CenterCamera extends Camera { // eslint-disable-line  no-unused-vars
+class CenterCamera extends Camera {
     /**
      * Initialize camera
      * @override

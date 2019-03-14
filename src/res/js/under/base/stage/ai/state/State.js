@@ -4,7 +4,7 @@
  * @interface
  * @classdesc State to determine the operation and render by state
  */
-class State { // eslint-disable-line  no-unused-vars
+class State {
     /**
      * State constructor
      * @constructor

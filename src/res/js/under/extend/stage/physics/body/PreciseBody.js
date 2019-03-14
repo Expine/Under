@@ -6,7 +6,7 @@
  * @extends {MaxAdoptBody}
  * @classdesc Precise Body to confirm collision every time you move
  */
-class PreciseBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
+class PreciseBody extends MaxAdoptBody {
     /**
      * Update entity by velocity
      * @override

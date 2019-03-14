@@ -5,7 +5,7 @@
  * @interface
  * @classdesc Editor entity interface to store ID
  */
-class IEditorEntity extends IEditorSave { // eslint-disable-line  no-unused-vars
+class IEditorEntity extends IEditorSave {
     /**
      * Get entity getID
      * @abstract

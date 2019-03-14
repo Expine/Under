@@ -5,7 +5,7 @@
  * @extends {StageParser}
  * @classdesc CSV stage parser to parse CSV file
  */
-class CSVStageParser extends StageParser { // eslint-disable-line  no-unused-vars
+class CSVStageParser extends StageParser {
     /**
      * Make base stage for parsing stage
      * @protected

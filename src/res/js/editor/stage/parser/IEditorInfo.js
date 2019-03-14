@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Editor information interface to get information
  */
-class IEditorInfo extends Interface { // eslint-disable-line  no-unused-vars
+class IEditorInfo extends Interface {
     /**
      * Get tile information
      * @abstract

@@ -6,7 +6,7 @@
  * @extends {Layer}
  * @classdesc Clip layer to clip area when rendering
  */
-class ClipLayer extends Layer { // eslint-disable-line  no-unused-vars
+class ClipLayer extends Layer {
     /**
      * Clip layer constructor
      * @constructo

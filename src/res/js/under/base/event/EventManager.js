@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Event manager to manage update and rendering event
  */
-class EventManager { // eslint-disable-line  no-unused-vars
+class EventManager {
     /**
      * Event manager constructor
      * @constructor

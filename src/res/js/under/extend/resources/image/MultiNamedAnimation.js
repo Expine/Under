@@ -8,7 +8,7 @@
  * @extends {NamedAnimation}
  * @classdesc Multi named animation to set and get by currently name
  */
-class MultiNamedAnimation extends NamedAnimation { // eslint-disable-line  no-unused-vars
+class MultiNamedAnimation extends NamedAnimation {
     /**
      * Multi named animation constructor
      * @constructor

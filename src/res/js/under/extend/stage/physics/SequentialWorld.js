@@ -6,7 +6,7 @@
  * @extends {PhysicalWorld}
  * @classdesc Sequential world to perform collision processing continually
  */
-class SequentialWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
+class SequentialWorld extends PhysicalWorld {
     /**
      * Sequential world constructor
      * @constructor

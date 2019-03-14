@@ -6,7 +6,7 @@
  * @extends {TileBuilder}
  * @classdesc Under tile builder to generates unique tile object
  */
-class UnderTileBuilder extends TileBuilder { // eslint-disable-line  no-unused-vars
+class UnderTileBuilder extends TileBuilder {
     /**
      * Make base collider
      * @protected

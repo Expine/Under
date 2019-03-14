@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Directional imageimage interface to consider the direction
  */
-class IDirectionalImage extends Interface { // eslint-disable-line  no-unused-vars
+class IDirectionalImage extends Interface {
     /**
      * Set direction of image
      * @abstract

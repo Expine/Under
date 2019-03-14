@@ -8,7 +8,7 @@
  * @extends {UnderCharacterBuilder}
  * @classdesc Under character builder to generate editor character
  */
-class EditorCharacterBuilder extends UnderCharacterBuilder { // eslint-disable-line  no-unused-vars
+class EditorCharacterBuilder extends UnderCharacterBuilder {
     /**
      * Build tile from json data
      * @override

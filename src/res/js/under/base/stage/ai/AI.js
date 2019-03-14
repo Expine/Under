@@ -4,7 +4,7 @@
  * @interface
  * @classdesc AI for determining the behavior of an entity
  */
-class AI { // eslint-disable-line  no-unused-vars
+class AI {
     /**
      * AI constructor
      * @constructor

@@ -8,7 +8,7 @@
  * @extends {Stage}
  * @classdesc Split management stage to manage entities according to type dividingly
  */
-class SplitManagementStage extends Stage { // eslint-disable-line  no-unused-vars
+class SplitManagementStage extends Stage {
     /**
      * Split management stage constructor
      * @constructor

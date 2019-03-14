@@ -5,7 +5,7 @@
  * @extends {EventBuilder}
  * @classdesc Event builder to generate simple event
  */
-class SimpleEventBuilder extends EventBuilder { // eslint-disable-line  no-unused-vars
+class SimpleEventBuilder extends EventBuilder {
     /**
      * Make event image
      * @protected

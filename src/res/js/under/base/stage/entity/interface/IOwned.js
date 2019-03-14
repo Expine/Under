@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Owned interface owned by someone
  */
-class IOwned extends Interface { // eslint-disable-line  no-unused-vars
+class IOwned extends Interface {
     /**
      * Set owned entity
      * @abstract

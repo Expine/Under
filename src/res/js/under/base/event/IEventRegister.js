@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Event register interface to registers event
  */
-class IEventRegister extends Interface { // eslint-disable-line  no-unused-vars
+class IEventRegister extends Interface {
     /**
      * Register event
      * @abstract

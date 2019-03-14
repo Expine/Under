@@ -11,7 +11,7 @@
  * @extends {NormalGrabState}
  * @classdesc Adventurer grab state that relase all hook if entity changed
  */
-class AdventurerGrabState extends NormalGrabState { // eslint-disable-line  no-unused-vars
+class AdventurerGrabState extends NormalGrabState {
     /**
      * Type changed function
      * @override

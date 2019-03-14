@@ -13,7 +13,7 @@
  * @extends {Character}
  * @classdesc State character that manages AI according to state and rendering by it
  */
-class StateCharacter extends Character { // eslint-disable-line  no-unused-vars
+class StateCharacter extends Character {
     /**
      * State character constructor
      * @constructor

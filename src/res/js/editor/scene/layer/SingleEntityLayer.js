@@ -9,7 +9,7 @@
  * @extends {SelectionLayer}
  * @classdesc Entity layer to select a entity
  */
-class SingleEntityLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
+class SingleEntityLayer extends SelectionLayer {
     /**
      * Single entity layer constructor
      * @constructor

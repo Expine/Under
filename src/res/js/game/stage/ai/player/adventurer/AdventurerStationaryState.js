@@ -11,7 +11,7 @@
  * @extends {NormalStationaryState}
  * @classdesc Adventurer stationary state that can drag hook
  */
-class AdventurerStationaryState extends NormalStationaryState { // eslint-disable-line  no-unused-vars
+class AdventurerStationaryState extends NormalStationaryState {
     /**
      * Apply AI and decide action
      * @override

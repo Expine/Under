@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Breakable interface that can be destroyed
  */
-class IBreakable extends Interface { // eslint-disable-line  no-unused-vars
+class IBreakable extends Interface {
     /**
      * Destroy object
      * @abstract

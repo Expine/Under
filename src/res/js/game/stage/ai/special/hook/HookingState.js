@@ -5,7 +5,7 @@
  * @extends {State}
  * @classdesc Hooking state before collision to create post hook
  */
-class HookingState extends State { // eslint-disable-line  no-unused-vars
+class HookingState extends State {
     /**
      * Hooking state
      * @constructor

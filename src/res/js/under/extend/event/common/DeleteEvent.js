@@ -5,7 +5,7 @@
  * @extends {GameEvent}
  * @classdesc Delete event to delete other event
  */
-class DeleteEvent extends GameEvent { // eslint-disable-line  no-unused-vars
+class DeleteEvent extends GameEvent {
     /**
      * Delete event constructor
      * @constructor

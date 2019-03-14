@@ -6,7 +6,7 @@
  * @extends {GameEvent}
  * @classdesc Named event that is identified by name
  */
-class NamedEvent extends GameEvent { // eslint-disable-line  no-unused-vars
+class NamedEvent extends GameEvent {
     /**
      * Named event constructor
      * @constructor

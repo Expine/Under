@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Editor function interface to operate editor
  */
-class IEditorFunction extends Interface { // eslint-disable-line  no-unused-vars
+class IEditorFunction extends Interface {
     /**
      * Get editor target
      * @abstract

@@ -8,7 +8,7 @@
  * @implements {IEditorSave}
  * @classdesc Editor stage manager that can save the current stage
  */
-class EditorStageManager extends StackStageManager /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
+class EditorStageManager extends StackStageManager /* , IEditorSave */ {
     /**
      * Get json data for saving
      * @override

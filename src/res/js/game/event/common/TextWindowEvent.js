@@ -6,7 +6,7 @@
  * @extends {NamedEvent}
  * @classdesc Text window event to render text and window
  */
-class TextWindowEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
+class TextWindowEvent extends NamedEvent {
     /**
      * Text window event constructor
      * @constructor

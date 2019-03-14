@@ -6,7 +6,7 @@
  * @extends {DelegateCamera}
  * @classdesc Moving center camera to move gradually, not instantaneously
  */
-class MovingCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
+class MovingCamera extends DelegateCamera {
     /**
      * Update camera
      * @override

@@ -8,7 +8,7 @@
  * @extends {SplitWorld}
  * @classdesc Gravity world to manage not actor by split area
  */
-class VariableGravityWorld extends SplitWorld { // eslint-disable-line  no-unused-vars
+class VariableGravityWorld extends SplitWorld {
     /**
      * Gravity world constructor
      * @constructor

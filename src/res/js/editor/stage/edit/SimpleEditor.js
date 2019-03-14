@@ -6,7 +6,7 @@
  * @extends {EditorBase}
  * @classdesc Simple editor to use simple tools
  */
-class SimpleEditor extends EditorBase { // eslint-disable-line  no-unused-vars
+class SimpleEditor extends EditorBase {
     /**
      * Simple editor constructor
      * @constructor

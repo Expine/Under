@@ -7,7 +7,7 @@
  * @implements {IString}
  * @classdesc String body to connect all rigid bodies and process them all together
  */
-class StringBody extends RigidBody /* , IString */ { // eslint-disable-line  no-unused-vars
+class StringBody extends RigidBody /* , IString */ {
     /**
      * String body constructor
      * @constructor

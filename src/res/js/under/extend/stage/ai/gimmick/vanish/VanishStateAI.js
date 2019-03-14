@@ -7,7 +7,7 @@
  * @extends {NamedStateAI}
  * @classdesc Vanish state AI to initialize by vanish state
  */
-class VanishStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
+class VanishStateAI extends NamedStateAI {
     /**
      * Vanish state AI constructor
      * @constructor

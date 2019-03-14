@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Edit builder to generate edit tools
  */
-class EditBuilder { // eslint-disable-line  no-unused-vars
+class EditBuilder {
     /**
      * Build entity from json data
      * @abstract

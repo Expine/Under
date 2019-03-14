@@ -14,7 +14,7 @@
  * @implements {IClipImage}
  * @classdesc Editor image to enable to use in editor
  */
-class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage, IClipImage */ { // eslint-disable-line  no-unused-vars
+class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage, IClipImage */ {
     /**
      * Editor image constructor
      * @constructor

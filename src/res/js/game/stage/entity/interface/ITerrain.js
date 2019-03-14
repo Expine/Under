@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Terrain interface that can be gotten terrain ID
  */
-class ITerrain extends Interface { // eslint-disable-line  no-unused-vars
+class ITerrain extends Interface {
     /**
      * Get terrain ID
      * @abstract

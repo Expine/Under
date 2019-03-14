@@ -6,7 +6,7 @@
  * @extends {BaseTool}
  * @classdesc Pencil tool to erase
  */
-class EraserTool extends BaseTool { // eslint-disable-line  no-unused-vars
+class EraserTool extends BaseTool {
     /**
      * Shortcut for switching
      * @override

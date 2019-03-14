@@ -8,7 +8,7 @@
  * @implements {IEditorSave}
  * @classdesc Editor camera to move by right clicked and dragging
  */
-class EditorCamera extends DelegateCamera /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
+class EditorCamera extends DelegateCamera /* , IEditorSave */ {
     /**
      * Editor camera Constructor
      * @constructor

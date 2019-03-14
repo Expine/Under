@@ -14,7 +14,7 @@
  * @extends {HookObject}
  * @classdesc Hook head object to implement as head
  */
-class HookHead extends HookObject { // eslint-disable-line  no-unused-vars
+class HookHead extends HookObject {
     /**
      * Hook head object constructor
      * @constructor

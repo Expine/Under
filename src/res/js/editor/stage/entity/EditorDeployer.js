@@ -8,7 +8,7 @@
  * @extends {EditorTile}
  * @classdesc Editor deployer in editor
  */
-class EditorDeployer extends EditorTile { // eslint-disable-line  no-unused-vars
+class EditorDeployer extends EditorTile {
     /**
      * Judege whether entity is deployer
      * @override

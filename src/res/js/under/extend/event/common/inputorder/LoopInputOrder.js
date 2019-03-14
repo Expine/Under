@@ -5,7 +5,7 @@
  * @extends {InputOrder}
  * @classdesc Loop input order to loop input oreder
  */
-class LoopInputOrder extends InputOrder { // eslint-disable-line  no-unused-vars
+class LoopInputOrder extends InputOrder {
     /**
      * Loop input order constructor
      * @constructor

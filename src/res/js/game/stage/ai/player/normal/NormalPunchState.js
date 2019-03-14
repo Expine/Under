@@ -7,7 +7,7 @@
  * @extends {UnderPlayerState}
  * @classdesc Normal punch state that about to attack
  */
-class NormalPunchState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class NormalPunchState extends UnderPlayerState {
     /**
      * Normal punch state
      * @constructor

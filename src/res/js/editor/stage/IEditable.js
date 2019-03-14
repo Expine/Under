@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Editable interface that can be edited by tile and entity information
  */
-class IEditable extends Interface { // eslint-disable-line  no-unused-vars
+class IEditable extends Interface {
     /**
      * Set editor base
      * @abstract

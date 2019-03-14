@@ -8,5 +8,5 @@
  * @extends {ImmutableEntity}
  * @classdesc Tile object to decide the tile to be displayed by the IDand position, using the sprite indecating the stage tiles
  */
-class TileObject extends ImmutableEntity { // eslint-disable-line  no-unused-vars
+class TileObject extends ImmutableEntity {
 }

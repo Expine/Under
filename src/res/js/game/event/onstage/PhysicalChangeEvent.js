@@ -7,7 +7,7 @@
  * @extends {StageEvent}
  * @classdesc Physical change event to change physical type
  */
-class PhysicalChangeEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class PhysicalChangeEvent extends StageEvent {
     /**
      * Physical change event constructor
      * @constructor

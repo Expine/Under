@@ -5,7 +5,7 @@
  * @extends {AABB}
  * @classdesc Simple Axis Aligned Bounding Box to decide from 4 vertices
  */
-class SimpleAABB extends AABB { // eslint-disable-line  no-unused-vars
+class SimpleAABB extends AABB {
     /**
      * AABB Constructor
      * @constructor

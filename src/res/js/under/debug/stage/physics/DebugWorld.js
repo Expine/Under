@@ -6,7 +6,7 @@
  * @extends {PhysicalWorld}
  * @classdesc Debug world to measure time for debugging by delegation
  */
-class DebugWorld extends PhysicalWorld { // eslint-disable-line  no-unused-vars
+class DebugWorld extends PhysicalWorld {
     /**
      * Debug world constructor
      * @constructor

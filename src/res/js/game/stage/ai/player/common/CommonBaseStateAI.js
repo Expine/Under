@@ -8,7 +8,7 @@
  * @extends {TransferableStateAI}
  * @classdesc Common base state AI to implement by common state
  */
-class CommonBaseStateAI extends TransferableStateAI { // eslint-disable-line  no-unused-vars
+class CommonBaseStateAI extends TransferableStateAI {
     /**
      * Common base state AI constructor
      * @constructor

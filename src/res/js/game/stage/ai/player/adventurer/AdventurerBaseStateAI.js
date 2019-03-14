@@ -10,7 +10,7 @@
  * @extends {NormalBaseStateAI}
  * @classdesc Adventurer base state AI to initialize by adventurer state
  */
-class AdventurerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  no-unused-vars
+class AdventurerBaseStateAI extends NormalBaseStateAI {
     /**
      * Adventurer base State AI Constructor
      * @constructor

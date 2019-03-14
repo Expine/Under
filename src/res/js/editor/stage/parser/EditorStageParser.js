@@ -8,7 +8,7 @@
  * @extends {UnderStageParser}
  * @classdesc Editor stage parser to generate editor element
  */
-class EditorStageParser extends UnderStageParser { // eslint-disable-line  no-unused-vars
+class EditorStageParser extends UnderStageParser {
     /**
      * Editor stage parser
      * @param {ImageBuilder} [image = EditorImageBuilder] Image builder instance

@@ -8,7 +8,7 @@
  * @extends {TransferableState}
  * @classdesc Under player state to render entity by entity own image ID
  */
-class UnderPlayerState extends TransferableState { // eslint-disable-line  no-unused-vars
+class UnderPlayerState extends TransferableState {
     /**
      * Transition usual state such as stationary, walk, fall
      * @protected

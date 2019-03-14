@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Game event to update and render event
  */
-class GameEvent { // eslint-disable-line  no-unused-vars
+class GameEvent {
     /**
      * Game event constructor
      * @constructor

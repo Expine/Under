@@ -10,7 +10,7 @@
  * @extends {UnderMovableState}
  * @classdesc Wild roll state to prepare rolling action
  */
-class WildRollState extends UnderMovableState { // eslint-disable-line  no-unused-vars
+class WildRollState extends UnderMovableState {
     /**
      * Wild roll state constructor
      * @constructor

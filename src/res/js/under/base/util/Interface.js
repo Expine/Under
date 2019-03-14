@@ -3,7 +3,7 @@
  * - ### Base class of interface
  * @classdesc Base class of interface
  */
-class Interface { // eslint-disable-line  no-unused-vars
+class Interface {
     /**
      * Interface constructor
      * @constructor

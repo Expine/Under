@@ -11,7 +11,7 @@
  * @implements {ITerrain}
  * @classdesc Under tile object to have terrain information
  */
-class UnderTileObject extends TileObject /* , ITerrain */ { // eslint-disable-line  no-unused-vars
+class UnderTileObject extends TileObject /* , ITerrain */ {
     /**
      * Under tile object constructor
      * @constructor

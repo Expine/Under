@@ -6,7 +6,7 @@
  * @extends {ScrollLayer}
  * @classdesc Drag scroll layer that can scroll mouse dragging
  */
-class DragScrollLayer extends ScrollLayer { // eslint-disable-line  no-unused-vars
+class DragScrollLayer extends ScrollLayer {
     /**
      * Drag scroll layer constructor
      * @constructor

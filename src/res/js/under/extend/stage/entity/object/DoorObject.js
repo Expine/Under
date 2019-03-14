@@ -8,7 +8,7 @@
  * @implements {IColliderable}
  * @classdesc Immutable event object to show sign
  */
-class DoorObject extends ImagedEntity /* , IColliderable */ { // eslint-disable-line  no-unused-vars
+class DoorObject extends ImagedEntity /* , IColliderable */ {
     /**
      * Influential event object constructor
      * @constructor

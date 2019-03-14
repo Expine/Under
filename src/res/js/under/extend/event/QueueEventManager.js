@@ -9,7 +9,7 @@
  * @implements {IEventOperator}
  * @classdesc Queue event manager to use the queue to manage events
  */
-class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator */ { // eslint-disable-line  no-unused-vars
+class QueueEventManager extends EventManager /* , IEventRegister, IEventOperator */ {
     /**
      * Queue event manager constructor
      * @constructor

@@ -5,7 +5,7 @@
  * @extends {Layer}
  * @classdesc Debug layer to render information necessary for debugging
  */
-class DebugLayer extends Layer { // eslint-disable-line  no-unused-vars
+class DebugLayer extends Layer {
     /**
      * Debug layer constructor
      * @constructor

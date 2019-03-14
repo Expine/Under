@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Editor save interface that can save data
  */
-class IEditorSave extends Interface { // eslint-disable-line  no-unused-vars
+class IEditorSave extends Interface {
     /**
      * Get json data for saving
      * @abstract

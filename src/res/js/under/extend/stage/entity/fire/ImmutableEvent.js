@@ -9,7 +9,7 @@
  * @implements {IColliderable}
  * @classdesc Immutable event object to fire event
  */
-class ImmutableEvent extends Entity /* , IEventEntity, IColliderable */ { // eslint-disable-line  no-unused-vars
+class ImmutableEvent extends Entity /* , IEventEntity, IColliderable */ {
     /**
      * Immutable event object constructor
      * @constructor

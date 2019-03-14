@@ -6,7 +6,7 @@
  * @extends {BaseState}
  * @classdesc Stationary state to move, jump, and attack
  */
-class PStationaryState extends BaseState { // eslint-disable-line  no-unused-vars
+class PStationaryState extends BaseState {
     /**
      * Player stationary state constructor
      * @constructor

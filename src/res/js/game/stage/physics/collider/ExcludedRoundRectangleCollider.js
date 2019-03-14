@@ -9,7 +9,7 @@
  * @implements {IExclude}
  * @classdesc Excluded round rectangle collider to exclude some collider
  */
-class ExcludedRoundRectangleCollider extends RoundRectangleCollider /* , IExclude */ { // eslint-disable-line  no-unused-vars
+class ExcludedRoundRectangleCollider extends RoundRectangleCollider /* , IExclude */ {
     /**
      * Excluded round rectangle collider constructor
      * @constructor

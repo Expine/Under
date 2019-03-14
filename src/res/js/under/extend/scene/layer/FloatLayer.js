@@ -5,7 +5,7 @@
  * @extends {Layer}
  * @classdesc Float layer that can move freely
  */
-class FloatLayer extends Layer { // eslint-disable-line  no-unused-vars
+class FloatLayer extends Layer {
     /**
      * Float layer constructor
      * @constructor

@@ -6,7 +6,7 @@
  * @extends {ImageBackground}
  * @classdesc Invariant background where the background does not move
  */
-class InvariantBackground extends ImageBackground { // eslint-disable-line  no-unused-vars
+class InvariantBackground extends ImageBackground {
     /**
      * Render background
      * @override

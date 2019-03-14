@@ -8,7 +8,7 @@
   * @extends {HookStateAI}
   * @classdesc AI with state for determining action
   */
- class HeadHookStateAI extends HookStateAI { // eslint-disable-line  no-unused-vars
+ class HeadHookStateAI extends HookStateAI {
      /**
       * Head hook State AI Constructor
       * @constructor

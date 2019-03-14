@@ -9,7 +9,7 @@
  * @implements {IPrepareState}
  * @classdesc Normal jump state to prepare for jumping
  */
-class NormalJumpState extends UnderPlayerState /* , IPrepareState */ { // eslint-disable-line  no-unused-vars
+class NormalJumpState extends UnderPlayerState /* , IPrepareState */ {
     /**
      * Normal jump state constructor
      * @constructor

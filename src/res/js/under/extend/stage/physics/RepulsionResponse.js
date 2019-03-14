@@ -4,7 +4,7 @@
  * @extends {CollisionResponse}
  * @classdesc Collision response to performs collision response by replusion
  */
-class RepulsionResponse extends CollisionResponse { // eslint-disable-line  no-unused-vars
+class RepulsionResponse extends CollisionResponse {
     /**
      * Perform collision response
      * @param {CollisionData} data Collision data

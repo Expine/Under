@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Editor target interface that target for editing
  */
-class IEditorTarget extends Interface { // eslint-disable-line  no-unused-vars
+class IEditorTarget extends Interface {
     /**
      * Replace and paint
      * @abstract

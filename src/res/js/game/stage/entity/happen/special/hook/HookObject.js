@@ -16,7 +16,7 @@
  * @implements {IHook}
  * @classdesc Hook object to implement hook and automatically generate post hook object
  */
-class HookObject extends PossessedObject /* , IBreakable, IHook */ { // eslint-disable-line  no-unused-vars
+class HookObject extends PossessedObject /* , IBreakable, IHook */ {
     /**
      * Hook object constructor
      * @constructor

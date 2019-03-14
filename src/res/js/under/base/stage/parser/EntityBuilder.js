@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Entity builder to generate entity
  */
-class EntityBuilder { // eslint-disable-line  no-unused-vars
+class EntityBuilder {
     /**
      * Entity builder constructor
      * @constructor

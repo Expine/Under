@@ -9,7 +9,7 @@
  * @implements {IClipImage}
  * @classdesc Delegate image to delegate other image
  */
-class DelegateImage extends GameImage /* , IDirectionalImage, IClipImage */ { // eslint-disable-line  no-unused-vars
+class DelegateImage extends GameImage /* , IDirectionalImage, IClipImage */ {
     /**
      * Delegate image constructor
      * @constructor

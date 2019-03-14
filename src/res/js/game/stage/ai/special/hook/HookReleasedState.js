@@ -5,7 +5,7 @@
  * @extends {State}
  * @classdesc Hook released state after released
  */
-class HookReleasedState extends State { // eslint-disable-line  no-unused-vars
+class HookReleasedState extends State {
     /**
      * Hook released state
      * @constructor

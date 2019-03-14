@@ -9,7 +9,7 @@
  * @extends {MutableEntity}
  * @classdesc Autonomy entity to move by AI
  */
-class AutonomyEntity extends MutableEntity { // eslint-disable-line  no-unused-vars
+class AutonomyEntity extends MutableEntity {
     /**
      * Add AI system
      * @param {AI} ai AI to control this

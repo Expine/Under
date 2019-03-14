@@ -5,7 +5,7 @@
  * @extends {State}
  * @classdesc None state to do nothing
  */
-class NoneState extends State { // eslint-disable-line  no-unused-vars
+class NoneState extends State {
     /**
      * Apply AI and decide action
      * @override

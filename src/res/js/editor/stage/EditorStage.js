@@ -14,7 +14,7 @@
  * @implements {IEditorTarget}
  * @classdesc Editor stage that can put, remove and replace entity
  */
-class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget */ { // eslint-disable-line  no-unused-vars
+class EditorStage extends DebugStage /* , IEditorSave, IEditable, IEditorTarget */ {
     /**
      * Editor stage constructor
      * @constructor

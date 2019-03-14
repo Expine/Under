@@ -6,7 +6,7 @@
  * @extends {TabbedLayer}
  * @classdesc Named tabbed layer to show name and it can tap name tab
  */
-class NamedTabbedLayer extends TabbedLayer { // eslint-disable-line  no-unused-vars
+class NamedTabbedLayer extends TabbedLayer {
     /**
      * Named tabbed layer constructor
      * @constructor

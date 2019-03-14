@@ -9,7 +9,7 @@
  * @implements {IEditorSave}
  * @classdesc Editor tile in editor
  */
-class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ { // eslint-disable-line  no-unused-vars
+class EditorTile extends Entity /* , IEditorEntity, IEditorSave */ {
     /**
      * Editor tile constructor
      * @constructor

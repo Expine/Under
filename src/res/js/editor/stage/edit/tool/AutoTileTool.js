@@ -6,7 +6,7 @@
  * @extends {BaseTool}
  * @classdesc Pencil tool to paint one by one and automaticaly tiling
  */
-class AutoTileTool extends BaseTool { // eslint-disable-line  no-unused-vars
+class AutoTileTool extends BaseTool {
     /**
      * Calclulate auto tile ID
      * @protected

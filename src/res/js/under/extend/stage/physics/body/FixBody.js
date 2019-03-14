@@ -6,7 +6,7 @@
  * @extends {MaxAdoptBody}
  * @classdesc Fix body that is fixed state unless it is moving
  */
-class FixBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
+class FixBody extends MaxAdoptBody {
     /**
      * Whether to apply reflection only to the object
      * @override

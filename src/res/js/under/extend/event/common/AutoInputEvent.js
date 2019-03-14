@@ -5,7 +5,7 @@
  * @extends {GameEvent}
  * @classdesc Auto input event to wait to input automatically
  */
-class AutoInputEvent extends GameEvent { // eslint-disable-line  no-unused-vars
+class AutoInputEvent extends GameEvent {
     /**
      * Auto input event constructor
      * @constructor

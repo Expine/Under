@@ -7,7 +7,7 @@
  * @extends {SequentialWorld}
  * @classdesc Split world to manage not actor by split area
  */
-class SplitWorld extends SequentialWorld { // eslint-disable-line  no-unused-vars
+class SplitWorld extends SequentialWorld {
     /**
      * Split world constructor
      * @constructor

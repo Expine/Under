@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Joint interface that can joint to something
  */
-class IJoint extends Interface { // eslint-disable-line  no-unused-vars
+class IJoint extends Interface {
     /**
      * Joint to something
      * @abstract

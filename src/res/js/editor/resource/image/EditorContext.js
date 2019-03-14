@@ -6,7 +6,7 @@
  * @extends {JSContext}
  * @classdesc Editor context for rendering back by gray
  */
-class EditorContext extends JSContext { // eslint-disable-line  no-unused-vars
+class EditorContext extends JSContext {
     /**
      * Function to be executed before drawing
      * @override

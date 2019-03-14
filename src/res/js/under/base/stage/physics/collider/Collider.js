@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Collider to store collider data for judging collision
  */
-class Collider { // eslint-disable-line  no-unused-vars
+class Collider {
     /**
      * Collider constructor
      * @constructor

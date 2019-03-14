@@ -9,7 +9,7 @@
  * @extends {AutonomyEntity}
  * @classdesc AI listed object to manage AI by list
  */
-class AIListedObject extends AutonomyEntity { // eslint-disable-line  no-unused-vars
+class AIListedObject extends AutonomyEntity {
     /**
      * AI listed object constructor
      * @constructor

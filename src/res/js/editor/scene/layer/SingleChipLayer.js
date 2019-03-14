@@ -9,7 +9,7 @@
  * @extends {ClipLayer}
  * @classdesc Single chip layer to select chip
  */
-class SingleChipLayer extends SelectionLayer { // eslint-disable-line  no-unused-vars
+class SingleChipLayer extends SelectionLayer {
     /**
      * Single chip layer constructor
      * @constructor

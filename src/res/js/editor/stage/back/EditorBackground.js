@@ -8,7 +8,7 @@
  * @implements {IEditorSave}
  * @classdesc Editor background to delegate background and enable to save
  */
-class EditorBackground extends Background /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
+class EditorBackground extends Background /* , IEditorSave */ {
     /**
      * Editor background constructor
      * @constructor

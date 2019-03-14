@@ -5,7 +5,7 @@
  * @interface
  * @classdesc Physical world to perform a physical operation by registering entities
  */
-class PhysicalWorld { // eslint-disable-line  no-unused-vars
+class PhysicalWorld {
     /**
      * Physical world constructor
      * @constructor

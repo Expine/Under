@@ -5,7 +5,7 @@
  * @extends {EditBuilder}
  * @classdesc Edit builder to generate simple editor tools
  */
-class SimpleEditBuilder extends EditBuilder { // eslint-disable-line  no-unused-vars
+class SimpleEditBuilder extends EditBuilder {
     /**
      * Generates image
      * @protected

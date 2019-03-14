@@ -2,7 +2,7 @@
  * Convenient method group
  * @classdesc Convenient method group
  */
-class Util { // eslint-disable-line  no-unused-vars
+class Util {
     /**
      * Determine whether entity is on the ground
      * @param {InfluentialEntity} entity Target entity

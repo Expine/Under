@@ -6,7 +6,7 @@
  * @extends {BaseState}
  * @classdesc Player walk state to walk, jump and attack
  */
-class PWalkState extends BaseState { // eslint-disable-line  no-unused-vars
+class PWalkState extends BaseState {
     /**
      * Player walk state constructor
      * @constructor

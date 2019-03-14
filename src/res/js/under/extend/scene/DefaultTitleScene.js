@@ -6,7 +6,7 @@
  * @extends {Scene}
  * @classdesc Default title scene indicating sample scene
  */
-class DefaultTitleScene extends Scene { // eslint-disable-line  no-unused-vars
+class DefaultTitleScene extends Scene {
     /**
      * Default title scene constructor
      * @constructor

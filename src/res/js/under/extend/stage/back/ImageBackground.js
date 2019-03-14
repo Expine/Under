@@ -6,7 +6,7 @@
  * @extends {Background}
  * @classdesc Image background to manage image as background
  */
-class ImageBackground extends Background { // eslint-disable-line  no-unused-vars
+class ImageBackground extends Background {
     /**
      * Image background constructor
      * @constructor

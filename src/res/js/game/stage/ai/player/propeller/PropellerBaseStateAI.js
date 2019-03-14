@@ -10,7 +10,7 @@
  * @extends {NormalBaseStateAI}
  * @classdesc Propeller base state AI to initialize by propeller state
  */
-class PropellerBaseStateAI extends NormalBaseStateAI { // eslint-disable-line  no-unused-vars
+class PropellerBaseStateAI extends NormalBaseStateAI {
     /**
      * Propeller base state AI Constructor
      * @constructor

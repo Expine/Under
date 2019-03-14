@@ -10,7 +10,7 @@
  * @implements {IStageEvent}
  * @classdesc Editor event to enable to use in editor
  */
-class EditorEvent extends NamedEvent /* , IEditorSave, IStageEvent */ { // eslint-disable-line  no-unused-vars
+class EditorEvent extends NamedEvent /* , IEditorSave, IStageEvent */ {
     /**
      * Editor event constructor
      * @constructor

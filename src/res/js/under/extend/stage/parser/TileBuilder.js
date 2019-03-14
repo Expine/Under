@@ -5,7 +5,7 @@
  * @extends {EntityBuilder}
  * @classdesc Tile builder to generate tile from json data
  */
-class TileBuilder extends EntityBuilder { // eslint-disable-line  no-unused-vars
+class TileBuilder extends EntityBuilder {
     /**
      * Make image
      * @protected

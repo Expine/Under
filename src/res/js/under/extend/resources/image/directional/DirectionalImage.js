@@ -9,7 +9,7 @@
  * @implements {IDirectionalImage}
  * @classdesc Directional image to render considering the direction
  */
-class DirectionalImage extends DelegateImage /* , IDirectionalImage */ { // eslint-disable-line  no-unused-vars
+class DirectionalImage extends DelegateImage /* , IDirectionalImage */ {
     /**
      * Directional image constructor
      * @constructor

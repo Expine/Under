@@ -6,7 +6,7 @@
  * @implements {IPlayable}
  * @classdesc Under playable interface for under player function
  */
-class IUnderPlayable extends IPlayable { // eslint-disable-line  no-unused-vars
+class IUnderPlayable extends IPlayable {
     /**
      * Change working AI
      * @abstract

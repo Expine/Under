@@ -8,7 +8,7 @@
  * @extends {CharacterBuilder}
  * @classdesc Under character builder to generate under player and sets normal none state automatically
  */
-class UnderCharacterBuilder extends CharacterBuilder { // eslint-disable-line  no-unused-vars
+class UnderCharacterBuilder extends CharacterBuilder {
     /**
      * Make rigid body
      * @protected

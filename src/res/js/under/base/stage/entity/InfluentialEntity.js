@@ -7,7 +7,7 @@
  * @extends {ImagedEntity}
  * @classdesc Influential entity that can be collided because it has material and collider
  */
-class InfluentialEntity extends ImagedEntity { // eslint-disable-line  no-unused-vars
+class InfluentialEntity extends ImagedEntity {
     /**
      * Influential entity constructor
      * @constructor

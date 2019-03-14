@@ -5,7 +5,7 @@
  * @extends {RigidBody}
  * @classdesc Max adopt body to adopt the maximum for adding to the next speed
  */
-class MaxAdoptBody extends RigidBody { // eslint-disable-line  no-unused-vars
+class MaxAdoptBody extends RigidBody {
     /**
      * Max adopt body constructor
      * @constructor

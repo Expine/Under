@@ -6,7 +6,7 @@
  * @extends {BaseState}
  * @classdesc Player punch state that about to attack
  */
-class PPunchState extends BaseState { // eslint-disable-line  no-unused-vars
+class PPunchState extends BaseState {
     /**
      * Player punch state
      * @constructor

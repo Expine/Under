@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Playable interface for player function
  */
-class ITakeOver extends Interface { // eslint-disable-line  no-unused-vars
+class ITakeOver extends Interface {
     /**
      * Judged whether it is the same entity to be handed over
      * @abstract

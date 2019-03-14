@@ -5,7 +5,7 @@
  * @extends {Layer}
  * @classdesc Gameover layer to display gamover
  */
-class GameoverLayer extends Layer { // eslint-disable-line  no-unused-vars
+class GameoverLayer extends Layer {
     /**
      * Update layer
      * @override

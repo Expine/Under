@@ -4,7 +4,7 @@
  * @interface
  * @classdesc String interface that can add or remove rigid body
  */
-class IString extends Interface { // eslint-disable-line  no-unused-vars
+class IString extends Interface {
     /**
      * Get string length
      * @abstract

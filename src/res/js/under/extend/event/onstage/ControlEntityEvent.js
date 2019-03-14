@@ -7,7 +7,7 @@
  * @extends {StageEvent}
  * @classdesc Control entity event to control entity
  */
-class ControlEntityEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class ControlEntityEvent extends StageEvent {
     /**
      * Control entity event constructor
      * @constructor

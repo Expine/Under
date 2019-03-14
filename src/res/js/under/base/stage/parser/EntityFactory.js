@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Entity factory to generate entity by ID
  */
-class EntityFactory { // eslint-disable-line  no-unused-vars
+class EntityFactory {
     /**
      * Create entity from factory data
      * @abstract

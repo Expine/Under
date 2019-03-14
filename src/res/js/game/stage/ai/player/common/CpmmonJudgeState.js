@@ -8,7 +8,7 @@
  * @extends {UnderPlayerState}
  * @classdesc Common judge state to do nothing but transfer gameover only if entity is died
  */
-class CpmmonJudgeState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class CpmmonJudgeState extends UnderPlayerState {
     /**
      * Common judge state constructor
      * @constructor

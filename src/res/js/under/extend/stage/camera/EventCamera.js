@@ -6,7 +6,7 @@
  * @extends {DelegateCamera}
  * @classdesc Event camera to use by event
  */
-class EventCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
+class EventCamera extends DelegateCamera {
     /**
      * Event camera constructor
      * @constructor

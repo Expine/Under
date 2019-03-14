@@ -11,7 +11,7 @@
  * @extends {NormalFallState}
  * @classdesc Adventurer fall state that can release hook and down wall
  */
-class AdventurerFallState extends NormalFallState { // eslint-disable-line  no-unused-vars
+class AdventurerFallState extends NormalFallState {
     /**
      * Apply AI and decide action
      * @override

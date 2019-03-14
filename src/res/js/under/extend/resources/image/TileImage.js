@@ -6,7 +6,7 @@
  * @extends {SingleImage}
  * @classdesc Tile image to render partially
  */
-class TileImage extends SingleImage { // eslint-disable-line  no-unused-vars
+class TileImage extends SingleImage {
     /**
      * Tile image constructor
      * @constructor

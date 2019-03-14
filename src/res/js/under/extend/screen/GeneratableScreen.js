@@ -6,7 +6,7 @@
  * @extends {CanvasScreen}
  * @classdesc Generatable screen to generate a canvas automatically
  */
-class GeneratableScreen extends CanvasScreen { // eslint-disable-line  no-unused-vars
+class GeneratableScreen extends CanvasScreen {
     /**
      * Initialize screen
      * @override

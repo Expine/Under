@@ -6,7 +6,7 @@
  * @extends {GameAnimation}
  * @classdesc Single animation to run single animation
  */
-class SingleAnimation extends GameAnimation { // eslint-disable-line  no-unused-vars
+class SingleAnimation extends GameAnimation {
     /**
      * Single animation constructor
      * @constructor

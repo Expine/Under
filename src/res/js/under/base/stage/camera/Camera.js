@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Camera to calculate the area of rendering
  */
-class Camera { // eslint-disable-line  no-unused-vars
+class Camera {
     /**
      * Camera Constructor
      * @constructor

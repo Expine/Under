@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Event builder to generate event
  */
-class EventBuilder { // eslint-disable-line  no-unused-vars
+class EventBuilder {
     /**
      * Entity builder constructor
      * @constructor

@@ -5,7 +5,7 @@
  * @extends {Layer}
  * @classdesc UI layer to display UI
  */
-class UILayer extends Layer { // eslint-disable-line  no-unused-vars
+class UILayer extends Layer {
     /**
      * UI layer constructor
      * @constructor

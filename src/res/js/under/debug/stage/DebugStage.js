@@ -8,7 +8,7 @@
  * @extends {DelegateStage}
  * @classdesc Debug stage to execute debug processs by delegation
  */
-class DebugStage extends DelegateStage { // eslint-disable-line  no-unused-vars
+class DebugStage extends DelegateStage {
     /**
      * Debug stage constructor
      * @param {Stage} stage Original stage for delegation

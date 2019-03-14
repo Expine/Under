@@ -5,7 +5,7 @@
  * @extends {Background}
  * @classdesc Sequential background to process continuously
  */
-class SequentialBackground extends Background { // eslint-disable-line  no-unused-vars
+class SequentialBackground extends Background {
     /**
      * Sequential background constructor
      * @constructor

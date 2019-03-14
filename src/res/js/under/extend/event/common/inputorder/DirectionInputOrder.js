@@ -5,7 +5,7 @@
  * @extends {InputOrder}
  * @classdesc Direction input order to input direction key
  */
-class DirectionInputOrder extends InputOrder { // eslint-disable-line  no-unused-vars
+class DirectionInputOrder extends InputOrder {
     /**
      * Direction input order constructor
      * @constructor

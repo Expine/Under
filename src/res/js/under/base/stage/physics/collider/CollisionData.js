@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Collision data obtained by collision detection
  */
-class CollisionData { // eslint-disable-line  no-unused-vars
+class CollisionData {
     /**
      * Collision data constructor
      * @constructor

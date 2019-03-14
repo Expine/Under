@@ -6,7 +6,7 @@
  * @extends {ImageBackground}
  * @classdesc Fixed background that is fixed to certain coordinates
  */
-class FixedBackground extends ImageBackground { // eslint-disable-line  no-unused-vars
+class FixedBackground extends ImageBackground {
     /**
      * Fixed background constructor
      * @constructor

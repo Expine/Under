@@ -5,7 +5,7 @@
  * @extends {StageParser}
  * @classdesc JSON stage parser to parse JSON file
  */
-class JSONStageParser extends StageParser { // eslint-disable-line  no-unused-vars
+class JSONStageParser extends StageParser {
     /**
      * JSON stage parser
      * @param {ImageBuilder} [image = BaseImageBuilder] Image builder instance

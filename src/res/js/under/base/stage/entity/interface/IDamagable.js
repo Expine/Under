@@ -6,7 +6,7 @@
  * @extends {IBreakable}
  * @classdesc Damagable interface that can be damaged
  */
-class IDamagable extends IBreakable { // eslint-disable-line  no-unused-vars
+class IDamagable extends IBreakable {
     /**
      * Get hit point
      * @abstract

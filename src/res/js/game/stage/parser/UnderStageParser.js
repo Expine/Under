@@ -7,7 +7,7 @@
  * @extends {JSONStageParser}
  * @classdesc Under stage parser to set original response and unique builder by default
  */
-class UnderStageParser extends JSONStageParser { // eslint-disable-line  no-unused-vars
+class UnderStageParser extends JSONStageParser {
     /**
      * Make entity factory
      * @override

@@ -5,7 +5,7 @@
  * @extends {InputOrder}
  * @classdesc Wait input order to wait
  */
-class WaitInputOrder extends InputOrder { // eslint-disable-line  no-unused-vars
+class WaitInputOrder extends InputOrder {
     /**
      * Input order constructor
      * @constructor

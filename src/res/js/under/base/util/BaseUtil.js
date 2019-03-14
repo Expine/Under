@@ -2,7 +2,7 @@
  * Convenient method group
  * @classdesc Convenient method group
  */
-class BaseUtil { // eslint-disable-line  no-unused-vars
+class BaseUtil {
     /**
      * Whether it inherit interfaces
      * @param {Object} instance Instance to be validated

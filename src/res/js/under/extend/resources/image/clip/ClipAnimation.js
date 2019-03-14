@@ -9,7 +9,7 @@
  * @extends {DelegateAnimation}
  * @classdesc Clip animation to render by cliping
  */
-class ClipAnimation extends DelegateAnimation { // eslint-disable-line  no-unused-vars
+class ClipAnimation extends DelegateAnimation {
     /**
      * Set clipingArea
      * @override

@@ -11,7 +11,7 @@
  * @extends {DelegateNamedAnimation}
  * @classdesc Transitional blink animation to animate transitions to other images by blink
  */
-class TransitionalBlinkAnimation extends DelegateNamedAnimation { // eslint-disable-line  no-unused-vars
+class TransitionalBlinkAnimation extends DelegateNamedAnimation {
     /**
      * Transitional blink animation constructor
      * @constructor

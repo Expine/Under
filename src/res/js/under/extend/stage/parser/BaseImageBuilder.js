@@ -5,7 +5,7 @@
  * @extends {ImageBuilder}
  * @classdesc Base image builder to generate normal image from json
  */
-class BaseImageBuilder extends ImageBuilder { // eslint-disable-line  no-unused-vars
+class BaseImageBuilder extends ImageBuilder {
     /**
      * Build image from json data
      * @override

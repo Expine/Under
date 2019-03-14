@@ -5,7 +5,7 @@
  * @extends {GameEvent}
  * @classdesc Delay event to delay time
  */
-class DelayEvent extends GameEvent { // eslint-disable-line  no-unused-vars
+class DelayEvent extends GameEvent {
     /**
      * Delay event constructor
      * @constructor

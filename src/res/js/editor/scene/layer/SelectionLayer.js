@@ -12,7 +12,7 @@
  * @implements {IEditorSave}
  * @classdesc Selection layer to select something
  */
-class SelectionLayer extends ClipLayer /* , ISelection, IEditorSave */ { // eslint-disable-line  no-unused-vars
+class SelectionLayer extends ClipLayer /* , ISelection, IEditorSave */ {
     /**
      * Set information for selection
      * @abstract

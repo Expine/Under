@@ -5,7 +5,7 @@
  * @extends {Timer}
  * @classdesc Simple TImer to measure time by Date
  */
-class RecordedTimer extends SimpleTimer { // eslint-disable-line  no-unused-vars
+class RecordedTimer extends SimpleTimer {
     /**
      * Simple timer constructor
      * @constructor

@@ -8,5 +8,5 @@
  * @extends {MutableEntity}
  * @classdesc Obstacle that renderes simply
  */
-class Obstacle extends MutableEntity { // eslint-disable-line  no-unused-vars
+class Obstacle extends MutableEntity {
 }

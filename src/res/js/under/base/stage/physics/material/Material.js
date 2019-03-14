@@ -5,7 +5,7 @@
  * @interface
  * @classdesc Material that indicates object information
  */
-class Material { // eslint-disable-line  no-unused-vars
+class Material {
     /**
      * Get mass
      * @abstract

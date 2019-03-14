@@ -8,7 +8,7 @@
  * @extends {QueueEventManager}
  * @classdesc With background event manager to render background
  */
-class WithBackgroundEventManager extends QueueEventManager { // eslint-disable-line  no-unused-vars
+class WithBackgroundEventManager extends QueueEventManager {
     /**
      * With background event manager constructor
      * @constructor

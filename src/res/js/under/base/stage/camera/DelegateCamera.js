@@ -6,7 +6,7 @@
  * @extends {Camera}
  * @classdesc Delegate camera to delegate some processing to another camera
  */
-class DelegateCamera extends Camera { // eslint-disable-line  no-unused-vars
+class DelegateCamera extends Camera {
     /**
      * Delegate camera constructor
      * @constructor

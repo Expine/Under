@@ -6,7 +6,7 @@
  * @extends {AI}
  * @classdesc State AI to determine by state
  */
-class StateAI extends AI { // eslint-disable-line  no-unused-vars
+class StateAI extends AI {
     /**
      * Get state
      * @abstract

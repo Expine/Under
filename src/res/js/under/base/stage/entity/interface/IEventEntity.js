@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Event entity interface that can hold event and fire it
  */
-class IEventEntity extends Interface { // eslint-disable-line  no-unused-vars
+class IEventEntity extends Interface {
     /**
      * Set game event
      * @abstract

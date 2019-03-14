@@ -2,7 +2,7 @@
  * Method data class
  * @classdesc Method data class
  */
-class Method { // eslint-disable-line  no-unused-vars
+class Method {
     /**
      * Method constructor
      * @param {string} name Method name

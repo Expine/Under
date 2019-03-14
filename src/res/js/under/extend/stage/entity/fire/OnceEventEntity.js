@@ -11,7 +11,7 @@
  * @implements {IColliderable}
  * @classdesc Once event entity to fire event
  */
-class OnceEventEntity extends ImmutableEvent /* , IBreakable */ { // eslint-disable-line  no-unused-vars
+class OnceEventEntity extends ImmutableEvent /* , IBreakable */ {
     /**
      * Destroy object
      * @override

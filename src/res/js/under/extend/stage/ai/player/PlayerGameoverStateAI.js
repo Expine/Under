@@ -7,7 +7,7 @@
  * @extends {NamedStateAI}
  * @classdesc Player gameover state AI to manage gameover state
  */
-class PlayerGameoverStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
+class PlayerGameoverStateAI extends NamedStateAI {
     /**
      * Player gameover state AI Constructor
      * @constructor

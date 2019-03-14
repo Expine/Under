@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Editor tool for editing
  */
-class EditorTool { // eslint-disable-line  no-unused-vars
+class EditorTool {
     /**
      * Editor tool constructor
      * @constructor

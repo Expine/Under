@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Input order to indicate order for delegation of input
  */
-class InputOrder { // eslint-disable-line  no-unused-vars
+class InputOrder {
     /**
      * Initialize input order
      * @abstract

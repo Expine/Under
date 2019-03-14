@@ -9,7 +9,7 @@
  * @extends {UnderMovableState}
  * @classdesc State of adventurer down wall
  */
-class AdventurerDownWallState extends UnderMovableState { // eslint-disable-line  no-unused-vars
+class AdventurerDownWallState extends UnderMovableState {
     /**
      * Adventurer down wall state constructor
      * @constructor

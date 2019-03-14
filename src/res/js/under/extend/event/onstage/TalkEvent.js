@@ -6,7 +6,7 @@
  * - ### Start talking and stop stage
  * @classdesc Talk event to control the stage
  */
-class TalkEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class TalkEvent extends StageEvent {
     /**
      * Talk event constructor
      * @constructor

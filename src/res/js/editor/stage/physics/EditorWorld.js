@@ -9,7 +9,7 @@
  * @implements {IEditorSave}
  * @classdesc Editor world to chane world type
  */
-class EditorWorld extends DebugWorld /* , IEditorSave */ { // eslint-disable-line  no-unused-vars
+class EditorWorld extends DebugWorld /* , IEditorSave */ {
     /**
      * Get json data for saving
      * @override

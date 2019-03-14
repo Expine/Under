@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Rigid body to update entity by phsycal quantity
  */
-class RigidBody { // eslint-disable-line  no-unused-vars
+class RigidBody {
     /**
      * Rigid body constructor
      * @constructor

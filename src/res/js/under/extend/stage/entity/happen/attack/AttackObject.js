@@ -14,7 +14,7 @@
  * @implements {IBreakable}
  * @classdesc Attack object indicating attack that have lifespan
  */
-class AttackObject extends PossessedObject /* , IBreakable */ { // eslint-disable-line  no-unused-vars
+class AttackObject extends PossessedObject /* , IBreakable */ {
     /**
      * Attack object constructor
      * @constructor

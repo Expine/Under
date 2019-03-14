@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Clip image interface to clip area when rendering
  */
-class IClipImage extends Interface { // eslint-disable-line  no-unused-vars
+class IClipImage extends Interface {
     /**
      * Set clipingArea
      * @abstract

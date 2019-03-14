@@ -6,7 +6,7 @@
  * @extends {Entity}
  * @classdesc Respawn entity to generate some entity
  */
-class RespawnEntity extends Entity { // eslint-disable-line  no-unused-vars
+class RespawnEntity extends Entity {
     /**
      * Generates entity and add to stage
      * @abstract

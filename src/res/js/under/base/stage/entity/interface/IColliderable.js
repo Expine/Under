@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Colliderable interface that has collider
  */
-class IColliderable extends Interface { // eslint-disable-line  no-unused-vars
+class IColliderable extends Interface {
     /**
      * Get collider
      * @abstract

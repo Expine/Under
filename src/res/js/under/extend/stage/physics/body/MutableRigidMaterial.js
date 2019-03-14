@@ -6,7 +6,7 @@
  * @extends {ImmutableRigidMaterial}
  * @classdesc Mutable rigid material to manage as mutable
  */
-class MutableRigidMaterial extends ImmutableRigidMaterial { // eslint-disable-line  no-unused-vars
+class MutableRigidMaterial extends ImmutableRigidMaterial {
     /**
      * Get coefficient of air resistance
      * @override

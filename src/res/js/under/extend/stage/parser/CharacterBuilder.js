@@ -6,7 +6,7 @@
  * @extends {TileBuilder}
  * @classdesc Character builder to generate mutable entity
  */
-class CharacterBuilder extends TileBuilder { // eslint-disable-line  no-unused-vars
+class CharacterBuilder extends TileBuilder {
     /**
      * Make image
      * @override

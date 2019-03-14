@@ -6,7 +6,7 @@
  * @extends {GameImage}
  * @classdesc Game animation to manage animation
  */
-class GameAnimation extends GameImage { // eslint-disable-line  no-unused-vars
+class GameAnimation extends GameImage {
     /**
      * Whether to loop or not
      * @abstract

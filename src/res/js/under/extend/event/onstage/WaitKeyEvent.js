@@ -7,7 +7,7 @@
  * @extends {StageEvent}
  * @classdesc Wait key event to wait to input key
  */
-class WaitKeyEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class WaitKeyEvent extends StageEvent {
     /**
      * Initialize event
      * @override

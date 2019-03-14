@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Playable interface for player function
  */
-class IPlayable extends Interface { // eslint-disable-line  no-unused-vars
+class IPlayable extends Interface {
     /**
      * Get x position for camera
      * @abstract

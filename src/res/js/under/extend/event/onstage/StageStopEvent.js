@@ -8,7 +8,7 @@
  * @implements {IStageEvent}
  * @classdesc Stage stop event to stop stage
  */
-class StageStopEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
+class StageStopEvent extends NamedEvent /* , IStageEvent */ {
     /**
      * Stage stop event constructor
      * @constructor

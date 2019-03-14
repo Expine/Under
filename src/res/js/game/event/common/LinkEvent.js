@@ -5,7 +5,7 @@
  * @extends {GameEvent}
  * @classdesc Link event to link other page
  */
-class LinkEvent extends GameEvent { // eslint-disable-line  no-unused-vars
+class LinkEvent extends GameEvent {
     /**
      * Link event constructor
      * @constructor

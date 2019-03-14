@@ -7,7 +7,7 @@
  * @extends {GameAnimation}
  * @classdesc Multi animation to manage multiple animations
  */
-class MultiAnimation extends GameAnimation { // eslint-disable-line  no-unused-vars
+class MultiAnimation extends GameAnimation {
     /**
      * Get animation from animations
      * @abstract

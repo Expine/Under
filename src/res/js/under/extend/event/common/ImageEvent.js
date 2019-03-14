@@ -6,7 +6,7 @@
  * @extends {NamedEvent}
  * @classdesc Image event to render the image
  */
-class ImageEvent extends NamedEvent { // eslint-disable-line  no-unused-vars
+class ImageEvent extends NamedEvent {
     /**
      * Image event constructor
      * @constructor

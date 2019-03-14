@@ -6,7 +6,7 @@
  * @extends {BaseImageBuilder}
  * @classdesc Editor image builder to generate edito image
  */
-class EditorImageBuilder extends BaseImageBuilder { // eslint-disable-line  no-unused-vars
+class EditorImageBuilder extends BaseImageBuilder {
     /**
      * Build image from json data
      * @override

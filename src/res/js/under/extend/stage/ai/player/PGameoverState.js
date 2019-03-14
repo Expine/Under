@@ -6,7 +6,7 @@
  * @extends {BaseState}
  * @classdesc Player gameover state in which the player got over game
  */
-class PGameoverState extends BaseState { // eslint-disable-line  no-unused-vars
+class PGameoverState extends BaseState {
     /**
      * Apply AI and decide action
      * @override

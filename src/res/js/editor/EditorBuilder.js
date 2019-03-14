@@ -6,7 +6,7 @@
  * @extends {UnderEngineBuilder}
  * @classdesc Editor engine builder to generate instance related to editor
  */
-class EditorBuilder extends UnderEngineBuilder { // eslint-disable-line  no-unused-vars
+class EditorBuilder extends UnderEngineBuilder {
     /**
      * Make game engine
      * @override

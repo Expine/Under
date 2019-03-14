@@ -12,7 +12,7 @@
  * @implements {IDirectionalImage}
  * @classdesc Directional named animation to render animation considering the direction
  */
-class DirectionalNamedAnimation extends DelegateNamedAnimation /* , IDirectionalImage */ { // eslint-disable-line  no-unused-vars
+class DirectionalNamedAnimation extends DelegateNamedAnimation /* , IDirectionalImage */ {
     /**
      * Set direction of image
      * @override

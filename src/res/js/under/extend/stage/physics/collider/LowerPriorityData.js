@@ -4,7 +4,7 @@
  * - ### Prioritizes what collision point is below
  * @classdesc Lower priority data to prioritize what collision point is below
  */
-class LowerPriorityData extends CollisionData { // eslint-disable-line  no-unused-vars
+class LowerPriorityData extends CollisionData {
     /**
      * Lower priority constructor
      * @constructor

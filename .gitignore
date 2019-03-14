@@ -3,3 +3,5 @@
 /node_modules/
 *.class
 *.mp3
+/bin/
+/build/

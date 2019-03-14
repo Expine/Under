@@ -8,7 +8,7 @@
  * @implements {IStageEvent}
  * @classdesc Camera event to move camera
  */
-class CameraEvent extends NamedEvent /* , IStageEvent */ { // eslint-disable-line  no-unused-vars
+class CameraEvent extends NamedEvent /* , IStageEvent */ {
     /**
      * Camera event constructor
      * @constructor

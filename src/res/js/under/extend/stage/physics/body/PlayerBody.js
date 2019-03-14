@@ -6,5 +6,5 @@
  * @extends {MaxAdoptBody}
  * @classdesc Player body to implement player unique function
  */
-class PlayerBody extends MaxAdoptBody { // eslint-disable-line  no-unused-vars
+class PlayerBody extends MaxAdoptBody {
 }

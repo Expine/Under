@@ -5,7 +5,7 @@
  * @extends {AI}
  * @classdesc Straight attack AI that moves straightly for attacking
  */
-class StraightAttackAI extends AI { // eslint-disable-line  no-unused-vars
+class StraightAttackAI extends AI {
     /**
      * Straight attack AI Constructor
      * @constructor

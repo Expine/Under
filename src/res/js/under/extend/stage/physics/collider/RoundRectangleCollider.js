@@ -6,7 +6,7 @@
  * @extends {Collider}
  * @classdesc Round rectangle collider to make a collision judgment considered to be rectangle taken a horn
  */
-class RoundRectangleCollider extends RectangleCollider { // eslint-disable-line  no-unused-vars
+class RoundRectangleCollider extends RectangleCollider {
     /**
      * Rectangle collider constructor
      * @constructor

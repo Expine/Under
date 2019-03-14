@@ -12,7 +12,7 @@
  * @implements {IClipImage}
  * @classdesc Delegate named animation to delegate other animation
  */
-class DelegateNamedAnimation extends NamedAnimation /* , IDirectionalImage, IClipImage */ { // eslint-disable-line  no-unused-vars
+class DelegateNamedAnimation extends NamedAnimation /* , IDirectionalImage, IClipImage */ {
     /**
      * Delegate named animation constructor
      * @constructor

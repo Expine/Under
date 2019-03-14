@@ -10,7 +10,7 @@
  * @extends {UnderMovableState}
  * @classdesc Normal fall state to falling, walk and stop
  */
-class NormalFallState extends UnderMovableState { // eslint-disable-line  no-unused-vars
+class NormalFallState extends UnderMovableState {
     /**
      * Normal fall state constructor
      * @constructor

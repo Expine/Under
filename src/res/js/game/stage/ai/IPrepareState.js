@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Prepare state interface to set the applied power and the magnification of preparation time
  */
-class IPrepareState extends Interface { // eslint-disable-line  no-unused-vars
+class IPrepareState extends Interface {
     /**
      * Set the magnification of the elapsed speed of the preparation time
      * @abstract

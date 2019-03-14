@@ -5,7 +5,7 @@
  * @extends {EditorTool}
  * @classdesc Syringe tool to extract entity
  */
-class SyringeTool extends EditorTool { // eslint-disable-line  no-unused-vars
+class SyringeTool extends EditorTool {
     /**
      * Update tool
      * @override

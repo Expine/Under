@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Collision response to performs collision response
  */
-class CollisionResponse { // eslint-disable-line  no-unused-vars
+class CollisionResponse {
     /**
      * Perform collision response
      * @abstract

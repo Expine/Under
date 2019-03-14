@@ -6,7 +6,7 @@
  * @extends {HookingState}
  * @classdesc Head Hooking state for transition to hooked sate
  */
-class HeadHookingState extends HookingState { // eslint-disable-line  no-unused-vars
+class HeadHookingState extends HookingState {
     /**
      * Head hooking state constructor
      * @constructor

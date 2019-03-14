@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Movable state interface to set max velocity and move power
  */
-class IMovableState extends Interface { // eslint-disable-line  no-unused-vars
+class IMovableState extends Interface {
     /**
      * Get max velocity of x
      * @abstract

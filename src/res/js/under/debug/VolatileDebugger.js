@@ -5,7 +5,7 @@
  * @extends {GameDebugger}
  * @classdesc Volatile debugger to reset information for each update
  */
-class VolatileDebugger extends GameDebugger { // eslint-disable-line  no-unused-vars
+class VolatileDebugger extends GameDebugger {
     /**
      * Volatile debugger constructor
      * @constructor

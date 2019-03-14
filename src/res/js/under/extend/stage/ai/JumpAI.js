@@ -5,7 +5,7 @@
  * @extends {AI}
  * @classdesc Jump AI to jump
  */
-class JumpAI extends AI { // eslint-disable-line  no-unused-vars
+class JumpAI extends AI {
     /**
      * Jump AI Constructor
      * @constructor

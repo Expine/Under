@@ -13,7 +13,7 @@
  * @implements {IDamagable}
  * @classdesc Character that implements damagable and animationable
  */
-class Character extends AIListedObject /* , IDamagable */ { // eslint-disable-line  no-unused-vars
+class Character extends AIListedObject /* , IDamagable */ {
     /**
      * Character constructor
      * @constructor

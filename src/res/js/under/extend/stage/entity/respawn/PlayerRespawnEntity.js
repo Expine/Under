@@ -8,7 +8,7 @@
  * @implements {IColliderable}
  * @classdesc Player respawn entity to generate player
  */
-class PlayerRespawnEntity extends RespawnEntity /* , IColliderable */ { // eslint-disable-line  no-unused-vars
+class PlayerRespawnEntity extends RespawnEntity /* , IColliderable */ {
     /**
      * Player respawn Entity
      * @constructor

@@ -6,7 +6,7 @@
  * @extends {RespawnEntity}
  * @classdesc Enemy respawn entity to generate enemy
  */
-class EnemyRespawnEntity extends RespawnEntity { // eslint-disable-line  no-unused-vars
+class EnemyRespawnEntity extends RespawnEntity {
     /**
      * Enemy respawn Entity
      * @constructor

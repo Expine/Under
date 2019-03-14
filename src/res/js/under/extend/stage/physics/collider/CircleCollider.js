@@ -5,7 +5,7 @@
  * @extends {Collider}
  * @classdesc Circle collider to make a collision judgment considered to be circular
  */
-class CircleCollider extends Collider { // eslint-disable-line  no-unused-vars
+class CircleCollider extends Collider {
     /**
      * Circle collider constructor
      * @constructor

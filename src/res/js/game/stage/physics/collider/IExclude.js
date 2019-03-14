@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Exclude interface to acquire the ID of the exclusion target
  */
-class IExclude extends Interface { // eslint-disable-line  no-unused-vars
+class IExclude extends Interface {
     /**
      * Get excluded target ID
      * @abstract

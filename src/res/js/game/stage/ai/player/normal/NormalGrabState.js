@@ -10,7 +10,7 @@
  * @extends {UnderMovableState}
  * @classdesc Normal grab state to manage grabed behavior
  */
-class NormalGrabState extends UnderMovableState { // eslint-disable-line  no-unused-vars
+class NormalGrabState extends UnderMovableState {
     /**
      * Normal grab state constructor
      * @constructor

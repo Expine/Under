@@ -6,7 +6,7 @@
  * @extends {DelegateCamera}
  * @classdesc Moving center camera to force to move camera
  */
-class ForceMoveCamera extends DelegateCamera { // eslint-disable-line  no-unused-vars
+class ForceMoveCamera extends DelegateCamera {
     /**
      * Moving Camera Constructor
      * @constructor

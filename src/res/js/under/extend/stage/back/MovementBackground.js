@@ -6,7 +6,7 @@
  * @extends {ImageBackground}
  * @classdesc Movement background to move relatively
  */
-class MovementBackground extends ImageBackground { // eslint-disable-line  no-unused-vars
+class MovementBackground extends ImageBackground {
     /**
      * Movement background constructor
      * @constructor

@@ -6,7 +6,7 @@
  * @extends {Material}
  * @classdesc Default material to manage it as immutable information
  */
-class ImmutableMaterial extends Material { // eslint-disable-line  no-unused-vars
+class ImmutableMaterial extends Material {
     /**
      * Default material constructor
      * @param {number} mass Entity mass

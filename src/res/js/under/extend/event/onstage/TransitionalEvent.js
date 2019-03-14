@@ -7,7 +7,7 @@
  * @extends {StageEvent}
  * @classdesc Transitional event to transition the stage
  */
-class TransitionalEvent extends StageEvent { // eslint-disable-line  no-unused-vars
+class TransitionalEvent extends StageEvent {
     /**
      * Transitional event constructor
      * @constructor

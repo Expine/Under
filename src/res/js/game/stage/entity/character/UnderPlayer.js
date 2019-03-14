@@ -19,7 +19,7 @@
  * @implements {IUnderPlayable}
  * @classdesc Under player that can change type
  */
-class UnderPlayer extends Player /* , IUnderPlayable, ITerrain */ { // eslint-disable-line  no-unused-vars
+class UnderPlayer extends Player /* , IUnderPlayable, ITerrain */ {
     /**
      * Under player constructor
      * @constructor

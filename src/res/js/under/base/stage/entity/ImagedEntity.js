@@ -6,7 +6,7 @@
  * @extends {Entity}
  * @classdesc Imaged entity to manage image
  */
-class ImagedEntity extends Entity { // eslint-disable-line  no-unused-vars
+class ImagedEntity extends Entity {
     /**
      * Imaged entity constructor
      * @constructor

@@ -9,7 +9,7 @@
  * @implements {IStageEvent}
  * @classdesc Seuqential stage event to control stage
  */
-class SequentialStageEvent extends SequentialEvent /* IStageEvent */ { // eslint-disable-line  no-unused-vars
+class SequentialStageEvent extends SequentialEvent /* IStageEvent */ {
     /**
      * Seuqential stage event constructor
      * @constructor

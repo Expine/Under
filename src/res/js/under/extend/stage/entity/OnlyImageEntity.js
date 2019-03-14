@@ -6,5 +6,5 @@
  * @extends {ImagedEntity}
  * @classdesc Only image entity to render image only
  */
-class OnlyImageEntity extends ImagedEntity { // eslint-disable-line  no-unused-vars
+class OnlyImageEntity extends ImagedEntity {
 }

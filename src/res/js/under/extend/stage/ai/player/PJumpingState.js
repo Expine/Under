@@ -6,7 +6,7 @@
  * @extends {BaseState}
  * @classdesc Player jump state to decide actions while jumping
  */
-class PJumpingState extends BaseState { // eslint-disable-line  no-unused-vars
+class PJumpingState extends BaseState {
     /**
      * Player jump state constructor
      * @constructor

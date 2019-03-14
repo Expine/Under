@@ -7,7 +7,7 @@
  * @extends {NamedStateAI}
  * @classdesc Hook state AI to indicate hooked and released state
  */
-class HookStateAI extends NamedStateAI { // eslint-disable-line  no-unused-vars
+class HookStateAI extends NamedStateAI {
     /**
      * Hook State AI Constructor
      * @constructor

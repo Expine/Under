@@ -7,7 +7,7 @@
  * @extends {UnderPlayerState}
  * @classdesc Common gameover state in which the player got over game
  */
-class CommonGameoverState extends UnderPlayerState { // eslint-disable-line  no-unused-vars
+class CommonGameoverState extends UnderPlayerState {
     /**
      * Initialize state
      * @override
