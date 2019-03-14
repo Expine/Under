@@ -7,44 +7,44 @@ import { Context } from '../../../base/resources/image/Context';
  * @extends {GameImage}
  * @classdesc Game text to render text
  */
-export class GameText implements GameImage {
+export class GameText extends GameImage {
     /**
      * Rendering text
      * @protected
      * @type {string}
      */
-    text: string;
+    protected text: string;
     /**
      * Text size
      * @protected
      * @type {number | null}
      */
-    size: number | null;
+    protected size: number | null;
     /**
      * Text color
      * @protected
      * @type {string | null}
      */
-    color: string | null;
+    protected color: string | null;
     /**
      * Text font
      * @protected
      * @type {string | null}
      */
-    font: string | null;
+    protected font: string | null;
 
     /**
      * Image width
      * @protected
      * @type {number | null}
      */
-    width: number | null;
+    protected width: number | null;
     /**
      * Image height
      * @protected
      * @type {number}
      */
-    height: number | null;
+    protected height: number | null;
 
     /**
      * Game text constructor
@@ -56,6 +56,7 @@ export class GameText implements GameImage {
      * @param {number} [width=null] Text max width
      */
     constructor(text: string, size: number | null = null, color: string | null = null, font: string | null = null, width: number | null = null) {
+        super();
         this.text = text;
         this.size = size;
         this.color = color;
@@ -115,7 +116,7 @@ export class GameText implements GameImage {
      * @protected
      * @type {number}
      */
-    getSourceOffsetX() {
+    protected getSourceOffsetX() {
         return 0;
     }
 
@@ -125,7 +126,7 @@ export class GameText implements GameImage {
      * @protected
      * @type {number}
      */
-    getSourceOffsetY() {
+    protected getSourceOffsetY() {
         return 0;
     }
 
@@ -135,7 +136,7 @@ export class GameText implements GameImage {
      * @protected
      * @type {number}
      */
-    getSourceWidth() {
+    protected getSourceWidth() {
         return this.width === null ? -1 : this.width;
     }
     /**
@@ -144,7 +145,7 @@ export class GameText implements GameImage {
      * @protected
      * @type {number}
      */
-    getSourceHeight() {
+    protected getSourceHeight() {
         return this.height === null ? -1 : this.height;
     }
 

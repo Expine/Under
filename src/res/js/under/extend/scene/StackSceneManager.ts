@@ -13,7 +13,7 @@ export class StackSceneManager extends SceneManager {
      * @protected
      * @type {Array<Scene>}
      */
-    scenes: Array<Scene>;
+    protected scenes: Array<Scene>;
 
     /**
     * Stack scene manager constructor

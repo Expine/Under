@@ -52,7 +52,7 @@ export class UnderEngine extends Engine {
      * Update in main loop
      * @protected
      */
-    update() {
+    protected update() {
         const newTime = +new Date();
         this.timer.update(newTime - this.oldTime);
         this.input.update();
@@ -65,7 +65,7 @@ export class UnderEngine extends Engine {
      * Rendering in main loop
      * @protected
      */
-    render() {
+    protected render() {
         this.context.preRendering();
         this.manager.render(this.context);
         this.context.postRendering();
@@ -76,7 +76,7 @@ export class UnderEngine extends Engine {
      * @override
      * @protected
      */
-    main() {
+    protected main() {
         // start main loop
         this.oldTime = +new Date();
         requestAnimationFrame(this._loop);

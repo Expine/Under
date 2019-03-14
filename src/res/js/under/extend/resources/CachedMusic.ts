@@ -26,11 +26,6 @@ export class CachedMusic extends CachedArrayManager implements IMusicManager {
         super(root);
 
         // window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        /**
-         * Audio context
-         * @protectedd
-         * @type {AudioContext}
-         */
         this.context = new AudioContext();
     }
 

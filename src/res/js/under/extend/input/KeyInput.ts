@@ -128,7 +128,7 @@ export class KeyInput extends StateInputManager implements IKey {
      * @protected
      * @param {KeyboardEvent} e Key event
      */
-    onKeyDown(e: KeyboardEvent) {
+    protected onKeyDown(e: KeyboardEvent) {
         if (!this.enable) {
             return;
         }
@@ -143,7 +143,7 @@ export class KeyInput extends StateInputManager implements IKey {
      * @protected
      * @param {KeyboardEvent} e Key event
      */
-    onKeyUp(e: KeyboardEvent) {
+    protected onKeyUp(e: KeyboardEvent) {
         if (!this.enable) {
             return;
         }

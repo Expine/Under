@@ -120,7 +120,7 @@ export class MouseInput extends StateInputManager implements IMouse {
      * @protected
      * @param {MouseEvent} e - mouse event
      */
-    onMouseMove(e: MouseEvent) {
+    protected onMouseMove(e: MouseEvent) {
         if (this.target != null) {
             const rect = this.target.getBoundingClientRect();
             this.mouseX = (e.clientX - rect.left) / this.screen.gameSize;
@@ -133,7 +133,7 @@ export class MouseInput extends StateInputManager implements IMouse {
      * @protected
      * @param {MouseEvent} e - mouse event
      */
-    onMouseDown(e: MouseEvent) {
+    protected onMouseDown(e: MouseEvent) {
         if (!this.enable) {
             return;
         }
@@ -148,7 +148,7 @@ export class MouseInput extends StateInputManager implements IMouse {
      * @protected
      * @param {MouseEvent} e - mouse event
      */
-    onMouseUp(e: MouseEvent) {
+    protected onMouseUp(e: MouseEvent) {
         if (!this.enable) {
             return;
         }

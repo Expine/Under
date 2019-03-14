@@ -4,7 +4,7 @@
  * @interface
  * @classdesc Stage parser to generate a stage from a file
  */
-class StageParser { // eslint-disable-line  no-unused-vars
+export abstract class StageParser {
     /**
      * Parse file to stage
      * @abstract
@@ -13,5 +13,5 @@ class StageParser { // eslint-disable-line  no-unused-vars
      * @param {number} height Stage height for rendering area
      * @return {Stage} Generated stage
      */
-    parse(filePath, width, height) {}
+    abstract parse(filePath: string, width: number, height: number): Stage;
 }

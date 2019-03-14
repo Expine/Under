@@ -15,7 +15,7 @@ export class BufferSourceMusic extends Music {
      * @protected
      * @type {AudioBufferSourceNode}
      */
-    bgm: AudioBufferSourceNode | null;
+    protected bgm: AudioBufferSourceNode | null;
 
     /**
     * Buffer source music constructor

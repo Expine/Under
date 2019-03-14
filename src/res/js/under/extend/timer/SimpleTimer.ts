@@ -13,14 +13,14 @@ export class SimpleTimer extends Timer {
      * @protected
      * @type {Object<string, number>}
      */
-    namedTimer: { [s: string]: number; };
+    protected namedTimer: { [s: string]: number; };
 
     /**
      * Named timer for registering start time
      * @protected
      * @type {Object<string, number>}
      */
-    namedStartTimer: { [s: string]: number; };
+    protected namedStartTimer: { [s: string]: number; };
 
     /**
      * Simple timer constructor

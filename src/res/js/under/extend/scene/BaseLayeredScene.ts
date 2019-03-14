@@ -15,14 +15,14 @@ export abstract class BaseLayeredScene extends LayeredScene {
      * @protected
      * @type {Array<Layer>}
      */
-    layers: Array<Layer>;
+    protected layers: Array<Layer>;
 
     /**
      * Sorted layers by z order
      * @protected
      * @type {Array<Layer>}
      */
-    sortedLayers: Array<Layer>;
+    protected sortedLayers: Array<Layer>;
 
     /**
      * Base scene constructor
@@ -77,7 +77,7 @@ export abstract class BaseLayeredScene extends LayeredScene {
      * @protected
      * @return {Array<Layer>} List of layers
      */
-    getLayers(): Array<Layer> {
+    protected getLayers(): Array<Layer> {
         return this.layers;
     }
 

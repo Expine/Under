@@ -91,5 +91,5 @@ export abstract class Engine {
      * @abstract
      * @protected
      */
-    main() { }
+    protected abstract main(): void;
 }

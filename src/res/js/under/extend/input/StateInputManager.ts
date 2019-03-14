@@ -4,8 +4,6 @@ import { GameScreen } from '../../base/screen/GameScreen';
 
 /**
  * Input state
- * @protected
- * @const
  * @enum {Enum<number>}
  */
 export enum STATE {

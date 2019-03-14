@@ -17,7 +17,7 @@ export class MainBuilder extends UnderEngineBuilder {
      * @param {GameScreen} screen Screen system
      * @return {Input} Input system
      */
-    makeInput(screen: GameScreen): Input {
+    protected makeInput(screen: GameScreen): Input {
         return new PreventKeyInput(screen);
     }
 }

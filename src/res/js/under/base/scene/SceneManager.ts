@@ -29,7 +29,7 @@ export abstract class SceneManager {
      * @protected
      * @return {Scene} Currently running scene
      */
-    abstract getScene(): Scene;
+    protected abstract getScene(): Scene;
 
     /**
      * Push scene instance for running it

@@ -39,7 +39,7 @@ export abstract class LayeredScene extends Scene {
      * @protected
      * @return {Array<Layer>} List of layers
      */
-    abstract getLayers(): Array<Layer>;
+    protected abstract getLayers(): Array<Layer>;
 
     /**
      * Update scene

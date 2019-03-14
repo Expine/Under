@@ -40,7 +40,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @param {Timer} timer Timer
      * @return {Engine} Game engine
      */
-    makeEngine(input: Input, screen: GameScreen, context: Context, manager: SceneManager, music: Music, timer: Timer): Engine {
+    protected makeEngine(input: Input, screen: GameScreen, context: Context, manager: SceneManager, music: Music, timer: Timer): Engine {
         return new UnderEngine(input, screen, context, manager, music, timer);
     }
 
@@ -51,7 +51,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @param {GameScreen} screen Screen system
      * @return {Input} Input system
      */
-    makeInput(screen: GameScreen): Input {
+    protected makeInput(screen: GameScreen): Input {
         return new AllInput(screen, new KeyInput(screen), new MouseInput(screen));
     }
 
@@ -61,7 +61,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @protected
      * @return {GameScreen} Screen system
      */
-    makeScreen(): GameScreen {
+    protected makeScreen(): GameScreen {
         return new ScalableScreen(new DetectiveScreen());
     }
 
@@ -73,7 +73,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @param {IImageManager} image Imaga manager
      * @return {Context} Context to render
      */
-    makeContext(screen: GameScreen, image: IImageManager): Context {
+    protected makeContext(screen: GameScreen, image: IImageManager): Context {
         return new JSContext(screen, image);
     }
 
@@ -83,7 +83,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @protected
      * @return {IImageManager} Image manager
      */
-    makeImageManager(): IImageManager {
+    protected makeImageManager(): IImageManager {
         return new CachedImage(`src/res/image/`);
     }
 
@@ -94,7 +94,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @param {IMusicManager} music Music manager
      * @return {Music} Music system
      */
-    makeMusic(music: IMusicManager): Music {
+    protected makeMusic(music: IMusicManager): Music {
         return new BufferSourceMusic(music);
     }
 
@@ -104,7 +104,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @protected
      * @return {IMusicManager} Music manager
      */
-    makeMusicManager(): IMusicManager {
+    protected makeMusicManager(): IMusicManager {
         return new CachedMusic(`src/res/sound/`);
     }
 
@@ -114,7 +114,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @protected
      * @return {Timer} Timer
      */
-    makeTimer(): Timer {
+    protected makeTimer(): Timer {
         return new SimpleTimer();
     }
 
@@ -124,7 +124,7 @@ export class UnderEngineBuilder extends EngineBuilder {
      * @protected
      * @return {SceneManager} Scene manager
      */
-    makeSceneManager(): SceneManager {
+    protected makeSceneManager(): SceneManager {
         return new StackSceneManager();
     }
 }

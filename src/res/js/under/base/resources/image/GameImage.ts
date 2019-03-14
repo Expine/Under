@@ -4,45 +4,45 @@ import { Context } from "./Context";
 /**
  * Game image
  * - Renders image
- * @interface
+ * @abstract
  * @classdesc Game image to render image
  */
-export interface GameImage {
+export abstract class GameImage {
     /**
      * Set image size
      * @abstract
      * @param {number} width Image width
      * @param {number} height Image height
      */
-    setSize(width: number, height: number): void;
+    abstract setSize(width: number, height: number): void;
 
     /**
      * Set image ID
      * @abstract
      * @param {ResourceID} imageID Image ID
      */
-    setImageID(imageID: ResourceID): void;
+    abstract setImageID(imageID: ResourceID): void;
 
     /**
      * Get image ID
      * @abstract
      * @return {ResourceID} Image ID
      */
-    getImageID(): ResourceID;
+    abstract getImageID(): ResourceID;
 
     /**
      * Get image width
      * @abstract
      * @return {number} Imag width
      */
-    getWidth(): number;
+    abstract getWidth(): number;
 
     /**
      * Get image height
      * @abstract
      * @return {number} Imag height
      */
-    getHeight(): number;
+    abstract getHeight(): number;
 
     /**
      * Get source offset x position
@@ -50,7 +50,7 @@ export interface GameImage {
      * @protected
      * @type {number}
      */
-    getSourceOffsetX(): void;
+    protected abstract getSourceOffsetX(): void;
 
     /**
      * Get source offset y position
@@ -58,7 +58,7 @@ export interface GameImage {
      * @protected
      * @type {number}
      */
-    getSourceOffsetY(): void;
+    protected abstract getSourceOffsetY(): void;
 
     /**
      * Get source width
@@ -66,7 +66,7 @@ export interface GameImage {
      * @protected
      * @type {number}
      */
-    getSourceWidth(): void;
+    protected abstract getSourceWidth(): void;
 
     /**
      * Get source height
@@ -74,20 +74,20 @@ export interface GameImage {
      * @protected
      * @type {number}
      */
-    getSourceHeight(): void;
+    protected abstract getSourceHeight(): void;
 
     /**
      * Initialize image
      * @abstract
      */
-    init(): void;
+    abstract init(): void;
 
     /**
      * Update image
      * @abstract
      * @param {number} dt
      */
-    update(dt: number): void;
+    abstract update(dt: number): void;
 
     /**
      * Render image
@@ -96,5 +96,5 @@ export interface GameImage {
      * @param {number} x Image x position
      * @param {number} y Image y position
      */
-    render(ctx: Context, x: number, y: number): void;
+    abstract render(ctx: Context, x: number, y: number): void;
 }

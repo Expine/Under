@@ -19,20 +19,22 @@ export class PreventKeyInput extends KeyInput {
     }
     /**
      * Prevent key down function
+     * @override
      * @protected
      * @param {KeyboardEvent} e Key event
      */
-    onKeyDown(e: KeyboardEvent) {
+    protected onKeyDown(e: KeyboardEvent) {
         this.prevent(e);
         super.onKeyDown(e);
     }
 
     /**
      * Key up function
+     * @override
      * @protected
      * @param {KeyboardEvent} e Key event
      */
-    onKeyUp(e: KeyboardEvent) {
+    protected onKeyUp(e: KeyboardEvent) {
         this.prevent(e);
         super.onKeyUp(e);
     }

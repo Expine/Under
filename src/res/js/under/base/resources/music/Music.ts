@@ -19,7 +19,7 @@ export abstract class Music {
      * @protected
      * @type {IMusicManager}
      */
-    music: IMusicManager;
+    protected music: IMusicManager;
 
     /**
      * Music constructor

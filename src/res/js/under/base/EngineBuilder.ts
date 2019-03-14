@@ -27,7 +27,7 @@ export abstract class EngineBuilder {
      * @param {Timer} timer Timer
      * @return {Engine} Game engine
      */
-    abstract makeEngine(input: Input, screen: GameScreen, context: Context, manager: SceneManager, music: Music, timer: Timer): Engine;
+    protected abstract makeEngine(input: Input, screen: GameScreen, context: Context, manager: SceneManager, music: Music, timer: Timer): Engine;
 
     /**
      * Make input system
@@ -36,7 +36,7 @@ export abstract class EngineBuilder {
      * @param {GameScreen} screen Screen system
      * @return {Input} Input system
      */
-    abstract makeInput(screen: GameScreen): Input;
+    protected abstract makeInput(screen: GameScreen): Input;
 
     /**
      * Make screen system
@@ -44,7 +44,7 @@ export abstract class EngineBuilder {
      * @protected
      * @return {GameScreen} Screen system
      */
-    abstract makeScreen(): GameScreen;
+    protected abstract makeScreen(): GameScreen;
 
     /**
      * Make context to render
@@ -54,7 +54,7 @@ export abstract class EngineBuilder {
      * @param {IImageManager} image Imaga manager
      * @return {Context} Context to render
      */
-    abstract makeContext(screen: GameScreen, image: IImageManager): Context;
+    protected abstract makeContext(screen: GameScreen, image: IImageManager): Context;
 
     /**
      * Make image manager
@@ -62,7 +62,7 @@ export abstract class EngineBuilder {
      * @protected
      * @return {IImageManager} Image manager
      */
-    abstract makeImageManager(): IImageManager;
+    protected abstract makeImageManager(): IImageManager;
 
     /**
      * Make music system
@@ -71,7 +71,7 @@ export abstract class EngineBuilder {
      * @param {IMusicManager} music Music manager
      * @return {Music} Music system
      */
-    abstract makeMusic(music: IMusicManager): Music;
+    protected abstract makeMusic(music: IMusicManager): Music;
 
     /**
      * Make music manager
@@ -79,7 +79,7 @@ export abstract class EngineBuilder {
      * @protected
      * @return {IMusicManager} Music manager
      */
-    abstract makeMusicManager(): IMusicManager;
+    protected abstract makeMusicManager(): IMusicManager;
 
     /**
      * Make timer
@@ -87,7 +87,7 @@ export abstract class EngineBuilder {
      * @protected
      * @return {Timer} Timer
      */
-    abstract makeTimer(): Timer;
+    protected abstract makeTimer(): Timer;
 
     /**
      * Make scene manager
@@ -95,7 +95,7 @@ export abstract class EngineBuilder {
      * @protected
      * @return {SceneManager} Scene manager
      */
-    abstract makeSceneManager(): SceneManager;
+    protected abstract makeSceneManager(): SceneManager;
 
     /**
      * Perform initial construction of the game engine

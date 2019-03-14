@@ -8,7 +8,7 @@ import { Context } from '../../../base/resources/image/Context';
  * @extends {GameImage}
  * @classdesc Single image to render single image
  */
-export class SingleImage implements GameImage {
+export class SingleImage extends GameImage {
     /**
      * Image ID
      * @protected
@@ -95,7 +95,7 @@ export class SingleImage implements GameImage {
      * @protected
      * @type {number}
      */
-    getSourceOffsetX() {
+    protected getSourceOffsetX() {
         return 0;
     }
 
@@ -105,7 +105,7 @@ export class SingleImage implements GameImage {
      * @protected
      * @type {number}
      */
-    getSourceOffsetY() {
+    protected getSourceOffsetY() {
         return 0;
     }
 
@@ -115,7 +115,7 @@ export class SingleImage implements GameImage {
      * @protected
      * @type {number}
      */
-    getSourceWidth() {
+    protected getSourceWidth() {
         return ResourceManager.image.getWidth(this.imageID);
     }
     /**
@@ -124,7 +124,7 @@ export class SingleImage implements GameImage {
      * @protected
      * @type {number}
      */
-    getSourceHeight() {
+    protected getSourceHeight() {
         return ResourceManager.image.getHeight(this.imageID);
     }
 

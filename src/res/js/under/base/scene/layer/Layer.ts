@@ -28,13 +28,13 @@ export abstract class Layer {
      * @protected
      * @type {number}
      */
-    width: number = 0;
+    protected width: number = 0;
     /**
      * Layer height
      * @protected
      * @type {number}
      */
-    height: number = 0;
+    protected height: number = 0;
 
     /**
      * Layer constructor
