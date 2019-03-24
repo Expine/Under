@@ -37,6 +37,7 @@ export class SingleImage extends GameImage {
      * @param {number} [height = null] Image height
      */
     constructor(imageID: ResourceID, width: number | null = null, height: number | null = null) {
+        super();
         this.imageID = imageID;
         this.width = width;
         this.height = height;
@@ -92,39 +93,35 @@ export class SingleImage extends GameImage {
     /**
      * Get source offset x position
      * @override
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected getSourceOffsetX() {
+    getSourceOffsetX() {
         return 0;
     }
 
     /**
      * Get source offset y position
      * @override
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected getSourceOffsetY() {
+    getSourceOffsetY() {
         return 0;
     }
 
     /**
      * Get source width
      * @override
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected getSourceWidth() {
+    getSourceWidth() {
         return ResourceManager.image.getWidth(this.imageID);
     }
     /**
      * Get source height
      * @override
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected getSourceHeight() {
+    getSourceHeight() {
         return ResourceManager.image.getHeight(this.imageID);
     }
 

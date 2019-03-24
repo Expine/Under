@@ -47,34 +47,30 @@ export abstract class GameImage {
     /**
      * Get source offset x position
      * @abstract
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected abstract getSourceOffsetX(): void;
+    abstract getSourceOffsetX(): number;
 
     /**
      * Get source offset y position
      * @abstract
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected abstract getSourceOffsetY(): void;
+    abstract getSourceOffsetY(): number;
 
     /**
      * Get source width
      * @abstract
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected abstract getSourceWidth(): void;
+    abstract getSourceWidth(): number;
 
     /**
      * Get source height
      * @abstract
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected abstract getSourceHeight(): void;
+    abstract getSourceHeight(): number;
 
     /**
      * Initialize image

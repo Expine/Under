@@ -1,5 +1,5 @@
 import { IImageManager } from './../../base/resources/IImageManager';
-import { CachedArrayManager } from "./CachedArrayManager";
+import { CachedArrayManager, ResourceData } from "./CachedArrayManager";
 import { ResourceID } from '../../base/resources/IResourceManager';
 
 /**
@@ -14,9 +14,9 @@ export class CachedImage extends CachedArrayManager implements IImageManager {
      * Load resource and return it
      * @override
      * @param {string} filePath Resource file path
-     * @return {Object} Resource
+     * @return {ResourceData} Resource
      */
-    loadResource(filePath: string): Object {
+    loadResource(filePath: string): ResourceData {
         const image = new Image();
         image.src = filePath;
         return image;

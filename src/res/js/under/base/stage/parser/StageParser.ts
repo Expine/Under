@@ -1,7 +1,9 @@
+import { Stage } from "../Stage";
+
 /**
  * Stage parser
- * - ### Generates a stage from a file
- * @interface
+ * - Generates a stage from a file
+ * @abstract
  * @classdesc Stage parser to generate a stage from a file
  */
 export abstract class StageParser {

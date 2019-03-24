@@ -159,7 +159,13 @@ export class JSContext extends Context {
      * @param {string} color Color name of line
      * @param {number} lineWidth Line width
      */
-    strokeLine(sx: number, sy: number, ex: number, ey: number, color: string = this._lineColor, lineWidth: number = this._lineWidth) {
+    strokeLine(sx: number, sy: number, ex: number, ey: number, color: string | null, lineWidth: number | null) {
+        if (color === null) {
+            color = this._lineColor;
+        }
+        if (lineWidth === null) {
+            lineWidth = this._lineWidth;
+        }
         this.ctx.strokeStyle = color;
         this.ctx.lineWidth = lineWidth;
         this.ctx.beginPath();
@@ -180,7 +186,13 @@ export class JSContext extends Context {
      * @param {string} color Color name of circle
      * @param {number} lineWidth Line of circle width
      */
-    strokeCircle(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean, color: string = this._lineColor, lineWidth: number = this._lineWidth) {
+    strokeCircle(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean, color: string | null, lineWidth: number | null) {
+        if (color === null) {
+            color = this._lineColor;
+        }
+        if (lineWidth === null) {
+            lineWidth = this._lineWidth;
+        }
         this.ctx.strokeStyle = color;
         this.ctx.lineWidth = lineWidth;
         this.ctx.beginPath();
@@ -198,7 +210,13 @@ export class JSContext extends Context {
      * @param {string} color Color name of rectangle
      * @param {number} lineWidth Line of rectangle width
      */
-    strokeRect(x: number, y: number, width: number, height: number, color: string = this._lineColor, lineWidth: number = this._lineWidth) {
+    strokeRect(x: number, y: number, width: number, height: number, color: string | null, lineWidth: number | null) {
+        if (color === null) {
+            color = this._lineColor;
+        }
+        if (lineWidth === null) {
+            lineWidth = this._lineWidth;
+        }
         this.ctx.strokeStyle = color;
         this.ctx.lineWidth = lineWidth;
         this.ctx.strokeRect(x, y, width, height);
@@ -214,7 +232,13 @@ export class JSContext extends Context {
      * @param {string} color Color name of rectangle
      * @param {number} lineWidth Line of rectangle width
      */
-    fillRect(x: number, y: number, width: number, height: number, color: string = this._lineColor, lineWidth: number = this._lineWidth) {
+    fillRect(x: number, y: number, width: number, height: number, color: string | null, lineWidth: number | null) {
+        if (color === null) {
+            color = this._lineColor;
+        }
+        if (lineWidth === null) {
+            lineWidth = this._lineWidth;
+        }
         this.ctx.fillStyle = color;
         this.ctx.lineWidth = lineWidth;
         this.ctx.fillRect(x, y, width, height);

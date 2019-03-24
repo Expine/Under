@@ -19,4 +19,4 @@ export interface IMusicManager extends IResourceManager {
 /**
  * Type guard for IMusicManager
  */
-export const isIMusicManager = (arg: any): arg is IMusicManager => arg.getMusic !== undefined;
+export const isIMusicManager = (arg: any): arg is IMusicManager => arg !== null && arg.getMusic !== undefined;

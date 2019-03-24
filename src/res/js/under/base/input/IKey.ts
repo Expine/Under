@@ -74,4 +74,4 @@ export interface IKey extends IInput {
 /**
  * Type guard for IKey
  */
-export const isIKey = (arg: any): arg is IKey => arg.yes !== undefined;
+export const isIKey = (arg: any): arg is IKey => arg !== null && arg.yes !== undefined;

@@ -35,4 +35,4 @@ export interface IImageManager extends IResourceManager {
 /**
  * Type guard for IImageManager
  */
-export const isIImageManager = (arg: any): arg is IImageManager => arg.getImage !== undefined;
+export const isIImageManager = (arg: any): arg is IImageManager => arg !== null && arg.getImage !== undefined;

@@ -8,5 +8,6 @@
 - Specialized in making action games for now
 
 ## Future works
+- Context should save shift information
 - Implement save
 - Enable to make non-action games

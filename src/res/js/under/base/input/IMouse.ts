@@ -44,4 +44,4 @@ export interface IMouse extends IInput {
 /**
  * Type guard for IMouse
  */
-export const isIMouse = (arg: any): arg is IMouse => arg.getMouseX !== undefined;
+export const isIMouse = (arg: any): arg is IMouse => arg !== null && arg.getMouseX !== undefined;

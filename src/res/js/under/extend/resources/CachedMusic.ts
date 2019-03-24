@@ -1,5 +1,5 @@
 import { IMusicManager } from './../../base/resources/IMusicManager';
-import { CachedArrayManager } from "./CachedArrayManager";
+import { CachedArrayManager, ResourceData } from "./CachedArrayManager";
 import { ResourceID } from '../../base/resources/IResourceManager';
 
 /**
@@ -33,9 +33,9 @@ export class CachedMusic extends CachedArrayManager implements IMusicManager {
      * Load resource and return it
      * @override
      * @param {string} filePath Resource file path
-     * @return {Object} Resource
+     * @return {ResourceData} Resource
      */
-    loadResource(filePath: string): object {
+    loadResource(filePath: string): ResourceData {
         const id = this.resources.length;
         const instance = this;
         const request = new XMLHttpRequest();
@@ -54,7 +54,7 @@ export class CachedMusic extends CachedArrayManager implements IMusicManager {
             }
         };
         request.send();
-        return {};
+        return null;
     }
 
     /**

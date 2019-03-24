@@ -1,4 +1,6 @@
 import { Context } from "../resources/image/Context";
+import { StageParser } from "./parser/StageParser";
+import { Stage } from "./Stage";
 
 /**
  * Stage manager
@@ -18,7 +20,7 @@ export abstract class StageManager {
      * @protected
      * @type {StageParser}
      */
-    protected parser: StageParser = null;
+    protected parser: StageParser | null;
 
     /**
      * Stage width
@@ -88,28 +90,28 @@ export abstract class StageManager {
      * @abstract
      * @param {string} stageName Stage name
      */
-    pushStage(stageName: string) { }
+    abstract pushStage(stageName: string): void;
 
     /**
      * Push stage to list
      * @abstract
      * @param {Stage} stage Stage instance
      */
-    pushStageDirectly(stage: Stage) { }
+    abstract pushStageDirectly(stage: Stage): void;
 
     /**
      * Pop stage from list
      * @abstract
      * @return {Stage} Stage that is popped from list
      */
-    popStage(): Stage { }
+    abstract popStage(): Stage | null;
 
     /**
      * Get stage
      * @abstract
      * @return {Stage} Currently stage
      */
-    getStage(): Stage { }
+    abstract getStage(): Stage | null;
 
     /**
      * Update stage

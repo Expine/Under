@@ -2,6 +2,11 @@ import { ResourceManager } from "../../base/resources/ResourceManager";
 import { ResourceID } from "../../base/resources/IResourceManager";
 
 /**
+ * Type of resource data
+ */
+export type ResourceData = HTMLImageElement | AudioBufferSourceNode | null;
+
+/**
  * Cached array manager
  * - Manage resources by array
  * - Resources are cached by file path
@@ -13,9 +18,9 @@ export abstract class CachedArrayManager extends ResourceManager {
     /**
      * Resources array
      * @protected
-     * @type {Array<Object>}
+     * @type {Array<ResourceData>}
      */
-    protected resources: Array<object>;
+    protected resources: Array<ResourceData>;
 
     /**
      * Cached image array
@@ -42,7 +47,7 @@ export abstract class CachedArrayManager extends ResourceManager {
      * @param {string} filePath Resource file path
      * @return {Object} Resource
      */
-    abstract loadResource(filePath: string): object;
+    abstract loadResource(filePath: string): ResourceData;
 
     /**
      * Load resource and return ID

@@ -86,7 +86,7 @@ export abstract class Context {
      * @param {string} color Color name of line
      * @param {number} lineWidth Line width
      */
-    abstract strokeLine(sx: number, sy: number, ex: number, ey: number, color: string, lineWidth: number): void;
+    abstract strokeLine(sx: number, sy: number, ex: number, ey: number, color: string | null, lineWidth: number | null): void;
 
     /**
      * Rendering circle outline
@@ -100,7 +100,7 @@ export abstract class Context {
      * @param {string} color Color name of circle
      * @param {number} lineWidth Line of circle width
      */
-    abstract strokeCircle(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean, color: string, lineWidth: number): void;
+    abstract strokeCircle(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean, color: string | null, lineWidth: number | null): void;
 
     /**
      * Rendering rectangle outline
@@ -112,7 +112,7 @@ export abstract class Context {
      * @param {string} color Color name of rectangle
      * @param {number} lineWidth Line of rectangle width
      */
-    abstract strokeRect(x: number, y: number, width: number, height: number, color: string, lineWidth: number): void;
+    abstract strokeRect(x: number, y: number, width: number, height: number, color: string | null, lineWidth: number | null): void;
 
     /**
      * Rendering rectangle
@@ -124,7 +124,7 @@ export abstract class Context {
      * @param {string} color Color name of rectangle
      * @param {number} lineWidth Line of rectangle width
      */
-    abstract fillRect(x: number, y: number, width: number, height: number, color: string, lineWidth: number): void;
+    abstract fillRect(x: number, y: number, width: number, height: number, color: string | null, lineWidth: number | null): void;
 
     /**
      * Rendering image

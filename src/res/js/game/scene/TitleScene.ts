@@ -5,6 +5,8 @@ import { Scene } from "../../under/base/scene/Scene";
 import { Context } from '../../under/base/resources/image/Context';
 import { Input } from '../../under/base/input/Input';
 import { ResourceManager } from '../../under/base/resources/ResourceManager';
+import { SceneManager } from '../../under/base/scene/SceneManager';
+import { GameScene } from './GameScene';
 
 /**
  * Title Scene
@@ -54,7 +56,7 @@ export class TitleScene extends Scene {
     update(dt: number) {
         this._title.update(dt);
         if (Input.key.isPress(Input.key.yes())) {
-            // SceneManager.it.replaceScene(new GameScene());
+            SceneManager.it.replaceScene(new GameScene());
         }
     }
 

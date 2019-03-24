@@ -1,3 +1,10 @@
+import { Background } from "./back/Background";
+import { Camera } from "./camera/Camera";
+import { PhysicalWorld } from "./physics/PhysicalWorld";
+import { EntityFactory, EntityID } from "./parser/EntityFactory";
+import { Entity } from "./entity/Entity";
+import { Context } from "../resources/image/Context";
+
 /**
  * Stage
  * - Store stage size
@@ -9,19 +16,16 @@
 export abstract class Stage {
     /**
      * Stage name
-     * @protected
      * @type {string}
      */
     name: string;
     /**
      * Stage width (pixel)
-     * @protected
      * @type {number}
      */
     stageWidth: number;
     /**
      * Stage height (pixel)
-     * @protected
      * @type {number}
      */
     stageHeight: number;
@@ -31,33 +35,33 @@ export abstract class Stage {
      * @protected
      * @type {boolean}
      */
-    enable: boolean;
+    protected enable: boolean;
 
     /**
      * Stage background element
      * @protected
      * @type {Background}
      */
-    back: Background;
+    protected back: Background | null;
     /**
      * Stage camera element
      * @protected
      * @type {Camera}
      */
-    camera: Camera;
+    protected camera: Camera | null;
     /**
      * Physical world
      * @protected
      * @type {PhysicalWorld}
      */
-    physic: PhysicalWorld;
+    protected physic: PhysicalWorld | null;
 
     /**
      * Entity factory
      * @protected
      * @type {EntityFactory}
      */
-    factory: EntityFactory;
+    protected factory: EntityFactory | null;
 
     /**
      * Stage constructor
@@ -115,7 +119,7 @@ export abstract class Stage {
      * Get physical world
      * @return {PhysicalWorld} Physical world
      */
-    getPhysicalWorld(): PhysicalWorld {
+    getPhysicalWorld(): PhysicalWorld | null {
         return this.physic;
     }
 
@@ -123,7 +127,7 @@ export abstract class Stage {
      * Get camera
      * @return {Camera} Camera of stage
      */
-    getCamera(): Camera {
+    getCamera(): Camera | null {
         return this.camera;
     }
 
@@ -132,7 +136,7 @@ export abstract class Stage {
      * @protected
      * @return {EntityFactory} Entity factory
      */
-    getFactory(): EntityFactory {
+    getFactory(): EntityFactory | null {
         return this.factory;
     }
 
@@ -170,13 +174,19 @@ export abstract class Stage {
 
     /**
      * Add entity to stage by ID
-     * @param {Object} id Added entity ID
-     * @param {JSON} deploy Deploy json data
+     * @param {EntityID} id Added entity ID
+     * @param {any} deploy Deploy json data
      * @return {Entity} Added entity
      */
-    addEntityByID(id: object, deploy: JSON): Entity {
-        const ret = this.getFactory().createEntity(id, deploy);
-        this.addEntity(ret);
+    addEntityByID(id: EntityID, deploy: any): Entity | null {
+        const factory = this.getFactory();
+        if (factory === null) {
+            return null;
+        }
+        const ret = factory.createEntity(id, deploy);
+        if (ret !== null) {
+            this.addEntity(ret);
+        }
         return ret;
     }
 
@@ -196,7 +206,7 @@ export abstract class Stage {
      * @abstract
      * @param {Entity} entity Entity object
      */
-    removeEntity(entity: Entity) { }
+    abstract removeEntity(entity: Entity): void;
 
     /**
      * Remove entity from stage immediately
@@ -204,22 +214,22 @@ export abstract class Stage {
      * @protected
      * @param {Entity} entity Entity object
      */
-    removeEntityImmediately(entity: Entity) { }
+    abstract removeEntityImmediately(entity: Entity): void;
 
     /**
      * Get all entities
      * @abstract
      * @return {Array<Entity>} All entities
      */
-    getEntities(): Array<Entity> { }
+    abstract getEntities(): Array<Entity>;
 
     /**
      * Get all entities by interface
      * @abstract
-     * @param {Class} inter Interface for judging
+     * @param {(arg: any) => arg is T} inter Interface for judging
      * @return {Array<Entity>} All entities attached that interface
      */
-    getEntitiesByInterface(inter: Class): Array<Entity> { }
+    abstract getEntitiesByInterface<T>(inter: (arg: any) => arg is T): Array<Entity & T>;
 
     /**
      * Update entity in stage
@@ -227,7 +237,7 @@ export abstract class Stage {
      * @protected
      * @param {number} dt Delta time
      */
-    updateEntity(dt: number) { }
+    abstract updateEntity(dt: number): void;
 
     /**
      * Update entity in stage by physical world
@@ -235,7 +245,7 @@ export abstract class Stage {
      * @protected
      * @param {number} dt Delta time
      */
-    updatePhysics(dt: number) { }
+    abstract updatePhysics(dt: number): void;
 
     /**
      * Update background
@@ -243,7 +253,7 @@ export abstract class Stage {
      * @protected
      * @param {number} dt Delta time
      */
-    updateBackground(dt: number) { }
+    abstract updateBackground(dt: number): void;
 
     /**
      * Update camera
@@ -251,13 +261,13 @@ export abstract class Stage {
      * @protected
      * @param {number} dt Delta time
      */
-    updateCamera(dt: number) { }
+    abstract updateCamera(dt: number): void;
 
     /**
      * Initialize stage
      * @abstract
      */
-    init() { }
+    abstract init(): void;
 
     /**
      * Update stage
@@ -280,7 +290,7 @@ export abstract class Stage {
      * @param {number} shiftX Shift x position
      * @param {number} shiftY Shift y position
      */
-    renderBackground(ctx: Context, shiftX: number, shiftY: number) { }
+    abstract renderBackground(ctx: Context, shiftX: number, shiftY: number): void;
 
     /**
      * Render entities in stage
@@ -290,7 +300,7 @@ export abstract class Stage {
      * @param {number} shiftX Shift x position
      * @param {number} shiftY Shift y position
      */
-    renderEntity(ctx: Context, shiftX: number, shiftY: number) { }
+    abstract renderEntity(ctx: Context, shiftX: number, shiftY: number): void;
 
     /**
      * Render world in stage
@@ -300,7 +310,7 @@ export abstract class Stage {
      * @param {number} shiftX Shift x position
      * @param {number} shiftY Shift y position
      */
-    renderWorld(ctx: Context, shiftX: number, shiftY: number) { }
+    abstract renderWorld(ctx: Context, shiftX: number, shiftY: number): void;
 
     /**
      * Render stage
@@ -309,8 +319,11 @@ export abstract class Stage {
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx: Context, shiftX: number = 0, shiftY: number = 0) {
-        shiftX += this.getCamera().baseX;
-        shiftY += this.getCamera().baseY;
+        const camera = this.getCamera();
+        if (camera !== null) {
+            shiftX += camera.baseX;
+            shiftY += camera.baseY;
+        }
         this.renderBackground(ctx, shiftX, shiftY);
         this.renderEntity(ctx, shiftX, shiftY);
         this.renderWorld(ctx, shiftX, shiftY);

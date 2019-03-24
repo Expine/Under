@@ -113,39 +113,35 @@ export class GameText extends GameImage {
     /**
      * Get source offset x position
      * @override
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected getSourceOffsetX() {
+    getSourceOffsetX(): number {
         return 0;
     }
 
     /**
      * Get source offset y position
      * @override
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected getSourceOffsetY() {
+    getSourceOffsetY(): number {
         return 0;
     }
 
     /**
      * Get source width
      * @override
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected getSourceWidth() {
+    getSourceWidth(): number {
         return this.width === null ? -1 : this.width;
     }
     /**
      * Get source height
      * @override
-     * @protected
-     * @type {number}
+     * @return {number}
      */
-    protected getSourceHeight() {
+    getSourceHeight(): number {
         return this.height === null ? -1 : this.height;
     }
 
