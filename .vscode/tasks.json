@@ -16,8 +16,15 @@
             "problemMatcher": []
         },
         {
-            "type": "npm",
-            "script": "dev",
+            "label": "NpmDev",
+            "type": "shell",
+            "command": "npm dev",
+            "problemMatcher": []
+        },
+        {
+            "label": "NpmBuild",
+            "type": "shell",
+            "command": "npm build",
             "problemMatcher": []
         }
     ]
