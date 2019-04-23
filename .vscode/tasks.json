@@ -4,27 +4,24 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
-            "type": "shell",
-            "command": "call ./util/MainBuild.bat",
-            "problemMatcher": []
-        },
-        {
-            "label": "Doc",
-            "type": "shell",
-            "command": "call ./util/DocumentBuild.bat",
-            "problemMatcher": []
-        },
-        {
             "label": "NpmDev",
             "type": "shell",
-            "command": "npm dev",
+            "group": "build",
+            "command": "npm run dev",
             "problemMatcher": []
         },
         {
             "label": "NpmBuild",
             "type": "shell",
-            "command": "npm build",
+            "group": "build",
+            "command": "npm run build",
+            "problemMatcher": []
+        },
+        {
+            "label": "TypeDoc",
+            "type": "shell",
+            "group": "build",
+            "command": "typedoc --out doc",
             "problemMatcher": []
         }
     ]

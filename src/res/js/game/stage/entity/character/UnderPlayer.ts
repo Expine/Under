@@ -84,7 +84,6 @@ export class UnderPlayer extends Player implements IUnderPlayable, ITerrain {
      * @return {boolean} Whther player is changed or not
      */
     changeType(id: number): boolean {
-        console.log("Change: " + id);
         // initialize
         if (this.preTerrain === id) {
             return false;

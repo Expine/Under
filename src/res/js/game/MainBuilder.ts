@@ -4,20 +4,16 @@ import { GameScreen } from "../under/base/screen/GameScreen";
 import { Input } from "../under/base/input/Input";
 
 /**
- * Main game engine builder
- * - Generates unique instance
- * @extends {UnderEngineBuilder}
- * @classdesc Main game engine builder to perform initial construction of the game engine
+ * - Generates unique instance for 'under'.
+ * - Do not require mouse input, and require to block input for page.
+ * @classdesc Generate unique input for 'under'.
  */
 export class MainBuilder extends UnderEngineBuilder {
     /**
-     * Make input system
      * @override
-     * @protected
-     * @param {GameScreen} screen Screen system
-     * @return {Input} Input system
      */
-    protected makeInput(screen: GameScreen): Input {
+    protected makeInput(screen: GameScreen): Input
+    {
         return new PreventKeyInput(screen);
     }
 }

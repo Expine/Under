@@ -9,100 +9,71 @@ import { Timer } from "./timer/Timer";
 import { Engine } from "./Engine";
 
 /**
- * Engine builder
- * - Performs initial construction of the game engine
+ * - Performs initial construction of the game engine.
+ * - Generates engine and others, and set them in the engine.
  * @abstract
- * @classdesc Engine builder to perform initial construction of the game engine
+ * @classdesc Perform initial construction of the game engine to set elements in it.
  */
 export abstract class EngineBuilder {
     /**
-     * Make game engine
-     * @abstract
-     * @protected
-     * @param {Input} input Input system
-     * @param {GameScreen} screen Screen system
-     * @param {Context} context Context to render
-     * @param {SceneManager} manager Scene Manager
-     * @param {Music} music Music system
-     * @param {Timer} timer Timer
-     * @return {Engine} Game engine
+     * Make game engine by some elements.
+     * @param input     Input system for managing input state.
+     * @param screen    Screen system for indicating targer.
+     * @param context   Context to render.
+     * @param manager   Scene Manager for managing each scene process.
+     * @param music     Music system for making sound.
+     * @param timer     Timer for measuring time.
+     * @return Generated game engine.
      */
-    protected abstract makeEngine(input: Input, screen: GameScreen, context: Context, manager: SceneManager, music: Music, timer: Timer): Engine;
+    protected abstract makeEngine(
+        input: Input,
+        screen: GameScreen,
+        context: Context,
+        manager: SceneManager,
+        music: Music,
+        timer: Timer
+    ): Engine;
+
+    protected abstract makeScreen(): GameScreen;
+    protected abstract makeTimer(): Timer;
+    protected abstract makeSceneManager(): SceneManager;
 
     /**
-     * Make input system
-     * @abstract
-     * @protected
-     * @param {GameScreen} screen Screen system
-     * @return {Input} Input system
+     * @param screen Screen for input target.
      */
     protected abstract makeInput(screen: GameScreen): Input;
 
     /**
-     * Make screen system
-     * @abstract
-     * @protected
-     * @return {GameScreen} Screen system
+     * @param screen Screen for rendering target.
+     * @param image Image manager for managing image resources.
      */
-    protected abstract makeScreen(): GameScreen;
-
-    /**
-     * Make context to render
-     * @abstract
-     * @protected
-     * @param {GameScreen} screen Screen system
-     * @param {IImageManager} image Imaga manager
-     * @return {Context} Context to render
-     */
-    protected abstract makeContext(screen: GameScreen, image: IImageManager): Context;
-
-    /**
-     * Make image manager
-     * @abstract
-     * @protected
-     * @return {IImageManager} Image manager
-     */
+    protected abstract makeContext(
+        screen: GameScreen,
+        image: IImageManager
+    ): Context;
     protected abstract makeImageManager(): IImageManager;
 
     /**
-     * Make music system
-     * @abstract
-     * @protected
-     * @param {IMusicManager} music Music manager
-     * @return {Music} Music system
+     * @param music Music manager for managing music resources.
      */
     protected abstract makeMusic(music: IMusicManager): Music;
-
-    /**
-     * Make music manager
-     * @abstract
-     * @protected
-     * @return {IMusicManager} Music manager
-     */
     protected abstract makeMusicManager(): IMusicManager;
 
-    /**
-     * Make timer
-     * @abstract
-     * @protected
-     * @return {Timer} Timer
-     */
-    protected abstract makeTimer(): Timer;
 
     /**
-     * Make scene manager
-     * @abstract
-     * @protected
-     * @return {SceneManager} Scene manager
+     * Builds game core system and engine.
+     * @return Generated game engine with core system.
      */
-    protected abstract makeSceneManager(): SceneManager;
-
-    /**
-     * Perform initial construction of the game engine
-     * @return {Engine} Game engine
-     */
-    build(): Engine {
+    public build(): Engine
+    {
         const screen = this.makeScreen();
-        return this.makeEngine(this.makeInput(screen), screen, this.makeContext(screen, this.makeImageManager()), this.makeSceneManager(), this.makeMusic(this.makeMusicManager()), this.makeTimer());
+        return this.makeEngine(
+            this.makeInput(screen),
+            screen,
+            this.makeContext(screen, this.makeImageManager()),
+            this.makeSceneManager(),
+            this.makeMusic(this.makeMusicManager()),
+            this.makeTimer()
+        );
     }
 }

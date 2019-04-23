@@ -1,70 +1,41 @@
 import { Engine } from "../base/Engine";
-import { Input } from "../base/input/Input";
-import { GameScreen } from "../base/screen/GameScreen";
-import { Context } from "../base/resources/image/Context";
-import { SceneManager } from "../base/scene/SceneManager";
-import { Music } from "../base/resources/music/Music";
-import { Timer } from "../base/timer/Timer";
 
 /**
- * Under engine
- * - Executes the main loop by requestAnimationFrame
- * @extends {Engine}
- * @classdesc Under engine to execute main loop by requestAnimationFrame
+ * - Executes the main loop by requestAnimationFrame.
+ * - Fires updating and rendering processing respectively.
+ * @classdesc Execute the main loop for firing updating and rendering.
  */
 export class UnderEngine extends Engine {
     /**
      * Previous measurement time
-     * @protected
-     * @type {number}
      */
-    protected oldTime: number;
+    protected oldTime: number = +new Date();
 
     /**
-     * Rendering lambda function
-     * @private
-     * @type {lambda}
+     * Lambda expression for main loop.
+     * @NOTE If this is a member function, 'this' will not be bounded.
      */
-    protected _loop: FrameRequestCallback;
+    protected loop: FrameRequestCallback = (_) =>
+    {
+        requestAnimationFrame(this.loop);
+        this.update();
+        this.render();
+    };
 
-    /**
-     * Under engine constructor
-     * @constructor
-     * @param {Input} input Input system
-     * @param {GameScreen} screen Screen system
-     * @param {Context} context Context to render
-     * @param {SceneManager} manager Scene Manager
-     * @param {Music} music Music system
-     * @param {Timer} timer Timer
-     */
-    constructor(input: Input, screen: GameScreen, context: Context, manager: SceneManager, music: Music, timer: Timer) {
-        super(input, screen, context, manager, music, timer);
-        this.oldTime = +new Date();
-        // set main loop
-        this._loop = (_) => {
-            requestAnimationFrame(this._loop);
-            this.update();
-            this.render();
-        };
-    }
-
-    /**
-     * Update in main loop
-     * @protected
-     */
-    protected update() {
+    protected update()
+    {
         const newTime = +new Date();
         this.timer.update(newTime - this.oldTime);
         this.input.update();
         // minimum delta time is 30 milisec
-        this.manager.update(this.timer.getDeltatime() > 30 ? 30 : this.timer.getDeltatime());
+        this.manager.update(Math.min(
+            this.timer.getDeltatime(),
+            30
+        ));
+        // update time
         this.oldTime = newTime;
     }
 
-    /**
-     * Rendering in main loop
-     * @protected
-     */
     protected render() {
         this.context.preRendering();
         this.manager.render(this.context);
@@ -72,13 +43,12 @@ export class UnderEngine extends Engine {
     }
 
     /**
-     * Game main process
      * @override
-     * @protected
      */
-    protected main() {
+    protected main()
+    {
         // start main loop
         this.oldTime = +new Date();
-        requestAnimationFrame(this._loop);
+        requestAnimationFrame(this.loop);
     }
 }
