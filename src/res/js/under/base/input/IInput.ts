@@ -1,64 +1,53 @@
 /**
- * Input interface
- * - It can get input state and meddle input system
- * @interface
- * @classdesc Input interface that can get input state and meddle input system
+ * - Get input state.
+ * - Manipulate input state and blocking.
+ * @classdesc Get and manipulate input state.
  */
-export interface IInput {
+export interface IInput
+{
     /**
-     * Clear input state
-     * @abstract
+     * Clear all input state.
      */
     clear(): void;
 
     /**
-     * Set inpt enable
-     * @abstract
-     * @param {boolean} enable Input enable
+     * Set whether input is enable.
+     * @param enable Whether input is enable.
      */
     setInputEnable(enable: boolean): void;
 
     /**
-     * Block input
-     * @abstract
-     * @param {number} code Target code
+     * Block input.
+     * @param code Target code for blocking.
      */
     blockInput(code: number): void;
-
     /**
-     * Unblock input
-     * @abstract
-     * @param {number} code Target code
+     * Unblock input.
+     * @param code Target code for unblocking.
      */
     unblockInput(code: number): void;
 
     /**
      * Press target code
-     * @abstract
-     * @param {number} code Target code
+     * @param code Target code for pressing.
      */
     press(code: number): void;
-
     /**
      * Unpress target code
-     * @abstract
-     * @param {number} code Target code
+     * @param code Target code for unpressing.
      */
     unpress(code: number): void;
 
     /**
-     * Judge whether pressed now
-     * @abstract
-     * @param {number} code Target code
-     * @return {boolean} whether pressed now
+     * Judge whether pressed right now.
+     * @param code Target code for judging.
+     * @return whether pressed right now.
      */
     isPress(code: number): boolean;
-
     /**
-     * Judge whether pressed
-     * @abstract
-     * @param {number} code Target code
-     * @return {boolean} whether pressed
+     * Judge whether pressed.
+     * @param code Target code.
+     * @return whether pressed.
      */
     isPressed(code: number): boolean;
 }

@@ -8,7 +8,9 @@ import { Input } from "../under/base/input/Input";
  * - Do not require mouse input, and require to block input for page.
  * @classdesc Generate unique input for 'under'.
  */
-export class MainBuilder extends UnderEngineBuilder {
+export class MainBuilder
+    extends UnderEngineBuilder
+{
     /**
      * @override
      */

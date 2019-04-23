@@ -1,18 +1,18 @@
 import { StateInputManager, STATE } from './StateInputManager';
 import { IKey } from './../../base/input/IKey';
+
 /**
- * Key input
- * - Manages key input event and register state
- * @extends {StateInputManager}
- * @implements {IKey}
- * @classdesc Key input to manage key input event and register state
+ * - Manage key input event and register state.
  */
-export class KeyInput extends StateInputManager implements IKey {
+export class KeyInput
+    extends StateInputManager
+    implements IKey
+ {
     /**
-     * Initialize input
      * @override
      */
-    init() {
+    init()
+    {
         super.init();
         // initialize key state
         for (let i = 0; i < 255; ++i) {
@@ -31,109 +31,71 @@ export class KeyInput extends StateInputManager implements IKey {
             // clear
             const instance = this;
             const onblur = this.target.parentElement.onblur;
-            this.target.parentElement.onblur = function (this: GlobalEventHandlers, ev: FocusEvent) {
-                instance.clear();
-                if (onblur !== undefined && onblur !== null) {
-                    onblur.apply(this, [ev]);
-                }
-            };
+            this.target.parentElement.onblur =
+                function (this: GlobalEventHandlers, ev: FocusEvent)
+                {
+                    instance.clear();
+                    if (onblur !== undefined && onblur !== null) {
+                        onblur.apply(this, [ev]);
+                    }
+                };
         }
     }
 
     /**
-     * Get A key code
      * @override
-     * @return {number} A key code
      */
-    a(): number {
-        return 65;
-    }
+    a() { return 65; }
     /**
-     * Get 0 key code
      * @override
-     * @return {number} 0 key code
      */
-    zero(): number {
-        return 48;
-    }
+    zero() { return 48; }
     /**
-     * Get space key code
      * @override
-     * @return {number} Space key code
      */
-    space(): number {
-        return 13;
-    }
+    space() { return 13; }
 
     /**
-     * Get right key code
      * @override
-     * @return {number} Right key code
      */
-    right(): number {
-        return 39;
-    }
+    right() { return 39; }
     /**
-     * Get left key code
      * @override
-     * @return {number} Left key code
      */
-    left(): number {
-        return 37;
-    }
+    left() { return 37; }
     /**
-     * Get up key code
      * @override
-     * @return {number} Up key code
      */
-    up(): number {
-        return 38;
-    }
+    up() { return 38; }
     /**
-     * Get down key code
      * @override
-     * @return {number} Down key code
      */
-    down(): number {
-        return 40;
-    }
+    down() { return 40; }
 
     /**
-     * Get yes key code
      * @override
-     * @return {number} Yes key code
      */
-    yes(): number {
-        return 90;
-    }
+    yes() { return 90; }
     /**
-     * Get no key code
      * @override
-     * @return {number} No key code
      */
-    no(): number {
-        return 88;
-    }
+    no() { return 88; }
     /**
-     * Get sub key code
      * @override
-     * @return {number} Sub key code
      */
-    sub(): number {
-        return 67;
-    }
+    sub() { return 67; }
 
     /**
      * Key down function
-     * @protected
-     * @param {KeyboardEvent} e Key event
+     * @param e Key event
      */
-    protected onKeyDown(e: KeyboardEvent) {
+    protected onKeyDown(e: KeyboardEvent)
+    {
         if (!this.enable) {
             return;
         }
         const code = e.keyCode;
-        if (this.inputState[code] === undefined || this.inputState[code] === STATE.NONE) {
+        if (this.inputState[code] === STATE.NONE) {
             this.inputState[code] = STATE.PRESS;
         }
     }
@@ -141,9 +103,10 @@ export class KeyInput extends StateInputManager implements IKey {
     /**
      * Key up function
      * @protected
-     * @param {KeyboardEvent} e Key event
+     * @param e Key event
      */
-    protected onKeyUp(e: KeyboardEvent) {
+    protected onKeyUp(e: KeyboardEvent)
+    {
         if (!this.enable) {
             return;
         }

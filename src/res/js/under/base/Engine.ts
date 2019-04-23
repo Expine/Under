@@ -13,7 +13,8 @@ import { Scene } from "./scene/Scene";
  * @abstract
  * @classdesc Control the core of the game to manage each piece of game information.
  */
-export abstract class Engine {
+export abstract class Engine
+{
     /**
      * Sets game core system.
      * @param input     Input system for managing input state.
@@ -32,12 +33,6 @@ export abstract class Engine {
         protected timer:    Timer
     )
     {
-        this.input  = input;
-        this.screen = screen;
-        this.context = context;
-        this.manager = manager;
-        this.music = music;
-        this.timer = timer;
     }
 
     /**

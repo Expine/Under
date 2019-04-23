@@ -1,40 +1,28 @@
 import { IMouse, isIMouse } from './IMouse';
 import { IKey, isIKey } from './IKey';
 import { GameScreen } from '../screen/GameScreen';
+
 /**
- * Input
- * - Manages input event
+ * - Manage input event to update input state
  * @abstract
- * @classdesc Input to manage input event
  */
-export abstract class Input {
+export abstract class Input
+{
     /**
-     * Key input instance
-     * @static
-     * @type {IKey}
+     * Singleton instance for getting key state
      */
     static key: IKey;
     /**
-     * Mouse input instance
-     * @static
-     * @type {IMouse}
+     * Singleton instance for getting mouse state
      */
     static mouse: IMouse;
 
     /**
-     * Screen instance for getting screen ratio
-     * @protected
-     * @type {GameScreen}
+     * @param screen Screen for getting screen ratio.
      */
-    protected screen: GameScreen;
-
-    /**
-     * Input constructor
-     * @constructor
-     * @param {GameScreen} screen Screen to input
-     */
-    constructor(screen: GameScreen) {
-        this.screen = screen;
+    constructor(protected screen: GameScreen)
+    {
+        // set singleton
         if (isIKey(this)) {
             Input.key = this;
         }
@@ -44,14 +32,12 @@ export abstract class Input {
     }
 
     /**
-     * Initialize input
-     * @abstract
+     * Initialize input sate
      */
-    abstract init(): void;
+    public abstract init(): void;
 
     /**
-     * Update input
-     * @abstract
+     * Update input state
      */
-    abstract update(): void;
+    public abstract update(): void;
 }

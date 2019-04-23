@@ -26,7 +26,9 @@ import { Engine } from "../base/Engine";
  * - What is shown here is default settings.
  * @classdesc Generate all default instances.
  */
-export class UnderEngineBuilder extends EngineBuilder {
+export class UnderEngineBuilder
+    extends EngineBuilder
+{
     /**
      * @override
      */

@@ -1,11 +1,11 @@
 import { KeyInput } from './KeyInput';
+
 /**
- * Prevent key input
- * - Prevents default key function
- * @extends {KeyInput}
- * @classdesc Prevent key input to prevent default key function
+ * - Prevent default key function
  */
-export class PreventKeyInput extends KeyInput {
+export class PreventKeyInput
+    extends KeyInput
+{
     /**
      * Prevent key event if it's key code is used
      * @protected

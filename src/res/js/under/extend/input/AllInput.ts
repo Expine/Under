@@ -2,301 +2,203 @@ import { IMouse } from './../../base/input/IMouse';
 import { IKey } from './../../base/input/IKey';
 import { Input } from "../../base/input/Input";
 import { GameScreen } from '../../base/screen/GameScreen';
+import { IInput } from '../../base/input/IInput';
 
 /**
- * All input
- * - Manages all input and delegate it
- * @interface
- * @extends {Input}
- * @implements {IKey}
- * @implements {IMouse}
- * @classdesc All input to manage all input and delegate it
+ * - Manage all input state.
+ * - It is realized by the delegation.
+ * @classdesc Manage all input state by delegation.
  */
-export class AllInput extends Input implements IKey, IMouse {
+export class AllInput
+    extends Input
+    implements  IKey
+              , IMouse
+{
     /**
-     * Key instance for delegation
-     * @protected
-     * @type {IKey}
+     * Mouse base code number.
      */
-    protected keyDelegate: IKey;
-    /**
-     * Mouse instance for delegation
-     * @protected
-     * @type {IMouse}
-     */
-    protected mouseDelegate: IMouse;
+    protected readonly mouseBaseCode: number = 1000;
 
     /**
-     * Mouse base code number
-     * @protected
-     * @const
-     * @type {number}
+     * Input managers for initialize and update.
      */
-    protected mousBaseCode: number;
+    protected inputManagers: Array<Input> = [];
 
     /**
-     * All input constructor
-     * @constructor
-     * @param {GameScreen} screen Screen to input
-     * @param {IKey} key Key instance for input
-     * @param {IMouse} mouse Mouse instance for input
+     * @param screen        Screen for getting screen ratio.
+     * @param keyDelegate   Key instance for delegation.
+     * @param mouseDelegate Mouse instance for delegation.
      */
-    constructor(screen: GameScreen, key: IKey, mouse: IMouse) {
+    constructor(
+        screen: GameScreen,
+        protected keyDelegate: IKey,
+        protected mouseDelegate: IMouse
+    )
+    {
         super(screen);
-
-        this.keyDelegate = key;
-        this.mouseDelegate = mouse;
-        this.mousBaseCode = 1000;
-    }
-
-    /**
-     * Initialize input
-     * @override
-     */
-    init() {
-        if (this.keyDelegate instanceof Input) {
-            this.keyDelegate.init();
+        // Add input managers for initialize and update
+        if(keyDelegate instanceof Input) {
+            this.inputManagers.push(keyDelegate);
         }
-        if (this.mouseDelegate instanceof Input) {
-            this.mouseDelegate.init();
+        if(mouseDelegate instanceof Input) {
+            this.inputManagers.push(mouseDelegate);
         }
     }
 
     /**
-     * Update input
      * @override
      */
-    update() {
-        if (this.keyDelegate instanceof Input) {
-            this.keyDelegate.update();
-        }
-        if (this.mouseDelegate instanceof Input) {
-            this.mouseDelegate.update();
-        }
+    init()
+    {
+        this.inputManagers.forEach(it => it.init());
     }
 
     /**
-     * Get A key code
      * @override
-     * @return {number} A key code
      */
-    a(): number {
-        return this.keyDelegate.a();
-    }
-    /**
-     * Get 0 key code
-     * @override
-     * @return {number} 0 key code
-     */
-    zero(): number {
-        return this.keyDelegate.zero();
-    }
-    /**
-     * Get space key code
-     * @override
-     * @return {number} Space key code
-     */
-    space(): number {
-        return this.keyDelegate.space();
+    update()
+    {
+        this.inputManagers.forEach(it => it.update());
     }
 
     /**
-     * Get right key code
      * @override
-     * @return {number} Right key code
      */
-    right(): number {
-        return this.keyDelegate.right();
-    }
+    a() { return this.keyDelegate.a(); }
     /**
-     * Get left key code
      * @override
-     * @return {number} Left key code
      */
-    left(): number {
-        return this.keyDelegate.left();
-    }
+    zero() { return this.keyDelegate.zero(); }
     /**
-     * Get up key code
      * @override
-     * @return {number} Up key code
      */
-    up(): number {
-        return this.keyDelegate.up();
-    }
-    /**
-     * Get down key code
-     * @override
-     * @return {number} Down key code
-     */
-    down(): number {
-        return this.keyDelegate.down();
-    }
+    space() { return this.keyDelegate.space(); }
 
     /**
-     * Get yes key code
      * @override
-     * @return {number} Yes key code
      */
-    yes(): number {
-        return this.keyDelegate.yes();
-    }
+    right() { return this.keyDelegate.right(); }
     /**
-     * Get no key code
      * @override
-     * @return {number} No key code
      */
-    no(): number {
-        return this.keyDelegate.no();
-    }
+    left() { return this.keyDelegate.left(); }
     /**
-     * Get sub key code
      * @override
-     * @return {number} Sub key code
      */
-    sub(): number {
-        return this.keyDelegate.sub();
-    }
+    up() { return this.keyDelegate.up(); }
+    /**
+     * @override
+     */
+    down() { return this.keyDelegate.down(); }
 
     /**
-     * Get mouse right code
      * @override
-     * @return {number} Mouse right code
      */
-    mRight(): number {
-        return this.mouseDelegate.mRight() + this.mousBaseCode;
-    }
+    yes() { return this.keyDelegate.yes(); }
     /**
-     * Get mouse left code
      * @override
-     * @return {number} Mouse left code
      */
-    mLeft(): number {
-        return this.mouseDelegate.mLeft() + this.mousBaseCode;
-    }
+    no() { return this.keyDelegate.no(); }
     /**
-     * Get mouse center code
      * @override
-     * @return {number} Mouse center code
      */
-    mCenter(): number {
-        return this.mouseDelegate.mCenter() + this.mousBaseCode;
-    }
+    sub() { return this.keyDelegate.sub(); }
 
     /**
-     * Get mouse x position
      * @override
-     * @return mouse x position
      */
-    getMouseX() {
-        return this.mouseDelegate.getMouseX();
-    }
+    mRight() { return this.mouseDelegate.mRight() + this.mouseBaseCode; }
+    /**
+     * @override
+     */
+    mLeft() { return this.mouseDelegate.mLeft() + this.mouseBaseCode; }
+    /**
+     * @override
+     */
+    mCenter() { return this.mouseDelegate.mCenter() + this.mouseBaseCode; }
 
     /**
-     * Get mouse x position
      * @override
-     * @return mouse x position
      */
-    getMouseY() {
-        return this.mouseDelegate.getMouseY();
-    }
+    getMouseX() { return this.mouseDelegate.getMouseX(); }
+    /**
+     * @override
+     */
+    getMouseY() { return this.mouseDelegate.getMouseY(); }
 
     /**
-     * Clear input state
      * @override
      */
-    clear() {
+    clear()
+    {
         this.keyDelegate.clear();
         this.mouseDelegate.clear();
     }
 
     /**
-     * Set inpt enable
      * @override
-     * @param {boolean} enable Input enable
      */
-    setInputEnable(enable: boolean) {
+    setInputEnable(enable: boolean)
+    {
         this.mouseDelegate.setInputEnable(enable);
         this.keyDelegate.setInputEnable(enable);
     }
 
     /**
-     * Block input
-     * @override
-     * @param {number} code Target code
+     * Get delegation instance by code.
+     * @return Appropriate deligation instance.
      */
-    blockInput(code: number) {
-        if (code >= this.mousBaseCode) {
-            this.mouseDelegate.blockInput(code - this.mousBaseCode);
+    protected getDelegate(code: number): IInput
+    {
+        if (code >= this.mouseBaseCode) {
+            return this.mouseDelegate;
         } else {
-            this.keyDelegate.blockInput(code);
+            return this.keyDelegate;
         }
     }
 
     /**
-     * Unblock input
      * @override
-     * @param {number} code Target code
      */
-    unblockInput(code: number) {
-        if (code >= this.mousBaseCode) {
-            this.mouseDelegate.unblockInput(code - this.mousBaseCode);
-        } else {
-            this.keyDelegate.unblockInput(code);
-        }
+    blockInput(code: number)
+    {
+        this.getDelegate(code).blockInput(code % this.mouseBaseCode);
+    }
+    /**
+     * @override
+     */
+    unblockInput(code: number)
+    {
+        this.getDelegate(code).unblockInput(code % this.mouseBaseCode);
     }
 
     /**
-     * Press target code
      * @override
-     * @param {number} code Target code
      */
-    press(code: number) {
-        if (code >= this.mousBaseCode) {
-            this.mouseDelegate.press(code - this.mousBaseCode);
-        } else {
-            this.keyDelegate.press(code);
-        }
+    press(code: number)
+    {
+        this.getDelegate(code).press(code % this.mouseBaseCode);
+    }
+    /**
+     * @override
+     */
+    unpress(code: number)
+    {
+        this.getDelegate(code).unpress(code % this.mouseBaseCode);
     }
 
     /**
-     * Unpress target code
      * @override
-     * @param {number} code Target code
      */
-    unpress(code: number) {
-        if (code >= this.mousBaseCode) {
-            this.mouseDelegate.unpress(code - this.mousBaseCode);
-        } else {
-            this.keyDelegate.unpress(code);
-        }
+    isPress(code: number): boolean
+    {
+        return this.getDelegate(code).isPress(code % this.mouseBaseCode);
     }
-
     /**
-     * Judge whether pressed now
      * @override
-     * @param {number} code Target code
-     * @return {boolean} whether pressed now
      */
-    isPress(code: number): boolean {
-        if (code >= this.mousBaseCode) {
-            return this.mouseDelegate.isPress(code - this.mousBaseCode);
-        } else {
-            return this.keyDelegate.isPress(code);
-        }
-    }
-
-    /**
-     * Judge whether pressed
-     * @override
-     * @param {number} code Target code
-     * @return {boolean} whether pressed
-     */
-    isPressed(code: number): boolean {
-        if (code >= this.mousBaseCode) {
-            return this.mouseDelegate.isPressed(code - this.mousBaseCode);
-        } else {
-            return this.keyDelegate.isPressed(code);
-        }
+    isPressed(code: number): boolean
+    {
+        return this.getDelegate(code).isPressed(code % this.mouseBaseCode);
     }
 }

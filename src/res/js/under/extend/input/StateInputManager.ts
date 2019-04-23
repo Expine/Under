@@ -1,6 +1,5 @@
 import { IInput } from './../../base/input/IInput';
 import { Input } from "../../base/input/Input";
-import { GameScreen } from '../../base/screen/GameScreen';
 
 /**
  * Input state
@@ -14,68 +13,46 @@ export enum STATE {
 };
 
 /**
- * State input manager
- * - Registers input state by input event
- * @extends {Input}
- * @implements {IInput}
- * @classdesc State input manager to regiter input state by input event
+ * - Registers input state by input event.
+ * @abstract
  */
-export class StateInputManager extends Input implements IInput {
+export abstract class StateInputManager
+    extends Input
+    implements IInput
+{
     /**
-     * Array for registering input state
-     * @protected
-     * @type {Array<number>}
+     * List for registering input state.
      */
-    protected inputState: Array<number>;
+    protected inputState: Array<number> = [];
 
     /**
-     * Whether input is blocked or not
-     * @protected
-     * @type {Array<boolean>}
+     * Whether input is blocked or not.
      */
-    protected blocked: Array<boolean>;
+    protected blocked: Array<boolean> = [];
 
     /**
-     * Input target
-     * For example, div, document
-     * @protected
-     * @type {HTMLElement}
+     * Input target.
+     * For example, div, document.
      */
-    protected target: HTMLElement;
+    protected target: HTMLElement = this.screen.getTarget();
 
     /**
-     * Enable for input
-     * @protected
-     * @type {boolean}
+     * Enable for input.
      */
-    protected enable: boolean;
+    protected enable: boolean = true;
 
     /**
-     * State input manager constructor
-     * @constructor
-     * @param {GameScreen} screen Screen to input
+     * @override
      */
-    constructor(screen: GameScreen) {
-        super(screen);
-
-        this.inputState = [];
-        this.blocked = [];
-        this.target = this.screen.getTarget();
-        this.enable = true;
+    init()
+    {
     }
 
     /**
-     * Initialize input
      * @override
      */
-    init() {
-    }
-
-    /**
-     * Update input state
-     * @override
-     */
-    update() {
+    update()
+    {
         // update input state
         for (let i = 0; i < this.inputState.length; ++i) {
             switch (this.inputState[i]) {
@@ -91,78 +68,60 @@ export class StateInputManager extends Input implements IInput {
     }
 
     /**
-     * Clear input state
      * @override
      */
-    clear() {
+    clear()
+    {
         for (let i = 0; i < this.inputState.length; ++i) {
             this.inputState[i] = STATE.NONE;
         }
     }
 
     /**
-     * Set inpt enable
      * @override
-     * @param {boolean} enable Input enable
      */
-    setInputEnable(enable: boolean) {
+    setInputEnable(enable: boolean)
+    {
         this.enable = enable;
         this.clear();
     }
 
     /**
-     * Block input
-     * @iverride
-     * @param {number} code Target code
+     * @override
      */
-    blockInput(code: number) {
-        this.blocked[code] = true;
+    blockInput(code: number) { this.blocked[code] = true; }
+    /**
+     * @override
+     */
+    unblockInput(code: number) { this.blocked[code] = false; }
+
+    /**
+     * @override
+     */
+    press(code: number) { this.inputState[code] = STATE.PRESSED; }
+    /**
+     * @override
+     */
+    unpress(code: number) { this.inputState[code] = STATE.NONE; }
+
+    /**
+     * @override
+     */
+    isPress(code: number): boolean
+    {
+        return     !this.blocked[code]
+                && this.inputState[code] === STATE.PRESSED;
     }
 
     /**
-     * Unblock input
      * @override
-     * @param {number} code Target code
      */
-    unblockInput(code: number) {
-        this.blocked[code] = false;
-    }
-
-    /**
-     * Press target code
-     * @override
-     * @param {number} code Target code
-     */
-    press(code: number) {
-        this.inputState[code] = STATE.PRESSED;
-    }
-
-    /**
-     * Unpress target code
-     * @override
-     * @param {number} code Target code
-     */
-    unpress(code: number) {
-        this.inputState[code] = STATE.NONE;
-    }
-
-    /**
-     * Judge whether pressed now
-     * @override
-     * @param {number} code Target code
-     * @return {boolean} whether pressed now
-     */
-    isPress(code: number): boolean {
-        return !this.blocked[code] && this.inputState[code] !== undefined && this.inputState[code] === STATE.PRESSED;
-    }
-
-    /**
-     * Judge whether pressed
-     * @override
-     * @param {number} code Target code
-     * @return {boolean} whether pressed
-     */
-    isPressed(code: number): boolean {
-        return !this.blocked[code] && this.inputState[code] !== undefined && (this.inputState[code] === STATE.PRESSED || this.inputState[code] === STATE.ON);
+    isPressed(code: number): boolean
+    {
+        return     !this.blocked[code]
+                && (
+                       this.inputState[code] === STATE.PRESSED
+                    || this.inputState[code] === STATE.ON
+                );
     }
 }

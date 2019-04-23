@@ -14,7 +14,8 @@ import { Engine } from "./Engine";
  * @abstract
  * @classdesc Perform initial construction of the game engine to set elements in it.
  */
-export abstract class EngineBuilder {
+export abstract class EngineBuilder
+{
     /**
      * Make game engine by some elements.
      * @param input     Input system for managing input state.

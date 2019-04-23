@@ -5,7 +5,9 @@ import { Engine } from "../base/Engine";
  * - Fires updating and rendering processing respectively.
  * @classdesc Execute the main loop for firing updating and rendering.
  */
-export class UnderEngine extends Engine {
+export class UnderEngine
+    extends Engine
+{
     /**
      * Previous measurement time
      */
