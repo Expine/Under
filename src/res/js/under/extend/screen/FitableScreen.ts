@@ -3,7 +3,8 @@ import { DelegateScreen } from "./DelegateScreen";
 /**
  * - Fits the window to resize canvas when window is resized.
  */
-export class FitableScreen extends DelegateScreen
+export class FitableScreen
+    extends DelegateScreen
 {
     /**
      * @override

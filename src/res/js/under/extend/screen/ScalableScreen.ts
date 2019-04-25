@@ -3,7 +3,8 @@ import { DelegateScreen } from "./DelegateScreen";
 /**
  * - Scales screen automatically when window is resized.
  */
-export class ScalableScreen extends DelegateScreen
+export class ScalableScreen
+    extends DelegateScreen
 {
     /**
      * @override

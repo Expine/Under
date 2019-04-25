@@ -5,7 +5,8 @@ import { Input } from "../../base/input/Input";
  * Input state
  * @enum {Enum<number>}
  */
-export enum STATE {
+export enum STATE
+{
     NONE = 0,
     PRESS = 1,
     PRESSED = 2,
@@ -44,9 +45,7 @@ export abstract class StateInputManager
     /**
      * @override
      */
-    init()
-    {
-    }
+    init() { }
 
     /**
      * @override
@@ -119,8 +118,7 @@ export abstract class StateInputManager
     isPressed(code: number): boolean
     {
         return     !this.blocked[code]
-                && (
-                       this.inputState[code] === STATE.PRESSED
+                && (   this.inputState[code] === STATE.PRESSED
                     || this.inputState[code] === STATE.ON
                 );
     }

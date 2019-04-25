@@ -4,7 +4,8 @@ import { GameScreen } from "../../base/screen/GameScreen";
  * - Delegates the process to the destination.
  * @abstract
  */
-export abstract class DelegateScreen extends GameScreen
+export abstract class DelegateScreen
+    extends GameScreen
 {
     /**
     * @param delegate Original screen for delegating the process.

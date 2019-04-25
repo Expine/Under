@@ -5,7 +5,8 @@ import { Context } from '../../base/resources/image/Context';
  * - Measure max, min, mean time from recorded time.
  * @classdesc Measure time and record it to calculate max, min, mean time.
  */
-export class RecordedTimer extends SimpleTimer
+export class RecordedTimer
+    extends SimpleTimer
 {
     /**
      * Elapsed time
@@ -48,29 +49,29 @@ export class RecordedTimer extends SimpleTimer
     {
         super.update(dt);
         // record named timer
-        for (const it in this.namedTimer) {
-            if (this.recordedTime[it] === undefined) {
-                this.recordedTime[it] = [];
+        for (const name in this.namedTimer) {
+            if (this.recordedTime[name] === undefined) {
+                this.recordedTime[name] = [];
             }
-            this.recordedTime[it].push(this.namedTimer[it]);
+            this.recordedTime[name].push(this.namedTimer[name]);
         }
 
         // register
         this.elapsedTime += dt;
         if (this.elapsedTime > 1000) {
             this.elapsedTime -= 1000;
-            for (const it in this.recordedTime) {
-                this.maxTime[it] = 0;
-                this.minTime[it] = Number.MAX_SAFE_INTEGER;
-                this.meanTime[it] = 0;
+            for (const name in this.recordedTime) {
+                this.maxTime[name] = 0;
+                this.minTime[name] = Number.MAX_SAFE_INTEGER;
+                this.meanTime[name] = 0;
                 // calculate max, min, mean time
-                for (const e of this.recordedTime[it]) {
-                    this.maxTime[it] = Math.max(this.maxTime[it], e);
-                    this.minTime[it] = Math.min(this.minTime[it], e);
-                    this.meanTime[it] += e;
+                for (const time of this.recordedTime[name]) {
+                    this.maxTime[name] = Math.max(this.maxTime[name], time);
+                    this.minTime[name] = Math.min(this.minTime[name], time);
+                    this.meanTime[name] += time;
                 }
-                this.meanTime[it] = Math.floor(this.meanTime[it] / this.recordedTime[it].length);
-                this.recordedTime[it].length = 0;
+                this.meanTime[name] = Math.floor(this.meanTime[name] / this.recordedTime[name].length);
+                this.recordedTime[name].length = 0;
             }
         }
     }

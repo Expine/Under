@@ -6,7 +6,8 @@ import { GameScreen } from "../../base/screen/GameScreen";
  * @abstract
  * @classdesc Generate canvas to make screen target for inputing and rendering.
  */
-export abstract class CanvasScreen extends GameScreen
+export abstract class CanvasScreen
+    extends GameScreen
 {
     /**
      * @param canvas Canvas for inputing and rendering.

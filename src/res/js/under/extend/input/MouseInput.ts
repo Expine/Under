@@ -29,13 +29,16 @@ export class MouseInput
         }
 
         // mouse
-        this.target.onmousemove = (e) => {
+        this.target.onmousemove = (e) =>
+        {
             this.onMouseMove(e);
         };
-        this.target.onmousedown = (e) => {
+        this.target.onmousedown = (e) =>
+        {
             this.onMouseDown(e);
         };
-        this.target.onmouseup = (e) => {
+        this.target.onmouseup = (e) =>
+        {
             this.onMouseUp(e);
         };
 

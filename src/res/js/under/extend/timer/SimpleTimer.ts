@@ -4,7 +4,8 @@ import { Context } from "../../base/resources/image/Context";
 /**
  * - Measure time by Date structure.
  */
-export class SimpleTimer extends Timer
+export class SimpleTimer
+    extends Timer
 {
     /**
      * Named timer for measuring time.

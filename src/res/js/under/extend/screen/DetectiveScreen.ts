@@ -3,13 +3,15 @@ import { CanvasScreen } from "./CanvasScreen";
 /**
  * - It can detect canvas from html and set it automatically.
  */
-export class DetectiveScreen extends CanvasScreen
+export class DetectiveScreen
+    extends CanvasScreen
 {
     /**
      * @param width Width of game screen size.
      * @param height Height of game screen size.
      */
-    constructor(width: number, height: number) {
+    constructor(width: number, height: number)
+    {
         super(document.querySelectorAll(`canvas`).item(0), width, height);
     }
 

@@ -21,10 +21,12 @@ export class KeyInput
 
         if (this.target.parentElement != null) {
             // key
-            this.target.parentElement.onkeydown = (e) => {
+            this.target.parentElement.onkeydown = (e) =>
+            {
                 this.onKeyDown(e);
             };
-            this.target.parentElement.onkeyup = (e) => {
+            this.target.parentElement.onkeyup = (e) =>
+            {
                 this.onKeyUp(e);
             };
 

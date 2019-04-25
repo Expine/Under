@@ -50,7 +50,9 @@ export class AllInput
      */
     init()
     {
-        this.inputManagers.forEach(it => it.init());
+        for(const inputManager of this.inputManagers) {
+            inputManager.init();
+        }
     }
 
     /**
@@ -58,7 +60,9 @@ export class AllInput
      */
     update()
     {
-        this.inputManagers.forEach(it => it.update());
+        for(const inputManager of this.inputManagers) {
+            inputManager.update();
+        }
     }
 
     /**
