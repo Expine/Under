@@ -1,45 +1,31 @@
 import { GameScreen } from "../../base/screen/GameScreen";
 
 /**
- * Canvas screen
- * - Both input and rendering target is canvas
+ * - Generate screen using the canvas.
+ * - Both input and rendering target is canvas.
  * @abstract
- * @extends {GameScreen}
- * @classdesc Canvas screen that both input and rendering target is canvas
+ * @classdesc Generate canvas to make screen target for inputing and rendering.
  */
-export abstract class CanvasScreen extends GameScreen {
+export abstract class CanvasScreen extends GameScreen
+{
     /**
-     * Game canvas
-     * @protected
-     * @type {HTMLCanvasElement}
+     * @param canvas Canvas for inputing and rendering.
+     * @param width Width of game screen size.
+     * @param height Height of game screen size.
      */
-    protected abstract canvas: HTMLCanvasElement;
-
-    /**
-     * Canvas screen constructor
-     * @constructor
-     * @param {number} [width = 800] Screen width
-     * @param {number} [height = 600] Screen height
-     */
-    constructor(width: number = 800, height: number = 600) {
+    constructor(protected canvas: HTMLCanvasElement, width: number, height: number)
+    {
         super(width, height);
     }
 
-    /**
-     * Get input target element
-     * @override
-     * @return {HTMLElement} Element of input target
-     */
-    getTarget(): HTMLElement {
-        return this.canvas;
-    }
 
     /**
-     * Get canvas for rendering
      * @override
-     * @return {HTMLCanvasElement} Canvas
      */
-    getCanvas(): HTMLCanvasElement {
-        return this.canvas;
-    }
+    getTarget(): HTMLElement { return this.canvas; }
+
+    /**
+     * @override
+     */
+    getCanvas(): HTMLCanvasElement { return this.canvas; }
 }

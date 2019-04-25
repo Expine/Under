@@ -1,25 +1,25 @@
 import { DelegateScreen } from "./DelegateScreen";
 
 /**
- * Scalable screen
- * - Scales screen automatically
- * @extends {DelegateScreen}
- * @classdesc Scalable screen to scale automatically
+ * - Scales screen automatically when window is resized.
  */
-export class ScalableScreen extends DelegateScreen { // eslint-disable-line     no-unused-vars
+export class ScalableScreen extends DelegateScreen
+{
     /**
-     * Initialize screen
      * @override
      */
-    init() {
+    init()
+    {
         super.init();
         // resize
-        (window.onresize = () => {
+        (window.onresize = () =>
+        {
+            const canvas = this.delegate.getCanvas();
             this.gameSize = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
-            this.delegate.getCanvas().width = this.gameSize * this.width;
-            this.delegate.getCanvas().style.width = this.delegate.getCanvas().width + `px`;
-            this.delegate.getCanvas().height = this.gameSize * this.height;
-            this.delegate.getCanvas().style.height = this.delegate.getCanvas().height + `px`;
+            canvas.width = this.gameSize * this.width;
+            canvas.height = this.gameSize * this.height;
+            canvas.style.width = canvas.width + `px`;
+            canvas.style.height = canvas.height + `px`;
         })();
     }
 }

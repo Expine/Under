@@ -56,7 +56,7 @@ class EditorScene extends BaseLayeredScene {
         // set stage manager
         const manager = new EditorStageManager();
         manager.setStageParser(new EditorStageParser());
-        manager.setStageSize(GameScreen.it.width, GameScreen.it.height - 250);
+        manager.setStageSize(GameScreen.it.getWidth(), GameScreen.it.getHeight() - 250);
         manager.pushStage(`map1`);
         this.stageManager = manager;
         this.saveTarget = manager;
@@ -87,15 +87,15 @@ class EditorScene extends BaseLayeredScene {
         this.addLayer(entity);
         this.addLayer(debug);
 
-        debug.setSize(GameScreen.it.width, GameScreen.it.height - 250);
-        chip.setPosition(20, GameScreen.it.height - 230, 0);
-        chip.setSize(GameScreen.it.width / 2 - 40, 210);
-        entity.setPosition(GameScreen.it.width / 2 + 20, GameScreen.it.height - 230, 0);
-        entity.setSize(GameScreen.it.width / 2 - 40, 210);
-        chipLayer.setPosition(20, GameScreen.it.height - 230, 0);
-        chipLayer.setSize(GameScreen.it.width / 2 - 40, 210);
-        entityLayer.setPosition(GameScreen.it.width / 2 + 20, GameScreen.it.height - 230, 0);
-        entityLayer.setSize(GameScreen.it.width / 2 - 40, 210);
+        debug.setSize(GameScreen.it.getWidth(), GameScreen.it.getHeight() - 250);
+        chip.setPosition(20, GameScreen.it.getHeight() - 230, 0);
+        chip.setSize(GameScreen.it.getWidth() / 2 - 40, 210);
+        entity.setPosition(GameScreen.it.getWidth() / 2 + 20, GameScreen.it.getHeight() - 230, 0);
+        entity.setSize(GameScreen.it.getWidth() / 2 - 40, 210);
+        chipLayer.setPosition(20, GameScreen.it.getHeight() - 230, 0);
+        chipLayer.setSize(GameScreen.it.getWidth() / 2 - 40, 210);
+        entityLayer.setPosition(GameScreen.it.getWidth() / 2 + 20, GameScreen.it.getHeight() - 230, 0);
+        entityLayer.setSize(GameScreen.it.getWidth() / 2 - 40, 210);
     }
 
 
@@ -144,7 +144,7 @@ class EditorScene extends BaseLayeredScene {
     render(ctx) {
         this.stageManager.render(ctx);
         this.eventManager.render(ctx);
-        ctx.fillRect(0, GameScreen.it.height - 250, GameScreen.it.width, 250, `blue`);
+        ctx.fillRect(0, GameScreen.it.getHeight() - 250, GameScreen.it.getWidth(), 250, `blue`);
         super.render(ctx);
     }
 }

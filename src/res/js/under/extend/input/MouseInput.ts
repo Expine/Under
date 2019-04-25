@@ -90,8 +90,8 @@ export class MouseInput
     {
         if (this.target != null) {
             const rect = this.target.getBoundingClientRect();
-            this.mouseX = (e.clientX - rect.left) / this.screen.gameSize;
-            this.mouseY = (e.clientY - rect.top) / this.screen.gameSize;
+            this.mouseX = (e.clientX - rect.left) / this.screen.getGameSize();
+            this.mouseY = (e.clientY - rect.top) / this.screen.getGameSize();
         }
     }
 

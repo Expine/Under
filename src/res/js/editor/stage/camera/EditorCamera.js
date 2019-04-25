@@ -93,8 +93,8 @@ class EditorCamera extends DelegateCamera /* , IEditorSave */ {
     setScreenSize(screenWidth, screenHeight) {
         super.setScreenSize(screenWidth, screenHeight);
 
-        this.screenDiffX = screenWidth - GameScreen.it.width;
-        this.screenDiffY = screenHeight - GameScreen.it.height;
+        this.screenDiffX = screenWidth - GameScreen.it.getWidth();
+        this.screenDiffY = screenHeight - GameScreen.it.getHeight();
     }
 
     /**

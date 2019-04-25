@@ -1,27 +1,27 @@
 import { DelegateScreen } from "./DelegateScreen";
 
 /**
- * Fitable screen
- * - Fits the window
- * @extends {DelegateScreen}
- * @classdesc Fitable screen to fit the window
+ * - Fits the window to resize canvas when window is resized.
  */
-export class FitableScreen extends DelegateScreen { // eslint-disable-line     no-unused-vars
+export class FitableScreen extends DelegateScreen
+{
     /**
-     * Initialize screen
      * @override
      */
-    init() {
+    init()
+    {
         super.init();
         // resize
-        (window.onresize = () => {
+        (window.onresize = () =>
+        {
+            const canvas = this.delegate.getCanvas();
             const size = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
             this.width = size * this.width;
             this.height = size * this.height;
-            this.delegate.getCanvas().width = this.width;
-            this.delegate.getCanvas().style.width = this.delegate.getCanvas().width + `px`;
-            this.delegate.getCanvas().height = this.height;
-            this.delegate.getCanvas().style.height = this.delegate.getCanvas().height + `px`;
+            canvas.width = this.width;
+            canvas.height = this.height;
+            canvas.style.width = canvas.width + `px`;
+            canvas.style.height = canvas.height + `px`;
         })();
     }
 }

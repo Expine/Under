@@ -56,7 +56,7 @@ export class UnderEngineBuilder
      */
     protected makeScreen(): GameScreen
     {
-        return new ScalableScreen(new DetectiveScreen());
+        return new ScalableScreen(new DetectiveScreen(800, 600));
     }
     /**
      * @override

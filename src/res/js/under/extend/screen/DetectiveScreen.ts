@@ -1,37 +1,23 @@
 import { CanvasScreen } from "./CanvasScreen";
 
 /**
- * Detective screen
- * - It can detect canvas
- * @extends {CanvasScreen}
- * @classdesc Detective screen to detect canvas
+ * - It can detect canvas from html and set it automatically.
  */
-export class DetectiveScreen extends CanvasScreen {
+export class DetectiveScreen extends CanvasScreen
+{
     /**
-     * Game canvas
-     * @protected
-     * @type {HTMLCanvasElement}
+     * @param width Width of game screen size.
+     * @param height Height of game screen size.
      */
-    protected canvas: HTMLCanvasElement;
-
-    /**
-     * Canvas screen constructor
-     * @constructor
-     * @param {number} [width = 800] Screen width
-     * @param {number} [height = 600] Screen height
-     */
-    constructor(width: number = 800, height: number = 600) {
-        super(width, height);
-
-        // detect canvas
-        this.canvas = document.querySelectorAll(`canvas`).item(0);
+    constructor(width: number, height: number) {
+        super(document.querySelectorAll(`canvas`).item(0), width, height);
     }
 
     /**
-     * Initialize screen
      * @override
      */
-    init() {
+    init()
+    {
         // generate style
         const style = document.createElement(`style`);
         style.append(`canvas {display:block;width: ` + this.width + `px;height: ` + this.height + `px;margin: 0px auto;}`);

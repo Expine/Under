@@ -1,40 +1,26 @@
 import { CanvasScreen } from "./CanvasScreen";
 
 /**
- * Generatable screen
- * - It can generate a canvas automatically
- * @extends {CanvasScreen}
- * @classdesc Generatable screen to generate a canvas automatically
+ * - It can generate a canvas automatically.
  */
-export class GeneratableScreen extends CanvasScreen {
+export class GeneratableScreen extends CanvasScreen
+{
     /**
-     * Game canvas
-     * @protected
-     * @type {HTMLCanvasElement}
+     * @param width Width of game screen size.
+     * @param height Height of game screen size.
      */
-    protected canvas: HTMLCanvasElement;
+    constructor(width: number, height: number) {
+        super(document.createElement(`canvas`), width, height);
 
-    /**
-     * Canvas screen constructor
-     * @constructor
-     * @constructor
-     * @param {number} [width = 800] Screen width
-     * @param {number} [height = 600] Screen height
-     */
-    constructor(width: number = 800, height: number = 600) {
-        super(width, height);
-
-        // generate canvas
-        this.canvas = document.createElement(`canvas`);
         // set canvas
         document.body.appendChild(this.canvas);
     }
 
     /**
-     * Initialize screen
      * @override
      */
-    init() {
+    init()
+    {
         // generate style
         const style = document.createElement(`style`);
         style.append(`canvas {display:block;width: ` + this.width + `px;height: ` + this.height + `px;margin: 0px auto;}`);

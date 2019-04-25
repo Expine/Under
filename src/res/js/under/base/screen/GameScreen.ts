@@ -1,65 +1,56 @@
 /**
- * Game Screen
- * - Indicates the rendering target and input target
+ * - Indicates the rendering target and input target.
  * @abstract
- * @classdesc Game Screen indicating the rendering and input target
  */
-export abstract class GameScreen {
+export abstract class GameScreen
+{
     /**
-     * Instance for singleton
-     * @static
-     * @type {GameScreen}
+     * Instance for singleton.
      */
     static it: GameScreen;
 
     /**
-     * Game screen ratio
-     * @type {number}
+     * Game screen ratio.
      */
-    gameSize: number;
+    protected gameSize: number;
     /**
-     * Width of game screen size
-     * @type {number}
+     * @return Game screen ratio.
      */
-    width: number;
-    /**
-     * Height of game screen size
-     * @type {number}
-     */
-    height: number;
+    getGameSize(): number { return this.gameSize; }
 
     /**
-     * Game Screen constructor
-     * @constructor
-     * @param {number} width Screen width
-     * @param {number} height Screen height
+     * @param width Width of game screen size.
+     * @param height Height of game screen size.
      */
-    constructor(width: number, height: number) {
+    constructor(protected width: number, protected height: number)
+    {
         this.gameSize = 1;
-        this.width = width;
-        this.height = height;
 
         // set singleton
         GameScreen.it = this;
     }
 
     /**
-     * Initialize screen
-     * @abstract
+     * @return Width of game screen.
+     */
+    getWidth(): number { return this.width; }
+    /**
+     * @return Height of game screen.
+     */
+    getHeight(): number { return this.height; }
+
+    /**
+     * Initialize screen.
      */
     abstract init(): void;
 
     /**
-     * Get input target element
-     * @abstract
-     * @return {HTMLElement} Element of input target
+     * @return Element of input target.
      */
     abstract getTarget(): HTMLElement;
 
     /**
-     * Get canvas for rendering
-     * @abstract
-     * @return {HTMLCanvasElement} Canvas
+     * @return Canvas for rendering.
      */
     abstract getCanvas(): HTMLCanvasElement;
 }
