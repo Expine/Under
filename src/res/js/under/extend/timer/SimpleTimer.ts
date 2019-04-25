@@ -2,31 +2,22 @@ import { Timer } from "../../base/timer/Timer";
 import { Context } from "../../base/resources/image/Context";
 
 /**
- * Simple Timer
- * - Measure time by Date
- * @extends {Timer}
- * @classdesc Simple TImer to measure time by Date
+ * - Measure time by Date structure.
  */
-export class SimpleTimer extends Timer {
+export class SimpleTimer extends Timer
+{
     /**
-     * Named timer for measuring time
-     * @protected
-     * @type {Object<string, number>}
+     * Named timer for measuring time.
      */
     protected namedTimer: { [s: string]: number; };
 
     /**
-     * Named timer for registering start time
-     * @protected
-     * @type {Object<string, number>}
+     * Named timer for registering start time.
      */
     protected namedStartTimer: { [s: string]: number; };
 
-    /**
-     * Simple timer constructor
-     * @constructor
-     */
-    constructor() {
+    constructor()
+    {
         super();
 
         this.namedTimer = {};
@@ -34,54 +25,33 @@ export class SimpleTimer extends Timer {
     }
 
     /**
-     * Start to measure timer by name
      * @override
-     * @param {string} name Timer name
      */
-    startTimer(name: string) {
-        this.namedStartTimer[name] = +(new Date());
-    }
+    startTimer(name: string) { this.namedStartTimer[name] = +(new Date()); }
 
     /**
-     * Stop measuring timer by name
      * @override
-     * @param {string} name Timer name
      */
-    stopTimer(name: string) {
-        this.namedTimer[name] = +(new Date()) - this.namedStartTimer[name];
-    }
+    stopTimer(name: string) { this.namedTimer[name] = +(new Date()) - this.namedStartTimer[name]; }
 
     /**
-     * Get timer by name
      * @override
-     * @param {string} name Timer name
-     * @return {number} Timer by name
      */
-    getTimer(name: string): number {
-        return this.namedTimer[name];
-    }
+    getTimer(name: string): number { return this.namedTimer[name]; }
 
     /**
-     * Initialize timer
      * @override
      */
-    init() {
-
-    }
+    init() { }
 
     /**
-     * Render timer
      * @override
-     * @param {Context} ctx Canvas context
-     * @param {number} x Timer x position
-     * @param {number} y Timer y position
      */
-    render(ctx: Context, x: number, y: number) {
+    render(ctx: Context, x: number, y: number)
+    {
         for (const name in this.namedTimer) {
-            if (this.namedTimer.hasOwnProperty(name)) {
-                ctx.fillText(`${name} : ${this.getTimer(name)} msec`, x, y, 0.0, 0.0, 20, `white`, "");
-                y += 30;
-            }
+            ctx.fillText(`${name} : ${this.getTimer(name)} msec`, x, y, 0.0, 0.0, 20, `white`, "");
+            y += 30;
         }
     }
 }

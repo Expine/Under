@@ -1,30 +1,27 @@
 import { Context } from "../resources/image/Context";
 
 /**
- * Timer
- * - Measure the time
+ * - Measure the time.
  * @abstract
- * @classdesc TImer to measure the time
  */
-export abstract class Timer {
+export abstract class Timer
+{
     /**
      * Instance for singleton
-     * @type {Timer}
      */
     static it: Timer;
 
     /**
      * Delta time
-     * @protected
-     * @type {number}
      */
     protected deltaTime: number;
-
     /**
-     * Timer constructor
-     * @constructor
+     * @return Delta time that indicateselapsed time since previous frame.
      */
-    constructor() {
+    getDeltatime(): number { return this.deltaTime; }
+
+    constructor()
+    {
         this.deltaTime = 0;
 
         // set singleton
@@ -32,55 +29,39 @@ export abstract class Timer {
     }
 
     /**
-     * Get deltatime
-     * @return {number} Deltatime
-     */
-    getDeltatime(): number {
-        return this.deltaTime;
-    }
-
-    /**
-     * Start to measure timer by name
-     * @abstract
-     * @param {string} name Timer name
+     * Start to measure timer by name.
+     * @param name Timer name for starting to measure time.
      */
     abstract startTimer(name: string): void;
 
     /**
-     * Stop measuring timer by name
-     * @abstract
-     * @param {string} name Timer name
+     * Stop measuring timer by name.
+     * @param name Timer name for stopping measuring time.
      */
     abstract stopTimer(name: string): void;
 
     /**
-     * Get timer by name
-     * @abstract
-     * @param {string} name Timer name
-     * @return {number} Timer by name
+     * @param name Timer name to get.
+     * @return Timer that has the name.
      */
     abstract getTimer(name: string): number;
 
     /**
-     * Initialize timer
-     * @abstract
+     * Initialize timer.
      */
     abstract init(): void;
 
     /**
-     * Update timer
-     * @param {number} dt Delta time
+     * Update timer.
+     * @param dt Delta time.
      */
-    update(dt: number) {
-        this.deltaTime = dt;
-    }
+    update(dt: number) { this.deltaTime = dt; }
 
     /**
-     * Render timer
-     * @abstract
-     * @param {Context} ctx Canvas context
-     * @param {number} x Timer x position
-     * @param {number} y Timer y position
+     * Render timer.
+     * @param ctx Canvas context for rendering.
+     * @param x Timer x position.
+     * @param y Timer y position.
      */
     abstract render(ctx: Context, x: number, y: number): void;
 }
