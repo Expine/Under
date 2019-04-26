@@ -24,28 +24,23 @@ export abstract class StateInputManager
     /**
      * List for registering input state.
      */
-    protected inputState: Array<number> = [];
+    protected mInputStates: Array<number> = [];
 
     /**
      * Whether input is blocked or not.
      */
-    protected blocked: Array<boolean> = [];
+    protected mBlockedList: Array<boolean> = [];
 
     /**
      * Input target.
      * For example, div, document.
      */
-    protected target: HTMLElement = this.screen.getTarget();
+    protected mTarget: HTMLElement = this.screen.getTarget();
 
     /**
      * Enable for input.
      */
-    protected enable: boolean = true;
-
-    /**
-     * @override
-     */
-    init() { }
+    protected mEnable: boolean = true;
 
     /**
      * @override
@@ -53,16 +48,16 @@ export abstract class StateInputManager
     update()
     {
         // update input state
-        for (let i = 0; i < this.inputState.length; ++i) {
-            switch (this.inputState[i]) {
+        for (let i = 0; i < this.mInputStates.length; ++i) {
+            switch (this.mInputStates[i]) {
                 case STATE.PRESS:
-                    this.inputState[i] = STATE.PRESSED;
+                    this.mInputStates[i] = STATE.PRESSED;
                     break;
                 case STATE.PRESSED:
-                    this.inputState[i] = STATE.ON;
+                    this.mInputStates[i] = STATE.ON;
                     break;
             }
-            this.blocked[i] = false;
+            this.mBlockedList[i] = false;
         }
     }
 
@@ -71,8 +66,8 @@ export abstract class StateInputManager
      */
     clear()
     {
-        for (let i = 0; i < this.inputState.length; ++i) {
-            this.inputState[i] = STATE.NONE;
+        for (let i = 0; i < this.mInputStates.length; ++i) {
+            this.mInputStates[i] = STATE.NONE;
         }
     }
 
@@ -81,35 +76,35 @@ export abstract class StateInputManager
      */
     setInputEnable(enable: boolean)
     {
-        this.enable = enable;
+        this.mEnable = enable;
         this.clear();
     }
 
     /**
      * @override
      */
-    blockInput(code: number) { this.blocked[code] = true; }
+    blockInput(code: number) { this.mBlockedList[code] = true; }
     /**
      * @override
      */
-    unblockInput(code: number) { this.blocked[code] = false; }
+    unblockInput(code: number) { this.mBlockedList[code] = false; }
 
     /**
      * @override
      */
-    press(code: number) { this.inputState[code] = STATE.PRESSED; }
+    press(code: number) { this.mInputStates[code] = STATE.PRESSED; }
     /**
      * @override
      */
-    unpress(code: number) { this.inputState[code] = STATE.NONE; }
+    unpress(code: number) { this.mInputStates[code] = STATE.NONE; }
 
     /**
      * @override
      */
     isPress(code: number): boolean
     {
-        return     !this.blocked[code]
-                && this.inputState[code] === STATE.PRESSED;
+        return     !this.mBlockedList[code]
+                && this.mInputStates[code] === STATE.PRESSED;
     }
 
     /**
@@ -117,9 +112,9 @@ export abstract class StateInputManager
      */
     isPressed(code: number): boolean
     {
-        return     !this.blocked[code]
-                && (   this.inputState[code] === STATE.PRESSED
-                    || this.inputState[code] === STATE.ON
+        return     !this.mBlockedList[code]
+                && (   this.mInputStates[code] === STATE.PRESSED
+                    || this.mInputStates[code] === STATE.ON
                 );
     }
 }

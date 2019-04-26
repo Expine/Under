@@ -41,8 +41,6 @@ export abstract class Engine
      */
     public execute(aScene: Scene)
     {
-        // initialize
-        this.mInput.init();
         // transition initial scene
         this.mManager.replaceScene(aScene);
         // execute process

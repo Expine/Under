@@ -11,11 +11,11 @@ export abstract class Input
     /**
      * Singleton instance for getting key state
      */
-    static key: IKey;
+    private static mKey: IKey;
     /**
      * Singleton instance for getting mouse state
      */
-    static mouse: IMouse;
+    private static mMouse: IMouse;
 
     /**
      * @param screen Screen for getting screen ratio.
@@ -24,17 +24,21 @@ export abstract class Input
     {
         // set singleton
         if (isIKey(this)) {
-            Input.key = this;
+            Input.mKey = this;
         }
         if (isIMouse(this)) {
-            Input.mouse = this;
+            Input.mMouse = this;
         }
     }
 
     /**
-     * Initialize input sate
+     * @return Singleton instance for getting key state
      */
-    public abstract init(): void;
+    static get key(): IKey { return this.mKey; }
+    /**
+     * @return Singleton instance for getting mouse state
+     */
+    static get mouse(): IMouse { return this.mMouse; }
 
     /**
      * Update input state

@@ -1,5 +1,6 @@
 import { IMouse } from './../../base/input/IMouse';
 import { StateInputManager, STATE } from './StateInputManager';
+import { GameScreen } from '../../base/screen/GameScreen';
 
 /**
  * - Manage mouse input event and register state.
@@ -18,35 +19,36 @@ export class MouseInput
     protected mouseY: number = 0;
 
     /**
-     * @override
+     * @param screen Screen for getting screen ratio.
      */
-    init()
+    constructor(screen: GameScreen)
     {
-        super.init();
+        super(screen);
+
         // initialize key state
         for (let i = 0; i < 3; ++i) {
-            this.inputState.push(STATE.NONE);
+            this.mInputStates.push(STATE.NONE);
         }
 
         // mouse
-        this.target.onmousemove = (e) =>
+        this.mTarget.onmousemove = (e) =>
         {
             this.onMouseMove(e);
         };
-        this.target.onmousedown = (e) =>
+        this.mTarget.onmousedown = (e) =>
         {
             this.onMouseDown(e);
         };
-        this.target.onmouseup = (e) =>
+        this.mTarget.onmouseup = (e) =>
         {
             this.onMouseUp(e);
         };
 
         // clear
-        if (this.target.parentElement != null) {
+        if (this.mTarget.parentElement != null) {
             const instance = this;
-            const onblur = this.target.parentElement.onblur;
-            this.target.parentElement.onblur =
+            const onblur = this.mTarget.parentElement.onblur;
+            this.mTarget.parentElement.onblur =
                 function (this: GlobalEventHandlers, ev: FocusEvent)
                 {
                     instance.clear();
@@ -91,8 +93,8 @@ export class MouseInput
      */
     protected onMouseMove(e: MouseEvent)
     {
-        if (this.target != null) {
-            const rect = this.target.getBoundingClientRect();
+        if (this.mTarget != null) {
+            const rect = this.mTarget.getBoundingClientRect();
             this.mouseX = (e.clientX - rect.left) / this.screen.gameSize;
             this.mouseY = (e.clientY - rect.top) / this.screen.gameSize;
         }
@@ -104,12 +106,12 @@ export class MouseInput
      */
     protected onMouseDown(e: MouseEvent)
     {
-        if (!this.enable) {
+        if (!this.mEnable) {
             return;
         }
         const button = e.button;
-        if (this.inputState[button] === STATE.NONE) {
-            this.inputState[button] = STATE.PRESS;
+        if (this.mInputStates[button] === STATE.NONE) {
+            this.mInputStates[button] = STATE.PRESS;
         }
     }
 
@@ -120,10 +122,10 @@ export class MouseInput
      */
     protected onMouseUp(e: MouseEvent)
     {
-        if (!this.enable) {
+        if (!this.mEnable) {
             return;
         }
         const button = e.button;
-        this.inputState[button] = STATE.NONE;
+        this.mInputStates[button] = STATE.NONE;
     }
 }

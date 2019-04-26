@@ -17,12 +17,12 @@ export class AllInput
     /**
      * Mouse base code number.
      */
-    protected readonly mouseBaseCode: number = 1000;
+    protected readonly MOUSE_BASE_CODE: number = 1000;
 
     /**
      * Input managers for initialize and update.
      */
-    protected inputManagers: Array<Input> = [];
+    protected mInputManagers: Array<Input> = [];
 
     /**
      * @param screen        Screen for getting screen ratio.
@@ -38,20 +38,10 @@ export class AllInput
         super(screen);
         // Add input managers for initialize and update
         if(keyDelegate instanceof Input) {
-            this.inputManagers.push(keyDelegate);
+            this.mInputManagers.push(keyDelegate);
         }
         if(mouseDelegate instanceof Input) {
-            this.inputManagers.push(mouseDelegate);
-        }
-    }
-
-    /**
-     * @override
-     */
-    init()
-    {
-        for(const inputManager of this.inputManagers) {
-            inputManager.init();
+            this.mInputManagers.push(mouseDelegate);
         }
     }
 
@@ -60,7 +50,7 @@ export class AllInput
      */
     update()
     {
-        for(const inputManager of this.inputManagers) {
+        for(const inputManager of this.mInputManagers) {
             inputManager.update();
         }
     }
@@ -111,15 +101,15 @@ export class AllInput
     /**
      * @override
      */
-    mRight() { return this.mouseDelegate.mRight() + this.mouseBaseCode; }
+    mRight() { return this.mouseDelegate.mRight() + this.MOUSE_BASE_CODE; }
     /**
      * @override
      */
-    mLeft() { return this.mouseDelegate.mLeft() + this.mouseBaseCode; }
+    mLeft() { return this.mouseDelegate.mLeft() + this.MOUSE_BASE_CODE; }
     /**
      * @override
      */
-    mCenter() { return this.mouseDelegate.mCenter() + this.mouseBaseCode; }
+    mCenter() { return this.mouseDelegate.mCenter() + this.MOUSE_BASE_CODE; }
 
     /**
      * @override
@@ -154,7 +144,7 @@ export class AllInput
      */
     protected getDelegate(code: number): IInput
     {
-        if (code >= this.mouseBaseCode) {
+        if (code >= this.MOUSE_BASE_CODE) {
             return this.mouseDelegate;
         } else {
             return this.keyDelegate;
@@ -166,14 +156,14 @@ export class AllInput
      */
     blockInput(code: number)
     {
-        this.getDelegate(code).blockInput(code % this.mouseBaseCode);
+        this.getDelegate(code).blockInput(code % this.MOUSE_BASE_CODE);
     }
     /**
      * @override
      */
     unblockInput(code: number)
     {
-        this.getDelegate(code).unblockInput(code % this.mouseBaseCode);
+        this.getDelegate(code).unblockInput(code % this.MOUSE_BASE_CODE);
     }
 
     /**
@@ -181,14 +171,14 @@ export class AllInput
      */
     press(code: number)
     {
-        this.getDelegate(code).press(code % this.mouseBaseCode);
+        this.getDelegate(code).press(code % this.MOUSE_BASE_CODE);
     }
     /**
      * @override
      */
     unpress(code: number)
     {
-        this.getDelegate(code).unpress(code % this.mouseBaseCode);
+        this.getDelegate(code).unpress(code % this.MOUSE_BASE_CODE);
     }
 
     /**
@@ -196,13 +186,13 @@ export class AllInput
      */
     isPress(code: number): boolean
     {
-        return this.getDelegate(code).isPress(code % this.mouseBaseCode);
+        return this.getDelegate(code).isPress(code % this.MOUSE_BASE_CODE);
     }
     /**
      * @override
      */
     isPressed(code: number): boolean
     {
-        return this.getDelegate(code).isPressed(code % this.mouseBaseCode);
+        return this.getDelegate(code).isPressed(code % this.MOUSE_BASE_CODE);
     }
 }

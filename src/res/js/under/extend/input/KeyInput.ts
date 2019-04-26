@@ -1,5 +1,6 @@
 import { StateInputManager, STATE } from './StateInputManager';
 import { IKey } from './../../base/input/IKey';
+import { GameScreen } from '../../base/screen/GameScreen';
 
 /**
  * - Manage key input event and register state.
@@ -8,32 +9,35 @@ export class KeyInput
     extends StateInputManager
     implements IKey
  {
+
+
     /**
-     * @override
+     * @param screen Screen for getting screen ratio.
      */
-    init()
+    constructor(screen: GameScreen)
     {
-        super.init();
+        super(screen);
+
         // initialize key state
         for (let i = 0; i < 255; ++i) {
-            this.inputState.push(STATE.NONE);
+            this.mInputStates.push(STATE.NONE);
         }
 
-        if (this.target.parentElement != null) {
+        if (this.mTarget.parentElement != null) {
             // key
-            this.target.parentElement.onkeydown = (e) =>
+            this.mTarget.parentElement.onkeydown = (e) =>
             {
                 this.onKeyDown(e);
             };
-            this.target.parentElement.onkeyup = (e) =>
+            this.mTarget.parentElement.onkeyup = (e) =>
             {
                 this.onKeyUp(e);
             };
 
             // clear
             const instance = this;
-            const onblur = this.target.parentElement.onblur;
-            this.target.parentElement.onblur =
+            const onblur = this.mTarget.parentElement.onblur;
+            this.mTarget.parentElement.onblur =
                 function (this: GlobalEventHandlers, ev: FocusEvent)
                 {
                     instance.clear();
@@ -88,31 +92,30 @@ export class KeyInput
     sub() { return 67; }
 
     /**
-     * Key down function
-     * @param e Key event
+     * Key down function.
+     * @param e Key event.
      */
     protected onKeyDown(e: KeyboardEvent)
     {
-        if (!this.enable) {
+        if (!this.mEnable) {
             return;
         }
         const code = e.keyCode;
-        if (this.inputState[code] === STATE.NONE) {
-            this.inputState[code] = STATE.PRESS;
+        if (this.mInputStates[code] === STATE.NONE) {
+            this.mInputStates[code] = STATE.PRESS;
         }
     }
 
     /**
-     * Key up function
-     * @protected
-     * @param e Key event
+     * Key up function.
+     * @param e Key event.
      */
     protected onKeyUp(e: KeyboardEvent)
     {
-        if (!this.enable) {
+        if (!this.mEnable) {
             return;
         }
         const code = e.keyCode;
-        this.inputState[code] = STATE.NONE;
+        this.mInputStates[code] = STATE.NONE;
     }
 }
