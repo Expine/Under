@@ -74,47 +74,47 @@ export abstract class StateInputManager
     /**
      * @override
      */
-    setInputEnable(enable: boolean)
+    setInputEnable(aEnable: boolean)
     {
-        this.mEnable = enable;
+        this.mEnable = aEnable;
         this.clear();
     }
 
     /**
      * @override
      */
-    blockInput(code: number) { this.mBlockedList[code] = true; }
+    blockInput(aCode: number) { this.mBlockedList[aCode] = true; }
     /**
      * @override
      */
-    unblockInput(code: number) { this.mBlockedList[code] = false; }
+    unblockInput(aCode: number) { this.mBlockedList[aCode] = false; }
 
     /**
      * @override
      */
-    press(code: number) { this.mInputStates[code] = STATE.PRESSED; }
+    press(aCode: number) { this.mInputStates[aCode] = STATE.PRESSED; }
     /**
      * @override
      */
-    unpress(code: number) { this.mInputStates[code] = STATE.NONE; }
+    unpress(aCode: number) { this.mInputStates[aCode] = STATE.NONE; }
 
     /**
      * @override
      */
-    isPress(code: number): boolean
+    isPress(aCode: number): boolean
     {
-        return     !this.mBlockedList[code]
-                && this.mInputStates[code] === STATE.PRESSED;
+        return     !this.mBlockedList[aCode]
+                && this.mInputStates[aCode] === STATE.PRESSED;
     }
 
     /**
      * @override
      */
-    isPressed(code: number): boolean
+    isPressed(aCode: number): boolean
     {
-        return     !this.mBlockedList[code]
-                && (   this.mInputStates[code] === STATE.PRESSED
-                    || this.mInputStates[code] === STATE.ON
+        return     !this.mBlockedList[aCode]
+                && (   this.mInputStates[aCode] === STATE.PRESSED
+                    || this.mInputStates[aCode] === STATE.ON
                 );
     }
 }

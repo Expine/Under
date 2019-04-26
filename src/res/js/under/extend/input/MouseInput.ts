@@ -31,17 +31,17 @@ export class MouseInput
         }
 
         // mouse
-        this.mTarget.onmousemove = (e) =>
+        this.mTarget.onmousemove = (aEvent: MouseEvent) =>
         {
-            this.onMouseMove(e);
+            this.onMouseMove(aEvent);
         };
-        this.mTarget.onmousedown = (e) =>
+        this.mTarget.onmousedown = (aEvent: MouseEvent) =>
         {
-            this.onMouseDown(e);
+            this.onMouseDown(aEvent);
         };
-        this.mTarget.onmouseup = (e) =>
+        this.mTarget.onmouseup = (aEvent: MouseEvent) =>
         {
-            this.onMouseUp(e);
+            this.onMouseUp(aEvent);
         };
 
         // clear
@@ -89,27 +89,27 @@ export class MouseInput
 
     /**
      * Mouse move function
-     * @param e Mouse event
+     * @param aEvent Mouse event
      */
-    protected onMouseMove(e: MouseEvent)
+    protected onMouseMove(aEvent: MouseEvent)
     {
         if (this.mTarget != null) {
             const rect = this.mTarget.getBoundingClientRect();
-            this.mouseX = (e.clientX - rect.left) / this.screen.gameSize;
-            this.mouseY = (e.clientY - rect.top) / this.screen.gameSize;
+            this.mouseX = (aEvent.clientX - rect.left) / this.screen.gameSize;
+            this.mouseY = (aEvent.clientY - rect.top) / this.screen.gameSize;
         }
     }
 
     /**
      * Mouse down function
-     * @param e Mouse event
+     * @param aEvent Mouse event
      */
-    protected onMouseDown(e: MouseEvent)
+    protected onMouseDown(aEvent: MouseEvent)
     {
         if (!this.mEnable) {
             return;
         }
-        const button = e.button;
+        const button = aEvent.button;
         if (this.mInputStates[button] === STATE.NONE) {
             this.mInputStates[button] = STATE.PRESS;
         }
@@ -118,14 +118,14 @@ export class MouseInput
     /**
      * Mouse up function
      * @protected
-     * @param e Mouse event
+     * @param aEvent Mouse event
      */
-    protected onMouseUp(e: MouseEvent)
+    protected onMouseUp(aEvent: MouseEvent)
     {
         if (!this.mEnable) {
             return;
         }
-        const button = e.button;
+        const button = aEvent.button;
         this.mInputStates[button] = STATE.NONE;
     }
 }

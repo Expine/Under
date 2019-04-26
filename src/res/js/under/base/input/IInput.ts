@@ -12,42 +12,42 @@ export interface IInput
 
     /**
      * Set whether input is enable.
-     * @param enable Whether input is enable.
+     * @param aEnable Whether input is enable.
      */
-    setInputEnable(enable: boolean): void;
+    setInputEnable(aEnable: boolean): void;
 
     /**
      * Block input.
-     * @param code Target code for blocking.
+     * @param aCode Target code for blocking.
      */
-    blockInput(code: number): void;
+    blockInput(aCode: number): void;
     /**
      * Unblock input.
-     * @param code Target code for unblocking.
+     * @param aCode Target code for unblocking.
      */
-    unblockInput(code: number): void;
+    unblockInput(aCode: number): void;
 
     /**
      * Press target code
-     * @param code Target code for pressing.
+     * @param aCode Target code for pressing.
      */
-    press(code: number): void;
+    press(aCode: number): void;
     /**
      * Unpress target code
-     * @param code Target code for unpressing.
+     * @param aCode Target code for unpressing.
      */
-    unpress(code: number): void;
+    unpress(aCode: number): void;
 
     /**
      * Judge whether pressed right now.
-     * @param code Target code for judging.
+     * @param aCode Target code for judging.
      * @return whether pressed right now.
      */
-    isPress(code: number): boolean;
+    isPress(aCode: number): boolean;
     /**
      * Judge whether pressed.
-     * @param code Target code.
+     * @param aCode Target code.
      * @return whether pressed.
      */
-    isPressed(code: number): boolean;
+    isPressed(aCode: number): boolean;
 }

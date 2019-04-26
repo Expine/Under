@@ -25,17 +25,17 @@ export class AllInput
     protected mInputManagers: Array<Input> = [];
 
     /**
-     * @param screen        Screen for getting screen ratio.
+     * @param aScreen       Screen for getting screen ratio.
      * @param keyDelegate   Key instance for delegation.
      * @param mouseDelegate Mouse instance for delegation.
      */
     constructor(
-        screen: GameScreen,
+        aScreen: GameScreen,
         protected keyDelegate: IKey,
         protected mouseDelegate: IMouse
     )
     {
-        super(screen);
+        super(aScreen);
         // Add input managers for initialize and update
         if(keyDelegate instanceof Input) {
             this.mInputManagers.push(keyDelegate);
@@ -132,19 +132,19 @@ export class AllInput
     /**
      * @override
      */
-    setInputEnable(enable: boolean)
+    setInputEnable(aEnable: boolean)
     {
-        this.mouseDelegate.setInputEnable(enable);
-        this.keyDelegate.setInputEnable(enable);
+        this.mouseDelegate.setInputEnable(aEnable);
+        this.keyDelegate.setInputEnable(aEnable);
     }
 
     /**
      * Get delegation instance by code.
      * @return Appropriate deligation instance.
      */
-    protected getDelegate(code: number): IInput
+    protected getDelegate(aCode: number): IInput
     {
-        if (code >= this.MOUSE_BASE_CODE) {
+        if (aCode >= this.MOUSE_BASE_CODE) {
             return this.mouseDelegate;
         } else {
             return this.keyDelegate;
@@ -154,45 +154,45 @@ export class AllInput
     /**
      * @override
      */
-    blockInput(code: number)
+    blockInput(aCode: number)
     {
-        this.getDelegate(code).blockInput(code % this.MOUSE_BASE_CODE);
+        this.getDelegate(aCode).blockInput(aCode % this.MOUSE_BASE_CODE);
     }
     /**
      * @override
      */
-    unblockInput(code: number)
+    unblockInput(aCode: number)
     {
-        this.getDelegate(code).unblockInput(code % this.MOUSE_BASE_CODE);
-    }
-
-    /**
-     * @override
-     */
-    press(code: number)
-    {
-        this.getDelegate(code).press(code % this.MOUSE_BASE_CODE);
-    }
-    /**
-     * @override
-     */
-    unpress(code: number)
-    {
-        this.getDelegate(code).unpress(code % this.MOUSE_BASE_CODE);
+        this.getDelegate(aCode).unblockInput(aCode % this.MOUSE_BASE_CODE);
     }
 
     /**
      * @override
      */
-    isPress(code: number): boolean
+    press(aCode: number)
     {
-        return this.getDelegate(code).isPress(code % this.MOUSE_BASE_CODE);
+        this.getDelegate(aCode).press(aCode % this.MOUSE_BASE_CODE);
     }
     /**
      * @override
      */
-    isPressed(code: number): boolean
+    unpress(aCode: number)
     {
-        return this.getDelegate(code).isPressed(code % this.MOUSE_BASE_CODE);
+        this.getDelegate(aCode).unpress(aCode % this.MOUSE_BASE_CODE);
+    }
+
+    /**
+     * @override
+     */
+    isPress(aCode: number): boolean
+    {
+        return this.getDelegate(aCode).isPress(aCode % this.MOUSE_BASE_CODE);
+    }
+    /**
+     * @override
+     */
+    isPressed(aCode: number): boolean
+    {
+        return this.getDelegate(aCode).isPressed(aCode % this.MOUSE_BASE_CODE);
     }
 }

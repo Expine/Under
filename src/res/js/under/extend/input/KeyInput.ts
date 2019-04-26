@@ -25,13 +25,13 @@ export class KeyInput
 
         if (this.mTarget.parentElement != null) {
             // key
-            this.mTarget.parentElement.onkeydown = (e) =>
+            this.mTarget.parentElement.onkeydown = (aEvent: KeyboardEvent) =>
             {
-                this.onKeyDown(e);
+                this.onKeyDown(aEvent);
             };
-            this.mTarget.parentElement.onkeyup = (e) =>
+            this.mTarget.parentElement.onkeyup = (aEvent: KeyboardEvent) =>
             {
-                this.onKeyUp(e);
+                this.onKeyUp(aEvent);
             };
 
             // clear
@@ -93,14 +93,14 @@ export class KeyInput
 
     /**
      * Key down function.
-     * @param e Key event.
+     * @param aEvent Key event.
      */
-    protected onKeyDown(e: KeyboardEvent)
+    protected onKeyDown(aEvent: KeyboardEvent)
     {
         if (!this.mEnable) {
             return;
         }
-        const code = e.keyCode;
+        const code = aEvent.keyCode;
         if (this.mInputStates[code] === STATE.NONE) {
             this.mInputStates[code] = STATE.PRESS;
         }
@@ -108,14 +108,14 @@ export class KeyInput
 
     /**
      * Key up function.
-     * @param e Key event.
+     * @param aEvent Key event.
      */
-    protected onKeyUp(e: KeyboardEvent)
+    protected onKeyUp(aEvent: KeyboardEvent)
     {
         if (!this.mEnable) {
             return;
         }
-        const code = e.keyCode;
+        const code = aEvent.keyCode;
         this.mInputStates[code] = STATE.NONE;
     }
 }

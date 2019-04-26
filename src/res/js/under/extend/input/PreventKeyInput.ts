@@ -10,8 +10,8 @@ export class PreventKeyInput
      * Prevent key event if it's key code is used.
      * @param e Key event.
      */
-    protected prevent(e: KeyboardEvent) {
-        const code = e.keyCode;
+    protected prevent(aEvent: KeyboardEvent) {
+        const code = aEvent.keyCode;
         if (   code === this.up()
             || code === this.down()
             || code === this.right()
@@ -21,23 +21,23 @@ export class PreventKeyInput
             || code === this.sub()
         )
         {
-            e.preventDefault();
+            aEvent.preventDefault();
         }
     }
 
     /**
      * @override
      */
-    protected onKeyDown(e: KeyboardEvent)
+    protected onKeyDown(aEvent: KeyboardEvent)
     {
-        this.prevent(e);
-        super.onKeyDown(e);
+        this.prevent(aEvent);
+        super.onKeyDown(aEvent);
     }
     /**
      * @override
      */
-    protected onKeyUp(e: KeyboardEvent) {
-        this.prevent(e);
-        super.onKeyUp(e);
+    protected onKeyUp(aEvent: KeyboardEvent) {
+        this.prevent(aEvent);
+        super.onKeyUp(aEvent);
     }
 }
