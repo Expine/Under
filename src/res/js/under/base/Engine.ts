@@ -32,8 +32,7 @@ export abstract class Engine
         protected music:    Music,
         protected timer:    Timer
     )
-    {
-    }
+    { }
 
     /**
      * Intialize each system and transition initial scene.
@@ -43,7 +42,6 @@ export abstract class Engine
     public execute(scene: Scene)
     {
         // initialize
-        this.screen.init();
         this.context.init();
         this.input.init();
         // transition initial scene

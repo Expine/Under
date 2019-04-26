@@ -17,6 +17,15 @@ export abstract class CanvasScreen
     constructor(protected canvas: HTMLCanvasElement, width: number, height: number)
     {
         super(width, height);
+
+        // generate style
+        const style = document.createElement(`style`);
+        style.append(`canvas {display:block;width: ` + width + `px;height: ` + height + `px;margin: 0px auto;}`);
+        document.head.appendChild(style);
+        // set canvas default size
+        this.canvas.setAttribute(`style`, `canvas`);
+        this.canvas.width = width;
+        this.canvas.height = height;
     }
 
 

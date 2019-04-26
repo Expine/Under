@@ -18,11 +18,6 @@ export abstract class DelegateScreen
     /**
      * @override
      */
-    init() { this.delegate.init(); }
-
-    /**
-     * @override
-     */
     getTarget(): HTMLElement { return this.delegate.getTarget(); }
 
     /**

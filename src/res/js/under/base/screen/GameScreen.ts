@@ -40,11 +40,6 @@ export abstract class GameScreen
     getHeight(): number { return this.height; }
 
     /**
-     * Initialize screen.
-     */
-    abstract init(): void;
-
-    /**
      * @return Element of input target.
      */
     abstract getTarget(): HTMLElement;

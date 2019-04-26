@@ -1,4 +1,5 @@
 import { DelegateScreen } from "./DelegateScreen";
+import { GameScreen } from "../../base/screen/GameScreen";
 
 /**
  * - Fits the window to resize canvas when window is resized.
@@ -7,11 +8,12 @@ export class FitableScreen
     extends DelegateScreen
 {
     /**
-     * @override
-     */
-    init()
-    {
-        super.init();
+    * @param delegate Original screen for delegating the process.
+    */
+   constructor(delegate: GameScreen)
+   {
+       super(delegate);
+
         // resize
         (window.onresize = () =>
         {

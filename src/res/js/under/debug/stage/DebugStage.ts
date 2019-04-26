@@ -5,7 +5,6 @@ import { DebugWorld } from "./physics/DebugWorld";
 import { InfluentialEntity } from "../../base/stage/entity/InfluentialEntity";
 import { BaseUtil } from "../../base/util/BaseUtil";
 import { MutableEntity } from "../../base/stage/entity/MutableEntity";
-import { StateCharacter } from "../../extend/stage/entity/character/StateCharacter";
 import { Input } from "../../base/input/Input";
 import { Context } from "../../base/resources/image/Context";
 import { isIColliderable } from "../../base/stage/entity/interface/IColliderable";
@@ -65,7 +64,7 @@ export class DebugStage
      * @param shiftX Shift x position.
      * @param shiftY Shift y position.
      */
-    protected renderEntityInformation(ctx: Context, shiftX: number, shiftY: number)
+    protected renderEntityInformation(ctx: Context, _shiftX: number, _shiftY: number)
     {
         const camera = this.baseStage.getCamera();
         if(camera === null) {
