@@ -53,7 +53,7 @@ export class VolatileDebugger
     render(ctx: Context, x: number, y: number)
     {
         for (const data of this.renderingData) {
-            ctx.fillText(`${data}`, x, y, 1.0, 0.0, 20, `white`, null);
+            ctx.fillText(`${data}`, x, y, 1.0, 0.0, 20, 'white');
             y += 30;
         }
     }

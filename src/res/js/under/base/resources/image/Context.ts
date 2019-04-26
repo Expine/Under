@@ -3,141 +3,118 @@ import { GameScreen } from "../../screen/GameScreen";
 import { ResourceID } from '../IResourceManager';
 
 /**
- * Context
- * - Controls rendering to the screen
+ * - Controls rendering to the screen.
  * @abstract
- * @classdesc Context for rendering to the screen
  */
-export abstract class Context {
+export abstract class Context
+{
     /**
-     * Screen for rendering
-     * @protected
-     * @type {GameScreen}
+     * @param screen Screen to render image.
+     * @param image Image manager for using by rendering image.
      */
-    protected screen: GameScreen;
+    constructor(protected screen: GameScreen, protected image: IImageManager) { }
 
     /**
-     * Context image manager
-     * @protected
-     * @type {IImageManager}
-     */
-    protected image: IImageManager;
-
-    /**
-     * Context constructor
-     * @constructor
-     * @param {GameScreen} screen Screen to render image
-     * @param {IImageManager} image Image manager
-     */
-    constructor(screen: GameScreen, image: IImageManager) {
-        this.screen = screen;
-        this.image = image;
-    }
-
-    /**
-     * Initialize context
-     * @abstract
-     */
-    abstract init(): void;
-
-    /**
-     * Function to be executed before drawing
-     * @abstract
+     * Function to be executed before drawing.
      */
     abstract preRendering(): void;
 
     /**
-     * Function to be executed after drawing
-     * @abstract
+     * Function to be executed after drawing.
      */
     abstract postRendering(): void;
 
     /**
-     * Get rendering text width
-     * @abstract
-     * @param {string} text Rendering text
-     * @param {number | null} size Font size
-     * @param {string | null} font Font name
-     * @return {number} Text width
+     * Get rendering text width in this context.
+     * @param aText Rendering text.
+     * @param aSize Font size.
+     * @param aFont Font name.
+     * @return Text width in this context.
      */
-    abstract measureText(text: string, size: number | null, font: string | null): number;
+    abstract measureText(aText: string, aSize?: number, aFont?: string): number;
 
     /**
-     * Render text
-     * @abstract
-     * @param {string} text Rendering text
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number | null} anchorX Anchor x point in percent (0.0 <= anchorX <= 1.0)
-     * @param {number | null} anchorY Anchor y point in percent (0.0 <= anchorX <= 1.0)
-     * @param {number | null} size Font size
-     * @param {string | null} color Font color
-     * @param {string | null} font Font name
+     * Render text.
+     * @param aText Rendering text.
+     * @param aX X position.
+     * @param aY position.
+     * @param aAnchorX Anchor x point in percent (0.0 <= anchorX <= 1.0).
+     * @param aAnchorY Anchor y point in percent (0.0 <= anchorX <= 1.0).
+     * @param aSize Font size.
+     * @param aColor Font color.
+     * @param aFont Font name.
      */
-    abstract fillText(text: string, x: number, y: number, anchorX: number | null, anchorY: number | null, size: number | null, color: string | null, font: string | null): void;
+    abstract fillText(
+        aText: string, aX: number, aY: number, aAnchorX?: number, aAnchorY?: number,
+        aSize?: number, aColor?: string, aFont?: string
+    ): void;
 
     /**
-     * Rendering line
-     * @abstract
-     * @param {number} sx Start x position
-     * @param {number} sy Start y position
-     * @param {number} ex Terminal x position
-     * @param {number} ey Terminal y position
-     * @param {string} color Color name of line
-     * @param {number} lineWidth Line width
+     * Rendering line.
+     * @param aSrcX Start x position.
+     * @param aSrcY Start y position.
+     * @param aDstX Terminal x position.
+     * @param aDstY Terminal y position.
+     * @param aColor Color name of line.
+     * @param aLineWidth Line width.
      */
-    abstract strokeLine(sx: number, sy: number, ex: number, ey: number, color: string | null, lineWidth: number | null): void;
+    abstract strokeLine(
+        aSrcX: number, aSrcU: number, aDstX: number, aDstY: number,
+        aColor?: string, aLineWidth?: number
+    ): void;
 
     /**
-     * Rendering circle outline
-     * @abstract
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} radius Raius of circle
-     * @param {number} startAngle Beginning of arc
-     * @param {number} endAngle End of arc
-     * @param {boolean} anticlockwise Whether it is clockwise or not
-     * @param {string} color Color name of circle
-     * @param {number} lineWidth Line of circle width
+     * Rendering circle outline.
+     * @param aX X position of center of circle.
+     * @param aY Y position of center of circle.
+     * @param aRadius Radius of circle.
+     * @param aStartAngle Beginning of arc.
+     * @param aEndAngle End of arc.
+     * @param aAnticlockwise Whether it is clockwise or not.
+     * @param aColor Color name of circle.
+     * @param alineWidth Line of circle width.
      */
-    abstract strokeCircle(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean, color: string | null, lineWidth: number | null): void;
+    abstract strokeCircle(
+        aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aAnticlockwise: boolean,
+        aColor?: string, aLineWidth?: number
+    ): void;
 
     /**
-     * Rendering rectangle outline
-     * @abstract
-     * @param {number} x Upper left x position
-     * @param {number} y Upper left y position
-     * @param {number} width Width of the rectangle
-     * @param {number} height Height of the rectangle
-     * @param {string} color Color name of rectangle
-     * @param {number} lineWidth Line of rectangle width
+     * Rendering rectangle outline.
+     * @param aX Upper left x position of rectangle.
+     * @param aY Upper left y position of rectangle.
+     * @param aWidth Width of the rectangle.
+     * @param aHeight Height of the rectangle.
+     * @param aColor Color name of rectangle.
+     * @param aLineWidth Line of rectangle width.
      */
-    abstract strokeRect(x: number, y: number, width: number, height: number, color: string | null, lineWidth: number | null): void;
+    abstract strokeRect(aX: number, aY: number, aWidth: number, aHeight: number, aColor?: string, aLineWidth?: number): void;
 
     /**
-     * Rendering rectangle
-     * @abstract
-     * @param {number} x Upper left x position
-     * @param {number} y Upper left y position
-     * @param {number} width Width of the rectangle
-     * @param {number} height Height of the rectangle
-     * @param {string} color Color name of rectangle
-     * @param {number} lineWidth Line of rectangle width
+     * Rendering rectangle.
+     * @param aX Upper left x position of rectangle.
+     * @param aY Upper left y position of rectangle.
+     * @param aWidth Width of the rectangle.
+     * @param aHeight Height of the rectangle.
+     * @param aColor Color name of rectangle.
+     * @param aLineWidth Line of rectangle width.
      */
-    abstract fillRect(x: number, y: number, width: number, height: number, color: string | null, lineWidth: number | null): void;
+    abstract fillRect(aX: number, aY: number, aWidth: number, aHeight: number, aColor?: string, aLineWidth?: number): void;
 
     /**
-     * Rendering image
-     * @abstract
-     * @param {ResourceID} imageID Image ID
-     * @param {number} x Image x position
-     * @param {number} y Image y position
-     * @param {number | null} width Image width
-     * @param {number | null} height Image height
-     * @param {number | null} srcX Upper left x position of source
-     * @param {number | null} srcY Upper left y position of source
-     * @param {number | null} srcW Source width
-     * @param {number | null} srcH Source height
+     * Rendering image.
+     * @param aImageID Image ID.
+     * @param aX Upper left x position of image.
+     * @param aY Upper left y position of image.
+     * @param aWidth Width of the image.
+     * @param aHeight Height of the image.
+     * @param aSrcX Upper left x position of source.
+     * @param aSrcY Upper left y position of source.
+     * @param aSrcW Source width.
+     * @param aSrcH Source height.
      */
-    abstract drawImage(imageID: ResourceID, x: number, y: number, width: number | null, height: number | null, srcX: number | null, srcY: number | null, srcW: number | null, srcH: number | null): void;
+    abstract drawImage(
+        aImageID: ResourceID, aX: number, aY: number, aWidth?: number, aHeight?: number,
+        aSrcX?: number, aSrcY?: number, aSrcW?: number, aSrcH?: number
+    ): void;
 }

@@ -60,7 +60,7 @@ package under {
                 class BufferSourceMusic
             }
             package ex_image {
-                class JSContext
+                class CanvasContext
             }
         }
         package ex_timer {
@@ -78,7 +78,7 @@ UnderEngineBuilder ..> KeyInput  : Generate
 UnderEngineBuilder ..> MouseInput  : Generate
 UnderEngineBuilder ..> ScalableScreen  : Generate
 UnderEngineBuilder ..> DetectiveScreen  : Generate
-UnderEngineBuilder ..> JSContext  : Generate
+UnderEngineBuilder ..> CanvasContext  : Generate
 UnderEngineBuilder ..> CachedImage  : Generate
 UnderEngineBuilder ..> BufferSourceMusic  : Generate
 UnderEngineBuilder ..> CachedMusic  : Generate

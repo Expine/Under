@@ -66,15 +66,15 @@ export class DefaultTitleScene extends Scene {
      */
     render(ctx: Context) {
         // render sample text
-        ctx.fillText(`Sample`, 400, 300, 0.5, null, null, null, null);
+        ctx.fillText(`Sample`, 400, 300, 0.5);
 
         // render when enter pressed
         if (Input.key.isPressed(Input.key.space())) {
-            ctx.fillText(`Enter pressed`, 400, 400, 0.5, 0, 30, `red`, null);
+            ctx.fillText(`Enter pressed`, 400, 400, 0.5, 0, 30, 'red');
         }
 
         // render circle on mouse
         const angle = this._angle > Math.PI * 2 ? Math.PI * 2 : this._angle;
-        ctx.strokeCircle(Input.mouse.getMouseX(), Input.mouse.getMouseY(), this._r, 0, angle, false, null, null);
+        ctx.strokeCircle(Input.mouse.getMouseX(), Input.mouse.getMouseY(), this._r, 0, angle, false);
     }
 }

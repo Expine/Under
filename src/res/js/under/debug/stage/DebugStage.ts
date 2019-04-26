@@ -83,13 +83,13 @@ export class DebugStage
                     it.collider.render(ctx, camera.baseX - startX, camera.baseY - startY);
                     // render information
                     if (it.collider.isInCollider(mx, my)) {
-                        ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`, null);
+                        ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, 'white');
                         if (it instanceof MutableEntity && it.body !== null) {
-                            ctx.fillText(`V(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, `white`, null);
+                            ctx.fillText(`V(${Math.floor(it.body.velocityX)}, ${Math.floor(it.body.velocityY)})`, mx - startX, my - startY + 30, 0.0, 0.0, 20, 'white');
                             // TODO: Get information
-                            // ctx.fillText(`M(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, `white`, null);
-                            ctx.fillText(`A(${Math.floor(it.body.accelerationX)}, ${Math.floor(it.body.accelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, `white`, null);
-                            ctx.fillText(`(<${it.body.asGrounds[3]}, ^${it.body.asGrounds[1]}, >${it.body.asGrounds[5]}, ${it.body.asGrounds[7]})`, mx - startX, my - startY + 120, 0.0, 0.0, 20, `white`, null);
+                            // ctx.fillText(`M(${Math.floor(it.body.vpx)}, ${Math.floor(it.body.vpy)}),(${Math.floor(it.body.vmx)}, ${Math.floor(it.body.vmy)})`, mx - startX, my - startY + 60, 0.0, 0.0, 20, 'white');
+                            ctx.fillText(`A(${Math.floor(it.body.accelerationX)}, ${Math.floor(it.body.accelerationY)})`, mx - startX, my - startY + 90, 0.0, 0.0, 20, 'white');
+                            ctx.fillText(`(<${it.body.asGrounds[3]}, ^${it.body.asGrounds[1]}, >${it.body.asGrounds[5]}, ${it.body.asGrounds[7]})`, mx - startX, my - startY + 120, 0.0, 0.0, 20, 'white');
                         }
                     }
                 } else if (isIColliderable(it)) {
@@ -97,7 +97,7 @@ export class DebugStage
                     if(collider !== null) {
                         collider.render(ctx, camera.baseX - startX, camera.baseY - startY);
                         if (collider.isInCollider(mx, my)) {
-                            ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, `white`, null);
+                            ctx.fillText(`P(${Math.floor(it.x)}, ${Math.floor(it.y)})`, mx - startX, my - startY, 0.0, 0.0, 20, 'white');
                         }
                     }
                 }

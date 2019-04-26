@@ -37,15 +37,14 @@ export abstract class Engine
     /**
      * Intialize each system and transition initial scene.
      * Then, execute game.
-     * @param scene Initial scene.
+     * @param aScene Initial scene.
      */
-    public execute(scene: Scene)
+    public execute(aScene: Scene)
     {
         // initialize
-        this.mContext.init();
         this.mInput.init();
         // transition initial scene
-        this.mManager.replaceScene(scene);
+        this.mManager.replaceScene(aScene);
         // execute process
         this.main();
     }

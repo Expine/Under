@@ -21,7 +21,7 @@ package under {
     package extend {
         class UnderEngineBuilder
         package ex_context {
-            class JSContext
+            class CanvasContext
         }
         package ex_screen {
             class DetectiveScreen
@@ -60,6 +60,6 @@ MouseInput <.. EditorBuilder : Generate
 RecordedTimer <.. EditorBuilder : Generate
 
 UnderEngineBuilder <|--- EditorBuilder
-JSContext <|-- EditorContext
+CanvasContext <|-- EditorContext
 
 @enduml

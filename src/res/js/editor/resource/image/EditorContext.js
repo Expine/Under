@@ -3,10 +3,10 @@
  * - Controls rendering to the screen
  * - Renders by using HTML5 API
  * - ### Renders back by gray
- * @extends {JSContext}
+ * @extends {CanvasContext}
  * @classdesc Editor context for rendering back by gray
  */
-class EditorContext extends JSContext {
+class EditorContext extends CanvasContext {
     /**
      * Function to be executed before drawing
      * @override

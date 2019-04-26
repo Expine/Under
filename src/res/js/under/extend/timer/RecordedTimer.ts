@@ -85,7 +85,7 @@ export class RecordedTimer
             const max = this.maxTime[name] === undefined ? 0 : this.maxTime[name];
             const min = this.minTime[name] === undefined ? 0 : this.minTime[name];
             const mean = this.meanTime[name] === undefined ? 0 : this.meanTime[name];
-            ctx.fillText(`${name} : ${max} - ${min} (${mean}) msec`, x, y, 0.0, 0.0, 20, `white`, null);
+            ctx.fillText(`${name} : ${max} - ${min} (${mean}) msec`, x, y, 0.0, 0.0, 20, 'white');
             y += 30;
         }
     }

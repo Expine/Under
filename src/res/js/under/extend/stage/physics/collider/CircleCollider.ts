@@ -163,7 +163,7 @@ export class CircleCollider extends Collider {
      * @param {number} [shiftY = 0] Shift y position
      */
     render(ctx: Context, shiftX: number, shiftY: number) {
-        ctx.strokeCircle(this.centerX + shiftX, this.centerY + shiftY, this.radius, 0, 2 * Math.PI, false, null, null);
+        ctx.strokeCircle(this.centerX + shiftX, this.centerY + shiftY, this.radius, 0, 2 * Math.PI, false);
         // collision
         let me = 0;
         let you = 0;
@@ -175,8 +175,8 @@ export class CircleCollider extends Collider {
             }
         }
         if ((me !== 0 || you !== 0) && this.aabb !== null) {
-            ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`, null);
-            ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`, null);
+            ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
+            ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, 'red');
         }
         // vector
         for (const it of this.collisions) {
@@ -188,7 +188,7 @@ export class CircleCollider extends Collider {
                 this.aabb.startY + shiftY + this.centerY / 2,
                 this.aabb.startX + shiftX + this.centerX + it.nx * 30 * (it.colliding === this.entity ? 1 : -1),
                 this.aabb.startY + shiftY + this.centerY / 2 + it.ny * 30 * (it.colliding === this.entity ? 1 : -1),
-                `red`, null);
+                'red');
         }
     }
 }

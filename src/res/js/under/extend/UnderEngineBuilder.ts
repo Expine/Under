@@ -4,7 +4,7 @@ import { CachedMusic } from './resources/CachedMusic';
 import { BufferSourceMusic } from './resources/music/BufferSourceMusic';
 import { IMusicManager } from './../base/resources/IMusicManager';
 import { CachedImage } from './resources/CachedImage';
-import { JSContext } from './resources/image/JSContext';
+import { CanvasContext } from './resources/image/CanvasContext';
 import { IImageManager } from './../base/resources/IImageManager';
 import { DetectiveScreen } from './screen/DetectiveScreen';
 import { ScalableScreen } from './screen/ScalableScreen';
@@ -93,7 +93,7 @@ export class UnderEngineBuilder
         image: IImageManager
     ): Context
     {
-        return new JSContext(screen, image);
+        return new CanvasContext(screen, image);
     }
     /**
      * @override

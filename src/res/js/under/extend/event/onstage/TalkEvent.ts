@@ -104,23 +104,23 @@ export class TalkEvent extends StageEvent {
         const face = ResourceManager.image.load(`face/actor.png`);
         Util.renderWindow(ctx, id, 0, 0, 600, 200);
         Util.renderWindow(ctx, id, 610, 10, 180, 180);
-        ctx.drawImage(face, 636, 36, 128, 128, null, null, null, null);
+        ctx.drawImage(face, 636, 36, 128, 128);
         // measure text
         const texts = [];
         texts.push(``);
         for (const word of this.sentence.substr(0, this.talkCount)) {
-            if (ctx.measureText(texts[texts.length - 1] + word, 25, null) <= 536) {
+            if (ctx.measureText(texts[texts.length - 1] + word, 25) <= 536) {
                 texts[texts.length - 1] += word;
             } else {
                 texts.push(word);
             }
         }
         for (let i = 0; i < texts.length; ++i) {
-            ctx.fillText(texts[i], 32, 32 + 35 * i, 0, 0, 25, null, null);
+            ctx.fillText(texts[i], 32, 32 + 35 * i, 0, 0, 25);
         }
         // render press z
         if (this.talked) {
-            ctx.fillText(`...Press Z key`, 570, 150, 1.0, 0.0, 16, null, null);
+            ctx.fillText(`...Press Z key`, 570, 150, 1.0, 0.0, 16);
         }
     }
 }

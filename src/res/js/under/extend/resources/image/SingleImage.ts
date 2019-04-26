@@ -21,22 +21,22 @@ export class SingleImage extends GameImage {
      * @protected
      * @type {number?}
      */
-    protected width: number | null;
+    protected width?: number;
     /**
      * Image height
      * @protected
      * @type {number}
      */
-    protected height: number | null;
+    protected height?: number;
 
     /**
      * Single image constructor
      * @constructor
      * @param {ResourceID} imageID Image ID
-     * @param {number} [width = null] Image width
-     * @param {number} [height = null] Image height
+     * @param {number} width Image width
+     * @param {number} height Image height
      */
-    constructor(imageID: ResourceID, width: number | null = null, height: number | null = null) {
+    constructor(imageID: ResourceID, width?: number, height?: number) {
         super();
         this.imageID = imageID;
         this.width = width;
@@ -78,7 +78,7 @@ export class SingleImage extends GameImage {
      * @return {number} Imag width
      */
     getWidth(): number {
-        return this.width === null ? 0 : this.width;
+        return this.width === undefined ? 0 : this.width;
     }
 
     /**
@@ -87,7 +87,7 @@ export class SingleImage extends GameImage {
      * @return {number} Imag height
      */
     getHeight(): number {
-        return this.height === null ? 0 : this.height;
+        return this.height === undefined ? 0 : this.height;
     }
 
     /**
@@ -161,6 +161,6 @@ export class SingleImage extends GameImage {
      * @param {number} y Image y position
      */
     render(ctx: Context, x: number, y: number) {
-        ctx.drawImage(this.imageID, x, y, this.width, this.height, null, null, null, null);
+        ctx.drawImage(this.imageID, x, y, this.width, this.height);
     }
 }

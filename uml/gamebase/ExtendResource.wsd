@@ -32,7 +32,7 @@ package under {
             }
 
             package ex_image {
-                class JSContext {
+                class CanvasContext {
                     -_fontColor : string
                     -_fontSize : number
                     -_fontName : string
@@ -256,8 +256,8 @@ package under {
     }
 }
 
-GameScreen <.. JSContext : Get canvas and info
-IImageManager <.. JSContext : Get image
+GameScreen <.. CanvasContext : Get canvas and info
+IImageManager <.. CanvasContext : Get image
 Context <.. SingleImage : Render image
 Context <.. TileImage : Render image
 GameImage <.. SingleAnimation : Set and render
@@ -268,7 +268,7 @@ Context <.. ClipImage : Render image
 
 Context <.. GameText : Render
 
-Context <|.. JSContext
+Context <|.. CanvasContext
 Context <|.. GLContext
 Music <|.. BufferSourceMusic
 

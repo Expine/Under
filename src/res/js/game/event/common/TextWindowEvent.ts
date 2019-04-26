@@ -123,8 +123,8 @@ export class TextWindowEvent extends NamedEvent {
     render(ctx: Context) {
         const id = ResourceManager.image.load(`window/win2.png`);
         const size = (this.size === -1 ? 25 : this.size) * this.showCount * this.showCount;
-        const width = ctx.measureText(this.sentence, size, null);
+        const width = ctx.measureText(this.sentence, size);
         Util.renderWindow(ctx, id, this.x - (width + 64) / 2, this.y - (64 + size) / 2, width + 64, 64 + size);
-        ctx.fillText(this.sentence, this.x, this.y, 0.5, 0.5, size, null, null);
+        ctx.fillText(this.sentence, this.x, this.y, 0.5, 0.5, size);
     }
 }

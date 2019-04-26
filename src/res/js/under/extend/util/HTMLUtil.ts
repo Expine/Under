@@ -17,4 +17,13 @@ export class HTMLUtil
         }
         return ret!;
     }
+
+    static getContext2D(canvas: HTMLCanvasElement): CanvasRenderingContext2D
+    {
+        const ret = canvas.getContext('2d');
+        if(ret === null) {
+            alert(`Error: Fail to gey CanvasRenderingContext2D.`);
+        }
+        return ret!;
+    }
 }

@@ -59,11 +59,11 @@ export class GLContext extends Context {
      * Get rendering text width
      * @override
      * @param {string} text Rendering text
-     * @param {number | null} size Font size
-     * @param {string | null} font Font name
+     * @param {number} size Font size
+     * @param {string} font Font name
      * @return {number} Text width
      */
-    measureText(_text: string, _size: number | null, _font: string | null) { return 0; }
+    measureText(_text: string, _size?: number, _font?: string) { return 0; }
 
     /**
      * Render text
@@ -71,13 +71,13 @@ export class GLContext extends Context {
      * @param {string} text Rendering text
      * @param {number} x X position
      * @param {number} y Y position
-     * @param {number | null} anchorX Anchor x point in percent (0.0 <= anchorX <= 1.0)
-     * @param {number | null} anchorY Anchor y point in percent (0.0 <= anchorX <= 1.0)
-     * @param {number | null} size Font size
-     * @param {string | null} color Font color
-     * @param {string | null} font Font name
+     * @param {number} anchorX Anchor x point in percent (0.0 <= anchorX <= 1.0)
+     * @param {number} anchorY Anchor y point in percent (0.0 <= anchorX <= 1.0)
+     * @param {number} size Font size
+     * @param {string} color Font color
+     * @param {string} font Font name
      */
-    fillText(_text: string, _x: number, _y: number, _anchorX: number | null, _anchorY: number | null, _size: number | null, _color: string | null, _font: string | null) { }
+    fillText(_text: string, _x: number, _y: number, _anchorX?: number, _anchorY?: number, _size?: number, _color?: string, _font?: string) { }
 
     /**
      * Rendering line
@@ -103,7 +103,7 @@ export class GLContext extends Context {
      * @param {string} color Color name of circle
      * @param {number} lineWidth Line of circle width
      */
-    strokeCircle(_x: number, _y: number, _radius: number, _startAngle: number, _endAngle: number, _anticlockwise: boolean, _color: string | null, _lineWidth: number | null) { }
+    strokeCircle(_x: number, _y: number, _radius: number, _startAngle: number, _endAngle: number, _anticlockwise: boolean, _color?: string, _lineWidth?: number) { }
 
     /**
      * Rendering rectangle outline
@@ -115,7 +115,7 @@ export class GLContext extends Context {
      * @param {string} color Color name of rectangle
      * @param {number} lineWidth Line of rectangle width
      */
-    strokeRect(_x: number, _y: number, _width: number, _height: number, _color: string | null, _lineWidth: number | null) { }
+    strokeRect(_x: number, _y: number, _width: number, _height: number, _color?: string, _lineWidth?: number) { }
 
     /**
      * Rendering rectangle
@@ -127,7 +127,7 @@ export class GLContext extends Context {
      * @param {string} color Color name of rectangle
      * @param {number} lineWidth Line of rectangle width
      */
-    fillRect(_x: number, _y: number, _width: number, _height: number, _color: string | null, _lineWidth: number | null) { }
+    fillRect(_x: number, _y: number, _width: number, _height: number, _color?: string, _lineWidth?: number) { }
 
     /**
      * Rendering image
@@ -135,12 +135,12 @@ export class GLContext extends Context {
      * @param {ResourceID} imageID Image ID
      * @param {number} x Image x position
      * @param {number} y Image y position
-     * @param {number | null} width Image width
-     * @param {number | null} height Image height
-     * @param {number | null} srcX Upper left x position of source
-     * @param {number | null} srcY Upper left y position of source
-     * @param {number | null} srcW Source width
-     * @param {number | null} srcH Source height
+     * @param {number} width Image width
+     * @param {number} height Image height
+     * @param {number} srcX Upper left x position of source
+     * @param {number} srcY Upper left y position of source
+     * @param {number} srcW Source width
+     * @param {number} srcH Source height
      */
-    drawImage(_imageID: ResourceID, _x: number, _y: number, _width: number | null, _height: number | null, _srcX: number | null, _srcY: number | null, _srcW: number | null, _srcH: number | null) { }
+    drawImage(_imageID: ResourceID, _x: number, _y: number, _width?: number, _height?: number, _srcX?: number, _srcY?: number, _srcW?: number, _srcH?: number) { }
 }

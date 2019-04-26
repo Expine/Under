@@ -123,16 +123,16 @@ export class VariableGravityWorld extends SplitWorld {
                     const x = this.gravityXs[this.number + 1];
                     const y = this.gravityYs[this.number + 1];
                     if (x > 0) {
-                        ctx.fillText(`>`, GameScreen.it.width - 10, GameScreen.it.height / 2, 1.0, 0.5, 100, `red`, null);
+                        ctx.fillText(`>`, GameScreen.it.width - 10, GameScreen.it.height / 2, 1.0, 0.5, 100, 'red');
                     }
                     if (x < 0) {
-                        ctx.fillText(`<`, 10, GameScreen.it.height / 2, 0.0, 0.5, 100, `red`, null);
+                        ctx.fillText(`<`, 10, GameScreen.it.height / 2, 0.0, 0.5, 100, 'red');
                     }
                     if (y > 0) {
-                        ctx.fillText(`|`, GameScreen.it.width / 2, GameScreen.it.height - 10, 0.5, 1.0, 100, `red`, null);
+                        ctx.fillText(`|`, GameScreen.it.width / 2, GameScreen.it.height - 10, 0.5, 1.0, 100, 'red');
                     }
                     if (y < 0) {
-                        ctx.fillText(`^`, GameScreen.it.width / 2, 10, 0.5, 0.0, 100, `red`, null);
+                        ctx.fillText(`^`, GameScreen.it.width / 2, 10, 0.5, 0.0, 100, 'red');
                     }
                 }
             }

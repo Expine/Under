@@ -171,7 +171,7 @@ export class RectangleCollider extends Collider {
             return;
         }
         // rect
-        ctx.strokeRect(this.aabb.startX + shiftX, this.aabb.startY + shiftY, this.endX - this.startX, this.endY - this.startY, null, null);
+        ctx.strokeRect(this.aabb.startX + shiftX, this.aabb.startY + shiftY, this.endX - this.startX, this.endY - this.startY);
         // collision
         let me = 0;
         let you = 0;
@@ -183,8 +183,8 @@ export class RectangleCollider extends Collider {
             }
         }
         if (me !== 0 || you !== 0) {
-            ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`, null);
-            ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, `red`, null);
+            ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
+            ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, 'red');
         }
         // vector
         for (const it of this.collisions) {
@@ -196,7 +196,7 @@ export class RectangleCollider extends Collider {
                 this.aabb.startY + shiftY + (this.endY - this.startY) / 2,
                 this.aabb.startX + shiftX + (this.endX - this.startX) / 2 + it.nx * 30 * (it.colliding === this.entity ? 1 : -1),
                 this.aabb.startY + shiftY + (this.endY - this.startY) / 2 + it.ny * 30 * (it.colliding === this.entity ? 1 : -1),
-                `red`, null);
+                'red');
         }
     }
 }

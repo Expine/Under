@@ -17,45 +17,45 @@ export class GameText extends GameImage {
     /**
      * Text size
      * @protected
-     * @type {number | null}
+     * @type ?{number}
      */
-    protected size: number | null;
+    protected size?: number;
     /**
      * Text color
      * @protected
-     * @type {string | null}
+     * @type {string}
      */
-    protected color: string | null;
+    protected color?: string;
     /**
      * Text font
      * @protected
-     * @type {string | null}
+     * @type {string}
      */
-    protected font: string | null;
+    protected font?: string;
 
     /**
      * Image width
      * @protected
-     * @type {number | null}
+     * @type {number}
      */
-    protected width: number | null;
+    protected width?: number;
     /**
      * Image height
      * @protected
      * @type {number}
      */
-    protected height: number | null;
+    protected height?: number;
 
     /**
      * Game text constructor
      * @constructor
      * @param {string} text Rendering text
-     * @param {number} [size=null] Text size
-     * @param {string} [color=null] Text Color
-     * @param {string} [font=null] Text font
-     * @param {number} [width=null] Text max width
+     * @param {number} size Text size
+     * @param {string} color Text Color
+     * @param {string} font Text font
+     * @param {number} width Text max width
      */
-    constructor(text: string, size: number | null = null, color: string | null = null, font: string | null = null, width: number | null = null) {
+    constructor(text: string, size?: number, color?: string, font?: string, width?: number) {
         super();
         this.text = text;
         this.size = size;
@@ -63,7 +63,7 @@ export class GameText extends GameImage {
         this.font = font;
 
         this.width = width;
-        this.height = null;
+        this.height = undefined;
     }
 
     /**
@@ -98,7 +98,7 @@ export class GameText extends GameImage {
      * @return {number} Imag width
      */
     getWidth(): number {
-        return this.width === null ? 0 : this.width;
+        return this.width === undefined ? 0 : this.width;
     }
 
     /**
@@ -107,7 +107,7 @@ export class GameText extends GameImage {
      * @return {number} Imag height
      */
     getHeight(): number {
-        return this.height === null ? 0 : this.height;
+        return this.height === undefined ? 0 : this.height;
     }
 
     /**
@@ -134,7 +134,7 @@ export class GameText extends GameImage {
      * @return {number}
      */
     getSourceWidth(): number {
-        return this.width === null ? -1 : this.width;
+        return this.width === undefined ? -1 : this.width;
     }
     /**
      * Get source height
@@ -142,7 +142,7 @@ export class GameText extends GameImage {
      * @return {number}
      */
     getSourceHeight(): number {
-        return this.height === null ? -1 : this.height;
+        return this.height === undefined ? -1 : this.height;
     }
 
     /**
@@ -166,12 +166,12 @@ export class GameText extends GameImage {
      * @param {number} y Image y position
      */
     render(ctx: Context, x: number, y: number) {
-        if (this.width !== null) {
+        if (this.width !== undefined) {
             // wrap
             const sentences = [];
             let sentence = ``;
             for (let i = 0; i < this.text.length; ++i) {
-                if (this.width < ctx.measureText(sentence + this.text[i], this.size, this.font)) {
+                if (this.width < ctx.measureText(sentence + this.text[i], this.size == null ? undefined : this.size, this.font == null ? undefined : this.font)) {
                     sentences.push(sentence);
                     sentence = this.text[i];
                 } else {

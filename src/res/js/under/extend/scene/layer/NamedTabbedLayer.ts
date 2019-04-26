@@ -166,8 +166,8 @@ export class NamedTabbedLayer extends TabbedLayer {
      */
     render(ctx: Context) {
         for (let i = 0; i < this.tabNames.length; ++i) {
-            ctx.fillRect(this.x + this.tabX + (this.tabWidth + this.tabPadding) * i, this.y + this.tabY, 70, 15, `white`, null);
-            ctx.fillText(`${this.tabNames[i]}`, this.x + this.tabX + (this.tabWidth + this.tabPadding) * (i + 0.4), this.y + this.tabY + this.tabHeight / 2.7, 0.5, 0.5, 12, `black`, null);
+            ctx.fillRect(this.x + this.tabX + (this.tabWidth + this.tabPadding) * i, this.y + this.tabY, 70, 15, 'white');
+            ctx.fillText('${this.tabNames[i]}', this.x + this.tabX + (this.tabWidth + this.tabPadding) * (i + 0.4), this.y + this.tabY + this.tabHeight / 2.7, 0.5, 0.5, 12, 'black');
         }
         super.render(ctx);
     }
