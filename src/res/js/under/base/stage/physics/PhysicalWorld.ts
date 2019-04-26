@@ -20,6 +20,11 @@ export abstract class PhysicalWorld {
     protected gravity: number;
 
     /**
+     * @return Gravity power.
+     */
+    getGravity(): number { return this.gravity; }
+
+    /**
      * Collision response instance
      * @protected
      * @type {CollisionResponse}

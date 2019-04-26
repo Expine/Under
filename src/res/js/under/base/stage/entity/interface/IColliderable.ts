@@ -14,3 +14,9 @@ export interface IColliderable {
      */
     getCollider(): Collider | null;
 }
+
+/**
+ * Type guard for IColliderable
+ */
+export const isIColliderable = (arg: any): arg is IColliderable =>
+    arg !== null && arg.getCollider !== undefined;
