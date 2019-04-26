@@ -18,21 +18,21 @@ export abstract class EngineBuilder
 {
     /**
      * Make game engine by some elements.
-     * @param input     Input system for managing input state.
-     * @param screen    Screen system for indicating targer.
-     * @param context   Context to render.
-     * @param manager   Scene Manager for managing each scene process.
-     * @param music     Music system for making sound.
-     * @param timer     Timer for measuring time.
+     * @param aInput    Input system for managing input state.
+     * @param aScreen   Screen system for indicating targer.
+     * @param aContext  Context to render.
+     * @param aManager  Scene Manager for managing each scene process.
+     * @param aMusic    Music system for making sound.
+     * @param aTimer    Timer for measuring time.
      * @return Generated game engine.
      */
     protected abstract makeEngine(
-        input: Input,
-        screen: GameScreen,
-        context: Context,
-        manager: SceneManager,
-        music: Music,
-        timer: Timer
+        aInput: Input,
+        aScreen: GameScreen,
+        aContext: Context,
+        aManager: SceneManager,
+        aMusic: Music,
+        aTimer: Timer
     ): Engine;
 
     protected abstract makeScreen(): GameScreen;
@@ -40,24 +40,21 @@ export abstract class EngineBuilder
     protected abstract makeSceneManager(): SceneManager;
 
     /**
-     * @param screen Screen for input target.
+     * @param aScreen Screen for input target.
      */
-    protected abstract makeInput(screen: GameScreen): Input;
+    protected abstract makeInput(aScreen: GameScreen): Input;
 
     /**
-     * @param screen Screen for rendering target.
-     * @param image Image manager for managing image resources.
+     * @param aScreen Screen for rendering target.
+     * @param aImage Image manager for managing image resources.
      */
-    protected abstract makeContext(
-        screen: GameScreen,
-        image: IImageManager
-    ): Context;
+    protected abstract makeContext(aScreen: GameScreen, aImage: IImageManager): Context;
     protected abstract makeImageManager(): IImageManager;
 
     /**
-     * @param music Music manager for managing music resources.
+     * @param aMusic Music manager for managing music resources.
      */
-    protected abstract makeMusic(music: IMusicManager): Music;
+    protected abstract makeMusic(aMusic: IMusicManager): Music;
     protected abstract makeMusicManager(): IMusicManager;
 
 

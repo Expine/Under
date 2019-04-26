@@ -41,14 +41,7 @@ export class UnderEngineBuilder
         timer: Timer
     ): Engine
     {
-        return new UnderEngine(
-            input,
-            screen,
-            context,
-            manager,
-            music,
-            timer
-        );
+        return new UnderEngine(input, screen, context, manager, music, timer);
     }
 
     /**
@@ -76,24 +69,22 @@ export class UnderEngineBuilder
     /**
      * @override
      */
-    protected makeInput(screen: GameScreen): Input
+    protected makeInput(aScreen: GameScreen): Input
     {
         return new AllInput(
-            screen,
-            new KeyInput(screen),
-            new MouseInput(screen)
+            aScreen,
+            new KeyInput(aScreen),
+            new MouseInput(aScreen)
         );
     }
 
     /**
      * @override
      */
-    protected makeContext(
-        screen: GameScreen,
-        image: IImageManager
+    protected makeContext(aScreen: GameScreen, aImage: IImageManager
     ): Context
     {
-        return new CanvasContext(screen, image);
+        return new CanvasContext(aScreen, aImage);
     }
     /**
      * @override
@@ -106,9 +97,9 @@ export class UnderEngineBuilder
     /**
      * @override
      */
-    protected makeMusic(music: IMusicManager): Music
+    protected makeMusic(aMusic: IMusicManager): Music
     {
-        return new BufferSourceMusic(music);
+        return new BufferSourceMusic(aMusic);
     }
     /**
      * @override

@@ -14,8 +14,8 @@ export class MainBuilder
     /**
      * @override
      */
-    protected makeInput(screen: GameScreen): Input
+    protected makeInput(aScreen: GameScreen): Input
     {
-        return new PreventKeyInput(screen);
+        return new PreventKeyInput(aScreen);
     }
 }
