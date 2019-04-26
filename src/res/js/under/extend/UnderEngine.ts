@@ -27,11 +27,11 @@ export class UnderEngine
     protected update()
     {
         const newTime = +new Date();
-        this.timer.update(newTime - this.oldTime);
-        this.input.update();
+        this.mTimer.update(newTime - this.oldTime);
+        this.mInput.update();
         // minimum delta time is 30 milisec
-        this.manager.update(Math.min(
-            this.timer.getDeltatime(),
+        this.mManager.update(Math.min(
+            this.mTimer.getDeltatime(),
             30
         ));
         // update time
@@ -39,9 +39,9 @@ export class UnderEngine
     }
 
     protected render() {
-        this.context.preRendering();
-        this.manager.render(this.context);
-        this.context.postRendering();
+        this.mContext.preRendering();
+        this.mManager.render(this.mContext);
+        this.mContext.postRendering();
     }
 
     /**

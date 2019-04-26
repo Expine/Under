@@ -8,11 +8,11 @@ export class DetectiveScreen
     extends CanvasScreen
 {
     /**
-     * @param width Width of game screen size.
-     * @param height Height of game screen size.
+     * @param mWidth Width of game screen size.
+     * @param mHeight Height of game screen size.
      */
-    constructor(width: number, height: number)
+    constructor(mWidth: number, mHeight: number)
     {
-        super(HTMLUtil.querySelectorNotNull('canvas'), width, height);
+        super(HTMLUtil.querySelectorNotNull('canvas'), mWidth, mHeight);
     }
 }

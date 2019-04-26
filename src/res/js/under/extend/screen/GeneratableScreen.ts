@@ -7,12 +7,12 @@ export class GeneratableScreen
     extends CanvasScreen
 {
     /**
-     * @param width Width of game screen size.
-     * @param height Height of game screen size.
+     * @param mWidth Width of game screen size.
+     * @param mHeight Height of game screen size.
      */
-    constructor(width: number, height: number)
+    constructor(mWidth: number, mHeight: number)
     {
-        super(document.createElement(`canvas`), width, height);
+        super(document.createElement(`canvas`), mWidth, mHeight);
 
         // set canvas
         document.body.appendChild(this.canvas);

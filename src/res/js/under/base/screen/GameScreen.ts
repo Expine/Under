@@ -7,37 +7,41 @@ export abstract class GameScreen
     /**
      * Instance for singleton.
      */
-    static it: GameScreen;
+    private static It: GameScreen;
 
     /**
      * Game screen ratio.
      */
-    protected gameSize: number;
-    /**
-     * @return Game screen ratio.
-     */
-    getGameSize(): number { return this.gameSize; }
+    protected mGameSize: number;
 
     /**
-     * @param width Width of game screen size.
-     * @param height Height of game screen size.
+     * @param mWidth Width of game screen size.
+     * @param mHeight Height of game screen size.
      */
-    constructor(protected width: number, protected height: number)
+    constructor(protected mWidth: number, protected mHeight: number)
     {
-        this.gameSize = 1;
+        this.mGameSize = 1;
 
         // set singleton
-        GameScreen.it = this;
+        GameScreen.It = this;
     }
 
     /**
+     * @return Instance for singleton
+     */
+    static get it(): GameScreen { return GameScreen.It; }
+    /**
+     * @return Game screen ratio.
+     */
+    get gameSize(): number { return this.mGameSize; }
+    /**
      * @return Width of game screen.
      */
-    getWidth(): number { return this.width; }
+    get width(): number { return this.mWidth; }
     /**
      * @return Height of game screen.
      */
-    getHeight(): number { return this.height; }
+    get height(): number { return this.mHeight; }
 
     /**
      * @return Element of input target.

@@ -19,8 +19,8 @@ export class FitableScreen
         {
             const canvas = this.delegate.getCanvas();
             const size = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
-            this.width = size * this.width;
-            this.height = size * this.height;
+            this.mWidth = size * this.width;
+            this.mHeight = size * this.height;
             canvas.width = this.width;
             canvas.height = this.height;
             canvas.style.width = canvas.width + `px`;

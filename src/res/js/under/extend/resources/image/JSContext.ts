@@ -84,10 +84,10 @@ export class JSContext extends Context {
         // save state
         this.ctx.save();
         // scale rendering size
-        this.ctx.scale(this.screen.getGameSize(), this.screen.getGameSize());
+        this.ctx.scale(this.screen.gameSize, this.screen.gameSize);
         // render background
         this.ctx.fillStyle = `black`;
-        this.ctx.fillRect(0, 0, this.screen.getWidth(), this.screen.getHeight());
+        this.ctx.fillRect(0, 0, this.screen.width, this.screen.height);
     }
 
     /**

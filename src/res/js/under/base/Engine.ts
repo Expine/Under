@@ -17,20 +17,20 @@ export abstract class Engine
 {
     /**
      * Sets game core system.
-     * @param input     Input system for managing input state.
-     * @param screen    Screen system for indicating targer.
-     * @param context   Context to render.
-     * @param manager   Scene Manager for managing each scene process.
-     * @param music     Music system for making sound.
-     * @param timer     Timer for measuring time.
+     * @param mInput    Input system for managing input state.
+     * @param mScreen   Screen system for indicating targer.
+     * @param mContext  Context to render.
+     * @param mManager  Scene Manager for managing each scene process.
+     * @param mMusic    Music system for making sound.
+     * @param mTimer    Timer for measuring time.
      */
     constructor(
-        protected input:    Input,
-        protected screen:   GameScreen,
-        protected context:  Context,
-        protected manager:  SceneManager,
-        protected music:    Music,
-        protected timer:    Timer
+        protected mInput:    Input,
+        protected mScreen:   GameScreen,
+        protected mContext:  Context,
+        protected mManager:  SceneManager,
+        protected mMusic:    Music,
+        protected mTimer:    Timer
     )
     { }
 
@@ -42,10 +42,10 @@ export abstract class Engine
     public execute(scene: Scene)
     {
         // initialize
-        this.context.init();
-        this.input.init();
+        this.mContext.init();
+        this.mInput.init();
         // transition initial scene
-        this.manager.replaceScene(scene);
+        this.mManager.replaceScene(scene);
         // execute process
         this.main();
     }

@@ -11,10 +11,10 @@ export class UnderDebugEngine
      */
     update()
     {
-        this.timer.startTimer(`overall`);
-        this.timer.startTimer(`update`);
+        this.mTimer.startTimer(`overall`);
+        this.mTimer.startTimer(`update`);
         super.update();
-        this.timer.stopTimer(`update`);
+        this.mTimer.stopTimer(`update`);
     }
 
     /**
@@ -22,9 +22,9 @@ export class UnderDebugEngine
      */
     render()
     {
-        this.timer.startTimer(`render`);
+        this.mTimer.startTimer(`render`);
         super.render();
-        this.timer.stopTimer(`render`);
-        this.timer.stopTimer(`overall`);
+        this.mTimer.stopTimer(`render`);
+        this.mTimer.stopTimer(`overall`);
     }
 }

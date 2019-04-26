@@ -12,7 +12,7 @@ export abstract class DelegateScreen
     */
     constructor(protected delegate: GameScreen)
     {
-        super(delegate.getWidth(), delegate.getHeight());
+        super(delegate.width, delegate.height);
     }
 
     /**
