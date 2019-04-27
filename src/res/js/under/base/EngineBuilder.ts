@@ -9,10 +9,10 @@ import { Timer } from "./timer/Timer";
 import { Engine } from "./Engine";
 
 /**
- * - Performs initial construction of the game engine.
- * - Generates engine and others, and set them in the engine.
+ * - Perform initial construction of the game engine.
+ * - Generate engine and others, and set them in the engine.
  * @abstract
- * @classdesc Perform initial construction of the game engine to set elements in it.
+ * @classdesc Do initial construction of the game engine to set elements in it.
  */
 export abstract class EngineBuilder
 {
@@ -48,7 +48,9 @@ export abstract class EngineBuilder
      * @param aScreen Screen for rendering target.
      * @param aImage Image manager for managing image resources.
      */
-    protected abstract makeContext(aScreen: GameScreen, aImage: IImageManager): Context;
+    protected abstract makeContext(
+        aScreen: GameScreen, aImage: IImageManager
+    ): Context;
     protected abstract makeImageManager(): IImageManager;
 
     /**

@@ -3,7 +3,7 @@ import { IKey, isIKey } from './IKey';
 import { GameScreen } from '../screen/GameScreen';
 
 /**
- * - Manage input event to update input state
+ * - Manage input event to update input state.
  * @abstract
  */
 export abstract class Input
@@ -23,12 +23,8 @@ export abstract class Input
     constructor(protected screen: GameScreen)
     {
         // set singleton
-        if (isIKey(this)) {
-            Input.mKey = this;
-        }
-        if (isIMouse(this)) {
-            Input.mMouse = this;
-        }
+        if (isIKey(this)) { Input.mKey = this; }
+        if (isIMouse(this)) { Input.mMouse = this; }
     }
 
     /**

@@ -31,7 +31,7 @@ export class UnderEngine
         this.mInput.update();
         // minimum delta time is 30 milisec
         this.mManager.update(Math.min(
-            this.mTimer.getDeltatime(),
+            this.mTimer.deltaTime,
             30
         ));
         // update time

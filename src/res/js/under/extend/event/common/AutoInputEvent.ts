@@ -47,7 +47,7 @@ export class AutoInputEvent extends GameEvent {
      * @override
      */
     init() {
-        Input.key.setInputEnable(false);
+        Input.key.setEnable(false);
         this.nextOrderNumber = 0;
         if (this.orders.length > 0) {
             this.orders[this.nextOrderNumber].init();
@@ -59,7 +59,7 @@ export class AutoInputEvent extends GameEvent {
      * @override
      */
     destruct() {
-        Input.key.setInputEnable(true);
+        Input.key.setEnable(true);
     }
 
     /**

@@ -14,26 +14,26 @@ export interface IInput
      * Set whether input is enable.
      * @param aEnable Whether input is enable.
      */
-    setInputEnable(aEnable: boolean): void;
+    setEnable(aEnable: boolean): void;
 
     /**
      * Block input.
      * @param aCode Target code for blocking.
      */
-    blockInput(aCode: number): void;
+    block(aCode: number): void;
     /**
      * Unblock input.
      * @param aCode Target code for unblocking.
      */
-    unblockInput(aCode: number): void;
+    unblock(aCode: number): void;
 
     /**
-     * Press target code
+     * Press target input.
      * @param aCode Target code for pressing.
      */
     press(aCode: number): void;
     /**
-     * Unpress target code
+     * Unpress target input.
      * @param aCode Target code for unpressing.
      */
     unpress(aCode: number): void;

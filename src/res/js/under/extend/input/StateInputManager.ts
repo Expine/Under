@@ -74,7 +74,7 @@ export abstract class StateInputManager
     /**
      * @override
      */
-    setInputEnable(aEnable: boolean)
+    setEnable(aEnable: boolean)
     {
         this.mEnable = aEnable;
         this.clear();
@@ -83,11 +83,11 @@ export abstract class StateInputManager
     /**
      * @override
      */
-    blockInput(aCode: number) { this.mBlockedList[aCode] = true; }
+    block(aCode: number) { this.mBlockedList[aCode] = true; }
     /**
      * @override
      */
-    unblockInput(aCode: number) { this.mBlockedList[aCode] = false; }
+    unblock(aCode: number) { this.mBlockedList[aCode] = false; }
 
     /**
      * @override

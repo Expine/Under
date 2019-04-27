@@ -8,10 +8,10 @@ import { Scene } from "./scene/Scene";
 
 /**
  * - Control the core of the game.
- * - Manages each piece of game information.
+ * - Manage each piece of game information.
  * - Do not guarantee how the system will be used.
  * @abstract
- * @classdesc Control the core of the game to manage each piece of game information.
+ * @classdesc Control the core of game to manage each piece of game information.
  */
 export abstract class Engine
 {

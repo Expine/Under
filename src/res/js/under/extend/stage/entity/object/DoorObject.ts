@@ -105,7 +105,7 @@ export class DoorObject extends ImagedEntity implements IColliderable {
             super.update(dt);
             if (Util.canEnd(this.image)) {
                 // transition
-                Input.key.setInputEnable(true);
+                Input.key.setEnable(true);
                 for (let i = 0; i < this.popNumber; ++i) {
                     StageManager.it.popStage();
                 }
@@ -128,7 +128,7 @@ export class DoorObject extends ImagedEntity implements IColliderable {
                     const you = Util.getCollidedEntity(<unknown>this as InfluentialEntity, it);
                     if (isIPlayable(you) && Util.onGround(you)) {
                         this.isTransitioning = true;
-                        Input.key.setInputEnable(false);
+                        Input.key.setEnable(false);
                     }
                 }
             }

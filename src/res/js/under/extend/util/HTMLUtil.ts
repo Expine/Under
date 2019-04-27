@@ -7,20 +7,24 @@ export class HTMLUtil
 {
     /**
      * Wrapper for querySelector to do null check.
-     * @param selectors Selectors for using querySelector.
+     * @param aSelectors Selectors for using querySelector.
      */
-    static querySelectorNotNull<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K]
+    static querySelectorNotNull<K extends keyof HTMLElementTagNameMap>(aSelectors: K): HTMLElementTagNameMap[K]
     {
-        const ret = document.querySelector(selectors);
+        const ret = document.querySelector(aSelectors);
         if(ret === null) {
-            alert(`Error: ${selectors} is not found.`);
+            alert(`Error: ${aSelectors} is not found.`);
         }
         return ret!;
     }
 
-    static getContext2D(canvas: HTMLCanvasElement): CanvasRenderingContext2D
+    /**
+     * Wrapper for getContext('2d') to do null check.
+     * @param aCanvas  Canvas for getting context.
+     */
+    static getContext2D(aCanvas: HTMLCanvasElement): CanvasRenderingContext2D
     {
-        const ret = canvas.getContext('2d');
+        const ret = aCanvas.getContext('2d');
         if(ret === null) {
             alert(`Error: Fail to gey CanvasRenderingContext2D.`);
         }

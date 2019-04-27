@@ -85,12 +85,12 @@ export class TextSignObject extends SignObject {
             this.textWindow.init();
         }
         if (this.isShowSign) {
-            Input.key.blockInput(Input.key.sub());
+            Input.key.block(Input.key.sub());
             this.textWindow.update(dt);
-            Input.key.unblockInput(Input.key.sub());
+            Input.key.unblock(Input.key.sub());
         }
         if (!this.isShowSign && this.isExec) {
-            Input.key.unblockInput(Input.key.sub());
+            Input.key.unblock(Input.key.sub());
         }
         this.isExec = this.isShowSign;
     }

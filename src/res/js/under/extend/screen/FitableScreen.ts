@@ -18,7 +18,10 @@ export class FitableScreen
         (window.onresize = () =>
         {
             const canvas = this.delegate.getCanvas();
-            const size = Math.min((innerWidth - 16) / this.width, (innerHeight - 16) / this.height);
+            const size = Math.min(
+                (innerWidth - 16) / this.width,
+                (innerHeight - 16) / this.height
+            );
             this.mWidth = size * this.width;
             this.mHeight = size * this.height;
             canvas.width = this.width;

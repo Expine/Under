@@ -7,26 +7,32 @@ import { Context } from "../resources/image/Context";
 export abstract class Timer
 {
     /**
-     * Instance for singleton
+     * Instance for singleton.
      */
-    static it: Timer;
+    private static It: Timer;
 
     /**
-     * Delta time
+     * Delta time.
      */
-    protected deltaTime: number;
-    /**
-     * @return Delta time that indicateselapsed time since previous frame.
-     */
-    getDeltatime(): number { return this.deltaTime; }
+    protected mDeltaTime: number;
 
     constructor()
     {
-        this.deltaTime = 0;
+        this.mDeltaTime = 0;
 
         // set singleton
-        Timer.it = this;
+        Timer.It = this;
     }
+
+    /**
+     * @return Instance for singleton.
+     */
+    static get it(): Timer { return Timer.It; }
+    /**
+     * @return Delta time that indicateselapsed time since previous frame.
+     */
+    get deltaTime(): number { return this.mDeltaTime; }
+
 
     /**
      * Start to measure timer by name.
@@ -47,15 +53,10 @@ export abstract class Timer
     abstract getTimer(name: string): number;
 
     /**
-     * Initialize timer.
-     */
-    abstract init(): void;
-
-    /**
      * Update timer.
-     * @param dt Delta time.
+     * @param aDt Delta time.
      */
-    update(dt: number) { this.deltaTime = dt; }
+    update(aDt: number) { this.mDeltaTime = aDt; }
 
     /**
      * Render timer.

@@ -49,11 +49,11 @@ export class RecordedTimer
     {
         super.update(dt);
         // record named timer
-        for (const name in this.namedTimer) {
+        for (const name in this.mNamedTimers) {
             if (this.recordedTime[name] === undefined) {
                 this.recordedTime[name] = [];
             }
-            this.recordedTime[name].push(this.namedTimer[name]);
+            this.recordedTime[name].push(this.mNamedTimers[name]);
         }
 
         // register
@@ -70,7 +70,9 @@ export class RecordedTimer
                     this.minTime[name] = Math.min(this.minTime[name], time);
                     this.meanTime[name] += time;
                 }
-                this.meanTime[name] = Math.floor(this.meanTime[name] / this.recordedTime[name].length);
+                this.meanTime[name] = Math.floor(
+                    this.meanTime[name] / this.recordedTime[name].length
+                );
                 this.recordedTime[name].length = 0;
             }
         }
@@ -81,11 +83,14 @@ export class RecordedTimer
      */
     render(ctx: Context, x: number, y: number)
     {
-        for (const name in this.namedTimer) {
-            const max = this.maxTime[name] === undefined ? 0 : this.maxTime[name];
-            const min = this.minTime[name] === undefined ? 0 : this.minTime[name];
-            const mean = this.meanTime[name] === undefined ? 0 : this.meanTime[name];
-            ctx.fillText(`${name} : ${max} - ${min} (${mean}) msec`, x, y, 0.0, 0.0, 20, 'white');
+        for (const name in this.mNamedTimers) {
+            const max = this.maxTime[name] || 0;
+            const min = this.minTime[name] || 0;
+            const mean = this.meanTime[name] || 0;
+            ctx.fillText(
+                `${name} : ${max} - ${min} (${mean}) msec`, x, y, 0.0, 0.0,
+                20, 'white'
+            );
             y += 30;
         }
     }

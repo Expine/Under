@@ -10,48 +10,50 @@ export class SimpleTimer
     /**
      * Named timer for measuring time.
      */
-    protected namedTimer: { [s: string]: number; };
+    protected mNamedTimers: { [s: string]: number; };
 
     /**
      * Named timer for registering start time.
      */
-    protected namedStartTimer: { [s: string]: number; };
+    protected mMamedStartTimers: { [s: string]: number; };
 
     constructor()
     {
         super();
 
-        this.namedTimer = {};
-        this.namedStartTimer = {};
+        this.mNamedTimers = {};
+        this.mMamedStartTimers = {};
     }
 
     /**
      * @override
      */
-    startTimer(name: string) { this.namedStartTimer[name] = +(new Date()); }
+    startTimer(aName: string) { this.mMamedStartTimers[aName] = +(new Date()); }
 
     /**
      * @override
      */
-    stopTimer(name: string) { this.namedTimer[name] = +(new Date()) - this.namedStartTimer[name]; }
+    stopTimer(aName: string)
+    {
+        this.mNamedTimers[aName] =
+            +(new Date()) - this.mMamedStartTimers[aName];
+    }
 
     /**
      * @override
      */
-    getTimer(name: string): number { return this.namedTimer[name]; }
-
-    /**
-     * @override
-     */
-    init() { }
+    getTimer(aName: string): number { return this.mNamedTimers[aName]; }
 
     /**
      * @override
      */
     render(ctx: Context, x: number, y: number)
     {
-        for (const name in this.namedTimer) {
-            ctx.fillText(`${name} : ${this.getTimer(name)} msec`, x, y, 0.0, 0.0, 20, `white`, "");
+        for (const name in this.mNamedTimers) {
+            ctx.fillText(
+                `${name} : ${this.getTimer(name)} msec`, x, y, 0.0, 0.0,
+                20, `white`
+            );
             y += 30;
         }
     }

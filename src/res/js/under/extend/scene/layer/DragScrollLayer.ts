@@ -60,7 +60,7 @@ export class DragScrollLayer extends ScrollLayer {
         }
         if (this.scrolling) {
             // block
-            Input.mouse.blockInput(Input.mouse.mRight());
+            Input.mouse.block(Input.mouse.mRight());
             this.scroll(x - this.oldMouseX, y - this.oldMouseY);
             this.oldMouseX = x;
             this.oldMouseY = y;

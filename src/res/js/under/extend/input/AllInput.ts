@@ -132,10 +132,10 @@ export class AllInput
     /**
      * @override
      */
-    setInputEnable(aEnable: boolean)
+    setEnable(aEnable: boolean)
     {
-        this.mouseDelegate.setInputEnable(aEnable);
-        this.keyDelegate.setInputEnable(aEnable);
+        this.mouseDelegate.setEnable(aEnable);
+        this.keyDelegate.setEnable(aEnable);
     }
 
     /**
@@ -154,16 +154,16 @@ export class AllInput
     /**
      * @override
      */
-    blockInput(aCode: number)
+    block(aCode: number)
     {
-        this.getDelegate(aCode).blockInput(aCode % this.MOUSE_BASE_CODE);
+        this.getDelegate(aCode).block(aCode % this.MOUSE_BASE_CODE);
     }
     /**
      * @override
      */
-    unblockInput(aCode: number)
+    unblock(aCode: number)
     {
-        this.getDelegate(aCode).unblockInput(aCode % this.MOUSE_BASE_CODE);
+        this.getDelegate(aCode).unblock(aCode % this.MOUSE_BASE_CODE);
     }
 
     /**
