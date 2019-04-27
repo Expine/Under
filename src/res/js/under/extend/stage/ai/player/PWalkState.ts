@@ -73,16 +73,16 @@ export class PWalkState extends BaseState {
         if (this.entity !== null && this.ai !== null) {
             // stationary
             if (!input) {
-                this.ai.changeState(`stationary`);
+                this.ai.changeState('stationary');
             }
             if (Util.onGround(this.entity)) {
                 // jump
                 if (Input.key.isPressed(Input.key.up())) {
-                    this.ai.changeState(`walkjump`);
+                    this.ai.changeState('walkjump');
                 }
                 // punch
                 if (Input.key.isPress(Input.key.yes())) {
-                    this.ai.changeState(`attack`);
+                    this.ai.changeState('attack');
                 }
             }
         }

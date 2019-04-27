@@ -121,7 +121,7 @@ export class TextWindowEvent extends NamedEvent {
      * @param {Context} ctx Canvas context
      */
     render(ctx: Context) {
-        const id = ResourceManager.image.load(`window/win2.png`);
+        const id = ResourceManager.image.load('window/win2.png');
         const size = (this.size === -1 ? 25 : this.size) * this.showCount * this.showCount;
         const width = ctx.measureText(this.sentence, size);
         Util.renderWindow(ctx, id, this.x - (width + 64) / 2, this.y - (64 + size) / 2, width + 64, 64 + size);

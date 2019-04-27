@@ -32,29 +32,29 @@ export class DebugStage
             const player = players[0];
             const physic = this.getPhysicalWorld();
             const response = physic === null ? null : physic.getResponse();
-            GameDebugger.it.register(`time`, `${dt} mssc`);
+            GameDebugger.it.register('time', `${dt} mssc`);
             if(physic != null) {
-                GameDebugger.it.register(`collision`, `${physic.getCollisionSize()} collision`);
+                GameDebugger.it.register('collision', `${physic.getCollisionSize()} collision`);
             }
             if (player instanceof InfluentialEntity && player.collider != null) {
-                GameDebugger.it.register(`pcollision`, `${player.collider.collisions.length} player collision`);
+                GameDebugger.it.register('pcollision', `${player.collider.collisions.length} player collision`);
             }
             if(physic !== null && response !== null) {
                 // TODO: Get debug delegation world
-                GameDebugger.it.register(`physics`, `${BaseUtil.getClassName(physic instanceof DebugWorld ? physic/* .world */ : physic)}-${BaseUtil.getClassName(response)}`);
+                GameDebugger.it.register('physics', `${BaseUtil.getClassName(physic instanceof DebugWorld ? physic/* .world */ : physic)}-${BaseUtil.getClassName(response)}`);
             }
-            GameDebugger.it.register(`ppos`, `Pos(${Math.floor(player.x)}, ${Math.floor(player.y)})`);
+            GameDebugger.it.register('ppos', `Pos(${Math.floor(player.x)}, ${Math.floor(player.y)})`);
             if (player instanceof MutableEntity && player.body !== null) {
-                GameDebugger.it.register(`pvec`, `Vec(${Math.floor(player.body.velocityX)}, ${Math.floor(player.body.velocityY)})`);
-                GameDebugger.it.register(`pacc`, `Acc(${Math.floor(player.body.accelerationX)},${Math.floor(player.body.accelerationY)})`);
+                GameDebugger.it.register('pvec', `Vec(${Math.floor(player.body.velocityX)}, ${Math.floor(player.body.velocityY)})`);
+                GameDebugger.it.register('pacc', `Acc(${Math.floor(player.body.accelerationX)},${Math.floor(player.body.accelerationY)})`);
             }
             // TODO: Get state
             /*
             if (player instanceof StateCharacter && player.state !== null) {
-                GameDebugger.it.register(`state`, `${BaseUtil.getClassName(player.state)}`);
+                GameDebugger.it.register('state', `${BaseUtil.getClassName(player.state)}`);
             }
             */
-            GameDebugger.it.register(`mouse`, `M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`);
+            GameDebugger.it.register('mouse', `M(${Math.floor(Input.mouse.getMouseX())},${Math.floor(Input.mouse.getMouseY())})`);
         }
     }
 
@@ -119,9 +119,9 @@ export class DebugStage
      */
     updateEntity(dt: number)
     {
-        Timer.it.startTimer(`entity`);
+        Timer.it.startTimer('entity');
         this.baseStage.updateEntity(dt);
-        Timer.it.stopTimer(`entity`);
+        Timer.it.stopTimer('entity');
     }
 
     /**
@@ -129,9 +129,9 @@ export class DebugStage
      */
     updatePhysics(dt: number)
     {
-        Timer.it.startTimer(`physics`);
+        Timer.it.startTimer('physics');
         this.baseStage.updatePhysics(dt);
-        Timer.it.stopTimer(`physics`);
+        Timer.it.stopTimer('physics');
     }
 
     /**
@@ -156,9 +156,9 @@ export class DebugStage
      */
     renderBackground(ctx: Context, shiftX: number, shiftY: number)
     {
-        Timer.it.startTimer(`renderBackground`);
+        Timer.it.startTimer('renderBackground');
         this.baseStage.renderBackground(ctx, shiftX, shiftY);
-        Timer.it.stopTimer(`renderBackground`);
+        Timer.it.stopTimer('renderBackground');
     }
 
     /**
@@ -166,9 +166,9 @@ export class DebugStage
      */
     renderEntity(ctx: Context, shiftX: number, shiftY: number)
     {
-        Timer.it.startTimer(`renderEntity`);
+        Timer.it.startTimer('renderEntity');
         this.baseStage.renderEntity(ctx, shiftX, shiftY);
-        Timer.it.stopTimer(`renderEntity`);
+        Timer.it.stopTimer('renderEntity');
 
         // For debug to render entity information
         if (GameDebugger.debug) {

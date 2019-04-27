@@ -98,7 +98,7 @@ export class PJumpState extends BaseState {
             // judge
             if (!Util.onGround(this.entity) && this.ai !== null) {
                 if (++this.inAirCount > 5) {
-                    this.ai.changeState(`stationary`);
+                    this.ai.changeState('stationary');
                 }
             } else {
                 this.inAirCount = 0;
@@ -108,7 +108,7 @@ export class PJumpState extends BaseState {
                 // reset and jump
                 this.entity.body.setNextAddVelocity(this.reservedVelocityX * 0.8 - this.entity.body.velocityX, -this.entity.body.velocityY);
                 this.entity.body.enforce(0, -this.jumpPower * this.entity.material.mass * 1000 / dt * (this.jumpPressedTime + this.jumpDeltaTime) / 2 / this.jumpDeltaTime);
-                this.ai.changeState(`jumping`);
+                this.ai.changeState('jumping');
             }
         }
         return true;

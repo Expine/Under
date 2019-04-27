@@ -17,7 +17,7 @@ export class PropellerBaseStateAI extends NormalBaseStateAI {
     constructor() {
         super();
 
-        this.specialActionName = `none`;
+        this.specialActionName = 'none';
         for (const name in this.namedStates) {
             if (this.namedStates.hasOwnProperty(name)) {
                 const state = this.namedStates[name];
@@ -30,6 +30,6 @@ export class PropellerBaseStateAI extends NormalBaseStateAI {
                 }
             }
         }
-        this.namedStates[`jumping`] = new PropellerJumpingState(350, 500, 21000, 30000);
+        this.namedStates['jumping'] = new PropellerJumpingState(350, 500, 21000, 30000);
     }
 }

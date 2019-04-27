@@ -34,33 +34,33 @@ export class BaseImageBuilder extends ImageBuilder {
         const id = image.file === undefined ? -1 : ResourceManager.image.load(`${root}/${image.file}`);
         // build base
         switch (image.type) {
-            case `tile`:
+            case 'tile':
                 {
                     const width = image.w === undefined ? image.width : image.w;
                     const height = image.h === undefined ? image.height : image.h;
                     ret = new TileImage(id, width, height, image.x, image.y, image.width, image.height);
                     break;
                 }
-            case `single`:
+            case 'single':
                 ret = new SingleImage(id, image.width, image.height);
                 break;
-            case `anime`:
+            case 'anime':
                 ret = new SingleAnimation(image.loop);
                 break;
-            case `multianime`:
+            case 'multianime':
                 ret = new MultiNamedAnimation();
                 break;
         }
         // build transitional
         if (image.transition !== undefined) {
             switch (image.transition.type) {
-                case `blink`:
+                case 'blink':
                     if (ret instanceof NamedAnimation) {
                         // TODO: Generate TransitionalNamedAnimation
                         // ret = new TransitionalNamedAnimation(ret, image.transition.time, image.transition.interval);
                     }
                     break;
-                case `stripe`:
+                case 'stripe':
                     if (ret instanceof NamedAnimation) {
                         ret = new TransitionalStripeAnimation(ret, image.transition.time);
                         image.clip = true;
@@ -91,7 +91,7 @@ export class BaseImageBuilder extends ImageBuilder {
                 if (ret instanceof NamedAnimation) {
                     ret.setName(anime.name);
                 }
-                anime.type = `anime`;
+                anime.type = 'anime';
                 anime.directional = image.directional;
                 anime.clip = image.clip;
                 const element = this.build(root, anime);
@@ -103,7 +103,7 @@ export class BaseImageBuilder extends ImageBuilder {
             ret.setAllSize(image.width, image.height);
         } else if (ret instanceof GameAnimation) {
             for (const it of image.animation) {
-                it.type = `tile`;
+                it.type = 'tile';
                 it.directional = image.directional;
                 it.clip = image.clip;
                 const cut = this.build(root, it);

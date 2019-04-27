@@ -69,7 +69,7 @@ export class HeadHookingState extends HookingState {
                 // hook
                 this.hook.hooked();
                 if (this.ai !== null) {
-                    this.ai.changeState(`hooked`);
+                    this.ai.changeState('hooked');
                 }
                 break;
             }

@@ -26,8 +26,8 @@ export class FitableScreen
             this.mHeight = size * this.height;
             canvas.width = this.width;
             canvas.height = this.height;
-            canvas.style.width = canvas.width + `px`;
-            canvas.style.height = canvas.height + `px`;
+            canvas.style.width = `${canvas.width}px`;
+            canvas.style.height = `${canvas.height}px`;
         })();
     }
 }

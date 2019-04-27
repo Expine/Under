@@ -72,9 +72,9 @@ export class DebugWorld
      */
     updateExternalForce(dt: number)
     {
-        Timer.it.startTimer(`external`);
+        Timer.it.startTimer('external');
         this.world.updateExternalForce(dt);
-        Timer.it.stopTimer(`external`);
+        Timer.it.stopTimer('external');
     }
 
     /**
@@ -82,7 +82,7 @@ export class DebugWorld
      */
     prepareBody(dt: number)
     {
-        Timer.it.startTimer(`body`);
+        Timer.it.startTimer('body');
         this.world.prepareBody(dt);
     }
 
@@ -97,7 +97,7 @@ export class DebugWorld
     updateBodyCleanup(dt: number)
     {
         this.world.updateBodyCleanup(dt);
-        Timer.it.stopTimer(`body`);
+        Timer.it.stopTimer('body');
     }
 
     /**
@@ -106,7 +106,7 @@ export class DebugWorld
     initCollision(dt: number)
     {
         this.judgeCount = 0;
-        Timer.it.startTimer(`collide`);
+        Timer.it.startTimer('collide');
         this.world.initCollision(dt);
     }
 
@@ -134,7 +134,7 @@ export class DebugWorld
      */
     cleanup(dt: number)
     {
-        Timer.it.stopTimer(`collide`);
+        Timer.it.stopTimer('collide');
         this.world.cleanup(dt);
     }
 

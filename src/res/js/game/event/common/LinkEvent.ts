@@ -47,7 +47,7 @@ export class LinkEvent extends GameEvent {
         if (Input.mouse !== null) {
             Input.mouse.clear();
         }
-        window.open(this.url, `_blank`);
+        window.open(this.url, '_blank');
     }
 
     /**

@@ -34,7 +34,7 @@ export class UnderCharacterBuilder extends CharacterBuilder {
      */
     makeBody(body: any): RigidBody | null {
         switch (body.type) {
-            case `String`:
+            case 'String':
                 const baseBody = this.makeBody(body.body);
                 return baseBody === null ? null : new StringBody(baseBody, body.x, body.y, body.length, body.k, body.count);
             default:
@@ -51,9 +51,9 @@ export class UnderCharacterBuilder extends CharacterBuilder {
     makeCollider(collider: any): Collider | null {
         if (collider.excluded) {
             switch (collider.type) {
-                case `Rectangle`:
+                case 'Rectangle':
                     return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
-                case `RoundRectangle`:
+                case 'RoundRectangle':
                     return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
             }
         }
@@ -69,19 +69,19 @@ export class UnderCharacterBuilder extends CharacterBuilder {
      */
     makeAI(ai: any): AI | null {
         switch (ai.type) {
-            case `CommonBaseStateAI`:
+            case 'CommonBaseStateAI':
                 return new CommonBaseStateAI();
-            case `NormalBaseStateAI`:
+            case 'NormalBaseStateAI':
                 return new NormalBaseStateAI();
-            case `WildBaseStateAI`:
+            case 'WildBaseStateAI':
                 return new WildBaseStateAI();
-            case `AdventurerBaseStateAI`:
+            case 'AdventurerBaseStateAI':
                 return new AdventurerBaseStateAI();
-            case `PropellerBaseStateAI`:
+            case 'PropellerBaseStateAI':
                 return new PropellerBaseStateAI();
-            case `HookStateAI`:
+            case 'HookStateAI':
                 return new HookStateAI();
-            case `HeadHookStateAI`:
+            case 'HeadHookStateAI':
                 return new HeadHookStateAI();
             default:
                 return super.makeAI(ai);
@@ -98,20 +98,20 @@ export class UnderCharacterBuilder extends CharacterBuilder {
      */
     makeEntityBase(deploy: any, entity: any): Entity | null {
         switch (entity.type) {
-            case `Player`:
+            case 'Player':
                 return new UnderPlayer();
-            case `HookHead`:
-                return new HookHead(this.tryReplace(deploy, entity, `max`), this.tryReplace(deploy, entity, `hook`), this.tryReplace(deploy, entity, `child`));
-            case `HookChild`:
+            case 'HookHead':
+                return new HookHead(this.tryReplace(deploy, entity, 'max'), this.tryReplace(deploy, entity, 'hook'), this.tryReplace(deploy, entity, 'child'));
+            case 'HookChild':
                 return new HookChild();
-            case `Sign`:
+            case 'Sign':
                 {
-                    const signData = this.tryReplace(deploy, entity, `sign`);
+                    const signData = this.tryReplace(deploy, entity, 'sign');
                     if (signData.image !== undefined) {
                         return super.makeEntityBase(deploy, entity);
                     }
                     const ret = new TextSignObject();
-                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const colliderData = this.tryReplace(deploy, entity, 'collider');
                     const collider = this.makeCollider(colliderData);
                     if (collider !== null) {
                         collider.setAABB(this.makeAABB(colliderData));

@@ -108,10 +108,10 @@ export class GameScene extends BaseLayeredScene {
         this.stageManager = new StackStageManager();
         this.stageManager.setStageParser(new UnderStageParser());
         this.stageManager.setStageSize(GameScreen.it.width, GameScreen.it.height);
-        this.stageManager.pushStage(`map1`);
+        this.stageManager.pushStage('map1');
 
         const eventImage = new SingleAnimation(true);
-        const id = ResourceManager.image.load(`event/eventBack.png`);
+        const id = ResourceManager.image.load('event/eventBack.png');
         for (let i = 0; i < 4; ++i) {
             eventImage.addAnimation(new TileImage(id, GameScreen.it.width, GameScreen.it.height, i * 100, 0, 100, 75), 250);
         }

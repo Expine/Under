@@ -67,9 +67,9 @@ export class PJumpingState extends BaseState {
             }
             if (Util.onGround(this.entity) && this.ai !== null) {
                 if (Math.abs(this.entity.body.velocityX) < 100) {
-                    this.ai.changeState(`stationary`);
+                    this.ai.changeState('stationary');
                 } else {
-                    this.ai.changeState(`walk`);
+                    this.ai.changeState('walk');
                 }
             }
         }

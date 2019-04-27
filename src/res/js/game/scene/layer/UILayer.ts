@@ -83,7 +83,7 @@ export class UILayer extends Layer {
         }
 
         // load animation
-        const uiImage = ResourceManager.image.load(`ui/hp.png`);
+        const uiImage = ResourceManager.image.load('ui/hp.png');
         for (let i = 0; i < 6; ++i) {
             this.uiAnimation.setName(`${3 - (Math.floor(i / 2) % 4)}-${3 - (Math.floor((i + 1) / 2) % 4)}`);
             this.uiAnimation.setAnimation(new SingleAnimation(i % 2 === 0));

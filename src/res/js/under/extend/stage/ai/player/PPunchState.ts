@@ -95,9 +95,9 @@ export class PPunchState extends BaseState {
             if (Util.canEnd(image) && this.ai !== null) {
                 // punch
                 if (this.entity.body !== null && Math.abs(this.entity.body.velocityX) < 100) {
-                    this.ai.changeState(`stationary`);
+                    this.ai.changeState('stationary');
                 } else {
-                    this.ai.changeState(`walk`);
+                    this.ai.changeState('walk');
                 }
             }
             return true;

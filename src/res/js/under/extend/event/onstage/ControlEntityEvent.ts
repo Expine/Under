@@ -110,7 +110,7 @@ export class ControlEntityEvent extends StageEvent {
     init() {
         let target = null;
         // TODO: Improve search method
-        if (this.targetName === `player` && this.stage !== null) {
+        if (this.targetName === 'player' && this.stage !== null) {
             target = this.stage.getEntitiesByInterface(isIPlayable)[0];
         }
         if (target !== null) {

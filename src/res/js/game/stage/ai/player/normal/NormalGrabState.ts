@@ -131,10 +131,10 @@ export class NormalGrabState extends UnderMovableState {
             if (image instanceof GameAnimation) {
                 image.restore();
             }
-            if (this.ai !== null && image !== null && this.ai.getStateID() === `grab`) {
+            if (this.ai !== null && image !== null && this.ai.getStateID() === 'grab') {
                 image.init();
             }
-            if (this.ai !== null && this.ai.changeState(`grabwalk`)) {
+            if (this.ai !== null && this.ai.changeState('grabwalk')) {
                 // restore
                 this.restoreCollider();
             }

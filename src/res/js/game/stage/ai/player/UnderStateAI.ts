@@ -23,7 +23,7 @@ export abstract class UnderStateAI extends TransferableStateAI {
     constructor(state: string) {
         super(state);
 
-        this.specialActionName = `special`;
+        this.specialActionName = 'special';
     }
 
     /**
@@ -33,7 +33,7 @@ export abstract class UnderStateAI extends TransferableStateAI {
      * @return {boolean} Whether change state or not
      */
     changeState(state: string): boolean {
-        if (state === `special`) {
+        if (state === 'special') {
             state = this.specialActionName;
         }
         return super.changeState(state);

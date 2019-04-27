@@ -17,13 +17,13 @@ export class PlayerBaseStateAI extends NamedStateAI {
      * @constructor
      */
     constructor() {
-        super(`stationary`);
+        super('stationary');
 
-        this.namedStates[`stationary`] = new PStationaryState(300, 36000);
-        this.namedStates[`walk`] = new PWalkState(300, 18000);
-        this.namedStates[`jump`] = new PJumpState(230);
-        this.namedStates[`walkjump`] = new PJumpState(300);
-        this.namedStates[`jumping`] = new PJumpingState(200, 12000);
-        this.namedStates[`attack`] = new PPunchState();
+        this.namedStates['stationary'] = new PStationaryState(300, 36000);
+        this.namedStates['walk'] = new PWalkState(300, 18000);
+        this.namedStates['jump'] = new PJumpState(230);
+        this.namedStates['walkjump'] = new PJumpState(300);
+        this.namedStates['jumping'] = new PJumpingState(200, 12000);
+        this.namedStates['attack'] = new PPunchState();
     }
 }

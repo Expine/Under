@@ -37,7 +37,7 @@ export class NormalJumpingState extends UnderMovableState {
         // move
         this.moveByInput(dt);
         if (this.entity !== null && this.entity.body !== null && this.ai !== null && this.entity.body.velocityY > 0) {
-            this.ai.changeState(`fall`);
+            this.ai.changeState('fall');
         }
         if (this.entity !== null && Util.onGround(this.entity)) {
             this.transitionUsualState();

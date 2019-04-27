@@ -90,7 +90,7 @@ export class AdventurerDownWallState extends UnderMovableState {
         }
         if (vx !== 0) {
             this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
-            this.ai.changeState(`falling`);
+            this.ai.changeState('falling');
             return true;
         }
         if (Util.onGround(this.entity)) {
@@ -133,7 +133,7 @@ export class AdventurerDownWallState extends UnderMovableState {
             this.downWallCount = 0;
         } else if (++this.downWallCount > 2) {
             this.entity.body.enforce(90000 * this.entity.material.mass * this.directionX / dt, 0);
-            this.ai.changeState(`falling`);
+            this.ai.changeState('falling');
         }
         return true;
     }

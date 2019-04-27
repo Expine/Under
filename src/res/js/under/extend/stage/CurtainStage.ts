@@ -83,7 +83,7 @@ export class CurtainStage extends DelegateStage {
         super.render(ctx, shiftX, shiftY);
 
         const per = this.transitionCount < this.transitionTIme ? Math.cos(Math.PI / 2 * (this.transitionTIme - this.transitionCount)) : 1;
-        ctx.fillRect(0, 0, GameScreen.it.width, GameScreen.it.height * per, `black`);
+        ctx.fillRect(0, 0, GameScreen.it.width, GameScreen.it.height * per, 'black');
         ctx.fillText(this.baseStage.name, GameScreen.it.width / 2, GameScreen.it.height * (per - 0.5), 0.5, 0.5, 40, 'white');
     }
 }

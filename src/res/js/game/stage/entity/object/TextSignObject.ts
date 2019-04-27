@@ -43,7 +43,7 @@ export class TextSignObject extends SignObject {
      */
     constructor() {
         super();
-        this.signText = ``;
+        this.signText = '';
         this.size = 0;
         this.isExec = false;
         this.textWindow = null;

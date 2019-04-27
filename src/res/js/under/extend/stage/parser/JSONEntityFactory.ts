@@ -121,7 +121,7 @@ export class JSONEntityFactory extends EntityFactory {
     buildEntityInfo(entityInfo: any) {
         // set default info
         const defaultCollider = {
-            type: `Rectangle`,
+            type: 'Rectangle',
             startX: 0,
             startY: 0,
             width: 0,
@@ -133,9 +133,9 @@ export class JSONEntityFactory extends EntityFactory {
             mu: 0.65,
         };
         const defaultBBody = {
-            type: `MaxAdopt`,
+            type: 'MaxAdopt',
             material: {
-                type: `Immutable`,
+                type: 'Immutable',
                 k: 0.5,
                 frictionX: 1.0,
                 frictionY: 0.0,
@@ -157,7 +157,7 @@ export class JSONEntityFactory extends EntityFactory {
                 entity.body = JSON.parse(JSON.stringify(defaultBBody));
             }
             // check serial
-            if (entity.image !== undefined && entity.image.type === `anime`) {
+            if (entity.image !== undefined && entity.image.type === 'anime') {
                 const animation = [];
                 for (const it of entity.image.animation) {
                     if (it.serial) {
@@ -176,7 +176,7 @@ export class JSONEntityFactory extends EntityFactory {
                 entity.image.animation = animation;
             }
             // check multi serial
-            if (entity.image !== undefined && entity.image.type === `multianime`) {
+            if (entity.image !== undefined && entity.image.type === 'multianime') {
                 const animations = [];
                 for (const it of entity.image.animations) {
                     if (it.serial && it.names !== undefined) {
@@ -254,7 +254,7 @@ export class JSONEntityFactory extends EntityFactory {
     buildTileInfo(tileInfo: any) {
         // set default info
         const defaultCollider = {
-            type: `Rectangle`,
+            type: 'Rectangle',
             startX: 0,
             startY: 0,
             width: 0,

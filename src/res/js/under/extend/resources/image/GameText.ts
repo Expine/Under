@@ -169,7 +169,7 @@ export class GameText extends GameImage {
         if (this.width !== undefined) {
             // wrap
             const sentences = [];
-            let sentence = ``;
+            let sentence = '';
             for (let i = 0; i < this.text.length; ++i) {
                 if (this.width < ctx.measureText(sentence + this.text[i], this.size == null ? undefined : this.size, this.font == null ? undefined : this.font)) {
                     sentences.push(sentence);

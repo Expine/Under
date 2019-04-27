@@ -29,7 +29,7 @@ export class TileBuilder extends EntityBuilder {
      * @return {GameImage} Image
      */
     makeImage(image: any): GameImage | null {
-        return this.imageBuilder === null ? null : this.imageBuilder.build(`tile`, image);
+        return this.imageBuilder === null ? null : this.imageBuilder.build('tile', image);
     }
 
     /**
@@ -66,7 +66,7 @@ export class TileBuilder extends EntityBuilder {
         for (let name in deploy) {
             if (deploy.hasOwnProperty(name)) {
                 const e = deploy[name];
-                if (typeof (e) !== `object` || e instanceof Array) {
+                if (typeof (e) !== 'object' || e instanceof Array) {
                     json[name] = e;
                 } else {
                     json[name] = this.tryOverride(e, json[name], undefined);
@@ -84,11 +84,11 @@ export class TileBuilder extends EntityBuilder {
      */
     makeCollider(collider: any): Collider | null {
         switch (collider.type) {
-            case `Rectangle`:
+            case 'Rectangle':
                 return new RectangleCollider(collider.startX, collider.startY, collider.width, collider.height);
-            case `Circle`:
+            case 'Circle':
                 return new CircleCollider(collider.radius, collider.shiftX, collider.shiftY);
-            case `RoundRectangle`:
+            case 'RoundRectangle':
                 return new RoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut);
             default:
                 return null;
@@ -131,7 +131,7 @@ export class TileBuilder extends EntityBuilder {
      */
     makeTileBase(_deploy: any, tile: any): Entity | null {
         switch (tile.type) {
-            case `image`:
+            case 'image':
                 return new OnlyImageEntity();
             case undefined:
                 return new TileObject();
@@ -150,7 +150,7 @@ export class TileBuilder extends EntityBuilder {
         if (deploy !== undefined) {
             base.setPosition(deploy.x, deploy.y, deploy.z);
         }
-        base.setSize(this.tryReplace(deploy, json, `width`), this.tryReplace(deploy, json, `height`));
+        base.setSize(this.tryReplace(deploy, json, 'width'), this.tryReplace(deploy, json, 'height'));
     }
 
     /**
@@ -160,7 +160,7 @@ export class TileBuilder extends EntityBuilder {
      * @param {any} json Character json data
      */
     buildImage(base: ImagedEntity, deploy: any, json: any) {
-        const image = this.tryReplace(deploy, json, `image`);
+        const image = this.tryReplace(deploy, json, 'image');
         if (image !== undefined) {
             const im = this.makeImage(image);
             if (im !== null) {
@@ -177,8 +177,8 @@ export class TileBuilder extends EntityBuilder {
      * @param {any} json Character json data
      */
     buildPhysical(base: InfluentialEntity, deploy: any, json: any) {
-        const colliderData = this.tryOverride(deploy, json, `collider`);
-        const materialData = this.tryReplace(deploy, json, `material`);
+        const colliderData = this.tryOverride(deploy, json, 'collider');
+        const materialData = this.tryReplace(deploy, json, 'material');
         // set collider
         if (colliderData !== undefined) {
             const collider = this.makeCollider(colliderData);

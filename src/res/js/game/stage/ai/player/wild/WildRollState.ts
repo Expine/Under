@@ -52,7 +52,7 @@ export class WildRollState extends UnderMovableState {
         if (this.entity.body !== null && this.entity.material !== null && this.ai !== null && image !== null && Util.canEnd(image)) {
             // big jump
             this.entity.body.enforce(this.movePowerX * this.entity.material.mass * this.entity.directionX / dt, -this.movePowerY * this.entity.material.mass / dt);
-            this.ai.changeState(`rolling`);
+            this.ai.changeState('rolling');
         }
         return true;
     }

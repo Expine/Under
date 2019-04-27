@@ -23,7 +23,7 @@ export class AdventurerBaseStateAI extends NormalBaseStateAI {
     constructor() {
         super();
 
-        this.specialActionName = `hook`;
+        this.specialActionName = 'hook';
         for (const name in this.namedStates) {
             if (this.namedStates.hasOwnProperty(name)) {
                 const state = this.namedStates[name];
@@ -37,13 +37,13 @@ export class AdventurerBaseStateAI extends NormalBaseStateAI {
                 }
             }
         }
-        this.namedStates[`stationary`] = new AdventurerStationaryState(350, 42000);
-        this.namedStates[`walk`] = new AdventurerWalkState(350, 21000);
-        this.namedStates[`grab`] = new AdventurerGrabState(110, 30000);
-        this.namedStates[`jumping`] = new AdventurerJumpingState(262.5, 14000);
-        this.namedStates[`fall`] = new AdventurerFallState(250, 15000);
-        this.namedStates[`falling`] = new AdventurerFallState(250, 15000);
-        this.namedStates[`hook`] = new AdventurerHookState();
-        this.namedStates[`downwall`] = new AdventurerDownWallState(250, 15000);
+        this.namedStates['stationary'] = new AdventurerStationaryState(350, 42000);
+        this.namedStates['walk'] = new AdventurerWalkState(350, 21000);
+        this.namedStates['grab'] = new AdventurerGrabState(110, 30000);
+        this.namedStates['jumping'] = new AdventurerJumpingState(262.5, 14000);
+        this.namedStates['fall'] = new AdventurerFallState(250, 15000);
+        this.namedStates['falling'] = new AdventurerFallState(250, 15000);
+        this.namedStates['hook'] = new AdventurerHookState();
+        this.namedStates['downwall'] = new AdventurerDownWallState(250, 15000);
     }
 }

@@ -14,9 +14,9 @@ export class HookStateAI extends NamedStateAI {
      * @constructor
      */
     constructor() {
-        super(`hooking`);
+        super('hooking');
 
-        this.namedStates[`hooking`] = new HookingState();
-        this.namedStates[`released`] = new HookReleasedState();
+        this.namedStates['hooking'] = new HookingState();
+        this.namedStates['released'] = new HookReleasedState();
     }
 }

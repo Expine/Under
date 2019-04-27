@@ -35,8 +35,8 @@ export class TitleScene extends Scene {
      */
     constructor() {
         super();
-        this._title = new SingleImage(ResourceManager.image.load(`ui/title.png`), 370, 120);
-        this._titleText = new GameText(`Press Z to start`, 30, `white`);
+        this._title = new SingleImage(ResourceManager.image.load('ui/title.png'), 370, 120);
+        this._titleText = new GameText('Press Z to start', 30, 'white');
     }
 
     /**

@@ -32,7 +32,7 @@ export class GLContext extends Context {
          * @private
          * @type {WebGLRenderingContext}
          */
-        this._gl = this.screen.getCanvas().getContext(`webgl`) as WebGLRenderingContext;
+        this._gl = this.screen.getCanvas().getContext('webgl') as WebGLRenderingContext;
         // dummy
         this._gl.ACTIVE_ATTRIBUTES;
     }

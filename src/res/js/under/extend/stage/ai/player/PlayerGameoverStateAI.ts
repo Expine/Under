@@ -13,8 +13,8 @@ export class PlayerGameoverStateAI extends NamedStateAI {
      * @constructor
      */
     constructor() {
-        super(`gameover`);
+        super('gameover');
 
-        this.namedStates[`gameover`] = new PGameoverState();
+        this.namedStates['gameover'] = new PGameoverState();
     }
 }

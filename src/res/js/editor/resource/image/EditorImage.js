@@ -44,7 +44,7 @@ class EditorImage extends NamedAnimation /* , IEditorSave, IDirectionalImage, IC
      * @param {number} id Background image ID
      */
     loadPath(id) {
-        return ResourceManager.image.getPath(id).replace(`${this.root}/`, ``);
+        return ResourceManager.image.getPath(id).replace(`${this.root}/`, '');
     }
 
     /**

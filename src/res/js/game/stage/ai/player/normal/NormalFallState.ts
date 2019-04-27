@@ -41,7 +41,7 @@ export class NormalFallState extends UnderMovableState {
         this.moveByInput(dt);
         const image = this.entity.getImage();
         if (image !== null && this.ai !== null && Util.canEnd(image)) {
-            this.ai.changeState(`falling`);
+            this.ai.changeState('falling');
         }
         if (Util.onGround(this.entity)) {
             this.transitionUsualState();

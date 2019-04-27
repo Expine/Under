@@ -54,7 +54,7 @@ export class CharacterBuilder extends TileBuilder {
      * @return {GameImage} Image
      */
     makeImage(image: any): GameImage | null {
-        return this.imageBuilder === null ? null : this.imageBuilder.build(`chara`, image);
+        return this.imageBuilder === null ? null : this.imageBuilder.build('chara', image);
     }
 
     /**
@@ -65,13 +65,13 @@ export class CharacterBuilder extends TileBuilder {
      */
     makeBody(body: any): RigidBody | null {
         switch (body.type) {
-            case `MaxAdopt`:
+            case 'MaxAdopt':
                 return new MaxAdoptBody(body.fix);
-            case `Precise`:
+            case 'Precise':
                 return new PreciseBody(body.fix);
-            case `Player`:
+            case 'Player':
                 return new PlayerBody(body.fix);
-            case `Fix`:
+            case 'Fix':
                 return new FixBody(body.fix);
             default:
                 return null;
@@ -86,9 +86,9 @@ export class CharacterBuilder extends TileBuilder {
      */
     makeBodyMaterial(material: any): RigidMaterial | null {
         switch (material.type) {
-            case `Immutable`:
+            case 'Immutable':
                 return new ImmutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
-            case `Mutable`:
+            case 'Mutable':
                 return new MutableRigidMaterial(material.k, material.frictionX, material.frictionY, material.g);
             default:
                 return null;
@@ -103,14 +103,14 @@ export class CharacterBuilder extends TileBuilder {
      */
     makeAI(ai: any): AI | null {
         switch (ai.type) {
-            case `EnemyAI`:
+            case 'EnemyAI':
                 const base = this.makeAI(ai.ai);
                 return base === null ? null : new EnemyAI(base);
-            case `StraightAI`:
+            case 'StraightAI':
                 return new StraightAI(ai.mvx, ai.px);
-            case `JumpAI`:
+            case 'JumpAI':
                 return new JumpAI(ai.jump);
-            case `ElevatorAI`:
+            case 'ElevatorAI':
                 {
                     const ret = new ElevatorAI(ai.velocity, ai.power);
                     for (const it of ai.floors) {
@@ -118,15 +118,15 @@ export class CharacterBuilder extends TileBuilder {
                     }
                     return ret;
                 }
-            case `VanishStateAI`:
+            case 'VanishStateAI':
                 return new VanishStateAI(ai.hide, ai.show, ai.interval);
-            case `PlayerGameoverStateAI`:
+            case 'PlayerGameoverStateAI':
                 return new PlayerGameoverStateAI();
-            case `PlayerBaseStateAI`:
+            case 'PlayerBaseStateAI':
                 return new PlayerBaseStateAI();
-            case `AttackObjectAI`:
+            case 'AttackObjectAI':
                 return new AttackObjectAI();
-            case `StraightAttackAI`:
+            case 'StraightAttackAI':
                 return new StraightAttackAI(ai.vx === undefined ? 0 : ai.vx, ai.vy === undefined ? 0 : ai.vy, ai.px === undefined ? 0 : ai.px, ai.py === undefined ? 0 : ai.py);
             default:
                 return null;
@@ -142,32 +142,32 @@ export class CharacterBuilder extends TileBuilder {
      */
     makeEntityBase(deploy: any, entity: any): Entity | null {
         switch (entity.type) {
-            case `OnlyImage`:
+            case 'OnlyImage':
                 return new OnlyImageEntity();
-            case `AIObject`:
+            case 'AIObject':
                 return new AIListedObject();
-            case `Character`:
+            case 'Character':
                 return new Character();
-            case `StateCharacter`:
+            case 'StateCharacter':
                 return new StateCharacter();
-            case `Player`:
+            case 'Player':
                 return new Player();
-            case `Enemy`:
+            case 'Enemy':
                 return new Enemy();
-            case `Obstacle`:
+            case 'Obstacle':
                 return new Obstacle();
-            case `EnemyRespawn`:
+            case 'EnemyRespawn':
                 {
-                    const ret = new EnemyRespawnEntity(this.tryReplace(deploy, entity, `interval`), this.tryReplace(deploy, entity, `max`));
-                    for (let it of this.tryReplace(deploy, entity, `enemies`)) {
+                    const ret = new EnemyRespawnEntity(this.tryReplace(deploy, entity, 'interval'), this.tryReplace(deploy, entity, 'max'));
+                    for (let it of this.tryReplace(deploy, entity, 'enemies')) {
                         ret.addEnemyID(it);
                     }
                     return ret;
                 }
-            case `PlayerRespawn`:
+            case 'PlayerRespawn':
                 {
-                    const ret = new PlayerRespawnEntity(this.tryReplace(deploy, entity, `player`), this.tryReplace(deploy, entity, `priority`));
-                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const ret = new PlayerRespawnEntity(this.tryReplace(deploy, entity, 'player'), this.tryReplace(deploy, entity, 'priority'));
+                    const colliderData = this.tryReplace(deploy, entity, 'collider');
                     const collider = this.makeCollider(colliderData);
                     if (collider === null) {
                         return null;
@@ -176,10 +176,10 @@ export class CharacterBuilder extends TileBuilder {
                     ret.setCollider(collider);
                     return ret;
                 }
-            case `Door`:
+            case 'Door':
                 {
                     const ret = new DoorObject(deploy.stage, deploy.replace, deploy.pop);
-                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const colliderData = this.tryReplace(deploy, entity, 'collider');
                     const collider = this.makeCollider(colliderData);
                     if (collider === null) {
                         return null;
@@ -188,28 +188,28 @@ export class CharacterBuilder extends TileBuilder {
                     ret.setCollider(collider);
                     return ret;
                 }
-            case `Sign`:
+            case 'Sign':
                 {
                     const ret = new SignObject();
-                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const colliderData = this.tryReplace(deploy, entity, 'collider');
                     const collider = this.makeCollider(colliderData);
                     if (collider === null) {
                         return null;
                     }
                     collider.setAABB(this.makeAABB(colliderData));
                     ret.setCollider(collider);
-                    const signData = this.tryReplace(deploy, entity, `sign`);
-                    const signImage = this.imageBuilder === null ? null : this.imageBuilder.build(`event`, signData.image);
+                    const signData = this.tryReplace(deploy, entity, 'sign');
+                    const signImage = this.imageBuilder === null ? null : this.imageBuilder.build('event', signData.image);
                     if (signImage !== null) {
                         ret.setSign(signImage, signData.x, signData.y);
                     }
                     return ret;
                 }
-            case `Event`:
+            case 'Event':
                 {
-                    const once = this.tryReplace(deploy, entity, `once`);
+                    const once = this.tryReplace(deploy, entity, 'once');
                     const ret = once ? new OnceEventEntity() : new ImmutableEvent();
-                    const colliderData = this.tryReplace(deploy, entity, `collider`);
+                    const colliderData = this.tryReplace(deploy, entity, 'collider');
                     const collider = this.makeCollider(colliderData);
                     if (collider === null) {
                         return null;
@@ -218,8 +218,8 @@ export class CharacterBuilder extends TileBuilder {
                     ret.setCollider(collider);
                     return ret;
                 }
-            case `Attack`:
-                return new AttackObject(this.tryReplace(deploy, entity, `lifespan`));
+            case 'Attack':
+                return new AttackObject(this.tryReplace(deploy, entity, 'lifespan'));
             default:
                 return null;
         }
@@ -233,7 +233,7 @@ export class CharacterBuilder extends TileBuilder {
      * @param {any} json Character json data
      */
     buildBody(base: MutableEntity, deploy: any, json: any) {
-        const bodyData = this.tryReplace(deploy, json, `body`);
+        const bodyData = this.tryReplace(deploy, json, 'body');
         const body = this.makeBody(bodyData);
         if (body !== null) {
             base.setRigidBody(body);

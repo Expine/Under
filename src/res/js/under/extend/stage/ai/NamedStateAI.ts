@@ -49,7 +49,7 @@ export class NamedStateAI extends StateAI {
     init() {
         // save
         const state = this.stateName;
-        this.stateName = ``;
+        this.stateName = '';
         this.changeState(state);
     }
 

@@ -58,7 +58,7 @@ export class CpmmonJudgeState extends UnderPlayerState {
      */
     apply(_dt: number): boolean {
         if (this.ai !== null && this.damagedTarget !== null && this.damagedTarget.getHP() <= 0) {
-            this.ai.changeState(`gameover`);
+            this.ai.changeState('gameover');
             return true;
         }
         return false;

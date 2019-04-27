@@ -38,7 +38,7 @@ export class Player extends StateCharacter implements IPlayable, ITakeOver {
         this.setDirection(1);
 
         this.invincible = 0;
-        this.uniqueName = ``;
+        this.uniqueName = '';
     }
 
     /**

@@ -61,7 +61,7 @@ export class ShowState extends State {
     apply(dt: number): boolean {
         this.showCount += dt / 1000;
         if (this.showCount >= this.showTime && this.ai !== null) {
-            this.ai.changeState(`interval`);
+            this.ai.changeState('interval');
         }
         return true;
     }

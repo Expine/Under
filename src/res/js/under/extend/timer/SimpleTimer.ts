@@ -52,7 +52,7 @@ export class SimpleTimer
         for (const name in this.mNamedTimers) {
             ctx.fillText(
                 `${name} : ${this.getTimer(name)} msec`, x, y, 0.0, 0.0,
-                20, `white`
+                20, 'white'
             );
             y += 30;
         }

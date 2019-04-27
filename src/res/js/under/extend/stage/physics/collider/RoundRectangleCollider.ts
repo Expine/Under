@@ -119,7 +119,7 @@ export class RoundRectangleCollider extends RectangleCollider {
                         nx = -nx;
                         ny = -ny;
                     } else if (!(me instanceof MutableEntity) || !(you instanceof InfluentialEntity)) {
-                        // console.log(`Error: Colliding entity should be mutable`);
+                        // console.log('Error: Colliding entity should be mutable');
                     }
                     if (me !== null && you !== null) {
                         const px = me.x + nx * d;
@@ -178,7 +178,7 @@ export class RoundRectangleCollider extends RectangleCollider {
                         nx = -nx;
                         ny = -ny;
                     } else if (!(me instanceof MutableEntity) || !(you instanceof InfluentialEntity)) {
-                        // console.log(`Error: Colliding entity should be mutable and collided entity should be influential`);
+                        // console.log('Error: Colliding entity should be mutable and collided entity should be influential');
                     }
                     if (me !== null && you !== null) {
                         const px = me.x + nx * d;
@@ -222,8 +222,8 @@ export class RoundRectangleCollider extends RectangleCollider {
             }
         }
         if (me !== 0 || you !== 0) {
-            ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
-            ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, 'red');
+            ctx.fillText(me + '', this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, 'blue');
+            ctx.fillText(you + '', this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, 'red');
         }
         // vector
         for (const it of this.collisions) {

@@ -50,7 +50,7 @@ export class CameraChangeEvent extends StageEvent {
      */
     init() {
         let camera = null;
-        if (this.type === `center`) {
+        if (this.type === 'center') {
             camera = new CenterCamera();
         }
         if (this.isCliping && camera !== null) {

@@ -18,11 +18,11 @@ export abstract class UnderPlayerState extends TransferableState {
             return;
         }
         if (!Util.onGround(this.entity)) {
-            this.ai.changeState(`fall`);
+            this.ai.changeState('fall');
         } else if (this.entity.body !== null && Math.abs(this.entity.body.velocityX) < 100) {
-            this.ai.changeState(`stationary`);
+            this.ai.changeState('stationary');
         } else {
-            this.ai.changeState(`walk`);
+            this.ai.changeState('walk');
         }
     }
 }

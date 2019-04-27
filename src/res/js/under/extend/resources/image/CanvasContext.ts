@@ -9,7 +9,7 @@ export class CanvasContext extends Context {
     /**
      * Color of the text.
      */
-    private mFontColor: string = `black`;
+    private mFontColor: string = 'black';
     /**
      * Size of the text.
      */
@@ -17,12 +17,12 @@ export class CanvasContext extends Context {
     /**
      * Font name of the text.
      */
-    private mFontName: string = `Arial`;
+    private mFontName: string = 'Arial';
 
     /**
      * Color of the line.
      */
-    private mLineColor: string = `red`;
+    private mLineColor: string = 'red';
     /**
      * Size of the line.
      */
@@ -47,7 +47,7 @@ export class CanvasContext extends Context {
         // scale rendering size
         this.ctx.scale(this.screen.gameSize, this.screen.gameSize);
         // render background
-        this.ctx.fillStyle = `black`;
+        this.ctx.fillStyle = 'black';
         this.ctx.fillRect(0, 0, this.screen.width, this.screen.height);
     }
 
@@ -65,7 +65,7 @@ export class CanvasContext extends Context {
      */
     measureText(aText: string, aSize: number = this.mFontSize, aFont: string = this.mFontName): number
     {
-        this.ctx.font = aSize + `px ` + aFont;
+        this.ctx.font = `${aSize}px ${aFont}`;
         return this.ctx.measureText(aText).width;
     }
 
@@ -79,7 +79,7 @@ export class CanvasContext extends Context {
         aFont: string = this.mFontName
     )
     {
-        this.ctx.font = aSize + `px ` + aFont;
+        this.ctx.font = `${aSize}px ${aFont}`;
         this.ctx.fillStyle = aColor;
         this.ctx.fillText(aText, aX - aAnchorX * this.ctx.measureText(aText).width, aY + (1 - aAnchorY) * aSize);
     }

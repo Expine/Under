@@ -19,7 +19,7 @@ export class WildBaseStateAI extends NormalBaseStateAI {
     constructor() {
         super();
 
-        this.specialActionName = `roll`;
+        this.specialActionName = 'roll';
         for (const name in this.namedStates) {
             if (this.namedStates.hasOwnProperty(name)) {
                 const state = this.namedStates[name];
@@ -34,8 +34,8 @@ export class WildBaseStateAI extends NormalBaseStateAI {
             }
         }
 
-        this.namedStates[`attack`] = new WildClawState();
-        this.namedStates[`roll`] = new WildRollState(880000, 240000);
-        this.namedStates[`rolling`] = new WildRollingState();
+        this.namedStates['attack'] = new WildClawState();
+        this.namedStates['roll'] = new WildRollState(880000, 240000);
+        this.namedStates['rolling'] = new WildRollingState();
     }
 }

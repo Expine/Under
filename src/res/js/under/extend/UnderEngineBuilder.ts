@@ -91,7 +91,7 @@ export class UnderEngineBuilder
      */
     protected makeImageManager(): IImageManager
     {
-        return new CachedImage(`src/res/image/`);
+        return new CachedImage('src/res/image/');
     }
 
     /**
@@ -106,6 +106,6 @@ export class UnderEngineBuilder
      */
     protected makeMusicManager(): IMusicManager
     {
-        return new CachedMusic(`src/res/sound/`);
+        return new CachedMusic('src/res/sound/');
     }
 }

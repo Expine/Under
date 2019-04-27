@@ -98,7 +98,7 @@ export class RectangleCollider extends Collider {
                         nx = -nx;
                         ny = -ny;
                     } else if (!(me instanceof MutableEntity) || !(you instanceof InfluentialEntity)) {
-                        // console.log(`Error: Colliding entity should be mutable and collided entity should be influential`);
+                        // console.log('Error: Colliding entity should be mutable and collided entity should be influential');
                     }
                     if (me instanceof MutableEntity && me.body !== null && Math.abs(Math.abs(nx) - Math.abs(ny)) < 1) {
                         if (me.body.velocityX * nx <= 0) {
@@ -183,8 +183,8 @@ export class RectangleCollider extends Collider {
             }
         }
         if (me !== 0 || you !== 0) {
-            ctx.fillText(me + ``, this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, `blue`);
-            ctx.fillText(you + ``, this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, 'red');
+            ctx.fillText(me + '', this.aabb.startX + shiftX + 15, this.aabb.startY + shiftY, 0.0, 0.0, 15, 'blue');
+            ctx.fillText(you + '', this.aabb.startX + shiftX, this.aabb.startY + shiftY + 15, 0.0, 0.0, 15, 'red');
         }
         // vector
         for (const it of this.collisions) {

@@ -74,7 +74,7 @@ export class Util {
      */
     static loadFile(filePath: string): string {
         const req = new XMLHttpRequest();
-        req.open(`GET`, filePath, false);
+        req.open('GET', filePath, false);
         req.send(null);
         return req.responseText;
     }

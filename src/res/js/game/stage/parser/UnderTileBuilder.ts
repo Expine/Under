@@ -21,9 +21,9 @@ export class UnderTileBuilder extends TileBuilder {
     makeCollider(collider: any): Collider | null {
         if (collider !== undefined && collider.excluded) {
             switch (collider.type) {
-                case `Rectangle`:
+                case 'Rectangle':
                     return new ExcludedRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.id);
-                case `RoundRectangle`:
+                case 'RoundRectangle':
                     return new ExcludedRoundRectangleCollider(collider.startX, collider.startY, collider.width, collider.height, collider.cut, collider.id);
             }
         }

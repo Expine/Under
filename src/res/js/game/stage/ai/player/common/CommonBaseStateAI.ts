@@ -14,9 +14,9 @@ export class CommonBaseStateAI extends TransferableStateAI {
      * @constructor
      */
     constructor() {
-        super(`none`);
+        super('none');
 
-        this.namedStates[`none`] = new CpmmonJudgeState();
-        this.namedStates[`gameover`] = new CommonGameoverState();
+        this.namedStates['none'] = new CpmmonJudgeState();
+        this.namedStates['gameover'] = new CommonGameoverState();
     }
 }

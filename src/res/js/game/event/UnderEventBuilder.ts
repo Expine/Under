@@ -23,25 +23,25 @@ export class UnderEventBuilder extends SimpleEventBuilder {
      */
     makeEvent(event: any): GameEvent | null {
         switch (event.type) {
-            case `talkwindow`:
+            case 'talkwindow':
                 return new TextWindowEvent(event.name, event.x, event.y, event.sentence, event.size);
-            case `changeCamera`:
+            case 'changeCamera':
                 return new CameraChangeEvent(event.camera, event.moving, event.cliping);
-            case `changePhysical`:
+            case 'changePhysical':
                 let response = null;
                 switch (event.physical) {
-                    case `under`:
+                    case 'under':
                         response = new UnderRepulsionResponse();
                         break;
-                    case `repulsion`:
+                    case 'repulsion':
                         response = new RepulsionResponse();
                         break;
-                    case `impulse`:
+                    case 'impulse':
                         response = new ImpulseBasedResponse();
                         break;
                 }
                 return response === null ? null : new PhysicalChangeEvent(response);
-            case `link`:
+            case 'link':
                 return new LinkEvent(event.url);
             default:
                 return super.makeEvent(event);

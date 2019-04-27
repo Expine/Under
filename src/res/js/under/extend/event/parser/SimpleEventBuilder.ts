@@ -33,7 +33,7 @@ export class SimpleEventBuilder extends EventBuilder {
      * @return {GameImage} Event image
      */
     makeImage(image: any): GameImage | null {
-        return this.imageBuilder === null ? null : this.imageBuilder.build(`event`, image);
+        return this.imageBuilder === null ? null : this.imageBuilder.build('event', image);
     }
 
     /**
@@ -44,17 +44,17 @@ export class SimpleEventBuilder extends EventBuilder {
      */
     makeInputOrder(order: any): InputOrder | null {
         switch (order.type) {
-            case `up`:
+            case 'up':
                 return new DirectionInputOrder(order.time, 0, -1);
-            case `down`:
+            case 'down':
                 return new DirectionInputOrder(order.time, 0, 1);
-            case `right`:
+            case 'right':
                 return new DirectionInputOrder(order.time, 1, 0);
-            case `left`:
+            case 'left':
                 return new DirectionInputOrder(order.time, -1, 0);
-            case `wait`:
+            case 'wait':
                 return new WaitInputOrder(order.time);
-            case `loop`:
+            case 'loop':
                 {
                     const ret = new LoopInputOrder(order.number);
                     for (const it of order.orders) {
@@ -77,21 +77,21 @@ export class SimpleEventBuilder extends EventBuilder {
      */
     makeEvent(event: any): GameEvent | null {
         switch (event.type) {
-            case `talk`:
+            case 'talk':
                 return /*isTalkEventJSONData(event) ?*/ new TalkEvent(event.sentence);
-            case `waitkey`:
+            case 'waitkey':
                 return new WaitKeyEvent();
-            case `image`:
+            case 'image':
                 return /*isImageEventJSONData(event) ?*/ new ImageEvent(event.name, event.x, event.y, this.makeImage(event.image));
-            case `delete`:
+            case 'delete':
                 return /*isDeleteEventJSONData(event) ?*/ new DeleteEvent(event.name);
-            case `delay`:
+            case 'delay':
                 return /*isDelayEventJSONData(event) ?*/ new DelayEvent(event.delay);
-            case `stop`:
+            case 'stop':
                 return new StageStopEvent(event.name);
-            case `transition`:
+            case 'transition':
                 return new TransitionalEvent(event.stage, event.replace);
-            case `auto`:
+            case 'auto':
                 {
                     const ret = new AutoInputEvent();
                     for (const it of event.orders) {
@@ -102,7 +102,7 @@ export class SimpleEventBuilder extends EventBuilder {
                     }
                     return ret;
                 }
-            case `control`:
+            case 'control':
                 {
                     const ret = new ControlEntityEvent(event.target);
                     if (event.vx !== undefined && event.vy !== undefined) {
@@ -113,9 +113,9 @@ export class SimpleEventBuilder extends EventBuilder {
                     }
                     return ret;
                 }
-            case `camera`:
+            case 'camera':
                 return new CameraEvent(event.name, event.x, event.y);
-            case `sequential`:
+            case 'sequential':
                 {
                     let ret = new SequentialEvent();
                     for (const it of event.events) {

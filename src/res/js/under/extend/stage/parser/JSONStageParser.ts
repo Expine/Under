@@ -57,7 +57,7 @@ export class JSONStageParser extends StageParser {
      * @return {GameImage} Background image
      */
     makeBackgroundImage(image: any): GameImage | null {
-        return this.imageBuilder.build(`back`, image);
+        return this.imageBuilder.build('back', image);
     }
 
     /**
@@ -71,7 +71,7 @@ export class JSONStageParser extends StageParser {
         if (stage.transition !== undefined) {
             const transition = stage.transition;
             switch (transition.type) {
-                case `curtain`:
+                case 'curtain':
                     ret = new CurtainStage(ret, transition.nameTime, transition.transitionTime);
                     break;
             }
@@ -88,7 +88,7 @@ export class JSONStageParser extends StageParser {
     makeBackground(back: any): Background | null {
         const backImage = back.image === undefined ? null : this.makeBackgroundImage(back.image);
         switch (back.type) {
-            case `Sequential`:
+            case 'Sequential':
                 const ret = new SequentialBackground();
                 for (const it of back.backs) {
                     const sub = this.makeBackground(it);
@@ -97,13 +97,13 @@ export class JSONStageParser extends StageParser {
                     }
                 }
                 return ret;
-            case `Invariant`:
+            case 'Invariant':
                 return backImage === null ? null : new InvariantBackground(backImage);
-            case `Movement`:
+            case 'Movement':
                 return backImage === null ? null : new MovementBackground(backImage, back.x, back.y, back.rx, back.ry);
-            case `Area`:
+            case 'Area':
                 return backImage === null ? null : new AreaBackground(backImage, back.x, back.y, back.width, back.height);
-            case `Fixed`:
+            case 'Fixed':
                 return backImage === null ? null : new FixedBackground(backImage, back.x, back.y);
             default:
                 return null;
@@ -118,7 +118,7 @@ export class JSONStageParser extends StageParser {
      */
     makeBaseCamera(camera: any): Camera | null {
         let ret = null;
-        if (camera.type === `center`) {
+        if (camera.type === 'center') {
             ret = new CenterCamera();
         }
         if (camera.cliping && ret !== null) {
@@ -142,11 +142,11 @@ export class JSONStageParser extends StageParser {
      */
     makeBaseWorld(stage: any, world: any): PhysicalWorld | null {
         switch (world.type) {
-            case `sequential`:
+            case 'sequential':
                 return new SequentialWorld();
-            case `split`:
+            case 'split':
                 return new SplitWorld(stage.width, stage.height);
-            case `gravity`:
+            case 'gravity':
                 {
                     const ret = new VariableGravityWorld(stage.width, stage.height);
                     for (const it of world.gravity) {
@@ -197,7 +197,7 @@ export class JSONStageParser extends StageParser {
         // get stage file data
         const stage = JSON.parse(Util.loadFile(filePath));
         if (stage.name === undefined) {
-            stage.name = filePath.split(`/`)[filePath.split(`/`).length - 1].split(`.`)[0];
+            stage.name = filePath.split('/')[filePath.split('/').length - 1].split('.')[0];
         }
         // make stage
         const base = this.makeBaseStage(stage);

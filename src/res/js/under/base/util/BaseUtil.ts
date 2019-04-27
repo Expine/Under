@@ -10,6 +10,6 @@ export class BaseUtil
      */
     static getClassName(aInstance: object): string
     {
-        return aInstance.constructor.toString().split(`\n`)[0].split(` `)[1];
+        return aInstance.constructor.toString().split('\n')[0].split(' ')[1];
     }
 }

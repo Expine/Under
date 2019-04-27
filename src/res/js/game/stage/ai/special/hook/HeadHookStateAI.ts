@@ -16,7 +16,7 @@ export class HeadHookStateAI extends HookStateAI {
     constructor() {
         super();
 
-        this.namedStates[`hooking`] = new HeadHookingState();
-        this.namedStates[`hooked`] = new NoneState();
+        this.namedStates['hooking'] = new HeadHookingState();
+        this.namedStates['hooked'] = new NoneState();
     }
 }

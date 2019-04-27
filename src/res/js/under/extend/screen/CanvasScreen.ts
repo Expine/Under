@@ -19,7 +19,7 @@ export abstract class CanvasScreen
         super(mWidth, mHeight);
 
         // generate style
-        const style = document.createElement(`style`);
+        const style = document.createElement('style');
         style.append(
             `canvas {
                 display:block;
@@ -30,7 +30,7 @@ export abstract class CanvasScreen
         );
         document.head.appendChild(style);
         // set canvas default size
-        this.canvas.setAttribute(`style`, `canvas`);
+        this.canvas.setAttribute('style', 'canvas');
         this.canvas.width = mWidth;
         this.canvas.height = mHeight;
     }

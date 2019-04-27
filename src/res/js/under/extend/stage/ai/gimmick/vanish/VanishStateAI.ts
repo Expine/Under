@@ -17,10 +17,10 @@ export class VanishStateAI extends NamedStateAI {
      * @param {number} intervalTime Interval time
      */
     constructor(hideTime: number, showTime: number, intervalTime: number) {
-        super(`vanish`);
+        super('vanish');
 
-        this.namedStates[`vanish`] = new VanishState(hideTime, true);
-        this.namedStates[`show`] = new ShowState(showTime);
-        this.namedStates[`interval`] = new VanishState(intervalTime, false);
+        this.namedStates['vanish'] = new VanishState(hideTime, true);
+        this.namedStates['show'] = new ShowState(showTime);
+        this.namedStates['interval'] = new VanishState(intervalTime, false);
     }
 }

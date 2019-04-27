@@ -32,7 +32,7 @@ export class AdventurerFallState extends NormalFallState {
         if (vx !== 0) {
             for (const it of this.entity.collider.collisions) {
                 if (Math.abs(it.nx) > 0.5 && vx * it.nx > 0 && it.colliding.collider !== null && it.collided.collider !== null && it.colliding.collider.isResponse(it.collided.collider) && it.collided.collider.isResponse(it.colliding.collider)) {
-                    this.ai.changeState(`downwall`);
+                    this.ai.changeState('downwall');
                     this.entity.body.enforce(this.movePowerX * this.entity.material.mass * vx / dt, 0);
                     return true;
                 }

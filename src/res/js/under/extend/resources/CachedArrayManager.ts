@@ -105,7 +105,7 @@ export abstract class CachedArrayManager extends ResourceManager {
         for (const path in this.caches) {
             if (this.caches.hasOwnProperty(path)) {
                 if (this.caches[path] === id) {
-                    return path.replace(this.root, ``);
+                    return path.replace(this.root, '');
                 }
             }
         }

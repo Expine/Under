@@ -64,14 +64,14 @@ export class PStationaryState extends BaseState {
                 if (this.entity.body.velocityX * vx < 0 || Math.abs(this.entity.body.velocityX) < this.maxVelocityX) {
                     this.entity.body.enforce(vx * this.walkPower * this.entity.material.mass / dt, 0);
                 }
-                this.ai.changeState(`walk`);
+                this.ai.changeState('walk');
             }
             if (Util.onGround(this.entity)) {
                 if (Input.key.isPressed(Input.key.up())) {
-                    this.ai.changeState(`jump`);
+                    this.ai.changeState('jump');
                 }
                 if (Input.key.isPress(Input.key.yes())) {
-                    this.ai.changeState(`attack`);
+                    this.ai.changeState('attack');
                 }
             }
         }

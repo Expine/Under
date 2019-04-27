@@ -12,7 +12,7 @@ export class GeneratableScreen
      */
     constructor(mWidth: number, mHeight: number)
     {
-        super(document.createElement(`canvas`), mWidth, mHeight);
+        super(document.createElement('canvas'), mWidth, mHeight);
 
         // set canvas
         document.body.appendChild(this.canvas);

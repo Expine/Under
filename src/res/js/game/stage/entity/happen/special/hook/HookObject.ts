@@ -258,7 +258,7 @@ export abstract class HookObject extends PossessedObject implements IBreakable, 
     release() {
         for (const it of this.ai) {
             if (it instanceof StateAI) {
-                it.changeState(`released`);
+                it.changeState('released');
             }
         }
         if ((this.isHead() || this.previous !== null) && this.post === null) {
@@ -331,11 +331,11 @@ export abstract class HookObject extends PossessedObject implements IBreakable, 
     render(ctx: Context, shiftX: number = 0, shiftY: number = 0) {
         super.render(ctx, shiftX, shiftY);
         if (this.post !== null) {
-            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.post.getHookX() + shiftX, this.post.getHookY() + shiftY, `#FFCC66`, 4);
+            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, this.post.getHookX() + shiftX, this.post.getHookY() + shiftY, '#FFCC66', 4);
         } else if (this.owner instanceof MutableEntity) {
             const x = this.owner.directionX >= 0 ? this.generatedX + this.owner.x + this.owner.width : this.owner.x - this.generatedX;
             const y = this.owner.y - this.generatedY;
-            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, `#FFCC66`, 4);
+            ctx.strokeLine(this.getHookX() + shiftX, this.getHookY() + shiftY, x + shiftX, y + shiftY, '#FFCC66', 4);
         }
     }
 }

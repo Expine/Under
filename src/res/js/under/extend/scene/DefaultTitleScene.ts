@@ -66,11 +66,11 @@ export class DefaultTitleScene extends Scene {
      */
     render(ctx: Context) {
         // render sample text
-        ctx.fillText(`Sample`, 400, 300, 0.5);
+        ctx.fillText('Sample', 400, 300, 0.5);
 
         // render when enter pressed
         if (Input.key.isPressed(Input.key.space())) {
-            ctx.fillText(`Enter pressed`, 400, 400, 0.5, 0, 30, 'red');
+            ctx.fillText('Enter pressed', 400, 400, 0.5, 0, 30, 'red');
         }
 
         // render circle on mouse

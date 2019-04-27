@@ -58,29 +58,29 @@ export class NormalStationaryState extends UnderMovableState {
         // move
         const moved = this.moveByInput(dt);
         if (moved) {
-            this.ai.changeState(`walk`);
+            this.ai.changeState('walk');
         }
         if (Util.onGround(this.entity)) {
             if (Input.key.isPressed(Input.key.down())) {
-                this.ai.changeState(`grab`);
+                this.ai.changeState('grab');
             }
             if (Input.key.isPressed(Input.key.up())) {
                 if (moved) {
-                    this.ai.changeState(`walkjump`);
+                    this.ai.changeState('walkjump');
                 } else {
-                    this.ai.changeState(`jump`);
+                    this.ai.changeState('jump');
                 }
             }
             if (Input.key.isPress(Input.key.yes())) {
-                this.ai.changeState(`attack`);
+                this.ai.changeState('attack');
             }
             if (Input.key.isPress(Input.key.sub())) {
-                this.ai.changeState(`special`);
+                this.ai.changeState('special');
             }
             this.fallCount = 0;
         } else {
             if (++this.fallCount > 2) {
-                this.ai.changeState(`fall`);
+                this.ai.changeState('fall');
             }
         }
         return true;

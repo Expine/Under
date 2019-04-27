@@ -26,7 +26,7 @@ export class HTMLUtil
     {
         const ret = aCanvas.getContext('2d');
         if(ret === null) {
-            alert(`Error: Fail to gey CanvasRenderingContext2D.`);
+            alert('Error: Fail to gey CanvasRenderingContext2D.');
         }
         return ret!;
     }

@@ -69,7 +69,7 @@ export class VanishState extends State {
     apply(dt: number): boolean {
         this.hideCount += dt / 1000;
         if (this.hideCount >= this.hideTime && this.ai !== null) {
-            this.ai.changeState(this.isShowingNext ? `show` : `vanish`);
+            this.ai.changeState(this.isShowingNext ? 'show' : 'vanish');
         }
         return true;
     }

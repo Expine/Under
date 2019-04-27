@@ -90,27 +90,27 @@ export class UnderPlayer extends Player implements IUnderPlayable, ITerrain {
         }
         // set type
         let ai = null;
-        let fileName = ``;
+        let fileName = '';
         let frictionY = 0;
         switch (id) {
             case 0:
                 ai = new WildBaseStateAI();
-                fileName = `wild.png`;
+                fileName = 'wild.png';
                 frictionY = 0;
                 break;
             case 1:
                 ai = new NormalBaseStateAI();
-                fileName = `player.png`;
+                fileName = 'player.png';
                 frictionY = 0;
                 break;
             case 2:
                 ai = new AdventurerBaseStateAI();
-                fileName = `adventurer.png`;
+                fileName = 'adventurer.png';
                 frictionY = 2;
                 break;
             case 3:
                 ai = new PropellerBaseStateAI();
-                fileName = `propeller.png`;
+                fileName = 'propeller.png';
                 frictionY = 0;
                 break;
         }
